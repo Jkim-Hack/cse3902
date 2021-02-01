@@ -44,6 +44,12 @@ namespace cse3902.Sprites
 
         public void Draw()
         {
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, spriteTexture.Width, spriteTexture.Height);
+
+            spriteBatch.Begin();
+            //null argument used to draw entire block texture
+            spriteBatch.Draw(spriteTexture, Destination, null, Color.White);
+            spriteBatch.End();
 
         }
 
