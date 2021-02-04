@@ -2,7 +2,7 @@
 
 namespace cse3902.Entities {
 
-    interface IEntityStateMachine {
+    public interface IEntityStateMachine {
 
         void Attack();
         void ChangeDir();
