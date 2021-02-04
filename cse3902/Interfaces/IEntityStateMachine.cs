@@ -4,11 +4,11 @@ namespace cse3902.Entities {
 
     public interface IEntityStateMachine {
 
-        void Attack();
-        void ChangeDir();
-        void SwitchItem();
-        void TakeDamage();
-        Boolean IsDead();
-        void Update();
+        public void Attack();
+        public void ChangeDir();
+        public void SwitchItem();
+        public void TakeDamage();
+        public Boolean IsDead();
+        public void Update();
     }
 }
