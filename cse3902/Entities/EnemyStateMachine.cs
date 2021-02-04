@@ -1,10 +1,10 @@
 ﻿using System;
 namespace cse3902.Entities
 {
-    public class LinkStateMachine
+    public class EnemyStateMachine
     {
 
-        public LinkStateMachine()
+        public EnemyStateMachine()
         {
 
         }
