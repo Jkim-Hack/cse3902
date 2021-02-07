@@ -2,7 +2,7 @@
 
 namespace cse3902.Entities {
 
-    public interface IEntityStateMachine {
+    public class EnemyDragonStateMachine : IEntityStateMachine {
 
         
     }
