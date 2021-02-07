@@ -8,6 +8,6 @@ namespace cse3902.Entities {
         public void FaceDown();
         public void FaceLeft();
         public void FaceRight();
-        public void CycleWeapon();
+        public void CycleWeapon(int dir);
     }
 }
