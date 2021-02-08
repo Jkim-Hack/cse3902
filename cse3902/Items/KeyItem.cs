@@ -20,13 +20,16 @@ namespace cse3902.Items
             spriteBatch = batch;
             spriteTexture = texture;
             startingPosition = startingPos;
+
+            currentX = (int)startingPos.X;
+            currentY = (int)startingPos.Y;
         }
 
         public void Draw()
         {
             //new Rectangle((int)center.X, (int)center.Y, spriteTexture.Width, spriteTexture.Height);
             spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, new Rectangle(currentX, currentY, spriteTexture.Width, spriteTexture.Height), null, Color.White);
+            spriteBatch.Draw(spriteTexture, new Rectangle(currentX, currentY, 2*spriteTexture.Width, 2*spriteTexture.Height), null, Color.White);
             spriteBatch.End();
         }
 

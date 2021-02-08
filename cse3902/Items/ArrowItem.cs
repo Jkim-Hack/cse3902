@@ -15,6 +15,8 @@ namespace cse3902.Items
         private int currentX;
         private int currentY;
 
+        private float angle = 0;
+
         private enum Orientation
         {
             horizontal,
@@ -30,24 +32,47 @@ namespace cse3902.Items
         private Direction direction;
         private Orientation orientation;
 
-        private int frameWidth;
-        private int frameHeight;
-
-        public ArrowItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
+        public ArrowItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
         {
             spriteBatch = batch;
             spriteTexture = texture;
             startingPosition = startingPos;
-            direction = Direction.negative;
-            orientation = Orientation.vertical;
+
+            if ((int)dir.X == 1 && (int)dir.Y == 0)
+            {
+                direction = Direction.positive;
+                orientation = Orientation.horizontal;
+                angle = 1.57f;
+            }
+            else if ((int) dir.X == -1 && (int)dir.Y == 0)
+            {
+                direction = Direction.negative;
+                orientation = Orientation.horizontal;
+                angle = 4.71f;
+            }
+            else if ((int)dir.X == 0 && (int)dir.Y == -1)
+            {
+                direction = Direction.positive;
+                orientation = Orientation.vertical;
+                angle = 3.14f;
+            }
+            else
+            {
+                direction = Direction.negative;
+                orientation = Orientation.vertical;
+                angle = 0;
+            }
+
+
+            currentX = (int) startingPos.X;
+            currentY = (int) startingPos.Y;
         }
 
         public void Draw()
         {
-            Rectangle Destination = new Rectangle(currentX, currentY, spriteTexture.Width, spriteTexture.Height);
-                //new Rectangle((int)center.X, (int)center.Y, spriteTexture.Width, spriteTexture.Height);
+            Vector2 origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
             spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White);
+            spriteBatch.Draw(spriteTexture, new Vector2(currentX,currentY), null, Color.White, angle, origin, 2.0f, SpriteEffects.None, 1);
             spriteBatch.End();
         }
 
@@ -58,8 +83,6 @@ namespace cse3902.Items
 
         public void Update(GameTime gameTime)
         {
-            
-
             if (orientation == Orientation.horizontal)
             {
                 if (direction == Direction.positive)
@@ -73,9 +96,9 @@ namespace cse3902.Items
                 else
                 {
                     currentX -= 2;
-                    if (currentY < 0)
+                    if (currentX < 0)
                     {
-                        currentY = 800;
+                        currentX = 800;
                     }
                 }
             }

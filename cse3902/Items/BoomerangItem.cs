@@ -11,6 +11,7 @@ namespace cse3902.Items
         private Texture2D spriteTexture;
         private Vector2 startingPosition;
         private Vector2 center;
+        private float angle;
 
         private int currentX;
         private int currentY;
@@ -30,23 +31,47 @@ namespace cse3902.Items
         private Direction direction;
         private Orientation orientation;
 
-        private int frameWidth;
-        private int frameHeight;
-
-        public BoomerangItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
+        public BoomerangItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
         {
             spriteBatch = batch;
             spriteTexture = texture;
             startingPosition = startingPos;
-            direction = Direction.positive;
-            orientation = Orientation.horizontal;
-        }
+
+            if ((int)dir.X == 1 && (int)dir.Y == 0)
+            {
+                direction = Direction.positive;
+                orientation = Orientation.horizontal;
+                angle = 1.57f;
+            }
+            else if ((int)dir.X == -1 && (int)dir.Y == 0)
+            {
+                direction = Direction.negative;
+                orientation = Orientation.horizontal;
+                angle = 4.71f;
+            }
+            else if ((int)dir.X == 0 && (int)dir.Y == -1)
+            {
+                direction = Direction.positive;
+                orientation = Orientation.vertical;
+                angle = 3.14f;
+            }
+            else
+            {
+                direction = Direction.negative;
+                orientation = Orientation.vertical;
+                angle = 0;
+            }
+
+
+            currentX = (int) startingPos.X;
+            currentY = (int) startingPos.Y;
+    }
 
         public void Draw()
         {
-            Rectangle Destination = new Rectangle(currentX, currentY, spriteTexture.Width, spriteTexture.Height);
+            Vector2 origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
             spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White);
+            spriteBatch.Draw(spriteTexture, new Vector2(currentX, currentY), null, Color.White, angle, origin, 2.0f, SpriteEffects.None, 1);
             spriteBatch.End();
         }
 
@@ -63,7 +88,7 @@ namespace cse3902.Items
                 if (direction == Direction.positive)
                 {
                     currentX += 2;
-                    if (currentX > 150)
+                    if (currentX > startingPosition.X + 50)
                     {
                         //currentX = 400;
                         direction = Direction.negative;
@@ -73,7 +98,7 @@ namespace cse3902.Items
                 else
                 {
                     currentX -= 2;
-                    if (currentX < 100)
+                    if (currentX < startingPosition.X - 25)
                     {
                         //currentY = 400;
                         direction = Direction.positive;
@@ -85,17 +110,17 @@ namespace cse3902.Items
                 if (direction == Direction.positive)
                 {
                     currentY += 2;
-                    if (currentY > 480)
+                    if (currentY > startingPosition.Y + 50)
                     {
-                        currentY = 0;
+                        direction = Direction.negative;
                     }
                 }
                 else
                 {
                     currentY -= 2;
-                    if (currentY < 0)
+                    if (currentY < startingPosition.Y - 25)
                     {
-                        currentY = 480;
+                        direction = Direction.positive;
                     }
                 }
             }

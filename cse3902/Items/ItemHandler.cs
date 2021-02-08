@@ -23,9 +23,9 @@ namespace cse3902.Items
 
         public void LoadContent(SpriteBatch spriteBatch, ContentManager content)
         {
-            items.Add(new ArrowItem(spriteBatch, content.Load<Texture2D>("arrow"), new Vector2(100, 100)));
+            items.Add(new ArrowItem(spriteBatch, content.Load<Texture2D>("arrow"), new Vector2(100, 100), new Vector2(0,-1)));
             items.Add(new BombItem(spriteBatch, content.Load<Texture2D>("bombnew"), new Vector2(100, 100)));
-            items.Add(new BoomerangItem(spriteBatch, content.Load<Texture2D>("boomerang"), new Vector2(100, 100)));
+            items.Add(new BoomerangItem(spriteBatch, content.Load<Texture2D>("boomerang"), new Vector2(100, 100), new Vector2(-1, 0)));
             items.Add(new BowItem(spriteBatch, content.Load<Texture2D>("bow"), new Vector2(100, 100)));
             items.Add(new ClockItem(spriteBatch, content.Load<Texture2D>("clock"), new Vector2(100, 100)));
             items.Add(new FairyItem(spriteBatch, content.Load<Texture2D>("fairy"), new Vector2(100, 100)));
@@ -35,12 +35,6 @@ namespace cse3902.Items
             items.Add(new TriforceItem(spriteBatch, content.Load<Texture2D>("triforce"), new Vector2(100, 100)));
             items.Add(new KeyItem(spriteBatch, content.Load<Texture2D>("key"), new Vector2(100, 100)));
             items.Add(new MapItem(spriteBatch, content.Load<Texture2D>("map"), new Vector2(100, 100)));
-
-
-            foreach (ISprite item in items)
-            {
-                item.StartingPosition = new Vector2(100, 100);
-            }
         }
 
         public void Update(GameTime gameTime)
@@ -66,6 +60,17 @@ namespace cse3902.Items
             items[itemIndex].Draw();
         }
 
+        public void displayNext()
+        {
+            itemIndex++;
+            items[itemIndex].Draw();
+        }
+
+        public void displayPrev()
+        {
+            itemIndex--;
+            items[itemIndex].Draw();
+        }
 
     }
 }

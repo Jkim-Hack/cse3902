@@ -23,6 +23,9 @@ namespace cse3902.Items
         private const float delay = 0.2f;
         private float remainingDelay;
 
+        private int currentX;
+        private int currentY;
+
         public HeartItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
             spriteBatch = batch;
@@ -38,6 +41,9 @@ namespace cse3902.Items
             frameHeight = spriteTexture.Height / rows;
             frames = new Rectangle[totalFrames];
             distributeFrames();
+
+            currentX = (int)startingPos.X;
+            currentY = (int)startingPos.Y;
         }
 
         private void distributeFrames()
@@ -73,7 +79,7 @@ namespace cse3902.Items
 
         public void Draw()
         {
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
+            Rectangle Destination = new Rectangle(currentX, currentY, 2*frameWidth, 2*frameHeight);
             spriteBatch.Begin();
             spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White);
             spriteBatch.End();
