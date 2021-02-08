@@ -20,7 +20,6 @@ namespace cse3902.Sprites
  	    private Vector2 center;
         private Vector2 startingPosition;
 
-	    private int rows;
         private int columns;
 	    private int currentFrame;
         private int totalFrames;
@@ -39,17 +38,20 @@ namespace cse3902.Sprites
             this.spriteBatch = spriteBatch;
 	        spriteTexture = texture;
             remainingDelay = delay;
-            this.columns = columns;
+            
+	        this.columns = columns;
+	        totalFrames = rows * columns;
             currentFrame = 0;
-            totalFrames = rows * columns;
-            this.startingPosition = startingPosition;
-            center = startingPosition;
             startingFrameIndex = (int)FrameIndex.RightFacing;
             endingFrameIndex = startingFrameIndex + 2;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
             frames = new Rectangle[totalFrames];
-            distributeFrames();
+            
+	        this.startingPosition = startingPosition;
+            center = startingPosition;
+            
+	        distributeFrames();
 	    }
 
         private void distributeFrames()

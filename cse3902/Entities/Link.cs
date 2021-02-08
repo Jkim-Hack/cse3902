@@ -25,8 +25,11 @@ namespace cse3902.Entities
             this.game = game;
             currentItemIndex = 0;
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
-            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 3, 3, new Vector2(50, 200));
+            centerPosition = new Vector2(50, 200);
+            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 3, 3, centerPosition);
             linkStateMachine = new LinkStateMachine(linkSprite);
+            direction = new Vector2(0,0);
+            speed = 0.0f;
         }
 
         public Rectangle Bounds 
@@ -37,6 +40,8 @@ namespace cse3902.Entities
         public void Attack()
         {
             int itemDamage = items[currentItemIndex];
+            // TODO: Add Item damages here
+            // TODO: Add collision detection here
 
         }
 
@@ -67,7 +72,6 @@ namespace cse3902.Entities
 
         public void TakeDamage()
         {
-            // LinkStateMachine takeDamage aka. lose health
             // TODO: Implement once collision is available
         }
 
@@ -96,7 +100,11 @@ namespace cse3902.Entities
 	    public Vector2 CenterPosition
         {
             get => this.centerPosition;
-            set => this.centerPosition = value;
+            set
+	        {
+                this.linkSprite.Center = value;
+                this.centerPosition = value;
+            }
         }
     }
 }
