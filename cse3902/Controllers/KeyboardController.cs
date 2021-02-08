@@ -24,7 +24,7 @@ namespace cse3902
 	        {
                 if (this.commandList.KeyboardCommands.ContainsKey(key))
                 {
-                    this.commandList.KeyboardCommands[key].Execute();
+                    this.commandList.KeyboardCommands[key].Execute(key);
                 }
 	        }
 	    }

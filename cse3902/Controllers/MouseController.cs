@@ -3,7 +3,7 @@ using cse3902.Commands;
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+/*
 namespace cse3902
 {
     public class MouseController : IController
@@ -47,3 +47,4 @@ namespace cse3902
 		}
     }
 }
+*/
