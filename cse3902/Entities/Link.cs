@@ -11,9 +11,10 @@ namespace cse3902.Entities
     {
         private List<int> items;
         private int currentItemIndex;
-        // TODO: Add LinkStateMachine
-        private ISprite linkSprite;
-        private readonly Game1 game;
+
+	    private LinkSprite linkSprite;
+        private LinkStateMachine linkStateMachine;
+	    private readonly Game1 game;
 
         private Vector2 direction;
         private float speed;
@@ -25,7 +26,7 @@ namespace cse3902.Entities
             currentItemIndex = 0;
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
             linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 3, 3, new Vector2(50, 200));
-	        // TODO: Add init LinkStateMachine   
+            linkStateMachine = new LinkStateMachine(linkSprite);
         }
 
         public Rectangle Bounds 
@@ -41,12 +42,26 @@ namespace cse3902.Entities
 
         public void ChangeDirection()
         {
-            // LinkStateMachine changeDirection
+            if (direction.X < 0)
+            {
+                linkStateMachine.FaceLeft();
+            }
+            else if (direction.X > 0)
+            {
+                linkStateMachine.FaceRight();
+            }
+            else if (direction.Y > 0)
+            {
+                linkStateMachine.FaceUp();
+            }
+            else if (direction.Y < 0)
+            {
+                linkStateMachine.FaceDown();
+            } 
 	    }        
 
         public void Die()
         {
-            // LinkStateMachine die
             this.linkSprite.Erase();
         }
 
@@ -65,7 +80,11 @@ namespace cse3902.Entities
         public Vector2 Direction
         {
             get => this.direction;
-            set => this.direction = value;
+            set
+            {
+                this.direction = value;
+                ChangeDirection();
+            }
         }
 
         public float Speed

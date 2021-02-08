@@ -1,4 +1,6 @@
 ﻿using System;
+using cse3902.Interfaces;
+using cse3902.Sprites;
 
 namespace cse3902.Entities {
 
@@ -9,11 +11,14 @@ namespace cse3902.Entities {
         private enum LinkDirection { Up, Down, Left, Right };
         private LinkDirection direction;
 
-        public LinkStateMachine() {
+        private LinkSprite linkSprite;
+
+        public LinkStateMachine(LinkSprite linkSprite) {
 
             currentWeapon = 0;
             weapons = new int[] {0, 0, 0};
             direction = LinkDirection.Right;
+            this.linkSprite = linkSprite;
         }
 
         public void FaceUp(){
@@ -59,9 +64,22 @@ namespace cse3902.Entities {
         }
 
         private void UpdateSprite() {
-
-            //call sprite factory and give it direction, weapon
-            throw new NotImplementedException();
+            
+	        switch (direction)
+            {
+                case LinkDirection.Left:
+                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.LeftFacing;
+                    break;
+                case LinkDirection.Right:
+                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.RightFacing;
+                    break;
+                case LinkDirection.Up:
+                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.UpFacing;
+                    break;
+                case LinkDirection.Down:
+                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.DownFacing;
+                    break;
+            }
         }
     }
 }

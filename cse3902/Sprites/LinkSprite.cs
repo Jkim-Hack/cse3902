@@ -61,27 +61,6 @@ namespace cse3902.Sprites
 	        }
         }
 
-        public Vector2 StartingPosition
-        {
-            get => startingPosition;
-            set 
-	        { 
-		        startingPosition = value;
-                Center = value;
-	        }
-        }
-
-        public Vector2 Center
-        {
-            get => center;
-            set => center = value;
-        }
-
-        public Texture2D Texture
-        {
-            get => spriteTexture;
-        }
-
         public void Draw()
         {
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
@@ -110,5 +89,37 @@ namespace cse3902.Sprites
         {
             spriteTexture.Dispose();
 	    }
+        
+	    public Vector2 StartingPosition
+        {
+            get => startingPosition;
+            set 
+	        { 
+		        startingPosition = value;
+                Center = value;
+	        }
+        }
+
+        public Vector2 Center
+        {
+            get => center;
+            set => center = value;
+        }
+
+        public Texture2D Texture
+        {
+            get => spriteTexture;
+        }
+
+        public int StartingFrameIndex
+        {
+            get => startingFrameIndex;
+            set
+            {
+                startingFrameIndex = value;
+		        endingFrameIndex = value + 2;
+            }
+        }
+
     }
 }
