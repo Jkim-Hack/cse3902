@@ -45,8 +45,10 @@ namespace cse3902.Entities
 
         }
 
-        public void ChangeDirection()
+        public void ChangeDirection(Vector2 direction)
         {
+            this.direction = direction;
+
             if (direction.X < 0)
             {
                 linkStateMachine.FaceLeft();
@@ -87,7 +89,7 @@ namespace cse3902.Entities
             set
             {
                 this.direction = value;
-                ChangeDirection();
+                ChangeDirection(value);
             }
         }
 

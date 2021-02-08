@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using cse3902.Entities;
 using cse3902.Interfaces;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
@@ -21,6 +22,8 @@ namespace cse3902
         List<IController> controllerList;
 
         public int currentSpriteIndex { get; set; }
+
+        IEntity player;
 
         public Game1()
         {
@@ -67,6 +70,7 @@ namespace cse3902
             textSprite = new TextSprite(spriteBatch, textFont, "Credits\nProgram Made By: John Kim\nSprites from: http://www.mariouniverse.com/sprites-nes-yoshi/");
 	        // The sprite index should initially be out of bounds so that there are no premature calls
             currentSpriteIndex = spriteList.Count;
+            player = new Link(this);
 	    }
 
         /// <summary>

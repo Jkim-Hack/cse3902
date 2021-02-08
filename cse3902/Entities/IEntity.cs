@@ -7,7 +7,7 @@ namespace cse3902.Entities
     {
         public Rectangle Bounds { get; }
         public void Attack();
-        public void ChangeDirection();
+        public void ChangeDirection(Vector2 direction);
         public void TakeDamage();
         public void Die();
         public void Update(GameTime gameTime);
