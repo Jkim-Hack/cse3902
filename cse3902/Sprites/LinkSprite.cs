@@ -9,10 +9,10 @@ namespace cse3902.Sprites
     {
         public enum FrameIndex
         {
-            LEFT_FACING = 0,
-            RIGHT_FACING = 2,
-            UP_FACING = 4,
-            DOWN_FACING = 6
+            LeftFacing = 0,
+            RightFacing = 2,
+            UpFacing = 4,
+            DownFacing = 6
         };
 
         private SpriteBatch spriteBatch;
@@ -44,7 +44,7 @@ namespace cse3902.Sprites
             totalFrames = rows * columns;
             this.startingPosition = startingPosition;
             center = startingPosition;
-            startingFrameIndex = (int)FrameIndex.RIGHT_FACING;
+            startingFrameIndex = (int)FrameIndex.RightFacing;
             endingFrameIndex = startingFrameIndex + 2;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
