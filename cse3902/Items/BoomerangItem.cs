@@ -98,7 +98,7 @@ namespace cse3902.Items
                 else
                 {
                     currentX -= 2;
-                    if (currentX < startingPosition.X - 25)
+                    if (currentX < startingPosition.X)
                     {
                         //currentY = 400;
                         direction = Direction.positive;
@@ -118,7 +118,7 @@ namespace cse3902.Items
                 else
                 {
                     currentY -= 2;
-                    if (currentY < startingPosition.Y - 25)
+                    if (currentY < startingPosition.Y)
                     {
                         direction = Direction.positive;
                     }

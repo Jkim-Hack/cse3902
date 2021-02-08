@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using cse3902.Entities;
 using cse3902.Interfaces;
 using cse3902.Sprites;
 using cse3902.Items;
@@ -15,7 +16,7 @@ namespace cse3902
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public SpriteBatch spriteBatch { get; set; }
 
         private ISprite textSprite;
         public List<ISprite> spriteList { get; set; }
@@ -27,6 +28,8 @@ namespace cse3902
         private ISprite bomb;
 
         public int currentSpriteIndex { get; set; }
+
+        IEntity player;
 
         public Game1()
         {
@@ -76,6 +79,8 @@ namespace cse3902
 	        // The sprite index should initially be out of bounds so that there are no premature calls
             currentSpriteIndex = spriteList.Count;
 
+
+            player = new Link(this);
             itemHandler.LoadContent(spriteBatch, Content);
         }
 
