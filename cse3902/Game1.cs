@@ -14,7 +14,7 @@ namespace cse3902
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public SpriteBatch spriteBatch { get; set; }
 
         private ISprite textSprite;
         public List<ISprite> spriteList { get; set; }

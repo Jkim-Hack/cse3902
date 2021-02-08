@@ -5,8 +5,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Sprites
 {
-    public class AnimatedMovableSprite : ISprite
+    public class LinkSprite : ISprite
     {
+        public enum FrameIndex
+        {
+            LEFT_FACING = 0,
+            RIGHT_FACING = 2,
+            UP_FACING = 4,
+            DOWN_FACING = 6
+        };
+
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
  	    private Vector2 center;
@@ -20,27 +28,13 @@ namespace cse3902.Sprites
         private int frameWidth;
         private int frameHeight;
 
+        private int startingFrameIndex;
+        private int endingFrameIndex;
+
         private const float delay = 0.2f;
         private float remainingDelay;
-
-        public AnimatedMovableSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns)
-        {
-            this.spriteBatch = spriteBatch;
-	        spriteTexture = texture;
-            remainingDelay = delay;
-            startingPosition = new Vector2(0, 200);
-            center = startingPosition;
-            this.rows = rows;
-            this.columns = columns;
-            currentFrame = 0;
-            totalFrames = rows * columns;
-            frameWidth = spriteTexture.Width / columns;
-            frameHeight = spriteTexture.Height / rows;
-            frames = new Rectangle[totalFrames];
-            distributeFrames();
-	    }
-
-        public AnimatedMovableSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
+        
+        public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
         { 
             this.spriteBatch = spriteBatch;
 	        spriteTexture = texture;
@@ -50,11 +44,14 @@ namespace cse3902.Sprites
             totalFrames = rows * columns;
             this.startingPosition = startingPosition;
             center = startingPosition;
+            startingFrameIndex = (int)FrameIndex.RIGHT_FACING;
+            endingFrameIndex = startingFrameIndex + 2;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
             frames = new Rectangle[totalFrames];
             distributeFrames();
 	    }
+
         private void distributeFrames()
         {
             for (int i = 0; i < totalFrames; i++) { 
@@ -102,8 +99,8 @@ namespace cse3902.Sprites
             if (remainingDelay <= 0)
             {
 		        currentFrame++;
-		        if (currentFrame == totalFrames) {
-			        currentFrame = 0;
+		        if (currentFrame == endingFrameIndex) {
+			        currentFrame = startingFrameIndex;
 		        }
                 remainingDelay = delay;
             }
