@@ -30,7 +30,7 @@
   <ItemGroup>
     <Folder Include="Commands\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Sprites\" />
+    <Folder Include="States\" />
   </ItemGroup>
 </Project>
