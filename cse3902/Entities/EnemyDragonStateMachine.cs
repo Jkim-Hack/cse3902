@@ -2,8 +2,8 @@
 
 namespace cse3902.Entities {
 
-    public class EnemyDragonStateMachine : IEntityStateMachine {
-
+    public class EnemyDragonStateMachine {
+        // TODO: Implment
         
     }
 }
