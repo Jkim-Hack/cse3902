@@ -32,5 +32,10 @@ namespace cse3902.Commands
 
             //game.cycleEnemyNPC(cycle);
         }
+
+        public void Unexecute(Keys[] keyset)
+        {
+
+        }
     }
 }

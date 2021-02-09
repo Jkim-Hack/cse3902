@@ -18,5 +18,10 @@ namespace cse3902.Commands
             game.Exit();
         }
 
+        public void Unexecute(Keys[] keyset)
+        {
+
+        }
+
     }
 }

@@ -42,5 +42,10 @@ namespace cse3902.Commands
 
             //game.Link.ChangeDirection(direction);
         }
+
+        public void Unexecute(Keys[] keys)
+        {
+            //game.Link.ChangeDirection(new Vector2(0, 0));
+        }
     }
 }

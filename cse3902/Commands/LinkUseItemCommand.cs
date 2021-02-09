@@ -53,5 +53,10 @@ namespace cse3902.Commands
 
             //game.Link.useItem(item);
         }
+
+        public void Unexecute(Keys[] keyset)
+        {
+
+        }
     }
 }

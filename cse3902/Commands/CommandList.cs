@@ -6,14 +6,11 @@ using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-//commented things that aren't needed now but may be useful later
-
 namespace cse3902.Commands
 {
     public class CommandList
     {
-        private Dictionary<Keys, ICommand> keyboardCommandMap;
-        //private Dictionary<int, ICommand> mouseClickCommandMap;
+        private Dictionary<Keys[], ICommand> keyboardCommandMap;
 
         private Game1 game;
         
@@ -25,62 +22,23 @@ namespace cse3902.Commands
 
         private void BuildCommands()
         {
-            keyboardCommandMap = new Dictionary<Keys, ICommand>()
+            keyboardCommandMap = new Dictionary<Keys[], ICommand>()
             {
-                { Keys.Q, new QuitCommand(game)},
-                { Keys.R, new ResetCommand(game)},
-                { Keys.D1, new LinkUseItemCommand(game) },
-		        { Keys.D2, new LinkUseItemCommand(game) },
-		        { Keys.D3, new LinkUseItemCommand(game) },
-		        { Keys.D4, new LinkUseItemCommand(game) },
-                { Keys.D5, new LinkUseItemCommand(game) },
-                { Keys.D6, new LinkUseItemCommand(game) },
-                { Keys.D7, new LinkUseItemCommand(game) },
-                { Keys.D8, new LinkUseItemCommand(game) },
-                { Keys.D9, new LinkUseItemCommand(game) },
-                { Keys.W, new LinkMovementCommand(game) },
-                { Keys.A, new LinkMovementCommand(game) },
-                { Keys.S, new LinkMovementCommand(game) },
-                { Keys.D, new LinkMovementCommand(game) },
-                { Keys.Up, new LinkMovementCommand(game) },
-                { Keys.Down, new LinkMovementCommand(game) },
-                { Keys.Left, new LinkMovementCommand(game) },
-                { Keys.Right, new LinkMovementCommand(game) },
-                { Keys.Z, new LinkSwordAttackCommand(game) },
-                { Keys.N, new LinkSwordAttackCommand(game) },
-                { Keys.E, new DamageLinkCommand(game) },
-                { Keys.T, new CycleShownBlockCommand(game) },
-                { Keys.Y, new CycleShownBlockCommand(game) },
-                { Keys.U, new CycleShownItemCommand(game) },
-                { Keys.I, new CycleShownItemCommand(game) },
-                { Keys.O, new CycleShownEnemyNPCCommand(game) },
-                { Keys.P, new CycleShownEnemyNPCCommand(game) }
+                {new Keys[] {Keys.Q}, new QuitCommand(game)},
+                {new Keys[] {Keys.R}, new ResetCommand(game)},
+                {new Keys[] {Keys.E}, new DamageLinkCommand(game)},
+                {new Keys[] {Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.W, Keys.A, Keys.S, Keys.D}, new LinkMovementCommand(game) },
+                {new Keys[] {Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9}, new LinkUseItemCommand(game) },
+                {new Keys[] {Keys.Z, Keys.N}, new LinkSwordAttackCommand(game) },
+                {new Keys[] {Keys.T, Keys.Y}, new CycleShownBlockCommand(game) },
+                {new Keys[] {Keys.U, Keys.I}, new CycleShownItemCommand(game) },
+                {new Keys[] {Keys.O, Keys.P}, new CycleShownEnemyNPCCommand(game) }
             };
-            
-            /*
-	        mouseClickCommandMap = new Dictionary<int, ICommand>()
-            {
-                { 0, new QuitCommand(game)},
-                { 1, new DisplayStaticStillSpriteCommand(game) },
-		        { 2, new DisplayAnimatedStillSpriteCommand(game) },
-		        { 3, new DisplayStaticMovableSpriteCommand(game) },
-		        { 4, new DisplayAnimatedMovableSpriteCommand(game) }
-		    };
-            */
-            
         }
 
-        public Dictionary<Keys, ICommand> KeyboardCommands
+        public Dictionary<Keys[], ICommand> KeyboardCommands
         {
             get => keyboardCommandMap;
         }
-
-        /*
-        public Dictionary<int, ICommand> MouseClickCommands
-        {
-            get => mouseClickCommandMap;
-        }
-        */
-
     }
 }

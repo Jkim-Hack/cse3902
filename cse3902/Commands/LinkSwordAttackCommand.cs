@@ -32,5 +32,10 @@ namespace cse3902.Commands
 
             //game.Link.attack(direction);
         }
+
+        public void Unexecute(Keys[] keyset)
+        {
+
+        }
     }
 }

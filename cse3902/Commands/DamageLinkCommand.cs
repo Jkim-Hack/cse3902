@@ -18,5 +18,10 @@ namespace cse3902.Commands
         {
             //game.Link.hurt();
         }
+
+        public void Unexecute(Keys[] keyset)
+        {
+
+        }
     }
 }

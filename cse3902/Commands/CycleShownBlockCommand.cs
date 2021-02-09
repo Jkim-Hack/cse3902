@@ -32,5 +32,10 @@ namespace cse3902.Commands
 
             //game.cycleBlock(cycle);
         }
+
+        public void Unexecute(Keys[] keyset)
+        {
+
+        }
     }
 }
