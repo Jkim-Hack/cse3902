@@ -1,5 +1,6 @@
 ﻿using System;
 using cse3902.Interfaces;
+using Microsoft.Xna.Framework;
 using cse3902.Sprites;
 
 namespace cse3902.Entities {
@@ -21,7 +22,27 @@ namespace cse3902.Entities {
             this.linkSprite = linkSprite;
         }
 
-        public void FaceUp(){
+        public void ChangeDirection(Vector2 newDirection)
+        {
+            if (newDirection.X < 0)
+            {
+                this.FaceLeft();
+            }
+            else if (newDirection.X > 0)
+            {
+                this.FaceRight();
+            }
+            else if (newDirection.Y > 0)
+            {
+                this.FaceUp();
+            }
+            else if (newDirection.Y < 0)
+            {
+                this.FaceDown();
+            }
+        }
+
+        private void FaceUp(){
 
             /* No need to update sprite if current direction is already picked */
             if (direction == LinkDirection.Up) return;
@@ -30,7 +51,7 @@ namespace cse3902.Entities {
             UpdateSprite();
         }
 
-        public void FaceDown(){
+        private void FaceDown(){
 
             /* No need to update sprite if current direction is already picked */
             if (direction == LinkDirection.Down) return;
@@ -39,7 +60,7 @@ namespace cse3902.Entities {
             UpdateSprite();
         }
 
-        public void FaceLeft(){
+        private void FaceLeft(){
 
             /* No need to update sprite if current direction is already picked */
             if (direction == LinkDirection.Left) return;
@@ -48,7 +69,7 @@ namespace cse3902.Entities {
             UpdateSprite();
         }
 
-        public void FaceRight(){
+        private void FaceRight(){
 
             /* No need to update sprite if current direction is already picked */
             if (direction == LinkDirection.Right) return;
