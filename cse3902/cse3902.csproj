@@ -12,6 +12,9 @@
   <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
+    <None Remove="Content\heart.gif" />
+    <None Remove="Content\fairies.png" />
+    <None Remove="Content\triforce.gif" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -31,6 +34,7 @@
     <Folder Include="Commands\" />
     <Folder Include="Controllers\" />
     <Folder Include="Sprites\" />
+    <Folder Include="Items\" />
     <Folder Include="States\" />
   </ItemGroup>
 </Project>

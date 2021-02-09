@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using cse3902.Entities;
 using cse3902.Interfaces;
 using cse3902.Sprites;
+using cse3902.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -20,6 +21,11 @@ namespace cse3902
         private ISprite textSprite;
         public List<ISprite> spriteList { get; set; }
         List<IController> controllerList;
+
+        private ItemHandler itemHandler;
+
+        private ISprite arrow;
+        private ISprite bomb;
 
         public int currentSpriteIndex { get; set; }
 
@@ -44,6 +50,8 @@ namespace cse3902
             controllerList.Add(new KeyboardController(this));
             controllerList.Add(new MouseController(this));
 
+            itemHandler = new ItemHandler();
+
             // Initialize sprite list
             spriteList = new List<ISprite>();
             this.IsMouseVisible = true;
@@ -60,7 +68,7 @@ namespace cse3902
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Set up sprites
-	        Texture2D spriteTexture = this.Content.Load<Texture2D>("mario-yoshi");    
+	        Texture2D spriteTexture = this.Content.Load<Texture2D>("mario-yoshi");
 	        spriteList.Add(new StaticStillSprite(spriteBatch, spriteTexture, 1, 2));
 	        spriteList.Add(new AnimatedStillSprite(spriteBatch, spriteTexture, 1, 2));
 	        spriteList.Add(new StaticMovableSprite(spriteBatch, spriteTexture, 1, 2));
@@ -70,8 +78,11 @@ namespace cse3902
             textSprite = new TextSprite(spriteBatch, textFont, "Credits\nProgram Made By: John Kim\nSprites from: http://www.mariouniverse.com/sprites-nes-yoshi/");
 	        // The sprite index should initially be out of bounds so that there are no premature calls
             currentSpriteIndex = spriteList.Count;
+
+
             player = new Link(this);
-	    }
+            itemHandler.LoadContent(spriteBatch, Content);
+        }
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -100,6 +111,9 @@ namespace cse3902
             {
                 spriteList[currentSpriteIndex].Update(gameTime);
             }
+
+            itemHandler.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -109,13 +123,15 @@ namespace cse3902
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Beige);
 
             if (currentSpriteIndex < spriteList.Count)
             {
                 spriteList[currentSpriteIndex].Draw();
             }
             textSprite.Draw();
+
+            itemHandler.Draw();
 
             base.Draw(gameTime);
         }
