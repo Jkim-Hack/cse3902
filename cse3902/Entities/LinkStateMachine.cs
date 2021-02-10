@@ -46,61 +46,40 @@ namespace cse3902.Entities {
 
             /* No need to update sprite if current direction is already picked */
             if (direction == LinkDirection.Up) return;
-            
-            direction = LinkDirection.Up;
-            UpdateSprite();
+
+            linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.UpFacing;
         }
 
         private void FaceDown(){
 
             /* No need to update sprite if current direction is already picked */
             if (direction == LinkDirection.Down) return;
-            
-            direction = LinkDirection.Down;
-            UpdateSprite();
+
+            linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.DownFacing;
         }
 
         private void FaceLeft(){
 
             /* No need to update sprite if current direction is already picked */
             if (direction == LinkDirection.Left) return;
-            
-            direction = LinkDirection.Left;
-            UpdateSprite();
+
+            linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.LeftFacing;
         }
 
         private void FaceRight(){
 
             /* No need to update sprite if current direction is already picked */
             if (direction == LinkDirection.Right) return;
-            
-            direction = LinkDirection.Right;
-            UpdateSprite();
+
+            linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.RightFacing;
         }
 
         public void CycleWeapon(int dir){
 
             currentWeapon = (currentWeapon + dir + 3) % 3;
-            UpdateSprite();
+            
         }
 
-        private void UpdateSprite() {
-            
-	        switch (direction)
-            {
-                case LinkDirection.Left:
-                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.LeftFacing;
-                    break;
-                case LinkDirection.Right:
-                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.RightFacing;
-                    break;
-                case LinkDirection.Up:
-                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.UpFacing;
-                    break;
-                case LinkDirection.Down:
-                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.DownFacing;
-                    break;
-            }
-        }
+        
     }
 }
