@@ -36,5 +36,7 @@
     <Folder Include="Sprites\" />
     <Folder Include="Items\" />
     <Folder Include="States\" />
+    <Folder Include="Entities\Enemies\" />
+    <Folder Include="Sprites\EnemySprites\" />
   </ItemGroup>
 </Project>
