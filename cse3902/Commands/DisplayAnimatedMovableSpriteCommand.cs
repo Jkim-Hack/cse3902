@@ -16,9 +16,11 @@ namespace cse3902.Commands
         public void Execute()
         {
             // 3 is the AnimatedMovableSprite in the list
-            game.currentSpriteIndex = 3;
+            //TODO: member of game class no longer exists
+            //game.currentSpriteIndex = 3;
             // Start on the very left center
-            game.spriteList[game.currentSpriteIndex].StartingPosition = new Vector2(0, 200);
+            //TODO: member of game class no longer exists
+            //game.spriteList[game.currentSpriteIndex].StartingPosition = new Vector2(0, 200);
 	    }
     }
 }

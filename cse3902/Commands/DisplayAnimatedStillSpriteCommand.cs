@@ -16,7 +16,8 @@ namespace cse3902.Commands
         public void Execute()
         {
             // 1 is the AnimatedStillSprite in the list
-            game.currentSpriteIndex = 1;
-	    }
+            //TODO: member of game class no longer exists
+            //game.currentSpriteIndex = 1;
+        }
     }
 }
