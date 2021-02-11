@@ -27,19 +27,22 @@ namespace cse3902
             {
                 bool aCurrentKeyPressed = false;
                 bool aPreviousKeyPressed = false;
-                foreach (Keys key in keySet)
+
+                for (int i=0; i<keySet.Length; i++)
                 {
+                    Keys key = keySet[i];
                     if (CurrentKeyboardState.IsKeyDown(key)) //key is down, so don't need to "undo"
                     {
-                        this.commandList.KeyboardCommands[keySet].Execute(key);
+                        this.commandList.KeyboardCommands[keySet].Execute(i);
                         aCurrentKeyPressed = true;
-                    } else if (PreviousKeyboardState.IsKeyDown(key)) //key wasn't down, so need to check if it was already down
+                    }
+                    else if (PreviousKeyboardState.IsKeyDown(key)) //key wasn't down, so need to check if it was already down
                     {
                         aPreviousKeyPressed = true;
                     }
                 }
 
-                if (aPreviousKeyPressed && !aCurrentKeyPressed) this.commandList.KeyboardCommands[keySet].Unexecute(keySet);
+                if (aPreviousKeyPressed && !aCurrentKeyPressed) this.commandList.KeyboardCommands[keySet].Unexecute();
             }
 
             PreviousKeyboardState = CurrentKeyboardState;

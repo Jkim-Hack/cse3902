@@ -13,11 +13,11 @@ namespace cse3902.Commands
             this.game = game;
         }
 
-        public void Execute(Keys key)
+        public void Execute(int id)
         {
         }
 
-        public void Unexecute(Keys[] keyset)
+        public void Unexecute()
         {
 
         }

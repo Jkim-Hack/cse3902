@@ -14,25 +14,22 @@ namespace cse3902.Commands
             this.game = game;
         }
 
-        public void Execute(Keys key)
+        public void Execute(int id)
         {
+            id = id % 4;
             Vector2 direction;
-            switch (key)
+            switch (id)
             {
-                case Keys.Up:
-                case Keys.W:
+                case 0:
                     direction = new Vector2(0, 1);
                     break;
-                case Keys.Left:
-                case Keys.A:
+                case 1:
                     direction = new Vector2(-1, 0);
                     break;
-                case Keys.Down:
-                case Keys.S:
+                case 2:
                     direction = new Vector2(0, -1);
                     break;
-                case Keys.Right:
-                case Keys.D:
+                case 3:
                     direction = new Vector2(1, 0);
                     break;
                 default: //this should never happen
@@ -43,7 +40,7 @@ namespace cse3902.Commands
             //game.Link.ChangeDirection(direction);
         }
 
-        public void Unexecute(Keys[] keys)
+        public void Unexecute()
         {
             //game.Link.ChangeDirection(new Vector2(0, 0));
         }

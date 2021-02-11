@@ -14,15 +14,16 @@ namespace cse3902.Commands
             this.game = game;
         }
 
-        public void Execute(Keys key)
+        public void Execute(int id)
         {
+            id = id % 2;
             int cycle;
-            switch (key)
+            switch (id)
             {
-                case Keys.T:
+                case 0:
                     cycle = -1;
                     break;
-                case Keys.Y:
+                case 1:
                     cycle = 1;
                     break;
                 default: //this should never happen
@@ -33,7 +34,7 @@ namespace cse3902.Commands
             //game.cycleBlock(cycle);
         }
 
-        public void Unexecute(Keys[] keyset)
+        public void Unexecute()
         {
 
         }

@@ -14,15 +14,16 @@ namespace cse3902.Commands
             this.game = game;
         }
 
-        public void Execute(Keys key)
+        public void Execute(int id)
         {
+            id = id % 2;
             String direction = "";
-            switch (key)
+            switch (id)
             {
-                case Keys.Z:
+                case 0:
                     direction = "up";
                     break;
-                case Keys.N:
+                case 1:
                     direction = "down";
                     break;
                 default: //this should never happen
@@ -33,7 +34,7 @@ namespace cse3902.Commands
             //game.Link.attack(direction);
         }
 
-        public void Unexecute(Keys[] keyset)
+        public void Unexecute()
         {
 
         }

@@ -14,14 +14,15 @@ namespace cse3902.Commands
             this.game = game;
         }
 
-        public void Execute(Keys key)
+        public void Execute(int id)
         {
-            switch (key)
+            id = id % 2;
+            switch (id)
             {
-                case Keys.U:
+                case 0:
                     //game.ItemList.DisplayPrev();
                     break;
-                case Keys.I:
+                case 1:
                     //game.ItemList.DisplayNext();
                     break;
                 default: //this should never happen
@@ -30,7 +31,7 @@ namespace cse3902.Commands
             }
         }
 
-        public void Unexecute(Keys[] keyset)
+        public void Unexecute()
         {
 
         }
