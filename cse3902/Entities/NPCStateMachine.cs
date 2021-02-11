@@ -1,19 +1,20 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace cse3902.Entities {
+namespace cse3902.Entities
+{
 
-    public class EnemyStateMachine : IEntityStateMachine
+    public class NPCStateMachine : IEntityStateMachine
     {
         public void CycleWeapon(int dir)
         {
-            //Enemies don't change weapons
+            //Enemies and npcs don't change weapons
             throw new NotImplementedException();
         }
 
         public void ChangeDirection(Vector2 newDirection)
         {
-            //TODO: will implement after enemy spriting is done
+            //will implement after enemy spriting is done
         }
     }
 }
