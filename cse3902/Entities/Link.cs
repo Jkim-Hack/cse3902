@@ -39,7 +39,7 @@ namespace cse3902.Entities
 
         public void Attack()
         {
-            int itemDamage = items[currentItemIndex];
+            linkStateMachine.Attack();
             // TODO: Add Item damages here
             // TODO: Add collision detection here
 
@@ -47,6 +47,8 @@ namespace cse3902.Entities
 
         public void ChangeDirection(Vector2 direction)
         {
+            /*TODO: this cannot stay.  You are assuming that all commands will
+             * change direction, while sometimes they wont, at least not immediately (like currently attacking) */
             this.direction = direction;
 
             linkStateMachine.ChangeDirection(direction);
@@ -64,6 +66,7 @@ namespace cse3902.Entities
 
         public void Update(GameTime gameTime)
         {
+            //TODO: what should update animation stage for items and attacking
             linkSprite.Update(gameTime);
 	        centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
