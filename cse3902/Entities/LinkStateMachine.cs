@@ -54,7 +54,9 @@ namespace cse3902.Entities {
             if (mode == LinkMode.Attack) return;
             /* No need to update sprite if currently grabbing Item */
             if (mode == LinkMode.Item) return;
-            linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.UpFacing;
+
+            direction = LinkDirection.Up;
+            UpdateSprite();
         }
 
         private void FaceDown(){
@@ -65,7 +67,9 @@ namespace cse3902.Entities {
             if (mode == LinkMode.Attack) return;
             /* No need to update sprite if currently grabbing Item */
             if (mode == LinkMode.Item) return;
-            linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.DownFacing;
+
+            direction = LinkDirection.Down;
+            UpdateSprite();
         }
 
         private void FaceLeft(){
@@ -76,7 +80,9 @@ namespace cse3902.Entities {
             if (mode == LinkMode.Attack) return;
             /* No need to update sprite if currently grabbing Item */
             if (mode == LinkMode.Item) return;
-            linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.LeftFacing;
+
+            direction = LinkDirection.Left;
+            UpdateSprite();
         }
 
         private void FaceRight(){
@@ -87,7 +93,9 @@ namespace cse3902.Entities {
             if (mode == LinkMode.Attack) return;
             /* No need to update sprite if currently grabbing Item */
             if (mode == LinkMode.Item) return;
-            linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.RightFacing;
+
+            direction = LinkDirection.Right;
+            UpdateSprite();
         }
 
         public void Attack()
@@ -97,8 +105,6 @@ namespace cse3902.Entities {
 
         public void CycleWeapon(int dir){
 
-            currentWeapon = (currentWeapon + dir + 3) % 3;
-            
             //TODO 
             //currentWeapon = (currentWeapon + dir + 3) % 3;
             //UpdateSprite();
@@ -117,6 +123,27 @@ namespace cse3902.Entities {
         public void TakeDamage(int damage)
         {
 
+        }
+
+        private void UpdateSprite() {
+
+            
+            
+	        switch (direction)
+            {
+                case LinkDirection.Left:
+                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.LeftFacing;
+                    break;
+                case LinkDirection.Right:
+                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.RightFacing;
+                    break;
+                case LinkDirection.Up:
+                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.UpFacing;
+                    break;
+                case LinkDirection.Down:
+                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.DownFacing;
+                    break;
+            }
         }
 
         

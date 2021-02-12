@@ -50,8 +50,23 @@ namespace cse3902.Entities
             /*TODO: this cannot stay.  You are assuming that all commands will
              * change direction, while sometimes they wont, at least not immediately (like currently attacking) */
             this.direction = direction;
-
-            linkStateMachine.ChangeDirection(direction);
+  
+            if (direction.X < 0)
+            {
+                linkStateMachine.FaceLeft();
+            }
+            else if (direction.X > 0)
+            {
+                linkStateMachine.FaceRight();
+            }
+            else if (direction.Y > 0)
+            {
+                linkStateMachine.FaceUp();
+            }
+            else if (direction.Y < 0)
+            {
+                linkStateMachine.FaceDown();
+            } 
 	    }        
 
         public void Die()
