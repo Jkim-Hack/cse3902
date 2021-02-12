@@ -12,7 +12,11 @@ namespace cse3902.Sprites
             LeftFacing = 0,
             RightFacing = 2,
             UpFacing = 4,
-            DownFacing = 6
+            DownFacing = 6,
+            ItemLeft = 8,
+            ItemRight = 10,
+            ItemUp = 12,
+            ItemDown = 14
         };
 
         private SpriteBatch spriteBatch;

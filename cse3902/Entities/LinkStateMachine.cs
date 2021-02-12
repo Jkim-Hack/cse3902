@@ -6,26 +6,34 @@ namespace cse3902.Entities {
 
     public class LinkStateMachine : IEntityStateMachine {
 
-        private int[] weapons;
-        private int currentWeapon;
+        private enum Weapons { WoodenSword, WhiteSword, MagicalSword, MagicalRod };
+        private Weapons currentWeapon;
         private enum LinkDirection { Up, Down, Left, Right };
+        private enum LinkMode { Still, Moving, Attack, Item };
         private LinkDirection direction;
+        private LinkMode mode;
+        private int health;
 
         private LinkSprite linkSprite;
 
         public LinkStateMachine(LinkSprite linkSprite) {
 
-            currentWeapon = 0;
-            weapons = new int[] {0, 0, 0};
+            currentWeapon = Weapons.WoodenSword;
             direction = LinkDirection.Right;
+            mode = LinkMode.Still;
             this.linkSprite = linkSprite;
+            health = 10;
         }
 
         public void FaceUp(){
 
             /* No need to update sprite if current direction is already picked */
             if (direction == LinkDirection.Up) return;
-            
+            /* No need to update sprite if currently attacking */
+            if (mode == LinkMode.Attack) return;
+            /* No need to update sprite if currently grabbing Item */
+            if (mode == LinkMode.Item) return;
+
             direction = LinkDirection.Up;
             UpdateSprite();
         }
@@ -34,7 +42,11 @@ namespace cse3902.Entities {
 
             /* No need to update sprite if current direction is already picked */
             if (direction == LinkDirection.Down) return;
-            
+            /* No need to update sprite if currently attacking */
+            if (mode == LinkMode.Attack) return;
+            /* No need to update sprite if currently grabbing Item */
+            if (mode == LinkMode.Item) return;
+
             direction = LinkDirection.Down;
             UpdateSprite();
         }
@@ -43,7 +55,11 @@ namespace cse3902.Entities {
 
             /* No need to update sprite if current direction is already picked */
             if (direction == LinkDirection.Left) return;
-            
+            /* No need to update sprite if currently attacking */
+            if (mode == LinkMode.Attack) return;
+            /* No need to update sprite if currently grabbing Item */
+            if (mode == LinkMode.Item) return;
+
             direction = LinkDirection.Left;
             UpdateSprite();
         }
@@ -52,18 +68,45 @@ namespace cse3902.Entities {
 
             /* No need to update sprite if current direction is already picked */
             if (direction == LinkDirection.Right) return;
-            
+            /* No need to update sprite if currently attacking */
+            if (mode == LinkMode.Attack) return;
+            /* No need to update sprite if currently grabbing Item */
+            if (mode == LinkMode.Item) return;
+
             direction = LinkDirection.Right;
             UpdateSprite();
         }
 
+        public void Attack()
+        {
+
+        }
+
         public void CycleWeapon(int dir){
 
-            currentWeapon = (currentWeapon + dir + 3) % 3;
-            UpdateSprite();
+            //TODO 
+            //currentWeapon = (currentWeapon + dir + 3) % 3;
+            //UpdateSprite();
+        }
+
+        public void UseItem()
+        {
+
+        }
+
+        public void ChangeItem()
+        {
+
+        }
+
+        public void TakeDamage(int damage)
+        {
+
         }
 
         private void UpdateSprite() {
+
+            
             
 	        switch (direction)
             {
