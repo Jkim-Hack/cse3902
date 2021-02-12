@@ -50,11 +50,9 @@ namespace cse3902.Entities {
 
             /* No need to update sprite if current direction is already picked */
             if (direction == LinkDirection.Up) return;
-            /* No need to update sprite if currently attacking */
-            if (mode == LinkMode.Attack) return;
-            /* No need to update sprite if currently grabbing Item */
-            if (mode == LinkMode.Item) return;
-            linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.UpFacing;
+            
+            direction = LinkDirection.Up;
+            UpdateSprite();
         }
 
         private void FaceDown(){
@@ -95,13 +93,31 @@ namespace cse3902.Entities {
 
         }
 
+        public void Attack()
+        {
+
+        }
+
         public void CycleWeapon(int dir){
 
-            currentWeapon = (currentWeapon + dir + 3) % 3;
-            
             //TODO 
             //currentWeapon = (currentWeapon + dir + 3) % 3;
             //UpdateSprite();
+        }
+
+        public void UseItem()
+        {
+
+        }
+
+        public void ChangeItem()
+        {
+
+        }
+
+        public void TakeDamage(int damage)
+        {
+
         }
 
         public void UseItem()
