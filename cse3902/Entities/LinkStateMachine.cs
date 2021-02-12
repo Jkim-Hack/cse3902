@@ -7,8 +7,8 @@ namespace cse3902.Entities {
 
     public class LinkStateMachine : IEntityStateMachine {
 
-        private enum Weapons { WoodenSword, WhiteSword, MagicalSword, MagicalRod };
-        private Weapons currentWeapon;
+        private enum LinkWeapon { WoodenSword, WhiteSword, MagicalSword, MagicalRod };
+        private LinkWeapon currentWeapon;
         private enum LinkDirection { Up, Down, Left, Right };
         private enum LinkMode { Still, Moving, Attack, Item };
         private LinkDirection direction;
@@ -19,7 +19,7 @@ namespace cse3902.Entities {
 
         public LinkStateMachine(LinkSprite linkSprite) {
 
-            currentWeapon = Weapons.WoodenSword;
+            currentWeapon = LinkWeapon.WoodenSword;
             direction = LinkDirection.Right;
             mode = LinkMode.Still;
             this.linkSprite = linkSprite;
@@ -54,9 +54,7 @@ namespace cse3902.Entities {
             if (mode == LinkMode.Attack) return;
             /* No need to update sprite if currently grabbing Item */
             if (mode == LinkMode.Item) return;
-
-            direction = LinkDirection.Up;
-            UpdateSprite();
+            linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.UpFacing;
         }
 
         private void FaceDown(){
@@ -94,15 +92,26 @@ namespace cse3902.Entities {
             /* No need to update sprite if currently grabbing Item */
             if (mode == LinkMode.Item) return;
 
-            direction = LinkDirection.Right;
-            UpdateSprite();
-        }
-
         public void Attack()
         {
+            switch (currentWeapon)
+            {
+                case LinkWeapon.WoodenSword:
+                    //IProjectile weapon = new WoodenSword()..
+                    break;
+                case LinkWeapon.WhiteSword:
 
+                    break;
+                case LinkWeapon.MagicalSword:
+
+                    break;
+                case LinkWeapon.MagicalRod:
+
+                    break;
+            }
         }
 
+        //Direction or weapon enum number??
         public void CycleWeapon(int dir){
 
             //TODO 
@@ -115,6 +124,7 @@ namespace cse3902.Entities {
 
         }
 
+        //Number to enum?
         public void ChangeItem()
         {
 
@@ -124,28 +134,6 @@ namespace cse3902.Entities {
         {
 
         }
-
-        private void UpdateSprite() {
-
-            
-            
-	        switch (direction)
-            {
-                case LinkDirection.Left:
-                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.LeftFacing;
-                    break;
-                case LinkDirection.Right:
-                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.RightFacing;
-                    break;
-                case LinkDirection.Up:
-                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.UpFacing;
-                    break;
-                case LinkDirection.Down:
-                    linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.DownFacing;
-                    break;
-            }
-        }
-
         
     }
 }

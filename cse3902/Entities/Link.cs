@@ -78,11 +78,14 @@ namespace cse3902.Entities
         {
             // TODO: Implement once collision is available
         }
+        
+        //Add a public void Move or Utilize the state machine??
 
         public void Update(GameTime gameTime)
         {
             //TODO: what should update animation stage for items and attacking
             linkSprite.Update(gameTime);
+            //TODO: What if he is not moving??
 	        centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
