@@ -16,9 +16,11 @@ namespace cse3902
         public void Execute()
         {
             // 0 is the StaticStillSprite in the list
-            game.currentSpriteIndex = 0;
+            //TODO: member of game class no longer exists
+            //game.currentSpriteIndex = 0;
             // The center of the screen
-            game.spriteList[game.currentSpriteIndex].StartingPosition = new Vector2(400, 200);
+            //TODO: member of game class no longer exists
+            //game.spriteList[game.currentSpriteIndex].StartingPosition = new Vector2(400, 200);
         }
     }
 }
