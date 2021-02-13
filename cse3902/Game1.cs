@@ -44,7 +44,7 @@ namespace cse3902
             // Initialize sprite list
             spriteList = new List<ISprite>();
             this.IsMouseVisible = true;
-	        base.Initialize();
+            base.Initialize();
         }
 
         /// <summary>
