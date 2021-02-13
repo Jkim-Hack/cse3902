@@ -22,7 +22,7 @@ namespace cse3902.Commands
             //game.Link.useItem(id);
         }
 
-        public void Unexecute(Keys[] keyset)
+        public void Unexecute()
         {
 
         }
