@@ -15,6 +15,8 @@ namespace cse3902.Entities
 
         private Vector2 centerPosition;
 
+        private string message;
+
         public MedicineWomanNPC(Game1 game)
         {
             this.game = game;
@@ -45,6 +47,11 @@ namespace cse3902.Entities
         public void Update(GameTime gameTime)
         {
             //NPCs have nothing to update
+        }
+
+        public void setMessage(string msg)
+        {
+            message = msg;
         }
     }
 }
