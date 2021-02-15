@@ -49,22 +49,7 @@ namespace cse3902.Entities
         {
             this.direction = direction;
 
-            if (direction.X < 0)
-            {
-                linkStateMachine.FaceLeft();
-            }
-            else if (direction.X > 0)
-            {
-                linkStateMachine.FaceRight();
-            }
-            else if (direction.Y > 0)
-            {
-                linkStateMachine.FaceUp();
-            }
-            else if (direction.Y < 0)
-            {
-                linkStateMachine.FaceDown();
-            } 
+            linkStateMachine.ChangeDirection(direction);
 	    }        
 
         public void Die()
