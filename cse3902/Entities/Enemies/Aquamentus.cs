@@ -65,7 +65,7 @@ namespace cse3902.Entities.Enemies
         //TODO: Ientity should require clases to implement this I think
         public void Draw()
         {
-            this.aquamentusSprite.Draw();
+            aquamentusSprite.Draw();
         }
     }
 }
