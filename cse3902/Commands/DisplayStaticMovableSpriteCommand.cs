@@ -16,7 +16,8 @@ namespace cse3902
         public void Execute()
         {
             // 2 is the StaticMovableSprite in the list
-            game.currentSpriteIndex = 2;
+            //TODO: member of game class no longer exists
+            //game.currentSpriteIndex = 2;
         }
     }
 }

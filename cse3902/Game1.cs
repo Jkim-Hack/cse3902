@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using cse3902.Entities;
+using cse3902.Entities.Enemies;
 using cse3902.Interfaces;
 using cse3902.Sprites;
 using cse3902.Items;
@@ -18,7 +19,6 @@ namespace cse3902
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch { get; set; }
 
-        private ISprite textSprite;
         public List<ISprite> spriteList { get; set; }
         List<IController> controllerList;
 
@@ -26,10 +26,9 @@ namespace cse3902
 
         private ISprite arrow;
         private ISprite bomb;
-
-        public int currentSpriteIndex { get; set; }
-
+        
         IEntity player;
+
 
         public Game1()
         {
@@ -66,21 +65,8 @@ namespace cse3902
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // Set up sprites
-	        Texture2D spriteTexture = this.Content.Load<Texture2D>("mario-yoshi");
-	        spriteList.Add(new StaticStillSprite(spriteBatch, spriteTexture, 1, 2));
-	        spriteList.Add(new AnimatedStillSprite(spriteBatch, spriteTexture, 1, 2));
-	        spriteList.Add(new StaticMovableSprite(spriteBatch, spriteTexture, 1, 2));
-	        spriteList.Add(new AnimatedMovableSprite(spriteBatch, spriteTexture, 1, 2));
-
-            SpriteFont textFont = this.Content.Load<SpriteFont>("Credits");
-            textSprite = new TextSprite(spriteBatch, textFont, "Credits\nProgram Made By: John Kim\nSprites from: http://www.mariouniverse.com/sprites-nes-yoshi/");
-	        // The sprite index should initially be out of bounds so that there are no premature calls
-            currentSpriteIndex = spriteList.Count;
-
-
             player = new Link(this);
+
             itemHandler.LoadContent(spriteBatch, Content);
         }
 
@@ -107,14 +93,10 @@ namespace cse3902
             {
                 controller.Update();
             }
-            if (currentSpriteIndex < spriteList.Count)
-            {
-                spriteList[currentSpriteIndex].Update(gameTime);
-            }
+            player.Update(gameTime);
 
             itemHandler.Update(gameTime);
-
-            base.Update(gameTime);
+	          base.Update(gameTime);
         }
 
         /// <summary>
@@ -125,13 +107,13 @@ namespace cse3902
         {
             GraphicsDevice.Clear(Color.Beige);
 
-            if (currentSpriteIndex < spriteList.Count)
+            foreach (ISprite sprite in spriteList)
             {
-                spriteList[currentSpriteIndex].Draw();
+                sprite.Draw();
             }
-            textSprite.Draw();
 
             itemHandler.Draw();
+
 
             base.Draw(gameTime);
         }
