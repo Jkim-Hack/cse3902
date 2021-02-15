@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using cse3902.Entities;
+using cse3902.Entities.Enemies;
 using cse3902.Interfaces;
 using cse3902.Sprites;
 using cse3902.Items;
@@ -27,6 +28,7 @@ namespace cse3902
         private ISprite bomb;
         
         IEntity player;
+
 
         public Game1()
         {
@@ -64,6 +66,7 @@ namespace cse3902
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Link(this);
+
             itemHandler.LoadContent(spriteBatch, Content);
         }
 
@@ -91,6 +94,7 @@ namespace cse3902
                 controller.Update();
             }
             player.Update(gameTime);
+
             itemHandler.Update(gameTime);
 	          base.Update(gameTime);
         }
@@ -109,6 +113,7 @@ namespace cse3902
             }
 
             itemHandler.Draw();
+
 
             base.Draw(gameTime);
         }

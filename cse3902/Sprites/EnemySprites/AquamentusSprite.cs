@@ -10,8 +10,8 @@ namespace cse3902.Sprites.EnemySprites
 
         public enum FrameIndex
         {
-            LeftFacing = 0,
-            RightFacing = 2
+            RightFacing = 0,
+            LeftFacing = 2
             
         };
 
@@ -62,6 +62,8 @@ namespace cse3902.Sprites.EnemySprites
                 int column = i % columns;
                 frames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
             }
+
+            
         }
 
        
