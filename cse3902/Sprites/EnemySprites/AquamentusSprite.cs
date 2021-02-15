@@ -72,11 +72,14 @@ namespace cse3902.Sprites.EnemySprites
             set => center = value;
         }
 
-        public Texture2D Texture => throw new NotImplementedException();
+        public Texture2D Texture
+        {
+            get => spriteTexture;
+        }
 
         public void Draw()
         {
-            throw new NotImplementedException();
+            
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
 
             spriteBatch.Begin();
@@ -86,7 +89,7 @@ namespace cse3902.Sprites.EnemySprites
 
         public void Erase()
         {
-            throw new NotImplementedException();
+            spriteTexture.Dispose();
         }
 
         public void Update(GameTime gameTime)
