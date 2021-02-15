@@ -12,7 +12,7 @@ namespace cse3902.Entities.Enemies
         
        
         
-        private EnemyStateMachine aquamentusStateMachine;
+        private AquamentusStateMachine aquamentusStateMachine;
         private readonly Game1 game;
 
         private Vector2 direction;
@@ -24,7 +24,7 @@ namespace cse3902.Entities.Enemies
             Texture2D linkTexture = game.Content.Load<Texture2D>("aquamentus");
             centerPosition = new Vector2(200, 300);
             aquamentusSprite = new AquamentusSprite(game.spriteBatch, linkTexture, 3, 3, centerPosition);
-            aquamentusStateMachine = new EnemyStateMachine(aquamentusSprite);
+            aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite);
 
 
         }
@@ -39,7 +39,7 @@ namespace cse3902.Entities.Enemies
         }
         public void ChangeDirection(Vector2 direction)
         {
-
+            
         }
         public void TakeDamage()
         {

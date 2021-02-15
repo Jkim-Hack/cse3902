@@ -4,11 +4,13 @@ using cse3902.Interfaces;
 
 namespace cse3902.Entities {
 
-    public class EnemyStateMachine : IEntityStateMachine
+    public class AquamentusStateMachine : IEntityStateMachine
     {
-        public EnemyStateMachine(ISprite enemySprite)
-        {
+        private ISprite enemySprite;
 
+        public AquamentusStateMachine(ISprite enemySprite)
+        {
+            this.enemySprite = enemySprite;
         }
 
         public void CycleWeapon(int dir)
@@ -19,7 +21,7 @@ namespace cse3902.Entities {
 
         public void ChangeDirection(Vector2 newDirection)
         {
-            //TODO: will implement after enemy spriting is done
+            //enemySprite.
         }
     }
 }
