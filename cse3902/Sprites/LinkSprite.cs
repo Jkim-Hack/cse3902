@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,25 +15,30 @@ namespace cse3902.Sprites
             UpFacing = 4,
             DownFacing = 6,
             ItemLeft = 8,
-            ItemRight = 10,
-            ItemUp = 12,
-            ItemDown = 14
+            ItemRight = 9,
+            ItemUp = 11,
+            ItemDown = 10
         };
+        //this is an idea
+        //private Dictionary<FrameIndex, Rectangle[]> frameSets;
 
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
  	    private Vector2 center;
         private Vector2 startingPosition;
+        //private LinkSword weapon
 
-        private int columns;
 	    private int currentFrame;
         private int totalFrames;
         private Rectangle[] frames;
         private int frameWidth;
         private int frameHeight;
-
         private int startingFrameIndex;
         private int endingFrameIndex;
+        private bool spriteLock;
+
+
+        private Rectangle[] currentFrameSet;
 
         private const float delay = 0.2f;
         private float remainingDelay;
@@ -42,8 +48,11 @@ namespace cse3902.Sprites
             this.spriteBatch = spriteBatch;
 	        spriteTexture = texture;
             remainingDelay = delay;
-            
-	        this.columns = columns;
+
+            distributeFrames(columns);
+            //idea instead of starting and ending indexes
+            //generateFrameSets();
+
 	        totalFrames = rows * columns;
             currentFrame = 0;
             startingFrameIndex = (int)FrameIndex.RightFacing;
@@ -51,14 +60,14 @@ namespace cse3902.Sprites
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
             frames = new Rectangle[totalFrames];
+            spriteLock = false;
             
 	        this.startingPosition = startingPosition;
             center = startingPosition;
             
-	        distributeFrames();
 	    }
 
-        private void distributeFrames()
+        private void distributeFrames(int columns)
         {
             for (int i = 0; i < totalFrames; i++) { 
 		        int row = (int)((float)i / (float)columns);
@@ -66,6 +75,17 @@ namespace cse3902.Sprites
                 frames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
 	        }
         }
+
+        /*Idea instead of currentframeindex and endingFrameIndex
+        private void generateFrameSets()
+        {
+            frameSets = new Dictionary<FrameIndex, Rectangle[]>()
+            {
+                { FrameIndex.LeftFacing, new Rectangle[] {frames[0] }},
+                { FrameIndex.LeftRunning, new Rectangle[] { frames[0], frames[1] } },
+                { FrameIndex.LeftRunning, new Rectangle[] { frames[0], frames[1] } }
+            };
+        }*/
 
         public void Draw()
         {
@@ -78,17 +98,27 @@ namespace cse3902.Sprites
 
         public void Update(GameTime gameTime)
         {
-            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            var timer = (float) gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
+            if (spriteLock)
+            {
+                remainingDelay = delay;
+            }
 
             if (remainingDelay <= 0)
             {
-		        currentFrame++;
-		        if (currentFrame == endingFrameIndex) {
-			        currentFrame = startingFrameIndex;
-		        }
-                remainingDelay = delay;
+                advanceFrame();
             }
+        }
+
+        public void advanceFrame()
+        {
+            currentFrame++;
+            if (currentFrame == endingFrameIndex)
+            {
+                currentFrame = startingFrameIndex;
+            }
+            remainingDelay = delay;
         }
 
         public void Erase()
@@ -122,9 +152,34 @@ namespace cse3902.Sprites
             get => startingFrameIndex;
             set
             {
-                startingFrameIndex = value;
-		        endingFrameIndex = value + 2;
+                if (startingFrameIndex != value)
+                {
+
+                    remainingDelay = delay;
+                    startingFrameIndex = value;
+                    if (value > 7)
+                    {
+                        endingFrameIndex = value + 2;
+                    }
+                    else
+                    {
+                        endingFrameIndex = value + 1;
+                    }
+                }
             }
+        }
+        
+        public float RemainingDelay
+        {
+            get => this.remainingDelay;
+            set => remainingDelay = value;
+
+        }
+        public bool SpriteLock
+        {
+            get => this.spriteLock;
+            set => spriteLock = value;
+
         }
 
     }
