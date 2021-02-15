@@ -9,6 +9,7 @@ namespace cse3902.Entities {
     {
         private AquamentusSprite aquamentusSprite;
 
+
         public AquamentusStateMachine(AquamentusSprite aquamentusSprite)
         {
             this.aquamentusSprite = this.aquamentusSprite;
