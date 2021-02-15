@@ -16,20 +16,16 @@ namespace cse3902.Entities
         private LinkStateMachine linkStateMachine;
 	    private readonly Game1 game;
 
-        private Vector2 direction;
-        private float speed;
-        private Vector2 centerPosition;
 
 	    public Link(Game1 game)
         {
             this.game = game;
             currentItemIndex = 0;
+            // TODO Add this into sprite factory
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
-            centerPosition = new Vector2(50, 200);
-            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 3, 3, centerPosition);
-            linkStateMachine = new LinkStateMachine(linkSprite);
-            direction = new Vector2(0,0);
-            speed = 0.0f;
+            Vector2 centerPosition = new Vector2(50, 200);
+            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 9, 2, centerPosition);
+            linkStateMachine = new LinkStateMachine(linkSprite, centerPosition);
         }
 
         public Rectangle Bounds 
@@ -39,6 +35,7 @@ namespace cse3902.Entities
 
         public void Attack()
         {
+
             linkStateMachine.Attack();
             // TODO: Add Item damages here
             // TODO: Add collision detection here
@@ -47,26 +44,7 @@ namespace cse3902.Entities
 
         public void ChangeDirection(Vector2 direction)
         {
-            /*TODO: this cannot stay.  You are assuming that all commands will
-             * change direction, while sometimes they wont, at least not immediately (like currently attacking) */
-            this.direction = direction;
-  
-            if (direction.X < 0)
-            {
-                linkStateMachine.FaceLeft();
-            }
-            else if (direction.X > 0)
-            {
-                linkStateMachine.FaceRight();
-            }
-            else if (direction.Y > 0)
-            {
-                linkStateMachine.FaceUp();
-            }
-            else if (direction.Y < 0)
-            {
-                linkStateMachine.FaceDown();
-            } 
+            linkStateMachine.ChangeDirection(direction);
 	    }        
 
         public void Die()
@@ -79,40 +57,29 @@ namespace cse3902.Entities
             // TODO: Implement once collision is available
         }
         
-        //Add a public void Move or Utilize the state machine??
 
         public void Update(GameTime gameTime)
         {
-            //TODO: what should update animation stage for items and attacking
-            linkSprite.Update(gameTime);
-            //TODO: What if he is not moving??
-	        centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            linkStateMachine.Update(gameTime);
         }
+        
+
 
         public Vector2 Direction
         {
-            get => this.direction;
-            set
-            {
-                this.direction = value;
-                ChangeDirection(value);
-            }
+            get => linkStateMachine.Direction;
         }
 
         public float Speed
         {
-            get => this.speed;
-            set => this.speed = value;
+            get => linkStateMachine.Speed;
+            set => linkStateMachine.Speed = value;
         }
         
 	    public Vector2 CenterPosition
         {
-            get => this.centerPosition;
-            set
-	        {
-                this.linkSprite.Center = value;
-                this.centerPosition = value;
-            }
+            get => linkStateMachine.CenterPosition;
+            set => linkStateMachine.CenterPosition = value;
         }
     }
 }
