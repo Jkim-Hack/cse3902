@@ -11,5 +11,6 @@ namespace cse3902.Entities
         public void TakeDamage();
         public void Die();
         public void Update(GameTime gameTime);
+        public void Draw();
     }
 }
