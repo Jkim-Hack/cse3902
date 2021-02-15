@@ -9,14 +9,13 @@ namespace cse3902.Entities {
     public class AquamentusStateMachine : IEntityStateMachine
     {
         private AquamentusSprite aquamentusSprite;
-        private FireballSprite fireball1;
-        private FireballSprite fireball2;
-        private FireballSprite fireball3;
+        
 
 
         public AquamentusStateMachine(AquamentusSprite aquamentusSprite)
         {
-            this.aquamentusSprite = this.aquamentusSprite;
+            this.aquamentusSprite = aquamentusSprite;
+            
         }
 
         public void CycleWeapon(int dir)
@@ -47,7 +46,7 @@ namespace cse3902.Entities {
 
         public void Attack()
         {
-
+            aquamentusSprite.IsAttacking = true;
         }
     }
 }

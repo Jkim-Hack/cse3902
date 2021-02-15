@@ -29,7 +29,7 @@ namespace cse3902.Sprites
 
         Texture2D ISprite.Texture => throw new NotImplementedException();
 
-        void ISprite.Draw()
+        public void Draw()
         {
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, spriteTexture.Width, spriteTexture.Height);
             Rectangle Source = new Rectangle(spriteTexture.Width, spriteTexture.Height, spriteTexture.Width, spriteTexture.Height);
@@ -39,12 +39,12 @@ namespace cse3902.Sprites
             spriteBatch.End();
         }
 
-        void ISprite.Erase()
+        public void Erase()
         {
             spriteTexture.Dispose();
         }
 
-        void ISprite.Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             //may need to just be = instead of +=
             center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
