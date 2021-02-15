@@ -12,7 +12,7 @@ namespace cse3902.Entities.Enemies
         
        
         
-        private EnemyStateMachine enemyStateMachine;
+        private EnemyStateMachine aquamentusStateMachine;
         private readonly Game1 game;
 
         private Vector2 direction;
@@ -23,8 +23,10 @@ namespace cse3902.Entities.Enemies
             this.game = game;
             Texture2D linkTexture = game.Content.Load<Texture2D>("aquamentus");
             centerPosition = new Vector2(200, 300);
-            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 3, 3, centerPosition);
-            linkStateMachine = new LinkStateMachine(linkSprite);
+            aquamentusSprite = new AquamentusSprite(game.spriteBatch, linkTexture, 3, 3, centerPosition);
+            aquamentusStateMachine = new EnemyStateMachine(aquamentusSprite);
+
+
         }
 
         public Rectangle Bounds
