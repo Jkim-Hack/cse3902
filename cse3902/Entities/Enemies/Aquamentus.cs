@@ -8,14 +8,23 @@ namespace cse3902.Entities.Enemies
     {
         private AquamentusSprite aquamentusSprite;
 
-        public Aquamentus()
+        
+       
+        
+        private EnemyStateMachine enemyStateMachine;
+        private readonly Game1 game;
+
+        private Vector2 direction;
+        private Vector2 centerPosition;
+
+        public Aquamentus(Game1 game)
         {
+
         }
 
         public Rectangle Bounds
         {
-            get => throw new NotImplementedException();
-            //get => aquamentusSprite.Texture.Bounds;
+            get => aquamentusSprite.Texture.Bounds;
         }
         public void Attack()
         {

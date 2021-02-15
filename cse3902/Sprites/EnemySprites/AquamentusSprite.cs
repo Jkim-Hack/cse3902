@@ -7,11 +7,24 @@ namespace cse3902.Sprites.EnemySprites
 {
     public class AquamentusSprite: ISprite
     {
-        public AquamentusSprite()
+
+        public enum FrameIndex
         {
+            LeftFacing = 0,
+            RightFacing = 2,
+            UpFacing = 4,
+            DownFacing = 6
+        };
+
+        public AquamentusSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
+        {
+
+
         }
 
+        // I question the need for this vector
         public Vector2 StartingPosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public Vector2 Center { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Texture2D Texture => throw new NotImplementedException();
@@ -19,6 +32,7 @@ namespace cse3902.Sprites.EnemySprites
         public void Draw()
         {
             throw new NotImplementedException();
+            //Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
         }
 
         public void Erase()

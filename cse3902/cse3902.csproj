@@ -39,4 +39,7 @@
     <Folder Include="Entities\Enemies\" />
     <Folder Include="Sprites\EnemySprites\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="**/*" />
+  </ItemGroup>
 </Project>
