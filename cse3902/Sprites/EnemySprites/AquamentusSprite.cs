@@ -64,18 +64,7 @@ namespace cse3902.Sprites.EnemySprites
             }
         }
 
-        // I question the need for this vector
-        public Vector2 StartingPosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public Vector2 Center {
-            get => center;
-            set => center = value;
-        }
-
-        public Texture2D Texture
-        {
-            get => spriteTexture;
-        }
+       
 
         public void Draw()
         {
@@ -105,6 +94,30 @@ namespace cse3902.Sprites.EnemySprites
                     currentFrame = startingFrameIndex;
                 }
                 remainingDelay = delay;
+            }
+        }
+
+        // I question the need for this vector
+        public Vector2 StartingPosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public Vector2 Center
+        {
+            get => center;
+            set => center = value;
+        }
+
+        public Texture2D Texture
+        {
+            get => spriteTexture;
+        }
+
+        public int StartingFrameIndex
+        {
+            get => startingFrameIndex;
+            set
+            {
+                startingFrameIndex = value;
+                endingFrameIndex = value + 2;
             }
         }
     }

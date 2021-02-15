@@ -35,11 +35,11 @@ namespace cse3902.Entities.Enemies
         }
         public void Attack()
         {
-
+            this.aquamentusStateMachine.Attack();
         }
         public void ChangeDirection(Vector2 direction)
         {
-            
+            this.aquamentusStateMachine.ChangeDirection(direction);
         }
         public void TakeDamage()
         {
@@ -47,7 +47,8 @@ namespace cse3902.Entities.Enemies
         }
         public void Die()
         {
-
+            //TODO: make the state machine handle this
+            this.aquamentusSprite.Erase();
         }
         public void Update(GameTime gameTime)
         {

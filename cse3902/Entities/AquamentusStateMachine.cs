@@ -1,16 +1,17 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
+using cse3902.Sprites.EnemySprites;
 
 namespace cse3902.Entities {
 
     public class AquamentusStateMachine : IEntityStateMachine
     {
-        private ISprite enemySprite;
+        private AquamentusSprite aquamentusSprite;
 
-        public AquamentusStateMachine(ISprite enemySprite)
+        public AquamentusStateMachine(AquamentusSprite aquamentusSprite)
         {
-            this.enemySprite = enemySprite;
+            this.aquamentusSprite = this.aquamentusSprite;
         }
 
         public void CycleWeapon(int dir)
@@ -21,7 +22,27 @@ namespace cse3902.Entities {
 
         public void ChangeDirection(Vector2 newDirection)
         {
-            //enemySprite.
+            if (newDirection.X > 0)
+            {
+                aquamentusSprite.StartingFrameIndex = (int)AquamentusSprite.FrameIndex.RightFacing;
+            } else
+            {
+                aquamentusSprite.StartingFrameIndex = (int)AquamentusSprite.FrameIndex.LeftFacing;
+            }
+
+
+        }
+
+        //TODO: takedamage and attack should probably be IEntity methods
+
+        public void TakeDamage()
+        {
+
+        }
+
+        public void Attack()
+        {
+
         }
     }
 }
