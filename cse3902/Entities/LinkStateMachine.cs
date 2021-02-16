@@ -28,7 +28,7 @@ namespace cse3902.Entities {
             this.centerPosition = centerPosition;
             // TODO: Add default weapon once weapon items are done
 	        mode = LinkMode.Still;
-            currDirection = new Vector2(0, 0);
+            currDirection = new Vector2(1, 0);
             speed = 1.0f;
             this.linkSprite = linkSprite;
             health = 10;
@@ -40,12 +40,16 @@ namespace cse3902.Entities {
             /* No need to update sprite if currently attacking */
             if (mode == LinkMode.Attack) return;
 
-            currDirection = newDirection;
             // TODO: Update sprite direction here
             if (newDirection.X == 0 && newDirection.Y == 0)
-                mode = LinkMode.Still;
+            {
+		        mode = LinkMode.Still;
+            }
             else
+            {
+			    currDirection = newDirection;
                 mode = LinkMode.Moving;
+            }
         }
 
         private void onSpriteAnimationComplete() 
@@ -85,7 +89,6 @@ namespace cse3902.Entities {
                 Vector2 offset = (spriteSize * currDirection) / 2;
                 Vector2 startingPosition = offset + centerPosition; 
 			    // TODO: Spawn/use weapon here
-		        currDirection = Vector2.Zero;
             }
         }
 
