@@ -24,11 +24,25 @@ namespace cse3902.Entities
         {
             if (newDirection.X > 0)
             {
-                wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.RightFacing;
+                if (newDirection.Y > 0)
+                {
+                    wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.RightUpFacing;
+                } else
+                {
+                    wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.RightDownFacing;
+                }
+                
             }
             else
             {
-                wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.LeftFacing;
+                if (newDirection.Y > 0)
+                {
+                    wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.LeftUpFacing;
+                }
+                else
+                {
+                    wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.LeftDownFacing;
+                }
             }
 
 
