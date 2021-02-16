@@ -2,17 +2,20 @@
 using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
 using cse3902.Sprites.EnemySprites;
+using cse3902.Sprites;
 
 namespace cse3902.Entities {
 
     public class AquamentusStateMachine : IEntityStateMachine
     {
         private AquamentusSprite aquamentusSprite;
+        
 
 
         public AquamentusStateMachine(AquamentusSprite aquamentusSprite)
         {
-            this.aquamentusSprite = this.aquamentusSprite;
+            this.aquamentusSprite = aquamentusSprite;
+            
         }
 
         public void CycleWeapon(int dir)
@@ -43,7 +46,7 @@ namespace cse3902.Entities {
 
         public void Attack()
         {
-
+            aquamentusSprite.IsAttacking = true;
         }
     }
 }
