@@ -7,8 +7,8 @@ namespace cse3902.Entities.Enemies
 {
     public class Stalfos
     {
-
-        //private StalfosStateMachine aquamentusStateMachine;
+        private StalfosSprite stalfosSprite;
+        private StalfosStateMachine stalfosStateMachine;
         private readonly Game1 game;
 
         private Vector2 direction;
@@ -20,9 +20,11 @@ namespace cse3902.Entities.Enemies
             this.game = game;
             Texture2D stalfosTexture = game.Content.Load<Texture2D>("aquamentus");
             centerPosition = new Vector2(200, 300);
-            aquamentusSprite = new AquamentusSprite(game.spriteBatch, stalfosTexture, 2, 2, centerPosition);
-            aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite);
+            stalfosSprite = new StalfosSprite(game.spriteBatch, stalfosTexture, 2, 2, centerPosition);
+            stalfosStateMachine = new StalfosStateMachine(stalfosSprite);
             speed = 0.0f;
         }
+
+
     }
 }
