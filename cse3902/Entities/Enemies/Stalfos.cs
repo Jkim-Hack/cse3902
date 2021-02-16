@@ -19,7 +19,7 @@ namespace cse3902.Entities.Enemies
         {
             this.game = game;
             Texture2D stalfosTexture = game.Content.Load<Texture2D>("stalfos");
-            centerPosition = new Vector2(200, 300);
+            centerPosition = new Vector2(300, 400);
 
             //stalfos sprite sheet is 1 row, 2 columns
             stalfosSprite = new StalfosSprite(game.spriteBatch, stalfosTexture, 1, 2, centerPosition);
