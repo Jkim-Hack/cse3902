@@ -58,7 +58,6 @@ namespace cse3902.Entities.Enemies
             centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
-        //TODO: Ientity should require clases to implement this I think
         public void Draw()
         {
             gelSprite.Draw();

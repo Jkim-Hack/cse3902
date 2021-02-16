@@ -31,12 +31,13 @@ namespace cse3902.SpriteFactory
 
         public ISprite CreateOldManSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            return new NPCSprite(spriteBatch, npcTextures["oldman"], startingPos);
+            //TODO: npc class is not currently in master for some reason, needs to be fixed
+            //return new NPCSprite(spriteBatch, npcTextures["oldman"], startingPos);
         }
 
         public ISprite CreateMedicineWomanSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            return new NPCSprite(spriteBatch, npcTextures["medicinewoman"], startingPos);
+            //return new NPCSprite(spriteBatch, npcTextures["medicinewoman"], startingPos);
         }
     }
 }
