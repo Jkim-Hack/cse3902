@@ -22,9 +22,9 @@ namespace cse3902.Entities.Enemies
         public Aquamentus(Game1 game)
         {
             this.game = game;
-            Texture2D linkTexture = game.Content.Load<Texture2D>("aquamentus");
+            Texture2D aquamentusTexture = game.Content.Load<Texture2D>("aquamentus");
             centerPosition = new Vector2(200, 300);
-            aquamentusSprite = new AquamentusSprite(game.spriteBatch, linkTexture, 2, 2, centerPosition);
+            aquamentusSprite = new AquamentusSprite(game.spriteBatch, aquamentusTexture, 2, 2, centerPosition);
             aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite);
             speed = 0.0f;
 
