@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Sprites
 {
@@ -96,26 +97,15 @@ namespace cse3902.Sprites
 	        spriteBatch.End(); 
         }
 
-        public void Update(GameTime gameTime)
+        
+	    public void Update(GameTime gameTime, onAnimCompleteCallback animCompleteCallback)
         {
             var timer = (float) gameTime.ElapsedGameTime.TotalSeconds;
-            remainingDelay -= timer;
-            if (spriteLock)
-            {
-                remainingDelay = delay;
-            }
-
-            if (remainingDelay <= 0)
-            {
-                advanceFrame();
-            }
-        }
-
-        public void advanceFrame()
-        {
-            currentFrame++;
+            
+	        currentFrame++;
             if (currentFrame == endingFrameIndex)
             {
+                animCompleteCallback();
                 currentFrame = startingFrameIndex;
             }
             remainingDelay = delay;
@@ -168,19 +158,10 @@ namespace cse3902.Sprites
                 }
             }
         }
-        
-        public float RemainingDelay
+      
+        public Rectangle Bounds
         {
-            get => this.remainingDelay;
-            set => remainingDelay = value;
-
+            get => spriteTexture.Bounds;
         }
-        public bool SpriteLock
-        {
-            get => this.spriteLock;
-            set => spriteLock = value;
-
-        }
-
     }
 }
