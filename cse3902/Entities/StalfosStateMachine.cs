@@ -38,7 +38,6 @@ namespace cse3902.Entities
 
         }
 
-        //TODO: takedamage and attack should probably be IEntity methods
 
         public void TakeDamage()
         {

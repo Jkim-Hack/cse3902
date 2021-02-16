@@ -8,12 +8,7 @@ namespace cse3902.Sprites.EnemySprites
     public class StalfosSprite: ISprite
     {
         
-        public enum FrameIndex
-        {
-            RightFacing = 0,
-            LeftFacing = 2
-
-        };
+        
 
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -43,8 +38,10 @@ namespace cse3902.Sprites.EnemySprites
 
             totalFrames = rows * columns;
             currentFrame = 0;
-            startingFrameIndex = (int)FrameIndex.LeftFacing;
-            endingFrameIndex = startingFrameIndex + 2;
+
+            startingFrameIndex = 0;
+            endingFrameIndex = 1;
+
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
             frames = new Rectangle[totalFrames];

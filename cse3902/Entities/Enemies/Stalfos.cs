@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Entities.Enemies
 {
-    public class Stalfos
+    public class Stalfos: IEntity
     {
         private StalfosSprite stalfosSprite;
         private StalfosStateMachine stalfosStateMachine;
@@ -18,11 +18,50 @@ namespace cse3902.Entities.Enemies
         public Stalfos(Game1 game)
         {
             this.game = game;
-            Texture2D stalfosTexture = game.Content.Load<Texture2D>("aquamentus");
+            Texture2D stalfosTexture = game.Content.Load<Texture2D>("stalfos");
             centerPosition = new Vector2(200, 300);
-            stalfosSprite = new StalfosSprite(game.spriteBatch, stalfosTexture, 2, 2, centerPosition);
+
+            //stalfos sprite sheet is 1 row, 2 columns
+            stalfosSprite = new StalfosSprite(game.spriteBatch, stalfosTexture, 1, 2, centerPosition);
             stalfosStateMachine = new StalfosStateMachine(stalfosSprite);
             speed = 0.0f;
+        }
+
+        public Rectangle Bounds
+        {
+            get => stalfosSprite.Texture.Bounds;
+        }
+
+        public void Attack()
+        {
+            this.stalfosStateMachine.Attack();
+        }
+
+        public void ChangeDirection(Vector2 direction)
+        {
+            this.stalfosStateMachine.ChangeDirection(direction);
+        }
+
+        public void TakeDamage()
+        {
+
+        }
+
+        public void Die()
+        {
+            //TODO: make the state machine handle this
+            this.stalfosSprite.Erase();
+        }
+        public void Update(GameTime gameTime)
+        {
+            stalfosSprite.Update(gameTime);
+            centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        //TODO: Ientity should require clases to implement this I think
+        public void Draw()
+        {
+            stalfosSprite.Draw();
         }
 
 
