@@ -68,6 +68,11 @@ namespace cse3902.Entities
 	        centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
+        public void Draw()
+        {
+            linkSprite.Draw();
+        }
+
         public Vector2 Direction
         {
             get => this.direction;
