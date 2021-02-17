@@ -118,6 +118,7 @@ namespace cse3902.Sprites
 
             if (remainingDelay <= 0)
             {
+                remainingDelay = delay;
                 frameIndex++;
                 if (currentFrameSet.Length <= frameIndex)
                 {
@@ -132,6 +133,14 @@ namespace cse3902.Sprites
                 }
                 currentFrame = frames[frameNum];
             }
+        }
+
+        public void setFrameSet(FrameIndex index)
+        {
+            remainingDelay = delay;
+            frameIndex = 0;
+            currentFrameSet = frameSets[index];
+            currentFrame = frames[frameIndex];
         }
 
         public void Erase()

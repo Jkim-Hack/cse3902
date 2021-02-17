@@ -25,7 +25,7 @@ namespace cse3902.Entities
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
             Vector2 centerPosition = new Vector2(50, 200);
             linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 9, 2, centerPosition);
-            linkStateMachine = new LinkStateMachine(linkSprite, centerPosition);
+            linkStateMachine = new LinkStateMachine(linkSprite, centerPosition, game.spriteBatch);
         }
 
         public Rectangle Bounds 

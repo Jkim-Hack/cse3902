@@ -3,6 +3,8 @@ using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using cse3902.Sprites;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
+using cse3902.Items;
 
 namespace cse3902.Entities {
 
@@ -14,26 +16,33 @@ namespace cse3902.Entities {
         private LinkMode mode;
 
         private LinkSprite linkSprite;
+        private SpriteBatch spriteBatch;
         private Vector2 centerPosition;
         private Vector2 currDirection;
         
         private float speed;
+        private int currWeaponIndex;
+        private ISprite weapon;
         private int currItemIndex;
-        private List<IItem> items;
+        private List<ISprite> items;
 
+        private const int healthMax = 10;
         private int health;
 
-        public LinkStateMachine(LinkSprite linkSprite, Vector2 centerPosition) 
+        public LinkStateMachine(LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch) 
 	    {
             this.centerPosition = centerPosition;
             // TODO: Add default weapon once weapon items are done
 	        mode = LinkMode.Still;
             currDirection = new Vector2(1, 0);
             speed = 1.0f;
+            this.spriteBatch = spriteBatch;
             this.linkSprite = linkSprite;
             linkSprite.Callback = onSpriteAnimationComplete;
-            health = 10;
+            health = healthMax;
+            currWeaponIndex = 0;
             currItemIndex = 0;
+            weapon = null;
         }
 
         public void ChangeDirection(Vector2 newDirection)
@@ -45,11 +54,43 @@ namespace cse3902.Entities {
             if (newDirection.X == 0 && newDirection.Y == 0)
             {
 		        mode = LinkMode.Still;
+                if (currDirection.X > 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.LeftFacing);
+                }
+                if (currDirection.X < 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.RightFacing);
+                }
+                if (currDirection.Y > 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.UpFacing);
+                }
+                if (currDirection.Y < 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.DownFacing);
+                }
             }
             else
             {
 			    currDirection = newDirection;
                 mode = LinkMode.Moving;
+                if(newDirection.X > 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.LeftRunning);
+                }
+                if (newDirection.X < 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.RightRunning);
+                }
+                if (newDirection.Y > 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.UpRunning);
+                }
+                if (newDirection.Y < 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.DownRunning);
+                }
             }
         }
 
@@ -58,6 +99,8 @@ namespace cse3902.Entities {
             if (mode == LinkMode.Attack)
             {
                 mode = LinkMode.Still;
+                weapon = null;
+                ChangeDirection(new Vector2(0, 0));
             }
         }
 
@@ -74,9 +117,9 @@ namespace cse3902.Entities {
                 // TODO: Draw Weapon
                
             }
-            if(items.Count > 0)
+            foreach (ISprite sprite in items)
             {
-                // TODO: Draw projectiles
+                sprite.Draw();
             }
             linkSprite.Draw();
         }
@@ -88,8 +131,24 @@ namespace cse3902.Entities {
                 mode = LinkMode.Attack;
                 Vector2 spriteSize = linkSprite.Bounds.Size.ToVector2();
                 Vector2 offset = (spriteSize * currDirection) / 2;
-                Vector2 startingPosition = offset + centerPosition; 
-			    // TODO: Spawn/use weapon here
+                Vector2 startingPosition = offset + centerPosition;
+                weapon = ItemSpriteFactory.Instance.CreateSwordWeapon(spriteBatch, CenterPosition, currDirection, currWeaponIndex);
+                if (currDirection.X > 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.LeftAttack);
+                }
+                if (currDirection.X < 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.RightAttack);
+                }
+                if (currDirection.Y > 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.UpAttack);
+                }
+                if (currDirection.Y < 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.DownAttack);
+                }
             }
         }
 

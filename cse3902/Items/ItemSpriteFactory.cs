@@ -116,9 +116,9 @@ namespace cse3902.Items
             return new SwordItem(spriteBatch, swordItems, startingPos, dir);
         }
 
-        public ISprite CreateSwordWeapon(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
+        public ISprite CreateSwordWeapon(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir, int swordType)
         {
-            return new SwordItem(spriteBatch, swordWeapons, startingPos, dir);
+            return new SwordWeapon(spriteBatch, swordWeapons, startingPos, dir, swordType);
         }
 
         public ISprite CreateTriforceItem(SpriteBatch spriteBatch, Vector2 startingPos)
