@@ -126,7 +126,7 @@ namespace cse3902.Sprites
                     callback();
                 }
                 int frameNum = currentFrameSet[frameIndex];
-                if (damage > 0)
+                if (damage >= 0)
                 {
                     damage = (damage + 1) % 4;
                     frameNum += damage * damageOffset;
@@ -174,6 +174,16 @@ namespace cse3902.Sprites
             get => spriteTexture.Bounds;
         }
 
+        public bool Damaged
+        {
+            set
+            {  
+                if(value && damage < 0)
+                    this.damage = 0;
+                if (!value)
+                    this.damage = -1;
+            }
+        }
         public onAnimCompleteCallback Callback
         {
             set => callback = value;

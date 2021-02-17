@@ -12,7 +12,6 @@ namespace cse3902.Entities {
 
         private enum LinkMode { Still, Moving, Attack };
         
-	    private IItem currentWeapon;
         private LinkMode mode;
 
         private LinkSprite linkSprite;
@@ -28,11 +27,12 @@ namespace cse3902.Entities {
 
         private const int healthMax = 10;
         private int health;
+        private const double damageDelay = 5.0f;
+        private double remainingDamageDelay;
 
         public LinkStateMachine(LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch) 
 	    {
             this.centerPosition = centerPosition;
-            // TODO: Add default weapon once weapon items are done
 	        mode = LinkMode.Still;
             currDirection = new Vector2(1, 0);
             speed = 1.0f;
@@ -43,6 +43,7 @@ namespace cse3902.Entities {
             currWeaponIndex = 0;
             currItemIndex = 0;
             weapon = null;
+            remainingDamageDelay = 0;
         }
 
         public void ChangeDirection(Vector2 newDirection)
@@ -106,15 +107,23 @@ namespace cse3902.Entities {
 
 	    public void Update(GameTime gameTime)
         {
+            if (remainingDamageDelay > 0)
+            {
+                remainingDamageDelay -= gameTime.ElapsedGameTime.TotalSeconds;
+                if(remainingDamageDelay > 0)
+                {
+                    linkSprite.Damaged = false;
+                }
+            }
             CenterPosition += currDirection * speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
             linkSprite.Update(gameTime);
         }
 
         public void Draw()
         {
-            if(mode == LinkMode.Attack && currentWeapon != null)
+            if(mode == LinkMode.Attack && weapon != null)
             {
-                // TODO: Draw Weapon
+                weapon.Draw();
                
             }
             foreach (ISprite sprite in items)
@@ -164,7 +173,9 @@ namespace cse3902.Entities {
 
         public void TakeDamage(int damage)
         {
-
+            linkSprite.Damaged = true;
+            health -= damage;
+            remainingDamageDelay = damageDelay;
         }
 
         public void CycleWeapon(int dir)
