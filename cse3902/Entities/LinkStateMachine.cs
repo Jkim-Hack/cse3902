@@ -22,8 +22,8 @@ namespace cse3902.Entities {
         private List<IItem> items;
 
         private int health;
-        
-	    public LinkStateMachine(LinkSprite linkSprite, Vector2 centerPosition) 
+
+        public LinkStateMachine(LinkSprite linkSprite, Vector2 centerPosition) 
 	    {
             this.centerPosition = centerPosition;
             // TODO: Add default weapon once weapon items are done
@@ -31,6 +31,7 @@ namespace cse3902.Entities {
             currDirection = new Vector2(1, 0);
             speed = 1.0f;
             this.linkSprite = linkSprite;
+            linkSprite.Callback = onSpriteAnimationComplete;
             health = 10;
             currItemIndex = 0;
         }
@@ -63,7 +64,7 @@ namespace cse3902.Entities {
 	    public void Update(GameTime gameTime)
         {
             CenterPosition += currDirection * speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
-            linkSprite.Update(gameTime, onSpriteAnimationComplete);
+            linkSprite.Update(gameTime);
         }
 
         public void Draw()

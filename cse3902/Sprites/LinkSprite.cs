@@ -42,6 +42,8 @@ namespace cse3902.Sprites
         private int damage;
 
         private int[] currentFrameSet;
+        public delegate void onAnimCompleteCallback();
+        private onAnimCompleteCallback callback;
 
         private const float delay = 0.2f;
         private float remainingDelay;
@@ -109,7 +111,7 @@ namespace cse3902.Sprites
         }
 
         
-	    public void Update(GameTime gameTime, onAnimCompleteCallback animCompleteCallback)
+	    public void Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
@@ -120,6 +122,7 @@ namespace cse3902.Sprites
                 if (currentFrameSet.Length <= frameIndex)
                 {
                     frameIndex = 0;
+                    callback();
                 }
                 int frameNum = currentFrameSet[frameIndex];
                 if (damage > 0)
@@ -155,6 +158,16 @@ namespace cse3902.Sprites
                 this.startingPosition = value;
                 this.center = value;
             }
+        }
+
+        public Rectangle Bounds
+        {
+            get => spriteTexture.Bounds;
+        }
+
+        public onAnimCompleteCallback Callback
+        {
+            set => callback = value;
         }
     }
 }
