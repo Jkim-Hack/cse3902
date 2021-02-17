@@ -1,6 +1,7 @@
 ﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static cse3902.Interfaces.ISprite;
 using System.Collections.Generic;
 
 namespace cse3902.Sprites
@@ -107,7 +108,8 @@ namespace cse3902.Sprites
             spriteBatch.End();
         }
 
-        public void Update(GameTime gameTime)
+        
+	    public void Update(GameTime gameTime, onAnimCompleteCallback animCompleteCallback)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;

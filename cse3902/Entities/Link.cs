@@ -14,7 +14,7 @@ namespace cse3902.Entities
 
 	    private LinkSprite linkSprite;
         private LinkStateMachine linkStateMachine;
-	    private readonly Game1 game;
+	    private Game1 game;
 
 
 	    public Link(Game1 game)
@@ -62,8 +62,11 @@ namespace cse3902.Entities
         {
             linkStateMachine.Update(gameTime);
         }
-        
 
+        public void Draw()
+        {
+            linkStateMachine.Draw();
+        }
 
         public Vector2 Direction
         {
