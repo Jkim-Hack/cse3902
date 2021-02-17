@@ -2,84 +2,206 @@
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using cse3902.Sprites;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
+using cse3902.Items;
 
 namespace cse3902.Entities {
 
     public class LinkStateMachine : IEntityStateMachine {
 
-        private int[] weapons;
-        private int currentWeapon;
-        private enum LinkDirection { Up, Down, Left, Right };
-        private LinkDirection direction;
+        private enum LinkMode { Still, Moving, Attack };
+        
+        private LinkMode mode;
 
         private LinkSprite linkSprite;
+        private SpriteBatch spriteBatch;
+        private Vector2 centerPosition;
+        private Vector2 currDirection;
+        
+        private float speed;
+        private int currWeaponIndex;
+        private ISprite weapon;
+        private int currItemIndex;
+        private List<ISprite> items;
 
-        public LinkStateMachine(LinkSprite linkSprite) {
+        private const int healthMax = 10;
+        private int health;
+        private const double damageDelay = 5.0f;
+        private double remainingDamageDelay;
 
-            currentWeapon = 0;
-            weapons = new int[] {0, 0, 0};
-            direction = LinkDirection.Right;
+        public LinkStateMachine(LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch) 
+	    {
+            this.centerPosition = centerPosition;
+	        mode = LinkMode.Still;
+            currDirection = new Vector2(1, 0);
+            speed = 1.0f;
+            this.spriteBatch = spriteBatch;
             this.linkSprite = linkSprite;
+            linkSprite.Callback = onSpriteAnimationComplete;
+            health = healthMax;
+            currWeaponIndex = 0;
+            currItemIndex = 0;
+            weapon = null;
+            remainingDamageDelay = 0;
         }
 
         public void ChangeDirection(Vector2 newDirection)
         {
-            if (newDirection.X < 0)
+            /* No need to update sprite if currently attacking */
+            if (mode == LinkMode.Attack) return;
+
+            // TODO: Update sprite direction here
+            if (newDirection.X == 0 && newDirection.Y == 0)
             {
-                this.FaceLeft();
+		        mode = LinkMode.Still;
+                if (currDirection.X > 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.LeftFacing);
+                }
+                if (currDirection.X < 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.RightFacing);
+                }
+                if (currDirection.Y > 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.UpFacing);
+                }
+                if (currDirection.Y < 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.DownFacing);
+                }
             }
-            else if (newDirection.X > 0)
+            else
             {
-                this.FaceRight();
+			    currDirection = newDirection;
+                mode = LinkMode.Moving;
+                if(newDirection.X > 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.LeftRunning);
+                }
+                if (newDirection.X < 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.RightRunning);
+                }
+                if (newDirection.Y > 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.UpRunning);
+                }
+                if (newDirection.Y < 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.DownRunning);
+                }
             }
-            else if (newDirection.Y > 0)
+        }
+
+        private void onSpriteAnimationComplete() 
+	    {
+            if (mode == LinkMode.Attack)
             {
-                this.FaceUp();
+                mode = LinkMode.Still;
+                weapon = null;
+                ChangeDirection(new Vector2(0, 0));
             }
-            else if (newDirection.Y < 0)
+        }
+
+	    public void Update(GameTime gameTime)
+        {
+            if (remainingDamageDelay > 0)
             {
-                this.FaceDown();
+                remainingDamageDelay -= gameTime.ElapsedGameTime.TotalSeconds;
+                if(remainingDamageDelay > 0)
+                {
+                    linkSprite.Damaged = false;
+                }
+            }
+            CenterPosition += currDirection * speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
+            linkSprite.Update(gameTime, onSpriteAnimationComplete);
+        }
+
+        public void Draw()
+        {
+            if(mode == LinkMode.Attack && weapon != null)
+            {
+                weapon.Draw();
+               
+            }
+            foreach (ISprite sprite in items)
+            {
+                sprite.Draw();
+            }
+            linkSprite.Draw();
+        }
+
+        public void Attack()
+        {
+            if (mode == LinkMode.Moving || mode == LinkMode.Still)
+            {
+                mode = LinkMode.Attack;
+                Vector2 spriteSize = linkSprite.Bounds.Size.ToVector2();
+                Vector2 offset = (spriteSize * currDirection) / 2;
+                Vector2 startingPosition = offset + centerPosition;
+                weapon = ItemSpriteFactory.Instance.CreateSwordWeapon(spriteBatch, CenterPosition, currDirection, currWeaponIndex);
+                if (currDirection.X > 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.LeftAttack);
+                }
+                if (currDirection.X < 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.RightAttack);
+                }
+                if (currDirection.Y > 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.UpAttack);
+                }
+                if (currDirection.Y < 0)
+                {
+                    linkSprite.setFrameSet(LinkSprite.FrameIndex.DownAttack);
+                }
             }
         }
 
-        private void FaceUp(){
-
-            /* No need to update sprite if current direction is already picked */
-            if (direction == LinkDirection.Up) return;
-
-            linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.UpFacing;
+        public void UseItem()
+        {
+            // TODO: Ask Smera how she wants to use items
         }
 
-        private void FaceDown(){
-
-            /* No need to update sprite if current direction is already picked */
-            if (direction == LinkDirection.Down) return;
-
-            linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.DownFacing;
+        public void ChangeItem(int index)
+        {
+            currItemIndex = index;
         }
 
-        private void FaceLeft(){
-
-            /* No need to update sprite if current direction is already picked */
-            if (direction == LinkDirection.Left) return;
-
-            linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.LeftFacing;
+        public void TakeDamage(int damage)
+        {
+            linkSprite.Damaged = true;
+            health -= damage;
+            remainingDamageDelay = damageDelay;
         }
 
-        private void FaceRight(){
-
-            /* No need to update sprite if current direction is already picked */
-            if (direction == LinkDirection.Right) return;
-
-            linkSprite.StartingFrameIndex = (int)LinkSprite.FrameIndex.RightFacing;
+        public void CycleWeapon(int dir)
+        {
+            throw new NotImplementedException();
         }
 
-        public void CycleWeapon(int dir){
-
-            currentWeapon = (currentWeapon + dir + 3) % 3;
-            
+        public Vector2 Direction
+        {
+            get => this.currDirection;
         }
 
-        
+        public float Speed
+        {
+            get => this.speed;
+            set => this.speed = value;
+        }
+
+        public Vector2 CenterPosition
+        {
+            get => this.centerPosition;
+            set
+            {
+                this.linkSprite.Center = value;
+                this.centerPosition = value;
+            }
+        }
     }
 }
