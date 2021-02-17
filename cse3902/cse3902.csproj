@@ -34,7 +34,6 @@
     <Folder Include="Commands\" />
     <Folder Include="Controllers\" />
     <Folder Include="Sprites\" />
-    <Folder Include="Items\" />
     <Folder Include="States\" />
   </ItemGroup>
 </Project>

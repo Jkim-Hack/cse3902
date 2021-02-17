@@ -21,6 +21,8 @@ namespace cse3902.Items
         private Texture2D triforce;
         private Texture2D key;
         private Texture2D map;
+        private Texture2D swordItems;
+        private Texture2D swordWeapons;
 
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
 
@@ -50,6 +52,8 @@ namespace cse3902.Items
             triforce = content.Load<Texture2D>("triforce");
             key = content.Load<Texture2D>("key");
             map = content.Load<Texture2D>("map");
+            swordItems = content.Load<Texture2D>("SwordItem");
+            swordWeapons = content.Load<Texture2D>("SwordAnimation");
         }
 
         public ISprite CreateArrowItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
@@ -109,7 +113,12 @@ namespace cse3902.Items
 
         public ISprite CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            return new SwordItem(spriteBatch, boomerang, startingPos, dir);
+            return new SwordItem(spriteBatch, swordItems, startingPos, dir);
+        }
+
+        public ISprite CreateSwordWeapon(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
+        {
+            return new SwordItem(spriteBatch, swordWeapons, startingPos, dir);
         }
 
         public ISprite CreateTriforceItem(SpriteBatch spriteBatch, Vector2 startingPos)
