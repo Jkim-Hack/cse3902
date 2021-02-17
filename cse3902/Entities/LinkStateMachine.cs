@@ -116,7 +116,7 @@ namespace cse3902.Entities {
                 }
             }
             CenterPosition += currDirection * speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
-            linkSprite.Update(gameTime);
+            linkSprite.Update(gameTime, onSpriteAnimationComplete);
         }
 
         public void Draw()

@@ -42,8 +42,6 @@ namespace cse3902.Sprites
         private int damage;
 
         private int[] currentFrameSet;
-        public delegate void onAnimCompleteCallback();
-        private onAnimCompleteCallback callback;
 
         private const float delay = 0.2f;
         private float remainingDelay;
@@ -111,7 +109,7 @@ namespace cse3902.Sprites
         }
 
         
-	    public void Update(GameTime gameTime)
+	    public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
@@ -123,7 +121,7 @@ namespace cse3902.Sprites
                 if (currentFrameSet.Length <= frameIndex)
                 {
                     frameIndex = 0;
-                    callback();
+                    animationCompleteCallback();
                 }
                 int frameNum = currentFrameSet[frameIndex];
                 if (damage >= 0)
