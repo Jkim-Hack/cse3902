@@ -1,4 +1,5 @@
-﻿using cse3902.Interfaces;
+using System;
+using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -156,6 +157,11 @@ namespace cse3902.Items
                     {
                         active = false;
                     }
+                    if (currentX > startingPosition.X + 50)
+                    {
+                        //currentX = 400;
+                        direction = Direction.negative;
+                    }
                 }
                 else
                 {
@@ -163,6 +169,11 @@ namespace cse3902.Items
                     if (currentX < 0)
                     {
                         active = false;
+                    }
+                    if (currentX < startingPosition.X)
+                    {
+                        //currentY = 400;
+                        direction = Direction.positive;
                     }
                 }
             }
@@ -175,6 +186,10 @@ namespace cse3902.Items
                     {
                         active = false;
                     }
+                    if (currentY > startingPosition.Y + 50)
+                    {
+                        direction = Direction.negative;
+                    }
                 }
                 else
                 {
@@ -182,6 +197,10 @@ namespace cse3902.Items
                     if (currentY < 0)
                     {
                         active = false;
+                    }
+                    if (currentY < startingPosition.Y)
+                    {
+                        direction = Direction.positive;
                     }
                 }
             }

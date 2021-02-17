@@ -23,7 +23,7 @@ namespace cse3902.Items
         private Texture2D map;
         private Texture2D swordItems;
         private Texture2D swordWeapons;
-
+        
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
 
         public static ItemSpriteFactory Instance
