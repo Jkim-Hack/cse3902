@@ -35,5 +35,6 @@
     <Folder Include="Controllers\" />
     <Folder Include="Sprites\" />
     <Folder Include="States\" />
+    <Folder Include="SpriteFactory\" />
   </ItemGroup>
 </Project>
