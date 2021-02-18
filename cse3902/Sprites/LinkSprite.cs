@@ -1,4 +1,3 @@
-﻿using System;
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -69,8 +68,6 @@ namespace cse3902.Sprites
 
             this.startingPosition = startingPosition;
             center = startingPosition;
-            
-	        distributeFrames();
         }
 
         private void distributeFrames(int columns)

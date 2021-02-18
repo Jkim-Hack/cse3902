@@ -16,9 +16,6 @@ namespace cse3902.Entities
         private LinkStateMachine linkStateMachine;
 	    private Game1 game;
 
-        private Vector2 direction;
-        private float speed;
-        private Vector2 centerPosition;
 
 	    public Link(Game1 game)
         {
@@ -47,8 +44,6 @@ namespace cse3902.Entities
 
         public void ChangeDirection(Vector2 direction)
         {
-            this.direction = direction;
-
             linkStateMachine.ChangeDirection(direction);
 	    }        
 

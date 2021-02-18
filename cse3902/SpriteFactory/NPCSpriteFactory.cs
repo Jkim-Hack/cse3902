@@ -40,6 +40,7 @@ namespace cse3902.SpriteFactory
         {
             return new NPCSprite(spriteBatch, npcTextures["medicinewoman"], startingPos);
         }
+        
         public ISprite CreateMerchantSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
             return new NPCSprite(spriteBatch, npcTextures["merchant"], startingPos);
