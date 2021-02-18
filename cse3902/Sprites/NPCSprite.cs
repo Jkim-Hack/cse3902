@@ -11,6 +11,7 @@ namespace cse3902.Sprites
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
  	    private Vector2 center;
+        private Vector2 startingPosition;
 
         private int frameWidth;
         private int frameHeight;
@@ -24,7 +25,8 @@ namespace cse3902.Sprites
             frameHeight = spriteTexture.Height;
             
             center = startingPosition;
-	    }
+            this.startingPosition = startingPosition;
+        }
 
         public void Draw()
         {
@@ -55,6 +57,13 @@ namespace cse3902.Sprites
         {
             get => spriteTexture;
         }
-        Vector2 ISprite.StartingPosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Vector2 StartingPosition
+        {
+            get => this.startingPosition;
+            set
+            {
+                this.startingPosition = value;
+                this.center = value;
+            }
+        }
     }
-}

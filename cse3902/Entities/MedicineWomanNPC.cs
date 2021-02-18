@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using cse3902.Interfaces;
+using cse3902.SpriteFactory;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +10,7 @@ namespace cse3902.Entities
 {
     class MedicineWomanNPC : IEntity
     {
-        private NPCSprite medicineWomanSprite;
+        private ISprite medicineWomanSprite;
 
         private readonly Game1 game;
 
@@ -21,8 +22,7 @@ namespace cse3902.Entities
         {
             this.game = game;
             centerPosition = new Vector2(100, 200);
-            medicineWomanSprite = new NPCSprite(game.spriteBatch, game.Content.Load<Texture2D>("Medicine Woman"), centerPosition);
-        }
+            medicineWomanSprite = NPCSpriteFactory.Instance.CreateMedicineWomanSprite(game.spriteBatch, centerPosition);
         public Rectangle Bounds
         {
             get => medicineWomanSprite.Texture.Bounds;

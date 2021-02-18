@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using cse3902.Entities;
 using cse3902.Entities.Enemies;
 using Microsoft.Xna.Framework;
+using cse3902.SpriteFactory;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
@@ -14,7 +15,6 @@ namespace cse3902.Items
         private List<IEntity> enpcs;
         private Game1 game;
         private int enpcIndex;
-        private int positionInSpriteList;
 
 
         public EnemyNPCHandler(Game1 thegame)
@@ -22,12 +22,12 @@ namespace cse3902.Items
             enpcs = new List<IEntity>();
             enpcIndex = 0;
             game = thegame;
-            positionInSpriteList = game.spriteList.Count;
-            LoadEntities();
         }
 
-        private void LoadEntities()
+        public void LoadContent()
         {
+            NPCSpriteFactory.Instance.LoadAllTextures(game.Content);
+
             enpcs.Add(new OldManNPC(game));
             enpcs.Add(new MedicineWomanNPC(game));
             enpcs.Add(new MerchantNPC(game));
@@ -60,6 +60,9 @@ namespace cse3902.Items
             enpcIndex--;
             if (enpcIndex == -1) enpcIndex = enpcs.Count - 1;
         }
-
+        public void Reset()
+        {
+            enpcIndex = 0;
+        }
     }
 }

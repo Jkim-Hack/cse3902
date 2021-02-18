@@ -22,11 +22,9 @@ namespace cse3902
         public List<ISprite> spriteList { get; set; }
         List<IController> controllerList;
 
-        private ItemHandler itemHandler;
+        public ItemHandler itemHandler { get; set; }
+        public EnemyNPCHandler enemyNPCHandler { get; set; }
 
-        private ISprite arrow;
-        private ISprite bomb;
-        
         IEntity player;
 
 
@@ -50,6 +48,7 @@ namespace cse3902
             controllerList.Add(new MouseController(this));
 
             itemHandler = new ItemHandler();
+            enemyNPCHandler = new EnemyNPCHandler(this);
 
             // Initialize sprite list
             spriteList = new List<ISprite>();
@@ -68,6 +67,7 @@ namespace cse3902
             player = new Link(this);
 
             itemHandler.LoadContent(spriteBatch, Content);
+            enemyNPCHandler.LoadContent();
         }
 
         /// <summary>
@@ -96,7 +96,9 @@ namespace cse3902
             player.Update(gameTime);
 
             itemHandler.Update();
-	        base.Update(gameTime);
+            enemyNPCHandler.Update(gameTime);
+
+            base.Update(gameTime);
         }
 
         /// <summary>
@@ -113,7 +115,7 @@ namespace cse3902
             }
 
             itemHandler.Draw();
-
+            enemyNPCHandler.Draw();
 
             base.Draw(gameTime);
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using cse3902.Interfaces;
 using cse3902.Sprites;
+using cse3902.SpriteFactory;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -9,7 +10,7 @@ namespace cse3902.Entities
 {
     class MerchantNPC : IEntity
     {
-        private NPCSprite merchantSprite;
+        private ISprite merchantSprite;
 
         private readonly Game1 game;
 
@@ -21,7 +22,7 @@ namespace cse3902.Entities
         {
             this.game = game;
             centerPosition = new Vector2(100, 200);
-            merchantSprite = new NPCSprite(game.spriteBatch, game.Content.Load<Texture2D>("Merchant"), centerPosition);
+            merchantSprite = NPCSpriteFactory.Instance.CreateMerchantSprite(game.spriteBatch, centerPosition);
         }
         public Rectangle Bounds
         {
