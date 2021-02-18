@@ -34,9 +34,13 @@
     <Folder Include="Commands\" />
     <Folder Include="Controllers\" />
     <Folder Include="Sprites\" />
+    <Folder Include="Items\" />
     <Folder Include="States\" />
+<<<<<<< HEAD
     <Folder Include="Entities\Enemies\" />
     <Folder Include="Sprites\EnemySprites\" />
+=======
     <Folder Include="SpriteFactory\" />
+>>>>>>> origin/master
   </ItemGroup>
 </Project>

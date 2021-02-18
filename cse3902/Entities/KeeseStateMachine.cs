@@ -2,20 +2,17 @@
 using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
 using cse3902.Sprites.EnemySprites;
-using cse3902.Sprites;
 
-namespace cse3902.Entities {
-
-    public class AquamentusStateMachine : IEntityStateMachine
+namespace cse3902.Entities
+{
+    public class KeeseStateMachine: IEntityStateMachine
     {
-        private AquamentusSprite aquamentusSprite;
-        
+        private KeeseSprite keeseSprite;
 
 
-        public AquamentusStateMachine(AquamentusSprite aquamentusSprite)
+        public KeeseStateMachine(KeeseSprite keeseSprite)
         {
-            this.aquamentusSprite = aquamentusSprite;
-            
+            this.keeseSprite = keeseSprite;
         }
 
         public void CycleWeapon(int dir)
@@ -28,10 +25,11 @@ namespace cse3902.Entities {
         {
             if (newDirection.X > 0)
             {
-                aquamentusSprite.StartingFrameIndex = (int)AquamentusSprite.FrameIndex.RightFacing;
-            } else
+                keeseSprite.StartingFrameIndex = (int)KeeseSprite.FrameIndex.RightFacing;
+            }
+            else
             {
-                aquamentusSprite.StartingFrameIndex = (int)AquamentusSprite.FrameIndex.LeftFacing;
+                keeseSprite.StartingFrameIndex = (int)KeeseSprite.FrameIndex.LeftFacing;
             }
 
 
@@ -46,7 +44,7 @@ namespace cse3902.Entities {
 
         public void Attack()
         {
-            aquamentusSprite.IsAttacking = true;
+
         }
     }
 }

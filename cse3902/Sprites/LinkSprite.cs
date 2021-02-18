@@ -1,7 +1,8 @@
-﻿using System;
-using cse3902.Interfaces;
+﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static cse3902.Interfaces.ISprite;
+using System.Collections.Generic;
 
 namespace cse3902.Sprites
 {
@@ -10,96 +11,139 @@ namespace cse3902.Sprites
         public enum FrameIndex
         {
             LeftFacing = 0,
+            LeftRunning = 1,
             RightFacing = 2,
+            RightRunning = 3,
             UpFacing = 4,
-            DownFacing = 6
+            UpRunning = 5,
+            DownFacing = 6,
+            DownRunning = 7,
+            LeftAttack = 8,
+            RightAttack = 9,
+            UpAttack = 10,
+            DownAttack = 11
         };
+
+        private Dictionary<FrameIndex, int[]> frameSets;
 
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
- 	    private Vector2 center;
+        private Vector2 center;
         private Vector2 startingPosition;
+        //private LinkSword weapon
 
-        private int columns;
-	    private int currentFrame;
+        private Rectangle currentFrame;
         private int totalFrames;
         private Rectangle[] frames;
         private int frameWidth;
         private int frameHeight;
+        private int frameIndex;
+        private int damageOffset;
+        private int damage;
 
-        private int startingFrameIndex;
-        private int endingFrameIndex;
+        private int[] currentFrameSet;
 
         private const float delay = 0.2f;
         private float remainingDelay;
-        
+
         public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
-        { 
+        {
             this.spriteBatch = spriteBatch;
-	        spriteTexture = texture;
+            spriteTexture = texture;
             remainingDelay = delay;
-            
-	        this.columns = columns;
-	        totalFrames = rows * columns;
-            currentFrame = 0;
-            startingFrameIndex = (int)FrameIndex.RightFacing;
-            endingFrameIndex = startingFrameIndex + 2;
+
+            distributeFrames(columns);
+            generateFrameSets();
+
+            totalFrames = rows * columns;
+            currentFrameSet = frameSets[FrameIndex.LeftFacing];
+            frameIndex = 0;
+            currentFrame = frames[currentFrameSet[frameIndex]];
+
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
             frames = new Rectangle[totalFrames];
-            
-	        this.startingPosition = startingPosition;
-            center = startingPosition;
-            
-	        distributeFrames();
-	    }
+            damageOffset = columns * rows / 4;
+            damage = -1;
 
-        private void distributeFrames()
+            this.startingPosition = startingPosition;
+            center = startingPosition;
+        }
+
+        private void distributeFrames(int columns)
         {
-            for (int i = 0; i < totalFrames; i++) { 
-		        int row = (int)((float)i / (float)columns);
-		        int column = i % columns;
+            for (int i = 0; i < totalFrames; i++)
+            {
+                int row = (int)((float)i / (float)columns);
+                int column = i % columns;
                 frames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
-	        }
+            }
+        }
+
+        private void generateFrameSets()
+        {
+            frameSets = new Dictionary<FrameIndex, int[]>()
+            {
+                { FrameIndex.LeftFacing, new int[] {0}},
+                { FrameIndex.LeftRunning, new int[] { 0, 1 } },
+                { FrameIndex.RightFacing, new int[] {2}},
+                { FrameIndex.RightRunning, new int[] { 2, 3 } },
+                { FrameIndex.UpFacing, new int[] {4}},
+                { FrameIndex.UpRunning, new int[] { 4, 5 } },
+                { FrameIndex.DownFacing, new int[] {6}},
+                { FrameIndex.DownRunning, new int[] { 6, 8 } },
+                { FrameIndex.LeftAttack, new int[] {9, 9, 1, 0}},
+                { FrameIndex.RightAttack, new int[] { 10, 10, 1, 0 } },
+                { FrameIndex.UpAttack, new int[] {11, 11, 5, 6}},
+                { FrameIndex.DownAttack, new int[] {12, 12, 5, 6}},
+            };
         }
 
         public void Draw()
         {
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
-           
-	        spriteBatch.Begin();
-	        spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White);
-	        spriteBatch.End(); 
+
+            spriteBatch.Begin();
+            spriteBatch.Draw(spriteTexture, Destination, currentFrame, Color.White);
+            spriteBatch.End();
         }
 
-        public void Update(GameTime gameTime)
+        
+	    public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
 
             if (remainingDelay <= 0)
             {
-		        currentFrame++;
-		        if (currentFrame == endingFrameIndex) {
-			        currentFrame = startingFrameIndex;
-		        }
                 remainingDelay = delay;
+                frameIndex++;
+                if (currentFrameSet.Length <= frameIndex)
+                {
+                    frameIndex = 0;
+                    animationCompleteCallback();
+                }
+                int frameNum = currentFrameSet[frameIndex];
+                if (damage >= 0)
+                {
+                    damage = (damage + 1) % 4;
+                    frameNum += damage * damageOffset;
+                }
+                currentFrame = frames[frameNum];
             }
+        }
+
+        public void setFrameSet(FrameIndex index)
+        {
+            remainingDelay = delay;
+            frameIndex = 0;
+            currentFrameSet = frameSets[index];
+            currentFrame = frames[frameIndex];
         }
 
         public void Erase()
         {
             spriteTexture.Dispose();
-	    }
-        
-	    public Vector2 StartingPosition
-        {
-            get => startingPosition;
-            set 
-	        { 
-		        startingPosition = value;
-                Center = value;
-	        }
         }
 
         public Vector2 Center
@@ -113,15 +157,34 @@ namespace cse3902.Sprites
             get => spriteTexture;
         }
 
-        public int StartingFrameIndex
+        public Vector2 StartingPosition
         {
-            get => startingFrameIndex;
+            get => this.startingPosition;
             set
             {
-                startingFrameIndex = value;
-		        endingFrameIndex = value + 2;
+                this.startingPosition = value;
+                this.center = value;
             }
         }
 
+        public Rectangle Bounds
+        {
+            get => spriteTexture.Bounds;
+        }
+
+        public bool Damaged
+        {
+            set
+            {  
+                if(value && damage < 0)
+                    this.damage = 0;
+                if (!value)
+                    this.damage = -1;
+            }
+        }
+        public onAnimCompleteCallback Callback
+        {
+            set => callback = value;
+        }
     }
 }

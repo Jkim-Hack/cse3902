@@ -23,7 +23,7 @@ namespace cse3902.Items
         private Texture2D map;
         private Texture2D swordItems;
         private Texture2D swordWeapons;
-
+        
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
 
         public static ItemSpriteFactory Instance
@@ -116,9 +116,9 @@ namespace cse3902.Items
             return new SwordItem(spriteBatch, swordItems, startingPos, dir);
         }
 
-        public ISprite CreateSwordWeapon(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
+        public ISprite CreateSwordWeapon(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir, int swordType)
         {
-            return new SwordItem(spriteBatch, swordWeapons, startingPos, dir);
+            return new SwordWeapon(spriteBatch, swordWeapons, startingPos, dir, swordType);
         }
 
         public ISprite CreateTriforceItem(SpriteBatch spriteBatch, Vector2 startingPos)
