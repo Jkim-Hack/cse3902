@@ -82,7 +82,6 @@ namespace cse3902.Items
 
         public void Update(GameTime gameTime)
         {
-
             if (orientation == Orientation.horizontal)
             {
                 if (direction == Direction.positive)

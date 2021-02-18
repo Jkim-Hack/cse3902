@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using cse3902.Interfaces;
+using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,17 +28,21 @@ namespace cse3902.SpriteFactory
         {
             npcTextures.Add("oldman", content.Load<Texture2D>("oldman"));
             npcTextures.Add("medicinewoman", content.Load<Texture2D>("medicinewoman"));
+            npcTextures.Add("merchant", content.Load<Texture2D>("merchant"));
         }
 
         public ISprite CreateOldManSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            //TODO: npc class is not currently in master for some reason, needs to be fixed
-            //return new NPCSprite(spriteBatch, npcTextures["oldman"], startingPos);
+            return new NPCSprite(spriteBatch, npcTextures["oldman"], startingPos);
         }
 
         public ISprite CreateMedicineWomanSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            //return new NPCSprite(spriteBatch, npcTextures["medicinewoman"], startingPos);
+            return new NPCSprite(spriteBatch, npcTextures["medicinewoman"], startingPos);
+        }
+        public ISprite CreateMerchantSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new NPCSprite(spriteBatch, npcTextures["merchant"], startingPos);
         }
     }
 }

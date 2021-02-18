@@ -14,6 +14,7 @@ namespace cse3902.Entities
 
 	    private LinkSprite linkSprite;
         private LinkStateMachine linkStateMachine;
+	    private Game1 game;
 
         private Vector2 direction;
         private float speed;
@@ -25,6 +26,9 @@ namespace cse3902.Entities
             currentItemIndex = 0;
             // TODO Add this into sprite factory
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
+            Vector2 centerPosition = new Vector2(50, 200);
+            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 9, 2, centerPosition);
+            linkStateMachine = new LinkStateMachine(linkSprite, centerPosition, game.spriteBatch);
         }
 
         public Rectangle Bounds 
@@ -34,6 +38,8 @@ namespace cse3902.Entities
 
         public void Attack()
         {
+
+            linkStateMachine.Attack();
             // TODO: Add Item damages here
             // TODO: Add collision detection here
 
@@ -59,10 +65,17 @@ namespace cse3902.Entities
 
         public void Update(GameTime gameTime)
         {
+            linkStateMachine.Update(gameTime);
         }
 
+        public void Draw()
         {
+            linkStateMachine.Draw();
+        }
+
+        public void Draw()
         {
+            linkSprite.Draw();
         }
 
         public Vector2 Direction
@@ -72,10 +85,14 @@ namespace cse3902.Entities
 
         public float Speed
         {
+            get => linkStateMachine.Speed;
+            set => linkStateMachine.Speed = value;
         }
         
 	    public Vector2 CenterPosition
         {
+            get => linkStateMachine.CenterPosition;
+            set => linkStateMachine.CenterPosition = value;
         }
     }
 }

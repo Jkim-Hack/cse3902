@@ -1,4 +1,5 @@
 ﻿using System;
+using static cse3902.Interfaces.ISprite;
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -34,7 +35,7 @@ namespace cse3902.Sprites
 	        spriteBatch.End(); 
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
         {
             //nothing to update
         }

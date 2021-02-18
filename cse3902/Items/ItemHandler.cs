@@ -10,7 +10,8 @@ namespace cse3902.Items
     public class ItemHandler
     {
         
-
+        private List<ISprite> items;
+        private int itemIndex { get; set; }
 
         public ItemHandler()
         {
@@ -20,9 +21,26 @@ namespace cse3902.Items
 
         public void LoadContent(SpriteBatch spriteBatch, ContentManager content)
         {
+            ItemSpriteFactory.Instance.LoadAllTextures(content);
 
+            items.Add(ItemSpriteFactory.Instance.CreateArrowItem(spriteBatch, new Vector2(100, 100), new Vector2(0,-1)));
+            items.Add(ItemSpriteFactory.Instance.CreateBombItem(spriteBatch, new Vector2(100, 100)));
+            items.Add(ItemSpriteFactory.Instance.CreateBoomerangItem(spriteBatch, new Vector2(100, 100), new Vector2(-1, 0)));
+            items.Add(ItemSpriteFactory.Instance.CreateBowItem(spriteBatch, new Vector2(100, 100)));
+            items.Add(ItemSpriteFactory.Instance.CreateClockItem(spriteBatch, new Vector2(100, 100)));
+            items.Add(ItemSpriteFactory.Instance.CreateCompassItem(spriteBatch, new Vector2(100, 100)));
+            items.Add(ItemSpriteFactory.Instance.CreateFairyItem(spriteBatch, new Vector2(100, 100)));
+            items.Add(ItemSpriteFactory.Instance.CreateHeartContainerItem(spriteBatch, new Vector2(100, 100)));
+            items.Add(ItemSpriteFactory.Instance.CreateHeartItem(spriteBatch, new Vector2(100, 100)));
+            items.Add(ItemSpriteFactory.Instance.CreateKeyItem(spriteBatch, new Vector2(100, 100)));
+            items.Add(ItemSpriteFactory.Instance.CreateMapItem(spriteBatch, new Vector2(100, 100)));
+            items.Add(ItemSpriteFactory.Instance.CreateTriforceItem(spriteBatch, new Vector2(100, 100)));
+            items.Add(ItemSpriteFactory.Instance.CreateSwordItem(spriteBatch, new Vector2(100, 100), new Vector2(-1, 0)));
         }
+
+        public void Update()
         {
+         
         }
 
         public void Draw()
