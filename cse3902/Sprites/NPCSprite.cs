@@ -10,20 +10,20 @@ namespace cse3902.Sprites
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
- 	    private Vector2 center;
+        private Vector2 center;
         private Vector2 startingPosition;
 
         private int frameWidth;
         private int frameHeight;
-        
+
         public NPCSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition)
-        { 
+        {
             this.spriteBatch = spriteBatch;
-	        spriteTexture = texture;
+            spriteTexture = texture;
 
             frameWidth = spriteTexture.Width;
             frameHeight = spriteTexture.Height;
-            
+
             center = startingPosition;
             this.startingPosition = startingPosition;
         }
@@ -31,10 +31,10 @@ namespace cse3902.Sprites
         public void Draw()
         {
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
-           
-	        spriteBatch.Begin();
-	        spriteBatch.Draw(spriteTexture, Destination, new Rectangle(0,0,frameWidth,frameHeight), Color.White);
-	        spriteBatch.End(); 
+
+            spriteBatch.Begin();
+            spriteBatch.Draw(spriteTexture, Destination, new Rectangle(0, 0, frameWidth, frameHeight), Color.White);
+            spriteBatch.End();
         }
 
         public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
@@ -45,7 +45,7 @@ namespace cse3902.Sprites
         public void Erase()
         {
             spriteTexture.Dispose();
-	    }
+        }
 
         public Vector2 Center
         {
@@ -67,3 +67,4 @@ namespace cse3902.Sprites
             }
         }
     }
+}
