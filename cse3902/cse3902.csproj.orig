@@ -31,8 +31,16 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
   </ItemGroup>
   <ItemGroup>
-	<Folder Include="Commands\" />
+    <Folder Include="Commands\" />
     <Folder Include="Controllers\" />
     <Folder Include="Sprites\" />
+    <Folder Include="Items\" />
+    <Folder Include="States\" />
+<<<<<<< HEAD
+    <Folder Include="Entities\Enemies\" />
+    <Folder Include="Sprites\EnemySprites\" />
+=======
+    <Folder Include="SpriteFactory\" />
+>>>>>>> origin/master
   </ItemGroup>
 </Project>

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using cse3902.Entities;
 using cse3902.Interfaces;
 using cse3902.Sprites;
 using cse3902.Items;
@@ -22,11 +21,6 @@ namespace cse3902
         List<IController> controllerList;
 
         private ItemHandler itemHandler;
-
-        private ISprite arrow;
-        private ISprite bomb;
-        
-        IEntity player;
 
         public Game1()
         {
@@ -63,9 +57,19 @@ namespace cse3902
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Link(this);
-            itemHandler.LoadContent(spriteBatch, Content);
-        }
+
+            // Set up sprites
+	        Texture2D spriteTexture = this.Content.Load<Texture2D>("mario-yoshi");    
+	        spriteList.Add(new StaticStillSprite(spriteBatch, spriteTexture, 1, 2));
+	        spriteList.Add(new AnimatedStillSprite(spriteBatch, spriteTexture, 1, 2));
+	        spriteList.Add(new StaticMovableSprite(spriteBatch, spriteTexture, 1, 2));
+	        spriteList.Add(new AnimatedMovableSprite(spriteBatch, spriteTexture, 1, 2));
+
+            SpriteFont textFont = this.Content.Load<SpriteFont>("Credits");
+            textSprite = new TextSprite(spriteBatch, textFont, "Credits\nProgram Made By: John Kim\nSprites from: http://www.mariouniverse.com/sprites-nes-yoshi/");
+	        // The sprite index should initially be out of bounds so that there are no premature calls
+            currentSpriteIndex = spriteList.Count;
+	    }
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -90,9 +94,11 @@ namespace cse3902
             {
                 controller.Update();
             }
-            player.Update(gameTime);
-            itemHandler.Update(gameTime);
-	          base.Update(gameTime);
+            if (currentSpriteIndex < spriteList.Count)
+            {
+                spriteList[currentSpriteIndex].Update(gameTime);
+            }
+            base.Update(gameTime);
         }
 
         /// <summary>
@@ -107,8 +113,7 @@ namespace cse3902
             {
                 sprite.Draw();
             }
-
-            itemHandler.Draw();
+            textSprite.Draw();
 
             base.Draw(gameTime);
         }
