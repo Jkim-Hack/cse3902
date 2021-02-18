@@ -1,15 +1,67 @@
 ﻿using System;
-using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using cse3902.Interfaces;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace cse3902.Sprites
 
 {
     public class FireballSprite: ISprite
     {
-        public FireballSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction)
+        private SpriteBatch spriteBatch;
+        private Texture2D spriteTexture;
+        private Vector2 center;
+        private Vector2 startingPosition;
+
+        public FireballSprite(SpriteBatch spriteBatch, Texture2D texture)
+        {
+            this.spriteBatch = spriteBatch;
+            this.spriteTexture = texture;
+
+        }
+
+        public Vector2 StartingPosition
+        {
+            get => startingPosition;
+            set
+            {
+                startingPosition = value;
+                Center = value;
+            }
+        }
+
+        public Vector2 Center
+        {
+            get => center;
+            set => center = value;
+        }
+
+        public Texture2D Texture
+        {
+            get => spriteTexture;
+        }
+
+        public void Draw()
+        {
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, spriteTexture.Width, spriteTexture.Height);
+
+            spriteBatch.Begin();
+            //null argument used to draw entire block texture
+            spriteBatch.Draw(spriteTexture, Destination, null, Color.White);
+            spriteBatch.End();
+
+        }
+
+        public void Update(GameTime gameTime)
         {
 
+        }
+
+        public void Erase()
+        {
+            spriteTexture.Dispose();
         }
     }
 }

@@ -91,7 +91,7 @@ namespace cse3902
                 controller.Update();
             }
             player.Update(gameTime);
-            itemHandler.Update(gameTime);
+            itemHandler.Update();
 	          base.Update(gameTime);
         }
 
