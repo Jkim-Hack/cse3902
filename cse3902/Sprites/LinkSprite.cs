@@ -69,8 +69,6 @@ namespace cse3902.Sprites
 
             this.startingPosition = startingPosition;
             center = startingPosition;
-            
-	        distributeFrames();
         }
 
         private void distributeFrames(int columns)
