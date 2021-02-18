@@ -17,21 +17,18 @@ namespace cse3902.Commands
         public void Execute(int id)
         {
             id = id % 2;
-            int cycle;
             switch (id)
             {
                 case 0:
-                    cycle = -1;
+                    game.enemyNPCHandler.DisplayPrev();
                     break;
                 case 1:
-                    cycle = 1;
+                    game.enemyNPCHandler.DisplayNext();
                     break;
                 default: //this should never happen
-                    cycle = 1;
+                    game.enemyNPCHandler.DisplayNext();
                     break;
             }
-
-            //game.cycleEnemyNPC(cycle);
         }
 
         public void Unexecute()

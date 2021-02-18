@@ -15,6 +15,7 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
+            game.enemyNPCHandler.Reset();
         }
 
         public void Unexecute()

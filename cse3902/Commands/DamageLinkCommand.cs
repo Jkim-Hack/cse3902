@@ -16,7 +16,7 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            //game.Link.hurt();
+            game.player.TakeDamage();
         }
 
         public void Unexecute()

@@ -20,13 +20,13 @@ namespace cse3902.Commands
             switch (id)
             {
                 case 0:
-                    //game.ItemList.DisplayPrev();
+                    game.itemHandler.DisplayPrev();
                     break;
                 case 1:
-                    //game.ItemList.DisplayNext();
+                    game.itemHandler.DisplayNext();
                     break;
                 default: //this should never happen
-                    //game.ItemList.DisplayNext();
+                    game.itemHandler.DisplayNext();
                     break;
             }
         }
