@@ -2,6 +2,7 @@
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Sprites.EnemySprites
 {
@@ -82,7 +83,7 @@ namespace cse3902.Sprites.EnemySprites
             spriteTexture.Dispose();
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
