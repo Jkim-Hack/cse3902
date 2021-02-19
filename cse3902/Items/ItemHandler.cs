@@ -11,7 +11,7 @@ namespace cse3902.Items
     {
         
         private List<ISprite> items;
-        private int itemIndex { get; set; }
+        private int itemIndex;
 
         public ItemHandler()
         {
@@ -66,6 +66,10 @@ namespace cse3902.Items
                 itemIndex = items.Count - 1;
             }
             items[itemIndex].Draw();
+        }
+        public void Reset()
+        {
+            itemIndex = 0;
         }
 
     }

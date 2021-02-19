@@ -1,4 +1,4 @@
-﻿using cse3902.Interfaces;
+using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static cse3902.Interfaces.ISprite;
