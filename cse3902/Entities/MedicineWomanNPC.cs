@@ -23,6 +23,8 @@ namespace cse3902.Entities
             this.game = game;
             centerPosition = new Vector2(100, 200);
             medicineWomanSprite = NPCSpriteFactory.Instance.CreateMedicineWomanSprite(game.spriteBatch, centerPosition);
+        }
+
         public Rectangle Bounds
         {
             get => medicineWomanSprite.Texture.Bounds;

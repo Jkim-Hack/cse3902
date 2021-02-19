@@ -52,9 +52,10 @@ namespace cse3902.Entities
             this.linkSprite.Erase();
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage()
         {
-            linkStateMachine.TakeDamage(damage);
+            // Default to 10 for now
+            linkStateMachine.TakeDamage(10);
 	    } 
 
         public void Update(GameTime gameTime)

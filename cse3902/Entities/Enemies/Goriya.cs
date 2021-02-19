@@ -55,8 +55,13 @@ namespace cse3902.Entities.Enemies
 
         public void Update(GameTime gameTime)
         {
-            goriyaSprite.Update(gameTime);
+            goriyaSprite.Update(gameTime, onSpriteAnimationComplete);
             centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        private void onSpriteAnimationComplete()
+        {
+            //nothing to callback
         }
 
         public void Draw()
