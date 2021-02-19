@@ -24,7 +24,7 @@ namespace cse3902.Entities
             // TODO Add this into sprite factory
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
             Vector2 centerPosition = new Vector2(50, 200);
-            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 9, 2, centerPosition);
+            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 24, 4, centerPosition);
             linkStateMachine = new LinkStateMachine(linkSprite, centerPosition, game.spriteBatch);
         }
 
@@ -52,11 +52,10 @@ namespace cse3902.Entities
             this.linkSprite.Erase();
         }
 
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
-            // TODO: Implement once collision is available
-        }
-        
+            linkStateMachine.TakeDamage(damage);
+	    } 
 
         public void Update(GameTime gameTime)
         {
@@ -66,11 +65,6 @@ namespace cse3902.Entities
         public void Draw()
         {
             linkStateMachine.Draw();
-        }
-
-        public void Draw()
-        {
-            linkSprite.Draw();
         }
 
         public Vector2 Direction
@@ -87,7 +81,6 @@ namespace cse3902.Entities
 	    public Vector2 CenterPosition
         {
             get => linkStateMachine.CenterPosition;
-            set => linkStateMachine.CenterPosition = value;
         }
     }
 }
