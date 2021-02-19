@@ -58,8 +58,13 @@ namespace cse3902.Entities.Enemies
         }
         public void Update(GameTime gameTime)
         {
-            aquamentusSprite.Update(gameTime);
+            aquamentusSprite.Update(gameTime, onSpriteAnimationComplete);
             centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        private void onSpriteAnimationComplete()
+        {
+            //nothing to callback
         }
 
         //TODO: Ientity should require clases to implement this I think

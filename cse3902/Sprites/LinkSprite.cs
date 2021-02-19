@@ -32,6 +32,8 @@ namespace cse3902.Sprites
         private Vector2 startingPosition;
         //private LinkSword weapon
 
+        private onAnimCompleteCallback callback; 
+
         private Rectangle currentFrame;
         private int totalFrames;
         private Rectangle[] frames;

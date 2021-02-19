@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Entities.Enemies
 {
-    public class WallMaster
+    public class WallMaster: IEntity
     {
         private WallMasterSprite wallMasterSprite;
         private WallMasterStateMachine wallMasterStateMachine;
@@ -54,11 +54,15 @@ namespace cse3902.Entities.Enemies
         }
         public void Update(GameTime gameTime)
         {
-            wallMasterSprite.Update(gameTime);
+            wallMasterSprite.Update(gameTime, onSpriteAnimationComplete);
             centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
-        
+        private void onSpriteAnimationComplete()
+        {
+            //nothing to callback
+        }
+
         public void Draw()
         {
             wallMasterSprite.Draw();

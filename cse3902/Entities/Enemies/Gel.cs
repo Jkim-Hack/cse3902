@@ -54,8 +54,13 @@ namespace cse3902.Entities.Enemies
         }
         public void Update(GameTime gameTime)
         {
-            gelSprite.Update(gameTime);
+            gelSprite.Update(gameTime, onSpriteAnimationComplete);
             centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        private void onSpriteAnimationComplete()
+        {
+            //nothing to callback
         }
 
         public void Draw()
