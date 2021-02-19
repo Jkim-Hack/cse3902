@@ -53,8 +53,13 @@ namespace cse3902.Entities.Enemies
 
         public void Update(GameTime gameTime)
         {
-            keeseSprite.Update(gameTime);
+            keeseSprite.Update(gameTime, onSpriteAnimationComplete);
             centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        private void onSpriteAnimationComplete()
+        {
+            //nothing to callback
         }
 
         public void Draw()
