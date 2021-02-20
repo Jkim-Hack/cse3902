@@ -45,6 +45,7 @@ namespace cse3902.Items
 
         public void Update()
         {
+            items[itemIndex].Draw();
             if (currentframetime < maxframetime) currentframetime++;
         }
 
