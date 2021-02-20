@@ -11,22 +11,41 @@ namespace cse3902
     public class KeyboardController : IController
     {
         private CommandList commandList;
+        private KeyboardState PreviousKeyboardState;
 
 	    public KeyboardController(Game1 game)
         { 
             this.commandList = new CommandList(game);
+            PreviousKeyboardState = new KeyboardState();
         }
 
 		public void Update()
 		{
-            KeyboardState KeyboardState = Keyboard.GetState();
-		    foreach (Keys key in KeyboardState.GetPressedKeys()) 
-	        {
-                if (this.commandList.KeyboardCommands.ContainsKey(key))
+            KeyboardState CurrentKeyboardState = Keyboard.GetState();
+
+            foreach (Keys[] keySet in this.commandList.KeyboardCommands.Keys)
+            {
+                bool aCurrentKeyPressed = false;
+                bool aPreviousKeyPressed = false;
+
+                for (int i=0; i<keySet.Length; i++)
                 {
-                    this.commandList.KeyboardCommands[key].Execute();
+                    Keys key = keySet[i];
+                    if (CurrentKeyboardState.IsKeyDown(key)) //key is down, so don't need to "undo"
+                    {
+                        this.commandList.KeyboardCommands[keySet].Execute(i);
+                        aCurrentKeyPressed = true;
+                    }
+                    else if (PreviousKeyboardState.IsKeyDown(key)) //key wasn't down, so need to check if it was already down
+                    {
+                        aPreviousKeyPressed = true;
+                    }
                 }
-	        }
-	    }
+
+                if (aPreviousKeyPressed && !aCurrentKeyPressed) this.commandList.KeyboardCommands[keySet].Unexecute();
+            }
+
+            PreviousKeyboardState = CurrentKeyboardState;
+        }
     }
 }

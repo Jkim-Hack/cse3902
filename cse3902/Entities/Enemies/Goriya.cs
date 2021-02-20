@@ -18,7 +18,7 @@ namespace cse3902.Entities.Enemies
         public Goriya(Game1 game)
         {
             this.game = game;
-            Texture2D linkTexture = game.Content.Load<Texture2D>("goriya");
+            Texture2D linkTexture = game.Content.Load<Texture2D>("enemies/goriya_blue");
             centerPosition = new Vector2(200, 300);
             goriyaSprite = new GoriyaSprite(game.spriteBatch, linkTexture, 2, 2, centerPosition);
             goriyaStateMachine = new GoriyaStateMachine(goriyaSprite);

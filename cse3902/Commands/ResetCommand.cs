@@ -2,18 +2,19 @@
 
 namespace cse3902.Commands
 {
-    public class QuitCommand : ICommand
+    public class ResetCommand : ICommand
     {
         private Game1 game;
 	    
-	    public QuitCommand(Game1 game)
+	    public ResetCommand(Game1 game)
         {
             this.game = game;
         }
 
         public void Execute(int id)
         {
-            game.Exit();
+            game.enemyNPCHandler.Reset();
+            game.itemHandler.Reset();
         }
 
         public void Unexecute()
