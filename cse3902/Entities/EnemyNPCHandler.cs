@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using cse3902.Entities;
 using cse3902.Entities.Enemies;
 using Microsoft.Xna.Framework;
 using cse3902.SpriteFactory;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 
 namespace cse3902.Items
 {
