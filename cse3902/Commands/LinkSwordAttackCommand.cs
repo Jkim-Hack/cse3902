@@ -2,24 +2,23 @@
 
 namespace cse3902.Commands
 {
-    public class QuitCommand : ICommand
+    public class LinkSwordAttackCommand : ICommand
     {
         private Game1 game;
-	    
-	    public QuitCommand(Game1 game)
+
+        public LinkSwordAttackCommand(Game1 game)
         {
             this.game = game;
         }
 
         public void Execute(int id)
         {
-            game.Exit();
+            game.player.Attack();
         }
 
         public void Unexecute()
         {
 
         }
-
     }
 }

@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 using cse3902.Entities;
-using cse3902.Entities.Enemies;
 using cse3902.Interfaces;
-using cse3902.Sprites;
 using cse3902.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,7 +22,7 @@ namespace cse3902
         public ItemHandler itemHandler { get; set; }
         public EnemyNPCHandler enemyNPCHandler { get; set; }
 
-        IEntity player;
+        public IEntity player { get; set; }
 
 
         public Game1()
@@ -45,7 +42,6 @@ namespace cse3902
             // Setup input controllers    
 	        controllerList = new List<IController>();
             controllerList.Add(new KeyboardController(this));
-            controllerList.Add(new MouseController(this));
 
             itemHandler = new ItemHandler();
             enemyNPCHandler = new EnemyNPCHandler(this);
@@ -64,7 +60,7 @@ namespace cse3902
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Link(this);
+            //player = new Link(this);
 
             itemHandler.LoadContent(spriteBatch, Content);
             enemyNPCHandler.LoadContent();
@@ -93,7 +89,7 @@ namespace cse3902
             {
                 controller.Update();
             }
-            player.Update(gameTime);
+            //player.Update(gameTime);
 
             itemHandler.Update();
             enemyNPCHandler.Update(gameTime);
@@ -107,7 +103,7 @@ namespace cse3902
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Beige);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             foreach (ISprite sprite in spriteList)
             {

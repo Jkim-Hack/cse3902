@@ -7,6 +7,6 @@ namespace cse3902.Interfaces
 {
     public interface IItem
     {
-        //public Vector2 position { get; set; }
+        
     }
 }

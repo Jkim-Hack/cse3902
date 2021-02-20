@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using cse3902.Interfaces;
+﻿using cse3902.Interfaces;
 using cse3902.SpriteFactory;
-using cse3902.Sprites;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Entities
 {
