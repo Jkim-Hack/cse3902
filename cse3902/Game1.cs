@@ -22,7 +22,7 @@ namespace cse3902
         public ItemHandler itemHandler { get; set; }
         public EnemyNPCHandler enemyNPCHandler { get; set; }
 
-        //public IEntity player { get; set; }
+        public IEntity player { get; set; }
 
 
         public Game1()
@@ -103,7 +103,7 @@ namespace cse3902
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Beige);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             foreach (ISprite sprite in spriteList)
             {

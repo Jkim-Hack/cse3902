@@ -13,12 +13,16 @@ namespace cse3902.Items
         private Game1 game;
         private int enpcIndex;
 
+        private int maxframetime;
+        private int currentframetime;
 
         public EnemyNPCHandler(Game1 thegame)
         {
             enpcs = new List<IEntity>();
             enpcIndex = 0;
             game = thegame;
+            maxframetime = 10;
+            currentframetime = 0;
         }
 
         public void LoadContent()
@@ -39,6 +43,7 @@ namespace cse3902.Items
         public void Update(GameTime gameTime)
         {
             enpcs[enpcIndex].Update(gameTime);
+            if (currentframetime < maxframetime) currentframetime++;
         }
 
         public void Draw()
@@ -48,14 +53,21 @@ namespace cse3902.Items
 
         public void cycleNext()
         {
-            enpcIndex++;
-            if (enpcIndex == enpcs.Count) enpcIndex = 0;
+            if (currentframetime == maxframetime) { 
+                enpcIndex++;
+                if (enpcIndex == enpcs.Count) enpcIndex = 0;
+                currentframetime = 0;
+            }
         }
 
         public void cyclePrev()
         {
-            enpcIndex--;
-            if (enpcIndex == -1) enpcIndex = enpcs.Count - 1;
+            if (currentframetime == maxframetime)
+            {
+                enpcIndex--;
+                if (enpcIndex == -1) enpcIndex = enpcs.Count - 1;
+                currentframetime = 0;
+            }
         }
         public void Reset()
         {
