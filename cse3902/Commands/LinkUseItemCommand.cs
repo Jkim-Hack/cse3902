@@ -16,7 +16,7 @@ namespace cse3902.Commands
             id = id % 4;
             id++;
 
-            game.player.useItem(id);
+            //game.player.useItem(id);
         }
 
         public void Unexecute()

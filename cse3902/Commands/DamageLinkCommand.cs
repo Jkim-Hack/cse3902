@@ -13,7 +13,7 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            game.player.TakeDamage();
+            //game.player.TakeDamage();
         }
 
         public void Unexecute()

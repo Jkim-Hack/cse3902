@@ -22,7 +22,7 @@ namespace cse3902
         public ItemHandler itemHandler { get; set; }
         public EnemyNPCHandler enemyNPCHandler { get; set; }
 
-        public IEntity player { get; set; }
+        //public IEntity player { get; set; }
 
 
         public Game1()
@@ -60,7 +60,7 @@ namespace cse3902
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Link(this);
+            //player = new Link(this);
 
             itemHandler.LoadContent(spriteBatch, Content);
             enemyNPCHandler.LoadContent();
@@ -89,7 +89,7 @@ namespace cse3902
             {
                 controller.Update();
             }
-            player.Update(gameTime);
+            //player.Update(gameTime);
 
             itemHandler.Update();
             enemyNPCHandler.Update(gameTime);
