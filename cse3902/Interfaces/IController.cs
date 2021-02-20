@@ -1,5 +1,4 @@
-﻿using System;
-namespace cse3902.Interfaces
+﻿namespace cse3902.Interfaces
 {
     // Invoker
     public interface IController

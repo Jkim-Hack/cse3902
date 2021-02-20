@@ -13,10 +13,15 @@ namespace cse3902.Items
         private List<ISprite> items;
         private int itemIndex;
 
+        private int maxframetime;
+        private int currentframetime;
+
         public ItemHandler()
         {
             items = new List<ISprite>();
             itemIndex = 0;
+            maxframetime = 10;
+            currentframetime = 0;
         }
 
         public void LoadContent(SpriteBatch spriteBatch, ContentManager content)
@@ -40,7 +45,7 @@ namespace cse3902.Items
 
         public void Update()
         {
-         
+            if (currentframetime < maxframetime) currentframetime++;
         }
 
         public void Draw()
@@ -50,22 +55,28 @@ namespace cse3902.Items
 
         public void displayNext()
         {
-            itemIndex++;
-            if (itemIndex >= items.Count)
+            if (currentframetime == maxframetime)
             {
-                itemIndex = 0;
+                itemIndex++;
+                if (itemIndex >= items.Count)
+                {
+                    itemIndex = 0;
+                }
+                currentframetime = 0;
             }
-            items[itemIndex].Draw();
         }
 
         public void displayPrev()
         {
-            itemIndex--;
-            if (itemIndex < 0)
+            if (currentframetime == maxframetime)
             {
-                itemIndex = items.Count - 1;
+                itemIndex--;
+                if (itemIndex < 0)
+                {
+                    itemIndex = items.Count - 1;
+                }
+                currentframetime = 0;
             }
-            items[itemIndex].Draw();
         }
         public void Reset()
         {

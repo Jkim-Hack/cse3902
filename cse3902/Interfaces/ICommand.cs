@@ -1,11 +1,9 @@
-﻿using System;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace cse3902.Interfaces
+﻿namespace cse3902.Interfaces
 {
     // Command
     public interface ICommand
     {
-        public void Execute();
+        public void Execute(int id);
+        public void Unexecute();
     }
 }
