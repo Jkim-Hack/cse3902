@@ -1,7 +1,5 @@
-﻿using System;
-using cse3902.Interfaces;
+﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 namespace cse3902.Commands
 {
@@ -37,12 +35,12 @@ namespace cse3902.Commands
                     break;
             }
 
-            //game.Link.ChangeDirection(direction);
+            game.player.ChangeDirection(direction);
         }
 
         public void Unexecute()
         {
-            //game.Link.ChangeDirection(new Vector2(0, 0));
+            game.player.ChangeDirection(new Vector2(0, 0));
         }
     }
 }

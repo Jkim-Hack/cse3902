@@ -1,7 +1,4 @@
-﻿using System;
-using cse3902.Interfaces;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using cse3902.Interfaces;
 
 namespace cse3902.Commands
 {
@@ -16,10 +13,10 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            id = id % 9;
+            id = id % 4;
             id++;
 
-            //game.Link.useItem(id);
+            game.player.useItem(id);
         }
 
         public void Unexecute()

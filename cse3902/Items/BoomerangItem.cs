@@ -2,6 +2,7 @@
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Items
 {
@@ -80,9 +81,8 @@ namespace cse3902.Items
             spriteTexture.Dispose();
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
         {
-
             if (orientation == Orientation.horizontal)
             {
                 if (direction == Direction.positive)

@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using cse3902.Entities;
 using cse3902.Interfaces;
-using cse3902.Sprites;
 using cse3902.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,12 +19,11 @@ namespace cse3902
         public List<ISprite> spriteList { get; set; }
         List<IController> controllerList;
 
-        private ItemHandler itemHandler;
+        public ItemHandler itemHandler { get; set; }
+        public EnemyNPCHandler enemyNPCHandler { get; set; }
 
-        private ISprite arrow;
-        private ISprite bomb;
-        
-        IEntity player;
+        public IEntity player { get; set; }
+
 
         public Game1()
         {
@@ -45,9 +42,9 @@ namespace cse3902
             // Setup input controllers    
 	        controllerList = new List<IController>();
             controllerList.Add(new KeyboardController(this));
-           // controllerList.Add(new MouseController(this));
 
             itemHandler = new ItemHandler();
+            enemyNPCHandler = new EnemyNPCHandler(this);
 
             // Initialize sprite list
             spriteList = new List<ISprite>();
@@ -64,7 +61,9 @@ namespace cse3902
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Link(this);
+
             itemHandler.LoadContent(spriteBatch, Content);
+            enemyNPCHandler.LoadContent();
         }
 
         /// <summary>
@@ -91,8 +90,11 @@ namespace cse3902
                 controller.Update();
             }
             player.Update(gameTime);
-            itemHandler.Update(gameTime);
-	          base.Update(gameTime);
+
+            itemHandler.Update();
+            enemyNPCHandler.Update(gameTime);
+
+            base.Update(gameTime);
         }
 
         /// <summary>
@@ -109,6 +111,7 @@ namespace cse3902
             }
 
             itemHandler.Draw();
+            enemyNPCHandler.Draw();
 
             base.Draw(gameTime);
         }

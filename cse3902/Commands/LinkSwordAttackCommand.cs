@@ -1,7 +1,4 @@
-﻿using System;
-using cse3902.Interfaces;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using cse3902.Interfaces;
 
 namespace cse3902.Commands
 {

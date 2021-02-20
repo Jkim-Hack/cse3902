@@ -1,7 +1,4 @@
-﻿using System;
-using cse3902.Interfaces;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using cse3902.Interfaces;
 
 namespace cse3902.Commands
 {
@@ -20,13 +17,13 @@ namespace cse3902.Commands
             switch (id)
             {
                 case 0:
-                    game.itemHandler.DisplayPrev();
+                    game.itemHandler.displayPrev();
                     break;
                 case 1:
-                    game.itemHandler.DisplayNext();
+                    game.itemHandler.displayNext();
                     break;
                 default: //this should never happen
-                    game.itemHandler.DisplayNext();
+                    game.itemHandler.displayNext();
                     break;
             }
         }

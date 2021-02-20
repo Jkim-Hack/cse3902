@@ -1,6 +1,4 @@
-﻿using System;
-using cse3902.Interfaces;
-using Microsoft.Xna.Framework.Input;
+﻿using cse3902.Interfaces;
 
 namespace cse3902.Commands
 {
@@ -16,6 +14,7 @@ namespace cse3902.Commands
         public void Execute(int id)
         {
             game.enemyNPCHandler.Reset();
+            game.itemHandler.Reset();
         }
 
         public void Unexecute()
