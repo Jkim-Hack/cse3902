@@ -7,7 +7,7 @@ using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Items
 {
-    public class BombItem : ISprite, IItem
+    public class BombItem : ISprite, IItem, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -25,8 +25,10 @@ namespace cse3902.Items
         private int currentX;
         private int currentY;
 
-        private const float delay = 0.2f;
+        private const float delay = 0.8f;
         private float remainingDelay;
+
+        private bool animationComplete;
 
         public BombItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
@@ -46,6 +48,8 @@ namespace cse3902.Items
             
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
+
+            this.animationComplete = false;
         }
 
         private void distributeFrames()
@@ -98,6 +102,7 @@ namespace cse3902.Items
                 if (currentFrame == totalFrames)
                 {
                     currentFrame = 0;
+                    animationComplete = true;
                 }
                 remainingDelay = delay;
             }
@@ -106,6 +111,13 @@ namespace cse3902.Items
         public void Erase()
         {
             spriteTexture.Dispose();
+        }
+
+        public bool AnimationComplete
+        {
+            get => animationComplete;
+
+            set => animationComplete = value;
         }
     }
 }
