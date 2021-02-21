@@ -79,7 +79,6 @@ namespace cse3902.Sprites.EnemySprites
 
         private void LoadFireballs()
         {
-            //TODO: get proper texture from sprite factory
 
             //TODO: tweak this to position the fireballs at the mouth of aquamentus
 
