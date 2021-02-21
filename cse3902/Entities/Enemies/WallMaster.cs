@@ -18,8 +18,8 @@ namespace cse3902.Entities.Enemies
         public WallMaster(Game1 game)
         {
             this.game = game;
-            Texture2D wallMasterTexture = game.Content.Load<Texture2D>("wall_master");
-            centerPosition = new Vector2(400, 500);
+            Texture2D wallMasterTexture = game.Content.Load<Texture2D>("enemies/wall_master");
+            centerPosition = new Vector2(300, 400);
 
             //wallmaster sprite sheet is 4 rows, 2 columns
             wallMasterSprite = new WallMasterSprite(game.spriteBatch, wallMasterTexture, 4, 2, centerPosition);

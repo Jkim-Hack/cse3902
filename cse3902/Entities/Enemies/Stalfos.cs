@@ -18,7 +18,7 @@ namespace cse3902.Entities.Enemies
         public Stalfos(Game1 game)
         {
             this.game = game;
-            Texture2D stalfosTexture = game.Content.Load<Texture2D>("stalfos");
+            Texture2D stalfosTexture = game.Content.Load<Texture2D>("enemies/stalfos");
             centerPosition = new Vector2(300, 400);
 
             //stalfos sprite sheet is 1 row, 2 columns
