@@ -25,7 +25,7 @@ namespace cse3902.Items
             
             currentX = (int) startingPos.X;
             currentY = (int) startingPos.Y;
-    }
+        }
 
         public void Draw()
         {
