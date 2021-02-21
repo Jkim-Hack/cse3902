@@ -18,6 +18,7 @@ namespace cse3902.Entities {
         private SpriteBatch spriteBatch;
         private Vector2 centerPosition;
         private Vector2 currDirection;
+        private Vector2 prevDirection;
         
         private float speed;
         
@@ -82,6 +83,8 @@ namespace cse3902.Entities {
                     linkSprite.setFrameSet(LinkSprite.AnimationState.UpFacing);
                 }
                 speed = 0.0f;
+                prevDirection = currDirection;
+			    currDirection = newDirection;
             }
             else
             {
@@ -159,6 +162,11 @@ namespace cse3902.Entities {
             if (mode == LinkMode.Moving || mode == LinkMode.Still)
             {
                 mode = LinkMode.Attack;
+
+                if (currDirection.X == 0f && currDirection.Y == 0)
+                {
+                    currDirection = prevDirection;
+                }
 
                 // TODO: Move this to Link.cs not needed in state machine
                 Vector2 spriteSize = linkSprite.Size;

@@ -44,7 +44,7 @@ namespace cse3902
             controllerList.Add(new KeyboardController(this));
 
             itemHandler = new ItemHandler();
-            //enemyNPCHandler = new EnemyNPCHandler(this);
+            enemyNPCHandler = new EnemyNPCHandler(this);
 
             // Initialize sprite list
             spriteList = new List<ISprite>();
@@ -64,7 +64,7 @@ namespace cse3902
 	        player = new Link(this);
 
             itemHandler.LoadContent(spriteBatch, Content);
-            //enemyNPCHandler.LoadContent();
+            enemyNPCHandler.LoadContent();
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace cse3902
             player.Update(gameTime);
 
             itemHandler.Update();
-            //enemyNPCHandler.Update(gameTime);
+            enemyNPCHandler.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -125,7 +125,7 @@ namespace cse3902
             }
 
             itemHandler.Draw();
-            //enemyNPCHandler.Draw();
+            enemyNPCHandler.Draw();
             player.Draw();
             base.Draw(gameTime);
         }
