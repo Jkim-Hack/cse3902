@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Interfaces
 {
-    public interface IItem
+    public interface IItem : ISprite
     {
         
     }

@@ -24,6 +24,7 @@ namespace cse3902
 
         public IEntity player { get; set; }
 
+        public List<IItem> linkItems { get; set; }
 
         public Game1()
         {
@@ -46,10 +47,13 @@ namespace cse3902
             itemHandler = new ItemHandler();
             enemyNPCHandler = new EnemyNPCHandler(this);
 
+            linkItems = new List<IItem>();
+
             // Initialize sprite list
             spriteList = new List<ISprite>();
             this.IsMouseVisible = true;
 	        base.Initialize();
+
         }
 
         /// <summary>

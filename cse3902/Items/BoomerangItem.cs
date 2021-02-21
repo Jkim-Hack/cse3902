@@ -6,7 +6,7 @@ using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Items
 {
-    public class BoomerangItem : ISprite, IItem
+    public class BoomerangItem : ISprite, IItem, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -16,6 +16,8 @@ namespace cse3902.Items
 
         private int currentX;
         private int currentY;
+
+        private int turns;
 
         private enum Orientation
         {
@@ -31,6 +33,8 @@ namespace cse3902.Items
 
         private Direction direction;
         private Orientation orientation;
+
+        private bool animationComplete;
 
         public BoomerangItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
         {
@@ -63,10 +67,11 @@ namespace cse3902.Items
                 angle = 0;
             }
 
-
             currentX = (int) startingPos.X;
             currentY = (int) startingPos.Y;
-    }
+
+            animationComplete = false;
+        }
 
         public void Draw()
         {
@@ -90,8 +95,8 @@ namespace cse3902.Items
                     currentX += 2;
                     if (currentX > startingPosition.X + 50)
                     {
-                        //currentX = 400;
                         direction = Direction.negative;
+                        turns++;
                     }
                    
                 }
@@ -100,8 +105,8 @@ namespace cse3902.Items
                     currentX -= 2;
                     if (currentX < startingPosition.X)
                     {
-                        //currentY = 400;
                         direction = Direction.positive;
+                        turns++;
                     }
                 }
             }
@@ -113,6 +118,7 @@ namespace cse3902.Items
                     if (currentY > startingPosition.Y + 50)
                     {
                         direction = Direction.negative;
+                        turns++;
                     }
                 }
                 else
@@ -121,8 +127,14 @@ namespace cse3902.Items
                     if (currentY < startingPosition.Y)
                     {
                         direction = Direction.positive;
+                        turns++;
                     }
                 }
+            }
+
+            if (turns == 2)
+            {
+                animationComplete = true;
             }
         }
 
@@ -152,6 +164,13 @@ namespace cse3902.Items
         public Texture2D Texture
         {
             get => spriteTexture;
+        }
+
+        public bool AnimationComplete
+        {
+            get => animationComplete;
+
+            set => animationComplete = value;
         }
     }
 }

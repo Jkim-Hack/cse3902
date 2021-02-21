@@ -6,7 +6,7 @@ using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Items
 {
-    public class ArrowItem: ISprite, IItem
+    public class ArrowItem: ISprite, IItem, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -17,6 +17,8 @@ namespace cse3902.Items
         private int currentY;
 
         private float angle = 0;
+
+        private bool animationComplete;
 
         private enum Orientation
         {
@@ -64,6 +66,7 @@ namespace cse3902.Items
                 angle = 0;
             }
 
+            animationComplete = false;
 
             currentX = (int) startingPos.X;
             currentY = (int) startingPos.Y;
@@ -92,6 +95,7 @@ namespace cse3902.Items
                     if (currentX > 800)
                     {
                         currentX = 0;
+                        animationComplete = true;
                     }
                 }
                 else
@@ -100,6 +104,7 @@ namespace cse3902.Items
                     if (currentX < 0)
                     {
                         currentX = 800;
+                        animationComplete = true;
                     }
                 }
             }
@@ -111,6 +116,7 @@ namespace cse3902.Items
                     if (currentY > 480)
                     {
                         currentY = 0;
+                        animationComplete = true;
                     }
                 }
                 else
@@ -119,6 +125,7 @@ namespace cse3902.Items
                     if (currentY < 0)
                     {
                         currentY = 480;
+                        animationComplete = true;
                     }
                 }
             }
@@ -150,6 +157,13 @@ namespace cse3902.Items
         public Texture2D Texture
         {
             get => spriteTexture;
+        }
+
+        public bool AnimationComplete
+        {
+            get => animationComplete;
+
+            set => animationComplete = value;
         }
 
     }
