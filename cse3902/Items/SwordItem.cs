@@ -6,7 +6,7 @@ using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Items
 {
-    public class SwordItem : ISprite, IItem
+    public class SwordItem : ISprite, IItem, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -42,7 +42,7 @@ namespace cse3902.Items
         private float angle;
         private Direction direction;
         private Orientation orientation;
-        bool active;
+        bool animationComplete;
 
         public SwordItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
         {
@@ -59,7 +59,7 @@ namespace cse3902.Items
             frameHeight = spriteTexture.Height / rows;
             frames = new Rectangle[totalFrames];
             distributeFrames();
-            active = true;
+            animationComplete = false;
 
             if ((int)dir.X == 1 && (int)dir.Y == 0)
             {
@@ -123,15 +123,12 @@ namespace cse3902.Items
 
         public void Draw()
         {
-            if (active)
-            {
-                Vector2 origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
-                //Rectangle Destination = new Rectangle(currentX, currentY, 2 * frameWidth, 2 * frameHeight);
-                spriteBatch.Begin();
-                spriteBatch.Draw(spriteTexture, new Vector2(currentX, currentY), frames[currentFrame], Color.White, angle, origin, 2.0f, SpriteEffects.None, 1);
-                //spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White);
-                spriteBatch.End();
-            }
+            Vector2 origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
+            //Rectangle Destination = new Rectangle(currentX, currentY, 2 * frameWidth, 2 * frameHeight);
+            spriteBatch.Begin();
+            spriteBatch.Draw(spriteTexture, new Vector2(currentX, currentY), frames[currentFrame], Color.White, angle, origin, 2.0f, SpriteEffects.None, 1);
+            //spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White);
+            spriteBatch.End();
         }
 
         public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
@@ -156,12 +153,8 @@ namespace cse3902.Items
                     currentX += 2;
                     if (currentX > 800)
                     {
-                        active = false;
-                    }
-                    if (currentX > startingPosition.X + 50)
-                    {
-                        //currentX = 400;
-                        direction = Direction.negative;
+                        currentX = 0;
+                        animationComplete = true;
                     }
                 }
                 else
@@ -169,12 +162,8 @@ namespace cse3902.Items
                     currentX -= 2;
                     if (currentX < 0)
                     {
-                        active = false;
-                    }
-                    if (currentX < startingPosition.X)
-                    {
-                        //currentY = 400;
-                        direction = Direction.positive;
+                        currentX = 800;
+                        animationComplete = true;
                     }
                 }
             }
@@ -183,13 +172,10 @@ namespace cse3902.Items
                 if (direction == Direction.positive)
                 {
                     currentY += 2;
-                    if (currentY > 600)
+                    if (currentY > 480)
                     {
-                        active = false;
-                    }
-                    if (currentY > startingPosition.Y + 50)
-                    {
-                        direction = Direction.negative;
+                        currentY = 0;
+                        animationComplete = true;
                     }
                 }
                 else
@@ -197,24 +183,22 @@ namespace cse3902.Items
                     currentY -= 2;
                     if (currentY < 0)
                     {
-                        active = false;
-                    }
-                    if (currentY < startingPosition.Y)
-                    {
-                        direction = Direction.positive;
+                        currentY = 480;
+                        animationComplete = true;
                     }
                 }
             }
         }
 
-        public void Erase()
+            public void Erase()
         {
             spriteTexture.Dispose();
         }
         
-        public bool Active
+        public bool AnimationComplete
         {
-            get => active;
+            get => animationComplete;
+            set => animationComplete = value;
         }
     }
 }

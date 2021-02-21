@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Entities
 {
-    public class Link : IEntity
+    public class Link : IPlayer
     {
         private List<int> items;
         private int currentItemIndex;
@@ -25,7 +25,7 @@ namespace cse3902.Entities
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
             Vector2 centerPosition = new Vector2(50, 200);
             linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 24, 4, centerPosition);
-            linkStateMachine = new LinkStateMachine(linkSprite, centerPosition, game.spriteBatch);
+            linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition, game.spriteBatch);
         }
 
         public Rectangle Bounds 
@@ -71,6 +71,15 @@ namespace cse3902.Entities
         public Vector2 Direction
         {
             get => linkStateMachine.Direction;
+        }
+
+        public void UseItem()
+        {
+            linkStateMachine.UseItem();
+        }
+        public void ChangeItem(int itemNum)
+        {
+            linkStateMachine.ChangeItem(itemNum);
         }
 
         public float Speed

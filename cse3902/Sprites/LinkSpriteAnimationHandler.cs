@@ -62,10 +62,10 @@ namespace cse3902.Sprites
                 { AnimationState.UpRunning, new int[]     { 4, 5} },
                 { AnimationState.DownFacing, new int[]    { 6 } },
                 { AnimationState.DownRunning, new int[]   { 6, 7 } },
-                { AnimationState.LeftAttack, new int[]    { 9, 3, 2 } },
-                { AnimationState.RightAttack, new int[]   { 8, 1, 0 } },
-                { AnimationState.UpAttack, new int[]      { 10, 4, 5 } },
-                { AnimationState.DownAttack, new int[]    { 11, 6, 7 } },
+                { AnimationState.LeftAttack, new int[]    { 9, 9, 3, 2 } },
+                { AnimationState.RightAttack, new int[]   { 8, 8, 1, 0 } },
+                { AnimationState.UpAttack, new int[]      { 10, 10, 4, 5 } },
+                { AnimationState.DownAttack, new int[]    { 11, 11, 6, 7 } },
             }; 
 	    }
 
