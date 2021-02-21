@@ -25,7 +25,7 @@ namespace cse3902.Entities.Enemies
             Texture2D aquamentusTexture = game.Content.Load<Texture2D>("aquamentus");
             centerPosition = new Vector2(200, 300);
             aquamentusSprite = new AquamentusSprite(game.spriteBatch, aquamentusTexture, 2, 2, centerPosition);
-            aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite);
+            aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.Content.Load<Texture2D>("fireball"), game.spriteBatch);
             speed = 0.0f;
 
 
@@ -58,19 +58,16 @@ namespace cse3902.Entities.Enemies
         }
         public void Update(GameTime gameTime)
         {
-            aquamentusSprite.Update(gameTime, onSpriteAnimationComplete);
             centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            aquamentusStateMachine.Update(gameTime);
         }
 
-        private void onSpriteAnimationComplete()
-        {
-            //nothing to callback
-        }
+        
 
-        //TODO: Ientity should require clases to implement this I think
+        
         public void Draw()
         {
-            aquamentusSprite.Draw();
+            aquamentusStateMachine.Draw();
         }
     }
 }
