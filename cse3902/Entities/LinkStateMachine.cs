@@ -60,6 +60,8 @@ namespace cse3902.Entities {
             /* No need to update sprite if currently attacking */
             if (mode == LinkMode.Attack) return;
 
+            if (newDirection.Equals(currDirection)) return;
+
             if (newDirection.X == 0 && newDirection.Y == 0)
             {
 		        mode = LinkMode.Still;
