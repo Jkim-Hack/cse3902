@@ -19,10 +19,6 @@ namespace cse3902.Sprites.EnemySprites
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
 
-        private ISprite fireball1;
-        private ISprite fireball2;
-        private ISprite fireball3;
-
         private Vector2 center;
         private Vector2 startingPosition;
 
@@ -37,8 +33,6 @@ namespace cse3902.Sprites.EnemySprites
 
         private const float delay = 0.2f;
         private float remainingDelay;
-
-        private bool isAttacking;
 
         public AquamentusSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
         {
@@ -57,8 +51,6 @@ namespace cse3902.Sprites.EnemySprites
 
             this.startingPosition = startingPosition;
             center = startingPosition;
-
-            isAttacking = true;
 
             DistributeFrames(columns);
 
@@ -135,13 +127,6 @@ namespace cse3902.Sprites.EnemySprites
             }
         }
 
-        public bool IsAttacking
-        {
-            get => isAttacking;
-            set
-            {
-                isAttacking = value;
-            }
-        }
+        
     }
 }

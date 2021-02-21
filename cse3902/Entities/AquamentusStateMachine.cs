@@ -18,10 +18,14 @@ namespace cse3902.Entities {
         private ISprite fireball2;
         private ISprite fireball3;
 
+        private bool isAttacking;
+
         public AquamentusStateMachine(AquamentusSprite aquamentusSprite, Texture2D fireballTexture, SpriteBatch spriteBatch)
         {
             this.aquamentusSprite = aquamentusSprite;
             this.spriteBatch = spriteBatch;
+
+            this.isAttacking = true;
 
             this.fireballTexture = fireballTexture;
 
@@ -35,7 +39,7 @@ namespace cse3902.Entities {
 
 
 
-            Vector2 startingPosition = new Vector2(0.0f, 0.0f);
+            Vector2 startingPosition = new Vector2(300, 500);
 
             //get a normalized direction vectors for the fireballs
 
@@ -85,29 +89,46 @@ namespace cse3902.Entities {
 
         public void Attack()
         {
-            aquamentusSprite.IsAttacking = true;
+            this.IsAttacking = true;
         }
 
         public void Draw()
         {
-            if (aquamentusSprite.IsAttacking)
+            if (this.IsAttacking)
             {
-
+                this.fireball1.Draw();
+                this.fireball2.Draw();
+                this.fireball3.Draw();
             }
             aquamentusSprite.Draw();
         }
 
         public void Update(GameTime gameTime)
         {
+            if (this.IsAttacking)
+            {
+                this.fireball1.Update(gameTime, onSpriteAnimationComplete);
+                this.fireball2.Update(gameTime, onSpriteAnimationComplete);
+                this.fireball3.Update(gameTime, onSpriteAnimationComplete);
+            }
             
             aquamentusSprite.Update(gameTime, onSpriteAnimationComplete);
         }
 
         private void onSpriteAnimationComplete()
         {
-            if (aquamentusSprite.IsAttacking)
+            if (this.IsAttacking)
             {
-                aquamentusSprite.IsAttacking = false;
+                this.IsAttacking = false;
+            }
+        }
+
+        public bool IsAttacking
+        {
+            get => isAttacking;
+            set
+            {
+                isAttacking = value;
             }
         }
     }
