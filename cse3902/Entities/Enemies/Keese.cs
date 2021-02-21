@@ -18,7 +18,7 @@ namespace cse3902.Entities.Enemies
         public Keese(Game1 game)
         {
             this.game = game;
-            Texture2D linkTexture = game.Content.Load<Texture2D>("keese");
+            Texture2D linkTexture = game.Content.Load<Texture2D>("enemies/keese");
             centerPosition = new Vector2(200, 300);
             keeseSprite = new KeeseSprite(game.spriteBatch, linkTexture, 2, 2, centerPosition);
             keeseStateMachine = new KeeseStateMachine(keeseSprite);
@@ -53,8 +53,13 @@ namespace cse3902.Entities.Enemies
 
         public void Update(GameTime gameTime)
         {
-            keeseSprite.Update(gameTime);
+            keeseSprite.Update(gameTime, onSpriteAnimationComplete);
             centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        private void onSpriteAnimationComplete()
+        {
+            //nothing to callback
         }
 
         public void Draw()

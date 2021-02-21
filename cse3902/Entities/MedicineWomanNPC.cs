@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using cse3902.Interfaces;
+﻿using cse3902.Interfaces;
 using cse3902.SpriteFactory;
-using cse3902.Sprites;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Entities
 {
@@ -23,6 +19,8 @@ namespace cse3902.Entities
             this.game = game;
             centerPosition = new Vector2(100, 200);
             medicineWomanSprite = NPCSpriteFactory.Instance.CreateMedicineWomanSprite(game.spriteBatch, centerPosition);
+        }
+
         public Rectangle Bounds
         {
             get => medicineWomanSprite.Texture.Bounds;

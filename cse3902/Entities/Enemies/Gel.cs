@@ -18,7 +18,7 @@ namespace cse3902.Entities.Enemies
         public Gel(Game1 game)
         {
             this.game = game;
-            Texture2D gelTexture = game.Content.Load<Texture2D>("gel");
+            Texture2D gelTexture = game.Content.Load<Texture2D>("enemies/gel");
             centerPosition = new Vector2(300, 400);
 
             //gel sprite sheet is 1 row, 2 columns
@@ -54,8 +54,13 @@ namespace cse3902.Entities.Enemies
         }
         public void Update(GameTime gameTime)
         {
-            gelSprite.Update(gameTime);
+            gelSprite.Update(gameTime, onSpriteAnimationComplete);
             centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        private void onSpriteAnimationComplete()
+        {
+            //nothing to callback
         }
 
         public void Draw()

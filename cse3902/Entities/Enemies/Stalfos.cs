@@ -18,7 +18,7 @@ namespace cse3902.Entities.Enemies
         public Stalfos(Game1 game)
         {
             this.game = game;
-            Texture2D stalfosTexture = game.Content.Load<Texture2D>("stalfos");
+            Texture2D stalfosTexture = game.Content.Load<Texture2D>("enemies/stalfos");
             centerPosition = new Vector2(300, 400);
 
             //stalfos sprite sheet is 1 row, 2 columns
@@ -54,8 +54,13 @@ namespace cse3902.Entities.Enemies
         }
         public void Update(GameTime gameTime)
         {
-            stalfosSprite.Update(gameTime);
+            stalfosSprite.Update(gameTime, onSpriteAnimationComplete);
             centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        private void onSpriteAnimationComplete()
+        {
+            //nothing to callback
         }
 
         //TODO: Ientity should require clases to implement this I think

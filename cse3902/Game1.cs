@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 using cse3902.Entities;
-using cse3902.Entities.Enemies;
 using cse3902.Interfaces;
-using cse3902.Sprites;
 using cse3902.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,7 +22,7 @@ namespace cse3902
         public ItemHandler itemHandler { get; set; }
         public EnemyNPCHandler enemyNPCHandler { get; set; }
 
-        IEntity player;
+        public IEntity player { get; set; }
 
 
         public Game1()
@@ -45,10 +42,9 @@ namespace cse3902
             // Setup input controllers    
 	        controllerList = new List<IController>();
             controllerList.Add(new KeyboardController(this));
-            controllerList.Add(new MouseController(this));
 
             itemHandler = new ItemHandler();
-            enemyNPCHandler = new EnemyNPCHandler(this);
+            //enemyNPCHandler = new EnemyNPCHandler(this);
 
             // Initialize sprite list
             spriteList = new List<ISprite>();
@@ -64,10 +60,11 @@ namespace cse3902
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Link(this);
+            
+	        player = new Link(this);
 
             itemHandler.LoadContent(spriteBatch, Content);
-            enemyNPCHandler.LoadContent();
+            //enemyNPCHandler.LoadContent();
         }
 
         /// <summary>
@@ -88,7 +85,20 @@ namespace cse3902
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            /*
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.W))
+                player.ChangeDirection(new Vector2(0, 1));
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.S))
+                player.ChangeDirection(new Vector2(0, -1));
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.D))
+                player.ChangeDirection(new Vector2(1, 0));
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.A))
+                player.ChangeDirection(new Vector2(-1, 0));
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.R))
+                player.Attack();
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.F))
+                player.TakeDamage();
+            */
             foreach (IController controller in controllerList)
             {
                 controller.Update();
@@ -96,7 +106,7 @@ namespace cse3902
             player.Update(gameTime);
 
             itemHandler.Update();
-            enemyNPCHandler.Update(gameTime);
+            //enemyNPCHandler.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -107,7 +117,7 @@ namespace cse3902
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Beige);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             foreach (ISprite sprite in spriteList)
             {
@@ -115,8 +125,8 @@ namespace cse3902
             }
 
             itemHandler.Draw();
-            enemyNPCHandler.Draw();
-
+            //enemyNPCHandler.Draw();
+            player.Draw();
             base.Draw(gameTime);
         }
     }

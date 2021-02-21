@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using cse3902.Interfaces;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
