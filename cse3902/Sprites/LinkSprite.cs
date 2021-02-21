@@ -1,3 +1,4 @@
+using System;
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,44 +9,34 @@ namespace cse3902.Sprites
 {
     public class LinkSprite : ISprite
     {
-        public enum FrameIndex
+        public enum AnimationState
         {
-            LeftFacing = 0,
-            LeftRunning = 1,
-            RightFacing = 2,
-            RightRunning = 3,
-            UpFacing = 4,
-            UpRunning = 5,
-            DownFacing = 6,
-            DownRunning = 7,
-            LeftAttack = 8,
-            RightAttack = 9,
-            UpAttack = 10,
-            DownAttack = 11
+            LeftFacing,
+            LeftRunning,
+            RightFacing,
+            RightRunning,
+            UpFacing,
+            UpRunning,
+            DownFacing,
+            DownRunning,
+            LeftAttack,
+            RightAttack,
+            UpAttack,
+            DownAttack,
         };
-
-        private Dictionary<FrameIndex, int[]> frameSets;
 
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
         private Vector2 center;
         private Vector2 startingPosition;
-        //private LinkSword weapon
+        private Vector2 size;
 
-        private onAnimCompleteCallback callback; 
+        private Rectangle[] currentFrameSet;
+        private int currentFrameIndex;
+        private LinkSpriteAnimationHandler animationHandler;
+        private AnimationState currentAnimationState;
 
-        private Rectangle currentFrame;
-        private int totalFrames;
-        private Rectangle[] frames;
-        private int frameWidth;
-        private int frameHeight;
-        private int frameIndex;
-        private int damageOffset;
-        private int damage;
-
-        private int[] currentFrameSet;
-
-        private const float delay = 0.2f;
+        private const float delay = 0.1f;
         private float remainingDelay;
 
         public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
@@ -54,59 +45,22 @@ namespace cse3902.Sprites
             spriteTexture = texture;
             remainingDelay = delay;
 
-            distributeFrames(columns);
-            generateFrameSets();
-
-            totalFrames = rows * columns;
-            currentFrameSet = frameSets[FrameIndex.LeftFacing];
-            frameIndex = 0;
-            currentFrame = frames[currentFrameSet[frameIndex]];
-
-            frameWidth = spriteTexture.Width / columns;
-            frameHeight = spriteTexture.Height / rows;
-            frames = new Rectangle[totalFrames];
-            damageOffset = columns * rows / 4;
-            damage = -1;
+            animationHandler = new LinkSpriteAnimationHandler(texture, rows, columns, AnimationState.RightFacing);
+            size = animationHandler.FrameSize;
+            currentFrameSet = animationHandler.getFrameSet(AnimationState.RightFacing);
+            currentAnimationState = AnimationState.RightFacing;
+            currentFrameIndex = 0;
 
             this.startingPosition = startingPosition;
             center = startingPosition;
         }
 
-        private void distributeFrames(int columns)
-        {
-            for (int i = 0; i < totalFrames; i++)
-            {
-                int row = (int)((float)i / (float)columns);
-                int column = i % columns;
-                frames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
-            }
-        }
-
-        private void generateFrameSets()
-        {
-            frameSets = new Dictionary<FrameIndex, int[]>()
-            {
-                { FrameIndex.LeftFacing, new int[] {0}},
-                { FrameIndex.LeftRunning, new int[] { 0, 1 } },
-                { FrameIndex.RightFacing, new int[] {2}},
-                { FrameIndex.RightRunning, new int[] { 2, 3 } },
-                { FrameIndex.UpFacing, new int[] {4}},
-                { FrameIndex.UpRunning, new int[] { 4, 5 } },
-                { FrameIndex.DownFacing, new int[] {6}},
-                { FrameIndex.DownRunning, new int[] { 6, 8 } },
-                { FrameIndex.LeftAttack, new int[] {9, 9, 1, 0}},
-                { FrameIndex.RightAttack, new int[] { 10, 10, 1, 0 } },
-                { FrameIndex.UpAttack, new int[] {11, 11, 5, 6}},
-                { FrameIndex.DownAttack, new int[] {12, 12, 5, 6}},
-            };
-        }
-
         public void Draw()
         {
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)size.X, (int)size.Y);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, Destination, currentFrame, Color.White);
+            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex], Color.White);
             spriteBatch.End();
         }
 
@@ -118,30 +72,23 @@ namespace cse3902.Sprites
 
             if (remainingDelay <= 0)
             {
-                remainingDelay = delay;
-                frameIndex++;
-                if (currentFrameSet.Length <= frameIndex)
+		        currentFrameIndex++;
+                if (currentFrameIndex == currentFrameSet.Length)
                 {
-                    frameIndex = 0;
+                    currentFrameIndex = 0;
                     animationCompleteCallback();
                 }
-                int frameNum = currentFrameSet[frameIndex];
-                if (damage >= 0)
-                {
-                    damage = (damage + 1) % 4;
-                    frameNum += damage * damageOffset;
-                }
-                currentFrame = frames[frameNum];
+                remainingDelay = delay;
             }
         }
 
-        public void setFrameSet(FrameIndex index)
+        public void setFrameSet(AnimationState animState)
         {
             remainingDelay = delay;
-            frameIndex = 0;
-            currentFrameSet = frameSets[index];
-            currentFrame = frames[frameIndex];
-        }
+            currentAnimationState = animState;
+            currentFrameSet = animationHandler.getFrameSet(animState);
+            currentFrameIndex = 0;
+	    }
 
         public void Erase()
         {
@@ -169,24 +116,19 @@ namespace cse3902.Sprites
             }
         }
 
-        public Rectangle Bounds
+        public Vector2 Size
         {
-            get => spriteTexture.Bounds;
+            get => size;
         }
 
         public bool Damaged
         {
+            get => animationHandler.Damage;
             set
-            {  
-                if(value && damage < 0)
-                    this.damage = 0;
-                if (!value)
-                    this.damage = -1;
-            }
-        }
-        public onAnimCompleteCallback Callback
-        {
-            set => callback = value;
+	        {
+                animationHandler.Damage = value;
+                setFrameSet(currentAnimationState);
+            } 
         }
     }
 }
