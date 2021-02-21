@@ -21,35 +21,19 @@ namespace cse3902.Items
         private int frameWidth;
         private int frameHeight;
 
-        private const float delay = 0.2f;
+        private const float delay = 0.1f;
         private float remainingDelay;
 
         private int currentX;
         private int currentY;
-        
-
-        private enum Orientation
-        {
-            horizontal,
-            vertical
-        }
-
-        private enum Direction
-        {
-            positive,
-            negative
-        }
 
         private float angle;
-        private Direction direction;
-        private Orientation orientation;
 
         public SwordWeapon(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir, int swordType)
         {
             spriteBatch = batch;
             spriteTexture = texture;
             startingPosition = startingPos;
-
             remainingDelay = delay;
             this.rows = 4;
             this.columns = 4;
@@ -63,28 +47,23 @@ namespace cse3902.Items
 
             if ((int)dir.X == 1 && (int)dir.Y == 0)
             {
-                direction = Direction.positive;
-                orientation = Orientation.horizontal;
                 angle = 1.57f;
             }
             else if ((int)dir.X == -1 && (int)dir.Y == 0)
             {
-                direction = Direction.negative;
-                orientation = Orientation.horizontal;
                 angle = 4.71f;
             }
             else if ((int)dir.X == 0 && (int)dir.Y == -1)
             {
-                direction = Direction.positive;
-                orientation = Orientation.vertical;
-                angle = 3.14f;
+                angle = 0;
             }
             else
             {
-                direction = Direction.negative;
-                orientation = Orientation.vertical;
-                angle = 0;
+                angle = 3.14f;
             }
+
+            Console.WriteLine(frameWidth);
+            Console.WriteLine(frameHeight);
 
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
@@ -123,11 +102,10 @@ namespace cse3902.Items
 
         public void Draw()
         {
-            Vector2 origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
-            //Rectangle Destination = new Rectangle(currentX, currentY, 2 * frameWidth, 2 * frameHeight);
+            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
+            
             spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, new Vector2(currentX, currentY), frames[currentFrame], Color.White, angle, origin, 2.0f, SpriteEffects.None, 1);
-            //spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White);
+            spriteBatch.Draw(spriteTexture, startingPosition, frames[currentFrame], Color.White, angle, origin, 1.0f, SpriteEffects.None, 1.0f);
             spriteBatch.End();
         }
 

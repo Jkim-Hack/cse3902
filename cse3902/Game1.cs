@@ -44,7 +44,7 @@ namespace cse3902
             controllerList.Add(new KeyboardController(this));
 
             itemHandler = new ItemHandler();
-            enemyNPCHandler = new EnemyNPCHandler(this);
+            //enemyNPCHandler = new EnemyNPCHandler(this);
 
             // Initialize sprite list
             spriteList = new List<ISprite>();
@@ -60,10 +60,11 @@ namespace cse3902
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            //player = new Link(this);
+            
+	        player = new Link(this);
 
             itemHandler.LoadContent(spriteBatch, Content);
-            enemyNPCHandler.LoadContent();
+            //enemyNPCHandler.LoadContent();
         }
 
         /// <summary>
@@ -84,15 +85,28 @@ namespace cse3902
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            /*
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.W))
+                player.ChangeDirection(new Vector2(0, 1));
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.S))
+                player.ChangeDirection(new Vector2(0, -1));
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.D))
+                player.ChangeDirection(new Vector2(1, 0));
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.A))
+                player.ChangeDirection(new Vector2(-1, 0));
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.R))
+                player.Attack();
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.F))
+                player.TakeDamage();
+            */
             foreach (IController controller in controllerList)
             {
                 controller.Update();
             }
-            //player.Update(gameTime);
+            player.Update(gameTime);
 
             itemHandler.Update();
-            enemyNPCHandler.Update(gameTime);
+            //enemyNPCHandler.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -111,8 +125,8 @@ namespace cse3902
             }
 
             itemHandler.Draw();
-            enemyNPCHandler.Draw();
-
+            //enemyNPCHandler.Draw();
+            player.Draw();
             base.Draw(gameTime);
         }
     }
