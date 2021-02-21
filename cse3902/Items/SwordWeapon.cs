@@ -6,7 +6,7 @@ using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Items
 {
-    public class SwordWeapon : ISprite, IItem
+    public class SwordWeapon : ISprite, IItem, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -21,13 +21,14 @@ namespace cse3902.Items
         private int frameWidth;
         private int frameHeight;
 
-        private const float delay = 0.1f;
+        private const float delay = 0.2f;
         private float remainingDelay;
 
         private int currentX;
         private int currentY;
 
         private float angle;
+        bool animationComplete;
 
         public SwordWeapon(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir, int swordType)
         {
@@ -43,6 +44,7 @@ namespace cse3902.Items
             frameHeight = spriteTexture.Height / rows;
             frames = new Rectangle[totalFrames];
             distributeFrames();
+            animationComplete = false;
 
 
             if ((int)dir.X == 1 && (int)dir.Y == 0)
@@ -105,7 +107,7 @@ namespace cse3902.Items
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             
             spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, startingPosition, frames[currentFrame], Color.White, angle, origin, 1.0f, SpriteEffects.None, 1.0f);
+            spriteBatch.Draw(spriteTexture, startingPosition, frames[currentFrame], Color.White, angle, origin, 2.0f, SpriteEffects.None, 1.0f);
             spriteBatch.End();
         }
 
@@ -120,6 +122,7 @@ namespace cse3902.Items
                 if (currentFrame % columns == 0)
                 {
                     currentFrame -= rows;
+                    animationComplete = true;
                 }
                 remainingDelay = delay;
             }
@@ -128,6 +131,11 @@ namespace cse3902.Items
         public void Erase()
         {
             spriteTexture.Dispose();
+        }
+        public bool AnimationComplete
+        {
+            get => animationComplete;
+            set => animationComplete = value;
         }
     }
 }
