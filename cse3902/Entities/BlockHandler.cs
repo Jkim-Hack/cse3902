@@ -11,6 +11,8 @@ namespace cse3902.Entities
         private Game1 game;
         private int blockIndex;
 
+        private int maxframetime;
+        private int currentframetime;
 
         public BlockHandler(Game1 thegame)
         {
@@ -18,6 +20,8 @@ namespace cse3902.Entities
             blockIndex = 0;
             game = thegame;
 
+            maxframetime = 10;
+            currentframetime = 0;
         }
 
         public void LoadContent()
@@ -32,7 +36,7 @@ namespace cse3902.Entities
 
         public void Update(GameTime gameTime)
         {
-            //blocks dont update
+            if (currentframetime < maxframetime) currentframetime++;
         }
 
         public void Draw()
@@ -42,21 +46,21 @@ namespace cse3902.Entities
 
         public void cycleNext()
         {
-            
-            blockIndex++;
-            if (blockIndex > blocks.Count-1)
+            if (currentframetime == maxframetime)
             {
-                blockIndex = 0;
+                blockIndex++;
+                if (blockIndex == blocks.Count) blockIndex = 0;
+                currentframetime = 0;
             }
-             
         }
 
         public void cyclePrev()
         {
-            blockIndex--;
-            if (blockIndex < 0)
+            if (currentframetime == maxframetime)
             {
-                blockIndex = blocks.Count - 1;
+                blockIndex--;
+                if (blockIndex == -1) blockIndex = blocks.Count - 1;
+                currentframetime = 0;
             }
         }
 

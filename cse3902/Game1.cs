@@ -4,7 +4,6 @@ using cse3902.Interfaces;
 using cse3902.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace cse3902
 {
@@ -16,11 +15,11 @@ namespace cse3902
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch { get; set; }
 
-        public List<ISprite> spriteList { get; set; }
         List<IController> controllerList;
 
         public ItemHandler itemHandler { get; set; }
         public EnemyNPCHandler enemyNPCHandler { get; set; }
+        public BlockHandler blockHandler { get; set; }
 
         public IPlayer player { get; set; }
 
@@ -46,11 +45,10 @@ namespace cse3902
 
             itemHandler = new ItemHandler();
             enemyNPCHandler = new EnemyNPCHandler(this);
+            blockHandler = new BlockHandler(this);
 
             linkProjectiles = new List<IProjectile>();
 
-            // Initialize sprite list
-            spriteList = new List<ISprite>();
             this.IsMouseVisible = true;
 	        base.Initialize();
 
@@ -69,6 +67,7 @@ namespace cse3902
 
             itemHandler.LoadContent(spriteBatch, Content);
             enemyNPCHandler.LoadContent();
+            blockHandler.LoadContent();
         }
 
         /// <summary>
@@ -87,26 +86,11 @@ namespace cse3902
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-            /*
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.W))
-                player.ChangeDirection(new Vector2(0, 1));
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.S))
-                player.ChangeDirection(new Vector2(0, -1));
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.D))
-                player.ChangeDirection(new Vector2(1, 0));
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.A))
-                player.ChangeDirection(new Vector2(-1, 0));
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.R))
-                player.Attack();
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.F))
-                player.TakeDamage();
-            */
             foreach (IController controller in controllerList)
             {
                 controller.Update();
             }
+
             for (int i = 0; i < linkProjectiles.Count; i++) 
             {
                 IProjectile projectile = linkProjectiles[i];
@@ -117,10 +101,12 @@ namespace cse3902
                     i--;
                 }
             }
+
             player.Update(gameTime);
 
             itemHandler.Update(gameTime);
             enemyNPCHandler.Update(gameTime);
+            blockHandler.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -133,16 +119,14 @@ namespace cse3902
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            foreach (ISprite sprite in spriteList)
-            {
-                sprite.Draw();
-            }
             foreach (IProjectile projectile in linkProjectiles)
             {
                 projectile.Draw();
             }
+
             itemHandler.Draw();
             enemyNPCHandler.Draw();
+            blockHandler.Draw();
             player.Draw();
             base.Draw(gameTime);
         }

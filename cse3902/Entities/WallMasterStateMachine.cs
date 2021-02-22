@@ -26,10 +26,10 @@ namespace cse3902.Entities
             {
                 if (newDirection.Y > 0)
                 {
-                    wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.RightUpFacing;
+                    wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.RightDownFacing;
                 } else
                 {
-                    wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.RightDownFacing;
+                    wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.RightUpFacing;
                 }
                 
             }
@@ -37,11 +37,11 @@ namespace cse3902.Entities
             {
                 if (newDirection.Y > 0)
                 {
-                    wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.LeftUpFacing;
+                    wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.LeftDownFacing;
                 }
                 else
                 {
-                    wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.LeftDownFacing;
+                    wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.LeftUpFacing;
                 }
             }
 

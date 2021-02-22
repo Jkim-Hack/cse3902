@@ -17,7 +17,7 @@ namespace cse3902.Sprites
         private Vector2 direction;
         private Vector2 center;
 
-        private const float speed = 0.2f;
+        private const float speed = 1.3f;
 
         Vector2 ISprite.StartingPosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         Vector2 ISprite.Center { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
@@ -59,16 +59,16 @@ namespace cse3902.Sprites
         public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
         {
             //may need to just be = instead of +=
-            center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            center.X += (float)(speed * direction.X);
+            center.Y += (float)(speed * direction.Y);
         }
 
         public void Draw()
         {
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, spriteTexture.Width, spriteTexture.Height);
-            Rectangle Source = new Rectangle(spriteTexture.Width, spriteTexture.Height, spriteTexture.Width, spriteTexture.Height);
+            
 
             spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, Destination, Source, Color.White);
+            spriteBatch.Draw(spriteTexture, center, Color.White);
             spriteBatch.End();
         }
 

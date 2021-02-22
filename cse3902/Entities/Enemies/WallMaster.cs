@@ -13,18 +13,23 @@ namespace cse3902.Entities.Enemies
 
         private Vector2 direction;
         private float speed;
-        private Vector2 centerPosition;
+        private Vector2 center;
+        private float range;
+        private float traveled;
 
         public WallMaster(Game1 game)
         {
             this.game = game;
             Texture2D wallMasterTexture = game.Content.Load<Texture2D>("enemies/wall_master");
-            centerPosition = new Vector2(300, 400);
+            center = new Vector2(500, 200);
 
             //wallmaster sprite sheet is 4 rows, 2 columns
-            wallMasterSprite = new WallMasterSprite(game.spriteBatch, wallMasterTexture, 4, 2, centerPosition);
+            wallMasterSprite = new WallMasterSprite(game.spriteBatch, wallMasterTexture, 4, 2, center);
             wallMasterStateMachine = new WallMasterStateMachine(wallMasterSprite);
-            speed = 0.0f;
+            direction = new Vector2(-1, 1);
+            speed = 6.5f;
+            range = 15;
+            traveled = range;
         }
 
         public Rectangle Bounds
@@ -54,8 +59,35 @@ namespace cse3902.Entities.Enemies
         }
         public void Update(GameTime gameTime)
         {
+            var change = speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            traveled -= change;
+            if (traveled <= 0) {
+
+                if (direction.X > 0 && direction.Y > 0) {
+
+                    direction.Y = -1;
+
+                } else if (direction.X > 0 && direction.Y < 0) {
+
+                    direction.X = -1;
+
+                } else if (direction.X < 0 && direction.Y > 0) {
+
+                    direction.X = 1;
+
+                } else if (direction.X < 0 && direction.Y < 0) {
+
+                    direction.Y = 1;
+                }
+
+                traveled = range;
+            }
+
+            this.CenterPosition += direction * speed * change;
+
+            ChangeDirection(direction);
             wallMasterSprite.Update(gameTime, onSpriteAnimationComplete);
-            centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         private void onSpriteAnimationComplete()
@@ -66,6 +98,15 @@ namespace cse3902.Entities.Enemies
         public void Draw()
         {
             wallMasterSprite.Draw();
+        }
+
+        public Vector2 CenterPosition {
+
+            get => this.center;
+            set {
+                this.center = value;
+                wallMasterSprite.Center = value;
+            }
         }
     }
 }

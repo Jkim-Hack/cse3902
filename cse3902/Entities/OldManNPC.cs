@@ -17,7 +17,7 @@ namespace cse3902.Entities
         public OldManNPC(Game1 game)
         {
             this.game = game;
-            centerPosition = new Vector2(100, 200);
+            centerPosition = new Vector2(500, 200);
             oldManSprite = NPCSpriteFactory.Instance.CreateOldManSprite(game.spriteBatch,centerPosition);
         }
         public Rectangle Bounds
