@@ -28,7 +28,7 @@ namespace cse3902.Entities.Enemies
             gelSprite = new GelSprite(game.spriteBatch, gelTexture, 1, 2, center);
             gelStateMachine = new GelStateMachine(gelSprite);
             direction = new Vector2(-1, 0);
-            speed = 25.0f;
+            speed = 50.0f;
             travelDistance = 50;
         }
 
@@ -64,11 +64,23 @@ namespace cse3902.Entities.Enemies
 
             if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance) {
 
-                direction.X = -1;
+                direction.X = 0;
+                direction.Y = 1;
 
             } else if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance) {
 
+                direction.X = 0;
+                direction.Y = -1;
+
+            } else if (direction.Y > 0 && CenterPosition.Y > startingPos.Y + travelDistance) {
+
+                direction.X = -1;
+                direction.Y = 0;
+
+            } else if (direction.Y < 0 && CenterPosition.Y < startingPos.Y - travelDistance) {
+
                 direction.X = 1;
+                direction.Y = 0;
             }
 
             gelSprite.Update(gameTime, onSpriteAnimationComplete);
