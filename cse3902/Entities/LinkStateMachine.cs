@@ -27,7 +27,7 @@ namespace cse3902.Entities
         private const int healthMax = 10;
         private int health;
 
-        private const double damageDelay = 1.0f;
+        private const double damageDelay = 5.0f;
         private double remainingDamageDelay;
 
         public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch)
@@ -213,6 +213,7 @@ namespace cse3902.Entities
 
         public void TakeDamage(int damage)
         {
+            if (remainingDamageDelay > 0 && linkSprite.Damaged) return;
             linkSprite.Damaged = true;
             health -= damage;
             remainingDamageDelay = damageDelay;
