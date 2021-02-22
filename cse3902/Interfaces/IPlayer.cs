@@ -8,5 +8,7 @@ namespace cse3902.Entities
         public void UseItem();
 
         public void ChangeItem(int index);
+
+        public void ChangeWeapon(int index);
     }
 }
