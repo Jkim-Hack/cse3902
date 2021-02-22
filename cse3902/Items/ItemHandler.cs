@@ -43,9 +43,9 @@ namespace cse3902.Items
             items.Add(ItemSpriteFactory.Instance.CreateSwordItem(spriteBatch, new Vector2(100, 100), new Vector2(-1, 0)));
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
-            items[itemIndex].Draw();
+            items[itemIndex].Update(gameTime, null);
             if (currentframetime < maxframetime) currentframetime++;
         }
 

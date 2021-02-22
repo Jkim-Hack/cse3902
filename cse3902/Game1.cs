@@ -119,7 +119,7 @@ namespace cse3902
             }
             player.Update(gameTime);
 
-            itemHandler.Update();
+            itemHandler.Update(gameTime);
             enemyNPCHandler.Update(gameTime);
 
             base.Update(gameTime);
