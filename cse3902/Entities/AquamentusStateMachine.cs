@@ -19,6 +19,8 @@ namespace cse3902.Entities {
         private ISprite fireball3;
 
         private bool isAttacking;
+        private int fireballCounter;
+        private int fireballComplete;
 
         private Vector2 center;
 
@@ -28,6 +30,8 @@ namespace cse3902.Entities {
             this.spriteBatch = spriteBatch;
 
             this.isAttacking = true;
+            fireballCounter = 0;
+            fireballComplete = 120;
 
             this.center = center;
 
@@ -62,6 +66,8 @@ namespace cse3902.Entities {
                 direction2.Normalize();
                 direction3 = new Vector2(-3, -1);
                 direction3.Normalize();
+
+                location.X += -30; //originate fireballs at mouth if facing left
             }
 
             fireball1 = new FireballSprite(spriteBatch, fireballTexture, location, direction1);
@@ -118,9 +124,18 @@ namespace cse3902.Entities {
         {
             if (this.IsAttacking)
             {
-                fireball1.Update(gameTime, TakeDamage);
-                fireball2.Update(gameTime, TakeDamage);
-                fireball3.Update(gameTime, TakeDamage);
+                if (fireballCounter > fireballComplete)
+                {
+                    LoadFireballs();
+                    fireballCounter = 0;
+                } else
+                {
+                    fireball1.Update(gameTime, TakeDamage);
+                    fireball2.Update(gameTime, TakeDamage);
+                    fireball3.Update(gameTime, TakeDamage);
+                    fireballCounter++;
+                }
+                
             }
             aquamentusSprite.Update(gameTime, onSpriteAnimationComplete);
         }
