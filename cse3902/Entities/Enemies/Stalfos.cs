@@ -13,18 +13,23 @@ namespace cse3902.Entities.Enemies
 
         private Vector2 direction;
         private float speed;
-        private Vector2 centerPosition;
+        private Vector2 startingPos;
+        private Vector2 center;
+        private int travelDistance;
 
         public Stalfos(Game1 game)
         {
             this.game = game;
             Texture2D stalfosTexture = game.Content.Load<Texture2D>("enemies/stalfos");
-            centerPosition = new Vector2(500, 200);
+            startingPos = new Vector2(500, 200);
+            center = startingPos;
 
             //stalfos sprite sheet is 1 row, 2 columns
-            stalfosSprite = new StalfosSprite(game.spriteBatch, stalfosTexture, 1, 2, centerPosition);
+            stalfosSprite = new StalfosSprite(game.spriteBatch, stalfosTexture, 1, 2, center);
             stalfosStateMachine = new StalfosStateMachine(stalfosSprite);
-            speed = 0.0f;
+            direction = new Vector2(-1, 0);
+            speed = 50.0f;
+            travelDistance = 80;
         }
 
         public Rectangle Bounds
@@ -54,8 +59,18 @@ namespace cse3902.Entities.Enemies
         }
         public void Update(GameTime gameTime)
         {
+            this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance) {
+
+                direction.X = 1;
+
+            } else if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance) {
+
+                direction.X = -1;
+            }
+
             stalfosSprite.Update(gameTime, onSpriteAnimationComplete);
-            centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         private void onSpriteAnimationComplete()
@@ -69,6 +84,13 @@ namespace cse3902.Entities.Enemies
             stalfosSprite.Draw();
         }
 
+        public Vector2 CenterPosition {
 
+            get => this.center;
+            set {
+                this.center = value;
+                stalfosSprite.Center = value;
+            }
+        }
     }
 }
