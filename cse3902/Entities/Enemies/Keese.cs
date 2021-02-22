@@ -11,18 +11,22 @@ namespace cse3902.Entities.Enemies
         private KeeseStateMachine keeseStateMachine;
         private readonly Game1 game;
 
-        private Vector2 direction;
         private float speed;
-        private Vector2 centerPosition;
+        private Vector2 startingPos;
+        private Vector2 center;
+        private int radius = 50;
+        private int degrees;
 
         public Keese(Game1 game)
         {
             this.game = game;
             Texture2D linkTexture = game.Content.Load<Texture2D>("enemies/keese");
-            centerPosition = new Vector2(500, 200);
-            keeseSprite = new KeeseSprite(game.spriteBatch, linkTexture, 1, 2, centerPosition);
+            startingPos = new Vector2(500, 200);
+            center = startingPos;
+
+            keeseSprite = new KeeseSprite(game.spriteBatch, linkTexture, 1, 2, center);
             keeseStateMachine = new KeeseStateMachine(keeseSprite);
-            speed = 0.0f;
+            degrees = 0;
         }
 
         public Rectangle Bounds
@@ -37,6 +41,11 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
+
+            var radians = degrees + (Math.PI / 180);
+
+
+
             this.keeseStateMachine.ChangeDirection(direction);
         }
 
@@ -54,7 +63,6 @@ namespace cse3902.Entities.Enemies
         public void Update(GameTime gameTime)
         {
             keeseSprite.Update(gameTime, onSpriteAnimationComplete);
-            centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         private void onSpriteAnimationComplete()
@@ -65,6 +73,15 @@ namespace cse3902.Entities.Enemies
         public void Draw()
         {
             this.keeseSprite.Draw();
+        }
+
+        public Vector2 CenterPosition {
+
+            get => this.center;
+            set {
+                this.center = value;
+                keeseSprite.Center = value;
+            }
         }
     }
 }
