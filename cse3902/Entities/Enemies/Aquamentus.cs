@@ -29,7 +29,7 @@ namespace cse3902.Entities.Enemies
             center = new Vector2(startingPos.X, startingPos.Y);
             aquamentusSprite = new AquamentusSprite(game.spriteBatch, aquamentusTexture, 2, 2, center);
             aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.Content.Load<Texture2D>("fireball"), game.spriteBatch);
-            direction = new Vector2(1, 0);
+            direction = new Vector2(-1, 0);
             speed = 50.0f;
             travelDistance = 50;
         }
@@ -74,7 +74,7 @@ namespace cse3902.Entities.Enemies
             }
 
             aquamentusStateMachine.Update(gameTime);
-            // aquamentusStateMachine.ChangeDirection(direction);
+            aquamentusStateMachine.ChangeDirection(direction);
         }
 
         public void Draw()
