@@ -122,7 +122,7 @@ namespace cse3902.Entities
             }
             if (mode == LinkMode.Moving)
             {
-                CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                CenterPosition += currDirection * speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
             }
             linkSprite.Update(gameTime, onSpriteAnimationComplete);
         }
