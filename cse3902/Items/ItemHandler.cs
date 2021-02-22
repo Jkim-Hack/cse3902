@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,8 +12,8 @@ namespace cse3902.Items
         private List<ISprite> items;
         private int itemIndex;
 
-        private int maxframetime;
-        private int currentframetime;
+        private int maxFrameTime;
+        private int currentFrameTime;
 
         private SpriteBatch spriteBatch;
 
@@ -22,8 +21,8 @@ namespace cse3902.Items
         {
             items = new List<ISprite>();
             itemIndex = 0;
-            maxframetime = 10;
-            currentframetime = 0;
+            maxFrameTime = 10;
+            currentFrameTime = 0;
         }
         private void InitializeItems()
         {
@@ -56,7 +55,7 @@ namespace cse3902.Items
         public void Update(GameTime gameTime)
         {
             items[itemIndex].Update(gameTime, onSpriteAnimationComplete);
-            if (currentframetime < maxframetime) currentframetime++;
+            if (currentFrameTime < maxFrameTime) currentFrameTime++;
         }
 
         public void Draw()
@@ -64,29 +63,29 @@ namespace cse3902.Items
             items[itemIndex].Draw();
         }
 
-        public void displayNext()
+        public void CycleNext()
         {
-            if (currentframetime == maxframetime)
+            if (currentFrameTime == maxFrameTime)
             {
                 itemIndex++;
                 if (itemIndex >= items.Count)
                 {
                     itemIndex = 0;
                 }
-                currentframetime = 0;
+                currentFrameTime = 0;
             }
         }
 
-        public void displayPrev()
+        public void CyclePrev()
         {
-            if (currentframetime == maxframetime)
+            if (currentFrameTime == maxFrameTime)
             {
                 itemIndex--;
                 if (itemIndex < 0)
                 {
                     itemIndex = items.Count - 1;
                 }
-                currentframetime = 0;
+                currentFrameTime = 0;
             }
         }
         public void Reset()
