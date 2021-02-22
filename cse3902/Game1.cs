@@ -4,7 +4,6 @@ using cse3902.Interfaces;
 using cse3902.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace cse3902
 {
@@ -16,14 +15,15 @@ namespace cse3902
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch { get; set; }
 
-        public List<ISprite> spriteList { get; set; }
         List<IController> controllerList;
 
         public ItemHandler itemHandler { get; set; }
         public EnemyNPCHandler enemyNPCHandler { get; set; }
+        public BlockHandler blockHandler { get; set; }
 
-        public IEntity player { get; set; }
+        public IPlayer player { get; set; }
 
+        public List<IProjectile> linkProjectiles { get; set; }
 
         public Game1()
         {
@@ -45,11 +45,13 @@ namespace cse3902
 
             itemHandler = new ItemHandler();
             enemyNPCHandler = new EnemyNPCHandler(this);
+            blockHandler = new BlockHandler(this);
 
-            // Initialize sprite list
-            spriteList = new List<ISprite>();
+            linkProjectiles = new List<IProjectile>();
+
             this.IsMouseVisible = true;
 	        base.Initialize();
+
         }
 
         /// <summary>
@@ -60,10 +62,12 @@ namespace cse3902
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            //player = new Link(this);
+            
+	        player = new Link(this);
 
             itemHandler.LoadContent(spriteBatch, Content);
             enemyNPCHandler.LoadContent();
+            blockHandler.LoadContent();
         }
 
         /// <summary>
@@ -82,17 +86,27 @@ namespace cse3902
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             foreach (IController controller in controllerList)
             {
                 controller.Update();
             }
-            //player.Update(gameTime);
 
-            itemHandler.Update();
+            for (int i = 0; i < linkProjectiles.Count; i++) 
+            {
+                IProjectile projectile = linkProjectiles[i];
+                projectile.Update(gameTime, null);
+                if (projectile.AnimationComplete)
+                {
+                    linkProjectiles.Remove(projectile);
+                    i--;
+                }
+            }
+
+            player.Update(gameTime);
+
+            itemHandler.Update(gameTime);
             enemyNPCHandler.Update(gameTime);
+            blockHandler.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -105,14 +119,14 @@ namespace cse3902
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            foreach (ISprite sprite in spriteList)
+            foreach (IProjectile projectile in linkProjectiles)
             {
-                sprite.Draw();
+                projectile.Draw();
             }
-
             itemHandler.Draw();
             enemyNPCHandler.Draw();
-
+            blockHandler.Draw();
+            player.Draw();
             base.Draw(gameTime);
         }
     }

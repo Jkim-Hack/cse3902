@@ -41,7 +41,7 @@ namespace cse3902.Sprites.EnemySprites
             currentFrame = 0;
 
             startingFrameIndex = 0;
-            endingFrameIndex = 1;
+            endingFrameIndex = 2;
 
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
