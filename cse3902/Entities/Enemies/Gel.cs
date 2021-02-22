@@ -19,7 +19,7 @@ namespace cse3902.Entities.Enemies
         {
             this.game = game;
             Texture2D gelTexture = game.Content.Load<Texture2D>("enemies/gel");
-            centerPosition = new Vector2(300, 400);
+            centerPosition = new Vector2(500, 200);
 
             //gel sprite sheet is 1 row, 2 columns
             gelSprite = new GelSprite(game.spriteBatch, gelTexture, 1, 2, centerPosition);
