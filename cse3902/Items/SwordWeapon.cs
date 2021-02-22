@@ -26,6 +26,7 @@ namespace cse3902.Items
 
         private float angle;
         bool animationComplete;
+        int swordType;
 
         public SwordWeapon(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir, int swordType)
         {
@@ -35,7 +36,8 @@ namespace cse3902.Items
             remainingDelay = delaySequence[0];
             this.rows = 4;
             this.columns = 4;
-            currentFrame = 0;
+            currentFrame = swordType * rows;
+            this.swordType = swordType;
             totalFrames = rows * columns;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
@@ -115,7 +117,7 @@ namespace cse3902.Items
                     currentFrame -= rows;
                     animationComplete = true;
                 }
-                remainingDelay = delaySequence[currentFrame];
+                remainingDelay = delaySequence[currentFrame % columns];
             }
         }
 
