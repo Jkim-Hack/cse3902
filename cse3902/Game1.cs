@@ -22,8 +22,9 @@ namespace cse3902
         public ItemHandler itemHandler { get; set; }
         public EnemyNPCHandler enemyNPCHandler { get; set; }
 
-        public IEntity player { get; set; }
+        public IPlayer player { get; set; }
 
+        public List<IProjectile> linkProjectiles { get; set; }
 
         public Game1()
         {
@@ -46,10 +47,13 @@ namespace cse3902
             itemHandler = new ItemHandler();
             enemyNPCHandler = new EnemyNPCHandler(this);
 
+            linkProjectiles = new List<IProjectile>();
+
             // Initialize sprite list
             spriteList = new List<ISprite>();
             this.IsMouseVisible = true;
 	        base.Initialize();
+
         }
 
         /// <summary>
@@ -103,9 +107,19 @@ namespace cse3902
             {
                 controller.Update();
             }
+            for (int i = 0; i < linkProjectiles.Count; i++) 
+            {
+                IProjectile projectile = linkProjectiles[i];
+                projectile.Update(gameTime, null);
+                if (projectile.AnimationComplete)
+                {
+                    linkProjectiles.Remove(projectile);
+                    i--;
+                }
+            }
             player.Update(gameTime);
 
-            itemHandler.Update();
+            itemHandler.Update(gameTime);
             enemyNPCHandler.Update(gameTime);
 
             base.Update(gameTime);
@@ -123,7 +137,10 @@ namespace cse3902
             {
                 sprite.Draw();
             }
-
+            foreach (IProjectile projectile in linkProjectiles)
+            {
+                projectile.Draw();
+            }
             itemHandler.Draw();
             enemyNPCHandler.Draw();
             player.Draw();

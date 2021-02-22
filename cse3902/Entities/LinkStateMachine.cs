@@ -1,59 +1,53 @@
-﻿using System;
-using cse3902.Interfaces;
-using Microsoft.Xna.Framework;
-using cse3902.Sprites;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
+﻿using cse3902.Interfaces;
 using cse3902.Items;
+using cse3902.Sprites;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 
-namespace cse3902.Entities {
-
-    public class LinkStateMachine : IEntityStateMachine {
-
+namespace cse3902.Entities
+{
+    public class LinkStateMachine : IEntityStateMachine
+    {
         private enum LinkMode { Still, Moving, Attack };
-        
+
         private LinkMode mode;
 
         private LinkSprite linkSprite;
         private SpriteBatch spriteBatch;
         private Vector2 centerPosition;
         private Vector2 currDirection;
-        private Vector2 prevDirection;
-        
+
         private float speed;
-        
-	    private int currWeaponIndex;
-        private ISprite weapon;
-        
-	    private int currItemIndex;
-        private List<ISprite> items;
+
+        private int currItemIndex;
+        private int currWeaponIndex;
+        private Game1 game;
 
         private const int healthMax = 10;
         private int health;
-       
-	     private const double damageDelay = 1.0f;
+
+        private const double damageDelay = 1.0f;
         private double remainingDamageDelay;
 
-        public LinkStateMachine(LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch) 
-	    {
+        public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch)
+        {
             this.centerPosition = centerPosition;
-	        mode = LinkMode.Still;
+            mode = LinkMode.Still;
+            this.game = game;
 
-            currDirection = new Vector2(0, 0);
+            currDirection = new Vector2(1, 0);
             speed = 50.0f;
-            
-	        this.spriteBatch = spriteBatch;
+
+            this.spriteBatch = spriteBatch;
             this.linkSprite = linkSprite;
-            
-	        items = new List<ISprite>();
-            
-	        health = healthMax;
-            
-	        currWeaponIndex = 0;
+
+            health = healthMax;
+
+            currWeaponIndex = 0;
             currItemIndex = 0;
-            weapon = null;
-		
-	        remainingDamageDelay = damageDelay;
+
+            remainingDamageDelay = damageDelay;
         }
 
         public void ChangeDirection(Vector2 newDirection)
@@ -61,11 +55,11 @@ namespace cse3902.Entities {
             /* No need to update sprite if currently attacking */
             if (mode == LinkMode.Attack) return;
 
-            if (newDirection.Equals(currDirection)) return;
+            if (newDirection.Equals(currDirection) && mode == LinkMode.Moving) return;
 
             if (newDirection.X == 0 && newDirection.Y == 0)
             {
-		        mode = LinkMode.Still;
+                mode = LinkMode.Still;
                 if (currDirection.X > 0)
                 {
                     linkSprite.setFrameSet(LinkSprite.AnimationState.RightFacing);
@@ -82,16 +76,12 @@ namespace cse3902.Entities {
                 {
                     linkSprite.setFrameSet(LinkSprite.AnimationState.UpFacing);
                 }
-                speed = 0.0f;
-                prevDirection = currDirection;
-			    currDirection = newDirection;
             }
             else
             {
-                speed = 50.0f;
-			    currDirection = newDirection;
+                currDirection = newDirection;
                 mode = LinkMode.Moving;
-                if(newDirection.X > 0)
+                if (newDirection.X > 0)
                 {
                     linkSprite.setFrameSet(LinkSprite.AnimationState.RightRunning);
                 }
@@ -110,96 +100,110 @@ namespace cse3902.Entities {
             }
         }
 
-        private void onSpriteAnimationComplete() 
-	    {
+        private void onSpriteAnimationComplete()
+        {
             if (mode == LinkMode.Attack)
             {
                 mode = LinkMode.Still;
-                weapon = null;
-                speed = 0.0f;
                 ChangeDirection(new Vector2(0, 0));
             }
         }
 
-	    public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             if (remainingDamageDelay > 0 && linkSprite.Damaged)
             {
                 remainingDamageDelay -= gameTime.ElapsedGameTime.TotalSeconds;
-                if(remainingDamageDelay <= 0)
+                if (remainingDamageDelay <= 0)
                 {
                     remainingDamageDelay = damageDelay;
                     linkSprite.Damaged = false;
                 }
             }
-            if (weapon != null)
-            {
-                weapon.Update(gameTime, onSpriteAnimationComplete);
-            }
             if (mode == LinkMode.Moving)
             {
-		        CenterPosition += currDirection * speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
+                CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
             linkSprite.Update(gameTime, onSpriteAnimationComplete);
         }
 
         public void Draw()
         {
-            if(mode == LinkMode.Attack && weapon != null)
-            {
-                weapon.Draw();
-               
-            }
-            foreach (ISprite sprite in items)
-            {
-                sprite.Draw();
-            }
             linkSprite.Draw();
         }
 
         public void Attack()
         {
-            if (mode == LinkMode.Moving || mode == LinkMode.Still)
-            {
-                mode = LinkMode.Attack;
+            if (mode != LinkMode.Moving && mode != LinkMode.Still) return;
+            mode = LinkMode.Attack;
 
-                if (currDirection.X == 0f && currDirection.Y == 0)
-                {
-                    currDirection = prevDirection;
-                }
+            // TODO: Move this to Link.cs not needed in state machine
+            Vector2 spriteSize = linkSprite.Size;
+            Vector2 offset = (spriteSize * currDirection) / 1.5f;
+            Vector2 startingPosition = centerPosition + offset + (spriteSize / 2);
 
-                // TODO: Move this to Link.cs not needed in state machine
-                Vector2 spriteSize = linkSprite.Size;
-                Vector2 offset = (spriteSize * currDirection) / 2;
-                Vector2 startingPosition = centerPosition + offset + (spriteSize / 2);
-                
-		        Console.WriteLine(startingPosition);
-                Console.WriteLine(centerPosition);
+            IProjectile weapon = (IProjectile)ItemSpriteFactory.Instance.CreateSwordWeapon(spriteBatch, startingPosition, currDirection, currWeaponIndex);
+            game.linkProjectiles.Add(weapon);
+            SetAttackAnimation();
 
-                weapon = ItemSpriteFactory.Instance.CreateSwordWeapon(spriteBatch, startingPosition, currDirection, currWeaponIndex);
-                
-		        if (currDirection.X > 0)
-                {
-                    linkSprite.setFrameSet(LinkSprite.AnimationState.RightAttack);
-                }
-                if (currDirection.X < 0)
-                {
-                    linkSprite.setFrameSet(LinkSprite.AnimationState.LeftAttack);
-                }
-                if (currDirection.Y > 0)
-                {
-                    linkSprite.setFrameSet(LinkSprite.AnimationState.DownAttack);
-                }
-                if (currDirection.Y < 0)
-                {
-                    linkSprite.setFrameSet(LinkSprite.AnimationState.UpAttack);
-                }
-            }
         }
 
         public void UseItem()
         {
-            // TODO: Ask Smera how she wants to use items
+            if (mode != LinkMode.Moving && mode != LinkMode.Still) return;
+
+            mode = LinkMode.Attack;
+            IProjectile item;
+            Vector2 spriteSize = linkSprite.Size;
+            Vector2 offset = (spriteSize * currDirection) / 1.5f;
+            Vector2 startingPosition = centerPosition + offset + (spriteSize / 2);
+            switch (currItemIndex)
+            {
+                case 1:
+                    item = (IProjectile)ItemSpriteFactory.Instance.CreateSwordItem(spriteBatch, startingPosition, currDirection);
+                    break;
+
+                case 2:
+                    item = (IProjectile)ItemSpriteFactory.Instance.CreateArrowItem(spriteBatch, startingPosition, currDirection);
+                    break;
+
+                case 3:
+                    item = (IProjectile)ItemSpriteFactory.Instance.CreateBoomerangItem(spriteBatch, startingPosition, currDirection);
+                    break;
+
+                case 4:
+                    item = (IProjectile)ItemSpriteFactory.Instance.CreateBombItem(spriteBatch, startingPosition);
+                    break;
+
+                default:
+                    item = null;
+                    break;
+            }
+            if (item != null)
+            {
+                game.linkProjectiles.Add(item);
+            }
+            SetAttackAnimation();
+        }
+
+        private void SetAttackAnimation()
+        {
+            if (currDirection.X > 0)
+            {
+                linkSprite.setFrameSet(LinkSprite.AnimationState.RightAttack);
+            }
+            if (currDirection.X < 0)
+            {
+                linkSprite.setFrameSet(LinkSprite.AnimationState.LeftAttack);
+            }
+            if (currDirection.Y > 0)
+            {
+                linkSprite.setFrameSet(LinkSprite.AnimationState.DownAttack);
+            }
+            if (currDirection.Y < 0)
+            {
+                linkSprite.setFrameSet(LinkSprite.AnimationState.UpAttack);
+            }
         }
 
         public void ChangeItem(int index)
