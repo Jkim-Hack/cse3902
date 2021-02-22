@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using cse3902.Sprites.EnemySprites;
+using cse3902.Sprites;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Entities.Enemies
@@ -26,10 +27,11 @@ namespace cse3902.Entities.Enemies
         {
             this.game = game;
             Texture2D aquamentusTexture = game.Content.Load<Texture2D>("aquamentus");
+
             startingPos = new Vector2(500, 200);
             center = startingPos;
             aquamentusSprite = new AquamentusSprite(game.spriteBatch, aquamentusTexture, 2, 2, center);
-            aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.Content.Load<Texture2D>("fireball"), game.spriteBatch);
+            aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.Content.Load<Texture2D>("fireball"), game.spriteBatch, this.center);
             direction = new Vector2(-1.2f, 0);
             speed = 50.0f;
             travelDistance = 80;
@@ -61,6 +63,7 @@ namespace cse3902.Entities.Enemies
             //TODO: make the state machine handle this
             this.aquamentusSprite.Erase();
         }
+
         public void Update(GameTime gameTime) {
             
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
