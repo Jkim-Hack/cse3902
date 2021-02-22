@@ -17,19 +17,21 @@ namespace cse3902.Entities.Enemies
 
         private Vector2 direction;
         private float speed;
+        private Vector2 startingPos;
         private Vector2 center;
+        private int travelDistance;
 
         public Aquamentus(Game1 game)
         {
             this.game = game;
             Texture2D aquamentusTexture = game.Content.Load<Texture2D>("aquamentus");
-            center = new Vector2(200, 300);
+            startingPos = new Vector2(200, 300);
+            center = new Vector2(startingPos.X, startingPos.Y);
             aquamentusSprite = new AquamentusSprite(game.spriteBatch, aquamentusTexture, 2, 2, center);
             aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.Content.Load<Texture2D>("fireball"), game.spriteBatch);
-            direction = new Vector2(-1, 0);
+            direction = new Vector2(1, 0);
             speed = 50.0f;
-
-
+            travelDistance = 50;
         }
 
         public Rectangle Bounds
@@ -58,11 +60,21 @@ namespace cse3902.Entities.Enemies
             //TODO: make the state machine handle this
             this.aquamentusSprite.Erase();
         }
-        public void Update(GameTime gameTime)
-        {
+        public void Update(GameTime gameTime) {
+            
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            aquamentusStateMachine.ChangeDirection(direction);
+
+            if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance) {
+
+                direction.X = -1;
+
+            } else if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance) {
+
+                direction.X = 1;
+            }
+
             aquamentusStateMachine.Update(gameTime);
+            // aquamentusStateMachine.ChangeDirection(direction);
         }
 
         public void Draw()
