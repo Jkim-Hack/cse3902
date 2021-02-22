@@ -124,7 +124,7 @@ namespace cse3902.Sprites.EnemySprites
                 startingFrameIndex = value;
                 endingFrameIndex = value + 2;
                 
-                if (currentFrame > endingFrameIndex || currentFrame < startingFrameIndex) { 
+                if (currentFrame >= endingFrameIndex || currentFrame < startingFrameIndex) { 
 
                     currentFrame = value;
                 }
