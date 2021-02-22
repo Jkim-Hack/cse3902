@@ -26,7 +26,7 @@ namespace cse3902.Entities.Enemies
             this.game = game;
             Texture2D aquamentusTexture = game.Content.Load<Texture2D>("aquamentus");
             startingPos = new Vector2(500, 200);
-            center = new Vector2(startingPos.X, startingPos.Y);
+            center = startingPos;
             aquamentusSprite = new AquamentusSprite(game.spriteBatch, aquamentusTexture, 2, 2, center);
             aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.Content.Load<Texture2D>("fireball"), game.spriteBatch);
             direction = new Vector2(-1, 0);
