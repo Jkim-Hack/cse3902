@@ -82,7 +82,8 @@ namespace cse3902.Entities.Enemies
                 direction.X = 1;
                 direction.Y = 0;
             }
-            
+
+            goriyaStateMachine.ChangeDirection(direction);
             goriyaSprite.Update(gameTime, onSpriteAnimationComplete);
         }
 

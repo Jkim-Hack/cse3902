@@ -25,9 +25,17 @@ namespace cse3902.Entities
             {
                 goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.RightFacing;
             }
-            else
+            else if (newDirection.X < 0)
             {
                 goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.LeftFacing;
+            }
+            else if (newDirection.Y > 0)
+            {
+                goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.DownFacing;
+            }
+            else
+            {
+                goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.UpFacing;
             }
         }
 

@@ -78,8 +78,9 @@ namespace cse3902.Entities.Enemies
                 direction.Y = 0;
             }
 
-            aquamentusStateMachine.Update(gameTime);
             aquamentusStateMachine.ChangeDirection(direction);
+            aquamentusStateMachine.Update(gameTime);
+            
         }
 
         public void Draw()
