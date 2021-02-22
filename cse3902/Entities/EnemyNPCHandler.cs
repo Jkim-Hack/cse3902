@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using cse3902.Entities;
+using cse3902.Sprites;
 using cse3902.Entities.Enemies;
 using Microsoft.Xna.Framework;
 using cse3902.SpriteFactory;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Items
 {
@@ -16,6 +18,9 @@ namespace cse3902.Items
         private int maxframetime;
         private int currentframetime;
 
+        private FireballSprite fireball;
+ 
+
         public EnemyNPCHandler(Game1 thegame)
         {
             enpcs = new List<IEntity>();
@@ -23,6 +28,8 @@ namespace cse3902.Items
             game = thegame;
             maxframetime = 10;
             currentframetime = 0;
+
+          
         }
 
         public void LoadContent()
@@ -38,6 +45,8 @@ namespace cse3902.Items
             enpcs.Add(new Keese(game));
             enpcs.Add(new Stalfos(game));
             enpcs.Add(new WallMaster(game));
+
+
         }
 
         public void Update(GameTime gameTime)
@@ -48,6 +57,12 @@ namespace cse3902.Items
 
         public void Draw()
         {
+            //if (enpcIndex == 3)
+            //{
+            //    fireball = new FireballSprite(game.spriteBatch, game.Content.Load<Texture2D>("fireball"), new Vector2(100, 250), new Vector2(1, 0));
+            //    fireball.Draw();
+
+            //}
             enpcs[enpcIndex].Draw();
         }
 

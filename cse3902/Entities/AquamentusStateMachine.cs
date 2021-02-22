@@ -20,46 +20,55 @@ namespace cse3902.Entities {
 
         private bool isAttacking;
 
-        public AquamentusStateMachine(AquamentusSprite aquamentusSprite, Texture2D fireballTexture, SpriteBatch spriteBatch)
+        private Vector2 center;
+
+        public AquamentusStateMachine(AquamentusSprite aquamentusSprite, Texture2D fireballTexture, SpriteBatch spriteBatch, Vector2 center)
         {
             this.aquamentusSprite = aquamentusSprite;
             this.spriteBatch = spriteBatch;
 
             this.isAttacking = true;
 
+            this.center = center;
+
             this.fireballTexture = fireballTexture;
 
             LoadFireballs();
+
         }
 
         private void LoadFireballs()
         {
+            //the direction the fireballs will travel
+            Vector2 direction1;
+            Vector2 direction2;
+            Vector2 direction3;
 
-            //TODO: tweak this to position the fireballs at the mouth of aquamentus
+            //all fireballs originate in the mouth
+            Vector2 location;
+            location.X = this.center.X;
+            location.Y = this.center.Y;
 
-
-
-            Vector2 startingPosition = new Vector2(300, 500);
-
-            //get a normalized direction vectors for the fireballs
-
-            Vector2 direction1 = Vector2.Normalize(new Vector2(-1.0f, .5f));
-            Vector2 direction2 = Vector2.Normalize(new Vector2(-1.0f, .0f));
-            Vector2 direction3 = Vector2.Normalize(new Vector2(-1.0f, -.5f));
-
-            if (aquamentusSprite.StartingFrameIndex == (int)AquamentusSprite.FrameIndex.RightFacing)
+            if (aquamentusSprite.StartingFrameIndex == (int)AquamentusSprite.FrameIndex.RightFacing) {
+                direction1 = new Vector2(1, 0);
+                direction2 = new Vector2(3, 1);
+                direction2.Normalize();
+                direction3 = new Vector2(3, -1);
+                direction3.Normalize();
+            } else
             {
-                direction1 = Vector2.Normalize(new Vector2(1.0f, .5f));
-                direction2 = Vector2.Normalize(new Vector2(1.0f, .0f));
-                direction3 = Vector2.Normalize(new Vector2(1.0f, -.5f));
-
-                //starting position will also need to be changed
+                direction1 = new Vector2(-1, 0);
+                direction2 = new Vector2(-3, 1);
+                direction2.Normalize();
+                direction3 = new Vector2(-3, -1);
+                direction3.Normalize();
             }
 
-            fireball1 = new FireballSprite(spriteBatch, fireballTexture, startingPosition, direction1);
-            fireball2 = new FireballSprite(spriteBatch, fireballTexture, startingPosition, direction2);
-            fireball3 = new FireballSprite(spriteBatch, fireballTexture, startingPosition, direction3);
+            fireball1 = new FireballSprite(spriteBatch, fireballTexture, location, direction1);
+            fireball2 = new FireballSprite(spriteBatch, fireballTexture, location, direction2);
+            fireball3 = new FireballSprite(spriteBatch, fireballTexture, location, direction3);
         }
+        
 
         public void CycleWeapon(int dir)
         {
@@ -96,10 +105,12 @@ namespace cse3902.Entities {
         {
             if (this.IsAttacking)
             {
-                this.fireball1.Draw();
-                this.fireball2.Draw();
-                this.fireball3.Draw();
+                fireball1.Draw();
+                fireball2.Draw();
+                fireball3.Draw();
             }
+
+
             aquamentusSprite.Draw();
         }
 
@@ -107,11 +118,10 @@ namespace cse3902.Entities {
         {
             if (this.IsAttacking)
             {
-                this.fireball1.Update(gameTime, onSpriteAnimationComplete);
-                this.fireball2.Update(gameTime, onSpriteAnimationComplete);
-                this.fireball3.Update(gameTime, onSpriteAnimationComplete);
+                fireball1.Update(gameTime, TakeDamage);
+                fireball2.Update(gameTime, TakeDamage);
+                fireball3.Update(gameTime, TakeDamage);
             }
-            
             aquamentusSprite.Update(gameTime, onSpriteAnimationComplete);
         }
 
