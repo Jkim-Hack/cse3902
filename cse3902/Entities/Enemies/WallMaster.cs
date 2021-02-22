@@ -13,18 +13,22 @@ namespace cse3902.Entities.Enemies
 
         private Vector2 direction;
         private float speed;
-        private Vector2 centerPosition;
+        private Vector2 startingPos;
+        private Vector2 center;
+        private int travelDistance;
 
         public WallMaster(Game1 game)
         {
             this.game = game;
             Texture2D wallMasterTexture = game.Content.Load<Texture2D>("enemies/wall_master");
-            centerPosition = new Vector2(500, 200);
+            startingPos = new Vector2(500, 200);
+            center = startingPos;
 
             //wallmaster sprite sheet is 4 rows, 2 columns
-            wallMasterSprite = new WallMasterSprite(game.spriteBatch, wallMasterTexture, 4, 2, centerPosition);
+            wallMasterSprite = new WallMasterSprite(game.spriteBatch, wallMasterTexture, 4, 2, center);
             wallMasterStateMachine = new WallMasterStateMachine(wallMasterSprite);
-            speed = 0.0f;
+            speed = 50.0f;
+            travelDistance = 80;
         }
 
         public Rectangle Bounds
@@ -54,8 +58,8 @@ namespace cse3902.Entities.Enemies
         }
         public void Update(GameTime gameTime)
         {
+            ChangeDirection(direction);
             wallMasterSprite.Update(gameTime, onSpriteAnimationComplete);
-            centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         private void onSpriteAnimationComplete()
@@ -66,6 +70,15 @@ namespace cse3902.Entities.Enemies
         public void Draw()
         {
             wallMasterSprite.Draw();
+        }
+
+        public Vector2 CenterPosition {
+
+            get => this.center;
+            set {
+                this.center = value;
+                wallMasterSprite.Center = value;
+            }
         }
     }
 }
