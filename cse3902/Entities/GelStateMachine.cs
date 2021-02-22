@@ -11,7 +11,7 @@ namespace cse3902.Entities
 
 
 
-        public GelStateMachine(GelSprite stalfosSprite)
+        public GelStateMachine(GelSprite gelSprite)
         {
             this.gelSprite = gelSprite;
 
