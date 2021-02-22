@@ -79,12 +79,12 @@ namespace cse3902.Sprites
                     currentFrameIndex = 0;
                     animationCompleteCallback();
                 }
-                /*
+                
                 if (Damaged && (currentFrameIndex * 4 == currentFrameSet.Length))
                 {
                     animationCompleteCallback();
                 }
-                */
+                
                 remainingDelay = currentFrameSet[currentFrameIndex].delay;
             }
         }
