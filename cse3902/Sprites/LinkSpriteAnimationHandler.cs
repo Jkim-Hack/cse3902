@@ -76,9 +76,9 @@ namespace cse3902.Sprites
             
 	        if (isDamage)
             {
-                for (int i = 0; i < indicies.Length; i++)
-                {
                     for (int j = 1; j <= damageMaskCount; j++)
+                    {
+                    for (int i = 0; i < indicies.Length; i++)
                     {
                         int frameIndex = indicies[i] + spriteSetCount * j;
                         frameSet.Add(frames[frameIndex]);
