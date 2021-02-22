@@ -35,6 +35,7 @@ namespace cse3902
                     {
                         this.commandList.KeyboardCommands[keySet].Execute(i);
                         aCurrentKeyPressed = true;
+                        break;
                     }
                     else if (PreviousKeyboardState.IsKeyDown(key)) //key wasn't down, so need to check if it was already down
                     {

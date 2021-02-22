@@ -64,9 +64,6 @@ namespace cse3902.Items
                 angle = 3.14f;
             }
 
-            Console.WriteLine(frameWidth);
-            Console.WriteLine(frameHeight);
-
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
         }

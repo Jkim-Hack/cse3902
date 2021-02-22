@@ -27,21 +27,13 @@ namespace cse3902.Items
         private int currentX;
         private int currentY;
 
-        private enum Orientation
-        {
-            horizontal,
-            vertical
-        }
-
         private enum Direction
         {
-            positive,
-            negative
+            Up, Down, Left, Right
         }
 
         private float angle;
         private Direction direction;
-        private Orientation orientation;
         bool animationComplete;
 
         public SwordItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
@@ -61,28 +53,24 @@ namespace cse3902.Items
             distributeFrames();
             animationComplete = false;
 
-            if ((int)dir.X == 1 && (int)dir.Y == 0)
+            if (dir.X > 0)
             {
-                direction = Direction.positive;
-                orientation = Orientation.horizontal;
+                direction = Direction.Right;
                 angle = 1.57f;
             }
-            else if ((int)dir.X == -1 && (int)dir.Y == 0)
+            else if (dir.X < 0)
             {
-                direction = Direction.negative;
-                orientation = Orientation.horizontal;
+                direction = Direction.Left;
                 angle = 4.71f;
             }
-            else if ((int)dir.X == 0 && (int)dir.Y == -1)
+            else if (dir.Y > 0)
             {
-                direction = Direction.positive;
-                orientation = Orientation.vertical;
+                direction = Direction.Down;
                 angle = 3.14f;
             }
             else
             {
-                direction = Direction.negative;
-                orientation = Orientation.vertical;
+                direction = Direction.Up;
                 angle = 0;
             }
 
@@ -100,30 +88,9 @@ namespace cse3902.Items
             }
         }
 
-        public Vector2 StartingPosition
-        {
-            get => startingPosition;
-            set
-            {
-                startingPosition = value;
-                Center = value;
-            }
-        }
-
-        public Vector2 Center
-        {
-            get => center;
-            set => center = value;
-        }
-
-        public Texture2D Texture
-        {
-            get => spriteTexture;
-        }
-
         public void Draw()
         {
-            Vector2 origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
+            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             //Rectangle Destination = new Rectangle(currentX, currentY, 2 * frameWidth, 2 * frameHeight);
             spriteBatch.Begin();
             spriteBatch.Draw(spriteTexture, new Vector2(currentX, currentY), frames[currentFrame], Color.White, angle, origin, 2.0f, SpriteEffects.None, 1);
@@ -146,51 +113,67 @@ namespace cse3902.Items
                 remainingDelay = delay;
             }
 
-            if (orientation == Orientation.horizontal)
+
+            if (direction == Direction.Right)
             {
-                if (direction == Direction.positive)
+                currentX += 2;
+                if (currentX > 800)
                 {
-                    currentX += 2;
-                    if (currentX > 800)
-                    {
-                        currentX = 0;
-                        animationComplete = true;
-                    }
+                    currentX = 0;
+                    animationComplete = true;
                 }
-                else
+            }
+            else if (direction == Direction.Left)
+            {
+                currentX -= 2;
+                if (currentX < 0)
                 {
-                    currentX -= 2;
-                    if (currentX < 0)
-                    {
-                        currentX = 800;
-                        animationComplete = true;
-                    }
+                    currentX = 800;
+                    animationComplete = true;
+                }
+            }
+            else if (direction == Direction.Down)
+            {
+                currentY += 2;
+                if (currentY > 480)
+                {
+                    currentY = 0;
+                    animationComplete = true;
                 }
             }
             else
             {
-                if (direction == Direction.positive)
+                currentY -= 2;
+                if (currentY < 0)
                 {
-                    currentY += 2;
-                    if (currentY > 480)
-                    {
-                        currentY = 0;
-                        animationComplete = true;
-                    }
+                    currentY = 480;
+                    animationComplete = true;
                 }
-                else
-                {
-                    currentY -= 2;
-                    if (currentY < 0)
-                    {
-                        currentY = 480;
-                        animationComplete = true;
-                    }
-                }
+            }
+            
+        }
+        public Vector2 StartingPosition
+        {
+            get => startingPosition;
+            set
+            {
+                startingPosition = value;
+                Center = value;
             }
         }
 
-            public void Erase()
+        public Vector2 Center
+        {
+            get => center;
+            set => center = value;
+        }
+
+        public Texture2D Texture
+        {
+            get => spriteTexture;
+        }
+
+        public void Erase()
         {
             spriteTexture.Dispose();
         }
