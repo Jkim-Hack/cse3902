@@ -147,6 +147,10 @@ namespace cse3902.Entities
             SetAttackAnimation();
 
         }
+        public void ChangeWeapon(int index)
+        {
+            currWeaponIndex = index;
+        }
 
         public void UseItem()
         {
@@ -185,6 +189,10 @@ namespace cse3902.Entities
             }
             SetAttackAnimation();
         }
+        public void ChangeItem(int index)
+        {
+            currItemIndex = index;
+        }
 
         private void SetAttackAnimation()
         {
@@ -204,11 +212,6 @@ namespace cse3902.Entities
             {
                 linkSprite.setFrameSet(LinkSprite.AnimationState.UpAttack);
             }
-        }
-
-        public void ChangeItem(int index)
-        {
-            currItemIndex = index;
         }
 
         public void TakeDamage(int damage)
