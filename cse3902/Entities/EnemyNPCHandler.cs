@@ -1,35 +1,27 @@
 ﻿using System.Collections.Generic;
 using cse3902.Entities;
-using cse3902.Sprites;
 using cse3902.Entities.Enemies;
 using Microsoft.Xna.Framework;
 using cse3902.SpriteFactory;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Items
 {
     public class EnemyNPCHandler
     {
-
         private List<IEntity> enpcs;
         private Game1 game;
         private int enpcIndex;
 
-        private int maxframetime;
-        private int currentframetime;
-
-        private FireballSprite fireball;
- 
+        private int maxFrameTime;
+        private int currentFrameTime; 
 
         public EnemyNPCHandler(Game1 thegame)
         {
             enpcs = new List<IEntity>();
             enpcIndex = 0;
             game = thegame;
-            maxframetime = 10;
-            currentframetime = 0;
-
-          
+            maxFrameTime = 10;
+            currentFrameTime = 0;
         }
 
         private void InitializeEnemyNPC()
@@ -38,7 +30,7 @@ namespace cse3902.Items
             enpcs.Add(new MedicineWomanNPC(game));
             enpcs.Add(new MerchantNPC(game));
 
-            //I would include enemies here, but enemy constructors load the content file
+            //enemies would be included here, but enemy constructors load the content file
         }
         public void LoadContent()
         {
@@ -58,36 +50,30 @@ namespace cse3902.Items
         public void Update(GameTime gameTime)
         {
             enpcs[enpcIndex].Update(gameTime);
-            if (currentframetime < maxframetime) currentframetime++;
+            if (currentFrameTime < maxFrameTime) currentFrameTime++;
         }
 
         public void Draw()
         {
-            //if (enpcIndex == 3)
-            //{
-            //    fireball = new FireballSprite(game.spriteBatch, game.Content.Load<Texture2D>("fireball"), new Vector2(100, 250), new Vector2(1, 0));
-            //    fireball.Draw();
-
-            //}
             enpcs[enpcIndex].Draw();
         }
 
-        public void cycleNext()
+        public void CycleNext()
         {
-            if (currentframetime == maxframetime) { 
+            if (currentFrameTime == maxFrameTime) { 
                 enpcIndex++;
                 if (enpcIndex == enpcs.Count) enpcIndex = 0;
-                currentframetime = 0;
+                currentFrameTime = 0;
             }
         }
 
-        public void cyclePrev()
+        public void CyclePrev()
         {
-            if (currentframetime == maxframetime)
+            if (currentFrameTime == maxFrameTime)
             {
                 enpcIndex--;
                 if (enpcIndex == -1) enpcIndex = enpcs.Count - 1;
-                currentframetime = 0;
+                currentFrameTime = 0;
             }
         }
         public void Reset()

@@ -17,13 +17,13 @@ namespace cse3902.Commands
             switch (id)
             {
                 case 0:
-                    game.itemHandler.displayPrev();
+                    game.itemHandler.CyclePrev();
                     break;
                 case 1:
-                    game.itemHandler.displayNext();
+                    game.itemHandler.CycleNext();
                     break;
                 default: //this should never happen
-                    game.itemHandler.displayNext();
+                    game.itemHandler.CycleNext();
                     break;
             }
         }

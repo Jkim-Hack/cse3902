@@ -17,13 +17,13 @@ namespace cse3902.Commands
             switch (id)
             {
                 case 0:
-                    game.enemyNPCHandler.cyclePrev();
+                    game.enemyNPCHandler.CyclePrev();
                     break;
                 case 1:
-                    game.enemyNPCHandler.cycleNext();
+                    game.enemyNPCHandler.CycleNext();
                     break;
                 default: //this should never happen
-                    game.enemyNPCHandler.cycleNext();
+                    game.enemyNPCHandler.CycleNext();
                     break;
             }
         }
