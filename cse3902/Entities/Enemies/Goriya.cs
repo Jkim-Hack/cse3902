@@ -13,18 +13,22 @@ namespace cse3902.Entities.Enemies
 
         private Vector2 direction;
         private float speed;
-        private Vector2 centerPosition;
+        private Vector2 startingPos;
+        private Vector2 center;
+        private int travelDistance;
 
         public Goriya(Game1 game)
         {
             this.game = game;
             Texture2D linkTexture = game.Content.Load<Texture2D>("enemies/goriya_blue");
-            centerPosition = new Vector2(500, 200);
-            goriyaSprite = new GoriyaSprite(game.spriteBatch, linkTexture, 4, 2, centerPosition);
+            startingPos = new Vector2(500, 200);
+            center = startingPos;
+
+            goriyaSprite = new GoriyaSprite(game.spriteBatch, linkTexture, 4, 2, center);
             goriyaStateMachine = new GoriyaStateMachine(goriyaSprite);
-            speed = 0.0f;
-
-
+            direction = new Vector2(-1, 0);
+            speed = 50.0f;
+            travelDistance = 50;
         }
 
         public Rectangle Bounds
@@ -55,8 +59,31 @@ namespace cse3902.Entities.Enemies
 
         public void Update(GameTime gameTime)
         {
+
+            this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance) {
+
+                direction.X = 0;
+                direction.Y = 1;
+
+            } else if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance) {
+
+                direction.X = 0;
+                direction.Y = -1;
+
+            } else if (direction.Y > 0 && CenterPosition.Y > startingPos.Y + travelDistance) {
+
+                direction.X = -1;
+                direction.Y = 0;
+
+            } else if (direction.Y < 0 && CenterPosition.Y < startingPos.Y - travelDistance) {
+
+                direction.X = 1;
+                direction.Y = 0;
+            }
+            
             goriyaSprite.Update(gameTime, onSpriteAnimationComplete);
-            centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         private void onSpriteAnimationComplete()
@@ -67,6 +94,15 @@ namespace cse3902.Entities.Enemies
         public void Draw()
         {
             this.goriyaSprite.Draw();
+        }
+
+        public Vector2 CenterPosition {
+
+            get => this.center;
+            set {
+                this.center = value;
+                goriyaSprite.Center = value;
+            }
         }
     }
 }
