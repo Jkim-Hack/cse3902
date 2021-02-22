@@ -20,6 +20,7 @@ namespace cse3902.Entities.Enemies
         private Vector2 startingPos;
         private Vector2 center;
         private int travelDistance;
+        private Boolean travelUp;
 
         public Aquamentus(Game1 game)
         {
@@ -31,7 +32,8 @@ namespace cse3902.Entities.Enemies
             aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.Content.Load<Texture2D>("fireball"), game.spriteBatch);
             direction = new Vector2(-1, 0);
             speed = 50.0f;
-            travelDistance = 50;
+            travelDistance = 80;
+            travelUp = false;
         }
 
         public Rectangle Bounds
@@ -64,13 +66,16 @@ namespace cse3902.Entities.Enemies
             
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance) {
-
-                direction.X = -1;
-
-            } else if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance) {
+            if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance) {
 
                 direction.X = 1;
+                direction.Y = 0.5f * (travelUp ? -1 : 1);
+                travelUp = !travelUp;
+
+            } else if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance) {
+
+                direction.X = -1;
+                direction.Y = 0;
             }
 
             aquamentusStateMachine.Update(gameTime);
