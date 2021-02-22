@@ -27,6 +27,7 @@ namespace cse3902.Entities.Enemies
             //wallmaster sprite sheet is 4 rows, 2 columns
             wallMasterSprite = new WallMasterSprite(game.spriteBatch, wallMasterTexture, 4, 2, center);
             wallMasterStateMachine = new WallMasterStateMachine(wallMasterSprite);
+            direction = new Vector2(-1, 1);
             speed = 50.0f;
             travelDistance = 80;
         }
@@ -58,6 +59,25 @@ namespace cse3902.Entities.Enemies
         }
         public void Update(GameTime gameTime)
         {
+            this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (direction.X > 0 && direction.Y > 0 && CenterPosition.Y > startingPos.Y + travelDistance) {
+
+                direction.Y = -1;
+
+            } else if (direction.X > 0 && direction.Y < 0 && CenterPosition.X > startingPos.X + travelDistance) {
+
+                direction.X = -1;
+
+            } else if (direction.X < 0 && direction.Y > 0 && CenterPosition.X < startingPos.X - travelDistance) {
+
+                direction.X = 1;
+
+            } else if (direction.X < 0 && direction.Y < 0 && CenterPosition.Y < startingPos.Y - travelDistance) {
+
+                direction.Y = 1;
+            }
+
             ChangeDirection(direction);
             wallMasterSprite.Update(gameTime, onSpriteAnimationComplete);
         }
