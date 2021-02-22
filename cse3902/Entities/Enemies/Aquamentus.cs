@@ -81,7 +81,7 @@ namespace cse3902.Entities.Enemies
             }
 
             ChangeDirection(direction);
-            aquamentusStateMachine.Update(gameTime);
+            aquamentusStateMachine.Update(gameTime, this.CenterPosition);
             
         }
 

@@ -120,8 +120,9 @@ namespace cse3902.Entities {
             aquamentusSprite.Draw();
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Vector2 center)
         {
+            this.center = center;
             if (this.IsAttacking)
             {
                 if (fireballCounter > fireballComplete)
