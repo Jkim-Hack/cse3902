@@ -1,12 +1,11 @@
-﻿using System;
-using cse3902.Interfaces;
+﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Items
 {
-    public class ArrowItem: ISprite, IItem
+    public class ArrowItem : ISprite, IItem, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -18,20 +17,14 @@ namespace cse3902.Items
 
         private float angle = 0;
 
-        private enum Orientation
-        {
-            horizontal,
-            vertical
-        }
+        private bool animationComplete;
 
         private enum Direction
         {
-            positive,
-            negative
+            Up, Down, Left, Right
         }
 
         private Direction direction;
-        private Orientation orientation;
 
         public ArrowItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
         {
@@ -39,41 +32,38 @@ namespace cse3902.Items
             spriteTexture = texture;
             startingPosition = startingPos;
 
-            if ((int)dir.X == 1 && (int)dir.Y == 0)
+            if (dir.X > 0)
             {
-                direction = Direction.positive;
-                orientation = Orientation.horizontal;
+                direction = Direction.Right;
                 angle = 1.57f;
             }
-            else if ((int) dir.X == -1 && (int)dir.Y == 0)
+            else if (dir.X < 0)
             {
-                direction = Direction.negative;
-                orientation = Orientation.horizontal;
+                direction = Direction.Left;
                 angle = 4.71f;
             }
-            else if ((int)dir.X == 0 && (int)dir.Y == -1)
+            else if (dir.Y > 0)
             {
-                direction = Direction.positive;
-                orientation = Orientation.vertical;
+                direction = Direction.Down;
                 angle = 3.14f;
             }
             else
             {
-                direction = Direction.negative;
-                orientation = Orientation.vertical;
+                direction = Direction.Up;
                 angle = 0;
             }
 
+            animationComplete = false;
 
-            currentX = (int) startingPos.X;
-            currentY = (int) startingPos.Y;
+            currentX = (int)startingPos.X;
+            currentY = (int)startingPos.Y;
         }
 
         public void Draw()
         {
             Vector2 origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
             spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, new Vector2(currentX,currentY), null, Color.White, angle, origin, 2.0f, SpriteEffects.None, 1);
+            spriteBatch.Draw(spriteTexture, new Vector2(currentX, currentY), null, Color.White, angle, origin, 2.0f, SpriteEffects.None, 1);
             spriteBatch.End();
         }
 
@@ -84,42 +74,40 @@ namespace cse3902.Items
 
         public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
         {
-            if (orientation == Orientation.horizontal)
+            if (direction == Direction.Right)
             {
-                if (direction == Direction.positive)
+                currentX += 2;
+                if (currentX > 800)
                 {
-                    currentX += 2;
-                    if (currentX > 800)
-                    {
-                        currentX = 0;
-                    }
+                    currentX = 0;
+                    animationComplete = true;
                 }
-                else
+            }
+            else if (direction == Direction.Left)
+            {
+                currentX -= 2;
+                if (currentX < 0)
                 {
-                    currentX -= 2;
-                    if (currentX < 0)
-                    {
-                        currentX = 800;
-                    }
+                    currentX = 800;
+                    animationComplete = true;
+                }
+            }
+            else if (direction == Direction.Down)
+            {
+                currentY += 2;
+                if (currentY > 480)
+                {
+                    currentY = 0;
+                    animationComplete = true;
                 }
             }
             else
             {
-                if (direction == Direction.positive)
+                currentY -= 2;
+                if (currentY < 0)
                 {
-                    currentY += 2;
-                    if (currentY > 480)
-                    {
-                        currentY = 0;
-                    }
-                }
-                else
-                {
-                    currentY -= 2;
-                    if (currentY < 0)
-                    {
-                        currentY = 480;
-                    }
+                    currentY = 480;
+                    animationComplete = true;
                 }
             }
         }
@@ -132,8 +120,8 @@ namespace cse3902.Items
             {
                 startingPosition = value;
                 center = value;
-                currentX = (int) value.X;
-                currentY = (int) value.Y;
+                currentX = (int)value.X;
+                currentY = (int)value.Y;
             }
         }
 
@@ -152,5 +140,11 @@ namespace cse3902.Items
             get => spriteTexture;
         }
 
+        public bool AnimationComplete
+        {
+            get => animationComplete;
+
+            set => animationComplete = value;
+        }
     }
 }

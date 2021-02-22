@@ -20,7 +20,7 @@ namespace cse3902.Entities.Enemies
             this.game = game;
             Texture2D linkTexture = game.Content.Load<Texture2D>("enemies/keese");
             centerPosition = new Vector2(200, 300);
-            keeseSprite = new KeeseSprite(game.spriteBatch, linkTexture, 2, 2, centerPosition);
+            keeseSprite = new KeeseSprite(game.spriteBatch, linkTexture, 1, 2, centerPosition);
             keeseStateMachine = new KeeseStateMachine(keeseSprite);
             speed = 0.0f;
         }

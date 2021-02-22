@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
+using Microsoft.Xna.Framework.Graphics;
 using cse3902.Sprites.EnemySprites;
 using cse3902.Sprites;
 
@@ -9,13 +10,55 @@ namespace cse3902.Entities {
     public class AquamentusStateMachine : IEntityStateMachine
     {
         private AquamentusSprite aquamentusSprite;
-        
+        private SpriteBatch spriteBatch;
 
+        private Texture2D fireballTexture;
 
-        public AquamentusStateMachine(AquamentusSprite aquamentusSprite)
+        private ISprite fireball1;
+        private ISprite fireball2;
+        private ISprite fireball3;
+
+        private bool isAttacking;
+
+        public AquamentusStateMachine(AquamentusSprite aquamentusSprite, Texture2D fireballTexture, SpriteBatch spriteBatch)
         {
             this.aquamentusSprite = aquamentusSprite;
-            
+            this.spriteBatch = spriteBatch;
+
+            this.isAttacking = true;
+
+            this.fireballTexture = fireballTexture;
+
+            LoadFireballs();
+        }
+
+        private void LoadFireballs()
+        {
+
+            //TODO: tweak this to position the fireballs at the mouth of aquamentus
+
+
+
+            Vector2 startingPosition = new Vector2(300, 500);
+
+            //get a normalized direction vectors for the fireballs
+
+            Vector2 direction1 = Vector2.Normalize(new Vector2(-1.0f, .5f));
+            Vector2 direction2 = Vector2.Normalize(new Vector2(-1.0f, .0f));
+            Vector2 direction3 = Vector2.Normalize(new Vector2(-1.0f, -.5f));
+
+            if (aquamentusSprite.StartingFrameIndex == (int)AquamentusSprite.FrameIndex.RightFacing)
+            {
+                direction1 = Vector2.Normalize(new Vector2(1.0f, .5f));
+                direction2 = Vector2.Normalize(new Vector2(1.0f, .0f));
+                direction3 = Vector2.Normalize(new Vector2(1.0f, -.5f));
+
+                //starting position will also need to be changed
+            }
+
+            fireball1 = new FireballSprite(spriteBatch, fireballTexture, startingPosition, direction1);
+            fireball2 = new FireballSprite(spriteBatch, fireballTexture, startingPosition, direction2);
+            fireball3 = new FireballSprite(spriteBatch, fireballTexture, startingPosition, direction3);
         }
 
         public void CycleWeapon(int dir)
@@ -46,7 +89,47 @@ namespace cse3902.Entities {
 
         public void Attack()
         {
-            aquamentusSprite.IsAttacking = true;
+            this.IsAttacking = true;
+        }
+
+        public void Draw()
+        {
+            if (this.IsAttacking)
+            {
+                this.fireball1.Draw();
+                this.fireball2.Draw();
+                this.fireball3.Draw();
+            }
+            aquamentusSprite.Draw();
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            if (this.IsAttacking)
+            {
+                this.fireball1.Update(gameTime, onSpriteAnimationComplete);
+                this.fireball2.Update(gameTime, onSpriteAnimationComplete);
+                this.fireball3.Update(gameTime, onSpriteAnimationComplete);
+            }
+            
+            aquamentusSprite.Update(gameTime, onSpriteAnimationComplete);
+        }
+
+        private void onSpriteAnimationComplete()
+        {
+            if (this.IsAttacking)
+            {
+                this.IsAttacking = false;
+            }
+        }
+
+        public bool IsAttacking
+        {
+            get => isAttacking;
+            set
+            {
+                isAttacking = value;
+            }
         }
     }
 }

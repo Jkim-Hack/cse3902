@@ -19,13 +19,13 @@ namespace cse3902.Commands
             switch (id)
             {
                 case 0:
-                    direction = new Vector2(0, 1);
+                    direction = new Vector2(0, -1);
                     break;
                 case 1:
                     direction = new Vector2(-1, 0);
                     break;
                 case 2:
-                    direction = new Vector2(0, -1);
+                    direction = new Vector2(0, 1);
                     break;
                 case 3:
                     direction = new Vector2(1, 0);

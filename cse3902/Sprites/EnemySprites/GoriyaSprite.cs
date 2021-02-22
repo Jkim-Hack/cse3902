@@ -10,8 +10,10 @@ namespace cse3902.Sprites.EnemySprites
     {
         public enum FrameIndex
         {
-            RightFacing = 0,
-            LeftFacing = 2
+            UpFacing = 2,
+            DownFacing = 0,
+            RightFacing = 6,
+            LeftFacing = 4
 
         };
 
@@ -38,11 +40,12 @@ namespace cse3902.Sprites.EnemySprites
             spriteTexture = texture;
             remainingDelay = delay;
 
-
             totalFrames = rows * columns;
-            currentFrame = 0;
-            startingFrameIndex = (int)FrameIndex.LeftFacing;
-            endingFrameIndex = startingFrameIndex + 2;
+            currentFrame = 4;
+
+            startingFrameIndex = 0;
+            endingFrameIndex = 8;
+
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
             frames = new Rectangle[totalFrames];
@@ -50,11 +53,11 @@ namespace cse3902.Sprites.EnemySprites
             this.startingPosition = startingPosition;
             center = startingPosition;
 
-            distributeFrames(columns);
+            DistributeFrames(columns);
 
         }
 
-        private void distributeFrames(int columns)
+        private void DistributeFrames(int columns)
         {
             for (int i = 0; i < totalFrames; i++)
             {
