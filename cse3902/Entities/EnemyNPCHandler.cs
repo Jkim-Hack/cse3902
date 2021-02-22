@@ -29,15 +29,15 @@ namespace cse3902.Items
         {
             NPCSpriteFactory.Instance.LoadAllTextures(game.Content);
 
-            enpcs.Add(new OldManNPC(game));
-            enpcs.Add(new MedicineWomanNPC(game));
-            enpcs.Add(new MerchantNPC(game));
+            // enpcs.Add(new OldManNPC(game));
+            // enpcs.Add(new MedicineWomanNPC(game));
+            // enpcs.Add(new MerchantNPC(game));
             enpcs.Add(new Aquamentus(game));
-            enpcs.Add(new Gel(game));
-            enpcs.Add(new Goriya(game));
-            enpcs.Add(new Keese(game));
-            enpcs.Add(new Stalfos(game));
-            enpcs.Add(new WallMaster(game));
+            // enpcs.Add(new Gel(game));
+            // enpcs.Add(new Goriya(game));
+            // enpcs.Add(new Keese(game));
+            // enpcs.Add(new Stalfos(game));
+            // enpcs.Add(new WallMaster(game));
         }
 
         public void Update(GameTime gameTime)

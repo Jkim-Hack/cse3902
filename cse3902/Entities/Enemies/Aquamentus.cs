@@ -17,16 +17,17 @@ namespace cse3902.Entities.Enemies
 
         private Vector2 direction;
         private float speed;
-        private Vector2 centerPosition;
+        private Vector2 center;
 
         public Aquamentus(Game1 game)
         {
             this.game = game;
             Texture2D aquamentusTexture = game.Content.Load<Texture2D>("aquamentus");
-            centerPosition = new Vector2(200, 300);
-            aquamentusSprite = new AquamentusSprite(game.spriteBatch, aquamentusTexture, 2, 2, centerPosition);
+            center = new Vector2(200, 300);
+            aquamentusSprite = new AquamentusSprite(game.spriteBatch, aquamentusTexture, 2, 2, center);
             aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.Content.Load<Texture2D>("fireball"), game.spriteBatch);
-            speed = 0.0f;
+            direction = new Vector2(-1, 0);
+            speed = 50.0f;
 
 
         }
@@ -43,6 +44,7 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
+            direction.X = -1 * direction.X;
             this.aquamentusStateMachine.ChangeDirection(direction);
         }
 
@@ -58,16 +60,23 @@ namespace cse3902.Entities.Enemies
         }
         public void Update(GameTime gameTime)
         {
-            centerPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            aquamentusStateMachine.ChangeDirection(direction);
             aquamentusStateMachine.Update(gameTime);
         }
 
-        
-
-        
         public void Draw()
         {
             aquamentusStateMachine.Draw();
+        }
+
+        public Vector2 CenterPosition {
+
+            get => this.center;
+            set {
+                this.center = value;
+                aquamentusSprite.Center = value;
+            }
         }
     }
 }

@@ -69,8 +69,7 @@ namespace cse3902.Sprites.EnemySprites
         }
 
         
-        public void Draw()
-        {
+        public void Draw() {
             
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
 
@@ -126,7 +125,5 @@ namespace cse3902.Sprites.EnemySprites
                 endingFrameIndex = value + 2;
             }
         }
-
-        
     }
 }
