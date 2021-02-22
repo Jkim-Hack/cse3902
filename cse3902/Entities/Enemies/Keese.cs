@@ -14,8 +14,8 @@ namespace cse3902.Entities.Enemies
         private float speed;
         private Vector2 startingPos;
         private Vector2 center;
-        private int radius = 50;
-        private int degrees;
+        private int radius = 80;
+        private float degrees;
 
         public Keese(Game1 game)
         {
@@ -27,6 +27,7 @@ namespace cse3902.Entities.Enemies
             keeseSprite = new KeeseSprite(game.spriteBatch, linkTexture, 1, 2, center);
             keeseStateMachine = new KeeseStateMachine(keeseSprite);
             degrees = 0;
+            speed = 0.02f;
         }
 
         public Rectangle Bounds
@@ -41,11 +42,6 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-
-            var radians = degrees + (Math.PI / 180);
-
-
-
             this.keeseStateMachine.ChangeDirection(direction);
         }
 
@@ -62,6 +58,12 @@ namespace cse3902.Entities.Enemies
 
         public void Update(GameTime gameTime)
         {
+            var radians = degrees + (Math.PI / 180);
+            var unitCirclePos = new Vector2((float)Math.Cos(radians), (float)Math.Sin(radians));
+            CenterPosition = startingPos + (unitCirclePos * radius);
+
+            degrees += speed;
+
             keeseSprite.Update(gameTime, onSpriteAnimationComplete);
         }
 
