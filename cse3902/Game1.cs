@@ -123,6 +123,7 @@ namespace cse3902
             {
                 projectile.Draw();
             }
+
             itemHandler.Draw();
             enemyNPCHandler.Draw();
             blockHandler.Draw();

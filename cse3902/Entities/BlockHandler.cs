@@ -19,6 +19,7 @@ namespace cse3902.Entities
             blocks = new List<BlockSprite>();
             blockIndex = 0;
             game = thegame;
+
             maxframetime = 10;
             currentframetime = 0;
         }
