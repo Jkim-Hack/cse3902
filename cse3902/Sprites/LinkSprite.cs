@@ -32,19 +32,17 @@ namespace cse3902.Sprites
         private Vector2 size;
         private const float sizeIncrease = 2f;
 
-        private Rectangle[] currentFrameSet;
+        private (Rectangle frame, float delay)[] currentFrameSet;
         private int currentFrameIndex;
         private LinkSpriteAnimationHandler animationHandler;
         private AnimationState currentAnimationState;
 
-        private const float delay = 0.2f;
         private float remainingDelay;
 
         public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
-            remainingDelay = delay;
 
             animationHandler = new LinkSpriteAnimationHandler(texture, rows, columns, AnimationState.RightFacing);
             size = animationHandler.FrameSize;
@@ -52,7 +50,9 @@ namespace cse3902.Sprites
             currentAnimationState = AnimationState.RightFacing;
             currentFrameIndex = 0;
 
-            this.startingPosition = startingPosition;
+            remainingDelay = currentFrameSet[currentFrameIndex].delay;
+            
+	        this.startingPosition = startingPosition;
             center = startingPosition;
         }
 
@@ -61,7 +61,7 @@ namespace cse3902.Sprites
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(size.X * sizeIncrease), (int)(size.Y* sizeIncrease));
 
             spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex], Color.White);
+            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White);
             spriteBatch.End();
         }
 
@@ -74,25 +74,27 @@ namespace cse3902.Sprites
             if (remainingDelay <= 0)
             {
 		        currentFrameIndex++;
-                if (currentFrameIndex == currentFrameSet.Length)
+                if (currentFrameIndex >= currentFrameSet.Length)
                 {
                     currentFrameIndex = 0;
                     animationCompleteCallback();
                 }
+                /*
                 if (Damaged && (currentFrameIndex * 4 == currentFrameSet.Length))
                 {
                     animationCompleteCallback();
                 }
-                remainingDelay = delay;
+                */
+                remainingDelay = currentFrameSet[currentFrameIndex].delay;
             }
         }
 
         public void setFrameSet(AnimationState animState)
         {
-            remainingDelay = delay;
             currentAnimationState = animState;
             currentFrameSet = animationHandler.getFrameSet(animState);
             currentFrameIndex = 0;
+            remainingDelay = currentFrameSet[currentFrameIndex].delay;
 	    }
 
         public void Erase()

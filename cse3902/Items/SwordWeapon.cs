@@ -21,11 +21,8 @@ namespace cse3902.Items
         private int frameWidth;
         private int frameHeight;
 
-        private const float delay = 0.2f;
         private float remainingDelay;
-
-        private int currentX;
-        private int currentY;
+        private readonly float[] delaySequence = { 0.1f, 0.15f, 0.05f, 0.05f };
 
         private float angle;
         bool animationComplete;
@@ -35,7 +32,7 @@ namespace cse3902.Items
             spriteBatch = batch;
             spriteTexture = texture;
             startingPosition = startingPos;
-            remainingDelay = delay;
+            remainingDelay = delaySequence[0];
             this.rows = 4;
             this.columns = 4;
             currentFrame = 0;
@@ -63,9 +60,6 @@ namespace cse3902.Items
             {
                 angle = 3.14f;
             }
-
-            currentX = (int)startingPos.X;
-            currentY = (int)startingPos.Y;
         }
 
         private void distributeFrames()
@@ -121,7 +115,7 @@ namespace cse3902.Items
                     currentFrame -= rows;
                     animationComplete = true;
                 }
-                remainingDelay = delay;
+                remainingDelay = delaySequence[currentFrame];
             }
         }
 
