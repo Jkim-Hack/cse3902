@@ -26,7 +26,7 @@ namespace cse3902.Sprites
         // AnimationState, (animation sequence, delay per frame)
 	    private Dictionary<AnimationState, (int[] frame, float[] delay)> frameSetIndicies;
         
-	    public LinkSpriteAnimationHandler(Texture2D texture, int rows, int columns, AnimationState startingAnimState)
+	    public LinkSpriteAnimationHandler(Texture2D texture, int rows, int columns)
         {
             totalFrames = rows * columns;
             frameWidth = texture.Width / columns;
