@@ -17,7 +17,7 @@ namespace cse3902.Entities
         public MerchantNPC(Game1 game)
         {
             this.game = game;
-            centerPosition = new Vector2(100, 200);
+            centerPosition = new Vector2(500, 200);
             merchantSprite = NPCSpriteFactory.Instance.CreateMerchantSprite(game.spriteBatch, centerPosition);
         }
         public Rectangle Bounds

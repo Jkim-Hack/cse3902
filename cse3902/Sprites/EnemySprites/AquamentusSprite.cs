@@ -42,7 +42,7 @@ namespace cse3902.Sprites.EnemySprites
 
             
             totalFrames = rows * columns;
-            currentFrame = 0;
+            currentFrame = 2;
             startingFrameIndex = (int)FrameIndex.LeftFacing;
             endingFrameIndex = startingFrameIndex + 2;
             frameWidth = spriteTexture.Width / columns;
@@ -69,8 +69,7 @@ namespace cse3902.Sprites.EnemySprites
         }
 
         
-        public void Draw()
-        {
+        public void Draw() {
             
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
 
@@ -89,7 +88,7 @@ namespace cse3902.Sprites.EnemySprites
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
-
+            
             if (remainingDelay <= 0)
             {
                 currentFrame++;
@@ -124,9 +123,12 @@ namespace cse3902.Sprites.EnemySprites
             {
                 startingFrameIndex = value;
                 endingFrameIndex = value + 2;
+                
+                if (currentFrame >= endingFrameIndex || currentFrame < startingFrameIndex) { 
+
+                    currentFrame = value;
+                }
             }
         }
-
-        
     }
 }
