@@ -10,9 +10,10 @@
 ## Program Controls
 ### Player controls
 - Arrow keys and 'wasd' to move Link
-- 'z' and 'n' to attack with Link's sword
 - '1', '2', '3', and '4' to have Link use items
 - 'e' to damage Link
+- 'z' and 'n' to attack with Link's selected weapon
+- '5', '6', '7', and '8' to choose Link's selected weapon
 
 ### Block/obstacle controls
 - 't' and 'y' to cycle between which block is currently being shown
