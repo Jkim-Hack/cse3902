@@ -32,13 +32,19 @@ namespace cse3902.Items
           
         }
 
+        private void InitializeEnemyNPC()
+        {
+            enpcs.Add(new OldManNPC(game));
+            enpcs.Add(new MedicineWomanNPC(game));
+            enpcs.Add(new MerchantNPC(game));
+
+            //I would include enemies here, but enemy constructors load the content file
+        }
         public void LoadContent()
         {
             NPCSpriteFactory.Instance.LoadAllTextures(game.Content);
 
-            enpcs.Add(new OldManNPC(game));
-            enpcs.Add(new MedicineWomanNPC(game));
-            enpcs.Add(new MerchantNPC(game));
+            InitializeEnemyNPC();
             enpcs.Add(new Aquamentus(game));
             enpcs.Add(new Gel(game));
             enpcs.Add(new Goriya(game));
@@ -86,6 +92,8 @@ namespace cse3902.Items
         }
         public void Reset()
         {
+            //the list should be remade, but enemy content would be reloaded so no change
+            enpcs[3] = new Aquamentus(game); //special case needed to reset his fireballs
             enpcIndex = 0;
         }
     }

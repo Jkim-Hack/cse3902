@@ -16,6 +16,8 @@ namespace cse3902.Items
         private int maxframetime;
         private int currentframetime;
 
+        private SpriteBatch spriteBatch;
+
         public ItemHandler()
         {
             items = new List<ISprite>();
@@ -23,12 +25,9 @@ namespace cse3902.Items
             maxframetime = 10;
             currentframetime = 0;
         }
-
-        public void LoadContent(SpriteBatch spriteBatch, ContentManager content)
+        private void InitializeItems()
         {
-            ItemSpriteFactory.Instance.LoadAllTextures(content);
-             
-            items.Add(ItemSpriteFactory.Instance.CreateArrowItem(spriteBatch, new Vector2(100, 100), new Vector2(0,-1)));
+            items.Add(ItemSpriteFactory.Instance.CreateArrowItem(spriteBatch, new Vector2(100, 100), new Vector2(0, -1)));
             items.Add(ItemSpriteFactory.Instance.CreateBombItem(spriteBatch, new Vector2(100, 100)));
             items.Add(ItemSpriteFactory.Instance.CreateBoomerangItem(spriteBatch, new Vector2(100, 100), new Vector2(-1, 0)));
             items.Add(ItemSpriteFactory.Instance.CreateBowItem(spriteBatch, new Vector2(100, 100)));
@@ -43,9 +42,20 @@ namespace cse3902.Items
             items.Add(ItemSpriteFactory.Instance.CreateSwordItem(spriteBatch, new Vector2(100, 100), new Vector2(-1, 0)));
         }
 
+        public void LoadContent(SpriteBatch spriteBatch, ContentManager content)
+        {
+            ItemSpriteFactory.Instance.LoadAllTextures(content);
+
+            this.spriteBatch = spriteBatch;
+            InitializeItems();
+        }
+        private void onSpriteAnimationComplete()
+        {
+            //nothing to callback
+        }
         public void Update(GameTime gameTime)
         {
-            items[itemIndex].Update(gameTime, null);
+            items[itemIndex].Update(gameTime, onSpriteAnimationComplete);
             if (currentframetime < maxframetime) currentframetime++;
         }
 
@@ -81,6 +91,8 @@ namespace cse3902.Items
         }
         public void Reset()
         {
+            items = new List<ISprite>();
+            InitializeItems();
             itemIndex = 0;
         }
 
