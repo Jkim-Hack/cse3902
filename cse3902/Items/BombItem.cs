@@ -85,9 +85,9 @@ namespace cse3902.Items
 
         public void Draw()
         {
-            Rectangle Destination = new Rectangle(currentX, currentY, 2*frameWidth, 2*frameHeight);
+            Vector2 origin = new Vector2(0, 0);
             spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White);
+            spriteBatch.Draw(spriteTexture, new Vector2(currentX- frameWidth, currentY-frameHeight), frames[currentFrame], Color.White, 0, origin, 2.0f, SpriteEffects.None, 1);
             spriteBatch.End();
         }
 

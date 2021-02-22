@@ -1,5 +1,4 @@
-﻿using System;
-using cse3902.Interfaces;
+﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static cse3902.Interfaces.ISprite;
@@ -19,20 +18,12 @@ namespace cse3902.Items
 
         private int turns;
 
-        private enum Orientation
-        {
-            horizontal,
-            vertical
-        }
-
         private enum Direction
         {
-            positive,
-            negative
+            Up, Down, Left, Right
         }
 
         private Direction direction;
-        private Orientation orientation;
 
         private bool animationComplete;
 
@@ -40,35 +31,33 @@ namespace cse3902.Items
         {
             spriteBatch = batch;
             spriteTexture = texture;
-            startingPosition = startingPos;
+            startingPosition = startingPos - new Vector2(texture.Width / 2.0f, texture.Height / 2.0f);
 
-            if ((int)dir.X == 1 && (int)dir.Y == 0)
+            if (dir.X > 0)
             {
-                direction = Direction.positive;
-                orientation = Orientation.horizontal;
+                direction = Direction.Right;
                 angle = 1.57f;
             }
-            else if ((int)dir.X == -1 && (int)dir.Y == 0)
+            else if (dir.X < 0)
             {
-                direction = Direction.negative;
-                orientation = Orientation.horizontal;
+                direction = Direction.Left;
                 angle = 4.71f;
             }
-            else if ((int)dir.X == 0 && (int)dir.Y == -1)
+            else if (dir.Y > 0)
             {
-                direction = Direction.positive;
-                orientation = Orientation.vertical;
+                direction = Direction.Down;
                 angle = 3.14f;
             }
             else
             {
-                direction = Direction.negative;
-                orientation = Orientation.vertical;
+                direction = Direction.Up;
                 angle = 0;
             }
 
-            currentX = (int) startingPos.X;
-            currentY = (int) startingPos.Y;
+            turns = 0;
+
+            currentX = (int)startingPos.X;
+            currentY = (int)startingPos.Y;
 
             animationComplete = false;
         }
@@ -77,7 +66,7 @@ namespace cse3902.Items
         {
             Vector2 origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
             spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, new Vector2(currentX, currentY), null, Color.White, angle, origin, 2.0f, SpriteEffects.None, 1);
+            spriteBatch.Draw(spriteTexture, new Vector2(currentX+ Texture.Width/2, currentY+ Texture.Height/2), null, Color.White, angle, origin, 2.0f, SpriteEffects.None, 1);
             spriteBatch.End();
         }
 
@@ -88,47 +77,46 @@ namespace cse3902.Items
 
         public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
         {
-            if (orientation == Orientation.horizontal)
+            int offset = 0;
+            if(turns % 2 == 0)
             {
-                if (direction == Direction.positive)
+                offset = 50;
+            }
+            if (direction == Direction.Right)
+            {
+                currentX += 2;
+                if (currentX > startingPosition.X + offset)
                 {
-                    currentX += 2;
-                    if (currentX > startingPosition.X + 50)
-                    {
-                        direction = Direction.negative;
-                        turns++;
-                    }
-                   
+                    direction = Direction.Left;
+                    turns++;
                 }
-                else
+            }
+            else if (direction == Direction.Left)
+            {
+                currentX -= 2;
+                if (currentX < startingPosition.X - offset)
                 {
-                    currentX -= 2;
-                    if (currentX < startingPosition.X)
-                    {
-                        direction = Direction.positive;
-                        turns++;
-                    }
+                    direction = Direction.Right;
+                    turns++;
+                }
+            }
+            else
+            if (direction == Direction.Down)
+            {
+                currentY += 2;
+                if (currentY > startingPosition.Y + offset)
+                {
+                    direction = Direction.Up;
+                    turns++;
                 }
             }
             else
             {
-                if (direction == Direction.positive)
+                currentY -= 2;
+                if (currentY < startingPosition.Y - offset)
                 {
-                    currentY += 2;
-                    if (currentY > startingPosition.Y + 50)
-                    {
-                        direction = Direction.negative;
-                        turns++;
-                    }
-                }
-                else
-                {
-                    currentY -= 2;
-                    if (currentY < startingPosition.Y)
-                    {
-                        direction = Direction.positive;
-                        turns++;
-                    }
+                    direction = Direction.Down;
+                    turns++;
                 }
             }
 

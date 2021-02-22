@@ -24,7 +24,7 @@ namespace cse3902
 
         public IPlayer player { get; set; }
 
-        public List<IProjectile> linkItems { get; set; }
+        public List<IProjectile> linkProjectiles { get; set; }
 
         public Game1()
         {
@@ -47,7 +47,7 @@ namespace cse3902
             itemHandler = new ItemHandler();
             enemyNPCHandler = new EnemyNPCHandler(this);
 
-            linkItems = new List<IProjectile>();
+            linkProjectiles = new List<IProjectile>();
 
             // Initialize sprite list
             spriteList = new List<ISprite>();
@@ -107,13 +107,13 @@ namespace cse3902
             {
                 controller.Update();
             }
-            for (int i = 0; i < linkItems.Count; i++) 
+            for (int i = 0; i < linkProjectiles.Count; i++) 
             {
-                IProjectile projectile = linkItems[i];
+                IProjectile projectile = linkProjectiles[i];
                 projectile.Update(gameTime, null);
                 if (projectile.AnimationComplete)
                 {
-                    linkItems.Remove(projectile);
+                    linkProjectiles.Remove(projectile);
                     i--;
                 }
             }
@@ -137,7 +137,7 @@ namespace cse3902
             {
                 sprite.Draw();
             }
-            foreach (IProjectile projectile in linkItems)
+            foreach (IProjectile projectile in linkProjectiles)
             {
                 projectile.Draw();
             }

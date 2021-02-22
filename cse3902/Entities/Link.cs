@@ -9,8 +9,6 @@ namespace cse3902.Entities
 {
     public class Link : IPlayer
     {
-        private List<int> items;
-        private int currentItemIndex;
 
 	    private LinkSprite linkSprite;
         private LinkStateMachine linkStateMachine;
@@ -20,7 +18,6 @@ namespace cse3902.Entities
 	    public Link(Game1 game)
         {
             this.game = game;
-            currentItemIndex = 0;
             // TODO Add this into sprite factory
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
             Vector2 centerPosition = new Vector2(50, 200);

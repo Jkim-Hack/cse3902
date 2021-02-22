@@ -143,7 +143,7 @@ namespace cse3902.Entities
             Vector2 startingPosition = centerPosition + offset + (spriteSize / 2);
 
             IProjectile weapon = (IProjectile)ItemSpriteFactory.Instance.CreateSwordWeapon(spriteBatch, startingPosition, currDirection, currWeaponIndex);
-            game.linkItems.Add(weapon);
+            game.linkProjectiles.Add(weapon);
             SetAttackAnimation();
 
         }
@@ -155,7 +155,7 @@ namespace cse3902.Entities
             mode = LinkMode.Attack;
             IProjectile item;
             Vector2 spriteSize = linkSprite.Size;
-            Vector2 offset = (spriteSize * currDirection) / 2;
+            Vector2 offset = (spriteSize * currDirection) / 1.5f;
             Vector2 startingPosition = centerPosition + offset + (spriteSize / 2);
             switch (currItemIndex)
             {
@@ -181,7 +181,7 @@ namespace cse3902.Entities
             }
             if (item != null)
             {
-                game.linkItems.Add(item);
+                game.linkProjectiles.Add(item);
             }
             SetAttackAnimation();
         }
