@@ -35,6 +35,7 @@ namespace cse3902.Items
         public void LoadContent()
         {
             NPCSpriteFactory.Instance.LoadAllTextures(game.Content);
+            EnemySpriteFactory.Instance.LoadAllTextures(game.Content);
 
             InitializeEnemyNPC();
             enpcs.Add(new Aquamentus(game));

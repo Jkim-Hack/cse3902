@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.SpriteFactory;
 
 namespace cse3902.Entities.Enemies
 {
@@ -20,12 +21,11 @@ namespace cse3902.Entities.Enemies
         public Gel(Game1 game)
         {
             this.game = game;
-            Texture2D gelTexture = game.Content.Load<Texture2D>("enemies/gel");
             startingPos = new Vector2(500, 200);
             center = startingPos;
 
             //gel sprite sheet is 1 row, 2 columns
-            gelSprite = new GelSprite(game.spriteBatch, gelTexture, 1, 2, center);
+            gelSprite = (GelSprite) EnemySpriteFactory.Instance.CreateGelSprite(game.spriteBatch, startingPos);
             gelStateMachine = new GelStateMachine(gelSprite);
             direction = new Vector2(-1, 0);
             speed = 50.0f;
@@ -49,17 +49,16 @@ namespace cse3902.Entities.Enemies
 
         public void TakeDamage()
         {
-
+            this.gelStateMachine.TakeDamage();
         }
 
         public void Die()
         {
-            //TODO: make the state machine handle this
-            this.gelSprite.Erase();
+            this.gelStateMachine.Die();
         }
+
         public void Update(GameTime gameTime)
         {
-
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance) {

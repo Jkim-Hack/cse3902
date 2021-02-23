@@ -6,7 +6,7 @@ using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Sprites.EnemySprites
 {
-    public class WallMasterSprite
+    public class WallMasterSprite : ISprite
     {
         public enum FrameIndex
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using cse3902.Sprites.EnemySprites;
-using Microsoft.Xna.Framework.Graphics;
+using cse3902.SpriteFactory;
 
 namespace cse3902.Entities.Enemies
 {
@@ -20,11 +20,10 @@ namespace cse3902.Entities.Enemies
         public Keese(Game1 game)
         {
             this.game = game;
-            Texture2D linkTexture = game.Content.Load<Texture2D>("enemies/keese");
             startingPos = new Vector2(500, 200);
             center = startingPos;
 
-            keeseSprite = new KeeseSprite(game.spriteBatch, linkTexture, 1, 2, center);
+            keeseSprite = (KeeseSprite)EnemySpriteFactory.Instance.CreateKeeseSprite(game.spriteBatch, center);
             keeseStateMachine = new KeeseStateMachine(keeseSprite);
             degrees = 0;
             speed = 0.02f;
@@ -52,8 +51,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            //TODO: make the state machine handle this
-            this.keeseSprite.Erase();
+            this.keeseStateMachine.Die();
         }
 
         public void Update(GameTime gameTime)
@@ -64,12 +62,7 @@ namespace cse3902.Entities.Enemies
 
             degrees += speed;
 
-            keeseSprite.Update(gameTime, onSpriteAnimationComplete);
-        }
-
-        private void onSpriteAnimationComplete()
-        {
-            //nothing to callback
+            keeseSprite.Update(gameTime);
         }
 
         public void Draw()
