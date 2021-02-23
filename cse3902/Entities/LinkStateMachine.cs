@@ -27,7 +27,7 @@ namespace cse3902.Entities
         private const int healthMax = 10;
         private int health;
 
-        private const double damageDelay = 1.0f;
+        private const double damageDelay = 3.0f;
         private double remainingDamageDelay;
 
         public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch)
@@ -122,7 +122,7 @@ namespace cse3902.Entities
             }
             if (mode == LinkMode.Moving)
             {
-                CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                CenterPosition += currDirection * speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
             }
             linkSprite.Update(gameTime, onSpriteAnimationComplete);
         }
@@ -146,6 +146,10 @@ namespace cse3902.Entities
             game.linkProjectiles.Add(weapon);
             SetAttackAnimation();
 
+        }
+        public void ChangeWeapon(int index)
+        {
+            currWeaponIndex = index;
         }
 
         public void UseItem()
@@ -185,6 +189,10 @@ namespace cse3902.Entities
             }
             SetAttackAnimation();
         }
+        public void ChangeItem(int index)
+        {
+            currItemIndex = index;
+        }
 
         private void SetAttackAnimation()
         {
@@ -206,13 +214,9 @@ namespace cse3902.Entities
             }
         }
 
-        public void ChangeItem(int index)
-        {
-            currItemIndex = index;
-        }
-
         public void TakeDamage(int damage)
         {
+            if (remainingDamageDelay > 0 && linkSprite.Damaged) return;
             linkSprite.Damaged = true;
             health -= damage;
             remainingDamageDelay = damageDelay;
