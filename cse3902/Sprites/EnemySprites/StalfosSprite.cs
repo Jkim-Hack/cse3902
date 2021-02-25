@@ -8,14 +8,10 @@ namespace cse3902.Sprites.EnemySprites
 {
     public class StalfosSprite: ISprite
     {
-        
-        
-
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
 
         private Vector2 center;
-        private Vector2 startingPosition;
 
         private int currentFrame;
         private int totalFrames;
@@ -47,13 +43,11 @@ namespace cse3902.Sprites.EnemySprites
             frameHeight = spriteTexture.Height / rows;
             frames = new Rectangle[totalFrames];
 
-            this.startingPosition = startingPosition;
             center = startingPosition;
 
             isAttacking = false;
 
             DistributeFrames(columns);
-
         }
 
         private void DistributeFrames(int columns)
@@ -64,23 +58,15 @@ namespace cse3902.Sprites.EnemySprites
                 int column = i % columns;
                 frames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
             }
-
-
         }
-
-        
-
-
 
         public void Draw()
         {
-
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
 
             spriteBatch.Begin();
             spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White);
             spriteBatch.End();
-
         }
 
         public void Erase()
@@ -88,7 +74,7 @@ namespace cse3902.Sprites.EnemySprites
             spriteTexture.Dispose();
         }
 
-        public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
+        public void Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;

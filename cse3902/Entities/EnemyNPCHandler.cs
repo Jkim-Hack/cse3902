@@ -44,8 +44,6 @@ namespace cse3902.Items
             enpcs.Add(new Keese(game));
             enpcs.Add(new Stalfos(game));
             enpcs.Add(new WallMaster(game));
-
-
         }
 
         public void Update(GameTime gameTime)

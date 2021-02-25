@@ -48,27 +48,27 @@ namespace cse3902.SpriteFactory
 
         public ISprite CreateGelSprite(SpriteBatch spriteBatch, Vector2 center)
         {
-            return new GelSprite(spriteBatch, gel, 2, 2, center);
+            return new GelSprite(spriteBatch, gel, 1, 2, center);
         }
 
         public ISprite CreateGoriyaSprite(SpriteBatch spriteBatch, Vector2 center)
         {
-            return new GoriyaSprite(spriteBatch, goriya, 2, 2, center);
+            return new GoriyaSprite(spriteBatch, goriya, 4, 2, center);
         }
 
         public ISprite CreateKeeseSprite(SpriteBatch spriteBatch, Vector2 center)
         {
-            return new KeeseSprite(spriteBatch, keese, 2, 2, center);
+            return new KeeseSprite(spriteBatch, keese, 1, 2, center);
         }
 
         public ISprite CreateStalfosSprite(SpriteBatch spriteBatch, Vector2 center)
         {
-            return new StalfosSprite(spriteBatch, stalfos, 2, 2, center);
+            return new StalfosSprite(spriteBatch, stalfos, 1, 2, center);
         }
 
         public ISprite CreateWallMasterSprite(SpriteBatch spriteBatch, Vector2 center)
         {
-            return new WallMasterSprite(spriteBatch, wallmaster, 2, 2, center);
+            return new WallMasterSprite(spriteBatch, wallmaster, 4, 2, center);
         }
     }
 }

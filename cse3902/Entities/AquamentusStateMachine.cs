@@ -95,8 +95,6 @@ namespace cse3902.Entities {
 
         }
 
-        //TODO: takedamage and attack should probably be IEntity methods
-
         public void TakeDamage()
         {
 
@@ -116,8 +114,12 @@ namespace cse3902.Entities {
                 fireball3.Draw();
             }
 
-
             aquamentusSprite.Draw();
+        }
+
+        public void Die()
+        {
+            this.aquamentusSprite.Erase();
         }
 
         public void Update(GameTime gameTime, Vector2 center)
@@ -131,23 +133,23 @@ namespace cse3902.Entities {
                     fireballCounter = 0;
                 } else
                 {
-                    fireball1.Update(gameTime, TakeDamage);
-                    fireball2.Update(gameTime, TakeDamage);
-                    fireball3.Update(gameTime, TakeDamage);
+                    fireball1.Update(gameTime);
+                    fireball2.Update(gameTime);
+                    fireball3.Update(gameTime);
                     fireballCounter++;
                 }
                 
             }
-            aquamentusSprite.Update(gameTime, onSpriteAnimationComplete);
+            aquamentusSprite.Update(gameTime);
         }
 
-        private void onSpriteAnimationComplete()
-        {
-            if (this.IsAttacking)
-            {
-                this.IsAttacking = false;
-            }
-        }
+        //private void onSpriteAnimationComplete()
+        //{
+        //    if (this.IsAttacking)
+        //    {
+        //        this.IsAttacking = false;
+        //    }
+        //}
 
         public bool IsAttacking
         {

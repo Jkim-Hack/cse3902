@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using cse3902.Sprites.EnemySprites;
-using cse3902.Sprites;
+using cse3902.SpriteFactory;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Entities.Enemies
@@ -9,10 +9,6 @@ namespace cse3902.Entities.Enemies
     public class Aquamentus: IEntity
     {
         private AquamentusSprite aquamentusSprite;
-
-        
-       
-        
         private AquamentusStateMachine aquamentusStateMachine;
         private readonly Game1 game;
 
@@ -26,11 +22,10 @@ namespace cse3902.Entities.Enemies
         public Aquamentus(Game1 game)
         {
             this.game = game;
-            Texture2D aquamentusTexture = game.Content.Load<Texture2D>("aquamentus");
 
             startingPos = new Vector2(500, 200);
             center = startingPos;
-            aquamentusSprite = new AquamentusSprite(game.spriteBatch, aquamentusTexture, 2, 2, center);
+            aquamentusSprite = (AquamentusSprite)EnemySpriteFactory.Instance.CreateAquamentusSprite(game.spriteBatch, center);
             aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.Content.Load<Texture2D>("fireball"), game.spriteBatch, this.center);
             direction = new Vector2(-1.2f, 0);
             speed = 50.0f;
@@ -60,8 +55,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            //TODO: make the state machine handle this
-            this.aquamentusSprite.Erase();
+            this.aquamentusStateMachine.Die();
         }
 
         public void Update(GameTime gameTime) {
