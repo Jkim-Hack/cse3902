@@ -9,7 +9,6 @@ namespace cse3902.SpriteFactory
 {
     public class EnemySpriteFactory : ISpriteFactory
     {
-
         private Texture2D aquamentus;
         private Texture2D gel;
         private Texture2D goriya;

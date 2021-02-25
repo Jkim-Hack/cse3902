@@ -20,11 +20,13 @@ namespace cse3902.Sprites
 
         private const int damageMaskCount = 3;
         private const int spriteSetCount = 24;
-       
-        // AnimationState, animation sequence
-	    private Dictionary<AnimationState, int[]> frameSetIndicies;
-        
-	    public LinkSpriteAnimationHandler(Texture2D texture, int rows, int columns, AnimationState startingAnimState)
+
+        private const float defaultDelay = 0.2f;
+
+        // AnimationState, (animation sequence, delay per frame)
+        private Dictionary<AnimationState, (int[] frame, float[] delay)> frameSetIndicies;
+
+        public LinkSpriteAnimationHandler(Texture2D texture, int rows, int columns)
         {
             totalFrames = rows * columns;
             frameWidth = texture.Width / columns;
@@ -33,8 +35,8 @@ namespace cse3902.Sprites
             frames = new Rectangle[totalFrames];
             frameSize = new Vector2(frameWidth, frameHeight);
 
-	        distributeFrames(columns);
-	        generateFrameSets();
+            distributeFrames(columns);
+            generateFrameSets();
 
             isDamage = false;
 
@@ -49,47 +51,49 @@ namespace cse3902.Sprites
                 frames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
             }
         }
-        
+
         private void generateFrameSets()
         {
-            frameSetIndicies = new Dictionary<AnimationState, int[]>()
+            frameSetIndicies = new Dictionary<AnimationState, (int[] frame, float[] delay)>()
             {
-                { AnimationState.LeftFacing, new int[]    { 2 } },
-                { AnimationState.LeftRunning, new int[]   { 2, 3} },
-                { AnimationState.RightFacing, new int[]   { 0 } },
-                { AnimationState.RightRunning, new int[]  { 0, 1 } },
-                { AnimationState.UpFacing, new int[]      { 4 } },
-                { AnimationState.UpRunning, new int[]     { 4, 5} },
-                { AnimationState.DownFacing, new int[]    { 6 } },
-                { AnimationState.DownRunning, new int[]   { 6, 7 } },
-                { AnimationState.LeftAttack, new int[]    { 9, 9, 3, 2 } },
-                { AnimationState.RightAttack, new int[]   { 8, 8, 1, 0 } },
-                { AnimationState.UpAttack, new int[]      { 10, 10, 4, 5 } },
-                { AnimationState.DownAttack, new int[]    { 11, 11, 6, 7 } },
-            }; 
-	    }
+                { AnimationState.LeftFacing,  ( new int[]  { 2 },              new float[] { defaultDelay }) },
+                { AnimationState.LeftRunning, ( new int[]  { 2, 3 },           new float[] { defaultDelay, defaultDelay }) },
+                { AnimationState.RightFacing, ( new int[]  { 0 },              new float[] { defaultDelay }) },
+                { AnimationState.RightRunning,( new int[]  { 0, 1 },           new float[] { defaultDelay, defaultDelay }) },
+                { AnimationState.UpFacing,    ( new int[]  { 4 },              new float[] { defaultDelay }) },
+                { AnimationState.UpRunning,   ( new int[]  { 4, 5 },           new float[] { defaultDelay, defaultDelay }) },
+                { AnimationState.DownFacing,  ( new int[]  { 6 },              new float[] { defaultDelay }) },
+                { AnimationState.DownRunning, ( new int[]  { 6, 7 },           new float[] { defaultDelay, defaultDelay }) },
+                { AnimationState.LeftAttack,  ( new int[]  { 9, 9, 3, 2 },     new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
+                { AnimationState.RightAttack, ( new int[]  { 8, 8, 1, 0 },     new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
+                { AnimationState.UpAttack,    ( new int[]  { 10, 10, 4, 5 },   new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
+                { AnimationState.DownAttack,  ( new int[]  { 11, 11, 6, 7 },   new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
+            };
+        }
 
-        public Rectangle[] getFrameSet(AnimationState animationState)
+        public (Rectangle, float)[] getFrameSet(AnimationState animationState)
         {
-            List<Rectangle> frameSet = new List<Rectangle>();
-	        int[] indicies = frameSetIndicies[animationState];
-            
-	        if (isDamage)
+            List<(Rectangle, float)> frameSet = new List<(Rectangle, float)>();
+            var indicies = frameSetIndicies[animationState];
+
+            if (isDamage)
             {
-                for (int i = 0; i < indicies.Length; i++)
+                for (int j = 1; j <= damageMaskCount; j++)
                 {
-                    for (int j = 1; j <= damageMaskCount; j++)
+                    for (int i = 0; i < indicies.frame.Length; i++)
                     {
-                        int frameIndex = indicies[i] + spriteSetCount * j;
-                        frameSet.Add(frames[frameIndex]);
+                        int frameIndex = indicies.frame[i] + spriteSetCount * j;
+                        var frameTuple = (frames[frameIndex], frameSetIndicies[animationState].delay[i]);
+                        frameSet.Add(frameTuple);
                     }
                 }
             }
             else
-            { 
-                for (int i = 0; i < indicies.Length; i++)
+            {
+                for (int i = 0; i < indicies.frame.Length; i++)
                 {
-                   frameSet.Add(frames[indicies[i]]);
+                    var frameTuple = (frames[indicies.frame[i]], frameSetIndicies[animationState].delay[i]);
+                    frameSet.Add(frameTuple);
                 }
             }
 

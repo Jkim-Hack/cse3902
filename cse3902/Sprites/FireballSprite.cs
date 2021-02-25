@@ -31,7 +31,6 @@ namespace cse3902.Sprites
             this.center = startingPosition;
         }
 
-
         public Vector2 StartingPosition
         {
             get => startingPosition;

@@ -82,7 +82,7 @@ namespace cse3902.Entities.Enemies
                 direction.Y = 0;
             }
 
-            gelSprite.Update(gameTime, onSpriteAnimationComplete);
+            gelSprite.Update(gameTime);
         }
 
         private void onSpriteAnimationComplete()

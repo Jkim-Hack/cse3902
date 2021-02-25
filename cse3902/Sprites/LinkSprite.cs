@@ -32,7 +32,7 @@ namespace cse3902.Sprites
         private Vector2 size;
         private const float sizeIncrease = 2f;
 
-        private Rectangle[] currentFrameSet;
+        private (Rectangle frame, float delay)[] currentFrameSet;
         private int currentFrameIndex;
         private LinkSpriteAnimationHandler animationHandler;
         private AnimationState currentAnimationState;
@@ -46,7 +46,7 @@ namespace cse3902.Sprites
             spriteTexture = texture;
             remainingDelay = delay;
 
-            animationHandler = new LinkSpriteAnimationHandler(texture, rows, columns, AnimationState.RightFacing);
+            animationHandler = new LinkSpriteAnimationHandler(texture, rows, columns);
             size = animationHandler.FrameSize;
             currentFrameSet = animationHandler.getFrameSet(AnimationState.RightFacing);
             currentAnimationState = AnimationState.RightFacing;
@@ -61,12 +61,11 @@ namespace cse3902.Sprites
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(size.X * sizeIncrease), (int)(size.Y* sizeIncrease));
 
             spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex], Color.White);
+            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White);
             spriteBatch.End();
         }
-
         
-	    public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
+	    public void Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
@@ -77,9 +76,30 @@ namespace cse3902.Sprites
                 if (currentFrameIndex == currentFrameSet.Length)
                 {
                     currentFrameIndex = 0;
-                    animationCompleteCallback();
                 }
                 remainingDelay = delay;
+            }
+        }
+
+        public void Update(GameTime gameTime, onAnimCompleteCallback onAnimCompleteCallback)
+        {
+            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            remainingDelay -= timer;
+
+            if (remainingDelay <= 0)
+            {
+                currentFrameIndex++;
+                if (currentFrameIndex >= currentFrameSet.Length)
+                {
+                    currentFrameIndex = 0;
+                    onAnimCompleteCallback();
+                }
+                if (Damaged && (currentFrameIndex * 4 == currentFrameSet.Length))
+                {
+                    onAnimCompleteCallback();
+                }
+
+                remainingDelay = currentFrameSet[currentFrameIndex].delay;
             }
         }
 

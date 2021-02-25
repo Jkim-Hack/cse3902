@@ -36,7 +36,7 @@ namespace cse3902.Sprites
             spriteBatch.End();
         }
 
-        public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
+        public void Update(GameTime gameTime)
         {
             //nothing to update
         }

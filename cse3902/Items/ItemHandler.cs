@@ -54,7 +54,7 @@ namespace cse3902.Items
         }
         public void Update(GameTime gameTime)
         {
-            items[itemIndex].Update(gameTime, onSpriteAnimationComplete);
+            items[itemIndex].Update(gameTime);
             if (currentFrameTime < maxFrameTime) currentFrameTime++;
         }
 

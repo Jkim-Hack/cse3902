@@ -42,13 +42,10 @@ namespace cse3902.Entities
         {
             //NPCs don't die
         }
-        private void onSpriteAnimationComplete()
-        {
-            //nothing to callback
-        }
+       
         public void Update(GameTime gameTime)
         {
-            medicineWomanSprite.Update(gameTime, onSpriteAnimationComplete);
+            medicineWomanSprite.Update(gameTime);
         }
 
         public void setMessage(string msg)
