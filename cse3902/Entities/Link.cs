@@ -9,7 +9,6 @@ namespace cse3902.Entities
 {
     public class Link : IPlayer
     {
-
 	    private LinkSprite linkSprite;
         private LinkStateMachine linkStateMachine;
 	    private Game1 game;
