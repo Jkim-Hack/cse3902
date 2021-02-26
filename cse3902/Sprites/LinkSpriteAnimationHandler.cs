@@ -27,6 +27,7 @@ namespace cse3902.Sprites
         private Dictionary<AnimationState, (int[] frame, float[] delay)> frameSetIndicies;
 
         public LinkSpriteAnimationHandler(Texture2D texture, int rows, int columns)
+
         {
             totalFrames = rows * columns;
             frameWidth = texture.Width / columns;
@@ -68,12 +69,14 @@ namespace cse3902.Sprites
                 { AnimationState.RightAttack, ( new int[]  { 8, 8, 1, 0 },     new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
                 { AnimationState.UpAttack,    ( new int[]  { 10, 10, 4, 5 },   new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
                 { AnimationState.DownAttack,  ( new int[]  { 11, 11, 6, 7 },   new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
-            };
-        }
+            }; 
+	    }
+
 
         public (Rectangle, float)[] getFrameSet(AnimationState animationState)
         {
             List<(Rectangle, float)> frameSet = new List<(Rectangle, float)>();
+
             var indicies = frameSetIndicies[animationState];
 
             if (isDamage)

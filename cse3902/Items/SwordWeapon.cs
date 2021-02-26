@@ -21,24 +21,23 @@ namespace cse3902.Items
         private int frameWidth;
         private int frameHeight;
 
-        private const float delay = 0.2f;
         private float remainingDelay;
-
-        private int currentX;
-        private int currentY;
+        private readonly float[] delaySequence = { 0.1f, 0.15f, 0.05f, 0.05f };
 
         private float angle;
         bool animationComplete;
+        int swordType;
 
         public SwordWeapon(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir, int swordType)
         {
             spriteBatch = batch;
             spriteTexture = texture;
             startingPosition = startingPos;
-            remainingDelay = delay;
+            remainingDelay = delaySequence[0];
             this.rows = 4;
             this.columns = 4;
-            currentFrame = 0;
+            currentFrame = swordType * rows;
+            this.swordType = swordType;
             totalFrames = rows * columns;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
@@ -63,9 +62,6 @@ namespace cse3902.Items
             {
                 angle = 3.14f;
             }
-
-            currentX = (int)startingPos.X;
-            currentY = (int)startingPos.Y;
         }
 
         private void distributeFrames()
@@ -121,7 +117,7 @@ namespace cse3902.Items
                     currentFrame -= rows;
                     animationComplete = true;
                 }
-                remainingDelay = delay;
+                remainingDelay = delaySequence[currentFrame % columns];
             }
         }
 

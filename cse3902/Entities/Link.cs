@@ -78,6 +78,11 @@ namespace cse3902.Entities
             linkStateMachine.ChangeItem(itemNum);
         }
 
+        public void ChangeWeapon(int index)
+        {
+            linkStateMachine.ChangeWeapon(index); ;
+        }
+
         public float Speed
         {
             get => linkStateMachine.Speed;
