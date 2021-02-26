@@ -79,7 +79,7 @@ namespace cse3902.Sprites
                 }
                 if (Damaged && (currentFrameIndex * 4 == currentFrameSet.Length))
                 {
-                    animationCompleteCallback();
+                    //animationCompleteCallback();
                 }
 
                 remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
@@ -89,9 +89,9 @@ namespace cse3902.Sprites
         public void Update(GameTime gameTime, onAnimCompleteCallback onAnimCompleteCallback)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            remainingDelay -= timer;
+            remainingFrameDelay -= timer;
 
-            if (remainingDelay <= 0)
+            if (remainingFrameDelay <= 0)
             {
                 currentFrameIndex++;
                 if (currentFrameIndex >= currentFrameSet.Length)
@@ -104,7 +104,7 @@ namespace cse3902.Sprites
                     onAnimCompleteCallback();
                 }
 
-                remainingDelay = currentFrameSet[currentFrameIndex].delay;
+                remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
             }
         }
 
