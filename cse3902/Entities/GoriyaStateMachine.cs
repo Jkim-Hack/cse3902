@@ -39,8 +39,6 @@ namespace cse3902.Entities
             }
         }
 
-        //TODO: takedamage and attack should probably be IEntity methods
-
         public void TakeDamage()
         {
 
@@ -49,6 +47,11 @@ namespace cse3902.Entities
         public void Attack()
         {
 
+        }
+
+        public void Die()
+        {
+            this.goriyaSprite.Erase();
         }
     }
 }

@@ -72,7 +72,7 @@ namespace cse3902.Items
             spriteTexture.Dispose();
         }
 
-        public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
+        public void Update(GameTime gameTime)
         {
             if (direction == Direction.Right)
             {

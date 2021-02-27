@@ -94,7 +94,7 @@ namespace cse3902
             for (int i = 0; i < linkProjectiles.Count; i++) 
             {
                 IProjectile projectile = linkProjectiles[i];
-                projectile.Update(gameTime, null);
+                projectile.Update(gameTime);
                 if (projectile.AnimationComplete)
                 {
                     linkProjectiles.Remove(projectile);

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.SpriteFactory;
 
 namespace cse3902.Entities.Enemies
 {
@@ -20,11 +21,10 @@ namespace cse3902.Entities.Enemies
         public Goriya(Game1 game)
         {
             this.game = game;
-            Texture2D linkTexture = game.Content.Load<Texture2D>("enemies/goriya_blue");
             startingPos = new Vector2(500, 200);
             center = startingPos;
 
-            goriyaSprite = new GoriyaSprite(game.spriteBatch, linkTexture, 4, 2, center);
+            goriyaSprite = (GoriyaSprite)EnemySpriteFactory.Instance.CreateGoriyaSprite(game.spriteBatch, center);
             goriyaStateMachine = new GoriyaStateMachine(goriyaSprite);
             direction = new Vector2(-1, 0);
             speed = 50.0f;
@@ -53,8 +53,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            //TODO: make the state machine handle this
-            this.goriyaSprite.Erase();
+            this.goriyaStateMachine.Die();
         }
 
         public void Update(GameTime gameTime)
@@ -84,12 +83,7 @@ namespace cse3902.Entities.Enemies
             }
 
             ChangeDirection(direction);
-            goriyaSprite.Update(gameTime, onSpriteAnimationComplete);
-        }
-
-        private void onSpriteAnimationComplete()
-        {
-            //nothing to callback
+            goriyaSprite.Update(gameTime);
         }
 
         public void Draw()

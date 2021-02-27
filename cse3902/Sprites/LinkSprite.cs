@@ -64,9 +64,8 @@ namespace cse3902.Sprites
             spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White);
             spriteBatch.End();
         }
-
         
-	    public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
+	    public void Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingFrameDelay -= timer;
@@ -77,11 +76,32 @@ namespace cse3902.Sprites
                 if (currentFrameIndex >= currentFrameSet.Length)
                 {
                     currentFrameIndex = 0;
-                    animationCompleteCallback();
                 }
                 if (Damaged && (currentFrameIndex * 4 == currentFrameSet.Length))
                 {
-                    animationCompleteCallback();
+                    //animationCompleteCallback();
+                }
+
+                remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
+            }
+        }
+
+        public void Update(GameTime gameTime, onAnimCompleteCallback onAnimCompleteCallback)
+        {
+            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            remainingFrameDelay -= timer;
+
+            if (remainingFrameDelay <= 0)
+            {
+                currentFrameIndex++;
+                if (currentFrameIndex >= currentFrameSet.Length)
+                {
+                    currentFrameIndex = 0;
+                    onAnimCompleteCallback();
+                }
+                if (Damaged && (currentFrameIndex * 4 == currentFrameSet.Length))
+                {
+                    onAnimCompleteCallback();
                 }
 
                 remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;

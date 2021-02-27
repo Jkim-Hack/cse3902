@@ -9,12 +9,9 @@ namespace cse3902.Entities
     {
         private StalfosSprite stalfosSprite;
 
-
-
         public StalfosStateMachine(StalfosSprite stalfosSprite)
         {
             this.stalfosSprite = stalfosSprite;
-
         }
 
         public void CycleWeapon(int dir)
@@ -25,11 +22,8 @@ namespace cse3902.Entities
 
         public void ChangeDirection(Vector2 newDirection)
         {
-            //stalfos dont seem to change directions
-
-
+           
         }
-
 
         public void TakeDamage()
         {
@@ -39,6 +33,11 @@ namespace cse3902.Entities
         public void Attack()
         {
             stalfosSprite.IsAttacking = true;
+        }
+
+        public void Die()
+        {
+            this.stalfosSprite.Erase();
         }
     }
 }

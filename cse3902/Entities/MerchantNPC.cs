@@ -41,13 +41,10 @@ namespace cse3902.Entities
         {
             //NPCs don't die
         }
-        private void onSpriteAnimationComplete()
-        {
-            //nothing to callback
-        }
+        
         public void Update(GameTime gameTime)
         {
-            merchantSprite.Update(gameTime, onSpriteAnimationComplete);
+            merchantSprite.Update(gameTime);
         }
 
         public void setMessage(string msg)

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.SpriteFactory;
 
 namespace cse3902.Entities.Enemies
 {
@@ -20,12 +21,11 @@ namespace cse3902.Entities.Enemies
         public Stalfos(Game1 game)
         {
             this.game = game;
-            Texture2D stalfosTexture = game.Content.Load<Texture2D>("enemies/stalfos");
             startingPos = new Vector2(500, 200);
             center = startingPos;
 
             //stalfos sprite sheet is 1 row, 2 columns
-            stalfosSprite = new StalfosSprite(game.spriteBatch, stalfosTexture, 1, 2, center);
+            stalfosSprite = (StalfosSprite)EnemySpriteFactory.Instance.CreateStalfosSprite(game.spriteBatch, center);
             stalfosStateMachine = new StalfosStateMachine(stalfosSprite);
             direction = new Vector2(-1, 0);
             speed = 50.0f;
@@ -54,8 +54,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            //TODO: make the state machine handle this
-            this.stalfosSprite.Erase();
+            this.stalfosStateMachine.Die();
         }
         public void Update(GameTime gameTime)
         {
@@ -70,15 +69,9 @@ namespace cse3902.Entities.Enemies
                 direction.X = -1;
             }
 
-            stalfosSprite.Update(gameTime, onSpriteAnimationComplete);
+            stalfosSprite.Update(gameTime);
         }
 
-        private void onSpriteAnimationComplete()
-        {
-            //nothing to callback
-        }
-
-        //TODO: Ientity should require clases to implement this I think
         public void Draw()
         {
             stalfosSprite.Draw();

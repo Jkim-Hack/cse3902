@@ -53,7 +53,7 @@ namespace cse3902.Sprites
 
         }
 
-        public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
+        public void Update(GameTime gameTime)
         {
 
         }

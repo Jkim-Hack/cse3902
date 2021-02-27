@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.SpriteFactory;
 
 namespace cse3902.Entities.Enemies
 {
@@ -20,11 +21,10 @@ namespace cse3902.Entities.Enemies
         public WallMaster(Game1 game)
         {
             this.game = game;
-            Texture2D wallMasterTexture = game.Content.Load<Texture2D>("enemies/wall_master");
             center = new Vector2(500, 200);
 
             //wallmaster sprite sheet is 4 rows, 2 columns
-            wallMasterSprite = new WallMasterSprite(game.spriteBatch, wallMasterTexture, 4, 2, center);
+            wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.spriteBatch, center);
             wallMasterStateMachine = new WallMasterStateMachine(wallMasterSprite);
             direction = new Vector2(-1, 1);
             speed = 6.5f;
@@ -54,8 +54,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            //TODO: make the state machine handle this
-            this.wallMasterSprite.Erase();
+            this.wallMasterStateMachine.Die();
         }
         public void Update(GameTime gameTime)
         {
@@ -87,12 +86,7 @@ namespace cse3902.Entities.Enemies
             this.CenterPosition += direction * speed * change;
 
             ChangeDirection(direction);
-            wallMasterSprite.Update(gameTime, onSpriteAnimationComplete);
-        }
-
-        private void onSpriteAnimationComplete()
-        {
-            //nothing to callback
+            wallMasterSprite.Update(gameTime);
         }
 
         public void Draw()

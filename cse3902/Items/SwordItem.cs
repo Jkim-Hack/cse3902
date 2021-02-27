@@ -98,7 +98,7 @@ namespace cse3902.Items
             spriteBatch.End();
         }
 
-        public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
+        public void Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;

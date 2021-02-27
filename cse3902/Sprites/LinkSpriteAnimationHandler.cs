@@ -24,9 +24,10 @@ namespace cse3902.Sprites
         private const float defaultDelay = 0.2f;
 
         // AnimationState, (animation sequence, delay per frame)
-	    private Dictionary<AnimationState, (int[] frame, float[] delay)> frameSetIndicies;
-        
-	    public LinkSpriteAnimationHandler(Texture2D texture, int rows, int columns)
+        private Dictionary<AnimationState, (int[] frame, float[] delay)> frameSetIndicies;
+
+        public LinkSpriteAnimationHandler(Texture2D texture, int rows, int columns)
+
         {
             totalFrames = rows * columns;
             frameWidth = texture.Width / columns;
@@ -35,8 +36,8 @@ namespace cse3902.Sprites
             frames = new Rectangle[totalFrames];
             frameSize = new Vector2(frameWidth, frameHeight);
 
-	        distributeFrames(columns);
-	        generateFrameSets();
+            distributeFrames(columns);
+            generateFrameSets();
 
             isDamage = false;
 
@@ -51,7 +52,7 @@ namespace cse3902.Sprites
                 frames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
             }
         }
-        
+
         private void generateFrameSets()
         {
             frameSetIndicies = new Dictionary<AnimationState, (int[] frame, float[] delay)>()
@@ -71,29 +72,31 @@ namespace cse3902.Sprites
             }; 
 	    }
 
+
         public (Rectangle, float)[] getFrameSet(AnimationState animationState)
         {
             List<(Rectangle, float)> frameSet = new List<(Rectangle, float)>();
-	        var indicies = frameSetIndicies[animationState];
-            
-	        if (isDamage)
+
+            var indicies = frameSetIndicies[animationState];
+
+            if (isDamage)
             {
                 for (int j = 1; j <= damageMaskCount; j++)
                 {
-				    for (int i = 0; i < indicies.frame.Length; i++)
-				    {
-					    int frameIndex = indicies.frame[i] + spriteSetCount * j;
-					    var frameTuple = (frames[frameIndex], frameSetIndicies[animationState].delay[i]);
-					    frameSet.Add(frameTuple);
-				    }
+                    for (int i = 0; i < indicies.frame.Length; i++)
+                    {
+                        int frameIndex = indicies.frame[i] + spriteSetCount * j;
+                        var frameTuple = (frames[frameIndex], frameSetIndicies[animationState].delay[i]);
+                        frameSet.Add(frameTuple);
+                    }
                 }
             }
             else
-            { 
+            {
                 for (int i = 0; i < indicies.frame.Length; i++)
                 {
-		           var frameTuple = (frames[indicies.frame[i]], frameSetIndicies[animationState].delay[i]);
-                   frameSet.Add(frameTuple);
+                    var frameTuple = (frames[indicies.frame[i]], frameSetIndicies[animationState].delay[i]);
+                    frameSet.Add(frameTuple);
                 }
             }
 

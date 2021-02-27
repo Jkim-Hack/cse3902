@@ -19,20 +19,17 @@ namespace cse3902.Sprites
 
         private const float speed = 1.3f;
 
-        Vector2 ISprite.StartingPosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         Vector2 ISprite.Center { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         Texture2D ISprite.Texture => throw new NotImplementedException();
 
         public FireballSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction)
-
         {
             this.spriteBatch = spriteBatch;
             this.spriteTexture = texture;
             this.direction = direction;
             this.center = startingPosition;
         }
-
 
         public Vector2 StartingPosition
         {
@@ -56,7 +53,7 @@ namespace cse3902.Sprites
         }
 
 
-        public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
+        public void Update(GameTime gameTime)
         {
             //may need to just be = instead of +=
             center.X += (float)(speed * direction.X);
@@ -65,8 +62,6 @@ namespace cse3902.Sprites
 
         public void Draw()
         {
-            
-
             spriteBatch.Begin();
             spriteBatch.Draw(spriteTexture, center, Color.White);
             spriteBatch.End();

@@ -20,7 +20,6 @@ namespace cse3902.Sprites.EnemySprites
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
         private Vector2 center;
-        private Vector2 startingPosition;
 
         private int currentFrame;
         private int totalFrames;
@@ -50,7 +49,6 @@ namespace cse3902.Sprites.EnemySprites
             frameHeight = spriteTexture.Height / rows;
             frames = new Rectangle[totalFrames];
 
-            this.startingPosition = startingPosition;
             center = startingPosition;
 
             DistributeFrames(columns);
@@ -65,11 +63,7 @@ namespace cse3902.Sprites.EnemySprites
                 int column = i % columns;
                 frames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
             }
-
-
         }
-
-
 
         public void Draw()
         {
@@ -86,7 +80,7 @@ namespace cse3902.Sprites.EnemySprites
             spriteTexture.Dispose();
         }
 
-        public void Update(GameTime gameTime, onAnimCompleteCallback animationCompleteCallback)
+        public void Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
@@ -101,9 +95,6 @@ namespace cse3902.Sprites.EnemySprites
                 remainingDelay = delay;
             }
         }
-
-        // I question the need for this vector
-        public Vector2 StartingPosition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Vector2 Center
         {

@@ -35,6 +35,7 @@ namespace cse3902.Items
         public void LoadContent()
         {
             NPCSpriteFactory.Instance.LoadAllTextures(game.Content);
+            EnemySpriteFactory.Instance.LoadAllTextures(game.Content);
 
             InitializeEnemyNPC();
             enpcs.Add(new Aquamentus(game));
@@ -43,8 +44,6 @@ namespace cse3902.Items
             enpcs.Add(new Keese(game));
             enpcs.Add(new Stalfos(game));
             enpcs.Add(new WallMaster(game));
-
-
         }
 
         public void Update(GameTime gameTime)
