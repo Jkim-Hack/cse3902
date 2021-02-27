@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<rooms>
+    <room>
+        <number>1</number>
+        <items>
+            <item>
+                <type>Arrow</type>
+                <xloc>40</xloc>
+                <yloc>80</yloc>
+            </item>
+            <item>
+                <type>Bow</type>
+                <xloc>40</xloc>
+                <yloc>80</yloc>
+            </item>
+        </items>
+        <enemies>
+            <enemy>
+                <type>Aquamentus</type>
+                <xloc>40</xloc>
+                <yloc>80</yloc>
+            </enemy>
+        </enemies> 
+    </room>
+    <room>
+        <number>2</number>
+        <items>
+            <item>
+                <type>Arrow</type>
+                <xloc>40</xloc>
+                <yloc>80</yloc>
+            </item>
+            <item>
+                <type>Bow</type>
+                <xloc>40</xloc>
+                <yloc>80</yloc>
+            </item>
+        </items>
+        <enemies>
+            <enemy>
+                <type>Aquamentus</type>
+                <xloc>40</xloc>
+                <yloc>80</yloc>
+            </enemy>
+        </enemies> 
+    </room>   
+</rooms>
