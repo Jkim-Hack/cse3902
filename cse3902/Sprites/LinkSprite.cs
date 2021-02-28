@@ -32,10 +32,13 @@ namespace cse3902.Sprites
         private Vector2 size;
         private const float sizeIncrease = 2f;
 
+        private bool isDamage;
+
         private (Rectangle frame, float delay)[] currentFrameSet;
         private int currentFrameIndex;
         private LinkSpriteAnimationHandler animationHandler;
-        private AnimationState currentAnimationState;
+
+        private LinkDamageMaskHandler maskHandler;
 
         private float remainingFrameDelay;
 
@@ -47,11 +50,14 @@ namespace cse3902.Sprites
             animationHandler = new LinkSpriteAnimationHandler(texture, rows, columns);
             size = animationHandler.FrameSize;
             currentFrameSet = animationHandler.getFrameSet(AnimationState.RightFacing);
-            currentAnimationState = AnimationState.RightFacing;
             currentFrameIndex = 0;
 
             remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
-            
+
+            isDamage = false;
+
+            maskHandler = new LinkDamageMaskHandler(texture);
+
 	        this.startingPosition = startingPosition;
             center = startingPosition;
         }
@@ -99,18 +105,17 @@ namespace cse3902.Sprites
                     currentFrameIndex = 0;
                     onAnimCompleteCallback();
                 }
-                if (Damaged && (currentFrameIndex * 4 == currentFrameSet.Length))
-                {
-                    onAnimCompleteCallback();
-                }
 
                 remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
+            }
+            else if (remainingFrameDelay <= 1)
+            {
+		        if (isDamage) maskHandler.LoadNextMask();
             }
         }
 
         public void setFrameSet(AnimationState animState)
         {
-            currentAnimationState = animState;
             currentFrameSet = animationHandler.getFrameSet(animState);
             currentFrameIndex = 0;
             remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
@@ -149,12 +154,12 @@ namespace cse3902.Sprites
 
         public bool Damaged
         {
-            get => animationHandler.Damage;
-            set
+            get => isDamage;
+            set 
 	        {
-                animationHandler.Damage = value;
-                setFrameSet(currentAnimationState);
-            } 
+                isDamage = value;
+                maskHandler.Reset();
+            }
         }
     }
 }
