@@ -78,28 +78,12 @@ namespace cse3902.Sprites
             List<(Rectangle, float)> frameSet = new List<(Rectangle, float)>();
 
             var indicies = frameSetIndicies[animationState];
-
-            if (isDamage)
-            {
-                for (int j = 1; j <= damageMaskCount; j++)
-                {
-                    for (int i = 0; i < indicies.frame.Length; i++)
-                    {
-                        int frameIndex = indicies.frame[i] + spriteSetCount * j;
-                        var frameTuple = (frames[frameIndex], frameSetIndicies[animationState].delay[i]);
-                        frameSet.Add(frameTuple);
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < indicies.frame.Length; i++)
-                {
-                    var frameTuple = (frames[indicies.frame[i]], frameSetIndicies[animationState].delay[i]);
-                    frameSet.Add(frameTuple);
-                }
-            }
-
+		    
+	        for (int i = 0; i < indicies.frame.Length; i++)
+		    {
+			    var frameTuple = (frames[indicies.frame[i]], frameSetIndicies[animationState].delay[i]);
+			    frameSet.Add(frameTuple);
+		    }
             return frameSet.ToArray();
         }
 
