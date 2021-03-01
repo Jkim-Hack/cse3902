@@ -19,16 +19,17 @@ namespace cse3902.Rooms
         private List<IEntity> enemies;
         private List<IProjectile> projectiles;
 
-        public Room(int top, int right, int bottom, int left)
+        public Room(int top, int right, int bottom, int left, Vector2 tl, Vector2 br)
         {
             surrounding[0] = top;
             surrounding[1] = right;
             surrounding[2] = bottom;
             surrounding[3] = left;
 
+            topLeft = tl;
+            bottomRight = br;
+
             visited = false;
-
-
         }
 
         public void AddItem (IItem item)
@@ -44,6 +45,16 @@ namespace cse3902.Rooms
         public void AddProjectile(IProjectile projectile)
         {
             projectiles.Add(projectile);
+        }
+
+        public bool IsVisited()
+        {
+            return visited;
+        }
+
+        public void SetToVisited()
+        {
+            visited = true;
         }
     }
 }

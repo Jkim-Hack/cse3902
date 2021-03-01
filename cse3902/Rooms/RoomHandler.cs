@@ -1,28 +1,30 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Xml.Linq;
+using Microsoft.Xna.Framework.Graphics;
+using cse3902.Items;
+using cse3902.Interfaces;
 
 namespace cse3902.Rooms
 {
     public class RoomHandler
     {
+        private SpriteBatch spriteBatch;
         private List<Room> rooms;
 
         private int roomIndex = 0;
 
-        public RoomHandler()
+        public RoomHandler(SpriteBatch sb)
         {
-
-
+            spriteBatch = sb;
+            rooms = new List<Room>();
         }
 
         public void Initialize()
         {
-            String url = "https://raw.githubusercontent.com/Jkim-Hack/cse3902/master/cse3902/Rooms/Room1.xml";
-
+            String url = "https://raw.githubusercontent.com/Jkim-Hack/cse3902/file-input/cse3902/Rooms/Room1.xml";
             parseXML(url);
         }
-        
 
         public void CycleNext()
         {
@@ -42,31 +44,49 @@ namespace cse3902.Rooms
             }
         }
 
+        public IItem createItem(String type)
+        {
+            return null;
+            //return ItemSpriteFactory.Instance.CreateArrowItem();
+        }
+
+        public void parseItems(Room room, XElement xmlElem, XDocument doc)
+        {
+
+            XName items = XName.Get("items", doc.Root.Name.NamespaceName);
+            foreach (var item in xmlElem.Elements(items))
+            {
+                XName type = XName.Get("type", doc.Root.Name.NamespaceName);
+
+                IItem itemAdd = createItem(item.Element(type).Value);
+                room.AddItem(itemAdd);
+            }
+            
+        }
+
         public void parseXML(String filename)
         {
-            //string text = System.IO.File.ReadAllText(@"../Room1.xml");
-
             XDocument doc = XDocument.Load(filename);
-
             XElement map = XElement.Load(filename);
+
+            int roomNum;
 
             XName roomName = XName.Get("rooms", doc.Root.Name.NamespaceName);
 
             foreach (var room in map.Elements(roomName))
             {
-                //foreach (var )
+                Room currentRoom;
+
+                XName chil = XName.Get("room", doc.Root.Name.NamespaceName);
+                XName num = XName.Get("number", doc.Root.Name.NamespaceName);
+
+                roomNum = Int32.Parse(room.Element(num).Value);
+
+                Console.WriteLine();
             }
 
 
-            //var messagesElement = XElement.Parse(text);
-            //var messagesList = (from message in messagesElement.Elements("room")
-            //                    select new
-            //                    {
-            //                        Subclass = message.Attribute("subclass").Value,
-            //                        Context = message.Attribute("context").Value,
-            //                        Key = message.Attribute("key").Value
-            //                    }).ToList();
         }
-            
+
     }
 }
