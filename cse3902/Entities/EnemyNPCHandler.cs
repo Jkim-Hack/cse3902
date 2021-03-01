@@ -82,7 +82,6 @@ namespace cse3902.Items
         public void Reset()
         {
             //the list should be remade, but enemy content would be reloaded so no change
-            enpcs[3] = new Aquamentus(game); //special case needed to reset his fireballs
             enpcIndex = 0;
         }
     }

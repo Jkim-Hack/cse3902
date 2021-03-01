@@ -29,7 +29,9 @@ namespace cse3902.Commands
                 {new Keys[] {Keys.Z, Keys.N}, new LinkSwordAttackCommand(game) },
                 {new Keys[] {Keys.T, Keys.Y}, new CycleShownBlockCommand(game) },
                 {new Keys[] {Keys.U, Keys.I}, new CycleShownItemCommand(game) },
-                {new Keys[] {Keys.O, Keys.P}, new CycleShownEnemyNPCCommand(game) }
+                {new Keys[] {Keys.O, Keys.P}, new CycleShownEnemyNPCCommand(game) },
+                {new Keys[] {Keys.G, Keys.C, Keys.V, Keys.B}, new MoveCameraCommand(game) },
+                {new Keys[] {Keys.L, Keys.M, Keys.OemComma, Keys.OemPeriod}, new SmoothMoveCameraCommand(game) }
             };
         }
 
