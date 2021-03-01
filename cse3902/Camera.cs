@@ -26,9 +26,9 @@ namespace cse3902
             windowBounds = new Vector2(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
 
             topLeftCoordinate = new Vector2(0, 0);
-            dimensionScale = new Vector2(1,1);
+            dimensionScale = new Vector2(1, 1);
 
-            transformationMatrix = Matrix.CreateScale(new Vector3(dimensionScale,0));
+            transformationMatrix = Matrix.CreateScale(new Vector3(dimensionScale, 0));
 
             cameraIsMoving = false;
             smoothMovementDirection = new Vector2(0, 0);
@@ -38,7 +38,7 @@ namespace cse3902
 
         public void MoveCamera(Vector2 topLeft, int cameraWidth, int cameraHeight)
         {
-            MoveCamera(topLeft, new Vector2(cameraWidth,cameraHeight));
+            MoveCamera(topLeft, new Vector2(cameraWidth, cameraHeight));
         }
 
         public void MoveCamera(Rectangle newCamera)
@@ -102,7 +102,7 @@ namespace cse3902
                 smoothMovementDestination = topLeftCoordinate + translation;
 
                 if (numberUpdateCyclesToComplete < 1) numberUpdateCyclesToComplete = 1;
-                smoothMovementDirection = translation / ((float) numberUpdateCyclesToComplete);
+                smoothMovementDirection = translation / ((float)numberUpdateCyclesToComplete);
 
                 cameraIsMoving = true;
             }
