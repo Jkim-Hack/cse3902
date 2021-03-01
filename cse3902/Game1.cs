@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using cse3902.Entities;
 using cse3902.Interfaces;
 using cse3902.Items;
+using cse3902.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -23,9 +24,7 @@ namespace cse3902
 
         public IPlayer player { get; set; }
 
-        public List<IProjectile> linkProjectiles { get; set; }
-
-        public Camera camera { get; set; }
+        public ProjectileHandler projectileHandler { get; set; }
 
         public Game1()
         {
@@ -46,12 +45,9 @@ namespace cse3902
             controllerList.Add(new KeyboardController(this));
 
             itemHandler = new ItemHandler();
+            projectileHandler = ProjectileHandler.Instance;
             enemyNPCHandler = new EnemyNPCHandler(this);
             blockHandler = new BlockHandler(this);
-
-            linkProjectiles = new List<IProjectile>();
-
-            camera = new Camera(this);
 
             this.IsMouseVisible = true;
 	        base.Initialize();
@@ -69,6 +65,7 @@ namespace cse3902
             
 	        player = new Link(this);
 
+            projectileHandler.LoadAllTextures(Content);
             itemHandler.LoadContent(spriteBatch, Content);
             enemyNPCHandler.LoadContent();
             blockHandler.LoadContent();
@@ -95,16 +92,7 @@ namespace cse3902
                 controller.Update();
             }
 
-            for (int i = 0; i < linkProjectiles.Count; i++) 
-            {
-                IProjectile projectile = linkProjectiles[i];
-                projectile.Update(gameTime);
-                if (projectile.AnimationComplete)
-                {
-                    linkProjectiles.Remove(projectile);
-                    i--;
-                }
-            }
+            projectileHandler.Update(gameTime);
 
             player.Update(gameTime);
 
@@ -123,15 +111,13 @@ namespace cse3902
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            foreach (IProjectile projectile in linkProjectiles)
-            {
-                projectile.Draw();
-            }
-
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            projectileHandler.Draw();
             itemHandler.Draw();
-            enemyNPCHandler.Draw();
-            blockHandler.Draw();
             player.Draw();
+            blockHandler.Draw();
+            enemyNPCHandler.Draw();
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

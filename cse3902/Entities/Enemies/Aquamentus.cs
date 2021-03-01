@@ -1,12 +1,12 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using cse3902.Sprites.EnemySprites;
+﻿using cse3902.Interfaces;
 using cse3902.SpriteFactory;
-using Microsoft.Xna.Framework.Graphics;
+using cse3902.Sprites.EnemySprites;
+using Microsoft.Xna.Framework;
+using System;
 
 namespace cse3902.Entities.Enemies
 {
-    public class Aquamentus: IEntity
+    public class Aquamentus : IEntity
     {
         private AquamentusSprite aquamentusSprite;
         private AquamentusStateMachine aquamentusStateMachine;
@@ -26,7 +26,7 @@ namespace cse3902.Entities.Enemies
             startingPos = new Vector2(500, 200);
             center = startingPos;
             aquamentusSprite = (AquamentusSprite)EnemySpriteFactory.Instance.CreateAquamentusSprite(game.spriteBatch, center);
-            aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.Content.Load<Texture2D>("fireball"), game.spriteBatch, this.center);
+            aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.spriteBatch, this.center);
             direction = new Vector2(-1.2f, 0);
             speed = 50.0f;
             travelDistance = 80;
@@ -50,7 +50,6 @@ namespace cse3902.Entities.Enemies
 
         public void TakeDamage()
         {
-
         }
 
         public void Die()
@@ -58,25 +57,24 @@ namespace cse3902.Entities.Enemies
             this.aquamentusStateMachine.Die();
         }
 
-        public void Update(GameTime gameTime) {
-            
+        public void Update(GameTime gameTime)
+        {
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance) {
-
+            if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance)
+            {
                 direction.X = 1f;
                 direction.Y = 0.5f * (travelUp ? -1 : 1);
                 travelUp = !travelUp;
-
-            } else if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance) {
-
+            }
+            else if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance)
+            {
                 direction.X = -1.2f;
                 direction.Y = 0;
             }
 
             ChangeDirection(direction);
             aquamentusStateMachine.Update(gameTime, this.CenterPosition);
-            
         }
 
         public void Draw()
@@ -84,10 +82,11 @@ namespace cse3902.Entities.Enemies
             aquamentusStateMachine.Draw();
         }
 
-        public Vector2 CenterPosition {
-
+        public Vector2 CenterPosition
+        {
             get => this.center;
-            set {
+            set
+            {
                 this.center = value;
                 aquamentusSprite.Center = value;
             }

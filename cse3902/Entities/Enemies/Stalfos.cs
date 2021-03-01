@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using cse3902.Sprites.EnemySprites;
-using Microsoft.Xna.Framework.Graphics;
+﻿using cse3902.Interfaces;
 using cse3902.SpriteFactory;
+using cse3902.Sprites.EnemySprites;
+using Microsoft.Xna.Framework;
 
 namespace cse3902.Entities.Enemies
 {
-    public class Stalfos: IEntity
+    public class Stalfos : IEntity
     {
         private StalfosSprite stalfosSprite;
         private StalfosStateMachine stalfosStateMachine;
@@ -49,23 +48,23 @@ namespace cse3902.Entities.Enemies
 
         public void TakeDamage()
         {
-
         }
 
         public void Die()
         {
             this.stalfosStateMachine.Die();
         }
+
         public void Update(GameTime gameTime)
         {
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance) {
-
+            if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance)
+            {
                 direction.X = 1;
-
-            } else if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance) {
-
+            }
+            else if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance)
+            {
                 direction.X = -1;
             }
 
@@ -77,10 +76,11 @@ namespace cse3902.Entities.Enemies
             stalfosSprite.Draw();
         }
 
-        public Vector2 CenterPosition {
-
+        public Vector2 CenterPosition
+        {
             get => this.center;
-            set {
+            set
+            {
                 this.center = value;
                 stalfosSprite.Center = value;
             }

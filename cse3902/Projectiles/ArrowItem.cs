@@ -1,23 +1,24 @@
 ﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static cse3902.Interfaces.ISprite;
+using System;
 
-namespace cse3902.Items
+namespace cse3902.Projectiles
 {
     public class ArrowItem : ISprite, IItem, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
-        private Vector2 startingPosition;
-        private Vector2 center;
 
         private int currentX;
         private int currentY;
+        private int frameWidth;
+        private int frameHeight;
 
         private float angle = 0;
 
         private bool animationComplete;
+        private const float sizeIncrease = 2f;
 
         private enum Direction
         {
@@ -30,22 +31,21 @@ namespace cse3902.Items
         {
             spriteBatch = batch;
             spriteTexture = texture;
-            startingPosition = startingPos;
 
             if (dir.X > 0)
             {
                 direction = Direction.Right;
-                angle = 1.57f;
+                angle = (float)(Math.PI * 1.0 / 2.0);
             }
             else if (dir.X < 0)
             {
                 direction = Direction.Left;
-                angle = 4.71f;
+                angle = (float)(Math.PI * 3.0 / 2.0);
             }
             else if (dir.Y > 0)
             {
                 direction = Direction.Down;
-                angle = 3.14f;
+                angle = (float)Math.PI;
             }
             else
             {
@@ -55,16 +55,18 @@ namespace cse3902.Items
 
             animationComplete = false;
 
+            frameWidth = spriteTexture.Width;
+            frameHeight = spriteTexture.Height;
+
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
         }
 
         public void Draw()
         {
-            Vector2 origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
-            spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, new Vector2(currentX, currentY), null, Color.White, angle, origin, 2.0f, SpriteEffects.None, 1);
-            spriteBatch.End();
+            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
+            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.8f);
         }
 
         public void Erase()
@@ -72,7 +74,7 @@ namespace cse3902.Items
             spriteTexture.Dispose();
         }
 
-        public void Update(GameTime gameTime)
+        public int Update(GameTime gameTime)
         {
             if (direction == Direction.Right)
             {
@@ -110,28 +112,33 @@ namespace cse3902.Items
                     animationComplete = true;
                 }
             }
+            return 0;
         }
 
-        public Vector2 StartingPosition
+        public Vector2 Center
         {
-            get => startingPosition;
-
+            get
+            {
+                return new Vector2(currentX, currentY);
+            }
             set
             {
-                startingPosition = value;
-                center = value;
                 currentX = (int)value.X;
                 currentY = (int)value.Y;
             }
         }
 
-        public Vector2 Center
+        public Rectangle Box
         {
-            get => center;
-
-            set
+            get
             {
-                center = value;
+                int width = (int)(sizeIncrease * frameWidth);
+                int height = (int)(sizeIncrease * frameHeight);
+                double cos = Math.Abs(Math.Cos(angle));
+                double sin = Math.Abs(Math.Sin(angle));
+                Rectangle Destination = new Rectangle(currentX, currentY, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
+                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+                return Destination;
             }
         }
 

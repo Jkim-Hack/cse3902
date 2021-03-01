@@ -13,7 +13,6 @@ namespace cse3902.Sprites
         private String text;
 
         private Vector2 center;
-        private Vector2 startingPosition;
 
         public TextSprite(SpriteBatch spriteBatch, SpriteFont spriteFont, String text)
         {
@@ -22,8 +21,11 @@ namespace cse3902.Sprites
             this.text = text;
             center = new Vector2(200, 350);
         }
+        public void Draw()
+        {
+            spriteBatch.DrawString(spriteFont, text, center, Color.Black);
+        }
 
-        public Vector2 StartingPosition { get => startingPosition; set => startingPosition = value; }
         public Vector2 Center { get => center; set => center = value; }
 
         public Texture2D Texture
@@ -31,18 +33,16 @@ namespace cse3902.Sprites
             get => spriteFont.Texture; 
         }
 
-        public void Draw()
-        {
-	        spriteBatch.Begin();
-            spriteBatch.DrawString(spriteFont, text, center, Color.Black); 
-	        spriteBatch.End(); 
-	    }
-	    
-	    public void Erase()
+        public Rectangle Box => throw new NotImplementedException();
+
+        public void Erase()
         {
             spriteFont.Texture.Dispose();
         }
 
-        public void Update(GameTime gameTime) { }
+        public int Update(GameTime gameTime)
+        {
+            return 0;
+        }
     }
 }

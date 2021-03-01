@@ -11,24 +11,19 @@ namespace cse3902.Sprites
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
         private Vector2 center;
-        private Vector2 startingPosition;
+        private int frameWidth;
+        private int frameHeight;
+        private const float sizeIncrease = 1f;
 
 
-        public BlockSprite(SpriteBatch spriteBatch, Texture2D texture)
+        public BlockSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPos)
         {
             this.spriteBatch = spriteBatch;
             this.spriteTexture = texture;
+            center = startingPos;
 
-        }
-
-        public Vector2 StartingPosition
-        {
-            get => startingPosition;
-            set
-            {
-                startingPosition = value;
-                Center = value;
-            }
+            frameWidth = spriteTexture.Width;
+            frameHeight = spriteTexture.Height;
         }
 
         public Vector2 Center
@@ -44,18 +39,27 @@ namespace cse3902.Sprites
 
         public void Draw()
         {
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, spriteTexture.Width, spriteTexture.Height);
 
-            spriteBatch.Begin();
-            //null argument used to draw entire block texture
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White);
-            spriteBatch.End();
+            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, 0.9f);
 
         }
-
-        public void Update(GameTime gameTime)
+        public Rectangle Box
         {
+            get
+            {
+                int width = (int)(sizeIncrease * frameWidth);
+                int height = (int)(sizeIncrease * frameHeight);
+                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
+                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+                return Destination;
+            }
+        }
 
+        public int Update(GameTime gameTime)
+        {
+            return 0;
         }
 
         public void Erase()

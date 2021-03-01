@@ -1,8 +1,6 @@
-﻿using System;
-using cse3902.Interfaces;
+﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Items
 {
@@ -10,8 +8,6 @@ namespace cse3902.Items
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
-        private Vector2 center;
-        private Vector2 startingPosition;
 
         private int rows;
         private int columns;
@@ -27,11 +23,12 @@ namespace cse3902.Items
         private int currentX;
         private int currentY;
 
+        private const float sizeIncrease = 2f;
+
         public TriforceItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
             spriteBatch = batch;
             spriteTexture = texture;
-            startingPosition = startingPos;
 
             remainingDelay = delay;
             this.rows = 2;
@@ -57,36 +54,14 @@ namespace cse3902.Items
             }
         }
 
-        public Vector2 StartingPosition
-        {
-            get => startingPosition;
-            set
-            {
-                startingPosition = value;
-                Center = value;
-            }
-        }
-
-        public Vector2 Center
-        {
-            get => center;
-            set => center = value;
-        }
-
-        public Texture2D Texture
-        {
-            get => spriteTexture;
-        }
-
         public void Draw()
         {
-            Rectangle Destination = new Rectangle(currentX, currentY, 2*frameWidth, 2*frameHeight);
-            spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White);
-            spriteBatch.End();
+            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
+            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, 0.8f);
         }
 
-        public void Update(GameTime gameTime)
+        public int Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
@@ -100,6 +75,37 @@ namespace cse3902.Items
                 }
                 remainingDelay = delay;
             }
+            return 0;
+        }
+
+        public Rectangle Box
+        {
+            get
+            {
+                int width = (int)(sizeIncrease * frameWidth);
+                int height = (int)(sizeIncrease * frameHeight);
+                Rectangle Destination = new Rectangle(currentX, currentY, width, height);
+                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+                return Destination;
+            }
+        }
+
+        public Vector2 Center
+        {
+            get
+            {
+                return new Vector2(currentX, currentY);
+            }
+            set
+            {
+                currentX = (int)value.X;
+                currentY = (int)value.Y;
+            }
+        }
+
+        public Texture2D Texture
+        {
+            get => spriteTexture;
         }
 
         public void Erase()
