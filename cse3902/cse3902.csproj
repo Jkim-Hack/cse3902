@@ -40,5 +40,6 @@
     <Folder Include="SpriteFactory\" />
     <Folder Include="Rooms\" />
     <Folder Include="Collision\" />
+    <Folder Include="Collision\Collidables\" />
   </ItemGroup>
 </Project>
