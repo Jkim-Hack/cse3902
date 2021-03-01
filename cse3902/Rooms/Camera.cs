@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-// this class should probably go with the rooms when they are merged
-
 namespace cse3902
 {
     public class Camera
@@ -110,31 +108,35 @@ namespace cse3902
 
         public void SmoothMoveCameraUp(int totalPixels, int numberUpdateCyclesToComplete)
         {
-            SmoothMoveCamera(totalPixels * new Vector2(0, -1), numberUpdateCyclesToComplete);
+            SmoothMoveCamera(new Vector2(0, -totalPixels), numberUpdateCyclesToComplete);
         }
         public void SmoothMoveCameraDown(int totalPixels, int numberUpdateCyclesToComplete)
         {
-            SmoothMoveCamera(totalPixels * new Vector2(0, 1), numberUpdateCyclesToComplete);
+            SmoothMoveCamera(new Vector2(0, totalPixels), numberUpdateCyclesToComplete);
         }
         public void SmoothMoveCameraLeft(int totalPixels, int numberUpdateCyclesToComplete)
         {
-            SmoothMoveCamera(totalPixels * new Vector2(-1, 0), numberUpdateCyclesToComplete);
+            SmoothMoveCamera(new Vector2(-totalPixels, 0), numberUpdateCyclesToComplete);
         }
         public void SmoothMoveCameraRight(int totalPixels, int numberUpdateCyclesToComplete)
         {
-            SmoothMoveCamera(totalPixels * new Vector2(1, 0), numberUpdateCyclesToComplete);
+            SmoothMoveCamera(new Vector2(totalPixels, 0), numberUpdateCyclesToComplete);
         }
 
         public void Update()
         {
             if (cameraIsMoving)
             {
-                MoveCameraSmoothOverride(smoothMovementDirection);
-                smoothMovementUpdateCyclesRemaining--;
-                if (smoothMovementUpdateCyclesRemaining <= 0)
+                if (smoothMovementUpdateCyclesRemaining <= 1)
                 {
-                    cameraIsMoving = false;
                     topLeftCoordinate = smoothMovementDestination;
+                    transformationMatrix.Translation = new Vector3(-topLeftCoordinate * dimensionScale, 0);
+                    cameraIsMoving = false;
+                }
+                else
+                {
+                    MoveCameraSmoothOverride(smoothMovementDirection);
+                    smoothMovementUpdateCyclesRemaining--;
                 }
             }
         }
