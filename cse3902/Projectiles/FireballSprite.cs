@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using cse3902.Interfaces;
+﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Sprites
 
 {
-    public class FireballSprite: ISprite
+    public class FireballSprite : ISprite, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -17,11 +13,12 @@ namespace cse3902.Sprites
         private Vector2 direction;
 
         private const float speed = 1.3f;
+        private bool animationComplete;
 
-        private const float sizeIncrease = 1f;
+        private float fireballCounter;
+        private const float fireballDelay = 3f;
 
-
-        Texture2D ISprite.Texture => throw new NotImplementedException();
+        private const float sizeIncrease = 2f;
 
         public FireballSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction)
         {
@@ -29,6 +26,8 @@ namespace cse3902.Sprites
             this.spriteTexture = texture;
             this.direction = direction;
             this.center = startingPosition;
+            animationComplete = false;
+            fireballCounter = fireballDelay;
         }
 
         public Vector2 Center
@@ -45,10 +44,17 @@ namespace cse3902.Sprites
             get => spriteTexture;
         }
 
-
         public int Update(GameTime gameTime)
         {
-            //may need to just be = instead of +=
+
+            if(fireballCounter < 0)
+            {
+                animationComplete = true;
+            }
+            else
+            {
+                fireballCounter -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
             center.X += (float)(speed * direction.X);
             center.Y += (float)(speed * direction.Y);
             return 0;
@@ -71,6 +77,12 @@ namespace cse3902.Sprites
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 return Destination;
             }
+        }
+
+        public bool AnimationComplete
+        {
+            get => animationComplete;
+            set => animationComplete = value;
         }
 
         public void Erase()

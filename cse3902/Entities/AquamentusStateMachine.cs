@@ -4,6 +4,7 @@ using cse3902.Interfaces;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Sprites.EnemySprites;
 using cse3902.Sprites;
+using cse3902.Items;
 
 namespace cse3902.Entities {
 
@@ -12,32 +13,26 @@ namespace cse3902.Entities {
         private AquamentusSprite aquamentusSprite;
         private SpriteBatch spriteBatch;
 
-        private Texture2D fireballTexture;
 
         private ISprite fireball1;
         private ISprite fireball2;
         private ISprite fireball3;
 
         private bool isAttacking;
-        private int fireballCounter;
-        private int fireballComplete;
+        private float fireballCounter;
+        private const float fireballDelay = 5f;
 
         private Vector2 center;
 
-        public AquamentusStateMachine(AquamentusSprite aquamentusSprite, Texture2D fireballTexture, SpriteBatch spriteBatch, Vector2 center)
+        public AquamentusStateMachine(AquamentusSprite aquamentusSprite, SpriteBatch spriteBatch, Vector2 center)
         {
             this.aquamentusSprite = aquamentusSprite;
             this.spriteBatch = spriteBatch;
 
             this.isAttacking = true;
             fireballCounter = 0;
-            fireballComplete = 120;
 
             this.center = center;
-
-            this.fireballTexture = fireballTexture;
-
-            LoadFireballs();
 
         }
 
@@ -71,9 +66,10 @@ namespace cse3902.Entities {
                 location.X += -20; //originate fireballs at mouth if facing left
             }
 
-            fireball1 = new FireballSprite(spriteBatch, fireballTexture, location, direction1);
-            fireball2 = new FireballSprite(spriteBatch, fireballTexture, location, direction2);
-            fireball3 = new FireballSprite(spriteBatch, fireballTexture, location, direction3);
+            ProjectileHandler projectileHandler = ProjectileHandler.Instance;
+            fireball1 = projectileHandler.CreateFireballObject(spriteBatch, location, direction1);
+            fireball2 = projectileHandler.CreateFireballObject(spriteBatch, location, direction2);
+            fireball3 = projectileHandler.CreateFireballObject(spriteBatch, location, direction3);
         }
         
 
@@ -108,12 +104,6 @@ namespace cse3902.Entities {
 
         public void Draw()
         {
-            if (this.IsAttacking)
-            {
-                fireball1.Draw();
-                fireball2.Draw();
-                fireball3.Draw();
-            }
 
             aquamentusSprite.Draw();
         }
@@ -128,16 +118,13 @@ namespace cse3902.Entities {
             this.center = center;
             if (this.IsAttacking)
             {
-                if (fireballCounter > fireballComplete)
+                if (fireballCounter > fireballDelay)
                 {
                     LoadFireballs();
                     fireballCounter = 0;
                 } else
                 {
-                    fireball1.Update(gameTime);
-                    fireball2.Update(gameTime);
-                    fireball3.Update(gameTime);
-                    fireballCounter++;
+                    fireballCounter += (float) gameTime.ElapsedGameTime.TotalSeconds;
                 }
                 
             }

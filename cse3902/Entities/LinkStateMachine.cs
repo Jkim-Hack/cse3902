@@ -142,8 +142,8 @@ namespace cse3902.Entities
             Vector2 offset = (spriteSize * currDirection) / 1.5f;
             Vector2 startingPosition = centerPosition + offset;
 
-            IProjectile weapon = (IProjectile)ItemSpriteFactory.Instance.CreateSwordWeapon(spriteBatch, startingPosition, currDirection, currWeaponIndex);
-            game.linkProjectiles.Add(weapon);
+            ProjectileHandler projectileHandler = ProjectileHandler.Instance;
+            IProjectile weapon = projectileHandler.CreateSwordWeapon(spriteBatch, startingPosition, currDirection, currWeaponIndex);
             SetAttackAnimation();
 
         }
@@ -161,31 +161,28 @@ namespace cse3902.Entities
             Vector2 spriteSize = linkSprite.Size;
             Vector2 offset = (spriteSize * currDirection) / 1.5f;
             Vector2 startingPosition = centerPosition + offset;
+            ProjectileHandler projectileHandler = ProjectileHandler.Instance;
             switch (currItemIndex)
             {
                 case 1:
-                    item = (IProjectile)ItemSpriteFactory.Instance.CreateSwordItem(spriteBatch, startingPosition, currDirection);
+                    item = projectileHandler.CreateSwordItem(spriteBatch, startingPosition, currDirection);
                     break;
 
                 case 2:
-                    item = (IProjectile)ItemSpriteFactory.Instance.CreateArrowItem(spriteBatch, startingPosition, currDirection);
+                    item = projectileHandler.CreateArrowItem(spriteBatch, startingPosition, currDirection);
                     break;
 
                 case 3:
-                    item = (IProjectile)ItemSpriteFactory.Instance.CreateBoomerangItem(spriteBatch, startingPosition, currDirection);
+                    item = projectileHandler.CreateBoomerangItem(spriteBatch, startingPosition, currDirection);
                     break;
 
                 case 4:
-                    item = (IProjectile)ItemSpriteFactory.Instance.CreateBombItem(spriteBatch, startingPosition);
+                    item = projectileHandler.CreateBombItem(spriteBatch, startingPosition);
                     break;
 
                 default:
                     item = null;
                     break;
-            }
-            if (item != null)
-            {
-                game.linkProjectiles.Add(item);
             }
             SetAttackAnimation();
         }

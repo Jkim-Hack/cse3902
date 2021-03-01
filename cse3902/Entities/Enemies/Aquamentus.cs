@@ -26,7 +26,7 @@ namespace cse3902.Entities.Enemies
             startingPos = new Vector2(500, 200);
             center = startingPos;
             aquamentusSprite = (AquamentusSprite)EnemySpriteFactory.Instance.CreateAquamentusSprite(game.spriteBatch, center);
-            aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.Content.Load<Texture2D>("fireball"), game.spriteBatch, this.center);
+            aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.spriteBatch, this.center);
             direction = new Vector2(-1.2f, 0);
             speed = 50.0f;
             travelDistance = 80;
