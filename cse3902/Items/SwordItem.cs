@@ -10,8 +10,6 @@ namespace cse3902.Items
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
-        private Vector2 center;
-        private Vector2 startingPosition;
 
         private int rows;
         private int columns;
@@ -27,6 +25,8 @@ namespace cse3902.Items
         private int currentX;
         private int currentY;
 
+        private const float sizeIncrease = 2f;
+
         private enum Direction
         {
             Up, Down, Left, Right
@@ -40,7 +40,6 @@ namespace cse3902.Items
         {
             spriteBatch = batch;
             spriteTexture = texture;
-            startingPosition = startingPos;
 
             remainingDelay = delay;
             this.rows = 2;
@@ -56,17 +55,17 @@ namespace cse3902.Items
             if (dir.X > 0)
             {
                 direction = Direction.Right;
-                angle = 1.57f;
+                angle = (float)(Math.PI * 1.0/ 2.0);
             }
             else if (dir.X < 0)
             {
                 direction = Direction.Left;
-                angle = 4.71f;
+                angle = (float)(Math.PI * 3.0 / 2.0) ;
             }
             else if (dir.Y > 0)
             {
                 direction = Direction.Down;
-                angle = 3.14f;
+                angle = (float)Math.PI;
             }
             else
             {
@@ -91,14 +90,11 @@ namespace cse3902.Items
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            //Rectangle Destination = new Rectangle(currentX, currentY, 2 * frameWidth, 2 * frameHeight);
-            spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, new Vector2(currentX, currentY), frames[currentFrame], Color.White, angle, origin, 2.0f, SpriteEffects.None, 1);
-            //spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White);
-            spriteBatch.End();
+            Rectangle Destination = new Rectangle(currentX, currentY, (int) (sizeIncrease * frameWidth), (int) (sizeIncrease * frameHeight));
+            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, angle, origin, SpriteEffects.None, 0.8f);
         }
 
-        public void Update(GameTime gameTime)
+        public int Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
@@ -150,22 +146,33 @@ namespace cse3902.Items
                     animationComplete = true;
                 }
             }
-            
+            return 0;
         }
-        public Vector2 StartingPosition
+
+        public Rectangle Box
         {
-            get => startingPosition;
-            set
+            get
             {
-                startingPosition = value;
-                Center = value;
+                int width = (int)(sizeIncrease * frameWidth);
+                int height = (int)(sizeIncrease * frameHeight);
+                double cos = Math.Abs(Math.Cos(angle));
+                double sin = Math.Abs(Math.Sin(angle));
+                Rectangle Destination = new Rectangle(currentX, currentY, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
+                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+                return Destination;
             }
         }
 
         public Vector2 Center
         {
-            get => center;
-            set => center = value;
+            get
+            {
+                return new Vector2(currentX, currentY);
+            }
+            set {
+                currentX = (int) value.X;
+                currentY = (int) value.Y;
+            } 
         }
 
         public Texture2D Texture

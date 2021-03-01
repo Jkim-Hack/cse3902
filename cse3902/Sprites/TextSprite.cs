@@ -43,6 +43,9 @@ namespace cse3902.Sprites
             spriteFont.Texture.Dispose();
         }
 
-        public void Update(GameTime gameTime) { }
+        public int Update(GameTime gameTime)
+        {
+            return 0;
+        }
     }
 }

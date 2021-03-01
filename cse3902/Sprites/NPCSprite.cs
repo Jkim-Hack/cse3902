@@ -36,9 +36,10 @@ namespace cse3902.Sprites
             spriteBatch.End();
         }
 
-        public void Update(GameTime gameTime)
+        public int Update(GameTime gameTime)
         {
             //nothing to update
+            return 0;
         }
 
         public void Erase()

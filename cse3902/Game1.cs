@@ -119,15 +119,16 @@ namespace cse3902
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             foreach (IProjectile projectile in linkProjectiles)
             {
                 projectile.Draw();
             }
-
             itemHandler.Draw();
+            player.Draw();
+            spriteBatch.End();
             enemyNPCHandler.Draw();
             blockHandler.Draw();
-            player.Draw();
             base.Draw(gameTime);
         }
     }

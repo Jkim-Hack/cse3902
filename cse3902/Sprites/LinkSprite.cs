@@ -66,14 +66,13 @@ namespace cse3902.Sprites
         {
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)Size.X, (int)Size.Y);
 
-            spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White);
-            spriteBatch.End();
+            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White,0, new Vector2(0,0), SpriteEffects.None, .2f);
         }
        
-	    public void Update(GameTime gameTime)
+	    public int Update(GameTime gameTime)
         {
             Update(gameTime, null);
+            return 0;
 	    }
 
         public void Update(GameTime gameTime, onAnimCompleteCallback onAnimCompleteCallback)

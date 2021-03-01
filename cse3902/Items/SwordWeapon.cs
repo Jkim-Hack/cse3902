@@ -11,7 +11,6 @@ namespace cse3902.Items
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
         private Vector2 center;
-        private Vector2 startingPosition;
 
         private int rows;
         private int columns;
@@ -28,11 +27,14 @@ namespace cse3902.Items
         bool animationComplete;
         int swordType;
 
+        private const float sizeIncrease = 2f;
+
         public SwordWeapon(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir, int swordType)
         {
             spriteBatch = batch;
             spriteTexture = texture;
-            startingPosition = startingPos;
+            center = startingPos;
+
             remainingDelay = delaySequence[0];
             this.rows = 4;
             this.columns = 4;
@@ -46,21 +48,21 @@ namespace cse3902.Items
             animationComplete = false;
 
 
-            if ((int)dir.X == 1 && (int)dir.Y == 0)
+            if (dir.X > 0)
             {
-                angle = 1.57f;
+                angle = (float)(Math.PI * 1.0 / 2.0);
             }
-            else if ((int)dir.X == -1 && (int)dir.Y == 0)
+            else if (dir.X < 0)
             {
-                angle = 4.71f;
+                angle = (float)(Math.PI * 3.0 / 2.0);
             }
-            else if ((int)dir.X == 0 && (int)dir.Y == -1)
+            else if (dir.Y > 0)
             {
-                angle = 0;
+                angle = (float)Math.PI;
             }
             else
             {
-                angle = 3.14f;
+                angle = 0;
             }
         }
 
@@ -74,37 +76,14 @@ namespace cse3902.Items
             }
         }
 
-        public Vector2 StartingPosition
-        {
-            get => startingPosition;
-            set
-            {
-                startingPosition = value;
-                Center = value;
-            }
-        }
-
-        public Vector2 Center
-        {
-            get => center;
-            set => center = value;
-        }
-
-        public Texture2D Texture
-        {
-            get => spriteTexture;
-        }
-
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            
-            spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, startingPosition, frames[currentFrame], Color.White, angle, origin, 2.0f, SpriteEffects.None, 1.0f);
-            spriteBatch.End();
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, angle, origin, SpriteEffects.None, 0.8f);
         }
 
-        public void Update(GameTime gameTime)
+        public int Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
@@ -119,12 +98,44 @@ namespace cse3902.Items
                 }
                 remainingDelay = delaySequence[currentFrame % columns];
             }
+            return 0;
         }
 
         public void Erase()
         {
             spriteTexture.Dispose();
         }
+        public Rectangle Box
+        {
+            get
+            {
+                int width = (int)(sizeIncrease * frameWidth);
+                int height = (int)(sizeIncrease * frameHeight);
+                double cos = Math.Abs(Math.Cos(angle));
+                double sin = Math.Abs(Math.Sin(angle));
+                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
+                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+                return Destination;
+            }
+        }
+
+        public Vector2 Center
+        {
+            get
+            {
+                return center;
+            }
+            set
+            {
+                center = value;
+            }
+        }
+
+        public Texture2D Texture
+        {
+            get => spriteTexture;
+        }
+
         public bool AnimationComplete
         {
             get => animationComplete;
