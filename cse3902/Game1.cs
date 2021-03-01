@@ -26,6 +26,8 @@ namespace cse3902
 
         public ProjectileHandler projectileHandler { get; set; }
 
+        public Camera camera { get; set;  }
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -64,6 +66,7 @@ namespace cse3902
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
 	        player = new Link(this);
+            camera = new Camera(this);
 
             projectileHandler.LoadAllTextures(Content);
             itemHandler.LoadContent(spriteBatch, Content);
@@ -100,6 +103,8 @@ namespace cse3902
             enemyNPCHandler.Update(gameTime);
             blockHandler.Update(gameTime);
 
+            camera.Update();
+
             base.Update(gameTime);
         }
 
@@ -110,13 +115,14 @@ namespace cse3902
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetTransformationMatrix());
+            
             projectileHandler.Draw();
             itemHandler.Draw();
             player.Draw();
             blockHandler.Draw();
             enemyNPCHandler.Draw();
+            
             spriteBatch.End();
             base.Draw(gameTime);
         }
