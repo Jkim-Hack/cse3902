@@ -53,9 +53,9 @@ namespace cse3902.Sprites
 
         }
 
-        public void Update(GameTime gameTime)
+        public int Update(GameTime gameTime)
         {
-
+            return 0;
         }
 
         public void Erase()

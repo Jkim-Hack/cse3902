@@ -74,7 +74,7 @@ namespace cse3902.Sprites.EnemySprites
             spriteTexture.Dispose();
         }
 
-        public void Update(GameTime gameTime)
+        public int Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
@@ -88,6 +88,7 @@ namespace cse3902.Sprites.EnemySprites
                 }
                 remainingDelay = delay;
             }
+            return 0;
         }
 
         // I question the need for this vector

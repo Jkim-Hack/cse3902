@@ -53,11 +53,12 @@ namespace cse3902.Sprites
         }
 
 
-        public void Update(GameTime gameTime)
+        public int Update(GameTime gameTime)
         {
             //may need to just be = instead of +=
             center.X += (float)(speed * direction.X);
             center.Y += (float)(speed * direction.Y);
+            return 0;
         }
 
         public void Draw()
