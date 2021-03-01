@@ -39,5 +39,6 @@
     <Folder Include="Sprites\EnemySprites\" />
     <Folder Include="SpriteFactory\" />
     <Folder Include="Rooms\" />
+    <Folder Include="Collision\" />
   </ItemGroup>
 </Project>
