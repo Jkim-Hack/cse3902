@@ -1,18 +1,16 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using cse3902.Interfaces;
-using Microsoft.Xna.Framework.Graphics;
+﻿using cse3902.Interfaces;
+using cse3902.Projectiles;
 using cse3902.Sprites.EnemySprites;
-using cse3902.Sprites;
-using cse3902.Items;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 
-namespace cse3902.Entities {
-
+namespace cse3902.Entities
+{
     public class AquamentusStateMachine : IEntityStateMachine
     {
         private AquamentusSprite aquamentusSprite;
         private SpriteBatch spriteBatch;
-
 
         private ISprite fireball1;
         private ISprite fireball2;
@@ -33,7 +31,6 @@ namespace cse3902.Entities {
             fireballCounter = 0;
 
             this.center = center;
-
         }
 
         private void LoadFireballs()
@@ -48,14 +45,16 @@ namespace cse3902.Entities {
             location.X = this.center.X;
             location.Y = this.center.Y + 20;
 
-            if (aquamentusSprite.StartingFrameIndex == (int)AquamentusSprite.FrameIndex.RightFacing) {
+            if (aquamentusSprite.StartingFrameIndex == (int)AquamentusSprite.FrameIndex.RightFacing)
+            {
                 direction1 = new Vector2(1, 0);
                 direction2 = new Vector2(3, 1);
                 direction2.Normalize();
                 direction3 = new Vector2(3, -1);
                 direction3.Normalize();
                 location.X += 30;
-            } else
+            }
+            else
             {
                 direction1 = new Vector2(-1, 0);
                 direction2 = new Vector2(-3, 1);
@@ -71,7 +70,6 @@ namespace cse3902.Entities {
             fireball2 = projectileHandler.CreateFireballObject(spriteBatch, location, direction2);
             fireball3 = projectileHandler.CreateFireballObject(spriteBatch, location, direction3);
         }
-        
 
         public void CycleWeapon(int dir)
         {
@@ -84,17 +82,15 @@ namespace cse3902.Entities {
             if (newDirection.X > 0)
             {
                 aquamentusSprite.StartingFrameIndex = (int)AquamentusSprite.FrameIndex.RightFacing;
-            } else
+            }
+            else
             {
                 aquamentusSprite.StartingFrameIndex = (int)AquamentusSprite.FrameIndex.LeftFacing;
             }
-
-
         }
 
         public void TakeDamage()
         {
-
         }
 
         public void Attack()
@@ -104,7 +100,6 @@ namespace cse3902.Entities {
 
         public void Draw()
         {
-
             aquamentusSprite.Draw();
         }
 
@@ -122,11 +117,11 @@ namespace cse3902.Entities {
                 {
                     LoadFireballs();
                     fireballCounter = 0;
-                } else
-                {
-                    fireballCounter += (float) gameTime.ElapsedGameTime.TotalSeconds;
                 }
-                
+                else
+                {
+                    fireballCounter += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
             }
             aquamentusSprite.Update(gameTime);
         }

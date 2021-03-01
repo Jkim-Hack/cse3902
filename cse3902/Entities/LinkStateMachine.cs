@@ -1,5 +1,5 @@
 ﻿using cse3902.Interfaces;
-using cse3902.Items;
+using cse3902.Projectiles;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -122,7 +122,7 @@ namespace cse3902.Entities
             }
             if (mode == LinkMode.Moving)
             {
-                CenterPosition += currDirection * speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
+                CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
             linkSprite.Update(gameTime, onSpriteAnimationComplete);
         }
@@ -145,8 +145,8 @@ namespace cse3902.Entities
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
             IProjectile weapon = projectileHandler.CreateSwordWeapon(spriteBatch, startingPosition, currDirection, currWeaponIndex);
             SetAttackAnimation();
-
         }
+
         public void ChangeWeapon(int index)
         {
             currWeaponIndex = index;
@@ -186,6 +186,7 @@ namespace cse3902.Entities
             }
             SetAttackAnimation();
         }
+
         public void ChangeItem(int index)
         {
             currItemIndex = index;

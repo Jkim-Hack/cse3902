@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using cse3902.Entities;
 using cse3902.Interfaces;
 using cse3902.Items;
+using cse3902.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

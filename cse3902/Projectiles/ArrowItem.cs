@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace cse3902.Items
+namespace cse3902.Projectiles
 {
     public class ArrowItem : ISprite, IItem, IProjectile
     {

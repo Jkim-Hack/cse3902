@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using cse3902.Sprites.EnemySprites;
-using Microsoft.Xna.Framework.Graphics;
+﻿using cse3902.Interfaces;
 using cse3902.SpriteFactory;
+using cse3902.Sprites.EnemySprites;
+using Microsoft.Xna.Framework;
 
 namespace cse3902.Entities.Enemies
 {
-    public class Goriya: IEntity
+    public class Goriya : IEntity
     {
         private GoriyaSprite goriyaSprite;
         private GoriyaStateMachine goriyaStateMachine;
@@ -48,7 +47,6 @@ namespace cse3902.Entities.Enemies
 
         public void TakeDamage()
         {
-
         }
 
         public void Die()
@@ -58,26 +56,25 @@ namespace cse3902.Entities.Enemies
 
         public void Update(GameTime gameTime)
         {
-
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance) {
-
+            if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance)
+            {
                 direction.X = 0;
                 direction.Y = 1;
-
-            } else if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance) {
-
+            }
+            else if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance)
+            {
                 direction.X = 0;
                 direction.Y = -1;
-
-            } else if (direction.Y > 0 && CenterPosition.Y > startingPos.Y + travelDistance) {
-
+            }
+            else if (direction.Y > 0 && CenterPosition.Y > startingPos.Y + travelDistance)
+            {
                 direction.X = -1;
                 direction.Y = 0;
-
-            } else if (direction.Y < 0 && CenterPosition.Y < startingPos.Y - travelDistance) {
-
+            }
+            else if (direction.Y < 0 && CenterPosition.Y < startingPos.Y - travelDistance)
+            {
                 direction.X = 1;
                 direction.Y = 0;
             }
@@ -91,10 +88,11 @@ namespace cse3902.Entities.Enemies
             this.goriyaSprite.Draw();
         }
 
-        public Vector2 CenterPosition {
-
+        public Vector2 CenterPosition
+        {
             get => this.center;
-            set {
+            set
+            {
                 this.center = value;
                 goriyaSprite.Center = value;
             }

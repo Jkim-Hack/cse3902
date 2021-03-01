@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-namespace cse3902.Items
+namespace cse3902.Projectiles
 {
     public class ProjectileHandler
     {
@@ -93,7 +93,7 @@ namespace cse3902.Items
         }
         public IProjectile CreateFireballObject(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            IProjectile newProj = new Sprites.FireballSprite(spriteBatch, fireball, startingPos, dir);
+            IProjectile newProj = new FireballSprite(spriteBatch, fireball, startingPos, dir);
             projectiles.Add(newProj);
             return newProj;
         }

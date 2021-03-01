@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace cse3902.Items
+namespace cse3902.Projectiles
 {
     public class BombItem : ISprite, IItem, IProjectile
     {
