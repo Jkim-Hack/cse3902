@@ -48,7 +48,7 @@ namespace cse3902.Entities.Enemies
             this.aquamentusStateMachine.ChangeDirection(direction);
         }
 
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
         }
 
