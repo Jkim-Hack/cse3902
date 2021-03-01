@@ -1,5 +1,5 @@
 ﻿using cse3902.Interfaces;
-using cse3902.Items;
+using cse3902.Projectiles;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,7 +27,7 @@ namespace cse3902.Entities
         private const int healthMax = 10;
         private int health;
 
-        private const double damageDelay = 3.0f;
+        private const double damageDelay = 5.0f;
         private double remainingDamageDelay;
 
         public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch)
@@ -122,9 +122,16 @@ namespace cse3902.Entities
             }
             if (mode == LinkMode.Moving)
             {
-                CenterPosition += currDirection * speed * (float) gameTime.ElapsedGameTime.TotalSeconds;
+                CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            linkSprite.Update(gameTime, onSpriteAnimationComplete);
+            if(linkSprite.Update(gameTime) != 0)
+            {
+                if (mode == LinkMode.Attack)
+                {
+                    mode = LinkMode.Still;
+                    ChangeDirection(new Vector2(0, 0));
+                }
+            }
         }
 
         public void Draw()
@@ -140,13 +147,13 @@ namespace cse3902.Entities
             // TODO: Move this to Link.cs not needed in state machine
             Vector2 spriteSize = linkSprite.Size;
             Vector2 offset = (spriteSize * currDirection) / 1.5f;
-            Vector2 startingPosition = centerPosition + offset + (spriteSize / 2);
+            Vector2 startingPosition = centerPosition + offset;
 
-            IProjectile weapon = (IProjectile)ItemSpriteFactory.Instance.CreateSwordWeapon(spriteBatch, startingPosition, currDirection, currWeaponIndex);
-            game.linkProjectiles.Add(weapon);
+            ProjectileHandler projectileHandler = ProjectileHandler.Instance;
+            IProjectile weapon = projectileHandler.CreateSwordWeapon(spriteBatch, startingPosition, currDirection, currWeaponIndex);
             SetAttackAnimation();
-
         }
+
         public void ChangeWeapon(int index)
         {
             currWeaponIndex = index;
@@ -160,35 +167,33 @@ namespace cse3902.Entities
             IProjectile item;
             Vector2 spriteSize = linkSprite.Size;
             Vector2 offset = (spriteSize * currDirection) / 1.5f;
-            Vector2 startingPosition = centerPosition + offset + (spriteSize / 2);
+            Vector2 startingPosition = centerPosition + offset;
+            ProjectileHandler projectileHandler = ProjectileHandler.Instance;
             switch (currItemIndex)
             {
                 case 1:
-                    item = (IProjectile)ItemSpriteFactory.Instance.CreateSwordItem(spriteBatch, startingPosition, currDirection);
+                    item = projectileHandler.CreateSwordItem(spriteBatch, startingPosition, currDirection);
                     break;
 
                 case 2:
-                    item = (IProjectile)ItemSpriteFactory.Instance.CreateArrowItem(spriteBatch, startingPosition, currDirection);
+                    item = projectileHandler.CreateArrowItem(spriteBatch, startingPosition, currDirection);
                     break;
 
                 case 3:
-                    item = (IProjectile)ItemSpriteFactory.Instance.CreateBoomerangItem(spriteBatch, startingPosition, currDirection);
+                    item = projectileHandler.CreateBoomerangItem(spriteBatch, startingPosition, currDirection);
                     break;
 
                 case 4:
-                    item = (IProjectile)ItemSpriteFactory.Instance.CreateBombItem(spriteBatch, startingPosition);
+                    item = projectileHandler.CreateBombItem(spriteBatch, startingPosition);
                     break;
 
                 default:
                     item = null;
                     break;
             }
-            if (item != null)
-            {
-                game.linkProjectiles.Add(item);
-            }
             SetAttackAnimation();
         }
+
         public void ChangeItem(int index)
         {
             currItemIndex = index;

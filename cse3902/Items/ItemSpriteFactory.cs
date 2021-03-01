@@ -4,6 +4,7 @@ using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using cse3902.Projectiles;
 
 namespace cse3902.Items
 {

@@ -18,7 +18,8 @@ namespace cse3902.Commands
             game.enemyNPCHandler.Reset();
             game.itemHandler.Reset();
             game.blockHandler.Reset();
-            game.linkProjectiles = new List<IProjectile>();
+            game.projectileHandler.Reset();
+            game.camera.Reset();
             game.player = new Link(game);
         }
 

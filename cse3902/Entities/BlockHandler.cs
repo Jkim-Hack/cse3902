@@ -26,11 +26,11 @@ namespace cse3902.Entities
 
         public void LoadContent()
         {
-            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("Block1")));
-            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("block2")));
-            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("block3")));
-            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("block4")));
-            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("block5")));
+            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("Block1"), new Vector2(120, 120)));
+            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("block2"), new Vector2(120, 120)));
+            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("block3"), new Vector2(120, 120)));
+            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("block4"), new Vector2(120, 120)));
+            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("block5"), new Vector2(120, 120)));
 
         }
 

@@ -20,7 +20,7 @@ namespace cse3902.Entities
             // TODO Add this into sprite factory
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
             Vector2 centerPosition = new Vector2(50, 200);
-            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 24, 4, centerPosition);
+            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 6, 4, centerPosition);
             linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition, game.spriteBatch);
         }
 
