@@ -2,6 +2,12 @@
 <rooms>
     <room>
         <number>1</number>
+        <surroundings>
+            <top>-1</top>
+            <down>-1</down>
+            <right>2</right>
+            <left>-1</left>
+        </surroundings>
         <items>
             <item>
                 <type>Arrow</type>
@@ -24,6 +30,12 @@
     </room>
     <room>
         <number>2</number>
+        <surroundings>
+            <top>-1</top>
+            <down>3</down>
+            <right>-1</right>
+            <left>1</left>
+        </surroundings>
         <items>
             <item>
                 <type>Arrow</type>
