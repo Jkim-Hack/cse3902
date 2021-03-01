@@ -27,7 +27,7 @@ namespace cse3902.Entities
         private const int healthMax = 10;
         private int health;
 
-        private const double damageDelay = 3.0f;
+        private const double damageDelay = 5.0f;
         private double remainingDamageDelay;
 
         public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch)
@@ -124,7 +124,14 @@ namespace cse3902.Entities
             {
                 CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            linkSprite.Update(gameTime, onSpriteAnimationComplete);
+            if(linkSprite.Update(gameTime) != 0)
+            {
+                if (mode == LinkMode.Attack)
+                {
+                    mode = LinkMode.Still;
+                    ChangeDirection(new Vector2(0, 0));
+                }
+            }
         }
 
         public void Draw()

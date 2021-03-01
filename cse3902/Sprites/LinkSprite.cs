@@ -41,6 +41,9 @@ namespace cse3902.Sprites
         private LinkDamageMaskHandler maskHandler;
 
         private float remainingFrameDelay;
+        private float remainingDamageDelay;
+
+        private const float damageDelay = .2f;
 
         public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
         {
@@ -69,32 +72,33 @@ namespace cse3902.Sprites
             spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, 0.2f);
         }
        
-	    public int Update(GameTime gameTime)
-        {
-            Update(gameTime, null);
-            return 0;
-	    }
 
-        public void Update(GameTime gameTime, onAnimCompleteCallback onAnimCompleteCallback)
+        public int Update(GameTime gameTime)
         {
+            int ret = 0;
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingFrameDelay -= timer;
-
             if (remainingFrameDelay <= 0)
             {
                 currentFrameIndex++;
                 if (currentFrameIndex >= currentFrameSet.Length)
                 {
                     currentFrameIndex = 0;
-                    if (onAnimCompleteCallback != null) onAnimCompleteCallback();
+                    ret = -1;
                 }
 
                 remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
             }
-            else if (remainingFrameDelay <= 1)
+            if (isDamage)
             {
-		        if (isDamage) maskHandler.LoadNextMask();
+                remainingDamageDelay -= timer;
+                if (remainingDamageDelay < 0)
+                {
+                    remainingDamageDelay = damageDelay;
+                    maskHandler.LoadNextMask();
+                }
             }
+            return ret;
         }
 
         public void setFrameSet(AnimationState animState)
@@ -152,6 +156,7 @@ namespace cse3902.Sprites
             get => isDamage;
             set 
 	        {
+                remainingDamageDelay = damageDelay;
                 isDamage = value;
                 maskHandler.Reset();
             }
