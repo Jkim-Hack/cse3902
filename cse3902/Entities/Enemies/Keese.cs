@@ -1,11 +1,12 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using cse3902.Sprites.EnemySprites;
+﻿using cse3902.Interfaces;
 using cse3902.SpriteFactory;
+using cse3902.Sprites.EnemySprites;
+using Microsoft.Xna.Framework;
+using System;
 
 namespace cse3902.Entities.Enemies
 {
-    public class Keese: IEntity
+    public class Keese : IEntity
     {
         private KeeseSprite keeseSprite;
         private KeeseStateMachine keeseStateMachine;
@@ -46,7 +47,6 @@ namespace cse3902.Entities.Enemies
 
         public void TakeDamage()
         {
-
         }
 
         public void Die()
@@ -70,10 +70,11 @@ namespace cse3902.Entities.Enemies
             this.keeseSprite.Draw();
         }
 
-        public Vector2 CenterPosition {
-
+        public Vector2 CenterPosition
+        {
             get => this.center;
-            set {
+            set
+            {
                 this.center = value;
                 keeseSprite.Center = value;
             }

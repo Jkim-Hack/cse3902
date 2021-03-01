@@ -41,6 +41,9 @@ namespace cse3902.Sprites
         private LinkDamageMaskHandler maskHandler;
 
         private float remainingFrameDelay;
+        private float remainingDamageDelay;
+
+        private const float damageDelay = .2f;
 
         public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
         {
@@ -64,38 +67,38 @@ namespace cse3902.Sprites
 
         public void Draw()
         {
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)Size.X, (int)Size.Y);
-
-            spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White);
-            spriteBatch.End();
+            Vector2 origin = new Vector2(size.X / 2f, size.Y / 2f);
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * size.X), (int)(sizeIncrease * size.Y));
+            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, 0.2f);
         }
        
-	    public void Update(GameTime gameTime)
-        {
-            Update(gameTime, null);
-	    }
 
-        public void Update(GameTime gameTime, onAnimCompleteCallback onAnimCompleteCallback)
+        public int Update(GameTime gameTime)
         {
+            int ret = 0;
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingFrameDelay -= timer;
-
             if (remainingFrameDelay <= 0)
             {
                 currentFrameIndex++;
                 if (currentFrameIndex >= currentFrameSet.Length)
                 {
                     currentFrameIndex = 0;
-                    if (onAnimCompleteCallback != null) onAnimCompleteCallback();
+                    ret = -1;
                 }
 
                 remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
             }
-            else if (remainingFrameDelay <= 1)
+            if (isDamage)
             {
-		        if (isDamage) maskHandler.LoadNextMask();
+                remainingDamageDelay -= timer;
+                if (remainingDamageDelay < 0)
+                {
+                    remainingDamageDelay = damageDelay;
+                    maskHandler.LoadNextMask();
+                }
             }
+            return ret;
         }
 
         public void setFrameSet(AnimationState animState)
@@ -108,6 +111,18 @@ namespace cse3902.Sprites
         public void Erase()
         {
             spriteTexture.Dispose();
+        }
+
+        public Rectangle Box
+        {
+            get
+            {
+                int width = (int)(sizeIncrease * size.X);
+                int height = (int)(sizeIncrease * size.Y);
+                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
+                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+                return Destination;
+            }
         }
 
         public Vector2 Center
@@ -141,6 +156,7 @@ namespace cse3902.Sprites
             get => isDamage;
             set 
 	        {
+                remainingDamageDelay = damageDelay;
                 isDamage = value;
                 maskHandler.Reset();
             }

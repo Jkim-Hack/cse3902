@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using cse3902.Entities;
+﻿using cse3902.Entities;
 using cse3902.Entities.Enemies;
-using Microsoft.Xna.Framework;
+using cse3902.Interfaces;
 using cse3902.SpriteFactory;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace cse3902.Items
 {
@@ -13,7 +14,7 @@ namespace cse3902.Items
         private int enpcIndex;
 
         private int maxFrameTime;
-        private int currentFrameTime; 
+        private int currentFrameTime;
 
         public EnemyNPCHandler(Game1 thegame)
         {
@@ -32,6 +33,7 @@ namespace cse3902.Items
 
             //enemies would be included here, but enemy constructors load the content file
         }
+
         public void LoadContent()
         {
             NPCSpriteFactory.Instance.LoadAllTextures(game.Content);
@@ -59,7 +61,8 @@ namespace cse3902.Items
 
         public void CycleNext()
         {
-            if (currentFrameTime == maxFrameTime) { 
+            if (currentFrameTime == maxFrameTime)
+            {
                 enpcIndex++;
                 if (enpcIndex == enpcs.Count) enpcIndex = 0;
                 currentFrameTime = 0;
@@ -75,6 +78,7 @@ namespace cse3902.Items
                 currentFrameTime = 0;
             }
         }
+
         public void Reset()
         {
             //the list should be remade, but enemy content would be reloaded so no change

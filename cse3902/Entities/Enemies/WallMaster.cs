@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using cse3902.Sprites.EnemySprites;
-using Microsoft.Xna.Framework.Graphics;
+﻿using cse3902.Interfaces;
 using cse3902.SpriteFactory;
+using cse3902.Sprites.EnemySprites;
+using Microsoft.Xna.Framework;
 
 namespace cse3902.Entities.Enemies
 {
-    public class WallMaster: IEntity
+    public class WallMaster : IEntity
     {
         private WallMasterSprite wallMasterSprite;
         private WallMasterStateMachine wallMasterStateMachine;
@@ -49,34 +48,34 @@ namespace cse3902.Entities.Enemies
 
         public void TakeDamage()
         {
-
         }
 
         public void Die()
         {
             this.wallMasterStateMachine.Die();
         }
+
         public void Update(GameTime gameTime)
         {
             var change = speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             traveled -= change;
-            if (traveled <= 0) {
-
-                if (direction.X > 0 && direction.Y > 0) {
-
+            if (traveled <= 0)
+            {
+                if (direction.X > 0 && direction.Y > 0)
+                {
                     direction.Y = -1;
-
-                } else if (direction.X > 0 && direction.Y < 0) {
-
+                }
+                else if (direction.X > 0 && direction.Y < 0)
+                {
                     direction.X = -1;
-
-                } else if (direction.X < 0 && direction.Y > 0) {
-
+                }
+                else if (direction.X < 0 && direction.Y > 0)
+                {
                     direction.X = 1;
-
-                } else if (direction.X < 0 && direction.Y < 0) {
-
+                }
+                else if (direction.X < 0 && direction.Y < 0)
+                {
                     direction.Y = 1;
                 }
 
@@ -94,10 +93,11 @@ namespace cse3902.Entities.Enemies
             wallMasterSprite.Draw();
         }
 
-        public Vector2 CenterPosition {
-
+        public Vector2 CenterPosition
+        {
             get => this.center;
-            set {
+            set
+            {
                 this.center = value;
                 wallMasterSprite.Center = value;
             }
