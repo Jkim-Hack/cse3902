@@ -25,6 +25,8 @@ namespace cse3902
 
         public List<IProjectile> linkProjectiles { get; set; }
 
+        public Camera camera { get; set; }
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -48,6 +50,8 @@ namespace cse3902
             blockHandler = new BlockHandler(this);
 
             linkProjectiles = new List<IProjectile>();
+
+            camera = new Camera(this);
 
             this.IsMouseVisible = true;
 	        base.Initialize();
