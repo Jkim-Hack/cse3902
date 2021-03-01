@@ -34,16 +34,6 @@ namespace cse3902
             smoothMovementDestination = new Vector2(0, 0);
         }
 
-        public void MoveCamera(Vector2 topLeft, int cameraWidth, int cameraHeight)
-        {
-            MoveCamera(topLeft, new Vector2(cameraWidth, cameraHeight));
-        }
-
-        public void MoveCamera(Rectangle newCamera)
-        {
-            MoveCamera(newCamera.Location.ToVector2(), newCamera.Size.ToVector2());
-        }
-
         public void MoveCamera(Vector2 topLeft, Vector2 dimensions)
         {
             if (!cameraIsMoving)
@@ -54,6 +44,16 @@ namespace cse3902
                 transformationMatrix = Matrix.CreateScale(new Vector3(dimensionScale, 0));
                 transformationMatrix.Translation = new Vector3(-topLeft * dimensionScale, 0);
             }
+        }
+
+        public void MoveCamera(Vector2 topLeft, int cameraWidth, int cameraHeight)
+        {
+            MoveCamera(topLeft, new Vector2(cameraWidth, cameraHeight));
+        }
+
+        public void MoveCamera(Rectangle newCamera)
+        {
+            MoveCamera(newCamera.Location.ToVector2(), newCamera.Size.ToVector2());
         }
 
         public void MoveCamera(Vector2 translation)
@@ -85,11 +85,6 @@ namespace cse3902
         public void MoveCameraRight(int pixels)
         {
             MoveCamera(new Vector2(pixels, 0));
-        }
-
-        public Matrix GetTransformationMatrix()
-        {
-            return transformationMatrix;
         }
 
         public void SmoothMoveCamera(Vector2 translation, int numberUpdateCyclesToComplete)
@@ -139,6 +134,11 @@ namespace cse3902
                     smoothMovementUpdateCyclesRemaining--;
                 }
             }
+        }
+
+        public Matrix GetTransformationMatrix()
+        {
+            return transformationMatrix;
         }
 
         public bool GetCameraMoving()
