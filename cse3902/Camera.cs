@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 
 // this class should probably go with the rooms when they are merged
 
