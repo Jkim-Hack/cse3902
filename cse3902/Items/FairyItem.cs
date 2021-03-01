@@ -77,6 +77,7 @@ namespace cse3902.Items
             }
             return 0;
         }
+
         public Texture2D Texture
         {
             get => spriteTexture;

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Items
 {
@@ -40,7 +39,6 @@ namespace cse3902.Items
 
             frameWidth = spriteTexture.Width;
             frameHeight = spriteTexture.Height;
-
 
             if (dir.X > 0)
             {
@@ -86,7 +84,7 @@ namespace cse3902.Items
         public int Update(GameTime gameTime)
         {
             int offset = 0;
-            if(turns % 2 == 0)
+            if (turns % 2 == 0)
             {
                 offset = 50;
             }
@@ -134,6 +132,7 @@ namespace cse3902.Items
             }
             return 0;
         }
+
         public Rectangle Box
         {
             get

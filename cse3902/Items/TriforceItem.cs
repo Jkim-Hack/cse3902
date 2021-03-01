@@ -77,6 +77,7 @@ namespace cse3902.Items
             }
             return 0;
         }
+
         public Rectangle Box
         {
             get

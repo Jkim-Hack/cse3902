@@ -1,8 +1,7 @@
-﻿using System;
-using cse3902.Interfaces;
+﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static cse3902.Interfaces.ISprite;
+using System;
 
 namespace cse3902.Items
 {
@@ -24,8 +23,8 @@ namespace cse3902.Items
         private readonly float[] delaySequence = { 0.1f, 0.15f, 0.05f, 0.05f };
 
         private float angle;
-        bool animationComplete;
-        int swordType;
+        private bool animationComplete;
+        private int swordType;
 
         private const float sizeIncrease = 2f;
 
@@ -46,7 +45,6 @@ namespace cse3902.Items
             frames = new Rectangle[totalFrames];
             distributeFrames();
             animationComplete = false;
-
 
             if (dir.X > 0)
             {
@@ -105,6 +103,7 @@ namespace cse3902.Items
         {
             spriteTexture.Dispose();
         }
+
         public Rectangle Box
         {
             get

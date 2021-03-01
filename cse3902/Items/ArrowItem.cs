@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Items
 {

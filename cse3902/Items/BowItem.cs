@@ -1,8 +1,6 @@
-﻿using System;
-using cse3902.Interfaces;
+﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Items
 {
@@ -27,8 +25,8 @@ namespace cse3902.Items
             frameWidth = spriteTexture.Width;
             frameHeight = spriteTexture.Height;
 
-            currentX = (int) startingPos.X;
-            currentY = (int) startingPos.Y;
+            currentX = (int)startingPos.X;
+            currentY = (int)startingPos.Y;
         }
 
         public void Draw()
@@ -47,6 +45,7 @@ namespace cse3902.Items
         {
             return 0;
         }
+
         public Rectangle Box
         {
             get
