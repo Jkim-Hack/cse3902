@@ -126,9 +126,9 @@ namespace cse3902
             }
             itemHandler.Draw();
             player.Draw();
-            spriteBatch.End();
-            enemyNPCHandler.Draw();
             blockHandler.Draw();
+            enemyNPCHandler.Draw();
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

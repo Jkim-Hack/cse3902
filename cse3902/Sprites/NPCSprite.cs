@@ -15,6 +15,8 @@ namespace cse3902.Sprites
         private int frameWidth;
         private int frameHeight;
 
+        private const float sizeIncrease = 1f;
+
         public NPCSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
@@ -29,11 +31,9 @@ namespace cse3902.Sprites
 
         public void Draw()
         {
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
-
-            spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, Destination, new Rectangle(0, 0, frameWidth, frameHeight), Color.White);
-            spriteBatch.End();
+            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, 0.6f);
         }
 
         public int Update(GameTime gameTime)
@@ -45,6 +45,18 @@ namespace cse3902.Sprites
         public void Erase()
         {
             spriteTexture.Dispose();
+        }
+
+        public Rectangle Box
+        {
+            get
+            {
+                int width = (int)(sizeIncrease * frameWidth);
+                int height = (int)(sizeIncrease * frameHeight);
+                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
+                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+                return Destination;
+            }
         }
 
         public Vector2 Center

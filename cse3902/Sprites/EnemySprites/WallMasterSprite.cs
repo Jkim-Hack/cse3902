@@ -35,6 +35,8 @@ namespace cse3902.Sprites.EnemySprites
 
         private bool isAttacking;
 
+        private const float sizeIncrease = 2f;
+
         public WallMasterSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
@@ -71,11 +73,9 @@ namespace cse3902.Sprites.EnemySprites
         public void Draw()
         {
 
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
-
-            spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White);
-            spriteBatch.End();
+            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, 0.6f);
         }
 
         public void Erase()
@@ -98,6 +98,18 @@ namespace cse3902.Sprites.EnemySprites
                 remainingDelay = delay;
             }
             return 0;
+        }
+
+        public Rectangle Box
+        {
+            get
+            {
+                int width = (int)(sizeIncrease * frameWidth);
+                int height = (int)(sizeIncrease * frameHeight);
+                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
+                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+                return Destination;
+            }
         }
 
         public Vector2 Center

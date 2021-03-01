@@ -140,7 +140,7 @@ namespace cse3902.Entities
             // TODO: Move this to Link.cs not needed in state machine
             Vector2 spriteSize = linkSprite.Size;
             Vector2 offset = (spriteSize * currDirection) / 1.5f;
-            Vector2 startingPosition = centerPosition + offset + (spriteSize / 2);
+            Vector2 startingPosition = centerPosition + offset;
 
             IProjectile weapon = (IProjectile)ItemSpriteFactory.Instance.CreateSwordWeapon(spriteBatch, startingPosition, currDirection, currWeaponIndex);
             game.linkProjectiles.Add(weapon);
@@ -160,7 +160,7 @@ namespace cse3902.Entities
             IProjectile item;
             Vector2 spriteSize = linkSprite.Size;
             Vector2 offset = (spriteSize * currDirection) / 1.5f;
-            Vector2 startingPosition = centerPosition + offset + (spriteSize / 2);
+            Vector2 startingPosition = centerPosition + offset;
             switch (currItemIndex)
             {
                 case 1:

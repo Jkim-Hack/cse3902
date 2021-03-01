@@ -13,13 +13,13 @@ namespace cse3902.Sprites
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
-        private Vector2 startingPosition;
-        private Vector2 direction;
         private Vector2 center;
+        private Vector2 direction;
 
         private const float speed = 1.3f;
 
-        Vector2 ISprite.Center { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private const float sizeIncrease = 1f;
+
 
         Texture2D ISprite.Texture => throw new NotImplementedException();
 
@@ -31,20 +31,13 @@ namespace cse3902.Sprites
             this.center = startingPosition;
         }
 
-        public Vector2 StartingPosition
-        {
-            get => startingPosition;
-            set
-            {
-                startingPosition = value;
-                Center = value;
-            }
-        }
-
         public Vector2 Center
         {
             get => center;
-            set => center = value;
+            set
+            {
+                center = value;
+            }
         }
 
         public Texture2D Texture
@@ -63,9 +56,21 @@ namespace cse3902.Sprites
 
         public void Draw()
         {
-            spriteBatch.Begin();
-            spriteBatch.Draw(spriteTexture, center, Color.White);
-            spriteBatch.End();
+            Vector2 origin = new Vector2(Texture.Width / 2f, Texture.Height / 2f);
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * Texture.Width), (int)(sizeIncrease * Texture.Height));
+            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, 0.6f);
+        }
+
+        public Rectangle Box
+        {
+            get
+            {
+                int width = (int)(sizeIncrease * Texture.Width);
+                int height = (int)(sizeIncrease * Texture.Height);
+                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
+                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+                return Destination;
+            }
         }
 
         public void Erase()

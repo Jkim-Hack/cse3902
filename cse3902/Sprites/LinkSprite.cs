@@ -64,9 +64,9 @@ namespace cse3902.Sprites
 
         public void Draw()
         {
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)Size.X, (int)Size.Y);
-
-            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White,0, new Vector2(0,0), SpriteEffects.None, .2f);
+            Vector2 origin = new Vector2(size.X / 2f, size.Y / 2f);
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * size.X), (int)(sizeIncrease * size.Y));
+            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, 0.2f);
         }
        
 	    public int Update(GameTime gameTime)
@@ -107,6 +107,18 @@ namespace cse3902.Sprites
         public void Erase()
         {
             spriteTexture.Dispose();
+        }
+
+        public Rectangle Box
+        {
+            get
+            {
+                int width = (int)(sizeIncrease * size.X);
+                int height = (int)(sizeIncrease * size.Y);
+                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
+                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+                return Destination;
+            }
         }
 
         public Vector2 Center
