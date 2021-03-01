@@ -45,7 +45,7 @@ namespace cse3902.Entities.Enemies
             this.goriyaStateMachine.ChangeDirection(direction);
         }
 
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
         }
 

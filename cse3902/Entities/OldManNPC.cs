@@ -33,7 +33,7 @@ namespace cse3902.Entities
         {
             //NPCs don't change direction
         }
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
             //NPCs don't take damage
         }

@@ -48,7 +48,7 @@ namespace cse3902.Entities
             this.linkSprite.Erase();
         }
 
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
             // Default to 10 for now
             linkStateMachine.TakeDamage(10);
