@@ -38,7 +38,12 @@ namespace cse3902
 
         public void MoveCamera(Vector2 topLeft, int cameraWidth, int cameraHeight)
         {
-            if (!cameraIsMoving) MoveCamera(topLeft, new Vector2(cameraWidth,cameraHeight));
+            MoveCamera(topLeft, new Vector2(cameraWidth,cameraHeight));
+        }
+
+        public void MoveCamera(Rectangle newCamera)
+        {
+            MoveCamera(newCamera.Location.ToVector2(), newCamera.Size.ToVector2());
         }
 
         public void MoveCamera(Vector2 topLeft, Vector2 dimensions)
@@ -66,22 +71,22 @@ namespace cse3902
 
         public void MoveCameraUp(int pixels)
         {
-            if (!cameraIsMoving) MoveCamera(new Vector2(0, -pixels));
+            MoveCamera(new Vector2(0, -pixels));
         }
 
         public void MoveCameraDown(int pixels)
         {
-            if (!cameraIsMoving) MoveCamera(new Vector2(0, pixels));
+            MoveCamera(new Vector2(0, pixels));
         }
 
         public void MoveCameraLeft(int pixels)
         {
-            if (!cameraIsMoving) MoveCamera(new Vector2(-pixels, 0));
+            MoveCamera(new Vector2(-pixels, 0));
         }
 
         public void MoveCameraRight(int pixels)
         {
-            if (!cameraIsMoving) MoveCamera(new Vector2(pixels, 0));
+            MoveCamera(new Vector2(pixels, 0));
         }
 
         public Matrix GetTransformationMatrix()
