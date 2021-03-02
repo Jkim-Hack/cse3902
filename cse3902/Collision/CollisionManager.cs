@@ -46,7 +46,10 @@ namespace cse3902.Collision
                 foreach (var collidable in allCollidableObjects[priority])
                 {
                     List<ICollidable> collided = GetCollided(collidable.Key);
-                    /* call appropriate methods */
+                    foreach(var collision in collided)
+                    {
+                        collidable.Value.OnCollidedWith(collision);
+                    }
                 }
             }
         }
