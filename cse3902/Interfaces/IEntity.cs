@@ -12,6 +12,6 @@ namespace cse3902.Interfaces
         public void Die();
         public void Update(GameTime gameTime);
         public void Draw();
-        public void BeShoved(Vector2 direction);
+        public void BeShoved();
     }
 }

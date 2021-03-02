@@ -83,9 +83,9 @@ namespace cse3902.Entities
             linkStateMachine.ChangeWeapon(index); ;
         }
 
-        public void BeShoved(Vector2 direction)
+        public void BeShoved()
         {
-            linkStateMachine.BeShoved(direction);
+            
         }
 
         public float Speed
