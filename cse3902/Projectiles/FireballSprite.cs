@@ -18,6 +18,8 @@ namespace cse3902.Projectiles
         private float fireballCounter;
         private const float fireballDelay = 3f;
 
+        private Rectangle destination;
+
         private const float sizeIncrease = 2f;
 
         public FireballSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction)
@@ -67,7 +69,7 @@ namespace cse3902.Projectiles
             spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, 0.6f);
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -75,7 +77,8 @@ namespace cse3902.Projectiles
                 int height = (int)(sizeIncrease * Texture.Height);
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 
