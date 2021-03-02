@@ -53,10 +53,18 @@ namespace cse3902.Collision
 
         private ICollidable FindCollided(List<int> priorities, Rectangle rectangle)
         {
-            for ()
+            foreach (int priority in priorities)
             {
-
+                foreach(var collidable in allCollidableObjects[priority])
+                {
+                    if (rectangle.Equals(collidable.Key))
+                    {
+                        return collidable.Value;
+                    }
+                }
             }
+
+            return null;
         }
 
         private void ResetTree()
