@@ -18,15 +18,12 @@ namespace cse3902.Collision.Collidables
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
-            enemy.TakeDamage(collidableObject.DamageValue);
+            //only collision cases that matter for enemies:
+            //walls and blocks
+            //damaging weapons (sword, arrow, etc.)
+            //in all other cases, do nothing
 
-            if (collidableObject is EnemyCollidable)
-            {
-                //don't take damage, don't move
-            }
-            //if collidableObject is enemy, don't take damage, don't move
-            //if collidableObject is player, don't take damage don't move
-            //ii collidableObject is weapon, take damage and move
+            
         }
 
         public ref Rectangle RectangleRef

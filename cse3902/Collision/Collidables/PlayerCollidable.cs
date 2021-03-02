@@ -24,6 +24,7 @@ namespace cse3902.Collision.Collidables
             {
                 //take damage and get shoved back by enemy
                 player.TakeDamage(collidableObject.DamageValue);
+                
             }
             //if collidableObject is enemy, don't take damage, don't move
             //if collidableObject is player, don't take damage don't move

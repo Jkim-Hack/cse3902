@@ -15,10 +15,5 @@ namespace cse3902.Entities {
         {
             //TODO: will implement after enemy spriting is done
         }
-
-        public void BeShoved(Vector2 direction)
-        {
-
-        }
     }
 }
