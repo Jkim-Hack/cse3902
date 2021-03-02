@@ -26,6 +26,8 @@ namespace cse3902.Projectiles
         private bool animationComplete;
         private int swordType;
 
+        private Rectangle destination;
+
         private const float sizeIncrease = 2f;
 
         public SwordWeapon(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir, int swordType)
@@ -104,7 +106,7 @@ namespace cse3902.Projectiles
             spriteTexture.Dispose();
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -114,7 +116,8 @@ namespace cse3902.Projectiles
                 double sin = Math.Abs(Math.Sin(angle));
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 
