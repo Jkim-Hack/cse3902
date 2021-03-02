@@ -45,26 +45,44 @@ namespace cse3902.Collision
             {
                 foreach (var collidable in allCollidableObjects[priority])
                 {
+                    
+                }
+            }
+        }
 
+        private List<ICollidable> getCollided(List<int> priorities, Rectangle reference)
+        {
+            var collided = new List<ICollidable>();
+
+            var likelyCollided = quadTree.GetLikelyCollidedObjects(new List<Rectangle>(), reference);
+            foreach(var rectangle in likelyCollided)
+            {
+                if (reference.Intersects(rectangle))
+                {
+                    collided.Add(FindCollided());
                 }
             }
 
+
         }
 
-        private ICollidable FindCollided(List<int> priorities, Rectangle rectangle)
+        private ICollidable FindCollided(List<int> priorities, Rectangle collided)
         {
+            ICollidable collidedObject = null;
+
             foreach (int priority in priorities)
             {
+                collidedObject = allCollidableObjects[pr]
                 foreach(var collidable in allCollidableObjects[priority])
                 {
-                    if (rectangle.Equals(collidable.Key))
+                    if (collided.Equals(collidable.Key))
                     {
                         return collidable.Value;
                     }
                 }
             }
 
-            return null;
+            return collidedObject;
         }
 
         private void ResetTree()
