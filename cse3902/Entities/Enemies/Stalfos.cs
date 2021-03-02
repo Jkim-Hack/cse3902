@@ -31,9 +31,9 @@ namespace cse3902.Entities.Enemies
             travelDistance = 80;
         }
 
-        public Rectangle Bounds
+        public ref Rectangle Bounds
         {
-            get => stalfosSprite.Texture.Bounds;
+            get => ref stalfosSprite.Box;
         }
 
         public void Attack()

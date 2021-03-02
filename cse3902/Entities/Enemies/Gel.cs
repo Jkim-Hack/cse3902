@@ -31,9 +31,9 @@ namespace cse3902.Entities.Enemies
             travelDistance = 50;
         }
 
-        public Rectangle Bounds
+        public ref Rectangle Bounds
         {
-            get => gelSprite.Texture.Bounds;
+            get => ref gelSprite.Box;
         }
 
         public void Attack()

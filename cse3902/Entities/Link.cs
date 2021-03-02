@@ -24,9 +24,9 @@ namespace cse3902.Entities
             linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition, game.spriteBatch);
         }
 
-        public Rectangle Bounds 
+        public ref Rectangle Bounds 
 	    { 
-	        get => linkSprite.Texture.Bounds; 
+	        get => ref linkSprite.Box; 
 	    }
 
         public void Attack()

@@ -31,9 +31,9 @@ namespace cse3902.Entities.Enemies
             traveled = range;
         }
 
-        public Rectangle Bounds
+        public ref Rectangle Bounds
         {
-            get => wallMasterSprite.Texture.Bounds;
+            get => ref wallMasterSprite.Box;
         }
 
         public void Attack()

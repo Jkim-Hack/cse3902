@@ -30,9 +30,9 @@ namespace cse3902.Entities.Enemies
             travelDistance = 50;
         }
 
-        public Rectangle Bounds
+        public ref Rectangle Bounds
         {
-            get => goriyaSprite.Texture.Bounds;
+            get => ref goriyaSprite.Box;
         }
 
         public void Attack()

@@ -30,9 +30,9 @@ namespace cse3902.Entities.Enemies
             speed = 0.02f;
         }
 
-        public Rectangle Bounds
+        public ref Rectangle Bounds
         {
-            get => keeseSprite.Texture.Bounds;
+            get => keeseSprite.Box;
         }
 
         public void Attack()
