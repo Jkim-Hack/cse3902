@@ -21,6 +21,8 @@ namespace cse3902.Projectiles
         private int currentY;
         private const float sizeIncrease = 2f;
 
+        private Rectangle destination;
+
         private const float delay = 0.8f;
         private float remainingDelay;
 
@@ -57,7 +59,7 @@ namespace cse3902.Projectiles
             }
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -65,7 +67,8 @@ namespace cse3902.Projectiles
                 int height = (int)(sizeIncrease * frameHeight);
                 Rectangle Destination = new Rectangle(currentX, currentY, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 
