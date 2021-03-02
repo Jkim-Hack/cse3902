@@ -7,5 +7,6 @@ namespace cse3902.Entities {
 
         public void ChangeDirection(Vector2 direction);
         public void CycleWeapon(int dir);
+        public void BeShoved(Vector2 direction);
     }
 }

@@ -4,25 +4,26 @@ using Microsoft.Xna.Framework;
 
 namespace cse3902.Collision.Collidables
 {
-    public class EnemyCollidable : ICollidable
+    public class PlayerCollidable : ICollidable
     {
-        private IEntity enemy;
+        private IEntity player;
         private int damage;
 
-        public EnemyCollidable(IEntity enemy, int damage)
+        public PlayerCollidable(IEntity player, int damage)
         {
-            this.enemy = enemy;
+            this.player = player;
             this.damage = damage;
         }
 
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
-            enemy.TakeDamage(collidableObject.DamageValue);
+            player.TakeDamage(collidableObject.DamageValue);
 
             if (collidableObject is EnemyCollidable)
             {
-                //don't take damage, don't move
+                //take damage and get shoved back by enemy
+                player.TakeDamage(collidableObject.DamageValue);
             }
             //if collidableObject is enemy, don't take damage, don't move
             //if collidableObject is player, don't take damage don't move
@@ -31,7 +32,7 @@ namespace cse3902.Collision.Collidables
 
         public ref Rectangle RectangleRef
         {
-            get => ref enemy.Bounds;
+            get => ref player.Bounds;
         }
 
         public int DamageValue

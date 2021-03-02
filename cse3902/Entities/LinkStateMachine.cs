@@ -227,6 +227,11 @@ namespace cse3902.Entities
             remainingDamageDelay = damageDelay;
         }
 
+        public void BeShoved(Vector2 direction)
+        {
+
+        }
+
         public void CycleWeapon(int dir)
         {
             throw new NotImplementedException();

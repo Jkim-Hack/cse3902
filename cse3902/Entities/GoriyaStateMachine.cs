@@ -53,5 +53,10 @@ namespace cse3902.Entities
         {
             this.goriyaSprite.Erase();
         }
+
+        public void BeShoved(Vector2 direction)
+        {
+
+        }
     }
 }
