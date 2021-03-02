@@ -35,15 +35,66 @@ namespace cse3902.Collision
 
         public void Update()
         {
-            quadTree.Clear();
-            foreach (var collidable in allCollidableObjects)
+            ResetTree();
+
+            // Check for collisions in the order of priority
+            List<int> priorities = new List<int>(allCollidableObjects.Keys);
+            priorities.Sort();
+
+            foreach (int priority in priorities)
             {
-                foreach (var rectangle in collidable.Value.Keys)
+                foreach (var collidable in allCollidableObjects[priority])
+                {
+                    List<ICollidable> collided = GetCollided(collidable.Key);
+                    foreach(var collision in collided)
+                    {
+                        collidable.Value.OnCollidedWith(collision);
+                    }
+                }
+            }
+        }
+
+        private void ResetTree()
+        {
+            quadTree.Clear();
+            foreach (var category in allCollidableObjects)
+            {
+                foreach (var rectangle in category.Value.Keys)
                 {
                     quadTree.Insert(rectangle);
                 }
             }
         }
 
+        /* Finds all ICollidable objects that the given rectangle has collided with */
+        private List<ICollidable> GetCollided(Rectangle reference)
+        {
+            List<ICollidable> collided = new List<ICollidable>();
+
+            var likelyCollided = quadTree.GetLikelyCollidedObjects(new List<Rectangle>(), reference);
+            foreach (var rectangle in likelyCollided)
+            {
+                if (reference.Intersects(rectangle))
+                {
+                    collided.Add(FindCollided(rectangle));
+                }
+            }
+
+            return collided;
+        }
+
+        /* Finds ICollidable object associated with given rectangle */
+        private ICollidable FindCollided(Rectangle collided)
+        {
+            foreach (int priority in allCollidableObjects.Keys)
+            {
+                if (allCollidableObjects[priority].ContainsKey(collided)) 
+                {
+                    return allCollidableObjects[priority][collided];
+                }
+            }
+
+            return null;
+        }
     }
 }
