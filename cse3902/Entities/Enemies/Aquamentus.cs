@@ -57,6 +57,11 @@ namespace cse3902.Entities.Enemies
             this.aquamentusStateMachine.Die();
         }
 
+        public void BeShoved(Vector2 direction)
+        {
+            this.aquamentusStateMachine.BeShoved(direction);
+        }
+
         public void Update(GameTime gameTime)
         {
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
