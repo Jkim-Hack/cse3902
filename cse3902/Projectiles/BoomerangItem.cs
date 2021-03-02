@@ -19,6 +19,8 @@ namespace cse3902.Projectiles
         private int frameWidth;
         private int frameHeight;
 
+        private Rectangle destination;
+
         private int turns;
 
         private enum Direction
@@ -133,7 +135,7 @@ namespace cse3902.Projectiles
             return 0;
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -143,7 +145,8 @@ namespace cse3902.Projectiles
                 double sin = Math.Abs(Math.Sin(angle));
                 Rectangle Destination = new Rectangle(currentX, currentY, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 
