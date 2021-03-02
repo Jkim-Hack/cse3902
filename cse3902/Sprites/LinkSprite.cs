@@ -43,6 +43,8 @@ namespace cse3902.Sprites
         private float remainingFrameDelay;
         private float remainingDamageDelay;
 
+        private Rectangle destination;
+
         private const float damageDelay = .2f;
 
         public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
@@ -113,7 +115,7 @@ namespace cse3902.Sprites
             spriteTexture.Dispose();
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -121,7 +123,8 @@ namespace cse3902.Sprites
                 int height = (int)(sizeIncrease * size.Y);
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 
