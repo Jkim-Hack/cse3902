@@ -12,6 +12,7 @@ namespace cse3902.Collision
         // <priority level, <Collidable's Rectangle, Collidable object>>
         private Dictionary<int, Dictionary<Rectangle, ICollidable>> allCollidableObjects;
         private QuadTree quadTree;
+        
 
         public CollisionManager(int width, int height)
         {
@@ -45,27 +46,29 @@ namespace cse3902.Collision
             {
                 foreach (var collidable in allCollidableObjects[priority])
                 {
-                    
+                    List<ICollidable> collided = GetCollided(priorities, collidable.Key);
                 }
             }
         }
 
-        private List<ICollidable> getCollided(List<int> priorities, Rectangle reference)
+        /* Finds all ICollidable objects that the given rectangle has collided with */
+        private List<ICollidable> GetCollided(List<int> priorities, Rectangle reference)
         {
-            var collided = new List<ICollidable>();
+            List<ICollidable> collided = new List<ICollidable>();
 
             var likelyCollided = quadTree.GetLikelyCollidedObjects(new List<Rectangle>(), reference);
             foreach(var rectangle in likelyCollided)
             {
                 if (reference.Intersects(rectangle))
                 {
-                    collided.Add(FindCollided());
+                    collided.Add(FindCollided(priorities, rectangle));
                 }
             }
 
-
+            return collided;
         }
 
+        /* Finds ICollidable object associated with given rectangle */
         private ICollidable FindCollided(List<int> priorities, Rectangle collided)
         {
             foreach (int priority in priorities)
@@ -90,8 +93,5 @@ namespace cse3902.Collision
                 }
             }
         }
-
-
-
     }
 }
