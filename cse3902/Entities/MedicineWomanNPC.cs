@@ -21,9 +21,9 @@ namespace cse3902.Entities
             medicineWomanSprite = NPCSpriteFactory.Instance.CreateMedicineWomanSprite(game.spriteBatch, centerPosition);
         }
 
-        public Rectangle Bounds
+        public ref Rectangle Bounds
         {
-            get => medicineWomanSprite.Texture.Bounds;
+            get => ref medicineWomanSprite.Box;
         }
 
         public void Attack()

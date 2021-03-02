@@ -20,9 +20,9 @@ namespace cse3902.Entities
             centerPosition = new Vector2(500, 200);
             merchantSprite = NPCSpriteFactory.Instance.CreateMerchantSprite(game.spriteBatch, centerPosition);
         }
-        public Rectangle Bounds
+        public ref Rectangle Bounds
         {
-            get => merchantSprite.Texture.Bounds;
+            get => ref merchantSprite.Box;
         }
 
         public void Attack()

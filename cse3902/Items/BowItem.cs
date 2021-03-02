@@ -55,7 +55,7 @@ namespace cse3902.Items
                 int width = (int)(sizeIncrease * frameWidth);
                 int height = (int)(sizeIncrease * frameHeight);
                 Rectangle Destination = new Rectangle(currentX, currentY, width, height);
-                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);\
+                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
                 return ref destination;
             }

@@ -20,9 +20,9 @@ namespace cse3902.Entities
             centerPosition = new Vector2(500, 200);
             oldManSprite = NPCSpriteFactory.Instance.CreateOldManSprite(game.spriteBatch,centerPosition);
         }
-        public Rectangle Bounds
+        public ref Rectangle Bounds
         {
-            get => oldManSprite.Texture.Bounds;
+            get => ref oldManSprite.Box;
         }
 
         public void Attack()
