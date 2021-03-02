@@ -32,7 +32,7 @@ namespace cse3902.Entities.Enemies
 
         public ref Rectangle Bounds
         {
-            get => keeseSprite.Box;
+            get => ref keeseSprite.Box;
         }
 
         public void Attack()
