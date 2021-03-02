@@ -9,7 +9,7 @@ namespace cse3902.Collision
     public class QuadTree
     {
         private int maxObjectsPerNode = 10;
-        private int maxTreeLevel = 5;
+        private int maxTreeLevel = 10;
 
         private int currentLevel;
         private List<Rectangle> allObjects;
