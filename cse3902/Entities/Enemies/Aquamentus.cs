@@ -33,9 +33,9 @@ namespace cse3902.Entities.Enemies
             travelUp = false;
         }
 
-        public Rectangle Bounds
+        public ref Rectangle Bounds
         {
-            get => aquamentusSprite.Texture.Bounds;
+            get => ref aquamentusSprite.Box;
         }
 
         public void Attack()
