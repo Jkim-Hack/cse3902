@@ -46,6 +46,19 @@ namespace cse3902.Collision
                 foreach (var collidable in allCollidableObjects[priority])
                 {
                     List<ICollidable> collided = GetCollided(collidable.Key);
+                    /* call appropriate methods */
+                }
+            }
+        }
+
+        private void ResetTree()
+        {
+            quadTree.Clear();
+            foreach (var category in allCollidableObjects)
+            {
+                foreach (var rectangle in category.Value.Keys)
+                {
+                    quadTree.Insert(rectangle);
                 }
             }
         }
@@ -79,18 +92,6 @@ namespace cse3902.Collision
             }
 
             return null;
-        }
-
-        private void ResetTree()
-        {
-            quadTree.Clear();
-            foreach (var category in allCollidableObjects)
-            {
-                foreach (var rectangle in category.Value.Keys)
-                {
-                    quadTree.Insert(rectangle);
-                }
-            }
         }
     }
 }
