@@ -27,6 +27,8 @@ namespace cse3902.Sprites.EnemySprites
 
         private bool isAttacking;
 
+        private Rectangle destination;
+
         private const float sizeIncrease = 2f;
 
         public StalfosSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
@@ -91,7 +93,7 @@ namespace cse3902.Sprites.EnemySprites
             return 0;
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -99,7 +101,8 @@ namespace cse3902.Sprites.EnemySprites
                 int height = (int)(sizeIncrease * frameHeight);
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 
