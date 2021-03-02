@@ -35,7 +35,32 @@ namespace cse3902.Collision
 
         public void Update()
         {
-            // Reset tree to account for updated positions
+            ResetTree();
+
+            // Check for collisions in the order of priority
+            List<int> priorities = new List<int>(allCollidableObjects.Keys);
+            priorities.Sort();
+
+            foreach (int priority in priorities)
+            {
+                foreach (var collidable in allCollidableObjects[priority])
+                {
+
+                }
+            }
+
+        }
+
+        private ICollidable FindCollided(List<int> priorities, Rectangle rectangle)
+        {
+            for ()
+            {
+
+            }
+        }
+
+        private void ResetTree()
+        {
             quadTree.Clear();
             foreach (var category in allCollidableObjects)
             {
@@ -44,21 +69,9 @@ namespace cse3902.Collision
                     quadTree.Insert(rectangle);
                 }
             }
-
-            // Check for collisions in the order of priority
-            List<int> priorities = new List<int>(allCollidableObjects.Keys);
-            priorities.Sort();
-
-            foreach (int priority in priorities) {
-
-                foreach (var collidable in allCollidableObjects) {
-
-                }
-            }
-
         }
 
-        
+
 
     }
 }
