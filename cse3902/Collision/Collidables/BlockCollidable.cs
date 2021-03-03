@@ -24,6 +24,7 @@ namespace cse3902.Collision.Collidables
             if (collidableObject is PlayerCollidable)
             {
                 //if it is a movable block, move it
+                //if we are considering stairs a block, collision with stairs will need to move camera
             } else
             {
                 //do nothing

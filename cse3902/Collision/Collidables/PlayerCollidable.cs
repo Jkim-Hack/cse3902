@@ -6,10 +6,10 @@ namespace cse3902.Collision.Collidables
 {
     public class PlayerCollidable : ICollidable
     {
-        private IEntity player;
+        private IPlayer player;
         private int damage;
 
-        public PlayerCollidable(IEntity player, int damage)
+        public PlayerCollidable(IPlayer player, int damage)
         {
             this.player = player;
             this.damage = damage;
@@ -20,15 +20,27 @@ namespace cse3902.Collision.Collidables
         {
             player.TakeDamage(collidableObject.DamageValue);
 
+            //todo: these cases don't currently account for aquamentus fireball
+            //should probably just consider it a projectile and check if
+            //the projectile is fireball or not
             if (collidableObject is EnemyCollidable)
             {
                 //take damage and get shoved back by enemy
                 player.TakeDamage(collidableObject.DamageValue);
+                player.BeShoved();
                 
+            } else if (collidableObject is BlockCollidable)
+            {
+                //three cases:
+                //immovable block
+                //movable block
+                //staircase
+
+            } else
+            {
+
             }
-            //if collidableObject is enemy, don't take damage, don't move
-            //if collidableObject is player, don't take damage don't move
-            //ii collidableObject is weapon, take damage and move
+           
         }
 
         public ref Rectangle RectangleRef
