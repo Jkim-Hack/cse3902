@@ -10,14 +10,16 @@ namespace cse3902.Rooms
     public class RoomHandler
     {
         private SpriteBatch spriteBatch;
-        private List<Room> rooms;
+        public Dictionary<Tuple<int, int>, Room> rooms;
 
         private int roomIndex = 0;
+
+        private Tuple<int, int> currentRoom;
 
         public RoomHandler(SpriteBatch sb)
         {
             spriteBatch = sb;
-            rooms = new List<Room>();
+            rooms = new Dictionary<Tuple<int, int>, Room>();
         }
 
         public void Initialize()
@@ -84,12 +86,30 @@ namespace cse3902.Rooms
 
                 Tuple<int, int> roomTup = new Tuple<int, int>(Int32.Parse(room.Element(num).Value.Substring(0, comma)), Int32.Parse(room.Element(num).Value.Substring(comma+1)));
  
-                //roomNum = Int32.Parse();
+                //parseItems(currentRoom, )
 
                 Console.WriteLine();
+
+
+
             }
 
 
+        }
+
+        public void LoadNewRoom(Tuple<int, int> newPos)
+        {
+            Room newRoom = rooms.GetValueOrDefault(newPos);
+
+            List<IItem> oldItems = rooms.GetValueOrDefault(currentRoom).Items;
+            RoomItems.Instance.LoadNewRoom(ref oldItems, newRoom.Items);
+            rooms.GetValueOrDefault(currentRoom).Items = oldItems;
+
+            List<IEntity> oldEnemies = rooms.GetValueOrDefault(currentRoom).Enemies;
+            RoomEnemyNPCs.Instance.LoadNewRoom(ref oldEnemies, newRoom.Enemies);
+            rooms.GetValueOrDefault(currentRoom).Enemies = oldEnemies;
+
+            currentRoom = newPos;
         }
 
     }

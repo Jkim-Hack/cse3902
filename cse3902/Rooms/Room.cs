@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using cse3902.Entities;
+using System;
 
 namespace cse3902.Rooms
 {
@@ -15,21 +16,21 @@ namespace cse3902.Rooms
         private bool visited;
         private int[] surrounding;
 
-        private List<IItem> items;
-        private List<IEntity> enemies;
-        private List<IProjectile> projectiles;
+        Tuple<int, int> roomPos;
 
-        public Room(int top, int right, int bottom, int left, Vector2 tl, Vector2 br)
+        private List<IItem> items { get; set; }
+        private List<IEntity> enemies { get; set; }
+        private List<IProjectile> projectiles { get; set; }
+
+        public Room(Tuple<int, int> position)
         {
-            surrounding[0] = top;
-            surrounding[1] = right;
-            surrounding[2] = bottom;
-            surrounding[3] = left;
-
-            topLeft = tl;
-            bottomRight = br;
-
+            roomPos = position;
+           
             visited = false;
+
+            items = new List<IItem>();
+            enemies = new List<IEntity>();
+            projectiles = new List<IProjectile>();
         }
 
         public void AddItem (IItem item)
@@ -55,6 +56,24 @@ namespace cse3902.Rooms
         public void SetToVisited()
         {
             visited = true;
+        }
+
+        public List<IItem> Items
+        {
+            get => items;
+            set => items = value;
+        }
+
+        public List<IEntity> Enemies
+        {
+            get => enemies;
+            set => enemies = value;
+        }
+
+        public List<IProjectile> Projectiles
+        {
+            get => projectiles;
+            set => projectiles = value;
         }
     }
 }

@@ -79,23 +79,7 @@ namespace cse3902.Items
             }
         }
 
-        public void SwitchOut(ref List<IEntity> oldList, ref List<IEntity> newList)
-        {
-            oldList = new List<IEntity>();
-
-            for (int i = 0; i < enpcs.Count; i++)
-            {
-                oldList[i] = enpcs[i];
-            }
-
-            enpcs = new List<IEntity>();
-
-            for (int i = 0; i < newList.Count; i++)
-            {
-                enpcs[i] = newList[i];
-            }
-
-        }
+      
 
         public void Reset()
         {
