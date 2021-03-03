@@ -9,13 +9,8 @@ namespace cse3902.Rooms
 {
     public class Room
     {
-        //private SpriteBatch spriteBatch;
-
-        private Vector2 topLeft;
-        private Vector2 bottomRight;
         private bool visited;
-        private int[] surrounding;
-
+      
         Tuple<int, int> roomPos;
 
         private List<IItem> items { get; set; }

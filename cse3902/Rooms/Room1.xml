@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <rooms>
     <room>
-        <number>0</number>
+        <number>0,0</number>
         <surroundings>
             <top>-1</top>
             <down>-1</down>
@@ -34,9 +34,11 @@
         </enemies>
         <blocks>
         </blocks>
+        <door>
+        </door>
     </room>
     <room>
-        <number>1</number>
+        <number>0,1</number>
         <surroundings>
             <top>3</top>
             <down>-1</down>

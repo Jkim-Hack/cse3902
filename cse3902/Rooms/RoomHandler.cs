@@ -110,6 +110,7 @@ namespace cse3902.Rooms
             rooms.GetValueOrDefault(currentRoom).Enemies = oldEnemies;
 
             currentRoom = newPos;
+            rooms.GetValueOrDefault(newPos).SetToVisited();
         }
 
     }
