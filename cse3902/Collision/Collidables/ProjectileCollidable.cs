@@ -18,10 +18,11 @@ namespace cse3902.Collision.Collidables
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
-            //only collision cases that matter for projectiles:
-            //walls and blocks (destroyed)
-            //enemies (destroyed)
-            //link (fireballs) (destroyed)
+            if (!(collidableObject is ProjectileCollidable || collidableObject is SwordCollidable))
+            {
+                //destroy the projectile
+                //if its the sword projectile, handle the splitting up animation
+            }
 
 
         }
