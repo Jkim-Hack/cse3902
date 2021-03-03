@@ -80,7 +80,11 @@ namespace cse3902.Rooms
                 XName chil = XName.Get("room", doc.Root.Name.NamespaceName);
                 XName num = XName.Get("number", doc.Root.Name.NamespaceName);
 
-                roomNum = Int32.Parse(room.Element(num).Value);
+                int comma = room.Element(num).Value.IndexOf(',');
+
+                Tuple<int, int> roomTup = new Tuple<int, int>(Int32.Parse(room.Element(num).Value.Substring(0, comma)), Int32.Parse(room.Element(num).Value.Substring(comma+1)));
+ 
+                //roomNum = Int32.Parse();
 
                 Console.WriteLine();
             }
