@@ -2,24 +2,26 @@
 using System;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using cse3902.Items;
 using cse3902.Interfaces;
+using cse3902.Sprites;
 
 namespace cse3902.Rooms
 {
     public class RoomHandler
     {
         private SpriteBatch spriteBatch;
-        public Dictionary<Tuple<int, int>, Room> rooms;
+        public Dictionary<Tuple<int, int, int>, Room> rooms;
 
         private int roomIndex = 0;
 
-        private Tuple<int, int> currentRoom;
+        private Tuple<int, int, int> currentRoom;
 
         public RoomHandler(SpriteBatch sb)
         {
             spriteBatch = sb;
-            rooms = new Dictionary<Tuple<int, int>, Room>();
+            rooms = new Dictionary<Tuple<int, int, int>, Room>();
         }
 
         public void Initialize()
@@ -46,10 +48,106 @@ namespace cse3902.Rooms
             }
         }
 
-        public IItem createItem(String type)
+        public IItem createItem(String type, Vector2 startPos)
         {
-            return null;
+            IItem createdItem = null;
             //return ItemSpriteFactory.Instance.CreateArrowItem();
+            switch (type)
+            {
+                case "Arrow":
+                    createdItem = (IItem) ItemSpriteFactory.Instance.CreateArrowItem(spriteBatch, startPos, new Vector2(1, 0));
+                    break;
+                case "Bow":
+                    createdItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(spriteBatch, startPos);
+                    break;
+                case "Clock":
+                    createdItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(spriteBatch, startPos);
+                    break;
+                case "Compass":
+                    createdItem = (IItem)ItemSpriteFactory.Instance.CreateCompassItem(spriteBatch, startPos);
+                    break;
+                case "Fairy":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                case "HeartContainer":
+                    createdItem = (IItem)ItemSpriteFactory.Instance.CreateHeartContainerItem(spriteBatch, startPos);
+                    break;
+                case "Heart":
+                    createdItem = (IItem)ItemSpriteFactory.Instance.CreateHeartItem(spriteBatch, startPos);
+                    break;
+                default:
+                    //createdItem = null;
+                    break;
+            }
+            return createdItem;
+        }
+
+        public IEntity createEnemy(String type)
+        {
+            IEntity createdItem = null;
+            //return ItemSpriteFactory.Instance.CreateArrowItem();
+            switch (type)
+            {
+                case "Arrow":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                case "Bow":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                case "Clock":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                case "Compass":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                case "Fairy":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                case "HeartContainer":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                case "Heart":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                default:
+                    //createdItem = null;
+                    break;
+            }
+            return createdItem;
+        }
+
+        public BlockSprite createBlock(String type)
+        {
+            IItem createdItem = null;
+            //return ItemSpriteFactory.Instance.CreateArrowItem();
+            switch (type)
+            {
+                case "Arrow":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                case "Bow":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                case "Clock":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                case "Compass":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                case "Fairy":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                case "HeartContainer":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                case "Heart":
+                    //createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    break;
+                default:
+                    //createdItem = null;
+                    break;
+            }
+            return createdItem;
         }
 
         public void parseItems(Room room, XElement xmlElem, XDocument doc)
@@ -83,21 +181,21 @@ namespace cse3902.Rooms
                 XName num = XName.Get("number", doc.Root.Name.NamespaceName);
 
                 int comma = room.Element(num).Value.IndexOf(',');
+                int comma2 = room.Element(num).Value.IndexOf(',', comma+1);
 
-                Tuple<int, int> roomTup = new Tuple<int, int>(Int32.Parse(room.Element(num).Value.Substring(0, comma)), Int32.Parse(room.Element(num).Value.Substring(comma+1)));
- 
-                //parseItems(currentRoom, )
+                Tuple<int, int, int> roomTup = new Tuple<int, int, int>(Int32.Parse(room.Element(num).Value.Substring(0, comma)), Int32.Parse(room.Element(num).Value.Substring(comma+1, comma2)), Int32.Parse(room.Element(num).Value.Substring(comma2)));
 
-                Console.WriteLine();
+                currentRoom = new Room(roomTup);
 
+                rooms.Add(roomTup, currentRoom);
 
-
+                parseItems(currentRoom, room, doc);
             }
 
 
         }
 
-        public void LoadNewRoom(Tuple<int, int> newPos)
+        public void LoadNewRoom(Tuple<int, int, int> newPos)
         {
             Room newRoom = rooms.GetValueOrDefault(newPos);
 

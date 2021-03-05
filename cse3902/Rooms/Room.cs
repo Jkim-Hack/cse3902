@@ -11,13 +11,13 @@ namespace cse3902.Rooms
     {
         private bool visited;
       
-        Tuple<int, int> roomPos;
+        Tuple<int, int, int> roomPos;
 
         private List<IItem> items { get; set; }
         private List<IEntity> enemies { get; set; }
         private List<IProjectile> projectiles { get; set; }
 
-        public Room(Tuple<int, int> position)
+        public Room(Tuple<int, int, int> position)
         {
             roomPos = position;
            

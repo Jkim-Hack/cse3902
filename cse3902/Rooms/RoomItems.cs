@@ -26,13 +26,23 @@ namespace cse3902.Rooms
 
         }
 
+        public void AddItem(IItem item)
+        {
+            items.Add(item);
+        }
+
+        public void RemoveItem(IItem item)
+        {
+            items.Remove(item);
+        }
+
+
         public void Update(GameTime gameTime)
         {
             foreach (IItem item in items)
             {
                 item.Update(gameTime);
             }
-
         }
 
         public void Draw()

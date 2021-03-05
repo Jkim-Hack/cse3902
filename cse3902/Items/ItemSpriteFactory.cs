@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using cse3902.Projectiles;
+using cse3902.Rooms;
 
 namespace cse3902.Items
 {
@@ -57,9 +58,11 @@ namespace cse3902.Items
             swordWeapons = content.Load<Texture2D>("SwordAnimation");
         }
 
-        public ISprite CreateArrowItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
+        public IItem CreateArrowItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            return new ArrowItem(spriteBatch, arrow, startingPos, dir);
+            IItem curr = new ArrowItem(spriteBatch, arrow, startingPos, dir);
+            RoomItems.Instance.AddItem(curr);
+            return curr;
         }
 
         public ISprite CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos)
