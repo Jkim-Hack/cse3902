@@ -14,6 +14,8 @@ namespace cse3902.Entities.Enemies
         private readonly Game1 game;
 
         private Vector2 direction;
+        private Vector2 shoveDirection;
+        private int shoveDistance;
         private float speed;
         private Vector2 startingPos;
         private Vector2 center;
@@ -60,33 +62,47 @@ namespace cse3902.Entities.Enemies
 
         public void BeShoved()
         {
-            this.CenterPosition += new Vector2(direction.X * -1, direction.Y) * speed * new Vector2(0.25f, 0.25f);
+            this.shoveDistance = 15;
+            this.shoveDirection = new Vector2(direction.X * -2, 0);
+
         }
 
         public void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (Keyboard.GetState().IsKeyDown(Keys.Space)) BeShoved();
+
+            if (this.shoveDistance > 0)
             {
-                BeShoved();
-                return;
+
+                this.CenterPosition += shoveDirection;
+                shoveDistance--;
+
+            }
+            else
+            {
+                this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance)
+                {
+                    direction.X = 1f;
+                    direction.Y = 0.5f * (travelUp ? -1 : 1);
+                    travelUp = !travelUp;
+                }
+                else if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance)
+                {
+                    direction.X = -1.2f;
+                    direction.Y = 0;
+                }
+
+                ChangeDirection(direction);
             }
 
-            this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance)
-            {
-                direction.X = 1f;
-                direction.Y = 0.5f * (travelUp ? -1 : 1);
-                travelUp = !travelUp;
-            }
-            else if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance)
-            {
-                direction.X = -1.2f;
-                direction.Y = 0;
-            }
-
-            ChangeDirection(direction);
             aquamentusStateMachine.Update(gameTime, this.CenterPosition);
+        }
+
+        private void RegularMovement()
+        {
+            
         }
 
         public void Draw()
