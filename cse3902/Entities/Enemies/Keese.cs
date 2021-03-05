@@ -65,6 +65,11 @@ namespace cse3902.Entities.Enemies
             keeseSprite.Update(gameTime);
         }
 
+        public void BeShoved()
+        {
+            
+        }
+
         public void Draw()
         {
             this.keeseSprite.Draw();

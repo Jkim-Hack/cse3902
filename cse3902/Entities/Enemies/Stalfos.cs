@@ -71,6 +71,11 @@ namespace cse3902.Entities.Enemies
             stalfosSprite.Update(gameTime);
         }
 
+        public void BeShoved()
+        {
+            
+        }
+
         public void Draw()
         {
             stalfosSprite.Draw();

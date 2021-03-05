@@ -42,6 +42,11 @@ namespace cse3902.Entities
         {
             //NPCs don't die
         }
+
+        public void BeShoved()
+        {
+            //NPCs don't get shoved
+        }
        
         public void Update(GameTime gameTime)
         {

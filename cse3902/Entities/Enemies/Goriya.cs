@@ -83,6 +83,11 @@ namespace cse3902.Entities.Enemies
             goriyaSprite.Update(gameTime);
         }
 
+        public void BeShoved()
+        {
+            
+        }
+
         public void Draw()
         {
             this.goriyaSprite.Draw();

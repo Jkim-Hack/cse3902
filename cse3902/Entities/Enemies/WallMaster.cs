@@ -88,6 +88,11 @@ namespace cse3902.Entities.Enemies
             wallMasterSprite.Update(gameTime);
         }
 
+        public void BeShoved()
+        {
+            
+        }
+
         public void Draw()
         {
             wallMasterSprite.Draw();

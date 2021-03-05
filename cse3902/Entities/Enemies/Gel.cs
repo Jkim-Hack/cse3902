@@ -84,6 +84,11 @@ namespace cse3902.Entities.Enemies
             gelSprite.Update(gameTime);
         }
 
+        public void BeShoved()
+        {
+            
+        }
+
         private void onSpriteAnimationComplete()
         {
             //nothing to callback
