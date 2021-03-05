@@ -26,9 +26,9 @@ namespace cse3902.Collision.Collidables
         public ref Rectangle RectangleRef
         {
             //todo: iprojectile needs a ref rectangle bounds member
-            get => ref sword.Bounds;
+            get => ref sword.Box;
         }
-
+             
         public int DamageValue
         {
             get => damage;
