@@ -60,14 +60,17 @@ namespace cse3902.Entities.Enemies
 
         public void BeShoved()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space)) {
-
-            }
-            
+            this.CenterPosition += new Vector2(direction.X * -1, direction.Y) * speed * new Vector2(0.25f, 0.25f);
         }
 
         public void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                BeShoved();
+                return;
+            }
+
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance)
