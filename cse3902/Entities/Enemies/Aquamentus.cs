@@ -3,6 +3,7 @@ using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
 using System;
+using Microsoft.Xna.Framework.Input;
 
 namespace cse3902.Entities.Enemies
 {
@@ -59,6 +60,9 @@ namespace cse3902.Entities.Enemies
 
         public void BeShoved()
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space)) {
+
+            }
             
         }
 
