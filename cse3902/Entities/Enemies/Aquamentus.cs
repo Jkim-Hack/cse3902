@@ -14,13 +14,13 @@ namespace cse3902.Entities.Enemies
         private readonly Game1 game;
 
         private Vector2 direction;
-        private Vector2 shoveDirection;
-        private int shoveDistance;
         private float speed;
         private Vector2 startingPos;
         private Vector2 center;
         private int travelDistance;
         private Boolean travelUp;
+        private Vector2 shoveDirection;
+        private int shoveDistance;
         private Boolean pauseAnim;
 
         public Aquamentus(Game1 game)

@@ -108,11 +108,6 @@ namespace cse3902.Entities
             this.aquamentusSprite.Erase();
         }
 
-        public void BeShoved(Vector2 direction)
-        {
-            //will need to know what direction it was shoved in
-        }
-
         public void Update(GameTime gameTime, Vector2 center, Boolean pauseAnim)
         {
             this.center = center;
