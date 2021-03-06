@@ -2,7 +2,6 @@
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
-using System;
 using Microsoft.Xna.Framework.Input; // JUST FOR TESTING
 
 namespace cse3902.Entities.Enemies
