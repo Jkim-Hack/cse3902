@@ -47,6 +47,8 @@ namespace cse3902.Sprites
 
         private const float damageDelay = .2f;
 
+        private Boolean pauseMovement;
+
         public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
@@ -65,6 +67,8 @@ namespace cse3902.Sprites
 
 	        this.startingPosition = startingPosition;
             center = startingPosition;
+
+            pauseMovement = false;
         }
 
         public void Draw()
@@ -79,7 +83,27 @@ namespace cse3902.Sprites
         {
             int ret = 0;
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
+            if (!this.pauseMovement) ret = UpdateFrame(timer);
+            
+            if (isDamage)
+            {
+                remainingDamageDelay -= timer;
+                if (remainingDamageDelay < 0)
+                {
+                    remainingDamageDelay = damageDelay;
+                    maskHandler.LoadNextMask();
+                }
+            }
+            return ret;
+        }
+
+        private int UpdateFrame(float timer)
+        {
+            int ret = 0;
+
             remainingFrameDelay -= timer;
+
             if (remainingFrameDelay <= 0)
             {
                 currentFrameIndex++;
@@ -91,15 +115,7 @@ namespace cse3902.Sprites
 
                 remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
             }
-            if (isDamage)
-            {
-                remainingDamageDelay -= timer;
-                if (remainingDamageDelay < 0)
-                {
-                    remainingDamageDelay = damageDelay;
-                    maskHandler.LoadNextMask();
-                }
-            }
+
             return ret;
         }
 
@@ -163,6 +179,11 @@ namespace cse3902.Sprites
                 isDamage = value;
                 maskHandler.Reset();
             }
+        }
+
+        public Boolean PauseMovement
+        {
+            set => this.pauseMovement = value;
         }
     }
 }

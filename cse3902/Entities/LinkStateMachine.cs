@@ -55,12 +55,12 @@ namespace cse3902.Entities
             remainingDamageDelay = damageDelay;
 
             shoveDistance = -10;
-            pauseMovement = false;
+            PauseMovement = false;
         }
 
         public void ChangeDirection(Vector2 newDirection)
         {
-            /* No need to update sprite if currently attacking */
+            /* No need to update sprite if currently attacking or knocked back */
             if (mode == LinkMode.Attack || pauseMovement) return;
 
             if (newDirection.Equals(currDirection) && mode == LinkMode.Moving) return;
@@ -119,15 +119,26 @@ namespace cse3902.Entities
 
         public void BeShoved()
         {
-            this.shoveDistance = 10;
-            this.shoveDirection = new Vector2(currDirection.X * -2, currDirection.Y * -2);
-            this.pauseMovement  = true;
+            this.shoveDistance = 50;
+            this.shoveDirection = new Vector2(currDirection.X * -1, currDirection.Y * -1);
+            this.PauseMovement  = true;
         }
 
         public void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && this.shoveDistance <= -10) BeShoved(); // JUST FOR TESTING
 
+            UpdateDamageDelay(gameTime);
+
+            if (this.shoveDistance > -10) ShoveMovement();
+            else RegularMovement(gameTime);
+
+            UpdateSprite(gameTime);
+             
+        }
+
+        private void UpdateDamageDelay(GameTime gameTime)
+        {
             if (remainingDamageDelay > 0 && linkSprite.Damaged)
             {
                 remainingDamageDelay -= gameTime.ElapsedGameTime.TotalSeconds;
@@ -135,28 +146,6 @@ namespace cse3902.Entities
                 {
                     remainingDamageDelay = damageDelay;
                     linkSprite.Damaged = false;
-                }
-            }
-
-            if (this.shoveDistance > -10)
-            {
-                ShoveMovement();
-            }
-            else
-            {
-                pauseMovement = false;
-                if (mode == LinkMode.Moving)
-                {
-                    CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                }
-            }
-
-            if(linkSprite.Update(gameTime) != 0)
-            {
-                if (mode == LinkMode.Attack)
-                {
-                    mode = LinkMode.Still;
-                    ChangeDirection(new Vector2(0, 0));
                 }
             }
         }
@@ -169,7 +158,23 @@ namespace cse3902.Entities
 
         private void RegularMovement(GameTime gameTime)
         {
-            
+            PauseMovement = false;
+            if (mode == LinkMode.Moving)
+            {
+                CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+        }
+
+        private void UpdateSprite(GameTime gameTime)
+        {
+            if(linkSprite.Update(gameTime) != 0)
+            {
+                if (mode == LinkMode.Attack)
+                {
+                    mode = LinkMode.Still;
+                    ChangeDirection(new Vector2(0, 0));
+                }
+            }
         }
 
         public void Draw()
@@ -293,6 +298,15 @@ namespace cse3902.Entities
             {
                 this.linkSprite.Center = value;
                 this.centerPosition = value;
+            }
+        }
+
+        private Boolean PauseMovement
+        {
+            set
+            {
+                this.pauseMovement = value;
+                linkSprite.PauseMovement = value;
             }
         }
     }

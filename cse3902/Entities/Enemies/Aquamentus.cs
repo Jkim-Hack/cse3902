@@ -74,15 +74,8 @@ namespace cse3902.Entities.Enemies
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && this.shoveDistance <= -10) BeShoved(); // JUST FOR TESTING
 
-            if (this.shoveDistance > -10)
-            {
-                ShoveMovement();
-            }
-            else
-            {
-                pauseAnim = false;
-                RegularMovement(gameTime);
-            }
+            if (this.shoveDistance > -10) ShoveMovement();
+            else RegularMovement(gameTime);
 
             aquamentusStateMachine.Update(gameTime, this.CenterPosition, this.pauseAnim);
         }
@@ -95,6 +88,8 @@ namespace cse3902.Entities.Enemies
 
         private void RegularMovement(GameTime gameTime)
         {
+            pauseAnim = false;
+
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance)
