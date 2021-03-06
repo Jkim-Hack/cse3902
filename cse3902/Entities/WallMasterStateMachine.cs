@@ -50,11 +50,6 @@ namespace cse3902.Entities
 
         }
 
-        public void BeShoved(Vector2 direction)
-        {
-
-        }
-
         public void Attack()
         {
             wallMasterSprite.IsAttacking = true;
