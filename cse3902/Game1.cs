@@ -5,6 +5,7 @@ using cse3902.Items;
 using cse3902.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.SpriteFactory;
 
 namespace cse3902
 {
@@ -67,6 +68,8 @@ namespace cse3902
             
 	        player = new Link(this);
             camera = new Camera(this);
+
+            BlockSpriteFactory.Instance.LoadAllTextures(Content);
 
             projectileHandler.LoadAllTextures(Content);
             itemHandler.LoadContent(spriteBatch, Content);
