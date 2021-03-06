@@ -2,6 +2,7 @@
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input; // JUST FOR TESTING
 
 namespace cse3902.Entities.Enemies
 {
@@ -16,6 +17,8 @@ namespace cse3902.Entities.Enemies
         private Vector2 startingPos;
         private Vector2 center;
         private int travelDistance;
+        private Vector2 shoveDirection;
+        private int shoveDistance;
 
         public Stalfos(Game1 game)
         {
@@ -29,6 +32,7 @@ namespace cse3902.Entities.Enemies
             direction = new Vector2(-1, 0);
             speed = 50.0f;
             travelDistance = 80;
+            shoveDistance = -10;
         }
 
         public ref Rectangle Bounds
@@ -55,7 +59,27 @@ namespace cse3902.Entities.Enemies
             this.stalfosStateMachine.Die();
         }
 
+        public void BeShoved()
+        {
+            this.shoveDistance = 10;
+            this.shoveDirection = new Vector2(direction.X * -2, direction.Y * -2);
+        }
+
         public void Update(GameTime gameTime)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space)) BeShoved(); // JUST FOR TESTING
+
+            if (this.shoveDistance > -10) ShoveMovement();
+            else RegularMovement(gameTime);
+        }
+
+        private void ShoveMovement()
+        {
+            if (this.shoveDistance >= 0) this.CenterPosition += shoveDirection;
+            shoveDistance--;
+        }
+
+        private void RegularMovement(GameTime gameTime)
         {
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -69,11 +93,6 @@ namespace cse3902.Entities.Enemies
             }
 
             stalfosSprite.Update(gameTime);
-        }
-
-        public void BeShoved()
-        {
-            
         }
 
         public void Draw()
