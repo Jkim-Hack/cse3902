@@ -21,6 +21,7 @@ namespace cse3902.Entities.Enemies
         private Vector2 center;
         private int travelDistance;
         private Boolean travelUp;
+        private Boolean pauseAnim;
 
         public Aquamentus(Game1 game)
         {
@@ -34,6 +35,8 @@ namespace cse3902.Entities.Enemies
             speed = 50.0f;
             travelDistance = 80;
             travelUp = false;
+            shoveDistance = -10;
+            pauseAnim = false;
         }
 
         public ref Rectangle Bounds
@@ -64,22 +67,28 @@ namespace cse3902.Entities.Enemies
         {
             this.shoveDistance = 10;
             this.shoveDirection = new Vector2(direction.X * -2, 0);
-
+            this.pauseAnim = true;
         }
 
         public void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space)) BeShoved(); // JUST FOR TESTING
 
-            if (this.shoveDistance > 0) ShoveMovement();
-            else RegularMovement(gameTime);
+            if (this.shoveDistance > -10)
+            {
+                ShoveMovement();
+            }
+            else
+            {
+                RegularMovement(gameTime);
+            }
 
             aquamentusStateMachine.Update(gameTime, this.CenterPosition);
         }
 
         private void ShoveMovement()
         {
-            this.CenterPosition += shoveDirection;
+            if (this.shoveDistance >= 0) this.CenterPosition += shoveDirection;
             shoveDistance--;
         }
 
