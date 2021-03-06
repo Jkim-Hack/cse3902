@@ -4,6 +4,7 @@ using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Microsoft.Xna.Framework.Input; // JUST FOR TESTING
 
 namespace cse3902.Entities
 {
@@ -29,6 +30,10 @@ namespace cse3902.Entities
 
         private const double damageDelay = 5.0f;
         private double remainingDamageDelay;
+
+        private Vector2 shoveDirection;
+        private int shoveDistance;
+        private Boolean pauseMovement;
 
         public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch)
         {
@@ -109,8 +114,15 @@ namespace cse3902.Entities
             }
         }
 
+        public void BeShoved()
+        {
+            this.CenterPosition += new Vector2(currDirection.X * -1, currDirection.Y * -1) * 10;
+        }
+
         public void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space)) BeShoved(); // JUST FOR TESTING
+
             if (remainingDamageDelay > 0 && linkSprite.Damaged)
             {
                 remainingDamageDelay -= gameTime.ElapsedGameTime.TotalSeconds;
@@ -132,6 +144,12 @@ namespace cse3902.Entities
                     ChangeDirection(new Vector2(0, 0));
                 }
             }
+        }
+
+        private void ShoveMovement()
+        {
+            if (this.shoveDistance >= 0) this.CenterPosition += shoveDirection;
+            shoveDistance--;
         }
 
         public void Draw()
