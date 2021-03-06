@@ -113,7 +113,7 @@ namespace cse3902.Entities
             //will need to know what direction it was shoved in
         }
 
-        public void Update(GameTime gameTime, Vector2 center)
+        public void Update(GameTime gameTime, Vector2 center, Boolean pauseAnim)
         {
             this.center = center;
             if (this.IsAttacking)
@@ -128,7 +128,8 @@ namespace cse3902.Entities
                     fireballCounter += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 }
             }
-            aquamentusSprite.Update(gameTime);
+
+            if (!pauseAnim) aquamentusSprite.Update(gameTime);
         }
 
         public bool IsAttacking

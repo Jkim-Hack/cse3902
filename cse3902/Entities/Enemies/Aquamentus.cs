@@ -80,10 +80,11 @@ namespace cse3902.Entities.Enemies
             }
             else
             {
+                pauseAnim = false;
                 RegularMovement(gameTime);
             }
 
-            aquamentusStateMachine.Update(gameTime, this.CenterPosition);
+            aquamentusStateMachine.Update(gameTime, this.CenterPosition, this.pauseAnim);
         }
 
         private void ShoveMovement()
