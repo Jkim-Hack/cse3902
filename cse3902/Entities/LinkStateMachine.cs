@@ -28,7 +28,7 @@ namespace cse3902.Entities
         private const int healthMax = 10;
         private int health;
 
-        private const double damageDelay = 5.0f;
+        private const double damageDelay = 1.0f;
         private double remainingDamageDelay;
 
         private Vector2 shoveDirection;
@@ -119,8 +119,8 @@ namespace cse3902.Entities
 
         public void BeShoved()
         {
-            this.shoveDistance = 50;
-            this.shoveDirection = new Vector2(currDirection.X * -1, currDirection.Y * -1);
+            this.shoveDistance = 10;
+            this.shoveDirection = new Vector2(currDirection.X * -2, currDirection.Y * -2);
             this.PauseMovement  = true;
         }
 

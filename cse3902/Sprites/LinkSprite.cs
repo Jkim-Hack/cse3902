@@ -85,7 +85,7 @@ namespace cse3902.Sprites
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
             if (!this.pauseMovement) ret = UpdateFrame(timer);
-            
+
             if (isDamage)
             {
                 remainingDamageDelay -= timer;
@@ -95,6 +95,7 @@ namespace cse3902.Sprites
                     maskHandler.LoadNextMask();
                 }
             }
+            
             return ret;
         }
 
