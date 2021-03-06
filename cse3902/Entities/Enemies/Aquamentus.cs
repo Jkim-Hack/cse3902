@@ -3,7 +3,7 @@ using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
 using System;
-using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input; // JUST FOR TESTING
 
 namespace cse3902.Entities.Enemies
 {
@@ -69,7 +69,7 @@ namespace cse3902.Entities.Enemies
 
         public void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space)) BeShoved();
+            if (Keyboard.GetState().IsKeyDown(Keys.Space)) BeShoved(); // JUST FOR TESTING
 
             if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
