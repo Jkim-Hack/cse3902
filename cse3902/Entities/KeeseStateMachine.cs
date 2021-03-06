@@ -49,10 +49,5 @@ namespace cse3902.Entities
         {
             this.keeseSprite.Erase();
         }
-
-        public void BeShoved(Vector2 direction)
-        {
-
-        }
     }
 }
