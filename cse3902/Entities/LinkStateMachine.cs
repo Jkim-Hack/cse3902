@@ -53,12 +53,15 @@ namespace cse3902.Entities
             currItemIndex = 0;
 
             remainingDamageDelay = damageDelay;
+
+            shoveDistance = -10;
+            pauseMovement = false;
         }
 
         public void ChangeDirection(Vector2 newDirection)
         {
             /* No need to update sprite if currently attacking */
-            if (mode == LinkMode.Attack) return;
+            if (mode == LinkMode.Attack || pauseMovement) return;
 
             if (newDirection.Equals(currDirection) && mode == LinkMode.Moving) return;
 
@@ -116,12 +119,14 @@ namespace cse3902.Entities
 
         public void BeShoved()
         {
-            this.CenterPosition += new Vector2(currDirection.X * -1, currDirection.Y * -1) * 10;
+            this.shoveDistance = 10;
+            this.shoveDirection = new Vector2(currDirection.X * -2, currDirection.Y * -2);
+            this.pauseMovement  = true;
         }
 
         public void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space)) BeShoved(); // JUST FOR TESTING
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && this.shoveDistance <= -10) BeShoved(); // JUST FOR TESTING
 
             if (remainingDamageDelay > 0 && linkSprite.Damaged)
             {
@@ -132,10 +137,20 @@ namespace cse3902.Entities
                     linkSprite.Damaged = false;
                 }
             }
-            if (mode == LinkMode.Moving)
+
+            if (this.shoveDistance > -10)
             {
-                CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                ShoveMovement();
             }
+            else
+            {
+                pauseMovement = false;
+                if (mode == LinkMode.Moving)
+                {
+                    CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
+            }
+
             if(linkSprite.Update(gameTime) != 0)
             {
                 if (mode == LinkMode.Attack)
@@ -150,6 +165,11 @@ namespace cse3902.Entities
         {
             if (this.shoveDistance >= 0) this.CenterPosition += shoveDirection;
             shoveDistance--;
+        }
+
+        private void RegularMovement(GameTime gameTime)
+        {
+            
         }
 
         public void Draw()
