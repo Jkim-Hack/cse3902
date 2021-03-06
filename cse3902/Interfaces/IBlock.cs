@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Xna.Framework;
 
 namespace cse3902.Interfaces
 {
@@ -14,7 +12,8 @@ namespace cse3902.Interfaces
             Right,
             Still
         }
-        public void Move();
+        public void Move(Vector2 pushDirection);
+        public void Move(PushDirection pushDirection);
         public void Draw();
     }
 }

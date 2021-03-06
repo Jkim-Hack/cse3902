@@ -14,45 +14,51 @@ namespace cse3902.Blocks
         int remainingPixelsToPush;
         private const int pushSpeed = 2;
 
+        private Vector2 blockPushingVector(IBlock.PushDirection direction)
+        {
+            switch (direction)
+            {
+                case IBlock.PushDirection.Up:
+                    return new Vector2(0, -1);
+                case IBlock.PushDirection.Down:
+                    return new Vector2(0, 1);
+                case IBlock.PushDirection.Left:
+                    return new Vector2(-1, 0);
+                case IBlock.PushDirection.Right:
+                    return new Vector2(1, 0);
+                case IBlock.PushDirection.Still:
+                    return new Vector2(0, 0);
+                default: //this should never happen
+                    return new Vector2(0, 0);
+            }
+        }
         public NormalBlock(Game1 game, Vector2 center, IBlock.PushDirection direction, int pixelsToPush)
         {
             this.game = game;
 
-            switch (direction)
-            {
-                case IBlock.PushDirection.Up:
-                    blockPushingDirection = new Vector2(0, -1);
-                    break;
-                case IBlock.PushDirection.Down:
-                    blockPushingDirection = new Vector2(0, 1);
-                    break;
-                case IBlock.PushDirection.Left:
-                    blockPushingDirection = new Vector2(-1, 0);
-                    break;
-                case IBlock.PushDirection.Right:
-                    blockPushingDirection = new Vector2(1, 0);
-                    break;
-                case IBlock.PushDirection.Still:
-                    blockPushingDirection = new Vector2(0, 0);
-                    break;
-                default: //this should never happen
-                    blockPushingDirection = new Vector2(0, 0);
-                    break;
-            }
+            blockPushingDirection = blockPushingVector(direction);
 
             normalBlockSprite = BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, center);
             remainingPixelsToPush = pixelsToPush;
         }
 
-        public void Move()
+        public void Move(IBlock.PushDirection pushDirection)
         {
-            if (remainingPixelsToPush > 0)
+            Move(blockPushingVector(pushDirection));
+        }
+        public void Move(Vector2 pushDirection)
+        {
+            if (blockPushingDirection.Equals(pushDirection))
             {
                 normalBlockSprite.Center += blockPushingDirection * pushSpeed;
                 remainingPixelsToPush -= pushSpeed;
 
                 //block was pushed a little too far and needs to be partially undone
-                if (remainingPixelsToPush < 0) normalBlockSprite.Center += remainingPixelsToPush * blockPushingDirection;
+                if (remainingPixelsToPush <= 0)
+                {
+                    normalBlockSprite.Center += remainingPixelsToPush * blockPushingDirection;
+                    blockPushingDirection = new Vector2(0, 0);
+                }
             }
         }
         public void Draw()

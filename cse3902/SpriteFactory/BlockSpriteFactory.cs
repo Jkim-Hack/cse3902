@@ -25,13 +25,13 @@ namespace cse3902.SpriteFactory
 
         public void LoadAllTextures(ContentManager content)
         {
-            blockTextures.Add("block", content.Load<Texture2D>("Block1"));
-            blockTextures.Add("waterblock", content.Load<Texture2D>("block3"));
+            blockTextures.Add("normalblock", content.Load<Texture2D>("normalblock"));
+            blockTextures.Add("waterblock", content.Load<Texture2D>("waterblock"));
         }
 
         public ISprite CreateNormalBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            return new BlockSprite(spriteBatch, blockTextures["block"], startingPos);
+            return new BlockSprite(spriteBatch, blockTextures["normalblock"], startingPos);
         }
 
         public ISprite CreateWaterBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)

@@ -16,8 +16,12 @@ namespace cse3902.Blocks
             waterBlockSprite = BlockSpriteFactory.Instance.CreateWaterBlockSprite(game.spriteBatch,center);
         }
 
-        public void Move()
+        public void Move(IBlock.PushDirection pushDirection)
         {
+            //water blocks don't move
+        }
+        public void Move(Vector2 pushDirection)
+        { 
             //water blocks don't move
         }
         public void Draw()
