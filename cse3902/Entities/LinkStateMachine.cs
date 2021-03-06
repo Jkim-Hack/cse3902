@@ -184,7 +184,7 @@ namespace cse3902.Entities
 
         public void Attack()
         {
-            if (mode != LinkMode.Moving && mode != LinkMode.Still) return;
+            if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
             mode = LinkMode.Attack;
 
             // TODO: Move this to Link.cs not needed in state machine
@@ -204,7 +204,7 @@ namespace cse3902.Entities
 
         public void UseItem()
         {
-            if (mode != LinkMode.Moving && mode != LinkMode.Still) return;
+            if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
 
             mode = LinkMode.Attack;
             IProjectile item;
@@ -268,11 +268,6 @@ namespace cse3902.Entities
             linkSprite.Damaged = true;
             health -= damage;
             remainingDamageDelay = damageDelay;
-        }
-
-        public void BeShoved(Vector2 direction)
-        {
-
         }
 
         public void CycleWeapon(int dir)
