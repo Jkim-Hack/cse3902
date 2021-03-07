@@ -112,9 +112,9 @@ namespace cse3902.Items
             return new MapItem(spriteBatch, map, startingPos);
         }
 
-        public ISprite CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
+        public ISprite CreateSwordProjectile(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            return new SwordItem(spriteBatch, swordItems, startingPos, dir);
+            return new SwordProjectile(spriteBatch, swordItems, startingPos, dir);
         }
 
         public ISprite CreateSwordWeapon(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir, int swordType)
