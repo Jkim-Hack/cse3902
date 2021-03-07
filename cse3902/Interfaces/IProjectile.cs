@@ -6,5 +6,6 @@ namespace cse3902.Interfaces
     {
         public bool AnimationComplete { get; set; }
         public ICollidable Collidable { get; }
+        public int Damage { get; }
     }
 }

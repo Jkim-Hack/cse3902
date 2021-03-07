@@ -1,10 +1,12 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Projectiles
 {
-    public class BombItem : ISprite, IItem, IProjectile
+    public class BombItem : IItem, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -28,6 +30,8 @@ namespace cse3902.Projectiles
 
         private bool animationComplete;
 
+        private ICollidable collidable;
+
         public BombItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
             spriteBatch = batch;
@@ -47,6 +51,8 @@ namespace cse3902.Projectiles
             currentY = (int)startingPos.Y;
 
             this.animationComplete = false;
+
+            this.collidable = new ProjectileCollidable(this, this.Damage);
         }
 
         private void distributeFrames()
@@ -125,6 +131,16 @@ namespace cse3902.Projectiles
             get => animationComplete;
 
             set => animationComplete = value;
+        }
+
+        public int Damage
+        {
+            get => 3;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }
