@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,8 +15,9 @@ namespace cse3902.Entities
         private LinkStateMachine linkStateMachine;
 	    private Game1 game;
 
+        private ICollidable collidable;
 
-	    public Link(Game1 game)
+        public Link(Game1 game)
         {
             this.game = game;
             // TODO Add this into sprite factory
@@ -22,6 +25,9 @@ namespace cse3902.Entities
             Vector2 centerPosition = new Vector2(50, 200);
             linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 6, 4, centerPosition);
             linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition, game.spriteBatch);
+
+            //Link's body does no damage itself
+            this.collidable = new PlayerCollidable(this, 0);
         }
 
         public ref Rectangle Bounds 
@@ -97,6 +103,11 @@ namespace cse3902.Entities
 	    public Vector2 CenterPosition
         {
             get => linkStateMachine.CenterPosition;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
@@ -20,6 +22,8 @@ namespace cse3902.Entities.Enemies
         private Vector2 shoveDirection;
         private int shoveDistance;
 
+        private ICollidable collidable;
+
         public WallMaster(Game1 game)
         {
             this.game = game;
@@ -33,6 +37,8 @@ namespace cse3902.Entities.Enemies
             range = 15;
             traveled = range;
             shoveDistance = -10;
+
+            this.collidable = new EnemyCollidable(this, this.Damage);
         }
 
         public ref Rectangle Bounds
@@ -125,6 +131,16 @@ namespace cse3902.Entities.Enemies
                 this.center = value;
                 wallMasterSprite.Center = value;
             }
+        }
+
+        public int Damage
+        {
+            get => 2;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }
