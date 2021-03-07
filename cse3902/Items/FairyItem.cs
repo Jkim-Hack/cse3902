@@ -22,6 +22,8 @@ namespace cse3902.Items
 
         private const float sizeIncrease = 2f;
 
+        private Rectangle destination;
+
         private int currentX;
         private int currentY;
 
@@ -88,7 +90,7 @@ namespace cse3902.Items
             spriteTexture.Dispose();
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -96,7 +98,8 @@ namespace cse3902.Items
                 int height = (int)(sizeIncrease * frameHeight);
                 Rectangle Destination = new Rectangle(currentX, currentY, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 

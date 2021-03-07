@@ -23,6 +23,8 @@ namespace cse3902.Items
         private int currentX;
         private int currentY;
 
+        private Rectangle destination;
+
         private const float sizeIncrease = 2f;
 
         public HeartItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
@@ -83,7 +85,7 @@ namespace cse3902.Items
             spriteTexture.Dispose();
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -91,7 +93,8 @@ namespace cse3902.Items
                 int height = (int)(sizeIncrease * frameHeight);
                 Rectangle Destination = new Rectangle(currentX, currentY, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 

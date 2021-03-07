@@ -1,11 +1,13 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace cse3902.Projectiles
 {
-    public class BoomerangItem : ISprite, IItem, IProjectile
+    public class BoomerangItem : IItem, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -19,6 +21,8 @@ namespace cse3902.Projectiles
         private int frameWidth;
         private int frameHeight;
 
+        private Rectangle destination;
+
         private int turns;
 
         private enum Direction
@@ -29,6 +33,8 @@ namespace cse3902.Projectiles
         private Direction direction;
 
         private bool animationComplete;
+
+        private ICollidable collidable;
 
         public BoomerangItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
         {
@@ -67,6 +73,8 @@ namespace cse3902.Projectiles
             currentY = (int)startingPos.Y;
 
             animationComplete = false;
+
+            this.collidable = new ProjectileCollidable(this);
         }
 
         public void Draw()
@@ -133,7 +141,7 @@ namespace cse3902.Projectiles
             return 0;
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -143,7 +151,8 @@ namespace cse3902.Projectiles
                 double sin = Math.Abs(Math.Sin(angle));
                 Rectangle Destination = new Rectangle(currentX, currentY, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 
@@ -170,6 +179,16 @@ namespace cse3902.Projectiles
             get => animationComplete;
 
             set => animationComplete = value;
+        }
+
+        public int Damage
+        {
+            get => 3;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }

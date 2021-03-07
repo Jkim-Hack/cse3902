@@ -15,6 +15,8 @@ namespace cse3902.Sprites
         private int frameWidth;
         private int frameHeight;
 
+        private Rectangle destination;
+
         private const float sizeIncrease = 1f;
 
         public NPCSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition)
@@ -47,7 +49,7 @@ namespace cse3902.Sprites
             spriteTexture.Dispose();
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -55,7 +57,8 @@ namespace cse3902.Sprites
                 int height = (int)(sizeIncrease * frameHeight);
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 

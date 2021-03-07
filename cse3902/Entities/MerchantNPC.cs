@@ -1,4 +1,6 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
 using Microsoft.Xna.Framework;
 
@@ -14,15 +16,20 @@ namespace cse3902.Entities
 
         private string message;
 
+        private ICollidable collidable;
+
         public MerchantNPC(Game1 game)
         {
             this.game = game;
             centerPosition = new Vector2(500, 200);
             merchantSprite = NPCSpriteFactory.Instance.CreateMerchantSprite(game.spriteBatch, centerPosition);
+
+            this.collidable = new NPCCollidable(this);
         }
-        public Rectangle Bounds
+
+        public ref Rectangle Bounds
         {
-            get => merchantSprite.Texture.Bounds;
+            get => ref merchantSprite.Box;
         }
 
         public void Attack()
@@ -41,6 +48,11 @@ namespace cse3902.Entities
         {
             //NPCs don't die
         }
+
+        public void BeShoved()
+        {
+            //NPCs don't get shoved
+        }
         
         public void Update(GameTime gameTime)
         {
@@ -54,6 +66,11 @@ namespace cse3902.Entities
         public void Draw()
         {
             merchantSprite.Draw();
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace cse3902.Sprites
         private Vector2 center;
         private int frameWidth;
         private int frameHeight;
+        private Rectangle destination;
         private const float sizeIncrease = 1f;
 
 
@@ -43,7 +44,7 @@ namespace cse3902.Sprites
             spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, 0.8f);
 
         }
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -51,7 +52,8 @@ namespace cse3902.Sprites
                 int height = (int)(sizeIncrease * frameHeight);
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 
