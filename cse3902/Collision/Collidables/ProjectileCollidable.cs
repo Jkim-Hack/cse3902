@@ -7,12 +7,10 @@ namespace cse3902.Collision.Collidables
     public class ProjectileCollidable : ICollidable
     {
         private IProjectile projectile;
-        private int damage;
 
-        public ProjectileCollidable(IProjectile projectile, int damage)
+        public ProjectileCollidable(IProjectile projectile)
         {
             this.projectile = projectile;
-            this.damage = damage;
         }
 
 
@@ -35,7 +33,7 @@ namespace cse3902.Collision.Collidables
 
         public int DamageValue
         {
-            get => damage;
+            get => projectile.Damage;
         }
     }
 

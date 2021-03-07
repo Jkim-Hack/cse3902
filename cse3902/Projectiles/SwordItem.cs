@@ -81,7 +81,7 @@ namespace cse3902.Projectiles
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
 
-            this.collidable = new ProjectileCollidable(this, this.Damage);
+            this.collidable = new ProjectileCollidable(this);
         }
 
         private void distributeFrames()

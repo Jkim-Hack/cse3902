@@ -74,7 +74,7 @@ namespace cse3902.Projectiles
 
             animationComplete = false;
 
-            this.collidable = new ProjectileCollidable(this, this.Damage);
+            this.collidable = new ProjectileCollidable(this);
         }
 
         public void Draw()

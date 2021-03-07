@@ -1,11 +1,13 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Projectiles
 
 {
-    public class FireballSprite : ISprite, IProjectile
+    public class FireballSprite : IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -22,6 +24,8 @@ namespace cse3902.Projectiles
 
         private const float sizeIncrease = 2f;
 
+        private ICollidable collidable;
+
         public FireballSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction)
         {
             this.spriteBatch = spriteBatch;
@@ -30,6 +34,8 @@ namespace cse3902.Projectiles
             this.center = startingPosition;
             animationComplete = false;
             fireballCounter = fireballDelay;
+
+            this.collidable = new ProjectileCollidable(this);
         }
 
         public Vector2 Center
@@ -91,6 +97,16 @@ namespace cse3902.Projectiles
         public void Erase()
         {
             spriteTexture.Dispose();
+        }
+
+        public int Damage
+        {
+            get => 3;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }
