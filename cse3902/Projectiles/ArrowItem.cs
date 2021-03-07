@@ -1,11 +1,13 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace cse3902.Projectiles
 {
-    public class ArrowItem : ISprite, IItem, IProjectile
+    public class ArrowItem : IItem, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -27,6 +29,8 @@ namespace cse3902.Projectiles
         }
 
         private Direction direction;
+
+        private ICollidable collidable;
 
         public ArrowItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
         {
@@ -61,6 +65,8 @@ namespace cse3902.Projectiles
 
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
+
+            this.collidable = new ProjectileCollidable(this, this.Damage);
         }
 
         public void Draw()
@@ -154,6 +160,16 @@ namespace cse3902.Projectiles
             get => animationComplete;
 
             set => animationComplete = value;
+        }
+
+        public int Damage
+        {
+            get => 2;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }
