@@ -15,10 +15,11 @@ namespace cse3902.Sprites
         private int frameHeight;
 
         private Rectangle destination;
+        private Rectangle door;
 
         private const float sizeIncrease = 1f;
 
-        public NormalDownOpenDoorSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition)
+        public NormalDownOpenDoorSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Rectangle wantedDoor)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
@@ -28,13 +29,15 @@ namespace cse3902.Sprites
 
             center = startingPosition;
             this.startingPosition = startingPosition;
+
+            door = wantedDoor;
         }
 
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, 0.9f);
+            spriteBatch.Draw(spriteTexture, Destination, door, Color.White, 0, origin, SpriteEffects.None, 0.9f);
         }
 
         public int Update(GameTime gameTime)

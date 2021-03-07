@@ -1,6 +1,16 @@
-﻿namespace cse3902.Interfaces
+﻿using Microsoft.Xna.Framework;
+
+namespace cse3902.Interfaces
 {
-    interface IDoor
+    public interface IDoor
     {
+        public enum DoorState
+        {
+            Open,
+            Closed,
+            Locked,
+            Wall
+        }
+        public ref Rectangle Bounds { get; }
     }
 }

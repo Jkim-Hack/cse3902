@@ -70,6 +70,7 @@ namespace cse3902
             camera = new Camera(this);
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
+            DoorSpriteFactory.Instance.LoadAllTextures(Content);
 
             projectileHandler.LoadAllTextures(Content);
             itemHandler.LoadContent(spriteBatch, Content);

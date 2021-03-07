@@ -11,10 +11,10 @@ namespace cse3902.Blocks
         private ISprite normalBlockSprite;
 
         private Vector2 blockPushingDirection;
-        int remainingPixelsToPush;
+        private int remainingPixelsToPush;
         private const int pushSpeed = 2;
 
-        private Vector2 blockPushingVector(IBlock.PushDirection direction)
+        private Vector2 BlockPushingVector(IBlock.PushDirection direction)
         {
             switch (direction)
             {
@@ -36,7 +36,7 @@ namespace cse3902.Blocks
         {
             this.game = game;
 
-            blockPushingDirection = blockPushingVector(direction);
+            blockPushingDirection = BlockPushingVector(direction);
 
             normalBlockSprite = BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, center);
             remainingPixelsToPush = pixelsToPush;
@@ -44,7 +44,7 @@ namespace cse3902.Blocks
 
         public void Move(IBlock.PushDirection pushDirection)
         {
-            Move(blockPushingVector(pushDirection));
+            Move(BlockPushingVector(pushDirection));
         }
         public void Move(Vector2 pushDirection)
         {
