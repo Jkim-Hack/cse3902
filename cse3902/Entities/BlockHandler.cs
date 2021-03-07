@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using cse3902.Sprites;
+using cse3902.SpriteFactory;
+using cse3902.Interfaces;
 
 namespace cse3902.Entities
 {
     public class BlockHandler
     {
-        private List<BlockSprite> blocks;
+        private List<ISprite> blocks;
         private Game1 game;
         private int blockIndex;
 
@@ -16,7 +17,7 @@ namespace cse3902.Entities
 
         public BlockHandler(Game1 thegame)
         {
-            blocks = new List<BlockSprite>();
+            blocks = new List<ISprite>();
             blockIndex = 0;
             game = thegame;
 
@@ -26,12 +27,8 @@ namespace cse3902.Entities
 
         public void LoadContent()
         {
-            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("Block1"), new Vector2(120, 120)));
-            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("block2"), new Vector2(120, 120)));
-            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("block3"), new Vector2(120, 120)));
-            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("block4"), new Vector2(120, 120)));
-            blocks.Add(new BlockSprite(game.spriteBatch, game.Content.Load<Texture2D>("block5"), new Vector2(120, 120)));
-
+            blocks.Add(BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, new Vector2(120, 120)));
+            blocks.Add(BlockSpriteFactory.Instance.CreateWaterBlockSprite(game.spriteBatch, new Vector2(120, 120)));
         }
 
         public void Update(GameTime gameTime)
