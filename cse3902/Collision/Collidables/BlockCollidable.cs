@@ -8,7 +8,7 @@ namespace cse3902.Collision.Collidables
     {
         private IBlock block;
 
-        //TODO: make some kind of block interface (uses Ientity interface rn)
+
         public BlockCollidable(IBlock block)
         {
             this.block = block;
@@ -23,8 +23,7 @@ namespace cse3902.Collision.Collidables
 
             if (collidableObject is PlayerCollidable)
             {
-                //if it is a movable block, move it
-                //if we are considering stairs a block, collision with stairs will need to move camera
+                //figure out the direction of the player and pass the vector accordingly
             } else
             {
                 //do nothing
