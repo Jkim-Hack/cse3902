@@ -1,4 +1,6 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
 using Microsoft.Xna.Framework;
 
@@ -14,11 +16,15 @@ namespace cse3902.Entities
 
         private string message;
 
+        private ICollidable collidable;
+
         public MedicineWomanNPC(Game1 game)
         {
             this.game = game;
             centerPosition = new Vector2(500, 200);
             medicineWomanSprite = NPCSpriteFactory.Instance.CreateMedicineWomanSprite(game.spriteBatch, centerPosition);
+
+            this.collidable = new NPCCollidable(this);
         }
 
         public ref Rectangle Bounds
@@ -60,6 +66,11 @@ namespace cse3902.Entities
         public void Draw()
         {
             medicineWomanSprite.Draw();
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }
