@@ -27,6 +27,15 @@ namespace cse3902.Rooms
 
         }
 
+        public void AddBlock(BlockSprite block)
+        {
+            blocks.Add(block);
+        }
+
+        public void RemoveBlock(BlockSprite block)
+        {
+            blocks.Remove(block);
+        }
 
         public void Update(GameTime gameTime)
         {

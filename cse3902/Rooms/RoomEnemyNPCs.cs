@@ -26,6 +26,15 @@ namespace cse3902.Rooms
 
         }
 
+        public void AddENPC(IEntity enemy)
+        {
+            enpcs.Add(enemy);
+        }
+
+        public void RemoveENPC(IEntity enemy)
+        {
+            enpcs.Remove(enemy);
+        }
 
         public void Update(GameTime gameTime)
         {
