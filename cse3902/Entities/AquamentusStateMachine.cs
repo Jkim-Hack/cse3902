@@ -17,9 +17,9 @@ namespace cse3902.Entities
         private ISprite fireball3;
 
         private bool isAttacking;
-        private float fireballCounter;
+        private float fireballCounter;  
         private const float fireballDelay = 5f;
-
+        
         private Vector2 center;
 
         public AquamentusStateMachine(AquamentusSprite aquamentusSprite, SpriteBatch spriteBatch, Vector2 center)

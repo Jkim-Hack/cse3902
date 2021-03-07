@@ -1,4 +1,6 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
@@ -19,9 +21,13 @@ namespace cse3902.Entities.Enemies
         private int travelDistance;
         private Boolean travelUp;
 
+        private ICollidable collidable;
+
         public Aquamentus(Game1 game)
         {
             this.game = game;
+
+            this.collidable = new EnemyCollidable(this, this.Damage);
 
             startingPos = new Vector2(500, 200);
             center = startingPos;
@@ -87,6 +93,11 @@ namespace cse3902.Entities.Enemies
             aquamentusStateMachine.Draw();
         }
 
+        public int Damage
+        {
+            get => 3;
+        }
+
         public Vector2 CenterPosition
         {
             get => this.center;
@@ -95,6 +106,11 @@ namespace cse3902.Entities.Enemies
                 this.center = value;
                 aquamentusSprite.Center = value;
             }
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }
