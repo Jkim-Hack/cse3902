@@ -1,4 +1,6 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
@@ -21,6 +23,8 @@ namespace cse3902.Entities.Enemies
         private Vector2 shoveDirection;
         private int shoveDistance;
 
+        private ICollidable collidable;
+
         public Keese(Game1 game)
         {
             this.game = game;
@@ -33,6 +37,8 @@ namespace cse3902.Entities.Enemies
             speed = 0.02f;
             shoveDistance = -10;
             shoveDirection = new Vector2(-2, 0);
+
+            this.collidable = new EnemyCollidable(this, this.Damage);
         }
 
         public ref Rectangle Bounds
@@ -106,6 +112,16 @@ namespace cse3902.Entities.Enemies
                 this.center = value;
                 keeseSprite.Center = value;
             }
+        }
+
+        public int Damage
+        {
+            get => 2;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }
