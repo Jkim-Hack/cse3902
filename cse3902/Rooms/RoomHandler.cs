@@ -12,41 +12,27 @@ namespace cse3902.Rooms
 {
     public class RoomHandler
     {
+        public const int ROOM_WIDTH = 252;
+        public const int ROOM_HEIGHT = 172;
+        public const int CAMERA_CYCLES = 30;
+
         private SpriteBatch spriteBatch;
-        public Dictionary<Tuple<int, int, int>, Room> rooms;
+        private Camera camera;
+        public Dictionary<Vector3, Room> rooms;
 
-        private int roomIndex = 0;
+        public Vector3 currentRoom { get; set; }
 
-        private Tuple<int, int, int> currentRoom;
-
-        public RoomHandler(SpriteBatch sb)
+        public RoomHandler(SpriteBatch sb, Camera cam)
         {
             spriteBatch = sb;
-            rooms = new Dictionary<Tuple<int, int, int>, Room>();
+            rooms = new Dictionary<Vector3, Room>();
+            camera = cam;
         }
 
         public void Initialize()
         {
             String url = "https://raw.githubusercontent.com/Jkim-Hack/cse3902/file-input/cse3902/Rooms/Room1.xml";
             parseXML(url);
-        }
-
-        public void CycleNext()
-        {
-            roomIndex++;
-            if (roomIndex >= rooms.Count)
-            {
-                roomIndex = 0;
-            }
-        }
-
-        public void CyclePrev()
-        {
-            roomIndex--;
-            if (roomIndex < 0)
-            {
-                roomIndex = rooms.Count - 1;
-            }
         }
 
         public IItem createItem(String type, Vector2 startPos)
@@ -242,7 +228,7 @@ namespace cse3902.Rooms
                 int comma = room.Element(num).Value.IndexOf(',');
                 int comma2 = room.Element(num).Value.IndexOf(',', comma+1);
 
-                Tuple<int, int, int> roomTup = new Tuple<int, int, int>(Int32.Parse(room.Element(num).Value.Substring(0, comma)), Int32.Parse(room.Element(num).Value.Substring(comma+1, comma2)), Int32.Parse(room.Element(num).Value.Substring(comma2)));
+                Vector3 roomTup = new Vector3(Int32.Parse(room.Element(num).Value.Substring(0, comma)), Int32.Parse(room.Element(num).Value.Substring(comma+1, comma2)), Int32.Parse(room.Element(num).Value.Substring(comma2)));
 
                 currentRoom = new Room(roomTup);
 
@@ -254,9 +240,20 @@ namespace cse3902.Rooms
 
         }
 
-        public void LoadNewRoom(Tuple<int, int, int> newPos)
+        public void LoadNewRoom(Vector3 newPos)
         {
             Room newRoom = rooms.GetValueOrDefault(newPos);
+
+
+            if (currentRoom.Z == newPos.Z)
+            {
+                camera.SmoothMoveCamera(new Vector2(0, 1), CAMERA_CYCLES);
+            }
+            else
+            {
+                camera.MoveCamera(new Vector2(newPos.X, newPos.Y), ROOM_WIDTH, ROOM_HEIGHT);
+            }
+            
 
             List<IItem> oldItems = rooms.GetValueOrDefault(currentRoom).Items;
             RoomItems.Instance.LoadNewRoom(ref oldItems, newRoom.Items);

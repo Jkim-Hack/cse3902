@@ -3,6 +3,7 @@ using cse3902.Entities;
 using cse3902.Interfaces;
 using cse3902.Items;
 using cse3902.Projectiles;
+using cse3902.Rooms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -21,6 +22,8 @@ namespace cse3902
         public ItemHandler itemHandler { get; set; }
         public EnemyNPCHandler enemyNPCHandler { get; set; }
         public BlockHandler blockHandler { get; set; }
+
+        public RoomHandler roomHandler;
 
         public IPlayer player { get; set; }
 
@@ -53,6 +56,7 @@ namespace cse3902
 
             this.IsMouseVisible = true;
 	        base.Initialize();
+            
 
         }
 
@@ -67,6 +71,8 @@ namespace cse3902
             
 	        player = new Link(this);
             camera = new Camera(this);
+
+            roomHandler = new RoomHandler(spriteBatch, camera);
 
             projectileHandler.LoadAllTextures(Content);
             itemHandler.LoadContent(spriteBatch, Content);
