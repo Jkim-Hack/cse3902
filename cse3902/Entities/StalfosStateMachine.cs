@@ -39,10 +39,5 @@ namespace cse3902.Entities
         {
             this.stalfosSprite.Erase();
         }
-
-        public void BeShoved(Vector2 direction)
-        {
-
-        }
     }
 }

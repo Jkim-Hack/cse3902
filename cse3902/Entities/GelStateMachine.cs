@@ -38,10 +38,5 @@ namespace cse3902.Entities
         {
             this.gelSprite.Erase();
         }
-
-        public void BeShoved(Vector2 direction)
-        {
-
-        }
     }
 }

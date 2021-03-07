@@ -5,6 +5,7 @@ using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
 using System;
+using Microsoft.Xna.Framework.Input; // JUST FOR TESTING
 
 namespace cse3902.Entities.Enemies
 {
@@ -20,6 +21,9 @@ namespace cse3902.Entities.Enemies
         private Vector2 center;
         private int travelDistance;
         private Boolean travelUp;
+        private Vector2 shoveDirection;
+        private int shoveDistance;
+        private Boolean pauseAnim;
 
         private ICollidable collidable;
 
@@ -37,6 +41,8 @@ namespace cse3902.Entities.Enemies
             speed = 50.0f;
             travelDistance = 80;
             travelUp = false;
+            shoveDistance = -10;
+            pauseAnim = false;
         }
 
         public ref Rectangle Bounds
@@ -65,11 +71,31 @@ namespace cse3902.Entities.Enemies
 
         public void BeShoved()
         {
-            
+            this.shoveDistance = 10;
+            this.shoveDirection = new Vector2(direction.X * -2, 0);
+            this.pauseAnim = true;
         }
 
         public void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && this.shoveDistance <= -10) BeShoved(); // JUST FOR TESTING
+
+            if (this.shoveDistance > -10) ShoveMovement();
+            else RegularMovement(gameTime);
+
+            aquamentusStateMachine.Update(gameTime, this.CenterPosition, this.pauseAnim);
+        }
+
+        private void ShoveMovement()
+        {
+            if (this.shoveDistance >= 0) this.CenterPosition += shoveDirection;
+            shoveDistance--;
+        }
+
+        private void RegularMovement(GameTime gameTime)
+        {
+            pauseAnim = false;
+
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance)
@@ -85,7 +111,6 @@ namespace cse3902.Entities.Enemies
             }
 
             ChangeDirection(direction);
-            aquamentusStateMachine.Update(gameTime, this.CenterPosition);
         }
 
         public void Draw()

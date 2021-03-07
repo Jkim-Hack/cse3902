@@ -85,7 +85,7 @@ namespace cse3902.Entities
 
         public void BeShoved()
         {
-            
+            linkStateMachine.BeShoved();
         }
 
         public float Speed
