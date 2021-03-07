@@ -37,6 +37,8 @@ namespace cse3902.Entities.Enemies
             speed = 50.0f;
             travelDistance = 50;
             shoveDistance = -10;
+
+            this.collidable = new EnemyCollidable(this, this.Damage);
         }
 
         public ref Rectangle Bounds
@@ -130,6 +132,16 @@ namespace cse3902.Entities.Enemies
                 this.center = value;
                 gelSprite.Center = value;
             }
+        }
+
+        public int Damage
+        {
+            get => 3;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }

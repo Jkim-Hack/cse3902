@@ -31,8 +31,6 @@ namespace cse3902.Entities.Enemies
         {
             this.game = game;
 
-            this.collidable = new EnemyCollidable(this, this.Damage);
-
             startingPos = new Vector2(500, 200);
             center = startingPos;
             aquamentusSprite = (AquamentusSprite)EnemySpriteFactory.Instance.CreateAquamentusSprite(game.spriteBatch, center);
@@ -43,6 +41,8 @@ namespace cse3902.Entities.Enemies
             travelUp = false;
             shoveDistance = -10;
             pauseAnim = false;
+
+            this.collidable = new EnemyCollidable(this, this.Damage);
         }
 
         public ref Rectangle Bounds
@@ -118,11 +118,6 @@ namespace cse3902.Entities.Enemies
             aquamentusStateMachine.Draw();
         }
 
-        public int Damage
-        {
-            get => 3;
-        }
-
         public Vector2 CenterPosition
         {
             get => this.center;
@@ -131,6 +126,11 @@ namespace cse3902.Entities.Enemies
                 this.center = value;
                 aquamentusSprite.Center = value;
             }
+        }
+
+        public int Damage
+        {
+            get => 3;
         }
 
         public ICollidable Collidable
