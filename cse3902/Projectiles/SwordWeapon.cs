@@ -1,11 +1,13 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace cse3902.Projectiles
 {
-    public class SwordWeapon : ISprite, IItem, IProjectile
+    public class SwordWeapon : IItem, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -29,6 +31,8 @@ namespace cse3902.Projectiles
         private Rectangle destination;
 
         private const float sizeIncrease = 2f;
+
+        private ICollidable collidable;
 
         public SwordWeapon(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir, int swordType)
         {
@@ -64,6 +68,8 @@ namespace cse3902.Projectiles
             {
                 angle = 0;
             }
+
+            this.collidable = new ProjectileCollidable(this, this.Damage);
         }
 
         private void distributeFrames()
@@ -142,6 +148,16 @@ namespace cse3902.Projectiles
         {
             get => animationComplete;
             set => animationComplete = value;
+        }
+
+        public int Damage
+        {
+            get => 3;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }
