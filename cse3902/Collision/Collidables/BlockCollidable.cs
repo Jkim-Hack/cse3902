@@ -6,12 +6,12 @@ namespace cse3902.Collision.Collidables
 {
     public class BlockCollidable : ICollidable
     {
-        private IEntity enemy;
+        private IBlock block;
 
         //TODO: make some kind of block interface (uses Ientity interface rn)
-        public BlockCollidable(IEntity enemy)
+        public BlockCollidable(IBlock block)
         {
-            this.enemy = enemy;
+            this.block = block;
         }
 
 
@@ -35,7 +35,7 @@ namespace cse3902.Collision.Collidables
 
         public ref Rectangle RectangleRef
         {
-            get => ref enemy.Bounds;
+            get => ref block.Bounds;
         }
 
         public int DamageValue

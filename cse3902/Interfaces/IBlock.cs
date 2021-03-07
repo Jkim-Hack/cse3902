@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using cse3902.Collision;
 
 namespace cse3902.Interfaces
 {
-    interface IBlock
+    public interface IBlock
     {
         public enum PushDirection
         {
@@ -12,6 +13,8 @@ namespace cse3902.Interfaces
             Right,
             Still
         }
+        public ref Rectangle Bounds { get; }
+        public ICollidable Collidable { get; }
         public void Move(Vector2 pushDirection);
         public void Move(PushDirection pushDirection);
         public void Draw();

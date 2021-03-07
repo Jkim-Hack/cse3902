@@ -42,4 +42,7 @@
     <Folder Include="Collision\" />
     <Folder Include="Collision\Collidables\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Blocks\WaterBlock.cs" />
+  </ItemGroup>
 </Project>
