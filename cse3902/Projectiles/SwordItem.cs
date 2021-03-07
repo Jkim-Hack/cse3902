@@ -1,11 +1,13 @@
 using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace cse3902.Projectiles
 {
-    public class SwordItem : ISprite, IItem, IProjectile
+    public class SwordItem : IItem, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -36,6 +38,8 @@ namespace cse3902.Projectiles
         private float angle;
         private Direction direction;
         private bool animationComplete;
+
+        private ICollidable collidable;
 
         public SwordItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
         {
@@ -76,6 +80,8 @@ namespace cse3902.Projectiles
 
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
+
+            this.collidable = new ProjectileCollidable(this, this.Damage);
         }
 
         private void distributeFrames()
@@ -191,6 +197,16 @@ namespace cse3902.Projectiles
         {
             get => animationComplete;
             set => animationComplete = value;
+        }
+
+        public int Damage
+        {
+            get => 3;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }
