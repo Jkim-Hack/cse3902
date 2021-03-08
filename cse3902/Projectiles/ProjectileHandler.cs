@@ -93,14 +93,14 @@ namespace cse3902.Projectiles
         }
         public IProjectile CreateFireballObject(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            IProjectile newProj = new FireballSprite(spriteBatch, fireball, startingPos, dir);
+            IProjectile newProj = new Fireball(spriteBatch, fireball, startingPos, dir);
             projectiles.Add(newProj);
             return newProj;
         }
 
         public IProjectile CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            IProjectile newProj = new SwordItem(spriteBatch, swordItems, startingPos, dir);
+            IProjectile newProj = new SwordProjectile(spriteBatch, swordItems, startingPos, dir);
             projectiles.Add(newProj);
             return newProj;
         }

@@ -38,7 +38,7 @@ namespace cse3902.Items
             items.Add(ItemSpriteFactory.Instance.CreateKeyItem(spriteBatch, new Vector2(100, 100)));
             items.Add(ItemSpriteFactory.Instance.CreateMapItem(spriteBatch, new Vector2(100, 100)));
             items.Add(ItemSpriteFactory.Instance.CreateTriforceItem(spriteBatch, new Vector2(100, 100)));
-            items.Add(ItemSpriteFactory.Instance.CreateSwordItem(spriteBatch, new Vector2(100, 100), new Vector2(-1, 0)));
+            items.Add(ItemSpriteFactory.Instance.CreateSwordProjectile(spriteBatch, new Vector2(100, 100), new Vector2(-1, 0)));
         }
 
         public void LoadContent(SpriteBatch spriteBatch, ContentManager content)

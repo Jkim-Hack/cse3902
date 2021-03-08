@@ -1,6 +1,8 @@
 ﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using cse3902.SpriteFactory;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 
 namespace cse3902.Blocks
 {
@@ -32,6 +34,9 @@ namespace cse3902.Blocks
                     return new Vector2(0, 0);
             }
         }
+
+        private ICollidable collidable;
+
         public NormalBlock(Game1 game, Vector2 center, IBlock.PushDirection direction, int pixelsToPush)
         {
             this.game = game;
@@ -40,6 +45,8 @@ namespace cse3902.Blocks
 
             normalBlockSprite = BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, center);
             remainingPixelsToPush = pixelsToPush;
+
+            this.collidable = new BlockCollidable(this);
         }
 
         public void Move(IBlock.PushDirection pushDirection)
@@ -64,6 +71,16 @@ namespace cse3902.Blocks
         public void Draw()
         {
             normalBlockSprite.Draw();
+        }
+
+        public ref Rectangle Bounds
+        {
+            get => ref normalBlockSprite.Box;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }
