@@ -12,8 +12,10 @@ namespace cse3902.Rooms
 {
     public class RoomHandler
     {
-        public const int ROOM_WIDTH = 252;
-        public const int ROOM_HEIGHT = 172;
+        public const int ROOM_WIDTH = 256;
+        public const int ROOM_HEIGHT = 176;
+        public const int NUM_ROOMS_X = 6;
+        public const int NUM_ROOMS_Y = 6;
         public const int CAMERA_CYCLES = 30;
 
         private Camera camera;
@@ -46,7 +48,7 @@ namespace cse3902.Rooms
             }
             else
             {
-                camera.MoveCamera(new Vector2( (newPos.X - (ROOM_WIDTH * newPos.Z)) * ROOM_WIDTH , newPos.Y * ROOM_HEIGHT), ROOM_WIDTH, ROOM_HEIGHT);
+                camera.MoveCamera(new Vector2( (newPos.X + (NUM_ROOMS_X * newPos.Z)) * ROOM_WIDTH , newPos.Y * ROOM_HEIGHT), ROOM_WIDTH, ROOM_HEIGHT);
             }
             
             List<IItem> oldItems = rooms.GetValueOrDefault(currentRoom).Items;
