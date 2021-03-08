@@ -5,7 +5,8 @@ namespace cse3902
     public class Camera
     {
         private Game1 game;
-        private Vector2 windowBounds;
+        private Vector2 gameplayBounds;
+        private Vector2 gameplayOffset;
 
         // dimensions = (width,height)
         private Vector2 topLeftCoordinate;
@@ -21,17 +22,19 @@ namespace cse3902
         public Camera(Game1 game)
         {
             this.game = game;
-            windowBounds = new Vector2(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
+            Vector2 windowBounds = new Vector2(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
+            //adjustment for menu bar
+            gameplayBounds = windowBounds + new Vector2(0, 0);
+            gameplayOffset = new Vector2(0, 0);
 
             topLeftCoordinate = new Vector2(0, 0);
-            dimensionScale = new Vector2(1, 1);
-
-            transformationMatrix = Matrix.CreateScale(new Vector3(dimensionScale, 0));
 
             cameraIsMoving = false;
             smoothMovementDirection = new Vector2(0, 0);
             smoothMovementUpdateCyclesRemaining = 0;
             smoothMovementDestination = new Vector2(0, 0);
+
+            MoveCamera(topLeftCoordinate, windowBounds);
         }
 
         public void MoveCamera(Vector2 topLeft, Vector2 dimensions)
@@ -39,10 +42,10 @@ namespace cse3902
             if (!cameraIsMoving)
             {
                 topLeftCoordinate = topLeft;
-                dimensionScale = windowBounds / dimensions;
+                dimensionScale = gameplayBounds / dimensions;
 
                 transformationMatrix = Matrix.CreateScale(new Vector3(dimensionScale, 0));
-                transformationMatrix.Translation = new Vector3(-topLeft * dimensionScale, 0);
+                transformationMatrix.Translation = new Vector3(-topLeft * dimensionScale + gameplayOffset, 0);
             }
         }
 
@@ -64,7 +67,7 @@ namespace cse3902
         private void MoveCameraSmoothOverride(Vector2 translation)
         {
             topLeftCoordinate += translation;
-            transformationMatrix.Translation = new Vector3(-topLeftCoordinate * dimensionScale, 0);
+            transformationMatrix.Translation = new Vector3(-topLeftCoordinate * dimensionScale + gameplayOffset, 0);
         }
 
         public void MoveCameraUp(int pixels)
@@ -125,7 +128,7 @@ namespace cse3902
                 if (smoothMovementUpdateCyclesRemaining <= 1)
                 {
                     topLeftCoordinate = smoothMovementDestination;
-                    transformationMatrix.Translation = new Vector3(-topLeftCoordinate * dimensionScale, 0);
+                    transformationMatrix.Translation = new Vector3(-topLeftCoordinate * dimensionScale + gameplayOffset, 0);
                     cameraIsMoving = false;
                 }
                 else
@@ -149,14 +152,13 @@ namespace cse3902
         public void Reset()
         {
             topLeftCoordinate = new Vector2(0, 0);
-            dimensionScale = new Vector2(1, 1);
-
-            transformationMatrix = Matrix.CreateScale(new Vector3(dimensionScale, 0));
 
             cameraIsMoving = false;
             smoothMovementDirection = new Vector2(0, 0);
             smoothMovementUpdateCyclesRemaining = 0;
             smoothMovementDestination = new Vector2(0, 0);
+
+            MoveCamera(topLeftCoordinate, new Vector2(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height));
         }
     }
 }

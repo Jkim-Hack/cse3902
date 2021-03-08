@@ -7,7 +7,7 @@ using System;
 
 namespace cse3902.Projectiles
 {
-    public class SwordItem : IItem, IProjectile
+    public class SwordProjectile : IItem, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -41,7 +41,7 @@ namespace cse3902.Projectiles
 
         private ICollidable collidable;
 
-        public SwordItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
+        public SwordProjectile(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
         {
             spriteBatch = batch;
             spriteTexture = texture;

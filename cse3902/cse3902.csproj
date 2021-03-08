@@ -43,4 +43,7 @@
     <Folder Include="Collision\Collidables\" />
     <Folder Include="Entities\DamageMasks\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Blocks\WaterBlock.cs" />
+  </ItemGroup>
 </Project>

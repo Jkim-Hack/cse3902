@@ -69,7 +69,7 @@ namespace cse3902.Projectiles
                 angle = 0;
             }
 
-            this.collidable = new ProjectileCollidable(this, this.Damage);
+            this.collidable = new ProjectileCollidable(this);
         }
 
         private void distributeFrames()

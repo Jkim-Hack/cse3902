@@ -34,6 +34,7 @@ namespace cse3902.Collision.Collidables
                 {
                     //other enemies are simply stunned in place for a bit
                     //need some kind of method to be able to 'stun' the enemies
+                    //they will still animate, just not move
                 }
             } else if (collidableObject is BlockCollidable)
             {

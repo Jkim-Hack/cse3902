@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace cse3902.Projectiles
 
 {
-    public class FireballSprite : IProjectile
+    public class Fireball : IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -26,7 +26,7 @@ namespace cse3902.Projectiles
 
         private ICollidable collidable;
 
-        public FireballSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction)
+        public Fireball(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction)
         {
             this.spriteBatch = spriteBatch;
             this.spriteTexture = texture;
