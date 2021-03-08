@@ -6,6 +6,7 @@ using cse3902.Collision.Collidables;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.Entities.DamageMasks;
 
 namespace cse3902.Entities
 {
@@ -22,8 +23,11 @@ namespace cse3902.Entities
             this.game = game;
             // TODO Add this into sprite factory
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
+            Texture2D linkDamageSequenceTexture = game.Content.Load<Texture2D>("LinkDamageSequence");
+            DamageMaskHandler linkDamageMaskHandler = new DamageMaskHandler(linkTexture, linkDamageSequenceTexture, 1, 4);
+
             Vector2 centerPosition = new Vector2(50, 200);
-            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 6, 4, centerPosition);
+            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 6, 4, linkDamageMaskHandler, centerPosition);
             linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition, game.spriteBatch);
 
             //Link's body does no damage itself
@@ -108,6 +112,11 @@ namespace cse3902.Entities
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public void Reset()
+        {
+            linkSprite.DamageMaskHandler.Reset();
         }
     }
 }

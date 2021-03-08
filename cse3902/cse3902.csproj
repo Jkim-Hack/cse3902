@@ -41,5 +41,6 @@
     <Folder Include="Rooms\" />
     <Folder Include="Collision\" />
     <Folder Include="Collision\Collidables\" />
+    <Folder Include="Entities\DamageMasks\" />
   </ItemGroup>
 </Project>

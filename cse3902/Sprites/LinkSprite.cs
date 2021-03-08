@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static cse3902.Interfaces.ISprite;
 using System.Collections.Generic;
+using cse3902.Entities.DamageMasks;
 
 namespace cse3902.Sprites
 {
@@ -27,10 +28,11 @@ namespace cse3902.Sprites
 
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
+
         private Vector2 center;
         private Vector2 startingPosition;
         private Vector2 size;
-        private const float sizeIncrease = 2f;
+        private const float sizeIncrease = 1.5f;
 
         private bool isDamage;
 
@@ -38,36 +40,36 @@ namespace cse3902.Sprites
         private int currentFrameIndex;
         private LinkSpriteAnimationHandler animationHandler;
 
-        private LinkDamageMaskHandler maskHandler;
+        private DamageMaskHandler maskHandler;
 
         private float remainingFrameDelay;
         private float remainingDamageDelay;
 
         private Rectangle destination;
 
-        private const float damageDelay = .2f;
+        private const float damageDelay = .05f;
 
-        private Boolean pauseMovement;
+        private bool pauseMovement;
 
-        public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
+        public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, DamageMaskHandler maskHandler, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
 
-            animationHandler = new LinkSpriteAnimationHandler(texture, rows, columns);
+            isDamage = false;
+            this.maskHandler = maskHandler;
+
+	        animationHandler = new LinkSpriteAnimationHandler(texture, rows, columns);
             size = animationHandler.FrameSize;
             currentFrameSet = animationHandler.getFrameSet(AnimationState.RightFacing);
             currentFrameIndex = 0;
 
             remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
-
-            isDamage = false;
-
-            maskHandler = new LinkDamageMaskHandler(texture);
+            remainingDamageDelay = damageDelay;
 
 	        this.startingPosition = startingPosition;
             center = startingPosition;
-
+            
             pauseMovement = false;
         }
 
@@ -81,10 +83,10 @@ namespace cse3902.Sprites
 
         public int Update(GameTime gameTime)
         {
-            int ret = 0;
+            int returnCode = 0;
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
-            if (!this.pauseMovement) ret = UpdateFrame(timer);
+            if (!this.pauseMovement) returnCode = UpdateFrame(timer);
 
             if (isDamage)
             {
@@ -96,12 +98,12 @@ namespace cse3902.Sprites
                 }
             }
             
-            return ret;
+            return returnCode;
         }
 
         private int UpdateFrame(float timer)
         {
-            int ret = 0;
+            int returnCode = 0;
 
             remainingFrameDelay -= timer;
 
@@ -111,13 +113,13 @@ namespace cse3902.Sprites
                 if (currentFrameIndex >= currentFrameSet.Length)
                 {
                     currentFrameIndex = 0;
-                    ret = -1;
+                    returnCode = -1;
                 }
 
                 remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
             }
 
-            return ret;
+            return returnCode;
         }
 
         public void setFrameSet(AnimationState animState)
@@ -182,9 +184,15 @@ namespace cse3902.Sprites
             }
         }
 
-        public Boolean PauseMovement
+        public bool PauseMovement
         {
             set => this.pauseMovement = value;
         }
+
+        public DamageMaskHandler DamageMaskHandler
+        {
+            get => this.maskHandler;
+        }
+
     }
 }
