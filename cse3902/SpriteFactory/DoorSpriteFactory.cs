@@ -58,35 +58,35 @@ namespace cse3902.SpriteFactory
             }
         }
 
-        public ISprite CreateUpDoorSprite(SpriteBatch spriteBatch, Vector2 startingPos, IDoor.DoorState doorState)
+        public IDoorSprite CreateUpDoorSprite(SpriteBatch spriteBatch, Vector2 startingPos, IDoor.DoorState doorState)
         {
             Rectangle doorRectangle = doorRectangles[0][doorStateRectangleMap[doorState]];
             if (doorState == IDoor.DoorState.Open) return new NormalUpOpenDoorSprite(spriteBatch, doorTextures["doors"], startingPos, doorRectangle);
             return new NormalNonOpenDoorSprite(spriteBatch, doorTextures["doors"], startingPos, doorRectangle);
         }
 
-        public ISprite CreateLeftDoorSprite(SpriteBatch spriteBatch, Vector2 startingPos, IDoor.DoorState doorState)
+        public IDoorSprite CreateLeftDoorSprite(SpriteBatch spriteBatch, Vector2 startingPos, IDoor.DoorState doorState)
         {
             Rectangle doorRectangle = doorRectangles[1][doorStateRectangleMap[doorState]];
             if (doorState == IDoor.DoorState.Open) return new NormalLeftOpenDoorSprite(spriteBatch, doorTextures["doors"], startingPos, doorRectangle);
             return new NormalNonOpenDoorSprite(spriteBatch, doorTextures["doors"], startingPos, doorRectangle);
         }
 
-        public ISprite CreateRightDoorSprite(SpriteBatch spriteBatch, Vector2 startingPos, IDoor.DoorState doorState)
+        public IDoorSprite CreateRightDoorSprite(SpriteBatch spriteBatch, Vector2 startingPos, IDoor.DoorState doorState)
         {
             Rectangle doorRectangle = doorRectangles[2][doorStateRectangleMap[doorState]];
             if (doorState == IDoor.DoorState.Open) return new NormalRightOpenDoorSprite(spriteBatch, doorTextures["doors"], startingPos, doorRectangle);
             return new NormalNonOpenDoorSprite(spriteBatch, doorTextures["doors"], startingPos, doorRectangle);
         }
 
-        public ISprite CreateDownDoorSprite(SpriteBatch spriteBatch, Vector2 startingPos, IDoor.DoorState doorState)
+        public IDoorSprite CreateDownDoorSprite(SpriteBatch spriteBatch, Vector2 startingPos, IDoor.DoorState doorState)
         {
             Rectangle doorRectangle = doorRectangles[3][doorStateRectangleMap[doorState]];
             if (doorState == IDoor.DoorState.Open) return new NormalDownOpenDoorSprite(spriteBatch, doorTextures["doors"], startingPos, doorRectangle);
             return new NormalNonOpenDoorSprite(spriteBatch, doorTextures["doors"], startingPos, doorRectangle);
         }
 
-        public ISprite CreateStaircaseSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        public IDoorSprite CreateStaircaseSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
             return new StaircaseDoorSprite(spriteBatch, doorTextures["staircase"], startingPos);
         }

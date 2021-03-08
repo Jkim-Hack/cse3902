@@ -1,20 +1,20 @@
 ﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace cse3902.Sprites
 {
-    public class NormalRightOpenDoorSprite : ISprite
+    public class NormalRightOpenDoorSprite : IDoorSprite
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
         private Vector2 center;
-        private Vector2 startingPosition;
 
         private int frameWidth;
         private int frameHeight;
 
-        private Rectangle destination;
+        private List<Rectangle> hitboxes;
         private Rectangle door;
 
         private const float sizeIncrease = 1f;
@@ -28,9 +28,9 @@ namespace cse3902.Sprites
             frameHeight = spriteTexture.Height;
 
             center = startingPosition;
-            this.startingPosition = startingPosition;
 
             door = wantedDoor;
+            hitboxes = new List<Rectangle>();
         }
 
         public void Draw()
@@ -51,16 +51,28 @@ namespace cse3902.Sprites
             spriteTexture.Dispose();
         }
 
-        public ref Rectangle Box
+        public List<Rectangle> Boxes
         {
             get
             {
                 int width = (int)(sizeIncrease * frameWidth) / 2;
                 int height = (int)(sizeIncrease * frameHeight);
-                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
-                Destination.Offset(0, -Destination.Height / 2);
-                this.destination = Destination;
-                return ref destination;
+                Rectangle destination = new Rectangle((int)center.X, (int)center.Y, width, height);
+                destination.Offset(0, -destination.Height / 2);
+                hitboxes.Add(destination);
+
+                int openHeight = 18;
+                height = (width - openHeight) / 2;
+
+                destination = new Rectangle((int)center.X, (int)center.Y, width, height);
+                destination.Offset(-frameWidth / 2, -frameHeight / 2);
+                hitboxes.Add(destination);
+
+                destination = new Rectangle((int)center.X, (int)center.Y, width, height);
+                destination.Offset(-frameWidth / 2, openHeight / 2);
+                hitboxes.Add(destination);
+
+                return hitboxes;
             }
         }
 
@@ -73,15 +85,6 @@ namespace cse3902.Sprites
         public Texture2D Texture
         {
             get => spriteTexture;
-        }
-        public Vector2 StartingPosition
-        {
-            get => this.startingPosition;
-            set
-            {
-                this.startingPosition = value;
-                this.center = value;
-            }
         }
     }
 }
