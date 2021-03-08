@@ -7,6 +7,7 @@ namespace cse3902.Interfaces
 {
     public interface IItem : ISprite
     {
+        //public IItem NewInstance();
         
     }
 }
