@@ -48,7 +48,7 @@ namespace cse3902.Rooms
             }
             else
             {
-                camera.MoveCamera(new Vector2( (newPos.X - (NUM_ROOMS_X * newPos.Z)) * ROOM_WIDTH , newPos.Y * ROOM_HEIGHT), ROOM_WIDTH, ROOM_HEIGHT);
+                camera.MoveCamera(new Vector2( (newPos.X + (NUM_ROOMS_X * newPos.Z)) * ROOM_WIDTH , newPos.Y * ROOM_HEIGHT), ROOM_WIDTH, ROOM_HEIGHT);
             }
             
             List<IItem> oldItems = rooms.GetValueOrDefault(currentRoom).Items;
