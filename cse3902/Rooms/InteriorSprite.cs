@@ -16,6 +16,7 @@ namespace cse3902.Rooms
 
         private int frameWidth;
         private int frameHeight;
+        private Rectangle destination;
 
         public Vector2 Center
         {
@@ -28,13 +29,14 @@ namespace cse3902.Rooms
             get => spriteTexture;
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 

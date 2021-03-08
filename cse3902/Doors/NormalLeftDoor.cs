@@ -27,6 +27,7 @@ namespace cse3902.Doors
                     game.roomHandler.LoadNewRoom(game.roomHandler.currentRoom + roomTranslationVector);
                     break;
                 case IDoor.DoorState.Closed:
+                case IDoor.DoorState.Locked:
                     doorState = IDoor.DoorState.Open;
                     doorSprite = DoorSpriteFactory.Instance.CreateLeftDoorSprite(game.spriteBatch, doorSprite.Center, doorState);
                     break;/*
