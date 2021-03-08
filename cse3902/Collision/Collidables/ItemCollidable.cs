@@ -18,16 +18,8 @@ namespace cse3902.Collision.Collidables
         public void OnCollidedWith(ICollidable collidableObject)
         {
 
-            if (collidableObject is PlayerCollidable)
-            {
-                //player needs to pick up item
-            }
-            else
-            {
-                //do nothing
-            }
-
-
+            //interaction with player handled in playercollidable
+            //doesn't interact with anything else
         }
 
         public ref Rectangle RectangleRef
