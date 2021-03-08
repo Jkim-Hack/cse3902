@@ -1,4 +1,6 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -18,6 +20,8 @@ namespace cse3902.Items
 
         private const float sizeIncrease = 2f;
 
+        private ICollidable collidable;
+
         public MapItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
             spriteBatch = batch;
@@ -28,6 +32,8 @@ namespace cse3902.Items
 
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
+
+            this.collidable = new ItemCollidable(this);
         }
 
         public void Draw()
@@ -76,6 +82,11 @@ namespace cse3902.Items
         public Texture2D Texture
         {
             get => spriteTexture;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }
