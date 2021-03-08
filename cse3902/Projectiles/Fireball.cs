@@ -1,11 +1,13 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Projectiles
 
 {
-    public class FireballSprite : ISprite, IProjectile
+    public class Fireball : IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -18,9 +20,13 @@ namespace cse3902.Projectiles
         private float fireballCounter;
         private const float fireballDelay = 3f;
 
+        private Rectangle destination;
+
         private const float sizeIncrease = 2f;
 
-        public FireballSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction)
+        private ICollidable collidable;
+
+        public Fireball(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction)
         {
             this.spriteBatch = spriteBatch;
             this.spriteTexture = texture;
@@ -28,6 +34,8 @@ namespace cse3902.Projectiles
             this.center = startingPosition;
             animationComplete = false;
             fireballCounter = fireballDelay;
+
+            this.collidable = new ProjectileCollidable(this);
         }
 
         public Vector2 Center
@@ -67,7 +75,7 @@ namespace cse3902.Projectiles
             spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, 0.6f);
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -75,7 +83,8 @@ namespace cse3902.Projectiles
                 int height = (int)(sizeIncrease * Texture.Height);
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 
@@ -88,6 +97,16 @@ namespace cse3902.Projectiles
         public void Erase()
         {
             spriteTexture.Dispose();
+        }
+
+        public int Damage
+        {
+            get => 3;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }

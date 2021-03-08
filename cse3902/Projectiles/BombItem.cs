@@ -1,10 +1,12 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Projectiles
 {
-    public class BombItem : ISprite, IItem, IProjectile
+    public class BombItem : IItem, IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -21,10 +23,14 @@ namespace cse3902.Projectiles
         private int currentY;
         private const float sizeIncrease = 2f;
 
+        private Rectangle destination;
+
         private const float delay = 0.8f;
         private float remainingDelay;
 
         private bool animationComplete;
+
+        private ICollidable collidable;
 
         public BombItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
@@ -45,6 +51,8 @@ namespace cse3902.Projectiles
             currentY = (int)startingPos.Y;
 
             this.animationComplete = false;
+
+            this.collidable = new ProjectileCollidable(this);
         }
 
         private void distributeFrames()
@@ -57,7 +65,7 @@ namespace cse3902.Projectiles
             }
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -65,7 +73,8 @@ namespace cse3902.Projectiles
                 int height = (int)(sizeIncrease * frameHeight);
                 Rectangle Destination = new Rectangle(currentX, currentY, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 
@@ -122,6 +131,16 @@ namespace cse3902.Projectiles
             get => animationComplete;
 
             set => animationComplete = value;
+        }
+
+        public int Damage
+        {
+            get => 3;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }

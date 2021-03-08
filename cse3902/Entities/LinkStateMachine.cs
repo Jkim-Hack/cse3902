@@ -4,6 +4,7 @@ using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Microsoft.Xna.Framework.Input; // JUST FOR TESTING
 
 namespace cse3902.Entities
 {
@@ -27,8 +28,12 @@ namespace cse3902.Entities
         private const int healthMax = 10;
         private int health;
 
-        private const double damageDelay = 5.0f;
+        private const double damageDelay = 1.0f;
         private double remainingDamageDelay;
+
+        private Vector2 shoveDirection;
+        private int shoveDistance;
+        private Boolean pauseMovement;
 
         public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch)
         {
@@ -48,12 +53,15 @@ namespace cse3902.Entities
             currItemIndex = 0;
 
             remainingDamageDelay = damageDelay;
+
+            shoveDistance = -10;
+            PauseMovement = false;
         }
 
         public void ChangeDirection(Vector2 newDirection)
         {
-            /* No need to update sprite if currently attacking */
-            if (mode == LinkMode.Attack) return;
+            /* No need to update sprite if currently attacking or knocked back */
+            if (mode == LinkMode.Attack || pauseMovement) return;
 
             if (newDirection.Equals(currDirection) && mode == LinkMode.Moving) return;
 
@@ -109,7 +117,27 @@ namespace cse3902.Entities
             }
         }
 
+        public void BeShoved()
+        {
+            this.shoveDistance = 10;
+            this.shoveDirection = new Vector2(currDirection.X * -2, currDirection.Y * -2);
+            this.PauseMovement  = true;
+        }
+
         public void Update(GameTime gameTime)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && this.shoveDistance <= -10) BeShoved(); // JUST FOR TESTING
+
+            UpdateDamageDelay(gameTime);
+
+            if (this.shoveDistance > -10) ShoveMovement();
+            else RegularMovement(gameTime);
+
+            UpdateSprite(gameTime);
+             
+        }
+
+        private void UpdateDamageDelay(GameTime gameTime)
         {
             if (remainingDamageDelay > 0 && linkSprite.Damaged)
             {
@@ -120,10 +148,25 @@ namespace cse3902.Entities
                     linkSprite.Damaged = false;
                 }
             }
+        }
+
+        private void ShoveMovement()
+        {
+            if (this.shoveDistance >= 0) this.CenterPosition += shoveDirection;
+            shoveDistance--;
+        }
+
+        private void RegularMovement(GameTime gameTime)
+        {
+            PauseMovement = false;
             if (mode == LinkMode.Moving)
             {
                 CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
+        }
+
+        private void UpdateSprite(GameTime gameTime)
+        {
             if(linkSprite.Update(gameTime) != 0)
             {
                 if (mode == LinkMode.Attack)
@@ -141,7 +184,7 @@ namespace cse3902.Entities
 
         public void Attack()
         {
-            if (mode != LinkMode.Moving && mode != LinkMode.Still) return;
+            if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
             mode = LinkMode.Attack;
 
             // TODO: Move this to Link.cs not needed in state machine
@@ -161,7 +204,7 @@ namespace cse3902.Entities
 
         public void UseItem()
         {
-            if (mode != LinkMode.Moving && mode != LinkMode.Still) return;
+            if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
 
             mode = LinkMode.Attack;
             IProjectile item;
@@ -250,6 +293,15 @@ namespace cse3902.Entities
             {
                 this.linkSprite.Center = value;
                 this.centerPosition = value;
+            }
+        }
+
+        private Boolean PauseMovement
+        {
+            set
+            {
+                this.pauseMovement = value;
+                linkSprite.PauseMovement = value;
             }
         }
     }

@@ -1,7 +1,10 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input; // JUST FOR TESTING
 
 namespace cse3902.Entities.Enemies
 {
@@ -16,6 +19,10 @@ namespace cse3902.Entities.Enemies
         private Vector2 center;
         private float range;
         private float traveled;
+        private Vector2 shoveDirection;
+        private int shoveDistance;
+
+        private ICollidable collidable;
 
         public WallMaster(Game1 game)
         {
@@ -29,11 +36,14 @@ namespace cse3902.Entities.Enemies
             speed = 6.5f;
             range = 15;
             traveled = range;
+            shoveDistance = -10;
+
+            this.collidable = new EnemyCollidable(this, this.Damage);
         }
 
-        public Rectangle Bounds
+        public ref Rectangle Bounds
         {
-            get => wallMasterSprite.Texture.Bounds;
+            get => ref wallMasterSprite.Box;
         }
 
         public void Attack()
@@ -55,7 +65,27 @@ namespace cse3902.Entities.Enemies
             this.wallMasterStateMachine.Die();
         }
 
+        public void BeShoved()
+        {
+            this.shoveDistance = 10;
+            this.shoveDirection = new Vector2(direction.X * -2, direction.Y * -2);
+        }
+
         public void Update(GameTime gameTime)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && this.shoveDistance <= -10) BeShoved(); // JUST FOR TESTING
+
+            if (this.shoveDistance > -10) ShoveMovement();
+            else RegularMovement(gameTime);
+        }
+
+        private void ShoveMovement()
+        {
+            if (this.shoveDistance >= 0) this.CenterPosition += shoveDirection;
+            shoveDistance--;
+        }
+
+        private void RegularMovement(GameTime gameTime)
         {
             var change = speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -101,6 +131,16 @@ namespace cse3902.Entities.Enemies
                 this.center = value;
                 wallMasterSprite.Center = value;
             }
+        }
+
+        public int Damage
+        {
+            get => 2;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }
