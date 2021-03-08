@@ -33,7 +33,7 @@ namespace cse3902.Sprites
             get => spriteFont.Texture; 
         }
 
-        public Rectangle Box => throw new NotImplementedException();
+        public ref Rectangle Box => throw new NotImplementedException();
 
         public void Erase()
         {

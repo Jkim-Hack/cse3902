@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,8 +15,9 @@ namespace cse3902.Entities
         private LinkStateMachine linkStateMachine;
 	    private Game1 game;
 
+        private ICollidable collidable;
 
-	    public Link(Game1 game)
+        public Link(Game1 game)
         {
             this.game = game;
             // TODO Add this into sprite factory
@@ -22,11 +25,14 @@ namespace cse3902.Entities
             Vector2 centerPosition = new Vector2(50, 200);
             linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 6, 4, centerPosition);
             linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition, game.spriteBatch);
+
+            //Link's body does no damage itself
+            this.collidable = new PlayerCollidable(this, 0);
         }
 
-        public Rectangle Bounds 
+        public ref Rectangle Bounds 
 	    { 
-	        get => linkSprite.Texture.Bounds; 
+	        get => ref linkSprite.Box; 
 	    }
 
         public void Attack()
@@ -48,7 +54,7 @@ namespace cse3902.Entities
             this.linkSprite.Erase();
         }
 
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
             // Default to 10 for now
             linkStateMachine.TakeDamage(10);
@@ -83,6 +89,11 @@ namespace cse3902.Entities
             linkStateMachine.ChangeWeapon(index); ;
         }
 
+        public void BeShoved()
+        {
+            linkStateMachine.BeShoved();
+        }
+
         public float Speed
         {
             get => linkStateMachine.Speed;
@@ -92,6 +103,11 @@ namespace cse3902.Entities
 	    public Vector2 CenterPosition
         {
             get => linkStateMachine.CenterPosition;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }

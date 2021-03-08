@@ -1,7 +1,10 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input; // JUST FOR TESTING
 
 namespace cse3902.Entities.Enemies
 {
@@ -16,6 +19,10 @@ namespace cse3902.Entities.Enemies
         private Vector2 startingPos;
         private Vector2 center;
         private int travelDistance;
+        private Vector2 shoveDirection;
+        private int shoveDistance;
+
+        private ICollidable collidable;
 
         public Stalfos(Game1 game)
         {
@@ -29,11 +36,14 @@ namespace cse3902.Entities.Enemies
             direction = new Vector2(-1, 0);
             speed = 50.0f;
             travelDistance = 80;
+            shoveDistance = -10;
+
+            this.collidable = new EnemyCollidable(this, this.Damage);
         }
 
-        public Rectangle Bounds
+        public ref Rectangle Bounds
         {
-            get => stalfosSprite.Texture.Bounds;
+            get => ref stalfosSprite.Box;
         }
 
         public void Attack()
@@ -46,7 +56,7 @@ namespace cse3902.Entities.Enemies
             this.stalfosStateMachine.ChangeDirection(direction);
         }
 
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
         }
 
@@ -55,7 +65,27 @@ namespace cse3902.Entities.Enemies
             this.stalfosStateMachine.Die();
         }
 
+        public void BeShoved()
+        {
+            this.shoveDistance = 10;
+            this.shoveDirection = new Vector2(direction.X * -2, direction.Y * -2);
+        }
+
         public void Update(GameTime gameTime)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && this.shoveDistance <= -10) BeShoved(); // JUST FOR TESTING
+
+            if (this.shoveDistance > -10) ShoveMovement();
+            else RegularMovement(gameTime);
+        }
+
+        private void ShoveMovement()
+        {
+            if (this.shoveDistance >= 0) this.CenterPosition += shoveDirection;
+            shoveDistance--;
+        }
+
+        private void RegularMovement(GameTime gameTime)
         {
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -84,6 +114,16 @@ namespace cse3902.Entities.Enemies
                 this.center = value;
                 stalfosSprite.Center = value;
             }
+        }
+
+        public int Damage
+        {
+            get => 2;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }

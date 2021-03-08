@@ -18,7 +18,7 @@ namespace cse3902.SpriteFactory
             get => npcSpriteFactoryInstance;
         }
 
-        public NPCSpriteFactory()
+        private NPCSpriteFactory()
         {
             npcTextures = new Dictionary<string, Texture2D>();
         }

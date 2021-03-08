@@ -1,4 +1,6 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -22,8 +24,12 @@ namespace cse3902.Items
 
         private const float sizeIncrease = 2f;
 
+        private Rectangle destination;
+
         private int currentX;
         private int currentY;
+
+        private ICollidable collidable;
 
         public FairyItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
@@ -42,6 +48,8 @@ namespace cse3902.Items
 
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
+
+            this.collidable = new ItemCollidable(this);
         }
 
         private void distributeFrames()
@@ -88,7 +96,7 @@ namespace cse3902.Items
             spriteTexture.Dispose();
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -96,7 +104,8 @@ namespace cse3902.Items
                 int height = (int)(sizeIncrease * frameHeight);
                 Rectangle Destination = new Rectangle(currentX, currentY, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 
@@ -111,6 +120,11 @@ namespace cse3902.Items
                 currentX = (int)value.X;
                 currentY = (int)value.Y;
             }
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }

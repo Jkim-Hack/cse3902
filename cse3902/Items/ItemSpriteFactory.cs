@@ -135,9 +135,9 @@ namespace cse3902.Items
             return add;
         }
 
-        public ISprite CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
+        public ISprite CreateSwordProjectile(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            IItem add = new SwordItem(spriteBatch, swordItems, startingPos, dir);
+            IItem add = new SwordProjectile(spriteBatch, swordItems, startingPos, dir);
             RoomItems.Instance.AddItem(add);
             return add;
         }

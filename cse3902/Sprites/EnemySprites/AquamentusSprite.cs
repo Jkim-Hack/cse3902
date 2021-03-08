@@ -33,6 +33,8 @@ namespace cse3902.Sprites.EnemySprites
         private const float delay = 0.2f;
         private float remainingDelay;
 
+        private Rectangle destination;
+
         private const float sizeIncrease = 2f;
 
         public AquamentusSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
@@ -72,7 +74,7 @@ namespace cse3902.Sprites.EnemySprites
 
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -80,7 +82,8 @@ namespace cse3902.Sprites.EnemySprites
                 int height = (int)(sizeIncrease * frameHeight);
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 

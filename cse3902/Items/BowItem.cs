@@ -1,4 +1,6 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,7 +17,11 @@ namespace cse3902.Items
         private int currentX;
         private int currentY;
 
+        private Rectangle destination;
+
         private const float sizeIncrease = 2f;
+
+        private ICollidable collidable;
 
         public BowItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
@@ -27,6 +33,8 @@ namespace cse3902.Items
 
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
+
+            this.collidable = new ItemCollidable(this);
         }
 
         public void Draw()
@@ -46,7 +54,7 @@ namespace cse3902.Items
             return 0;
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -54,7 +62,8 @@ namespace cse3902.Items
                 int height = (int)(sizeIncrease * frameHeight);
                 Rectangle Destination = new Rectangle(currentX, currentY, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 
@@ -74,6 +83,11 @@ namespace cse3902.Items
         public Texture2D Texture
         {
             get => spriteTexture;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }

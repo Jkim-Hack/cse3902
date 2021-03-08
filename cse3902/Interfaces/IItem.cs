@@ -1,5 +1,5 @@
 ﻿using System;
-using cse3902.Interfaces;
+using cse3902.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -7,7 +7,6 @@ namespace cse3902.Interfaces
 {
     public interface IItem : ISprite
     {
-        //public IItem NewInstance();
-        
+        public ICollidable Collidable { get; }
     }
 }

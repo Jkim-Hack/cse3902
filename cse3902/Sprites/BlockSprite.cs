@@ -1,8 +1,6 @@
-﻿using System;
-using cse3902.Interfaces;
+﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Sprites
 {
@@ -13,6 +11,7 @@ namespace cse3902.Sprites
         private Vector2 center;
         private int frameWidth;
         private int frameHeight;
+        private Rectangle destination;
         private const float sizeIncrease = 1f;
 
 
@@ -42,10 +41,10 @@ namespace cse3902.Sprites
 
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, 0.9f);
+            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, 0.8f);
 
         }
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
@@ -53,7 +52,8 @@ namespace cse3902.Sprites
                 int height = (int)(sizeIncrease * frameHeight);
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 

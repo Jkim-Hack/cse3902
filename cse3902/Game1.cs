@@ -6,6 +6,7 @@ using cse3902.Projectiles;
 using cse3902.Rooms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.SpriteFactory;
 
 namespace cse3902
 {
@@ -73,6 +74,8 @@ namespace cse3902
             camera = new Camera(this);
 
             roomHandler = new RoomHandler(spriteBatch, camera);
+
+            BlockSpriteFactory.Instance.LoadAllTextures(Content);
 
             projectileHandler.LoadAllTextures(Content);
             itemHandler.LoadContent(spriteBatch, Content);
