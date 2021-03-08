@@ -16,7 +16,7 @@ namespace cse3902.Projectiles
         private Texture2D swordItems;
         private Texture2D swordWeapons;
 
-        public List<IProjectile> projectiles { get; set; }
+        private List<IProjectile> projectiles { get; set; }
 
         private static ProjectileHandler instance = new ProjectileHandler();
 
