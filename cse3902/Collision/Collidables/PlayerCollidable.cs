@@ -27,7 +27,15 @@ namespace cse3902.Collision.Collidables
             {
                 //take damage and get shoved back by enemy
                 player.TakeDamage(collidableObject.DamageValue);
-                player.BeShoved();
+
+                if (player.Health <= 0)
+                {
+                    //todo: destroy object
+                } else
+                {
+                    player.BeShoved();
+                }
+                
                 
             } else if (collidableObject is BlockCollidable)
             {

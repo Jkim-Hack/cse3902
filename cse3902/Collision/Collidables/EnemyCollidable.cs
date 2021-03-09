@@ -22,7 +22,13 @@ namespace cse3902.Collision.Collidables
             if (collidableObject is SwordCollidable)
             {
                 this.enemy.TakeDamage(collidableObject.DamageValue);
-                this.enemy.BeShoved();
+                if (this.enemy.Health <= 0)
+                {
+                    //TODO: destroy object
+                } else
+                {
+                    this.enemy.BeShoved();
+                }
 
             } else if (collidableObject is ProjectileCollidable)
             {
@@ -30,6 +36,10 @@ namespace cse3902.Collision.Collidables
                 {
                     //only gels and keese take damage from projectiles it seems
                     this.enemy.TakeDamage(collidableObject.DamageValue);
+                    if (this.enemy.Health <= 0)
+                    {
+                        //TODO: destroy object
+                    }
                 } else
                 {
                     //other enemies are simply stunned in place for a bit
