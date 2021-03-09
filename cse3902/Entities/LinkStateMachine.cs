@@ -296,6 +296,11 @@ namespace cse3902.Entities
             }
         }
 
+        public int Health
+        {
+            get => this.health;
+        }
+
         private Boolean PauseMovement
         {
             set

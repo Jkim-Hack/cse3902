@@ -16,6 +16,7 @@ namespace cse3902.Entities
 	    private Game1 game;
 
         private ICollidable collidable;
+        private int health;
 
         public Link(Game1 game)
         {
@@ -47,6 +48,7 @@ namespace cse3902.Entities
         public void ChangeDirection(Vector2 direction)
         {
             linkStateMachine.ChangeDirection(direction);
+            
 	    }        
 
         public void Die()
@@ -56,8 +58,8 @@ namespace cse3902.Entities
 
         public void TakeDamage(int damage)
         {
-            // Default to 10 for now
-            linkStateMachine.TakeDamage(10);
+            
+            linkStateMachine.TakeDamage(damage);
 	    } 
 
         public void Update(GameTime gameTime)
@@ -103,6 +105,11 @@ namespace cse3902.Entities
 	    public Vector2 CenterPosition
         {
             get => linkStateMachine.CenterPosition;
+        }
+
+        public int Health
+        {
+            get => linkStateMachine.Health;
         }
 
         public ICollidable Collidable
