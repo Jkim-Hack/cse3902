@@ -223,6 +223,7 @@ namespace cse3902.Rooms
                 roomHandler.rooms.Add(roomTup, currentRoom);
 
                 parseItems(currentRoom, room, doc);
+
             }
         }
     }

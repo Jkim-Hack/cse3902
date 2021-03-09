@@ -11,11 +11,10 @@ namespace cse3902.Rooms
         private Texture2D spriteTexture;
         private Vector2 center;
 
-        private Rectangle[] frames;
-        private int currentFrame;
-
         private int frameWidth;
         private int frameHeight;
+
+        private Rectangle destination;
 
         public Vector2 Center
         {
@@ -28,46 +27,32 @@ namespace cse3902.Rooms
             get => spriteTexture;
         }
 
-        public Rectangle Box
+        public ref Rectangle Box
         {
             get
             {
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
-                return Destination;
+                this.destination = Destination;
+                return ref destination;
             }
         }
 
-        public ExteriorSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 centerPosition)
+        public ExteriorSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 centerPosition)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
-            frameWidth = texture.Width / columns;
-            frameHeight = texture.Height / rows;
-
-            currentFrame = 0;
+            frameWidth = texture.Width;
+            frameHeight = texture.Height;
 
             this.center = centerPosition;
-
-            distributeFrames(columns, rows);
-        }
-
-        private void distributeFrames(int columns, int rows)
-        {
-            int totalFrames = columns * rows;
-            for (int i = 0; i < totalFrames; i++)
-            {
-                int row = (int)((float)i / (float)columns);
-                int column = i % columns;
-                frames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
-            }
         }
 
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, 0.8f);
+            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, 0.8f);
         }
 
         public void Erase()

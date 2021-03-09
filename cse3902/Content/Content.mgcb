@@ -476,6 +476,18 @@
 /processorParam:TextureFormat=Color
 /build:enemies/zola.png
 
+#begin Exterior.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Exterior.png
+
 #begin fairies.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -535,6 +547,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:heartcont.png
+
+#begin interior.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:interior.png
 
 #begin key.png
 /importer:TextureImporter
