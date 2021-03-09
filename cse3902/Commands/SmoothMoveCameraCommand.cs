@@ -15,27 +15,27 @@ namespace cse3902.Commands
         public void Execute(int id)
         {
             id = id % 4;
-            Vector2 direction;
+            Vector3 direction;
             switch (id)
             {
                 case 0:
-                    direction = new Vector2(0, -1);
+                    direction = new Vector3(0, -1, 0);
                     break;
                 case 1:
-                    direction = new Vector2(-1, 0);
+                    direction = new Vector3(-1, 0, 0);
                     break;
                 case 2:
-                    direction = new Vector2(0, 1);
+                    direction = new Vector3(0, 1, 0);
                     break;
                 case 3:
-                    direction = new Vector2(1, 0);
+                    direction = new Vector3(1, 0, 0);
                     break;
                 default: //this should never happen
-                    direction = new Vector2(0, 1);
+                    direction = new Vector3(0, 1, 0);
                     break;
             }
-
-            game.camera.SmoothMoveCamera(200 * direction, 90);
+            game.camera.SmoothMoveCamera(200 * new Vector2(direction.X,direction.Y), 90);
+            //game.roomHandler.LoadNewRoom(game.roomHandler.currentRoom + direction);
         }
 
         public void Unexecute()

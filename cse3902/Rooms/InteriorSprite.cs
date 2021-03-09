@@ -18,6 +18,8 @@ namespace cse3902.Rooms
         private int frameHeight;
         private Rectangle destination;
 
+        private Rectangle destination;
+
         public Vector2 Center
         {
             get => center;
@@ -46,6 +48,7 @@ namespace cse3902.Rooms
             spriteTexture = texture;
             frameWidth = texture.Width / columns;
             frameHeight = texture.Height / rows;
+            frames = new Rectangle[rows * columns];
 
             currentFrame = roomNum;
 
