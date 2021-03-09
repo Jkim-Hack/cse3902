@@ -68,6 +68,12 @@ namespace cse3902.Entities
             medicineWomanSprite.Draw();
         }
 
+        public int Health
+        {
+            get => 0;
+
+        }
+
         public ICollidable Collidable
         {
             get => this.collidable;
