@@ -188,6 +188,18 @@
 /processorParam:TextureFormat=Compressed
 /build:Credits.spritefont
 
+#begin doors.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:doors.png
+
 #begin enemies/armos.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -619,6 +631,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:oldman.png
+
+#begin staircase.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:staircase.png
 
 #begin SwordAnimation.png
 /importer:TextureImporter

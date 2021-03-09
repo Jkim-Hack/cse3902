@@ -76,6 +76,7 @@ namespace cse3902
             roomHandler = new RoomHandler(spriteBatch, camera);
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
+            DoorSpriteFactory.Instance.LoadAllTextures(Content);
 
             projectileHandler.LoadAllTextures(Content);
             itemHandler.LoadContent(spriteBatch, Content);
