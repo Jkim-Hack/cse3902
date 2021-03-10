@@ -46,11 +46,13 @@ namespace cse3902.Collision.Collidables
                     //need some kind of method to be able to 'stun' the enemies
                     //they will still animate, just not move
                 }
-            } else if (collidableObject is BlockCollidable)
+            } else if (collidableObject is BlockCollidable || collidableObject is DoorCollidable)
             {
-                //todo: get the vector from the oncollidewith method and use the opposite direction vector
+                //vector of (0,0) means just change current direction to opposite
                 Vector2 direction = new Vector2(0, 0);
                 this.enemy.ChangeDirection(direction);
+                //todo: might need to slightly adjust position of entity as well
+
             } else
             {
                 //no other collision matters for enemies
