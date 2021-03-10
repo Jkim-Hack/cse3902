@@ -55,6 +55,12 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
+            //in the case a (0,0) vector, reverse direction
+            if (direction == new Vector2(0, 0))
+            {
+                this.direction.X = -direction.X;
+                this.direction.Y = -direction.Y;
+            }
             this.gelStateMachine.ChangeDirection(direction);
         }
 
