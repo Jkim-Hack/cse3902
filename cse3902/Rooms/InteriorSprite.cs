@@ -18,8 +18,6 @@ namespace cse3902.Rooms
         private int frameHeight;
         private Rectangle destination;
 
-        private Rectangle destination;
-
         public Vector2 Center
         {
             get => center;
