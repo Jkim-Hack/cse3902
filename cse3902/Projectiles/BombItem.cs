@@ -21,7 +21,7 @@ namespace cse3902.Projectiles
 
         private int currentX;
         private int currentY;
-        private const float sizeIncrease = 2f;
+        private const float sizeIncrease = 1f;
 
         private Rectangle destination;
 

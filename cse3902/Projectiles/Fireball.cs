@@ -22,7 +22,7 @@ namespace cse3902.Projectiles
 
         private Rectangle destination;
 
-        private const float sizeIncrease = 2f;
+        private const float sizeIncrease = 1f;
 
         private ICollidable collidable;
 

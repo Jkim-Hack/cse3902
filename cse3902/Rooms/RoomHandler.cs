@@ -44,11 +44,11 @@ namespace cse3902.Rooms
 
             if (currentRoom.Z == newPos.Z)
             {
-                camera.SmoothMoveCamera(new Vector2( (newPos.X - currentRoom.X) * ROOM_WIDTH, (newPos.Y - currentRoom.Y) * ROOM_HEIGHT), CAMERA_CYCLES);
+                camera.SmoothMoveCamera(new Vector2((newPos.X + (NUM_ROOMS_X * newPos.Z)) * ROOM_WIDTH, newPos.Y * ROOM_HEIGHT), CAMERA_CYCLES);
             }
             else
             {
-                camera.MoveCamera(new Vector2( (newPos.X + (NUM_ROOMS_X * newPos.Z)) * ROOM_WIDTH , newPos.Y * ROOM_HEIGHT), ROOM_WIDTH, ROOM_HEIGHT);
+                camera.MoveCamera(new Vector2( (newPos.X + (NUM_ROOMS_X * newPos.Z)) * ROOM_WIDTH , newPos.Y * ROOM_HEIGHT), new Vector2(ROOM_WIDTH, ROOM_HEIGHT));
             }
             
             List<IItem> oldItems = rooms.GetValueOrDefault(currentRoom).Items;
