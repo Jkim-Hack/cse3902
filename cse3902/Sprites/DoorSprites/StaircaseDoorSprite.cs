@@ -53,6 +53,8 @@ namespace cse3902.Sprites
         {
             get
             {
+                hitboxes = new List<Rectangle>();
+
                 int width = (int)(sizeIncrease * frameWidth) / 4;
                 int height = (int)(sizeIncrease * frameHeight) / 4;
                 Rectangle destination = new Rectangle((int)center.X, (int)center.Y, width, height);
