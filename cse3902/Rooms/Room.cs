@@ -11,7 +11,7 @@ namespace cse3902.Rooms
     {
         private bool visited;
       
-        Vector3 roomPos;
+        public Vector3 roomPos { get; set; }
 
         private List<IItem> items { get; set; }
         private List<IEntity> enemies { get; set; }
