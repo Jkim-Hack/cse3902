@@ -135,33 +135,33 @@
         <enemies>
             <enemy>
                 <type>Keese</type>
-                <xloc>300</xloc>
-                <yloc>620</yloc>
+                <xloc>0</xloc>
+                <yloc>9</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
-                <xloc>315</xloc>
-                <yloc>652</yloc>
+                <xloc>1</xloc>
+                <yloc>5</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
-                <xloc>345</xloc>
-                <yloc>631</yloc>
+                <xloc>3</xloc>
+                <yloc>2</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
-                <xloc>348</xloc>
-                <yloc>603</yloc>
+                <xloc>3</xloc>
+                <yloc>5</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
-                <xloc>427</xloc>
-                <yloc>573</yloc>
+                <xloc>8</xloc>
+                <yloc>0</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
-                <xloc>426</xloc>
-                <yloc>668</yloc>
+                <xloc>8</xloc>
+                <yloc>6</yloc>
             </enemy>
         </enemies>
         <blocks>
@@ -178,35 +178,35 @@
         <items>
             <item>
                 <type>Key</type>
-                <xloc>652</xloc>
-                <yloc>588</yloc>
+                <xloc>6</xloc>
+                <yloc>1</yloc>
             </item>
         </items>
         <enemies>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>604</xloc>
-                <yloc>643</yloc>
+                <xloc>3</xloc>
+                <yloc>4</yloc>
             </enemy>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>626</xloc>
-                <yloc>604</yloc>
+                <xloc>4</xloc>
+                <yloc>2</yloc>
             </enemy>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>650</xloc>
-                <yloc>628</yloc>
+                <xloc>6</xloc>
+                <yloc>3</yloc>
             </enemy>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>668</xloc>
-                <yloc>612</yloc>
+                <xloc>7</xloc>
+                <yloc>0</yloc>
             </enemy>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>675</xloc>
-                <yloc>573</yloc>
+                <xloc>7</xloc>
+                <yloc>2</yloc>
             </enemy>
         </enemies> 
         <blocks>
@@ -225,43 +225,43 @@
         <enemies>
             <enemy>
                 <type>Keese</type>
-                <xloc>860</xloc>
-                <yloc>572</yloc>
+                <xloc>3</xloc>
+                <yloc>0</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
-                <xloc>908</xloc>
-                <yloc>600</yloc>
+                <xloc>6</xloc>
+                <yloc>2</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
-                <xloc>909</xloc>
-                <yloc>634</yloc>
+                <xloc>6</xloc>
+                <yloc>4</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
-                <xloc>940</xloc>
-                <yloc>603</yloc>
+                <xloc>8</xloc>
+                <yloc>2</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
-                <xloc>941</xloc>
-                <yloc>636</yloc>
+                <xloc>8</xloc>
+                <yloc>4</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
-                <xloc>973</xloc>
-                <yloc>589</yloc>
+                <xloc>10</xloc>
+                <yloc>1</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
-                <xloc>988</xloc>
-                <yloc>620</yloc>
+                <xloc>10</xloc>
+                <yloc>5</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
-                <xloc>973</xloc>
-                <yloc>652</yloc>
+                <xloc>11</xloc>
+                <yloc>3</yloc>
             </enemy>
         </enemies>
         <blocks>
@@ -280,8 +280,8 @@
         <enemies>
             <enemy>
                 <type>OldMan</type>
-                <xloc>130</xloc>
-                <yloc>434</yloc>
+                <xloc>5</xloc>
+                <yloc>3</yloc>
             </enemy>
         </enemies>
         <blocks>
@@ -300,18 +300,18 @@
         <enemies>
             <enemy>
                 <type>Gel</type>
-                <xloc>380</xloc>
-                <yloc>412</yloc>
+                <xloc>5</xloc>
+                <yloc>1</yloc>
             </enemy>
             <enemy>
                 <type>Gel</type>
-                <xloc>380</xloc>
-                <yloc>474</yloc>
+                <xloc>5</xloc>
+                <yloc>5</yloc>
             </enemy>
             <enemy>
                 <type>Gel</type>
-                <xloc>347</xloc>
-                <yloc>444</yloc>
+                <xloc>3</xloc>
+                <yloc>3</yloc>
             </enemy>
         </enemies>
         <blocks>
