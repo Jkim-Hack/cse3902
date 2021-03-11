@@ -13,8 +13,8 @@ namespace cse3902.Blocks
         private ISprite normalBlockSprite;
 
         private Vector2 blockPushingDirection;
-        private int remainingPixelsToPush;
-        private const int pushSpeed = 1;
+        private float remainingPixelsToPush;
+        private const float pushSpeed = 0.5f;
 
         private Vector2 BlockPushingVector(IBlock.PushDirection direction)
         {

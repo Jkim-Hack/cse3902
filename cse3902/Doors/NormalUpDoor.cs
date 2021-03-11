@@ -11,6 +11,7 @@ namespace cse3902.Doors
         private IDoorSprite doorSprite;
         private Vector3 roomTranslationVector;
         private IDoor.DoorState doorState;
+        private IDoor connectedDoor;
 
         public NormalUpDoor(Game1 game, Vector2 center, IDoor.DoorState initialDoorState)
         {
@@ -46,6 +47,14 @@ namespace cse3902.Doors
                     break;
             }
         }
+        public Vector2 PlayerReleasePosition()
+        {
+            return doorSprite.Center + new Vector2(0, -16);
+        }
+        public Vector2 PlayerReleaseDirection()
+        {
+            return new Vector2(0, 1);
+        }
         public void Draw()
         {
             doorSprite.Draw();
@@ -56,6 +65,10 @@ namespace cse3902.Doors
             {
                 return doorSprite.Boxes;
             }
+        }
+        public IDoor ConnectedDoor
+        {
+            set => connectedDoor = value;
         }
     }
 }

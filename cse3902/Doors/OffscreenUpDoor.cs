@@ -9,6 +9,7 @@ namespace cse3902.Doors
         private Game1 game;
         private Vector3 roomTranslationVector;
         private Vector2 centerPosition;
+        private IDoor connectedDoor;
 
         public OffscreenUpDoor(Game1 game, Vector2 center)
         {
@@ -20,6 +21,14 @@ namespace cse3902.Doors
         public void Interact()
         {
             game.roomHandler.LoadNewRoom(game.roomHandler.currentRoom + roomTranslationVector);
+        }
+        public Vector2 PlayerReleasePosition()
+        {
+            return centerPosition + new Vector2(0, 16);
+        }
+        public Vector2 PlayerReleaseDirection()
+        {
+            return new Vector2(0, 32);
         }
         public void Draw()
         {
@@ -36,6 +45,10 @@ namespace cse3902.Doors
 
                 return hitbox;
             }
+        }
+        public IDoor ConnectedDoor
+        {
+            set => connectedDoor = value;
         }
     }
 }
