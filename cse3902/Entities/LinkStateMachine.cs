@@ -129,6 +129,7 @@ namespace cse3902.Entities
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && this.shoveDistance <= -10) BeShoved(); // JUST FOR TESTING
 
             UpdateDamageDelay(gameTime);
+            
 
             if (this.shoveDistance > -10) ShoveMovement();
             else RegularMovement(gameTime);

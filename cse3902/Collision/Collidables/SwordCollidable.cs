@@ -33,6 +33,11 @@ namespace cse3902.Collision.Collidables
         {
             get => damage;
         }
+
+        public Vector2 Direction
+        {
+            get => this.sword.Direction;
+        }
     }
 
 }
