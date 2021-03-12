@@ -17,6 +17,7 @@ namespace cse3902.Rooms
         private List<IEntity> enemies { get; set; }
         private List<IProjectile> projectiles { get; set; }
         private List<IBlock> blocks { get; set; }
+        private List<IDoor> doors { get; set; }
 
         public Room(Vector3 position)
         {
@@ -28,6 +29,7 @@ namespace cse3902.Rooms
             enemies = new List<IEntity>();
             projectiles = new List<IProjectile>();
             blocks = new List<IBlock>();
+            doors = new List<IDoor>();
         }
 
         public void AddItem (IItem item)
@@ -77,6 +79,12 @@ namespace cse3902.Rooms
         {
             get => blocks;
             set => blocks = value;
+        }
+
+        public List<IDoor> Doors
+        {
+            get => doors;
+            set => doors = value;
         }
     }
 }
