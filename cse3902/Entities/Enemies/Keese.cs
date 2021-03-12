@@ -25,6 +25,7 @@ namespace cse3902.Entities.Enemies
 
         private ICollidable collidable;
         private int health;
+        private Vector2 direction;
 
         public Keese(Game1 game)
         {

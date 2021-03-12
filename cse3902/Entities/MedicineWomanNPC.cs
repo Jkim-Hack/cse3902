@@ -74,6 +74,11 @@ namespace cse3902.Entities
 
         }
 
+        public Vector2 Direction
+        {
+            get => new Vector2(0, 0);
+        }
+
         public ICollidable Collidable
         {
             get => this.collidable;
