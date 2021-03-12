@@ -47,6 +47,11 @@ namespace cse3902.Rooms
             projectiles.Add(projectile);
         }
 
+        public void AddBlock(IBlock block)
+        {
+            blocks.Add(block);
+        }
+
         public bool IsVisited()
         {
             return visited;

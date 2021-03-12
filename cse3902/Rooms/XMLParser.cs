@@ -96,13 +96,20 @@ namespace cse3902.Rooms
             return newEnemy;
         }
 
-        public IBlock createBlock(String type, Vector2 startingPos)
+        public IBlock createBlock(String type, String dir, Vector2 startingPos)
         {
             IBlock newBlock = null;
             switch (type)
             {
                 case "Normal":
-                    newBlock = new NormalBlock(game, startingPos, IBlock.PushDirection.Right, 10);
+                    if (dir.Equals("Still"))
+                    {
+                        newBlock = new NormalBlock(game, startingPos, IBlock.PushDirection.Still, 10);
+                    }
+                    else if (dir.Equals("Down"))
+                    {
+                        newBlock = new NormalBlock(game, startingPos, IBlock.PushDirection.Down, 10);
+                    }
                     break;
                 //case "Water":
                 //    newBlock = new WaterBlock(game, startingPos);
@@ -137,18 +144,18 @@ namespace cse3902.Rooms
         public void parseEnemies(Room room, XElement xmlElem, XDocument doc)
         {
 
-            XName items = XName.Get("enemies", doc.Root.Name.NamespaceName);
-            foreach (var item in xmlElem.Elements(items))
+            XName enemies = XName.Get("enemies", doc.Root.Name.NamespaceName);
+            foreach (var enemy in xmlElem.Elements(enemies))
             {
                 XName type = XName.Get("type", doc.Root.Name.NamespaceName);
 
                 XName xloc = XName.Get("xloc", doc.Root.Name.NamespaceName);
                 XName yloc = XName.Get("yloc", doc.Root.Name.NamespaceName);
 
-                int x = Int32.Parse(item.Element(xloc).Value);
-                int y = Int32.Parse(item.Element(yloc).Value);
+                int x = Int32.Parse(enemy.Element(xloc).Value);
+                int y = Int32.Parse(enemy.Element(yloc).Value);
 
-                IEntity enemyAdd = createEnemy(item.Element(type).Value, new Vector2(x, y));
+                IEntity enemyAdd = createEnemy(enemy.Element(type).Value, new Vector2(x, y));
                 room.AddEnemy(enemyAdd);
             }
 
@@ -157,19 +164,19 @@ namespace cse3902.Rooms
         public void parseBlocks(Room room, XElement xmlElem, XDocument doc)
         {
 
-            XName items = XName.Get("items", doc.Root.Name.NamespaceName);
-            foreach (var item in xmlElem.Elements(items))
+            XName blocks = XName.Get("blocks", doc.Root.Name.NamespaceName);
+            foreach (var block in xmlElem.Elements(blocks))
             {
                 XName type = XName.Get("type", doc.Root.Name.NamespaceName);
-
+                XName dir = XName.Get("dir", doc.Root.Name.NamespaceName);
                 XName xloc = XName.Get("xloc", doc.Root.Name.NamespaceName);
                 XName yloc = XName.Get("yloc", doc.Root.Name.NamespaceName);
 
-                int x = Int32.Parse(item.Element(xloc).Value);
-                int y = Int32.Parse(item.Element(yloc).Value);
+                int x = Int32.Parse(block.Element(xloc).Value);
+                int y = Int32.Parse(block.Element(yloc).Value);
 
-                IItem itemAdd = createItem(item.Element(type).Value, new Vector2(x, y));
-                room.AddItem(itemAdd);
+                IBlock blockAdd = createBlock(block.Element(type).Value, block.Element(dir).Value, new Vector2(x, y));
+                room.AddBlock(blockAdd);
             }
 
         }
@@ -200,7 +207,8 @@ namespace cse3902.Rooms
                 roomHandler.rooms.Add(roomTup, currentRoom);
 
                 parseItems(currentRoom, room, doc);
-
+                parseEnemies(currentRoom, room, doc);
+                parseBlocks(currentRoom, room, doc);
             }
         }
     }
