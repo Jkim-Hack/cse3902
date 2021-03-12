@@ -7,6 +7,7 @@ using cse3902.Rooms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.SpriteFactory;
+using cse3902.Collision;
 
 namespace cse3902
 {
@@ -29,6 +30,8 @@ namespace cse3902
         public IPlayer player { get; set; }
 
         public ProjectileHandler projectileHandler { get; set; }
+
+        public CollisionManager collisionManager { get; set; }
 
         public Camera camera { get; set;  }
 
@@ -54,6 +57,7 @@ namespace cse3902
             projectileHandler = ProjectileHandler.Instance;
             enemyNPCHandler = new EnemyNPCHandler(this);
             blockHandler = new BlockHandler(this);
+            collisionManager = new CollisionManager(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
 
             this.IsMouseVisible = true;
 	        base.Initialize();
@@ -112,6 +116,8 @@ namespace cse3902
             itemHandler.Update(gameTime);
             enemyNPCHandler.Update(gameTime);
             blockHandler.Update(gameTime);
+
+            collisionManager.Update();
 
             camera.Update();
 
