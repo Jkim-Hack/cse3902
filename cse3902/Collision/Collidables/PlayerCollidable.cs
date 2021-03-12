@@ -44,9 +44,10 @@ namespace cse3902.Collision.Collidables
                 //movable block
                 //staircase
 
-            } else
+            } else if (collidableObject is ItemCollidable)
             {
-
+                //link needs to pick the item up (remove it from game)
+                //then add the item to inventory
             }
            
         }

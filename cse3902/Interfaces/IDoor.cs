@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using cse3902.Collision;
 
 namespace cse3902.Interfaces
 {
@@ -12,11 +13,13 @@ namespace cse3902.Interfaces
             Locked,
             Wall
         }
+        public ICollidable collidable { get; }
 
         // Bounds[0] = Room transition collidable rectangle
         // Rest are normal hitboxes
-        public List<Rectangle> Bounds { get; }
+        public ref List<Rectangle> Bounds { get; }
         public void Interact();
         public void Draw();
+
     }
 }

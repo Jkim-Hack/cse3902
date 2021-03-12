@@ -23,7 +23,7 @@ namespace cse3902.Collision.Collidables
 
             if (collidableObject is PlayerCollidable)
             {
-                //figure out the direction of the player and pass the vector accordingly
+                //if player moving in push direction of block, call move() with link's direction vector
             } else
             {
                 //do nothing
