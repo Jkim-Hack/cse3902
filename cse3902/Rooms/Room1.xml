@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <rooms>
     <room>
-        <number>0</number>
+        <number>0,0</number>
         <surroundings>
             <top>-1</top>
             <down>-1</down>
@@ -9,14 +9,36 @@
             <left>-1</left>
         </surroundings>
         <items>
+            <item>
+                <type>Key</type>
+                <xloc>426</xloc>
+                <yloc>1021</yloc>
+            </item>
         </items>
         <enemies>
+            <enemy>
+                <type>Keese</type>
+                <xloc>316</xloc>
+                <yloc>943</yloc>
+            </enemy>
+            <enemy>
+                <type>Keese</type>
+                <xloc>347</xloc>
+                <yloc>958</yloc>
+            </enemy>
+            <enemy>
+                <type>Keese</type>
+                <xloc>315</xloc>
+                <yloc>1006</yloc>
+            </enemy>
         </enemies>
         <blocks>
         </blocks>
+        <door>
+        </door>
     </room>
     <room>
-        <number>1</number>
+        <number>0,1</number>
         <surroundings>
             <top>3</top>
             <down>-1</down>
@@ -26,11 +48,6 @@
         <items>
         </items>
         <enemies>
-            <enemy>
-                <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
-            </enemy>
         </enemies> 
         <blocks>
         </blocks>
@@ -44,22 +61,32 @@
             <left>1</left>
         </surroundings>
         <items>
-            <item>
-                <type>Arrow</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
-            </item>
-            <item>
-                <type>Bow</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
-            </item>
         </items>
         <enemies>
             <enemy>
-                <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
+                <type>Stalfos</type>
+                <xloc>861</xloc>
+                <yloc>1006</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>980</xloc>
+                <yloc>1006</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>916</xloc>
+                <yloc>991</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>908</xloc>
+                <yloc>950</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>964</xloc>
+                <yloc>941</yloc>
             </enemy>
         </enemies> 
         <blocks>
@@ -77,9 +104,19 @@
         </items>
         <enemies>
             <enemy>
-                <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
+                <type>Stalfos</type>
+                <xloc>610</xloc>
+                <yloc>751</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>618</xloc>
+                <yloc>790</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>611</xloc>
+                <yloc>814</yloc>
             </enemy>
         </enemies> 
         <blocks>
@@ -97,9 +134,34 @@
         </items>
         <enemies>
             <enemy>
-                <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
+                <type>Keese</type>
+                <xloc>300</xloc>
+                <yloc>620</yloc>
+            </enemy>
+            <enemy>
+                <type>Keese</type>
+                <xloc>315</xloc>
+                <yloc>652</yloc>
+            </enemy>
+            <enemy>
+                <type>Keese</type>
+                <xloc>345</xloc>
+                <yloc>631</yloc>
+            </enemy>
+            <enemy>
+                <type>Keese</type>
+                <xloc>348</xloc>
+                <yloc>603</yloc>
+            </enemy>
+            <enemy>
+                <type>Keese</type>
+                <xloc>427</xloc>
+                <yloc>573</yloc>
+            </enemy>
+            <enemy>
+                <type>Keese</type>
+                <xloc>426</xloc>
+                <yloc>668</yloc>
             </enemy>
         </enemies>
         <blocks>
@@ -114,12 +176,37 @@
             <left>4</left>
         </surroundings>
         <items>
+            <item>
+                <type>Key</type>
+                <xloc>652</xloc>
+                <yloc>588</yloc>
+            </item>
         </items>
         <enemies>
             <enemy>
-                <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
+                <type>Stalfos</type>
+                <xloc>604</xloc>
+                <yloc>643</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>626</xloc>
+                <yloc>604</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>650</xloc>
+                <yloc>628</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>668</xloc>
+                <yloc>612</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>675</xloc>
+                <yloc>573</yloc>
             </enemy>
         </enemies> 
         <blocks>
@@ -137,9 +224,44 @@
         </items>
         <enemies>
             <enemy>
-                <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
+                <type>Keese</type>
+                <xloc>860</xloc>
+                <yloc>572</yloc>
+            </enemy>
+            <enemy>
+                <type>Keese</type>
+                <xloc>908</xloc>
+                <yloc>600</yloc>
+            </enemy>
+            <enemy>
+                <type>Keese</type>
+                <xloc>909</xloc>
+                <yloc>634</yloc>
+            </enemy>
+            <enemy>
+                <type>Keese</type>
+                <xloc>940</xloc>
+                <yloc>603</yloc>
+            </enemy>
+            <enemy>
+                <type>Keese</type>
+                <xloc>941</xloc>
+                <yloc>636</yloc>
+            </enemy>
+            <enemy>
+                <type>Keese</type>
+                <xloc>973</xloc>
+                <yloc>589</yloc>
+            </enemy>
+            <enemy>
+                <type>Keese</type>
+                <xloc>988</xloc>
+                <yloc>620</yloc>
+            </enemy>
+            <enemy>
+                <type>Keese</type>
+                <xloc>973</xloc>
+                <yloc>652</yloc>
             </enemy>
         </enemies>
         <blocks>
@@ -157,9 +279,9 @@
         </items>
         <enemies>
             <enemy>
-                <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
+                <type>OldMan</type>
+                <xloc>130</xloc>
+                <yloc>434</yloc>
             </enemy>
         </enemies>
         <blocks>
@@ -177,9 +299,19 @@
         </items>
         <enemies>
             <enemy>
-                <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
+                <type>Gel</type>
+                <xloc>380</xloc>
+                <yloc>412</yloc>
+            </enemy>
+            <enemy>
+                <type>Gel</type>
+                <xloc>380</xloc>
+                <yloc>474</yloc>
+            </enemy>
+            <enemy>
+                <type>Gel</type>
+                <xloc>347</xloc>
+                <yloc>444</yloc>
             </enemy>
         </enemies>
         <blocks>
@@ -194,12 +326,37 @@
             <left>8</left>
         </surroundings>
         <items>
+            <item>
+                <type>Map</type>
+                <xloc>716</xloc>
+                <yloc>443</yloc>
+            </item> 
         </items>
         <enemies>
             <enemy>
-                <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
+                <type>Gel</type>
+                <xloc>588</xloc>
+                <yloc>395</yloc>
+            </enemy>
+            <enemy>
+                <type>Gel</type>
+                <xloc>660</xloc>
+                <yloc>395</yloc>
+            </enemy>
+            <enemy>
+                <type>Gel</type>
+                <xloc>609</xloc>
+                <yloc>429</yloc>
+            </enemy>
+            <enemy>
+                <type>Gel</type>
+                <xloc>681</xloc>
+                <yloc>426</yloc>
+            </enemy>
+            <enemy>
+                <type>Gel</type>
+                <xloc>604</xloc>
+                <yloc>475</yloc>
             </enemy>
         </enemies> 
         <blocks>
@@ -217,9 +374,19 @@
         </items>
         <enemies>
             <enemy>
-                <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
+                <type>Goriya</type>
+                <xloc>925</xloc>
+                <yloc>395</yloc>
+            </enemy>
+            <enemy>
+                <type>Goriya</type>
+                <xloc>964</xloc>
+                <yloc>411</yloc>
+            </enemy>
+            <enemy>
+                <type>Goriya</type>
+                <xloc>925</xloc>
+                <yloc>460</yloc>
             </enemy>
         </enemies> 
         <blocks>
@@ -234,12 +401,52 @@
             <left>10</left>
         </surroundings>
         <items>
+            <item>
+                <type>Key</type>
+                <xloc>1198</xloc>
+                <yloc>491</yloc>
+            </item> 
         </items>
         <enemies>
             <enemy>
-                <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
+                <type>Wallmaster</type>
+                <xloc>1102</xloc>
+                <yloc>395</yloc>
+            </enemy>
+            <enemy>
+                <type>Wallmaster</type>
+                <xloc>1118</xloc>
+                <yloc>394</yloc>
+            </enemy>
+            <enemy>
+                <type>Wallmaster</type>
+                <xloc>1215</xloc>
+                <yloc>394</yloc>
+            </enemy>
+            <enemy>
+                <type>Wallmaster</type>
+                <xloc>1239</xloc>
+                <yloc>397</yloc>
+            </enemy>
+            <enemy>
+                <type>Wallmaster</type>
+                <xloc>1068</xloc>
+                <yloc>446</yloc>
+            </enemy>
+            <enemy>
+                <type>Wallmaster</type>
+                <xloc>1070</xloc>
+                <yloc>466</yloc>
+            </enemy>
+            <enemy>
+                <type>Wallmaster</type>
+                <xloc>1244</xloc>
+                <yloc>458</yloc>
+            </enemy>
+            <enemy>
+                <type>Wallmaster</type>
+                <xloc>1246</xloc>
+                <yloc>483</yloc>
             </enemy>
         </enemies> 
         <blocks>
@@ -257,9 +464,19 @@
         </items>
         <enemies>
             <enemy>
-                <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
+                <type>Stalfos</type>
+                <xloc>587</xloc>
+                <yloc>234</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>602</xloc>
+                <yloc>274</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>715</xloc>
+                <yloc>242</yloc>
             </enemy>
         </enemies> 
         <blocks>
@@ -274,12 +491,17 @@
             <left>-1</left>
         </surroundings>
         <items>
+            <item>
+                <type>HeartContainer</type>
+                <xloc>1229</xloc>
+                <yloc>256</yloc>
+            </item> 
         </items>
         <enemies>
             <enemy>
                 <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
+                <xloc>1188</xloc>
+                <yloc>258</yloc>
             </enemy>
         </enemies> 
         <blocks>
@@ -294,13 +516,13 @@
             <left>13</left>
         </surroundings>
         <items>
+            <item>
+                <type>Triforce</type>
+                <xloc>1412</xloc>
+                <yloc>274</yloc>
+            </item> 
         </items>
         <enemies>
-            <enemy>
-                <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
-            </enemy>
         </enemies> 
         <blocks>
         </blocks>
@@ -334,12 +556,27 @@
             <left>15</left>
         </surroundings>
         <items>
+            <item>
+                <type>Arrow</type>
+                <xloc>653</xloc>
+                <yloc>57</yloc>
+            </item> 
         </items>
         <enemies>
             <enemy>
-                <type>Aquamentus</type>
-                <xloc>40</xloc>
-                <yloc>80</yloc>
+                <type>Goriya</type>
+                <xloc>670</xloc>
+                <yloc>74</yloc>
+            </enemy>
+            <enemy>
+                <type>Goriya</type>
+                <xloc>676</xloc>
+                <yloc>40</yloc>
+            </enemy>
+            <enemy>
+                <type>Goriya</type>
+                <xloc>690</xloc>
+                <yloc>105</yloc>
             </enemy>
         </enemies> 
         <blocks>

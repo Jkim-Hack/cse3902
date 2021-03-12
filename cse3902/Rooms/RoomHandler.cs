@@ -2,90 +2,65 @@
 using System;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using cse3902.Items;
 using cse3902.Interfaces;
+using cse3902.Sprites;
+using cse3902.SpriteFactory;
 
 namespace cse3902.Rooms
 {
     public class RoomHandler
     {
-        private SpriteBatch spriteBatch;
-        private List<Room> rooms;
+        public const int ROOM_WIDTH = 256;
+        public const int ROOM_HEIGHT = 176;
+        public const int NUM_ROOMS_X = 6;
+        public const int NUM_ROOMS_Y = 6;
+        public const int CAMERA_CYCLES = 30;
 
-        private int roomIndex = 0;
+        private Camera camera;
+        public Dictionary<Vector3, Room> rooms;
 
-        public RoomHandler(SpriteBatch sb)
+        private XMLParser xmlParser;
+
+        public Vector3 currentRoom { get; set; }
+
+        public RoomHandler(SpriteBatch sb, Camera cam)
         {
-            spriteBatch = sb;
-            rooms = new List<Room>();
+            rooms = new Dictionary<Vector3, Room>();
+            camera = cam;
+            xmlParser = new XMLParser(this, sb);
         }
 
         public void Initialize()
         {
             String url = "https://raw.githubusercontent.com/Jkim-Hack/cse3902/file-input/cse3902/Rooms/Room1.xml";
-            parseXML(url);
+            xmlParser.parseXML(url);
         }
 
-        public void CycleNext()
+        public void LoadNewRoom(Vector3 newPos)
         {
-            roomIndex++;
-            if (roomIndex >= rooms.Count)
+            Room newRoom = rooms.GetValueOrDefault(newPos);
+
+            if (currentRoom.Z == newPos.Z)
             {
-                roomIndex = 0;
+                camera.SmoothMoveCamera(new Vector2( (newPos.X - currentRoom.X) * ROOM_WIDTH, (newPos.Y - currentRoom.Y) * ROOM_HEIGHT), CAMERA_CYCLES);
             }
-        }
-
-        public void CyclePrev()
-        {
-            roomIndex--;
-            if (roomIndex < 0)
+            else
             {
-                roomIndex = rooms.Count - 1;
-            }
-        }
-
-        public IItem createItem(String type)
-        {
-            return null;
-            //return ItemSpriteFactory.Instance.CreateArrowItem();
-        }
-
-        public void parseItems(Room room, XElement xmlElem, XDocument doc)
-        {
-
-            XName items = XName.Get("items", doc.Root.Name.NamespaceName);
-            foreach (var item in xmlElem.Elements(items))
-            {
-                XName type = XName.Get("type", doc.Root.Name.NamespaceName);
-
-                IItem itemAdd = createItem(item.Element(type).Value);
-                room.AddItem(itemAdd);
+                camera.MoveCamera(new Vector2( (newPos.X + (NUM_ROOMS_X * newPos.Z)) * ROOM_WIDTH , newPos.Y * ROOM_HEIGHT), ROOM_WIDTH, ROOM_HEIGHT);
             }
             
-        }
+            List<IItem> oldItems = rooms.GetValueOrDefault(currentRoom).Items;
+            RoomItems.Instance.LoadNewRoom(ref oldItems, newRoom.Items);
+            rooms.GetValueOrDefault(currentRoom).Items = oldItems;
 
-        public void parseXML(String filename)
-        {
-            XDocument doc = XDocument.Load(filename);
-            XElement map = XElement.Load(filename);
+            List<IEntity> oldEnemies = rooms.GetValueOrDefault(currentRoom).Enemies;
+            RoomEnemyNPCs.Instance.LoadNewRoom(ref oldEnemies, newRoom.Enemies);
+            rooms.GetValueOrDefault(currentRoom).Enemies = oldEnemies;
 
-            int roomNum;
-
-            XName roomName = XName.Get("rooms", doc.Root.Name.NamespaceName);
-
-            foreach (var room in map.Elements(roomName))
-            {
-                Room currentRoom;
-
-                XName chil = XName.Get("room", doc.Root.Name.NamespaceName);
-                XName num = XName.Get("number", doc.Root.Name.NamespaceName);
-
-                roomNum = Int32.Parse(room.Element(num).Value);
-
-                Console.WriteLine();
-            }
-
-
+            currentRoom = newPos;
+            rooms.GetValueOrDefault(newPos).SetToVisited();
         }
 
     }
