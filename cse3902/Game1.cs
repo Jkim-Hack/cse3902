@@ -21,6 +21,8 @@ namespace cse3902
 
         List<IController> controllerList;
 
+        // TODO: Master list goes here, talk with group about multiple types
+
         public ItemHandler itemHandler { get; set; }
         public EnemyNPCHandler enemyNPCHandler { get; set; }
         public BlockHandler blockHandler { get; set; }
