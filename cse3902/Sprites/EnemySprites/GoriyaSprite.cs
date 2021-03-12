@@ -35,7 +35,7 @@ namespace cse3902.Sprites.EnemySprites
 
         private Rectangle destination;
 
-        private const float sizeIncrease = 2f;
+        private const float sizeIncrease = 1f;
 
         public GoriyaSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
         {

@@ -102,6 +102,7 @@ namespace cse3902.Entities
         
 	    public Vector2 CenterPosition
         {
+            set => linkStateMachine.CenterPosition = value;
             get => linkStateMachine.CenterPosition;
         }
 

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
 using cse3902.SpriteFactory;
-using System.Collections.Generic;
 
 namespace cse3902.Doors
 {
@@ -11,6 +10,7 @@ namespace cse3902.Doors
         private IDoorSprite doorSprite;
         private Vector3 roomTranslationVector;
         private IDoor.DoorState doorState;
+        private IDoor connectedDoor;
 
         public NormalUpDoor(Game1 game, Vector2 center, IDoor.DoorState initialDoorState)
         {
@@ -25,7 +25,7 @@ namespace cse3902.Doors
             switch (doorState)
             {
                 case IDoor.DoorState.Open:
-                    game.roomHandler.LoadNewRoom(game.roomHandler.currentRoom + roomTranslationVector);
+                    game.roomHandler.LoadNewRoom(game.roomHandler.currentRoom + roomTranslationVector, connectedDoor);
                     break;
                 case IDoor.DoorState.Closed:
                 case IDoor.DoorState.Locked:
@@ -46,16 +46,28 @@ namespace cse3902.Doors
                     break;
             }
         }
+        public Vector2 PlayerReleasePosition()
+        {
+            return doorSprite.Center + new Vector2(0, -16);
+        }
+        public Vector2 PlayerReleaseDirection()
+        {
+            return new Vector2(0, 1);
+        }
         public void Draw()
         {
             doorSprite.Draw();
         }
-        public List<Rectangle> Bounds
+        public ref Rectangle Bounds
         {
             get
             {
-                return doorSprite.Boxes;
+                return ref doorSprite.Box;
             }
+        }
+        public IDoor ConnectedDoor
+        {
+            set => connectedDoor = value;
         }
     }
 }

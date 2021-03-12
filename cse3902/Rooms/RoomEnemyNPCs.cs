@@ -59,14 +59,14 @@ namespace cse3902.Rooms
 
             for (int i = 0; i < enpcs.Count; i++)
             {
-                oldList[i] = enpcs[i];
+                oldList.Add(enpcs[i]);
             }
 
             enpcs = new List<IEntity>();
 
             for (int i = 0; i < newList.Count; i++)
             {
-                enpcs[i] = newList[i];
+                enpcs.Add(newList[i]);
             }
 
         }
