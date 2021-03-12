@@ -21,7 +21,7 @@ namespace cse3902.Doors
 
         public void Interact()
         {
-            game.roomHandler.LoadNewRoom(game.roomHandler.currentRoom + roomTranslationVector);
+            game.roomHandler.LoadNewRoom(game.roomHandler.currentRoom + roomTranslationVector, connectedDoor);
         }
         public Vector2 PlayerReleasePosition()
         {

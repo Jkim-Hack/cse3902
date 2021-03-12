@@ -18,18 +18,21 @@ namespace cse3902.Rooms
         public const int NUM_ROOMS_Y = RoomUtilities.NUM_ROOMS_Y;
         public const int CAMERA_CYCLES = RoomUtilities.CAMERA_CYCLES;
 
-        private Camera camera;
         public Dictionary<Vector3, Room> rooms;
 
         private XMLParser xmlParser;
 
+        private Camera camera;
+        private RoomTransitionManager roomTransitionManager;
+
         public Vector3 currentRoom { get; set; }
 
-        public RoomHandler(SpriteBatch sb, Camera cam)
+        public RoomHandler(Game1 game)
         {
             rooms = new Dictionary<Vector3, Room>();
-            camera = cam;
-            xmlParser = new XMLParser(this, sb);
+            xmlParser = new XMLParser(this, game.spriteBatch);
+            roomTransitionManager = new RoomTransitionManager(game);
+            this.camera = game.camera;
         }
 
         public void Initialize()
@@ -38,7 +41,7 @@ namespace cse3902.Rooms
             xmlParser.parseXML(url);
         }
 
-        public void LoadNewRoom(Vector3 newPos)
+        public void LoadNewRoom(Vector3 newPos, IDoor entranceDoor)
         {
             Room newRoom = rooms.GetValueOrDefault(newPos);
 
@@ -61,7 +64,24 @@ namespace cse3902.Rooms
 
             currentRoom = newPos;
             rooms.GetValueOrDefault(newPos).SetToVisited();
+
+            roomTransitionManager.StartTransitionManager(entranceDoor);
         }
 
+        public void Update()
+        {
+            if (roomTransitionManager.IsTransitioning()) roomTransitionManager.Update();
+            else
+            {
+                //update things normally
+            }
+        }
+        public void Draw()
+        {
+            if (!roomTransitionManager.IsTransitioning())
+            {
+                //draw things normally
+            }
+        }
     }
 }
