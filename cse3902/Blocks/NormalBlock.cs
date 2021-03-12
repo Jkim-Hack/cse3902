@@ -1,6 +1,5 @@
 ﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
-using cse3902.SpriteFactory;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
 
@@ -37,7 +36,7 @@ namespace cse3902.Blocks
 
         private ICollidable collidable;
 
-        public NormalBlock(Game1 game, Vector2 center, IBlock.PushDirection direction, int pixelsToPush, ISprite sprite)
+        public NormalBlock(Game1 game, IBlock.PushDirection direction, int pixelsToPush, ISprite sprite)
         {
             this.game = game;
 
