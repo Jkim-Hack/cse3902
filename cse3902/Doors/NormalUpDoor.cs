@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
 using cse3902.SpriteFactory;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 
 namespace cse3902.Doors
 {
@@ -11,6 +13,7 @@ namespace cse3902.Doors
         private Vector3 roomTranslationVector;
         private IDoor.DoorState doorState;
         private IDoor connectedDoor;
+        private ICollidable collidable;
 
         public NormalUpDoor(Game1 game, Vector2 center, IDoor.DoorState initialDoorState)
         {
@@ -18,6 +21,8 @@ namespace cse3902.Doors
             doorSprite = DoorSpriteFactory.Instance.CreateUpDoorSprite(game.spriteBatch, center, initialDoorState);
             roomTranslationVector = new Vector3(0, -1, 0);
             doorState = initialDoorState;
+
+            this.collidable = new DoorCollidable(this);
         }
 
         public void Interact()
@@ -68,6 +73,11 @@ namespace cse3902.Doors
         public IDoor ConnectedDoor
         {
             set => connectedDoor = value;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }
