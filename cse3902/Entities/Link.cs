@@ -81,6 +81,12 @@ namespace cse3902.Entities
         {
             linkStateMachine.UseItem();
         }
+
+        public void AddItem(IItem item)
+        {
+
+        }
+
         public void ChangeItem(int itemNum)
         {
             linkStateMachine.ChangeItem(itemNum);

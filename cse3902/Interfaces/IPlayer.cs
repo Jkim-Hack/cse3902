@@ -7,6 +7,8 @@ namespace cse3902.Interfaces
     {
         public void UseItem();
 
+        public void AddItem(IItem item);
+
         public void ChangeItem(int index);
 
         public void ChangeWeapon(int index);
