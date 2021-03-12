@@ -16,42 +16,39 @@ namespace cse3902.Rooms
     public class XMLParser
     {
         private RoomHandler roomHandler;
-        private SpriteBatch spriteBatch;
         private Game1 game;
 
-        public XMLParser(RoomHandler roomHand, SpriteBatch sb, Game1 gm)
+        public XMLParser(RoomHandler roomHand, Game1 gm)
         {
             roomHandler = roomHand;
-            spriteBatch = sb;
             game = gm;
         }
 
         public IItem createItem(String type, Vector2 startPos)
         {
             IItem newItem = null;
-            //return ItemSpriteFactory.Instance.CreateArrowItem();
             switch (type)
             {
                 case "Arrow":
-                    newItem = ItemSpriteFactory.Instance.CreateArrowItem(spriteBatch, startPos, new Vector2(1, 0));
+                    newItem = ItemSpriteFactory.Instance.CreateArrowItem(game.spriteBatch, startPos, new Vector2(1, 0));
                     break;
                 case "Bow":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(game.spriteBatch, startPos);
                     break;
                 case "Clock":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(game.spriteBatch, startPos);
                     break;
                 case "Compass":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateCompassItem(spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateCompassItem(game.spriteBatch, startPos);
                     break;
                 case "Fairy":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateFairyItem(spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateFairyItem(game.spriteBatch, startPos);
                     break;
                 case "HeartContainer":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartContainerItem(spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartContainerItem(game.spriteBatch, startPos);
                     break;
                 case "Heart":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartItem(spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartItem(game.spriteBatch, startPos);
                     break;
                 default:
                     //createdItem = null;
@@ -63,7 +60,6 @@ namespace cse3902.Rooms
         public IEntity createEnemy(String type, Vector2 startingPos)
         {
             IEntity newEnemy = null;
-            //return ItemSpriteFactory.Instance.CreateArrowItem();
             switch (type)
             {
                 case "Aquamentus":
@@ -103,7 +99,6 @@ namespace cse3902.Rooms
         public IBlock createBlock(String type, Vector2 startingPos)
         {
             IBlock newBlock = null;
-            //return ItemSpriteFactory.Instance.CreateArrowItem();
             switch (type)
             {
                 case "Normal":
@@ -118,8 +113,6 @@ namespace cse3902.Rooms
             }
             return newBlock;
         }
-
-
 
         public void parseItems(Room room, XElement xmlElem, XDocument doc)
         {
