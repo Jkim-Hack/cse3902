@@ -32,7 +32,7 @@ namespace cse3902.Rooms
             rooms = new Dictionary<Vector3, Room>();
             xmlParser = new XMLParser(this, game);
             roomTransitionManager = new RoomTransitionManager(game);
-            this.camera = game.camera;
+            camera = game.camera;
         }
 
         public void Initialize()
