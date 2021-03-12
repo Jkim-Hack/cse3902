@@ -46,8 +46,8 @@ namespace cse3902.Collision.Collidables
 
             } else if (collidableObject is ItemCollidable)
             {
-                //link needs to pick the item up (remove it from game)
-                //then add the item to inventory
+                this.player.AddItem(((ItemCollidable)collidableObject).Item);
+                //todo: destroy item object from floor/wherever
             }
            
         }
