@@ -44,5 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Blocks\WaterBlock.cs" />
+    <Compile Remove="Entities\EnemyStateMachine.cs" />
   </ItemGroup>
 </Project>

@@ -26,6 +26,7 @@ namespace cse3902.Entities.Enemies
         private Boolean pauseAnim;
 
         private ICollidable collidable;
+        private int health;
 
         public Aquamentus(Game1 game, Vector2 start)
         {
@@ -42,6 +43,7 @@ namespace cse3902.Entities.Enemies
             pauseAnim = false;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
+            health = 10;
         }
 
         public ref Rectangle Bounds
@@ -61,6 +63,7 @@ namespace cse3902.Entities.Enemies
 
         public void TakeDamage(int damage)
         {
+            this.Health -= damage;
         }
 
         public void Die()
@@ -130,6 +133,20 @@ namespace cse3902.Entities.Enemies
         public int Damage
         {
             get => 3;
+        }
+
+        public int Health
+        {
+            get => this.health;
+            set
+            {
+                this.health = value;
+            }
+        }
+
+        public Vector2 Direction
+        {
+            get => this.direction;
         }
 
         public ICollidable Collidable
