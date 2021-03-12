@@ -13,7 +13,7 @@ namespace cse3902.Interfaces
             Locked,
             Wall
         }
-        public ICollidable collidable { get; }
+        public ICollidable Collidable { get; }
 
         // Bounds[0] = Room transition collidable rectangle
         // Rest are normal hitboxes
