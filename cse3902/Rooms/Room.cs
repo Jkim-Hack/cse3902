@@ -9,13 +9,14 @@ namespace cse3902.Rooms
 {
     public class Room
     {
-        private bool visited;
-      
+        private bool visited;   
+
         public Vector3 roomPos { get; set; }
 
         private List<IItem> items { get; set; }
         private List<IEntity> enemies { get; set; }
         private List<IProjectile> projectiles { get; set; }
+        private List<IBlock> blocks { get; set; }
 
         public Room(Vector3 position)
         {
@@ -26,6 +27,7 @@ namespace cse3902.Rooms
             items = new List<IItem>();
             enemies = new List<IEntity>();
             projectiles = new List<IProjectile>();
+            blocks = new List<IBlock>();
         }
 
         public void AddItem (IItem item)
@@ -69,6 +71,12 @@ namespace cse3902.Rooms
         {
             get => projectiles;
             set => projectiles = value;
+        }
+
+        public List<IBlock> Blocks
+        {
+            get => blocks;
+            set => blocks = value;
         }
     }
 }

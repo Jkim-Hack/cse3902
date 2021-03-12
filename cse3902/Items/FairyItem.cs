@@ -22,7 +22,7 @@ namespace cse3902.Items
         private const float delay = 0.2f;
         private float remainingDelay;
 
-        private const float sizeIncrease = 2f;
+        private const float sizeIncrease = 1f;
 
         private Rectangle destination;
 

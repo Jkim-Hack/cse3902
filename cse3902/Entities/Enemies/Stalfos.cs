@@ -25,10 +25,10 @@ namespace cse3902.Entities.Enemies
         private ICollidable collidable;
         private int health;
 
-        public Stalfos(Game1 game)
+        public Stalfos(Game1 game, Vector2 start)
         {
             this.game = game;
-            startingPos = new Vector2(500, 200);
+            startingPos = start;
             center = startingPos;
 
             //stalfos sprite sheet is 1 row, 2 columns

@@ -28,11 +28,10 @@ namespace cse3902.Entities.Enemies
         private ICollidable collidable;
         private int health;
 
-        public Aquamentus(Game1 game)
+        public Aquamentus(Game1 game, Vector2 start)
         {
             this.game = game;
-
-            startingPos = new Vector2(500, 200);
+            startingPos = start;
             center = startingPos;
             aquamentusSprite = (AquamentusSprite)EnemySpriteFactory.Instance.CreateAquamentusSprite(game.spriteBatch, center);
             aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.spriteBatch, this.center);

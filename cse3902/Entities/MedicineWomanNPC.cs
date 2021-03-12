@@ -18,10 +18,10 @@ namespace cse3902.Entities
 
         private ICollidable collidable;
 
-        public MedicineWomanNPC(Game1 game)
+        public MedicineWomanNPC(Game1 game, Vector2 start)
         {
             this.game = game;
-            centerPosition = new Vector2(500, 200);
+            centerPosition = start;
             medicineWomanSprite = NPCSpriteFactory.Instance.CreateMedicineWomanSprite(game.spriteBatch, centerPosition);
 
             this.collidable = new NPCCollidable(this);

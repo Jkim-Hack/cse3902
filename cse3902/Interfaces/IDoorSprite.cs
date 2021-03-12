@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 
 namespace cse3902.Interfaces
 {
@@ -9,6 +8,6 @@ namespace cse3902.Interfaces
         public void Erase();
         public int Update(GameTime gameTime);
         public Vector2 Center { get; set; }
-        public List<Rectangle> Boxes { get; }
+        public ref Rectangle Box { get; }
     }
 }

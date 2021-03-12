@@ -30,7 +30,7 @@ namespace cse3902.Sprites
         private Vector2 center;
         private Vector2 startingPosition;
         private Vector2 size;
-        private const float sizeIncrease = 2f;
+        private const float sizeIncrease = 1f;
 
         private bool isDamage;
 

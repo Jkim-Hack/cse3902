@@ -18,10 +18,10 @@ namespace cse3902.Entities
 
         private ICollidable collidable;
 
-        public MerchantNPC(Game1 game)
+        public MerchantNPC(Game1 game, Vector2 start)
         {
             this.game = game;
-            centerPosition = new Vector2(500, 200);
+            centerPosition = start;
             merchantSprite = NPCSpriteFactory.Instance.CreateMerchantSprite(game.spriteBatch, centerPosition);
 
             this.collidable = new NPCCollidable(this);
