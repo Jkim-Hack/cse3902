@@ -19,10 +19,11 @@ namespace cse3902.Entities.DamageMasks
 	    private List<Color[]> allMaskColors;
         private int totalColors;
         private int totalMasks;
+        private int startingColorIndex;
 
         private int currentMaskIndex;
 
-        public DamageMaskHandler(Texture2D spriteTexture, Texture2D damageSequenceTexture, int sequenceRows, int sequenceColumns)
+        public DamageMaskHandler(Texture2D spriteTexture, Texture2D damageSequenceTexture, int sequenceRows, int sequenceColumns, int startingColorIndex)
         {
             this.spriteTexture = spriteTexture;
 	        this.damageSequenceTexture = damageSequenceTexture;
@@ -35,6 +36,8 @@ namespace cse3902.Entities.DamageMasks
 
             originalData = new Color[spriteTexture.Width * spriteTexture.Height];
             spriteTexture.GetData(originalData);
+
+            this.startingColorIndex = startingColorIndex;
 
             allMaskColors = new List<Color[]>();
             textureColorSequence = new List<Color[]>();
@@ -94,7 +97,7 @@ namespace cse3902.Entities.DamageMasks
                 {
                     for (int i = 1; i < totalMasks; i++)
                     {
-                        if (originalData[j] == allMaskColors[0][k])
+                        if (originalData[j] == allMaskColors[startingColorIndex][k])
                         {
                             Color maskColor = allMaskColors[i][k];
                             textureColorSequence[i][j] = maskColor;

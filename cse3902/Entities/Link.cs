@@ -24,7 +24,7 @@ namespace cse3902.Entities
             // TODO Add this into sprite factory
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
             Texture2D linkDamageSequenceTexture = game.Content.Load<Texture2D>("LinkDamageSequence");
-            DamageMaskHandler linkDamageMaskHandler = new DamageMaskHandler(linkTexture, linkDamageSequenceTexture, 1, 4);
+            DamageMaskHandler linkDamageMaskHandler = new DamageMaskHandler(linkTexture, linkDamageSequenceTexture, 1, 4, 0);
 
             Vector2 centerPosition = new Vector2(50, 200);
             linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 6, 4, linkDamageMaskHandler, centerPosition);
