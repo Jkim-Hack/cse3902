@@ -13,7 +13,7 @@ namespace cse3902.Projectiles
         private Texture2D spriteTexture;
         private Vector2 startingPosition;
         private float angle;
-        private const float sizeIncrease = 2f;
+        private const float sizeIncrease = 1f;
 
         private int currentX;
         private int currentY;
