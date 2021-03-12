@@ -59,6 +59,10 @@ namespace cse3902.Rooms
             RoomEnemyNPCs.Instance.LoadNewRoom(ref oldEnemies, newRoom.Enemies);
             rooms.GetValueOrDefault(currentRoom).Enemies = oldEnemies;
 
+            List<IBlock> oldBlocks = rooms.GetValueOrDefault(currentRoom).Blocks;
+            RoomBlocks.Instance.LoadNewRoom(ref oldBlocks, newRoom.Blocks);
+            rooms.GetValueOrDefault(currentRoom).Blocks = oldBlocks;
+
             currentRoom = newPos;
             rooms.GetValueOrDefault(newPos).SetToVisited();
         }

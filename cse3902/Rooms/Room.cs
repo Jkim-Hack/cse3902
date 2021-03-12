@@ -11,7 +11,7 @@ namespace cse3902.Rooms
     {
         private bool visited;
       
-        Vector3 roomPos;
+        private Vector3 roomPos;
 
         private List<IItem> items { get; set; }
         private List<IEntity> enemies { get; set; }
@@ -71,6 +71,12 @@ namespace cse3902.Rooms
         {
             get => projectiles;
             set => projectiles = value;
+        }
+
+        public List<IBlock> Blocks
+        {
+            get => blocks;
+            set => blocks = value;
         }
     }
 }
