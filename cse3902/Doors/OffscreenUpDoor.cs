@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 
 namespace cse3902.Doors
 {
@@ -10,12 +12,15 @@ namespace cse3902.Doors
         private Vector2 centerPosition;
         private IDoor connectedDoor;
         private Rectangle dest;
+        private ICollidable collidable;
 
         public OffscreenUpDoor(Game1 game, Vector2 center)
         {
             this.game = game;
             roomTranslationVector = new Vector3(0, 0, 1);
             centerPosition = center;
+
+            this.collidable = new DoorCollidable(this);
         }
 
         public void Interact()
@@ -48,6 +53,11 @@ namespace cse3902.Doors
         public IDoor ConnectedDoor
         {
             set => connectedDoor = value;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
         }
     }
 }
