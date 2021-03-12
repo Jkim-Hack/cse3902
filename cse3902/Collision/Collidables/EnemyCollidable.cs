@@ -27,7 +27,12 @@ namespace cse3902.Collision.Collidables
                     //TODO: destroy object
                 } else
                 {
-                    this.enemy.BeShoved();
+                    //enemies are not shoved if attack perpdincular to their movement
+                    if (((SwordCollidable)collidableObject).Direction == this.enemy.Direction || ((SwordCollidable)collidableObject).Direction == -this.enemy.Direction)
+                    {
+                        this.enemy.BeShoved();
+                    }
+                    
                 }
 
             } else if (collidableObject is ProjectileCollidable)
