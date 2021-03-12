@@ -1,4 +1,5 @@
 ﻿using System;
+using cse3902.Entities.DamageMasks;
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -33,15 +34,25 @@ namespace cse3902.Sprites.EnemySprites
         private const float delay = 0.2f;
         private float remainingDelay;
 
+        private bool isDamage;
+        private DamageMaskHandler damageMaskHandler;
+
         private Rectangle destination;
 
+        private float remainingDamageDelay;
+        private const float damageDelay = .05f;
+        
         private const float sizeIncrease = 1f;
 
-        public AquamentusSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
+
+        public AquamentusSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Texture2D damageSequence, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
             remainingDelay = delay;
+
+            isDamage = false;
+            remainingDamageDelay = damageDelay;
 
             totalFrames = rows * columns;
             currentFrame = 2;
@@ -51,6 +62,8 @@ namespace cse3902.Sprites.EnemySprites
             frameHeight = spriteTexture.Height / rows;
             frames = new Rectangle[totalFrames];
             center = startingPosition;
+
+            damageMaskHandler = new DamageMaskHandler(texture, damageSequence, 1, 4, 1);
 
             DistributeFrames(columns);
 
@@ -97,7 +110,17 @@ namespace cse3902.Sprites.EnemySprites
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
             
-            if (remainingDelay <= 0)
+            if (isDamage)
+            {
+                remainingDamageDelay -= timer;
+                if (remainingDamageDelay < 0)
+                {
+                    remainingDamageDelay = damageDelay;
+                    damageMaskHandler.LoadNextMask();
+                }
+            }
+            
+	        if (remainingDelay <= 0)
             {
                 currentFrame++;
                 if (currentFrame == endingFrameIndex)
@@ -132,6 +155,17 @@ namespace cse3902.Sprites.EnemySprites
 
                     currentFrame = value;
                 }
+            }
+        }
+
+        public bool Damaged
+        {
+            get => isDamage;
+            set 
+	        {
+                remainingDamageDelay = damageDelay;
+                isDamage = value;
+                damageMaskHandler.Reset();
             }
         }
     }

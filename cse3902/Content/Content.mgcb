@@ -224,6 +224,18 @@
 /processorParam:TextureFormat=Color
 /build:enemies/armos.png
 
+#begin enemies/BossesHurt.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:enemies/BossesHurt.png;enemies/bosses_hurt.png
+
 #begin enemies/gel.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -271,6 +283,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:enemies/goriya_red.png
+
+#begin enemies/GoriyaHurt.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:enemies/GoriyaHurt.png;enemies/goriya_hurt.png
 
 #begin enemies/keese.png
 /importer:TextureImporter
@@ -619,6 +643,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Link.png
+
+#begin LinkDamageSequence.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:LinkDamageSequence.png
 
 #begin map.png
 /importer:TextureImporter
