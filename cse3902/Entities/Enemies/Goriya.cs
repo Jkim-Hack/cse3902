@@ -24,10 +24,10 @@ namespace cse3902.Entities.Enemies
 
         private ICollidable collidable;
 
-        public Goriya(Game1 game)
+        public Goriya(Game1 game, Vector2 start)
         {
             this.game = game;
-            startingPos = new Vector2(500, 200);
+            startingPos = start;
             center = startingPos;
 
             goriyaSprite = (GoriyaSprite)EnemySpriteFactory.Instance.CreateGoriyaSprite(game.spriteBatch, center);

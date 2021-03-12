@@ -25,11 +25,11 @@ namespace cse3902.Rooms
 
         public Vector3 currentRoom { get; set; }
 
-        public RoomHandler(SpriteBatch sb, Camera cam)
+        public RoomHandler(SpriteBatch sb, Camera cam, Game1 gm)
         {
             rooms = new Dictionary<Vector3, Room>();
             camera = cam;
-            xmlParser = new XMLParser(this, sb);
+            xmlParser = new XMLParser(this, sb, gm);
         }
 
         public void Initialize()
