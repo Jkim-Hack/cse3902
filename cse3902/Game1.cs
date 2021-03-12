@@ -73,7 +73,7 @@ namespace cse3902
 	        player = new Link(this);
             camera = new Camera(this);
 
-            roomHandler = new RoomHandler(spriteBatch, camera);
+            roomHandler = new RoomHandler(spriteBatch, camera, this);
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);

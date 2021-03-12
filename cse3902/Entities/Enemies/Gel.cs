@@ -24,10 +24,10 @@ namespace cse3902.Entities.Enemies
 
         private ICollidable collidable;
 
-        public Gel(Game1 game)
+        public Gel(Game1 game, Vector2 start)
         {
             this.game = game;
-            startingPos = new Vector2(500, 200);
+            startingPos = start;
             center = startingPos;
 
             //gel sprite sheet is 1 row, 2 columns

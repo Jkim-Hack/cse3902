@@ -25,10 +25,10 @@ namespace cse3902.Entities.Enemies
 
         private ICollidable collidable;
 
-        public Keese(Game1 game)
+        public Keese(Game1 game, Vector2 start)
         {
             this.game = game;
-            startingPos = new Vector2(500, 200);
+            startingPos = start;
             center = startingPos;
 
             keeseSprite = (KeeseSprite)EnemySpriteFactory.Instance.CreateKeeseSprite(game.spriteBatch, center);

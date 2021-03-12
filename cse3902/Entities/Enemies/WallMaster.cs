@@ -24,10 +24,10 @@ namespace cse3902.Entities.Enemies
 
         private ICollidable collidable;
 
-        public WallMaster(Game1 game)
+        public WallMaster(Game1 game, Vector2 start)
         {
             this.game = game;
-            center = new Vector2(500, 200);
+            center = start;
 
             //wallmaster sprite sheet is 4 rows, 2 columns
             wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.spriteBatch, center);
