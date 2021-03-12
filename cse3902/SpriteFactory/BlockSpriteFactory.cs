@@ -27,6 +27,8 @@ namespace cse3902.SpriteFactory
         {
             blockTextures.Add("normalblock", content.Load<Texture2D>("normalblock"));
             blockTextures.Add("waterblock", content.Load<Texture2D>("waterblock"));
+            blockTextures.Add("brick", content.Load<Texture2D>("brick"));
+            blockTextures.Add("ladder", content.Load<Texture2D>("ladder"));
         }
 
         public ISprite CreateNormalBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
@@ -37,6 +39,16 @@ namespace cse3902.SpriteFactory
         public ISprite CreateWaterBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
             return new BlockSprite(spriteBatch, blockTextures["waterblock"], startingPos);
+        }
+
+        public ISprite CreateBrickSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new BlockSprite(spriteBatch, blockTextures["brick"], startingPos);
+        }
+
+        public ISprite CreateLadderSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new BlockSprite(spriteBatch, blockTextures["ladder"], startingPos);
         }
     }
 }

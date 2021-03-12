@@ -42,8 +42,8 @@ namespace cse3902.Sprites.EnemySprites
         private float remainingDamageDelay;
         private const float damageDelay = .05f;
 
+        private const float sizeIncrease = 1f;
 
-        private const float sizeIncrease = 2f;
 
         public GoriyaSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Texture2D damageSequence, Vector2 startingPosition)
         {

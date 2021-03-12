@@ -10,7 +10,7 @@ namespace cse3902.Rooms
 {
     public class RoomBlocks
     {
-        public List<BlockSprite> blocks { get; set; }
+        public List<IBlock> blocks { get; set; }
 
         private static RoomBlocks instance = new RoomBlocks();
 
@@ -27,12 +27,12 @@ namespace cse3902.Rooms
 
         }
 
-        public void AddBlock(BlockSprite block)
+        public void AddBlock(IBlock block)
         {
             blocks.Add(block);
         }
 
-        public void RemoveBlock(BlockSprite block)
+        public void RemoveBlock(IBlock block)
         {
             blocks.Remove(block);
         }
@@ -53,16 +53,16 @@ namespace cse3902.Rooms
             }
         }
 
-        public void LoadNewRoom(ref List<BlockSprite> oldList, List<BlockSprite> newList)
+        public void LoadNewRoom(ref List<IBlock> oldList, List<IBlock> newList)
         {
-            oldList = new List<BlockSprite>();
+            oldList = new List<IBlock>();
 
             for (int i = 0; i < blocks.Count; i++)
             {
                 oldList[i] = blocks[i];
             }
 
-            blocks = new List<BlockSprite>();
+            blocks = new List<IBlock>();
 
             for (int i = 0; i < newList.Count; i++)
             {

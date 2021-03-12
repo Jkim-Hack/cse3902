@@ -73,10 +73,11 @@ namespace cse3902
 	        player = new Link(this);
             camera = new Camera(this);
 
-            roomHandler = new RoomHandler(spriteBatch, camera);
+            roomHandler = new RoomHandler(this);
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
+            RoomBackground.Instance.LoadTextures(Content, spriteBatch);
 
             projectileHandler.LoadAllTextures(Content);
             itemHandler.LoadContent(spriteBatch, Content);
@@ -112,8 +113,9 @@ namespace cse3902
             itemHandler.Update(gameTime);
             enemyNPCHandler.Update(gameTime);
             blockHandler.Update(gameTime);
+            RoomBackground.Instance.Update(gameTime);
 
-            camera.Update();
+            roomHandler.Update();
 
             base.Update(gameTime);
         }
@@ -132,6 +134,8 @@ namespace cse3902
             player.Draw();
             blockHandler.Draw();
             enemyNPCHandler.Draw();
+            RoomBackground.Instance.Draw();
+            roomHandler.Draw();
             
             spriteBatch.End();
             base.Draw(gameTime);

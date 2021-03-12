@@ -1,24 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
-using cse3902.SpriteFactory;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
 
 namespace cse3902.Doors
 {
-    public class DownStaircaseDoor : IDoor
+    public class OffscreenUpDoor : IDoor
     {
         private Game1 game;
-        private IDoorSprite doorSprite;
         private Vector3 roomTranslationVector;
+        private Vector2 centerPosition;
         private IDoor connectedDoor;
+        private Rectangle dest;
         private ICollidable collidable;
 
-        public DownStaircaseDoor(Game1 game, Vector2 center)
+        public OffscreenUpDoor(Game1 game, Vector2 center)
         {
             this.game = game;
-            doorSprite = DoorSpriteFactory.Instance.CreateStaircaseSprite(game.spriteBatch, center);
-            roomTranslationVector = new Vector3(0, 0, -1);
+            roomTranslationVector = new Vector3(0, 0, 1);
+            centerPosition = center;
 
             this.collidable = new DoorCollidable(this);
         }
@@ -29,21 +29,25 @@ namespace cse3902.Doors
         }
         public Vector2 PlayerReleasePosition()
         {
-            return doorSprite.Center + new Vector2(-32, 31);
+            return centerPosition + new Vector2(0, 16);
         }
         public Vector2 PlayerReleaseDirection()
         {
-            return new Vector2(0, 1);
+            return new Vector2(0, 32);
         }
         public void Draw()
         {
-            doorSprite.Draw();
+            //offscreen so nothing to draw
         }
         public ref Rectangle Bounds
         {
             get
             {
-                return ref doorSprite.Box;
+                Rectangle destination = new Rectangle((int)centerPosition.X, (int)centerPosition.Y, 16, 16);
+                destination.Offset(-destination.Width / 2, -destination.Height / 2);
+                dest = destination;
+
+                return ref dest;
             }
         }
         public IDoor ConnectedDoor

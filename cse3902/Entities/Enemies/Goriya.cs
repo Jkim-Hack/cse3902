@@ -23,11 +23,12 @@ namespace cse3902.Entities.Enemies
         private int shoveDistance;
 
         private ICollidable collidable;
+        private int health;
 
-        public Goriya(Game1 game)
+        public Goriya(Game1 game, Vector2 start)
         {
             this.game = game;
-            startingPos = new Vector2(500, 200);
+            startingPos = start;
             center = startingPos;
 
             goriyaSprite = (GoriyaSprite)EnemySpriteFactory.Instance.CreateGoriyaSprite(game.spriteBatch, center);
@@ -38,6 +39,7 @@ namespace cse3902.Entities.Enemies
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
+            health = 10;
         }
 
         public ref Rectangle Bounds
@@ -57,6 +59,7 @@ namespace cse3902.Entities.Enemies
 
         public void TakeDamage(int damage)
         {
+            this.Health -= damage;
         }
 
         public void Die()
@@ -131,6 +134,20 @@ namespace cse3902.Entities.Enemies
         public int Damage
         {
             get => 2;
+        }
+
+        public int Health
+        {
+            get => this.health;
+            set
+            {
+                this.health = value;
+            }
+        }
+
+        public Vector2 Direction
+        {
+            get => this.direction;
         }
 
         public ICollidable Collidable

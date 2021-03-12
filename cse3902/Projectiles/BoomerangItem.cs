@@ -13,7 +13,7 @@ namespace cse3902.Projectiles
         private Texture2D spriteTexture;
         private Vector2 startingPosition;
         private float angle;
-        private const float sizeIncrease = 2f;
+        private const float sizeIncrease = 1f;
 
         private int currentX;
         private int currentY;
@@ -25,12 +25,7 @@ namespace cse3902.Projectiles
 
         private int turns;
 
-        private enum Direction
-        {
-            Up, Down, Left, Right
-        }
-
-        private Direction direction;
+        private Vector2 direction;
 
         private bool animationComplete;
 
@@ -46,24 +41,22 @@ namespace cse3902.Projectiles
             frameWidth = spriteTexture.Width;
             frameHeight = spriteTexture.Height;
 
+            direction = dir;
+
             if (dir.X > 0)
             {
-                direction = Direction.Right;
                 angle = (float)(Math.PI * 1.0 / 2.0);
             }
             else if (dir.X < 0)
             {
-                direction = Direction.Left;
                 angle = (float)(Math.PI * 3.0 / 2.0);
             }
             else if (dir.Y > 0)
             {
-                direction = Direction.Down;
                 angle = (float)Math.PI;
             }
             else
             {
-                direction = Direction.Up;
                 angle = 0;
             }
 
@@ -96,31 +89,32 @@ namespace cse3902.Projectiles
             {
                 offset = 50;
             }
-            if (direction == Direction.Right)
+
+            if (direction.X == 1)
             {
                 currentX += 2;
                 if (currentX > startingPosition.X + offset)
                 {
-                    direction = Direction.Left;
+                    direction = new Vector2(-1,0);
                     turns++;
                 }
             }
-            else if (direction == Direction.Left)
+            else if (direction.X == -1)
             {
                 currentX -= 2;
                 if (currentX < startingPosition.X - offset)
                 {
-                    direction = Direction.Right;
+                    direction = new Vector2(1,0);
                     turns++;
                 }
             }
             else
-            if (direction == Direction.Down)
+            if (direction.Y == 1)
             {
                 currentY += 2;
                 if (currentY > startingPosition.Y + offset)
                 {
-                    direction = Direction.Up;
+                    direction = new Vector2(0, -1);
                     turns++;
                 }
             }
@@ -129,7 +123,7 @@ namespace cse3902.Projectiles
                 currentY -= 2;
                 if (currentY < startingPosition.Y - offset)
                 {
-                    direction = Direction.Down;
+                    direction = new Vector2(0, 1);
                     turns++;
                 }
             }
@@ -184,6 +178,13 @@ namespace cse3902.Projectiles
         public int Damage
         {
             get => 3;
+        }
+
+        public Vector2 Direction
+        {
+            get => this.direction;
+            set => this.direction = value;
+
         }
 
         public ICollidable Collidable

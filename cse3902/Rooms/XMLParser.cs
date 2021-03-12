@@ -7,6 +7,9 @@ using cse3902.Items;
 using cse3902.Interfaces;
 using cse3902.Sprites;
 using cse3902.SpriteFactory;
+using cse3902.Entities.Enemies;
+using cse3902.Entities;
+using cse3902.Blocks;
 
 namespace cse3902.Rooms
 {
@@ -14,11 +17,13 @@ namespace cse3902.Rooms
     {
         private RoomHandler roomHandler;
         private SpriteBatch spriteBatch;
+        private Game1 game;
 
-        public XMLParser(RoomHandler roomHand, SpriteBatch sb)
+        public XMLParser(RoomHandler roomHand, SpriteBatch sb, Game1 gm)
         {
             roomHandler = roomHand;
             spriteBatch = sb;
+            game = gm;
         }
 
         public IItem createItem(String type, Vector2 startPos)
@@ -28,7 +33,7 @@ namespace cse3902.Rooms
             switch (type)
             {
                 case "Arrow":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateArrowItem(spriteBatch, startPos, new Vector2(1, 0));
+                    newItem = ItemSpriteFactory.Instance.CreateArrowItem(spriteBatch, startPos, new Vector2(1, 0));
                     break;
                 case "Bow":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(spriteBatch, startPos);
@@ -40,7 +45,7 @@ namespace cse3902.Rooms
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateCompassItem(spriteBatch, startPos);
                     break;
                 case "Fairy":
-                    //newItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateFairyItem(spriteBatch, startPos);
                     break;
                 case "HeartContainer":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartContainerItem(spriteBatch, startPos);
@@ -61,76 +66,55 @@ namespace cse3902.Rooms
             //return ItemSpriteFactory.Instance.CreateArrowItem();
             switch (type)
             {
-                //case "Aquamentus":
-                //    newEnemy = EnemySpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "Gel":
-                //    newEnemy = EnemySpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "Goriya":
-                //    newEnemy = EnemySpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "Keese":
-                //    newEnemy = EnemySpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "Stalfos":
-                //    newEnemy = EnemySpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "WallMaster":
-                //    newEnemy = EnemySpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "OldMan":
-                //    newEnemy = EnemySpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "MedicineWoman":
-                //    newEnemy = EnemySpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "Merchant":
-                //    newEnemy = EnemySpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //default:
-                //    //createdItem = null;
-                //    break;
+                case "Aquamentus":
+                    newEnemy = new Aquamentus(game, startingPos);
+                    break;
+                case "Gel":
+                    newEnemy = new Gel(game, startingPos);
+                    break;
+                case "Goriya":
+                    newEnemy = new Goriya(game, startingPos);
+                    break;
+                case "Keese":
+                    newEnemy = new Keese(game, startingPos);
+                    break;
+                case "Stalfos":
+                    newEnemy = new Stalfos(game, startingPos);
+                    break;
+                case "WallMaster":
+                    newEnemy = new WallMaster(game, startingPos);
+                    break;
+                case "OldMan":
+                    newEnemy = new OldManNPC(game, startingPos);
+                    break;
+                case "MedicineWoman":
+                    newEnemy = new MedicineWomanNPC(game, startingPos);
+                    break;
+                case "Merchant":
+                    newEnemy = new MerchantNPC(game, startingPos);
+                    break;
+                default:
+                    //createdItem = null;
+                    break;
             }
             return newEnemy;
         }
 
-        public BlockSprite createBlock(String type)
+        public IBlock createBlock(String type, Vector2 startingPos)
         {
-            BlockSprite newBlock = null;
+            IBlock newBlock = null;
             //return ItemSpriteFactory.Instance.CreateArrowItem();
             switch (type)
             {
-                //case "Aquamentus":
-                //    createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
+                case "Normal":
+                    newBlock = new NormalBlock(game, startingPos, IBlock.PushDirection.Right, 10);
+                    break;
+                //case "Water":
+                //    newBlock = new WaterBlock(game, startingPos);
                 //    break;
-                //case "Gel":
-                //    createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "Goriya":
-                //    createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "Keese":
-                //    createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "Stalfos":
-                //    createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "WallMaster":
-                //    createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "OldMan":
-                //    createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "MedicineWoman":
-                //    createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //case "Merchant":
-                //    createdItem = ItemSpriteFactory.Instance.CreateArrowItem();
-                //    break;
-                //default:
-                //    //createdItem = null;
-                //    break;
+                default:
+                    //createdItem = null;
+                    break;
             }
             return newBlock;
         }
@@ -223,6 +207,7 @@ namespace cse3902.Rooms
                 roomHandler.rooms.Add(roomTup, currentRoom);
 
                 parseItems(currentRoom, room, doc);
+
             }
         }
     }

@@ -22,7 +22,7 @@ namespace cse3902.Projectiles
 
         private Rectangle destination;
 
-        private const float sizeIncrease = 2f;
+        private const float sizeIncrease = 1f;
 
         private ICollidable collidable;
 
@@ -102,6 +102,13 @@ namespace cse3902.Projectiles
         public int Damage
         {
             get => 3;
+        }
+
+        public Vector2 Direction
+        {
+            get => this.direction;
+            set => this.direction = value;
+
         }
 
         public ICollidable Collidable

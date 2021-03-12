@@ -23,6 +23,19 @@ namespace cse3902.Entities
 
         public void ChangeDirection(Vector2 newDirection)
         {
+            if (newDirection == new Vector2(0, 0))
+            {
+                //direction vector of (0,0) indicates just reverse the current direction
+                if (keeseSprite.StartingFrameIndex == (int)KeeseSprite.FrameIndex.RightFacing)
+                {
+                    keeseSprite.StartingFrameIndex = (int)KeeseSprite.FrameIndex.LeftFacing;
+                }
+                else
+                {
+                    keeseSprite.StartingFrameIndex = (int)KeeseSprite.FrameIndex.RightFacing;
+                }
+            }
+
             if (newDirection.X > 0)
             {
                 keeseSprite.StartingFrameIndex = (int)KeeseSprite.FrameIndex.RightFacing;

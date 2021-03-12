@@ -60,14 +60,14 @@ namespace cse3902.Rooms
 
             for (int i = 0; i < items.Count; i++)
             {
-                oldList[i] = items[i];
+                oldList.Add(items[i]);
             }
 
             items = new List<IItem>();
 
             for (int i = 0; i < newList.Count; i++)
             {
-                items[i] = newList[i];
+                items.Add(newList[i]);
             }
 
         }

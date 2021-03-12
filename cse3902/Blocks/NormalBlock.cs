@@ -1,6 +1,5 @@
 ﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
-using cse3902.SpriteFactory;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
 
@@ -13,8 +12,8 @@ namespace cse3902.Blocks
         private ISprite normalBlockSprite;
 
         private Vector2 blockPushingDirection;
-        private int remainingPixelsToPush;
-        private const int pushSpeed = 1;
+        private float remainingPixelsToPush;
+        private const float pushSpeed = 0.5f;
 
         private Vector2 BlockPushingVector(IBlock.PushDirection direction)
         {
@@ -37,13 +36,13 @@ namespace cse3902.Blocks
 
         private ICollidable collidable;
 
-        public NormalBlock(Game1 game, Vector2 center, IBlock.PushDirection direction, int pixelsToPush)
+        public NormalBlock(Game1 game, IBlock.PushDirection direction, int pixelsToPush, ISprite sprite)
         {
             this.game = game;
 
             blockPushingDirection = BlockPushingVector(direction);
 
-            normalBlockSprite = BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, center);
+            normalBlockSprite = sprite;
             remainingPixelsToPush = pixelsToPush;
 
             this.collidable = new BlockCollidable(this);
