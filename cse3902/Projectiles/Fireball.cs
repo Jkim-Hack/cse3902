@@ -104,6 +104,13 @@ namespace cse3902.Projectiles
             get => 3;
         }
 
+        public Vector2 Direction
+        {
+            get => this.direction;
+            set => this.direction = value;
+
+        }
+
         public ICollidable Collidable
         {
             get => this.collidable;
