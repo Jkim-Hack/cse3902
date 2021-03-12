@@ -26,25 +26,25 @@ namespace cse3902.Collision.Collidables
                 {
                     if (collidableObject.RectangleRef.Y < this.door.Collidable.RectangleRef.Y)
                     {
-                        //call room transition method
+                        this.door.Interact();
                     }
                 } else if (this.door is NormalDownDoor)
                 {
                     if (collidableObject.RectangleRef.Y > this.door.Collidable.RectangleRef.Y)
                     {
-                        //call room transition method
+                        this.door.Interact();
                     }
                 } else if (this.door is NormalLeftDoor)
                 {
                     if (collidableObject.RectangleRef.X < this.door.Collidable.RectangleRef.X)
                     {
-                        //call room transition method
+                        this.door.Interact();
                     }
                 } else if (this.door is NormalRightDoor)
                 {
                     if (collidableObject.RectangleRef.X > this.door.Collidable.RectangleRef.X)
                     {
-                        //call room transition method
+                        this.door.Interact();
                     }
                 } else
                 {
@@ -52,7 +52,7 @@ namespace cse3902.Collision.Collidables
                     //todo: make sure this is the correct direction for the threshold
                     if (collidableObject.RectangleRef.Y > this.door.Collidable.RectangleRef.Y)
                     {
-                        //call room transition method
+                        this.door.Interact();
                     }
                 }
             }
