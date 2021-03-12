@@ -12,6 +12,8 @@ namespace cse3902.Collision
         // <priority level, <Collidable's Rectangle, Collidable object>>
         private Dictionary<int, Dictionary<Rectangle, ICollidable>> allCollidableObjects;
         private QuadTree quadTree;
+        private bool isDisabled;
+
 
         public CollisionManager(int width, int height)
         {
@@ -37,21 +39,24 @@ namespace cse3902.Collision
         {
             ResetTree();
 
-            // Check for collisions in the order of priority
-            List<int> priorities = new List<int>(allCollidableObjects.Keys);
-            priorities.Sort();
-
-            foreach (int priority in priorities)
+            if (!isDisabled)
             {
-                foreach (var collidable in allCollidableObjects[priority])
+                // Check for collisions in the order of priority
+                List<int> priorities = new List<int>(allCollidableObjects.Keys);
+                priorities.Sort();
+
+                foreach (int priority in priorities)
                 {
-                    List<ICollidable> collided = GetCollided(collidable.Key);
-                    foreach(var collision in collided)
+                    foreach (var collidable in allCollidableObjects[priority])
                     {
-                        collidable.Value.OnCollidedWith(collision);
+                        List<ICollidable> collided = GetCollided(collidable.Key);
+                        foreach(var collision in collided)
+                        {
+                            collidable.Value.OnCollidedWith(collision);
+                        }
                     }
                 }
-            }
+            } 
         }
 
         private void ResetTree()
@@ -96,5 +101,12 @@ namespace cse3902.Collision
 
             return null;
         }
+
+        public bool Disabled
+        {
+            get => isDisabled;
+            set => isDisabled = value;
+        }
+
     }
 }
