@@ -9,6 +9,7 @@ using cse3902.Sprites;
 using cse3902.SpriteFactory;
 using cse3902.Entities.Enemies;
 using cse3902.Entities;
+using cse3902.Blocks;
 
 namespace cse3902.Rooms
 {
@@ -99,21 +100,21 @@ namespace cse3902.Rooms
             return newEnemy;
         }
 
-        public BlockSprite createBlock(String type)
+        public IBlock createBlock(String type, Vector2 startingPos)
         {
-            BlockSprite newBlock = null;
+            IBlock newBlock = null;
             //return ItemSpriteFactory.Instance.CreateArrowItem();
             switch (type)
             {
-                //case "Normal":
-                //    newBlock = ItemSpriteFactory.Instance.CreateArrowItem();
-                //    break;
+                case "Normal":
+                    newBlock = new NormalBlock(game, startingPos, IBlock.PushDirection.Right, 10);
+                    break;
                 //case "Water":
-                //    newBlock = ItemSpriteFactory.Instance.CreateArrowItem();
+                //    newBlock = new WaterBlock(game, startingPos);
                 //    break;
-                //default:
-                //    //createdItem = null;
-                //    break;
+                default:
+                    //createdItem = null;
+                    break;
             }
             return newBlock;
         }
