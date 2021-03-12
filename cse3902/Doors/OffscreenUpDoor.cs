@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
-using System.Collections.Generic;
 
 namespace cse3902.Doors
 {
@@ -10,6 +9,7 @@ namespace cse3902.Doors
         private Vector3 roomTranslationVector;
         private Vector2 centerPosition;
         private IDoor connectedDoor;
+        private Rectangle dest;
 
         public OffscreenUpDoor(Game1 game, Vector2 center)
         {
@@ -34,16 +34,15 @@ namespace cse3902.Doors
         {
             //offscreen so nothing to draw
         }
-        public List<Rectangle> Bounds
+        public ref Rectangle Bounds
         {
             get
             {
                 Rectangle destination = new Rectangle((int)centerPosition.X, (int)centerPosition.Y, 16, 16);
                 destination.Offset(-destination.Width / 2, -destination.Height / 2);
-                List<Rectangle> hitbox = new List<Rectangle>();
-                hitbox.Add(destination);
+                dest = destination;
 
-                return hitbox;
+                return ref dest;
             }
         }
         public IDoor ConnectedDoor

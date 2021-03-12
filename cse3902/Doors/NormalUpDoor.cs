@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
 using cse3902.SpriteFactory;
-using System.Collections.Generic;
 
 namespace cse3902.Doors
 {
@@ -59,11 +58,11 @@ namespace cse3902.Doors
         {
             doorSprite.Draw();
         }
-        public List<Rectangle> Bounds
+        public ref Rectangle Bounds
         {
             get
             {
-                return doorSprite.Boxes;
+                return ref doorSprite.Box;
             }
         }
         public IDoor ConnectedDoor

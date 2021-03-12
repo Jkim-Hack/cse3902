@@ -59,11 +59,11 @@ namespace cse3902.Doors
         {
             doorSprite.Draw();
         }
-        public List<Rectangle> Bounds
+        public ref Rectangle Bounds
         {
             get
             {
-                return doorSprite.Boxes;
+                return ref doorSprite.Box;
             }
         }
         public IDoor ConnectedDoor
