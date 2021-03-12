@@ -156,6 +156,11 @@ namespace cse3902.Entities.Enemies
             }
         }
 
+        public Vector2 Direction
+        {
+            get => this.direction;
+        }
+
         public ICollidable Collidable
         {
             get => this.collidable;
