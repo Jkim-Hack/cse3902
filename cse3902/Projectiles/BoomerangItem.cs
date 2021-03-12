@@ -98,40 +98,20 @@ namespace cse3902.Projectiles
             }
             if (direction == Direction.Right)
             {
-                currentX += 2;
-                if (currentX > startingPosition.X + offset)
-                {
-                    direction = Direction.Left;
-                    turns++;
-                }
+                UpdateRight(offset);
             }
             else if (direction == Direction.Left)
             {
-                currentX -= 2;
-                if (currentX < startingPosition.X - offset)
-                {
-                    direction = Direction.Right;
-                    turns++;
-                }
+                UpdateLeft(offset);
             }
             else
             if (direction == Direction.Down)
             {
-                currentY += 2;
-                if (currentY > startingPosition.Y + offset)
-                {
-                    direction = Direction.Up;
-                    turns++;
-                }
+                UpdateDown(offset);
             }
             else
             {
-                currentY -= 2;
-                if (currentY < startingPosition.Y - offset)
-                {
-                    direction = Direction.Down;
-                    turns++;
-                }
+                UpdateUp(offset);
             }
 
             if (turns == 2)
@@ -140,6 +120,47 @@ namespace cse3902.Projectiles
             }
             return 0;
         }
+
+        private void UpdateRight(int offset)
+        {
+            currentX += 2;
+            if (currentX > startingPosition.X + offset)
+            {
+                direction = Direction.Left;
+                turns++;
+            }
+        }
+
+        private void UpdateLeft(int offset)
+        {
+            currentX -= 2;
+            if (currentX < startingPosition.X - offset)
+            {
+                direction = Direction.Right;
+                turns++;
+            }
+        }
+
+        private void UpdateDown(int offset)
+        {
+            currentY += 2;
+            if (currentY > startingPosition.Y + offset)
+            {
+                direction = Direction.Up;
+                turns++;
+            }
+        }
+
+        private void UpdateUp(int offset)
+        {
+            currentY -= 2;
+            if (currentY < startingPosition.Y - offset)
+            {
+                direction = Direction.Down;
+                turns++;
+            }
+        }
+
 
         public ref Rectangle Box
         {

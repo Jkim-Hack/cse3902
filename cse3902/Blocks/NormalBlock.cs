@@ -37,13 +37,13 @@ namespace cse3902.Blocks
 
         private ICollidable collidable;
 
-        public NormalBlock(Game1 game, Vector2 center, IBlock.PushDirection direction, int pixelsToPush)
+        public NormalBlock(Game1 game, Vector2 center, IBlock.PushDirection direction, int pixelsToPush, ISprite sprite)
         {
             this.game = game;
 
             blockPushingDirection = BlockPushingVector(direction);
 
-            normalBlockSprite = BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, center);
+            normalBlockSprite = sprite;
             remainingPixelsToPush = pixelsToPush;
 
             this.collidable = new BlockCollidable(this);
