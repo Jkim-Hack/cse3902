@@ -12,11 +12,11 @@ namespace cse3902.Rooms
 {
     public class RoomHandler
     {
-        public const int ROOM_WIDTH = 256;
-        public const int ROOM_HEIGHT = 176;
-        public const int NUM_ROOMS_X = 6;
-        public const int NUM_ROOMS_Y = 6;
-        public const int CAMERA_CYCLES = 30;
+        public const int ROOM_WIDTH = RoomUtilities.ROOM_WIDTH;
+        public const int ROOM_HEIGHT = RoomUtilities.ROOM_HEIGHT;
+        public const int NUM_ROOMS_X = RoomUtilities.NUM_ROOMS_X;
+        public const int NUM_ROOMS_Y = RoomUtilities.NUM_ROOMS_Y;
+        public const int CAMERA_CYCLES = RoomUtilities.CAMERA_CYCLES;
 
         private Camera camera;
         public Dictionary<Vector3, Room> rooms;

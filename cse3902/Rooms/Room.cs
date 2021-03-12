@@ -9,9 +9,9 @@ namespace cse3902.Rooms
 {
     public class Room
     {
-        private bool visited;
-      
-        private Vector3 roomPos;
+        private bool visited;   
+
+        public Vector3 roomPos { get; set; }
 
         private List<IItem> items { get; set; }
         private List<IEntity> enemies { get; set; }
