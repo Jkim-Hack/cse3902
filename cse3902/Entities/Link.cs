@@ -114,6 +114,12 @@ namespace cse3902.Entities
             get => linkStateMachine.CenterPosition;
         }
 
+        public Vector2 PreviousPosition
+        {
+            //needs to be changed
+            get => linkSprite.Center;
+        }
+
         public int Health
         {
             get => linkStateMachine.Health;

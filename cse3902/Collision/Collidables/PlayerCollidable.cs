@@ -39,10 +39,8 @@ namespace cse3902.Collision.Collidables
                 
             } else if (collidableObject is BlockCollidable)
             {
-                //three cases:
-                //immovable block
-                //movable block
-                //staircase
+                //prevent link from phasing into block
+                player.CenterPosition = player.PreviousPosition;
 
             } else if (collidableObject is ItemCollidable)
             {
@@ -55,6 +53,11 @@ namespace cse3902.Collision.Collidables
         public ref Rectangle RectangleRef
         {
             get => ref player.Bounds;
+        }
+
+        public Vector2 Direction
+        {
+            get => player.Direction;
         }
 
         public int DamageValue

@@ -18,6 +18,7 @@ namespace cse3902.Entities
         private LinkSprite linkSprite;
         private SpriteBatch spriteBatch;
         private Vector2 centerPosition;
+        private Vector2 previousPosition;
         private Vector2 currDirection;
 
         private float speed;
@@ -40,6 +41,7 @@ namespace cse3902.Entities
         public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch)
         {
             this.centerPosition = centerPosition;
+            this.previousPosition = centerPosition;
             mode = LinkMode.Still;
             this.game = game;
 
@@ -309,7 +311,7 @@ namespace cse3902.Entities
 
         public Vector2 CenterPosition
         {
-            get => this.centerPosition;
+            get => this.linkSprite.Center;
             set
             {
                 this.linkSprite.Center = value;
