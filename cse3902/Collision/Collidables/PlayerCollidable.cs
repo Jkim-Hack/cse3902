@@ -36,7 +36,6 @@ namespace cse3902.Collision.Collidables
                     player.BeShoved();
                 }
                 
-                
             } else if (collidableObject is BlockCollidable)
             {
                 //prevent link from phasing into block
@@ -46,6 +45,12 @@ namespace cse3902.Collision.Collidables
             {
                 this.player.AddItem(((ItemCollidable)collidableObject).Item);
                 //todo: destroy item object from floor/wherever
+            } else if (collidableObject is ProjectileCollidable)
+            {
+                if (((ProjectileCollidable)collidableObject).IsEnemy)
+                {
+                    player.TakeDamage(((ProjectileCollidable)collidableObject).DamageValue);
+                }
             }
            
         }

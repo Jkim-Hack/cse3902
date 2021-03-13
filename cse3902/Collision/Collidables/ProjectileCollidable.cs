@@ -1,5 +1,6 @@
 ﻿using System;
 using cse3902.Interfaces;
+using cse3902.Projectiles;
 using Microsoft.Xna.Framework;
 
 namespace cse3902.Collision.Collidables
@@ -28,6 +29,20 @@ namespace cse3902.Collision.Collidables
         public ref Rectangle RectangleRef
         {
             get => ref projectile.Box;
+        }
+
+        public Boolean IsEnemy
+        {
+            get
+            {
+                if (this.projectile is Fireball)
+                {
+                    return true;
+                } else
+                {
+                    return false;
+                }
+            }
         }
 
         public int DamageValue
