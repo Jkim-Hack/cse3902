@@ -49,6 +49,7 @@ namespace cse3902
             // Setup input controllers    
 	        controllerList = new List<IController>();
             controllerList.Add(new KeyboardController(this));
+            controllerList.Add(new MouseController(this));
 
             itemHandler = new ItemHandler();
             projectileHandler = ProjectileHandler.Instance;
