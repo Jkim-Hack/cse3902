@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.SpriteFactory;
 using cse3902.Collision;
+using System.Linq;
+using System;
 
 namespace cse3902
 {
@@ -38,6 +40,8 @@ namespace cse3902
 
         public CollisionManager collisionManager { get; set; }
 
+        private Texture2D lineTexture;
+
         public Camera camera { get; set;  }
 
         public Game1()
@@ -63,7 +67,6 @@ namespace cse3902
             enemyNPCHandler = new EnemyNPCHandler(this);
             blockHandler = new BlockHandler(this);
             allCollidablesList = new AllCollidablesList();
-            collisionManager = new CollisionManager(this);
 
             this.IsMouseVisible = true;
 	        base.Initialize();
@@ -94,11 +97,19 @@ namespace cse3902
             enemyNPCHandler.LoadContent();
             blockHandler.LoadContent();
 
-            allCollidablesList.InsertNewList(new List<IEntity>(), typeof(IEntity), (int)CollisionManager.CollisionPriority.PLAYER);
-            allCollidablesList.Insert(player, (int)CollisionManager.CollisionPriority.PLAYER);
-            allCollidablesList.InsertNewList(RoomEnemyNPCs.Instance.enpcs, typeof(IEntity), (int)CollisionManager.CollisionPriority.ITEMS);
-            allCollidablesList.InsertNewList(RoomItems.Instance.items, typeof(IItem), (int)CollisionManager.CollisionPriority.ITEMS);
-            allCollidablesList.InsertNewList(RoomBlocks.Instance.blocks, typeof(IBlock), (int)CollisionManager.CollisionPriority.BLOCKS);
+            // For hitbox drawing
+	        lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+	        lineTexture.SetData<Color>(new Color[] { Color.White });
+
+            // Testing purposes
+            RoomBackground.Instance.generateRoom(new Vector3(0,0,0), 1);
+
+            collisionManager = new CollisionManager(this);
+
+	        allCollidablesList.Insert((int)CollisionManager.CollisionPriority.PLAYER, player);
+            allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ENEMY_NPC, ref RoomEnemyNPCs.Instance.ListRef);
+            allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ITEMS, ref RoomItems.Instance.ListRef);
+            allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BLOCKS, ref RoomBlocks.Instance.ListRef);
 
         }
 
@@ -124,8 +135,8 @@ namespace cse3902
             }
 
             projectileHandler.Update(gameTime);
-
-            player.Update(gameTime);
+            
+	        player.Update(gameTime);
 
             itemHandler.Update(gameTime);
             enemyNPCHandler.Update(gameTime);
@@ -154,7 +165,7 @@ namespace cse3902
             RoomBackground.Instance.Draw();
             roomHandler.Draw();
 
-            collisionManager.DrawAllRectangles(Color.Red, 2);
+            collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
 
             spriteBatch.End();
             base.Draw(gameTime);

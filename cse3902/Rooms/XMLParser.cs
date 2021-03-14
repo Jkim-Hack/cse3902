@@ -19,10 +19,10 @@ namespace cse3902.Rooms
         private SpriteBatch spriteBatch;
         private Game1 game;
 
-        public XMLParser(RoomHandler roomHand, SpriteBatch sb, Game1 gm)
+        public XMLParser(RoomHandler roomHand, Game1 gm)
         {
             roomHandler = roomHand;
-            spriteBatch = sb;
+            spriteBatch = gm.spriteBatch;
             game = gm;
         }
 
@@ -107,7 +107,7 @@ namespace cse3902.Rooms
             switch (type)
             {
                 case "Normal":
-                    newBlock = new NormalBlock(game, startingPos, IBlock.PushDirection.Right, 10);
+                    //newBlock = new NormalBlock(game, startingPos, (int)IBlock.PushDirection.Right, 10);
                     break;
                 //case "Water":
                 //    newBlock = new WaterBlock(game, startingPos);

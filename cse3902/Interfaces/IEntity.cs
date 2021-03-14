@@ -4,10 +4,9 @@ using cse3902.Collision;
 
 namespace cse3902.Interfaces
 {
-    public interface IEntity
+    public interface IEntity : ICollidableItemEntity
     {
         public ref Rectangle Bounds { get; }
-        public ICollidable Collidable { get; }
         public int Health { get; }
         public Vector2 Direction { get; }
 
