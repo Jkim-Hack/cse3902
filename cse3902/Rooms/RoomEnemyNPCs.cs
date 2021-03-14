@@ -4,12 +4,13 @@ using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using System.Collections;
 
 namespace cse3902.Rooms
 {
     public class RoomEnemyNPCs
     {
-        public List<IEntity> enpcs { get; set; }
+        public IList enpcs;
 
         private static RoomEnemyNPCs instance = new RoomEnemyNPCs();
 
@@ -58,9 +59,11 @@ namespace cse3902.Rooms
         {
             oldList = new List<IEntity>();
 
+            List<IEntity> entitiesENPCs = enpcs as List<IEntity>;
+
             for (int i = 0; i < enpcs.Count; i++)
             {
-                oldList.Add(enpcs[i]);
+                oldList.Add(entitiesENPCs[i]);
             }
 
             enpcs = new List<IEntity>();
@@ -71,5 +74,11 @@ namespace cse3902.Rooms
             }
 
         }
+
+        public ref IList ListRef
+        {
+            get => ref enpcs;
+        }
+
     }
 }

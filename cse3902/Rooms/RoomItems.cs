@@ -4,12 +4,13 @@ using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using System.Collections;
 
 namespace cse3902.Rooms
 {
     public class RoomItems
     {
-        private List<IItem> items { get; set; }
+        public IList items;
 
         private static RoomItems instance = new RoomItems();
 
@@ -59,9 +60,11 @@ namespace cse3902.Rooms
         {
             oldList = new List<IItem>();
 
-            for (int i = 0; i < items.Count; i++)
+            List<IItem> castedItems = items as List<IItem>;
+            
+	        for (int i = 0; i < items.Count; i++)
             {
-                oldList.Add(items[i]);
+                oldList.Add(castedItems[i]);
             }
 
             items = new List<IItem>();
@@ -71,6 +74,11 @@ namespace cse3902.Rooms
                 items.Add(newList[i]);
             }
 
+        }
+
+        public ref IList ListRef
+        {
+            get => ref items;
         }
 
     }
