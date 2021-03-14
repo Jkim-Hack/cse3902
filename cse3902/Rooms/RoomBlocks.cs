@@ -24,7 +24,7 @@ namespace cse3902.Rooms
 
         private RoomBlocks()
         {
-
+            blocks = new List<IBlock>();
         }
 
         public void AddBlock(IBlock block)
@@ -34,7 +34,8 @@ namespace cse3902.Rooms
 
         public void RemoveBlock(IBlock block)
         {
-            blocks.Remove(block);
+            blocks.RemoveAll(x => x.Center == block.Center);
+            //blocks.Remove(block);
         }
 
         public void Update(GameTime gameTime)

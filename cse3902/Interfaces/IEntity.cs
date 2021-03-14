@@ -10,6 +10,7 @@ namespace cse3902.Interfaces
         public ICollidable Collidable { get; }
         public int Health { get; }
         public Vector2 Direction { get; }
+        public Vector2 Center { get; }
 
         public void Attack();
         public void ChangeDirection(Vector2 direction);

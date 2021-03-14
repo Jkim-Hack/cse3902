@@ -42,6 +42,11 @@ namespace cse3902.Entities.Enemies
             health = 10;
         }
 
+        public Vector2 Center
+        {
+            get => this.center;
+        }
+
         public ref Rectangle Bounds
         {
             get => ref goriyaSprite.Box;

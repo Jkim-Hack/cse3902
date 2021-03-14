@@ -23,7 +23,7 @@ namespace cse3902.Rooms
 
         private RoomItems()
         {
-
+            items = new List<IItem>();
         }
 
         public void AddItem(IItem item)
@@ -33,7 +33,8 @@ namespace cse3902.Rooms
 
         public void RemoveItem(IItem item)
         {
-            items.Remove(item);
+            items.RemoveAll(x => x.Center == item.Center);
+            //items.Remove(item);
         }
 
 

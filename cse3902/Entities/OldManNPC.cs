@@ -82,5 +82,10 @@ namespace cse3902.Entities
         {
             get => this.collidable;
         }
+
+        public Vector2 Center
+        {
+            get => this.centerPosition;
+        }
     }
 }

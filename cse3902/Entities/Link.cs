@@ -126,5 +126,10 @@ namespace cse3902.Entities
         {
             linkSprite.DamageMaskHandler.Reset();
         }
+
+        public Vector2 Center
+        {
+            get => this.linkSprite.Center;
+        }
     }
 }

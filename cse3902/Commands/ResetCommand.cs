@@ -15,9 +15,6 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            game.enemyNPCHandler.Reset();
-            game.itemHandler.Reset();
-            game.blockHandler.Reset();
             game.projectileHandler.Reset();
             game.camera.Reset();
             game.player.Reset();
