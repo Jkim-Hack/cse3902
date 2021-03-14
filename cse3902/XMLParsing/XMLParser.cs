@@ -1,25 +1,13 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
 using System.Xml.Linq;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using cse3902.Items;
-using cse3902.Interfaces;
-using cse3902.Sprites;
-using cse3902.SpriteFactory;
-using cse3902.Entities.Enemies;
-using cse3902.Entities;
-using cse3902.Blocks;
-using cse3902.Doors;
 using cse3902.XMLParsing;
-using System.Linq;
 
 namespace cse3902.Rooms
 {
     public class XMLParser
     {
         private RoomHandler roomHandler;
-        private Game1 game;
         private ItemParser itemParser;
         private EnemyNPCParser enemyNPCParser;
         private BlockParser blockParser;
@@ -28,12 +16,11 @@ namespace cse3902.Rooms
         public XMLParser(RoomHandler roomHand, Game1 gm)
         {
             roomHandler = roomHand;
-            game = gm;
             itemParser = new ItemParser(gm);
             enemyNPCParser = new EnemyNPCParser(gm);
+            blockParser = new BlockParser(gm);
+            doorParser = new DoorParser(gm);
         }
-
-       
 
         public void parseXML(String filename)
         {
