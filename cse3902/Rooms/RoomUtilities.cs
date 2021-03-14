@@ -79,5 +79,15 @@ namespace cse3902.Rooms
             rectangles[current++] = new Rectangle((int)roomLoc.X + ROOM_WIDTH - WALL_WIDTH, (int)roomLoc.Y + ROOM_HEIGHT - WALL_SIZE, WALL_WIDTH, WALL_SIZE);
             return rectangles;
         }
+
+        public static Vector3 convertToVector3(String str)
+        {
+            int comma = str.IndexOf(',');
+            int comma2 = str.IndexOf(',', comma + 1);
+
+            Vector3 roomTup = new Vector3(Int32.Parse(str.Substring(0, comma)), Int32.Parse(str.Substring(comma + 1, 1)), Int32.Parse(str.Substring(comma2 + 1)));
+
+            return roomTup;
+        }
     }
 }

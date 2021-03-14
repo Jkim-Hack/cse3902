@@ -79,5 +79,6 @@ namespace cse3902.XMLParsing
             }
             return newEnemy;
         }
+
     }
 }
