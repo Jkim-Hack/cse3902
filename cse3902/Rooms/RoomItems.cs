@@ -9,7 +9,7 @@ namespace cse3902.Rooms
 {
     public class RoomItems
     {
-        private List<IItem> items { get; set; }
+        public List<IItem> items { get; set; }
 
         private static RoomItems instance = new RoomItems();
 
