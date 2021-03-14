@@ -21,52 +21,17 @@ namespace cse3902.Rooms
         private RoomHandler roomHandler;
         private Game1 game;
         private ItemParser itemParser;
+        private EnemyNPCParser enemyNPCParser;
 
         public XMLParser(RoomHandler roomHand, Game1 gm)
         {
             roomHandler = roomHand;
             game = gm;
             itemParser = new ItemParser(gm);
+            enemyNPCParser = new EnemyNPCParser(gm);
         }
 
-        public IEntity createEnemy(String type, Vector2 startingPos)
-        {
-            IEntity newEnemy = null;
-            switch (type)
-            {
-                case "Aquamentus":
-                    newEnemy = new Aquamentus(game, startingPos);
-                    break;
-                case "Gel":
-                    newEnemy = new Gel(game, startingPos);
-                    break;
-                case "Goriya":
-                    newEnemy = new Goriya(game, startingPos);
-                    break;
-                case "Keese":
-                    newEnemy = new Keese(game, startingPos);
-                    break;
-                case "Stalfos":
-                    newEnemy = new Stalfos(game, startingPos);
-                    break;
-                case "WallMaster":
-                    newEnemy = new WallMaster(game, startingPos);
-                    break;
-                case "OldMan":
-                    newEnemy = new OldManNPC(game, startingPos);
-                    break;
-                case "MedicineWoman":
-                    newEnemy = new MedicineWomanNPC(game, startingPos);
-                    break;
-                case "Merchant":
-                    newEnemy = new MerchantNPC(game, startingPos);
-                    break;
-                default:
-                    //createdItem = null;
-                    break;
-            }
-            return newEnemy;
-        }
+        
 
         public IBlock createBlock(String type, String dir, Vector2 startingPos)
         {
@@ -123,28 +88,7 @@ namespace cse3902.Rooms
             return newDoor;
         }
 
-        public void parseEnemies(Room roomobj, XElement roomxml, XDocument doc)
-        {
-            XName enemiesName = XName.Get("enemies", doc.Root.Name.NamespaceName);
-
-            XElement enemies = roomxml.Element(enemiesName);
-            List<XElement> enemyList = enemies.Elements("enemy").ToList();
-
-            foreach (XElement enemy in enemyList)
-            {
-                XElement typeName = enemy.Element("type");
-
-                XElement xloc = enemy.Element("xloc");
-                XElement yloc = enemy.Element("yloc");
-
-                int x = Int32.Parse(xloc.Value);
-                int y = Int32.Parse(yloc.Value);
-
-                IEntity enemyAdd = createEnemy(typeName.Value, new Vector2(x, y));
-                roomobj.AddEnemy(enemyAdd);
-            }
-        }
-
+       
         public void parseBlocks(Room roomobj, XElement roomxml, XDocument doc)
         {
             XName blocksName = XName.Get("blocks", doc.Root.Name.NamespaceName);
@@ -262,7 +206,7 @@ namespace cse3902.Rooms
                 currentRoom = new Room(roomTup);
 
                 itemParser.parseItems(currentRoom, room, doc);
-                parseEnemies(currentRoom, room, doc);
+                enemyNPCParser.parseEnemies(currentRoom, room, doc);
                 parseBlocks(currentRoom, room, doc);
                 parseDoors(currentRoom, room, doc);
 
