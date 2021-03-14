@@ -231,16 +231,16 @@ namespace cse3902.Rooms
             {
                 XElement typeName = door.Element("type");
                 XElement connRoom = door.Element("connRoom");
-                XElement xloc = door.Element("xloc");
-                XElement yloc = door.Element("yloc");
 
-                int x = Int32.Parse(xloc.Value);
-                int y = Int32.Parse(yloc.Value);
+                Vector3 connectingRoom = convertToVector3(connRoom.Value);
+                HandleDoorConnection(roomobj.roomPos, connectingRoom);
 
-                IDoor doorAdd = createDoor(typeName.Value, new Vector2(x, y));
+                // TODO: update once the Vector3 to Vector2 method is written
+                Vector2 center = RoomUtilities.calculateDoorCenter(new Vector2(roomobj.roomPos.X, roomobj.roomPos.Y), FindDoorPos(typeName.Value));
+
+                IDoor doorAdd = createDoor(typeName.Value, center);
                 roomobj.AddDoor(doorAdd);
             }
-
         }
 
         private void LinkDoors()
@@ -248,9 +248,41 @@ namespace cse3902.Rooms
 
         }
 
-        private void HandleDoorConnection(Vector3 currRoom)
+
+        private void HandleDoorConnection(Vector3 currRoom, Vector3 connectingRoom)
         {
 
+        }
+
+
+        private RoomUtilities.DoorPos FindDoorPos (String pos)
+        {
+            RoomUtilities.DoorPos doorPos = RoomUtilities.DoorPos.Down;
+            switch (pos)
+            {
+                case "Up":
+                    doorPos = RoomUtilities.DoorPos.Up;
+                    break;
+                case "Down":
+                    doorPos = RoomUtilities.DoorPos.Down;
+                    break;
+                case "Left":
+                    doorPos = RoomUtilities.DoorPos.Left;
+                    break;
+                case "Right":
+                    doorPos = RoomUtilities.DoorPos.Right;
+                    break;
+                case "StairDown":
+                    doorPos = RoomUtilities.DoorPos.Down;
+                    break;
+                case "OffscreenUp":
+                    doorPos = RoomUtilities.DoorPos.Up;
+                    break;
+                default:
+                    break;
+            }
+
+            return doorPos;
         }
 
         private Vector3 convertToVector3(String str)

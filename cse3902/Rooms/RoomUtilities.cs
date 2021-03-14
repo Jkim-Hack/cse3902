@@ -30,9 +30,16 @@ namespace cse3902.Rooms
         public const int DOOR_END_X = DOOR_START_X+32;
         public const int DOOR_END_Y = DOOR_START_Y+32;
 
-
         public const int WALL_WIDTH = 120;
         public const int WALL_HEIGHT = 80;
+
+        public enum DoorPos
+        {
+            Up,
+            Down,
+            Left,
+            Right
+        }
 
         public static Vector2 calculateRoomCenter(Vector2 roomLoc)
         {
@@ -49,6 +56,11 @@ namespace cse3902.Rooms
             blockLoc += new Vector2((INTERIOR_WIDTH / NUM_BLOCKS_X)/2, (INTERIOR_HEIGHT / NUM_BLOCKS_Y)/2);
             roomLoc += blockLoc;
             return roomLoc;
+        }
+
+        public static Vector2 calculateDoorCenter(Vector2 roomLoc, DoorPos pos)
+        {
+            return new Vector2(0, 0);
         }
 
         public static Rectangle[] getWallRectangles(Vector2 roomLoc)
