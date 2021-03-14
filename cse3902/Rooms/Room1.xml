@@ -28,8 +28,16 @@
         </enemies>
         <blocks>
         </blocks>
-        <door>
-        </door>
+        <doors>
+            <door>
+                <Room></Room>
+                <Num>0</Num>
+            </door>
+            <door>
+                <Room> VECTOR OF ROOM 2 </Room>
+                <Num>0</Num>
+            </door>
+        </doors>
     </room>
     <room>
         <number>2,5,0</number>

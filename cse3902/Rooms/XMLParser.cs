@@ -10,6 +10,7 @@ using cse3902.SpriteFactory;
 using cse3902.Entities.Enemies;
 using cse3902.Entities;
 using cse3902.Blocks;
+using System.Linq;
 
 namespace cse3902.Rooms
 {
@@ -132,82 +133,104 @@ namespace cse3902.Rooms
             return newDoor;
         }
 
-        public void parseItems(Room room, XElement xmlElem, XDocument doc)
+        public void parseItems(Room roomobj, XElement roomxml, XDocument doc)
         {
+            XName itemsName = XName.Get("items", doc.Root.Name.NamespaceName);
 
-            XName items = XName.Get("items", doc.Root.Name.NamespaceName);
-            foreach (var item in xmlElem.Elements(items))
+            XElement items = roomxml.Element(itemsName);
+            List<XElement> itemList = items.Elements("item").ToList();
+
+            foreach (XElement item in itemList)
             {
-                XName type = XName.Get("type", doc.Root.Name.NamespaceName);
+                XElement typeName = item.Element("type");
 
-                XName xloc = XName.Get("xloc", doc.Root.Name.NamespaceName);
-                XName yloc = XName.Get("yloc", doc.Root.Name.NamespaceName);
+                XElement xloc = item.Element("xloc");
+                XElement yloc = item.Element("yloc");
 
-                int x = Int32.Parse(item.Element(xloc).Value);
-                int y = Int32.Parse(item.Element(yloc).Value);
+                int x = Int32.Parse(xloc.Value);
+                int y = Int32.Parse(yloc.Value);
 
-                IItem itemAdd = createItem(item.Element(type).Value, new Vector2(x, y));
-                room.AddItem(itemAdd);
+                IItem itemAdd = createItem(typeName.Value, new Vector2(x, y));
+                roomobj.AddItem(itemAdd);
+            }
+        }
+
+        public void parseEnemies(Room roomobj, XElement roomxml, XDocument doc)
+        {
+            XName enemiesName = XName.Get("enemies", doc.Root.Name.NamespaceName);
+
+            XElement enemies = roomxml.Element(enemiesName);
+            List<XElement> enemyList = enemies.Elements("enemy").ToList();
+
+            foreach (XElement enemy in enemyList)
+            {
+                XElement typeName = enemy.Element("type");
+
+                XElement xloc = enemy.Element("xloc");
+                XElement yloc = enemy.Element("yloc");
+
+                int x = Int32.Parse(xloc.Value);
+                int y = Int32.Parse(yloc.Value);
+
+                IEntity enemyAdd = createEnemy(typeName.Value, new Vector2(x, y));
+                roomobj.AddEnemy(enemyAdd);
+            }
+        }
+
+        public void parseBlocks(Room roomobj, XElement roomxml, XDocument doc)
+        {
+            XName blocksName = XName.Get("blocks", doc.Root.Name.NamespaceName);
+
+            XElement blocks = roomxml.Element(blocksName);
+            List<XElement> blockList = blocks.Elements("block").ToList();
+
+            foreach (XElement block in blockList)
+            {
+                XElement typeName = block.Element("type");
+                XElement dir = block.Element("dir");
+                XElement xloc = block.Element("xloc");
+                XElement yloc = block.Element("yloc");
+
+                int x = Int32.Parse(xloc.Value);
+                int y = Int32.Parse(yloc.Value);
+
+                IBlock blockAdd = createBlock(typeName.Value, dir.Value, new Vector2(x, y));
+                roomobj.AddBlock(blockAdd);
+            }
+  
+        }
+
+        public void parseDoors(Room roomobj, XElement roomxml, XDocument doc)
+        {
+            XName doorsName = XName.Get("doors", doc.Root.Name.NamespaceName);
+
+            XElement doors = roomxml.Element(doorsName);
+            List<XElement> doorList = doors.Elements("door").ToList();
+
+            foreach (XElement door in doorList)
+            {
+                XElement typeName = door.Element("type");
+                XElement dir = door.Element("dir");
+                XElement xloc = door.Element("xloc");
+                XElement yloc = door.Element("yloc");
+
+                int x = Int32.Parse(xloc.Value);
+                int y = Int32.Parse(yloc.Value);
+
+                IDoor doorAdd = createDoor(typeName.Value, dir.Value, new Vector2(x, y));
+                roomobj.AddDoor(doorAdd);
             }
 
         }
 
-        public void parseEnemies(Room room, XElement xmlElem, XDocument doc)
+        private Vector3 convertToVector3(String str)
         {
+            int comma = str.IndexOf(',');
+            int comma2 = str.IndexOf(',', comma + 1);
 
-            XName enemies = XName.Get("enemies", doc.Root.Name.NamespaceName);
-            foreach (var enemy in xmlElem.Elements(enemies))
-            {
-                XName type = XName.Get("type", doc.Root.Name.NamespaceName);
+            Vector3 roomTup = new Vector3(Int32.Parse(str.Substring(0, comma)), Int32.Parse(str.Substring(comma + 1, 1)), Int32.Parse(str.Substring(comma2+1)));
 
-                XName xloc = XName.Get("xloc", doc.Root.Name.NamespaceName);
-                XName yloc = XName.Get("yloc", doc.Root.Name.NamespaceName);
-
-                int x = Int32.Parse(enemy.Element(xloc).Value);
-                int y = Int32.Parse(enemy.Element(yloc).Value);
-
-                IEntity enemyAdd = createEnemy(enemy.Element(type).Value, new Vector2(x, y));
-                room.AddEnemy(enemyAdd);
-            }
-
-        }
-
-        public void parseBlocks(Room room, XElement xmlElem, XDocument doc)
-        {
-            XName blocks = XName.Get("blocks", doc.Root.Name.NamespaceName);
-            foreach (var block in xmlElem.Elements(blocks))
-            {
-                XName type = XName.Get("type", doc.Root.Name.NamespaceName);
-                XName dir = XName.Get("dir", doc.Root.Name.NamespaceName);
-                XName xloc = XName.Get("xloc", doc.Root.Name.NamespaceName);
-                XName yloc = XName.Get("yloc", doc.Root.Name.NamespaceName);
-
-                int x = Int32.Parse(block.Element(xloc).Value);
-                int y = Int32.Parse(block.Element(yloc).Value);
-
-                IBlock blockAdd = createBlock(block.Element(type).Value, block.Element(dir).Value, new Vector2(x, y));
-                room.AddBlock(blockAdd);
-            }
-
-        }
-
-        public void parseDoors(Room room, XElement xmlElem, XDocument doc)
-        {
-            XName doors = XName.Get("doors", doc.Root.Name.NamespaceName);
-            foreach (var door in xmlElem.Elements(doors))
-            {
-                XName type = XName.Get("type", doc.Root.Name.NamespaceName);
-                XName dir = XName.Get("dir", doc.Root.Name.NamespaceName);
-                XName xloc = XName.Get("xloc", doc.Root.Name.NamespaceName);
-                XName yloc = XName.Get("yloc", doc.Root.Name.NamespaceName);
-
-                int x = Int32.Parse(door.Element(xloc).Value);
-                int y = Int32.Parse(door.Element(yloc).Value);
-
-                IDoor doorAdd = createDoor(door.Element(type).Value, door.Element(dir).Value, new Vector2(x, y));
-                room.AddDoor(doorAdd);
-            }
-
+            return roomTup;
         }
 
         public void parseXML(String filename)
@@ -215,19 +238,16 @@ namespace cse3902.Rooms
             XDocument doc = XDocument.Load(filename);
             XElement map = XElement.Load(filename);
 
-            XName roomName = XName.Get("rooms", doc.Root.Name.NamespaceName);
+            XName roomName = XName.Get("room", doc.Root.Name.NamespaceName);
 
-            foreach (var room in map.Elements(roomName))
+            foreach (XElement room in map.Elements(roomName))
             {
                 Room currentRoom;
 
-                XName chil = XName.Get("room", doc.Root.Name.NamespaceName);
+                //XName chil = XName.Get("room", doc.Root.Name.NamespaceName);
                 XName num = XName.Get("number", doc.Root.Name.NamespaceName);
 
-                int comma = room.Element(num).Value.IndexOf(',');
-                int comma2 = room.Element(num).Value.IndexOf(',', comma + 1);
-
-                Vector3 roomTup = new Vector3(Int32.Parse(room.Element(num).Value.Substring(0, comma)), Int32.Parse(room.Element(num).Value.Substring(comma + 1, comma2)), Int32.Parse(room.Element(num).Value.Substring(comma2)));
+                Vector3 roomTup = convertToVector3(room.Element(num).Value);
 
                 currentRoom = new Room(roomTup);
 
