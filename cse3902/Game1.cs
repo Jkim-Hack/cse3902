@@ -18,7 +18,7 @@ namespace cse3902
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
+     GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch { get; set; }
 
         List<IController> controllerList;
@@ -42,7 +42,7 @@ namespace cse3902
         private Texture2D lineTexture;
 
         public Camera camera { get; set;  }
-
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -58,7 +58,7 @@ namespace cse3902
         protected override void Initialize()
         {
             // Setup input controllers    
-	        controllerList = new List<IController>();
+	          controllerList = new List<IController>();
             controllerList.Add(new KeyboardController(this));
             controllerList.Add(new MouseController(this));
 
@@ -69,9 +69,7 @@ namespace cse3902
             allCollidablesList = new AllCollidablesList();
 
             this.IsMouseVisible = true;
-	        base.Initialize();
-            
-
+	          base.Initialize();
         }
 
         /// <summary>
@@ -88,29 +86,45 @@ namespace cse3902
 
             roomHandler = new RoomHandler(this);
 
+            //camera.MoveCamera(new Vector2(256, 0), new Vector2(256, 176));
+
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
             RoomBackground.Instance.LoadTextures(Content, spriteBatch);
 
+            //RoomBackground.Instance.generateRoom(new Vector3(1, 0, 0), 1);
+
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+
             projectileHandler.LoadAllTextures(Content);
+
             itemHandler.LoadContent(spriteBatch, Content);
             enemyNPCHandler.LoadContent();
             blockHandler.LoadContent();
 
             // For hitbox drawing
-	        lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-	        lineTexture.SetData<Color>(new Color[] { Color.White });
+	          lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+	          lineTexture.SetData<Color>(new Color[] { Color.White });
 
             // Testing purposes
             RoomBackground.Instance.generateRoom(new Vector3(0,0,0), 1);
 
             collisionManager = new CollisionManager(this);
 
-	        allCollidablesList.Insert((int)CollisionManager.CollisionPriority.PLAYER, player);
+            allCollidablesList.Insert((int)CollisionManager.CollisionPriority.PLAYER, player);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ENEMY_NPC, ref RoomEnemyNPCs.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ITEMS, ref RoomItems.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BLOCKS, ref RoomBlocks.Instance.ListRef);
 
+        }
+
+        /// <summary>
+        /// UnloadContent will be called once per game and is the place to unload
+        /// game-specific content.
+        /// </summary>
+        protected override void UnloadContent()
+        {
+            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -136,13 +150,14 @@ namespace cse3902
 
             projectileHandler.Update(gameTime);
             
-	        player.Update(gameTime);
+	          player.Update(gameTime);
 
-            itemHandler.Update(gameTime);
-            enemyNPCHandler.Update(gameTime);
-            blockHandler.Update(gameTime);
             RoomBackground.Instance.Update(gameTime);
             collisionManager.Update();
+            RoomItems.Instance.Update(gameTime);
+            RoomEnemyNPCs.Instance.Update(gameTime);
+            RoomBlocks.Instance.Update(gameTime);
+
             roomHandler.Update();
 
             base.Update(gameTime);
@@ -158,11 +173,12 @@ namespace cse3902
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetTransformationMatrix());
 
             projectileHandler.Draw();
-            itemHandler.Draw();
             player.Draw();
-            blockHandler.Draw();
-            enemyNPCHandler.Draw();
             RoomBackground.Instance.Draw();
+            RoomItems.Instance.Draw();
+            RoomEnemyNPCs.Instance.Draw();
+            RoomBlocks.Instance.Draw();
+
             roomHandler.Draw();
 
             collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);

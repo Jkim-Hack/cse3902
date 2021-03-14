@@ -16,42 +16,39 @@ namespace cse3902.Rooms
     public class XMLParser
     {
         private RoomHandler roomHandler;
-        private SpriteBatch spriteBatch;
         private Game1 game;
 
         public XMLParser(RoomHandler roomHand, Game1 gm)
         {
             roomHandler = roomHand;
-            spriteBatch = gm.spriteBatch;
             game = gm;
         }
 
         public IItem createItem(String type, Vector2 startPos)
         {
             IItem newItem = null;
-            //return ItemSpriteFactory.Instance.CreateArrowItem();
             switch (type)
             {
                 case "Arrow":
-                    newItem = ItemSpriteFactory.Instance.CreateArrowItem(spriteBatch, startPos, new Vector2(1, 0));
+                    newItem = ItemSpriteFactory.Instance.CreateArrowItem(game.spriteBatch, startPos, new Vector2(1, 0));
                     break;
                 case "Bow":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(game.spriteBatch, startPos);
                     break;
                 case "Clock":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(game.spriteBatch, startPos);
                     break;
                 case "Compass":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateCompassItem(spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateCompassItem(game.spriteBatch, startPos);
                     break;
                 case "Fairy":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateFairyItem(spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateFairyItem(game.spriteBatch, startPos);
                     break;
                 case "HeartContainer":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartContainerItem(spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartContainerItem(game.spriteBatch, startPos);
                     break;
                 case "Heart":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartItem(spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartItem(game.spriteBatch, startPos);
                     break;
                 default:
                     //createdItem = null;
@@ -63,7 +60,6 @@ namespace cse3902.Rooms
         public IEntity createEnemy(String type, Vector2 startingPos)
         {
             IEntity newEnemy = null;
-            //return ItemSpriteFactory.Instance.CreateArrowItem();
             switch (type)
             {
                 case "Aquamentus":
@@ -100,26 +96,30 @@ namespace cse3902.Rooms
             return newEnemy;
         }
 
-        public IBlock createBlock(String type, Vector2 startingPos)
+        public IBlock createBlock(String type, String dir, Vector2 startingPos)
         {
             IBlock newBlock = null;
-            //return ItemSpriteFactory.Instance.CreateArrowItem();
             switch (type)
             {
                 case "Normal":
-                    //newBlock = new NormalBlock(game, startingPos, (int)IBlock.PushDirection.Right, 10);
+                    if (dir.Equals("Still"))
+                    {
+                        newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 10, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, startingPos));
+                    }
+                    else if (dir.Equals("Down"))
+                    {
+                        newBlock = new NormalBlock(game, IBlock.PushDirection.Down, 10, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, startingPos));
+                    }
                     break;
-                //case "Water":
-                //    newBlock = new WaterBlock(game, startingPos);
-                //    break;
+                case "Water":
+                    newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 10, BlockSpriteFactory.Instance.CreateWaterBlockSprite(game.spriteBatch, startingPos));
+                    break;
                 default:
                     //createdItem = null;
                     break;
             }
             return newBlock;
         }
-
-
 
         public void parseItems(Room room, XElement xmlElem, XDocument doc)
         {
@@ -144,18 +144,18 @@ namespace cse3902.Rooms
         public void parseEnemies(Room room, XElement xmlElem, XDocument doc)
         {
 
-            XName items = XName.Get("enemies", doc.Root.Name.NamespaceName);
-            foreach (var item in xmlElem.Elements(items))
+            XName enemies = XName.Get("enemies", doc.Root.Name.NamespaceName);
+            foreach (var enemy in xmlElem.Elements(enemies))
             {
                 XName type = XName.Get("type", doc.Root.Name.NamespaceName);
 
                 XName xloc = XName.Get("xloc", doc.Root.Name.NamespaceName);
                 XName yloc = XName.Get("yloc", doc.Root.Name.NamespaceName);
 
-                int x = Int32.Parse(item.Element(xloc).Value);
-                int y = Int32.Parse(item.Element(yloc).Value);
+                int x = Int32.Parse(enemy.Element(xloc).Value);
+                int y = Int32.Parse(enemy.Element(yloc).Value);
 
-                IEntity enemyAdd = createEnemy(item.Element(type).Value, new Vector2(x, y));
+                IEntity enemyAdd = createEnemy(enemy.Element(type).Value, new Vector2(x, y));
                 room.AddEnemy(enemyAdd);
             }
 
@@ -164,19 +164,19 @@ namespace cse3902.Rooms
         public void parseBlocks(Room room, XElement xmlElem, XDocument doc)
         {
 
-            XName items = XName.Get("items", doc.Root.Name.NamespaceName);
-            foreach (var item in xmlElem.Elements(items))
+            XName blocks = XName.Get("blocks", doc.Root.Name.NamespaceName);
+            foreach (var block in xmlElem.Elements(blocks))
             {
                 XName type = XName.Get("type", doc.Root.Name.NamespaceName);
-
+                XName dir = XName.Get("dir", doc.Root.Name.NamespaceName);
                 XName xloc = XName.Get("xloc", doc.Root.Name.NamespaceName);
                 XName yloc = XName.Get("yloc", doc.Root.Name.NamespaceName);
 
-                int x = Int32.Parse(item.Element(xloc).Value);
-                int y = Int32.Parse(item.Element(yloc).Value);
+                int x = Int32.Parse(block.Element(xloc).Value);
+                int y = Int32.Parse(block.Element(yloc).Value);
 
-                IItem itemAdd = createItem(item.Element(type).Value, new Vector2(x, y));
-                room.AddItem(itemAdd);
+                IBlock blockAdd = createBlock(block.Element(type).Value, block.Element(dir).Value, new Vector2(x, y));
+                room.AddBlock(blockAdd);
             }
 
         }
@@ -207,7 +207,8 @@ namespace cse3902.Rooms
                 roomHandler.rooms.Add(roomTup, currentRoom);
 
                 parseItems(currentRoom, room, doc);
-
+                parseEnemies(currentRoom, room, doc);
+                parseBlocks(currentRoom, room, doc);
             }
         }
     }

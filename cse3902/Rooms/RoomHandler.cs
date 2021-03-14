@@ -28,6 +28,7 @@ namespace cse3902.Rooms
         public Vector3 currentRoom { get; set; }
         private Vector3 previousRoom;
 
+
         public RoomHandler(Game1 game)
         {
             rooms = new Dictionary<Vector3, Room>();
@@ -78,7 +79,7 @@ namespace cse3902.Rooms
             if (!roomTransitionManager.IsTransitioning())
             {
                 roomChange += currentRoom;
-                LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).doors[0]);
+                LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[0]);
             }
         }
 

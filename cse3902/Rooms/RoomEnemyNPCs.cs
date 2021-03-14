@@ -24,7 +24,7 @@ namespace cse3902.Rooms
 
         private RoomEnemyNPCs()
         {
-
+            enpcs = new List<IEntity>();
         }
 
         public void AddENPC(IEntity enemy)
@@ -34,7 +34,8 @@ namespace cse3902.Rooms
 
         public void RemoveENPC(IEntity enemy)
         {
-            enpcs.Remove(enemy);
+            enpcs.RemoveAll(x => x.Center == enemy.Center);
+            //enpcs.Remove(enemy);
         }
 
         public void Update(GameTime gameTime)

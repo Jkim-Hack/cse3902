@@ -14,6 +14,7 @@ namespace cse3902.Interfaces
             Still
         }
         public ref Rectangle Bounds { get; }
+        public Vector2 Center { get; }
         public void Move(Vector2 pushDirection);
         public void Move(PushDirection pushDirection);
         public void Draw();
