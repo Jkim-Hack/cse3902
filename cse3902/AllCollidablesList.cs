@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using cse3902.Collision;
+using Microsoft.Xna.Framework;
 
 namespace cse3902
 {
@@ -43,6 +45,31 @@ namespace cse3902
             }
         }
 
+        public Dictionary<int, Dictionary<Rectangle, ICollidable>> GetAllCollidablesDictionary()
+        {
+            Dictionary<int, Dictionary<Rectangle, ICollidable>> allCollidablesDictionary = new Dictionary<int, Dictionary<Rectangle, ICollidable>>();
+            foreach (var priority in Priorities)
+            {
+                allCollidablesDictionary.Add(priority, new Dictionary<Rectangle, ICollidable>());
+                foreach (var type in ListKeys(priority))
+                {
+                    foreach (var item in AllColldiables[priority][type]) 
+		            {
+                        dynamic collidable = Convert.ChangeType(item, type);
+                        if (type != typeof(ICollidable))
+                        {
+                            allCollidablesDictionary[priority].Add(collidable.Collidable.RectangleRef, collidable.Collidable);
+                        }
+                        else if (type == typeof(ICollidable))
+                        {
+                            allCollidablesDictionary[priority].Add(collidable.RectangleRef, collidable);
+                        }
+                    }
+                }
+            }
+            return allCollidablesDictionary;
+        }
+
         public Dictionary<Type, IList>.KeyCollection ListKeys(int priority)
         {
             return AllColldiables[priority].Keys;
@@ -53,9 +80,9 @@ namespace cse3902
             return AllColldiables[priority].Values;
         }
 
-	    public Dictionary<int, Dictionary<Type, IList>>.KeyCollection Priorities()
+	    public Dictionary<int, Dictionary<Type, IList>>.KeyCollection Priorities
         {
-            return AllColldiables.Keys;
+            get => AllColldiables.Keys;
         }
     }
 }

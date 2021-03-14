@@ -92,7 +92,14 @@ namespace cse3902
             projectileHandler.LoadAllTextures(Content);
             itemHandler.LoadContent(spriteBatch, Content);
             enemyNPCHandler.LoadContent();
-            blockHandler.LoadContent(); ;
+            blockHandler.LoadContent();
+
+            allCollidablesList.InsertNewList(new List<IEntity>(), typeof(IEntity), (int)CollisionManager.CollisionPriority.PLAYER);
+            allCollidablesList.Insert(player, (int)CollisionManager.CollisionPriority.PLAYER);
+            allCollidablesList.InsertNewList(RoomEnemyNPCs.Instance.enpcs, typeof(IEntity), (int)CollisionManager.CollisionPriority.ITEMS);
+            allCollidablesList.InsertNewList(RoomItems.Instance.items, typeof(IItem), (int)CollisionManager.CollisionPriority.ITEMS);
+            allCollidablesList.InsertNewList(RoomBlocks.Instance.blocks, typeof(IBlock), (int)CollisionManager.CollisionPriority.BLOCKS);
+
         }
 
         /// <summary>
@@ -146,6 +153,8 @@ namespace cse3902
             enemyNPCHandler.Draw();
             RoomBackground.Instance.Draw();
             roomHandler.Draw();
+
+            collisionManager.DrawAllRectangles(Color.Red, 2);
 
             spriteBatch.End();
             base.Draw(gameTime);
