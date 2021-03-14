@@ -26,6 +26,8 @@ namespace cse3902.Rooms
         private RoomTransitionManager roomTransitionManager;
 
         public Vector3 currentRoom { get; set; }
+        private Vector3 previousRoom;
+
 
         public RoomHandler(Game1 game)
         {
@@ -66,10 +68,19 @@ namespace cse3902.Rooms
             RoomBlocks.Instance.LoadNewRoom(ref oldBlocks, newRoom.Blocks);
             rooms.GetValueOrDefault(currentRoom).Blocks = oldBlocks;
 
+            previousRoom = currentRoom;
             currentRoom = newPos;
             rooms.GetValueOrDefault(newPos).SetToVisited();
 
             roomTransitionManager.StartTransitionManager(entranceDoor);
+        }
+        public void LoadNewRoom(Vector3 roomChange)
+        {
+            if (!roomTransitionManager.IsTransitioning())
+            {
+                roomChange += currentRoom;
+                LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[0]);
+            }
         }
 
         public void Update()
@@ -77,15 +88,21 @@ namespace cse3902.Rooms
             if (roomTransitionManager.IsTransitioning()) roomTransitionManager.Update();
             else
             {
-                //update things normally
+                //update things normally (items, enemies, projectiles)
             }
         }
         public void Draw()
         {
-            if (!roomTransitionManager.IsTransitioning())
+            if (roomTransitionManager.IsTransitioning())
             {
-                //draw things normally
+                //only draw things that are drawn while transitioning (previous room)
             }
+            else
+            {
+                //only draw things when fully in a room (items, enemies, projectiles)
+            }
+
+            //draw things regardless of transition or not (current room)
         }
     }
 }

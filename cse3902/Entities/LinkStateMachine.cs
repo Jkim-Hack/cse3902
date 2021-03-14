@@ -287,10 +287,13 @@ namespace cse3902.Entities
 
         public void TakeDamage(int damage)
         {
-            if (remainingDamageDelay > 0 && linkSprite.Damaged) return;
-            linkSprite.Damaged = true;
-            health -= damage;
-            remainingDamageDelay = damageDelay;
+            if (damage > 0)
+            {
+                if (remainingDamageDelay > 0 && linkSprite.Damaged) return;
+                linkSprite.Damaged = true;
+                health -= damage;
+                remainingDamageDelay = damageDelay;
+            }
         }
 
         public void CycleWeapon(int dir)

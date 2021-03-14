@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Collision
 {
@@ -9,49 +10,54 @@ namespace cse3902.Collision
         // priority levels are used based on which collidable object's OnCollideWith method executes first
         // Lower integer = higher priority
 
+        public enum CollisionPriority
+        {
+            PLAYER = 0,
+            ENEMY_NPC = 1,
+            ITEMS = 2,
+            BLOCKS = 3,
+            BACKGROUND = 4
+        }
+
         // <priority level, <Collidable's Rectangle, Collidable object>>
         private Dictionary<int, Dictionary<Rectangle, ICollidable>> allCollidableObjects;
         private QuadTree quadTree;
+        private bool isDisabled;
 
-        public CollisionManager(int width, int height)
+        private Game1 game;
+
+        public CollisionManager(Game1 game)
         {
-            quadTree = new QuadTree(0, new Rectangle(0, 0, width, height));
+            this.game = game;
+            isDisabled = false;
+            quadTree = new QuadTree(0, new Rectangle(0, 0, this.game.Window.ClientBounds.Width, this.game.Window.ClientBounds.Height));
             allCollidableObjects = new Dictionary<int, Dictionary<Rectangle, ICollidable>>();
         }
 
-        public void InsertCollidable(int priority, ICollidable collidable)
-        {
-            if (allCollidableObjects.ContainsKey(priority))
-            {
-                allCollidableObjects[priority].Add(collidable.RectangleRef, collidable);
-            }
-            else
-            {
-                allCollidableObjects.Add(priority, new Dictionary<Rectangle, ICollidable>());
-                // The lazy man's way ;)
-                InsertCollidable(priority, collidable);
-            }
-        }
-
+        // Thank god there arent hundreds or thousands of collidables in the game
         public void Update()
         {
-            ResetTree();
-
-            // Check for collisions in the order of priority
-            List<int> priorities = new List<int>(allCollidableObjects.Keys);
-            priorities.Sort();
-
-            foreach (int priority in priorities)
+            if (!isDisabled)
             {
-                foreach (var collidable in allCollidableObjects[priority])
+                allCollidableObjects = game.AllCollidablesList.GetAllCollidablesDictionary();
+                ResetTree();
+
+                // Check for collisions in the order of priority
+                List<int> priorities = new List<int>(allCollidableObjects.Keys);
+                priorities.Sort();
+
+                foreach (int priority in priorities)
                 {
-                    List<ICollidable> collided = GetCollided(collidable.Key);
-                    foreach(var collision in collided)
+                    foreach (var collidable in allCollidableObjects[priority])
                     {
-                        collidable.Value.OnCollidedWith(collision);
+                        List<ICollidable> collided = GetCollided(collidable.Key);
+                        foreach(var collision in collided)
+                        {
+                            collidable.Value.OnCollidedWith(collision);
+                        }
                     }
                 }
-            }
+            } 
         }
 
         private void ResetTree()
@@ -96,5 +102,27 @@ namespace cse3902.Collision
 
             return null;
         }
+
+        public void DrawAllRectangles(Texture2D lineTexture, Color color, int lineWidth)
+        {
+            SpriteBatch spriteBatch = this.game.spriteBatch;
+            foreach (var collidableDictionary in allCollidableObjects.Values)
+            {
+                foreach (var rectangle in collidableDictionary.Keys)
+                {
+                    spriteBatch.Draw(lineTexture, new Rectangle(rectangle.X, rectangle.Y, lineWidth, rectangle.Height + lineWidth), color);
+                    spriteBatch.Draw(lineTexture, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width + lineWidth, lineWidth), color);
+                    spriteBatch.Draw(lineTexture, new Rectangle(rectangle.X + rectangle.Width, rectangle.Y, lineWidth, rectangle.Height + lineWidth), color);
+                    spriteBatch.Draw(lineTexture, new Rectangle(rectangle.X, rectangle.Y + rectangle.Height, rectangle.Width + lineWidth, lineWidth), color);
+                }
+            }
+        }
+
+        public bool Disabled
+        {
+            get => isDisabled;
+            set => isDisabled = value;
+        }
+
     }
 }

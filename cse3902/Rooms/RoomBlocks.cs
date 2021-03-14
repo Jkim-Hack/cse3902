@@ -5,12 +5,13 @@ using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using System.Collections;
 
 namespace cse3902.Rooms
 {
     public class RoomBlocks
     {
-        public List<IBlock> blocks { get; set; }
+        public IList blocks;
 
         private static RoomBlocks instance = new RoomBlocks();
 
@@ -24,7 +25,7 @@ namespace cse3902.Rooms
 
         private RoomBlocks()
         {
-
+            blocks = new List<IBlock>();
         }
 
         public void AddBlock(IBlock block)
@@ -34,7 +35,8 @@ namespace cse3902.Rooms
 
         public void RemoveBlock(IBlock block)
         {
-            blocks.Remove(block);
+            blocks.RemoveAll(x => x.Center == block.Center);
+            //blocks.Remove(block);
         }
 
         public void Update(GameTime gameTime)
@@ -57,9 +59,11 @@ namespace cse3902.Rooms
         {
             oldList = new List<IBlock>();
 
-            for (int i = 0; i < blocks.Count; i++)
+            List<IBlock> blocksCast = blocks as List<IBlock>;
+
+            for (int i = 0; i < blocksCast.Count; i++)
             {
-                oldList[i] = blocks[i];
+                oldList[i] = blocksCast[i];
             }
 
             blocks = new List<IBlock>();
@@ -69,6 +73,11 @@ namespace cse3902.Rooms
                 blocks[i] = newList[i];
             }
 
+        }
+
+        public ref IList ListRef
+        {
+            get => ref blocks;
         }
     }
 }

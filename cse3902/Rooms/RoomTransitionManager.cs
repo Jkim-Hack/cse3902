@@ -41,7 +41,7 @@ namespace cse3902.Rooms
         {
             stepTracker = 0;
             entranceDoor = entrance;
-            game.collisionManager.Disabled = true;
+            //game.collisionManager.Disabled = true;
         }
         public bool IsTransitioning()
         {
@@ -62,7 +62,7 @@ namespace cse3902.Rooms
                     break;
 
                 case 9.99f:
-                    game.collisionManager.Disabled = false;
+                    //game.collisionManager.Disabled = false;
                     stepTracker++;
                     break;
 

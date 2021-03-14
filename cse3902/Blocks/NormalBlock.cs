@@ -81,5 +81,10 @@ namespace cse3902.Blocks
         {
             get => this.collidable;
         }
+
+        public Vector2 Center
+        {
+            get => this.normalBlockSprite.Center;
+        }
     }
 }
