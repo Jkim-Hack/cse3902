@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+using cse3902.Collision;
 
 namespace cse3902.Interfaces
 {
@@ -13,10 +13,12 @@ namespace cse3902.Interfaces
             Wall
         }
 
-        // Bounds[0] = Room transition collidable rectangle
-        // Rest are normal hitboxes
-        public List<Rectangle> Bounds { get; }
+        public ref Rectangle Bounds { get; }
+        public IDoor ConnectedDoor { set; }
+        public ICollidable Collidable { get; }
         public void Interact();
+        public Vector2 PlayerReleasePosition();
+        public Vector2 PlayerReleaseDirection();
         public void Draw();
     }
 }

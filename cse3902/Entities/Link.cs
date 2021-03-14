@@ -6,6 +6,7 @@ using cse3902.Collision.Collidables;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.Entities.DamageMasks;
 
 namespace cse3902.Entities
 {
@@ -16,14 +17,18 @@ namespace cse3902.Entities
 	    private Game1 game;
 
         private ICollidable collidable;
+        private int health;
 
         public Link(Game1 game)
         {
             this.game = game;
             // TODO Add this into sprite factory
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
+            Texture2D linkDamageSequenceTexture = game.Content.Load<Texture2D>("LinkDamageSequence");
+            DamageMaskHandler linkDamageMaskHandler = new DamageMaskHandler(linkTexture, linkDamageSequenceTexture, 1, 4, 0);
+
             Vector2 centerPosition = new Vector2(50, 200);
-            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 6, 4, centerPosition);
+            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 6, 4, linkDamageMaskHandler, centerPosition);
             linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition, game.spriteBatch);
 
             //Link's body does no damage itself
@@ -47,6 +52,7 @@ namespace cse3902.Entities
         public void ChangeDirection(Vector2 direction)
         {
             linkStateMachine.ChangeDirection(direction);
+            
 	    }        
 
         public void Die()
@@ -56,8 +62,8 @@ namespace cse3902.Entities
 
         public void TakeDamage(int damage)
         {
-            // Default to 10 for now
-            linkStateMachine.TakeDamage(10);
+            
+            linkStateMachine.TakeDamage(damage);
 	    } 
 
         public void Update(GameTime gameTime)
@@ -102,12 +108,23 @@ namespace cse3902.Entities
         
 	    public Vector2 CenterPosition
         {
+            set => linkStateMachine.CenterPosition = value;
             get => linkStateMachine.CenterPosition;
+        }
+
+        public int Health
+        {
+            get => linkStateMachine.Health;
         }
 
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public void Reset()
+        {
+            linkSprite.DamageMaskHandler.Reset();
         }
     }
 }

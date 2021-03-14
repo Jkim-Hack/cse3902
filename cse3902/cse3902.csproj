@@ -41,8 +41,10 @@
     <Folder Include="Rooms\" />
     <Folder Include="Collision\" />
     <Folder Include="Collision\Collidables\" />
+    <Folder Include="Entities\DamageMasks\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Blocks\WaterBlock.cs" />
+    <Compile Remove="Entities\EnemyStateMachine.cs" />
   </ItemGroup>
 </Project>

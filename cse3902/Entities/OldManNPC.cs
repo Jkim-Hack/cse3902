@@ -18,10 +18,10 @@ namespace cse3902.Entities
 
         private ICollidable collidable;
 
-        public OldManNPC(Game1 game)
+        public OldManNPC(Game1 game, Vector2 start)
         {
             this.game = game;
-            centerPosition = new Vector2(500, 200);
+            centerPosition = start;
             oldManSprite = NPCSpriteFactory.Instance.CreateOldManSprite(game.spriteBatch,centerPosition);
 
             this.collidable = new NPCCollidable(this);
@@ -65,6 +65,17 @@ namespace cse3902.Entities
         public void Draw()
         {
             oldManSprite.Draw();
+        }
+
+        public int Health
+        {
+            get => 0;
+
+        }
+
+        public Vector2 Direction
+        {
+            get => new Vector2(0, 0);
         }
 
         public ICollidable Collidable

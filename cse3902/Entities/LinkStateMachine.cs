@@ -67,46 +67,57 @@ namespace cse3902.Entities
 
             if (newDirection.X == 0 && newDirection.Y == 0)
             {
-                mode = LinkMode.Still;
-                if (currDirection.X > 0)
-                {
-                    linkSprite.setFrameSet(LinkSprite.AnimationState.RightFacing);
-                }
-                if (currDirection.X < 0)
-                {
-                    linkSprite.setFrameSet(LinkSprite.AnimationState.LeftFacing);
-                }
-                if (currDirection.Y > 0)
-                {
-                    linkSprite.setFrameSet(LinkSprite.AnimationState.DownFacing);
-                }
-                if (currDirection.Y < 0)
-                {
-                    linkSprite.setFrameSet(LinkSprite.AnimationState.UpFacing);
-                }
+                StillChangeDirection();
             }
             else
             {
-                currDirection = newDirection;
-                mode = LinkMode.Moving;
-                if (newDirection.X > 0)
-                {
-                    linkSprite.setFrameSet(LinkSprite.AnimationState.RightRunning);
-                }
-                if (newDirection.X < 0)
-                {
-                    linkSprite.setFrameSet(LinkSprite.AnimationState.LeftRunning);
-                }
-                if (newDirection.Y > 0)
-                {
-                    linkSprite.setFrameSet(LinkSprite.AnimationState.DownRunning);
-                }
-                if (newDirection.Y < 0)
-                {
-                    linkSprite.setFrameSet(LinkSprite.AnimationState.UpRunning);
-                }
+                MovingChangeDirection(newDirection);
             }
         }
+
+        private void StillChangeDirection()
+        {
+            mode = LinkMode.Still;
+            if (currDirection.X > 0)
+            {
+                linkSprite.setFrameSet(LinkSprite.AnimationState.RightFacing);
+            }
+            if (currDirection.X < 0)
+            {
+                linkSprite.setFrameSet(LinkSprite.AnimationState.LeftFacing);
+            }
+            if (currDirection.Y > 0)
+            {
+                linkSprite.setFrameSet(LinkSprite.AnimationState.DownFacing);
+            }
+            if (currDirection.Y < 0)
+            {
+                linkSprite.setFrameSet(LinkSprite.AnimationState.UpFacing);
+            }
+        }
+
+        private void MovingChangeDirection(Vector2 newDirection)
+        {
+            currDirection = newDirection;
+            mode = LinkMode.Moving;
+            if (newDirection.X > 0)
+            {
+                linkSprite.setFrameSet(LinkSprite.AnimationState.RightRunning);
+            }
+            if (newDirection.X < 0)
+            {
+                linkSprite.setFrameSet(LinkSprite.AnimationState.LeftRunning);
+            }
+            if (newDirection.Y > 0)
+            {
+                linkSprite.setFrameSet(LinkSprite.AnimationState.DownRunning);
+            }
+            if (newDirection.Y < 0)
+            {
+                linkSprite.setFrameSet(LinkSprite.AnimationState.UpRunning);
+            }
+        }
+
 
         private void onSpriteAnimationComplete()
         {
@@ -129,6 +140,7 @@ namespace cse3902.Entities
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && this.shoveDistance <= -10) BeShoved(); // JUST FOR TESTING
 
             UpdateDamageDelay(gameTime);
+            
 
             if (this.shoveDistance > -10) ShoveMovement();
             else RegularMovement(gameTime);
@@ -294,6 +306,11 @@ namespace cse3902.Entities
                 this.linkSprite.Center = value;
                 this.centerPosition = value;
             }
+        }
+
+        public int Health
+        {
+            get => this.health;
         }
 
         private Boolean PauseMovement

@@ -21,6 +21,27 @@ namespace cse3902.Entities
 
         public void ChangeDirection(Vector2 newDirection)
         {
+            if (newDirection == new Vector2(0, 0))
+            {
+                //direction vector of (0,0) indicates just reverse the current direction
+                if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.RightFacing)
+                {
+                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.LeftFacing;
+                }
+                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.LeftFacing)
+                {
+                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.RightFacing;
+                }
+                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.UpFacing)
+                {
+                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.DownFacing;
+                }
+                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.DownFacing)
+                {
+                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.UpFacing;
+                }
+            }
+
             if (newDirection.X > 0)
             {
                 goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.RightFacing;

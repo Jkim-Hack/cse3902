@@ -16,6 +16,8 @@ namespace cse3902.Items
         private int maxFrameTime;
         private int currentFrameTime;
 
+        private Vector2 startPos;
+
         public EnemyNPCHandler(Game1 thegame)
         {
             enpcs = new List<IEntity>();
@@ -23,13 +25,14 @@ namespace cse3902.Items
             game = thegame;
             maxFrameTime = 10;
             currentFrameTime = 0;
+            startPos = new Vector2(100, 200);
         }
 
         private void InitializeEnemyNPC()
         {
-            enpcs.Add(new OldManNPC(game));
-            enpcs.Add(new MedicineWomanNPC(game));
-            enpcs.Add(new MerchantNPC(game));
+            enpcs.Add(new OldManNPC(game, startPos));
+            enpcs.Add(new MedicineWomanNPC(game, startPos));
+            enpcs.Add(new MerchantNPC(game, startPos));
 
             //enemies would be included here, but enemy constructors load the content file
         }
@@ -40,12 +43,12 @@ namespace cse3902.Items
             EnemySpriteFactory.Instance.LoadAllTextures(game.Content);
 
             InitializeEnemyNPC();
-            enpcs.Add(new Aquamentus(game));
-            enpcs.Add(new Gel(game));
-            enpcs.Add(new Goriya(game));
-            enpcs.Add(new Keese(game));
-            enpcs.Add(new Stalfos(game));
-            enpcs.Add(new WallMaster(game));
+            enpcs.Add(new Aquamentus(game, startPos));
+            enpcs.Add(new Gel(game, startPos));
+            enpcs.Add(new Goriya(game, startPos));
+            enpcs.Add(new Keese(game, startPos));
+            enpcs.Add(new Stalfos(game, startPos));
+            enpcs.Add(new WallMaster(game, startPos));
         }
 
         public void Update(GameTime gameTime)
@@ -78,8 +81,6 @@ namespace cse3902.Items
                 currentFrameTime = 0;
             }
         }
-
-      
 
         public void Reset()
         {

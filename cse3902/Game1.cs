@@ -33,6 +33,9 @@ namespace cse3902
 
         public ProjectileHandler projectileHandler { get; set; }
 
+        private AllCollidablesList allCollidablesList;
+        public AllCollidablesList AllCollidablesList { get => this.allCollidablesList; }
+
         public CollisionManager collisionManager { get; set; }
 
         public Camera camera { get; set;  }
@@ -59,7 +62,8 @@ namespace cse3902
             projectileHandler = ProjectileHandler.Instance;
             enemyNPCHandler = new EnemyNPCHandler(this);
             blockHandler = new BlockHandler(this);
-            collisionManager = new CollisionManager(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
+            allCollidablesList = new AllCollidablesList();
+            collisionManager = new CollisionManager(this);
 
             this.IsMouseVisible = true;
 	        base.Initialize();
@@ -75,19 +79,20 @@ namespace cse3902
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
-	        player = new Link(this);
+
+            player = new Link(this);
             camera = new Camera(this);
 
-            roomHandler = new RoomHandler(spriteBatch, camera);
+            roomHandler = new RoomHandler(this);
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
+            RoomBackground.Instance.LoadTextures(Content, spriteBatch);
 
             projectileHandler.LoadAllTextures(Content);
             itemHandler.LoadContent(spriteBatch, Content);
             enemyNPCHandler.LoadContent();
-            blockHandler.LoadContent();
+            blockHandler.LoadContent(); ;
         }
 
         /// <summary>
@@ -118,10 +123,9 @@ namespace cse3902
             itemHandler.Update(gameTime);
             enemyNPCHandler.Update(gameTime);
             blockHandler.Update(gameTime);
-
+            RoomBackground.Instance.Update(gameTime);
             collisionManager.Update();
-
-            camera.Update();
+            roomHandler.Update();
 
             base.Update(gameTime);
         }
@@ -134,13 +138,15 @@ namespace cse3902
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetTransformationMatrix());
-            
+
             projectileHandler.Draw();
             itemHandler.Draw();
             player.Draw();
             blockHandler.Draw();
             enemyNPCHandler.Draw();
-            
+            RoomBackground.Instance.Draw();
+            roomHandler.Draw();
+
             spriteBatch.End();
             base.Draw(gameTime);
         }

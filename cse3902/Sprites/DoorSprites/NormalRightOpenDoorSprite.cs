@@ -1,7 +1,6 @@
 ﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 
 namespace cse3902.Sprites
 {
@@ -14,7 +13,7 @@ namespace cse3902.Sprites
         private int frameWidth;
         private int frameHeight;
 
-        private List<Rectangle> hitboxes;
+        private Rectangle dest;
         private Rectangle door;
 
         private const float sizeIncrease = 1f;
@@ -30,7 +29,6 @@ namespace cse3902.Sprites
             center = startingPosition;
 
             door = wantedDoor;
-            hitboxes = new List<Rectangle>();
         }
 
         public void Draw()
@@ -51,28 +49,17 @@ namespace cse3902.Sprites
             spriteTexture.Dispose();
         }
 
-        public List<Rectangle> Boxes
+        public ref Rectangle Box
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth) / 2;
-                int height = (int)(sizeIncrease * frameHeight);
+                int width = (int)(sizeIncrease * frameWidth);
+                int height = 18;
                 Rectangle destination = new Rectangle((int)center.X, (int)center.Y, width, height);
-                destination.Offset(0, -destination.Height / 2);
-                hitboxes.Add(destination);
+                destination.Offset(-destination.Width / 2, -destination.Height / 2);
+                dest = destination;
 
-                int openHeight = 18;
-                height = (width - openHeight) / 2;
-
-                destination = new Rectangle((int)center.X, (int)center.Y, width, height);
-                destination.Offset(-frameWidth / 2, -frameHeight / 2);
-                hitboxes.Add(destination);
-
-                destination = new Rectangle((int)center.X, (int)center.Y, width, height);
-                destination.Offset(-frameWidth / 2, openHeight / 2);
-                hitboxes.Add(destination);
-
-                return hitboxes;
+                return ref dest;
             }
         }
 

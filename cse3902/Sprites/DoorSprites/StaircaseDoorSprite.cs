@@ -1,7 +1,6 @@
 ﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 
 namespace cse3902.Sprites
 {
@@ -14,7 +13,7 @@ namespace cse3902.Sprites
         private int frameWidth;
         private int frameHeight;
 
-        private List<Rectangle> hitboxes;
+        private Rectangle dest;
 
         private const float sizeIncrease = 1f;
 
@@ -27,8 +26,6 @@ namespace cse3902.Sprites
             frameHeight = spriteTexture.Height;
 
             center = startingPosition;
-
-            hitboxes = new List<Rectangle>();
         }
 
         public void Draw()
@@ -49,17 +46,17 @@ namespace cse3902.Sprites
             spriteTexture.Dispose();
         }
 
-        public List<Rectangle> Boxes
+        public ref Rectangle Box
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth) / 4;
-                int height = (int)(sizeIncrease * frameHeight) / 4;
+                int width = (int)(sizeIncrease * frameWidth) / 8;
+                int height = (int)(sizeIncrease * frameHeight) / 8;
                 Rectangle destination = new Rectangle((int)center.X, (int)center.Y, width, height);
-                destination.Offset(-destination.Width / 8, -destination.Height / 8);
-                hitboxes.Add(destination);
+                destination.Offset(-destination.Width / 16, -destination.Height / 16);
+                dest = destination;
 
-                return hitboxes;
+                return ref dest;
             }
         }
 
