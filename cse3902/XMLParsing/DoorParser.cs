@@ -3,8 +3,6 @@ using System;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
-using cse3902.Entities;
-using cse3902.Entities.Enemies;
 using cse3902.Doors;
 using cse3902.Rooms;
 using System.Linq;
@@ -14,10 +12,12 @@ namespace cse3902.XMLParsing
     public class DoorParser
     {
         private Game1 game;
+        private RoomHandler roomHandler;
 
-        public DoorParser(Game1 gm)
+        public DoorParser(Game1 gm, RoomHandler rh)
         {
             game = gm;
+            roomHandler = rh;
         }
 
         public void parseDoors(Room roomobj, XElement roomxml, XDocument doc)
@@ -31,14 +31,20 @@ namespace cse3902.XMLParsing
             {
                 XElement typeName = door.Element("type");
                 XElement connRoom = door.Element("connRoom");
-
-                Vector3 connectingRoom = RoomUtilities.convertToVector3(connRoom.Value);
-                HandleDoorConnection(roomobj.roomPos, connectingRoom);
+                XElement doorPos = door.Element("pos");
 
                 // TODO: update once the Vector3 to Vector2 method is written
                 Vector2 center = RoomUtilities.calculateDoorCenter(new Vector2(roomobj.roomPos.X, roomobj.roomPos.Y), FindDoorPos(typeName.Value));
 
                 IDoor doorAdd = createDoor(typeName.Value, center);
+
+                Vector3 connectingRoom = RoomUtilities.convertToVector3(connRoom.Value);
+
+                if (roomHandler.rooms.ContainsKey(connectingRoom))
+                {
+                    HandleDoorConnection(roomobj.roomPos, connectingRoom, ref doorAdd, Int32.Parse(doorPos.Value));
+                }
+
                 roomobj.AddDoor(doorAdd);
             }
         }
@@ -103,17 +109,10 @@ namespace cse3902.XMLParsing
             return doorPos;
         }
 
-
-        private void LinkDoors()
+        private void HandleDoorConnection(Vector3 currRoom, Vector3 connectingRoom, ref IDoor door, int pos)
         {
-
+            roomHandler.rooms.GetValueOrDefault(connectingRoom).Doors[pos].ConnectedDoor = door;
+            door.ConnectedDoor = roomHandler.rooms.GetValueOrDefault(connectingRoom).Doors[pos];
         }
-
-
-        private void HandleDoorConnection(Vector3 currRoom, Vector3 connectingRoom)
-        {
-
-        }
-
     }
 }
