@@ -23,7 +23,7 @@ namespace cse3902
 
         List<IController> controllerList;
 
-        // TODO: Master list goes here, talk with group about multiple types
+        private AllCollidablesList allCollidablesList;
 
         public ItemHandler itemHandler { get; set; }
         public EnemyNPCHandler enemyNPCHandler { get; set; }
@@ -35,7 +35,6 @@ namespace cse3902
 
         public ProjectileHandler projectileHandler { get; set; }
 
-        private AllCollidablesList allCollidablesList;
         public AllCollidablesList AllCollidablesList { get => this.allCollidablesList; }
 
         public CollisionManager collisionManager { get; set; }
@@ -60,6 +59,8 @@ namespace cse3902
         {
             // Setup input controllers    
 	        controllerList = new List<IController>();
+            controllerList.Add(new KeyboardController(this));
+            controllerList.Add(new MouseController(this));
             controllerList.Add(new KeyboardController(this));
 
             itemHandler = new ItemHandler();
