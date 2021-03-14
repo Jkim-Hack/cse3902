@@ -52,6 +52,11 @@ namespace cse3902.Rooms
             blocks.Add(block);
         }
 
+        public void AddDoor(IDoor door)
+        {
+            doors.Add(door);
+        }
+
         public bool IsVisited()
         {
             return visited;

@@ -30,9 +30,16 @@ namespace cse3902.Rooms
         public const int DOOR_END_X = DOOR_START_X+32;
         public const int DOOR_END_Y = DOOR_START_Y+32;
 
-
         public const int WALL_WIDTH = 120;
         public const int WALL_HEIGHT = 80;
+
+        public enum DoorPos
+        {
+            Up,
+            Down,
+            Left,
+            Right
+        }
 
         public static Vector2 calculateRoomCenter(Vector2 roomLoc)
         {
@@ -51,6 +58,11 @@ namespace cse3902.Rooms
             return roomLoc;
         }
 
+        public static Vector2 calculateDoorCenter(Vector2 roomLoc, DoorPos pos)
+        {
+            return new Vector2(0, 0);
+        }
+
         public static Rectangle[] getWallRectangles(Vector2 roomLoc)
         {
             roomLoc *= new Vector2(ROOM_WIDTH, ROOM_HEIGHT);
@@ -66,6 +78,16 @@ namespace cse3902.Rooms
             rectangles[current++] = new Rectangle((int)roomLoc.X + ROOM_WIDTH - WALL_SIZE, (int)roomLoc.Y + ROOM_HEIGHT - WALL_HEIGHT, WALL_SIZE, WALL_HEIGHT);
             rectangles[current++] = new Rectangle((int)roomLoc.X + ROOM_WIDTH - WALL_WIDTH, (int)roomLoc.Y + ROOM_HEIGHT - WALL_SIZE, WALL_WIDTH, WALL_SIZE);
             return rectangles;
+        }
+
+        public static Vector3 convertToVector3(String str)
+        {
+            int comma = str.IndexOf(',');
+            int comma2 = str.IndexOf(',', comma + 1);
+
+            Vector3 roomTup = new Vector3(Int32.Parse(str.Substring(0, comma)), Int32.Parse(str.Substring(comma + 1, 1)), Int32.Parse(str.Substring(comma2 + 1)));
+
+            return roomTup;
         }
     }
 }
