@@ -10,5 +10,9 @@ namespace cse3902.Interfaces
         public void ChangeItem(int index);
 
         public void ChangeWeapon(int index);
+
+        public void Reset();
+
+        public Vector2 CenterPosition { get; set; }
     }
 }

@@ -23,6 +23,7 @@ namespace cse3902.Entities.Enemies
         private int shoveDistance;
 
         private ICollidable collidable;
+        private int health;
 
         public Gel(Game1 game, Vector2 start)
         {
@@ -39,6 +40,12 @@ namespace cse3902.Entities.Enemies
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
+            health = 2;
+        }
+
+        public Vector2 Center
+        {
+            get => this.center;
         }
 
         public ref Rectangle Bounds
@@ -53,12 +60,18 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
+            //in the case a (0,0) vector, reverse direction
+            if (direction == new Vector2(0, 0))
+            {
+                this.direction.X = -direction.X;
+                this.direction.Y = -direction.Y;
+            }
             this.gelStateMachine.ChangeDirection(direction);
         }
 
         public void TakeDamage(int damage)
         {
-            this.gelStateMachine.TakeDamage();
+            this.Health -= damage;
         }
 
         public void Die()
@@ -137,6 +150,20 @@ namespace cse3902.Entities.Enemies
         public int Damage
         {
             get => 3;
+        }
+
+        public int Health
+        {
+            get => this.health;
+            set
+            {
+                this.health = value;
+            }
+        }
+
+        public Vector2 Direction
+        {
+            get => this.direction;
         }
 
         public ICollidable Collidable

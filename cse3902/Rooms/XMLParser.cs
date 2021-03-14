@@ -104,16 +104,16 @@ namespace cse3902.Rooms
                 case "Normal":
                     if (dir.Equals("Still"))
                     {
-                        newBlock = new NormalBlock(game, startingPos, IBlock.PushDirection.Still, 10);
+                        newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 10, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, startingPos));
                     }
                     else if (dir.Equals("Down"))
                     {
-                        newBlock = new NormalBlock(game, startingPos, IBlock.PushDirection.Down, 10);
+                        newBlock = new NormalBlock(game, IBlock.PushDirection.Down, 10, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, startingPos));
                     }
                     break;
-                //case "Water":
-                //    newBlock = new WaterBlock(game, startingPos);
-                //    break;
+                case "Water":
+                    newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 10, BlockSpriteFactory.Instance.CreateWaterBlockSprite(game.spriteBatch, startingPos));
+                    break;
                 default:
                     //createdItem = null;
                     break;

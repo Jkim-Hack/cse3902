@@ -15,6 +15,7 @@
     <None Remove="Content\heart.gif" />
     <None Remove="Content\fairies.png" />
     <None Remove="Content\triforce.gif" />
+    <None Remove="Content\.Content.mgcb.swp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -44,5 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Blocks\WaterBlock.cs" />
+    <Compile Remove="Entities\EnemyStateMachine.cs" />
   </ItemGroup>
 </Project>

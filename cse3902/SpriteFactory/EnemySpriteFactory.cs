@@ -15,7 +15,10 @@ namespace cse3902.SpriteFactory
         private Texture2D keese;
         private Texture2D stalfos;
         private Texture2D wallmaster;
-       
+
+        private Texture2D goriyaDamageSequence;
+        private Texture2D bossDamageSequence;
+	 
 	    private Vector2 defaultCenter;
 	
 	    private static EnemySpriteFactory enemySpriteFactoryInstance = new EnemySpriteFactory();
@@ -38,11 +41,13 @@ namespace cse3902.SpriteFactory
             keese = content.Load<Texture2D>("enemies/keese");
             stalfos = content.Load<Texture2D>("enemies/stalfos");
             wallmaster = content.Load<Texture2D>("enemies/wall_master");
-        }
+            goriyaDamageSequence = content.Load<Texture2D>("enemies/goriya_hurt");
+            bossDamageSequence = content.Load<Texture2D>("enemies/bosses_hurt");
+	    }
 
         public ISprite CreateAquamentusSprite(SpriteBatch spriteBatch, Vector2 center)
         {
-            return new AquamentusSprite(spriteBatch, aquamentus, 2, 2, center);
+            return new AquamentusSprite(spriteBatch, aquamentus, 2, 2, bossDamageSequence, center);
         }
 
         public ISprite CreateGelSprite(SpriteBatch spriteBatch, Vector2 center)
@@ -52,7 +57,7 @@ namespace cse3902.SpriteFactory
 
         public ISprite CreateGoriyaSprite(SpriteBatch spriteBatch, Vector2 center)
         {
-            return new GoriyaSprite(spriteBatch, goriya, 4, 2, center);
+            return new GoriyaSprite(spriteBatch, goriya, 4, 2, goriyaDamageSequence, center);
         }
 
         public ISprite CreateKeeseSprite(SpriteBatch spriteBatch, Vector2 center)

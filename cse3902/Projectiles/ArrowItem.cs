@@ -21,14 +21,9 @@ namespace cse3902.Projectiles
 
         private bool animationComplete;
         private Rectangle destination;
-        private const float sizeIncrease = 2f;
+        private const float sizeIncrease = 1f;
 
-        private enum Direction
-        {
-            Up, Down, Left, Right
-        }
-
-        private Direction direction;
+        private Vector2 direction;
 
         private ICollidable collidable;
 
@@ -37,24 +32,26 @@ namespace cse3902.Projectiles
             spriteBatch = batch;
             spriteTexture = texture;
 
+            direction = dir;
+
             if (dir.X > 0)
             {
-                direction = Direction.Right;
+                direction = new Vector2(1,0);
                 angle = (float)(Math.PI * 1.0 / 2.0);
             }
             else if (dir.X < 0)
             {
-                direction = Direction.Left;
+                direction = new Vector2(-1, 0);
                 angle = (float)(Math.PI * 3.0 / 2.0);
             }
             else if (dir.Y > 0)
             {
-                direction = Direction.Down;
+                direction = new Vector2(0, 1);
                 angle = (float)Math.PI;
             }
             else
             {
-                direction = Direction.Up;
+                direction = new Vector2(0, -1);
                 angle = 0;
             }
 
@@ -83,7 +80,7 @@ namespace cse3902.Projectiles
 
         public int Update(GameTime gameTime)
         {
-            if (direction == Direction.Right)
+            if (direction.X == 1)
             {
                 currentX += 2;
                 if (currentX > 800)
@@ -92,7 +89,7 @@ namespace cse3902.Projectiles
                     animationComplete = true;
                 }
             }
-            else if (direction == Direction.Left)
+            else if (direction.X == -1)
             {
                 currentX -= 2;
                 if (currentX < 0)
@@ -101,7 +98,7 @@ namespace cse3902.Projectiles
                     animationComplete = true;
                 }
             }
-            else if (direction == Direction.Down)
+            else if (direction.Y == 1)
             {
                 currentY += 2;
                 if (currentY > 480)
@@ -165,6 +162,13 @@ namespace cse3902.Projectiles
         public int Damage
         {
             get => 2;
+        }
+
+        public Vector2 Direction
+        {
+            get => this.direction;
+            set => this.direction = value;
+
         }
 
         public ICollidable Collidable

@@ -27,7 +27,15 @@ namespace cse3902.Collision.Collidables
             {
                 //take damage and get shoved back by enemy
                 player.TakeDamage(collidableObject.DamageValue);
-                player.BeShoved();
+
+                if (player.Health <= 0)
+                {
+                    //todo: destroy object
+                } else
+                {
+                    player.BeShoved();
+                }
+                
                 
             } else if (collidableObject is BlockCollidable)
             {
@@ -36,9 +44,10 @@ namespace cse3902.Collision.Collidables
                 //movable block
                 //staircase
 
-            } else
+            } else if (collidableObject is ItemCollidable)
             {
-
+                //link needs to pick the item up (remove it from game)
+                //then add the item to inventory
             }
            
         }

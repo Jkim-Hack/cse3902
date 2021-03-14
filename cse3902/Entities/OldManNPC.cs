@@ -67,9 +67,25 @@ namespace cse3902.Entities
             oldManSprite.Draw();
         }
 
+        public int Health
+        {
+            get => 0;
+
+        }
+
+        public Vector2 Direction
+        {
+            get => new Vector2(0, 0);
+        }
+
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public Vector2 Center
+        {
+            get => this.centerPosition;
         }
     }
 }

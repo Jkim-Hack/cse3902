@@ -140,6 +140,7 @@ namespace cse3902.Entities
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && this.shoveDistance <= -10) BeShoved(); // JUST FOR TESTING
 
             UpdateDamageDelay(gameTime);
+            
 
             if (this.shoveDistance > -10) ShoveMovement();
             else RegularMovement(gameTime);
@@ -305,6 +306,11 @@ namespace cse3902.Entities
                 this.linkSprite.Center = value;
                 this.centerPosition = value;
             }
+        }
+
+        public int Health
+        {
+            get => this.health;
         }
 
         private Boolean PauseMovement

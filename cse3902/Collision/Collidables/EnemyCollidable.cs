@@ -22,7 +22,18 @@ namespace cse3902.Collision.Collidables
             if (collidableObject is SwordCollidable)
             {
                 this.enemy.TakeDamage(collidableObject.DamageValue);
-                this.enemy.BeShoved();
+                if (this.enemy.Health <= 0)
+                {
+                    //TODO: destroy object
+                } else
+                {
+                    //enemies are not shoved if attack perpdincular to their movement
+                    if (((SwordCollidable)collidableObject).Direction == this.enemy.Direction || ((SwordCollidable)collidableObject).Direction == -this.enemy.Direction)
+                    {
+                        this.enemy.BeShoved();
+                    }
+                    
+                }
 
             } else if (collidableObject is ProjectileCollidable)
             {
@@ -30,17 +41,23 @@ namespace cse3902.Collision.Collidables
                 {
                     //only gels and keese take damage from projectiles it seems
                     this.enemy.TakeDamage(collidableObject.DamageValue);
+                    if (this.enemy.Health <= 0)
+                    {
+                        //TODO: destroy object
+                    }
                 } else
                 {
                     //other enemies are simply stunned in place for a bit
                     //need some kind of method to be able to 'stun' the enemies
                     //they will still animate, just not move
                 }
-            } else if (collidableObject is BlockCollidable)
+            } else if (collidableObject is BlockCollidable || collidableObject is DoorCollidable)
             {
-                //todo: get the vector from the oncollidewith method and use the opposite direction vector
+                //vector of (0,0) means just change current direction to opposite
                 Vector2 direction = new Vector2(0, 0);
                 this.enemy.ChangeDirection(direction);
+                //todo: might need to slightly adjust position of entity as well
+
             } else
             {
                 //no other collision matters for enemies

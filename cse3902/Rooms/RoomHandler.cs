@@ -18,18 +18,23 @@ namespace cse3902.Rooms
         public const int NUM_ROOMS_Y = RoomUtilities.NUM_ROOMS_Y;
         public const int CAMERA_CYCLES = RoomUtilities.CAMERA_CYCLES;
 
-        private Camera camera;
         public Dictionary<Vector3, Room> rooms;
 
         private XMLParser xmlParser;
 
-        public Vector3 currentRoom { get; set; }
+        private Camera camera;
+        private RoomTransitionManager roomTransitionManager;
 
-        public RoomHandler(Game1 gm, Camera cam)
+        public Vector3 currentRoom { get; set; }
+        private Vector3 previousRoom;
+
+
+        public RoomHandler(Game1 game)
         {
             rooms = new Dictionary<Vector3, Room>();
-            camera = cam;
-            xmlParser = new XMLParser(this, gm);
+            xmlParser = new XMLParser(this, game);
+            roomTransitionManager = new RoomTransitionManager(game);
+            camera = game.camera;
         }
 
         public void Initialize()
@@ -38,17 +43,17 @@ namespace cse3902.Rooms
             xmlParser.parseXML(url);
         }
 
-        public void LoadNewRoom(Vector3 newPos)
+        public void LoadNewRoom(Vector3 newPos, IDoor entranceDoor)
         {
             Room newRoom = rooms.GetValueOrDefault(newPos);
 
             if (currentRoom.Z == newPos.Z)
             {
-                camera.SmoothMoveCamera(new Vector2( (newPos.X - currentRoom.X) * ROOM_WIDTH, (newPos.Y - currentRoom.Y) * ROOM_HEIGHT), CAMERA_CYCLES);
+                camera.SmoothMoveCamera(new Vector2((newPos.X + (NUM_ROOMS_X * newPos.Z)) * ROOM_WIDTH, newPos.Y * ROOM_HEIGHT), CAMERA_CYCLES);
             }
             else
             {
-                camera.MoveCamera(new Vector2( (newPos.X + (NUM_ROOMS_X * newPos.Z)) * ROOM_WIDTH , newPos.Y * ROOM_HEIGHT), ROOM_WIDTH, ROOM_HEIGHT);
+                camera.MoveCamera(new Vector2( (newPos.X + (NUM_ROOMS_X * newPos.Z)) * ROOM_WIDTH , newPos.Y * ROOM_HEIGHT), new Vector2(ROOM_WIDTH, ROOM_HEIGHT));
             }
             
             List<IItem> oldItems = rooms.GetValueOrDefault(currentRoom).Items;
@@ -63,9 +68,41 @@ namespace cse3902.Rooms
             RoomBlocks.Instance.LoadNewRoom(ref oldBlocks, newRoom.Blocks);
             rooms.GetValueOrDefault(currentRoom).Blocks = oldBlocks;
 
+            previousRoom = currentRoom;
             currentRoom = newPos;
             rooms.GetValueOrDefault(newPos).SetToVisited();
+
+            roomTransitionManager.StartTransitionManager(entranceDoor);
+        }
+        public void LoadNewRoom(Vector3 roomChange)
+        {
+            if (!roomTransitionManager.IsTransitioning())
+            {
+                roomChange += currentRoom;
+                LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[0]);
+            }
         }
 
+        public void Update()
+        {
+            if (roomTransitionManager.IsTransitioning()) roomTransitionManager.Update();
+            else
+            {
+                //update things normally (items, enemies, projectiles)
+            }
+        }
+        public void Draw()
+        {
+            if (roomTransitionManager.IsTransitioning())
+            {
+                //only draw things that are drawn while transitioning (previous room)
+            }
+            else
+            {
+                //only draw things when fully in a room (items, enemies, projectiles)
+            }
+
+            //draw things regardless of transition or not (current room)
+        }
     }
 }

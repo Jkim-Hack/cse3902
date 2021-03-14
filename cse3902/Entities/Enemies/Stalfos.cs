@@ -23,6 +23,7 @@ namespace cse3902.Entities.Enemies
         private int shoveDistance;
 
         private ICollidable collidable;
+        private int health;
 
         public Stalfos(Game1 game, Vector2 start)
         {
@@ -39,6 +40,12 @@ namespace cse3902.Entities.Enemies
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
+            health = 10;
+        }
+
+        public Vector2 Center
+        {
+            get => this.center;
         }
 
         public ref Rectangle Bounds
@@ -53,11 +60,17 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-            this.stalfosStateMachine.ChangeDirection(direction);
+            //direction vector of (0,0) indicates just reverse the current direction
+            if (direction == new Vector2(0, 0))
+            {
+                this.direction.X = -this.direction.X;
+                this.direction.Y = -this.direction.Y;
+            }
         }
 
         public void TakeDamage(int damage)
         {
+            this.Health -= damage;
         }
 
         public void Die()
@@ -119,6 +132,20 @@ namespace cse3902.Entities.Enemies
         public int Damage
         {
             get => 2;
+        }
+
+        public int Health
+        {
+            get => this.health;
+            set
+            {
+                this.health = value;
+            }
+        }
+
+        public Vector2 Direction
+        {
+            get => this.direction;
         }
 
         public ICollidable Collidable

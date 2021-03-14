@@ -49,6 +49,7 @@ namespace cse3902
             // Setup input controllers    
 	        controllerList = new List<IController>();
             controllerList.Add(new KeyboardController(this));
+            controllerList.Add(new MouseController(this));
 
             itemHandler = new ItemHandler();
             projectileHandler = ProjectileHandler.Instance;
@@ -73,7 +74,7 @@ namespace cse3902
 	        player = new Link(this);
             camera = new Camera(this);
 
-            roomHandler = new RoomHandler(this, camera);
+            roomHandler = new RoomHandler(this);
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
@@ -114,8 +115,11 @@ namespace cse3902
             enemyNPCHandler.Update(gameTime);
             blockHandler.Update(gameTime);
             RoomBackground.Instance.Update(gameTime);
+            RoomItems.Instance.Update(gameTime);
+            RoomEnemyNPCs.Instance.Update(gameTime);
+            RoomBlocks.Instance.Update(gameTime);
 
-            camera.Update();
+            roomHandler.Update();
 
             base.Update(gameTime);
         }
@@ -135,6 +139,11 @@ namespace cse3902
             blockHandler.Draw();
             enemyNPCHandler.Draw();
             RoomBackground.Instance.Draw();
+            RoomItems.Instance.Draw();
+            RoomEnemyNPCs.Instance.Draw();
+            RoomBlocks.Instance.Draw();
+
+            roomHandler.Draw();
             
             spriteBatch.End();
             base.Draw(gameTime);

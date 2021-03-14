@@ -79,6 +79,18 @@ namespace cse3902.Entities
 
         public void ChangeDirection(Vector2 newDirection)
         {
+            if (newDirection == new Vector2(0,0))
+            {
+                //direction vector of (0,0) indicates just reverse the current direction
+                if (aquamentusSprite.StartingFrameIndex == (int)AquamentusSprite.FrameIndex.RightFacing)
+                {
+                    aquamentusSprite.StartingFrameIndex = (int)AquamentusSprite.FrameIndex.LeftFacing;
+                } else
+                {
+                    aquamentusSprite.StartingFrameIndex = (int)AquamentusSprite.FrameIndex.RightFacing;
+                }
+            }
+
             if (newDirection.X > 0)
             {
                 aquamentusSprite.StartingFrameIndex = (int)AquamentusSprite.FrameIndex.RightFacing;

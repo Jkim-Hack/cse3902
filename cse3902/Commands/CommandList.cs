@@ -1,18 +1,26 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 using cse3902.Interfaces;
+using Microsoft.Xna.Framework;
 
 namespace cse3902.Commands
 {
     public class CommandList
     {
         private Dictionary<Keys[], ICommand> keyboardCommandMap;
+        private Dictionary<Rectangle[], ICommand> leftMouseClickCommandMap;
+        private Dictionary<Rectangle[], ICommand> rightMouseClickCommandMap;
 
         private Game1 game;
+
+        private int windowWidth;
+        private int windowHeight;
         
         public CommandList(Game1 game)
         {
             this.game = game;
+            windowWidth = game.GraphicsDevice.Viewport.Width;
+            windowHeight = game.GraphicsDevice.Viewport.Height;
             BuildCommands();
         }
 
@@ -33,11 +41,29 @@ namespace cse3902.Commands
                 {new Keys[] {Keys.G, Keys.C, Keys.V, Keys.B}, new MoveCameraCommand(game) },
                 {new Keys[] {Keys.L, Keys.M, Keys.OemComma, Keys.OemPeriod}, new SmoothMoveCameraCommand(game) }
             };
+
+            leftMouseClickCommandMap = new Dictionary<Rectangle[], ICommand>()
+            {
+                {new Rectangle[] {new Rectangle(windowWidth-50,0,100,100),new Rectangle(windowWidth-100,windowHeight-50,100,100),new Rectangle(windowWidth-50,windowHeight-100,100,100),new Rectangle(0,windowHeight-50,100,100)}, new ChangeRoomXYCommand(game)}
+            };
+
+            rightMouseClickCommandMap = new Dictionary<Rectangle[], ICommand>()
+            {
+                {new Rectangle[] {new Rectangle(windowWidth-50,0,100,100),new Rectangle(windowWidth-50,windowHeight-100,100,100)}, new ChangeRoomZCommand(game)}
+            };
         }
 
         public Dictionary<Keys[], ICommand> KeyboardCommands
         {
             get => keyboardCommandMap;
+        }
+        public Dictionary<Rectangle[], ICommand> LeftMouseClickCommands
+        {
+            get => leftMouseClickCommandMap;
+        }
+        public Dictionary<Rectangle[], ICommand> RightMouseClickCommands
+        {
+            get => rightMouseClickCommandMap;
         }
     }
 }

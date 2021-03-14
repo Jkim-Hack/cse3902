@@ -24,13 +24,14 @@ namespace cse3902.Projectiles
         private float remainingDelay;
         private readonly float[] delaySequence = { 0.1f, 0.15f, 0.05f, 0.05f };
 
+        private Vector2 direction;
         private float angle;
         private bool animationComplete;
         private int swordType;
 
         private Rectangle destination;
 
-        private const float sizeIncrease = 2f;
+        private const float sizeIncrease = 1f;
 
         private ICollidable collidable;
 
@@ -51,6 +52,8 @@ namespace cse3902.Projectiles
             frames = new Rectangle[totalFrames];
             distributeFrames();
             animationComplete = false;
+
+            this.direction = dir;
 
             if (dir.X > 0)
             {
@@ -153,6 +156,12 @@ namespace cse3902.Projectiles
         public int Damage
         {
             get => 3;
+        }
+
+        public Vector2 Direction
+        {
+            get => this.direction;
+            set => this.direction = value;
         }
 
         public ICollidable Collidable
