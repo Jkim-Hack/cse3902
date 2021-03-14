@@ -121,6 +121,17 @@ namespace cse3902.Rooms
             return newBlock;
         }
 
+        public IDoor createDoor(String type, String dir, Vector2 startingPos)
+        {
+            IDoor newDoor = null;
+            switch (type)
+            {
+
+            }
+
+            return newDoor;
+        }
+
         public void parseItems(Room room, XElement xmlElem, XDocument doc)
         {
 
@@ -163,7 +174,6 @@ namespace cse3902.Rooms
 
         public void parseBlocks(Room room, XElement xmlElem, XDocument doc)
         {
-
             XName blocks = XName.Get("blocks", doc.Root.Name.NamespaceName);
             foreach (var block in xmlElem.Elements(blocks))
             {
@@ -181,12 +191,29 @@ namespace cse3902.Rooms
 
         }
 
+        public void parseDoors(Room room, XElement xmlElem, XDocument doc)
+        {
+            XName doors = XName.Get("doors", doc.Root.Name.NamespaceName);
+            foreach (var door in xmlElem.Elements(doors))
+            {
+                XName type = XName.Get("type", doc.Root.Name.NamespaceName);
+                XName dir = XName.Get("dir", doc.Root.Name.NamespaceName);
+                XName xloc = XName.Get("xloc", doc.Root.Name.NamespaceName);
+                XName yloc = XName.Get("yloc", doc.Root.Name.NamespaceName);
+
+                int x = Int32.Parse(door.Element(xloc).Value);
+                int y = Int32.Parse(door.Element(yloc).Value);
+
+                IDoor doorAdd = createDoor(door.Element(type).Value, door.Element(dir).Value, new Vector2(x, y));
+                room.AddDoor(doorAdd);
+            }
+
+        }
+
         public void parseXML(String filename)
         {
             XDocument doc = XDocument.Load(filename);
             XElement map = XElement.Load(filename);
-
-            int roomNum;
 
             XName roomName = XName.Get("rooms", doc.Root.Name.NamespaceName);
 
@@ -204,11 +231,17 @@ namespace cse3902.Rooms
 
                 currentRoom = new Room(roomTup);
 
-                roomHandler.rooms.Add(roomTup, currentRoom);
-
                 parseItems(currentRoom, room, doc);
                 parseEnemies(currentRoom, room, doc);
                 parseBlocks(currentRoom, room, doc);
+                parseDoors(currentRoom, room, doc);
+
+                roomHandler.rooms.Add(roomTup, currentRoom);
+
+                if (roomHandler.rooms.Count == 1)
+                {
+                    roomHandler.currentRoom = roomTup;
+                }
             }
         }
     }
