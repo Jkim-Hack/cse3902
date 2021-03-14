@@ -20,10 +20,6 @@ namespace cse3902
 
         List<IController> controllerList;
 
-        public ItemHandler itemHandler { get; set; }
-        public EnemyNPCHandler enemyNPCHandler { get; set; }
-        public BlockHandler blockHandler { get; set; }
-
         public RoomHandler roomHandler;
 
         public IPlayer player { get; set; }
@@ -50,16 +46,11 @@ namespace cse3902
 	        controllerList = new List<IController>();
             controllerList.Add(new KeyboardController(this));
             controllerList.Add(new MouseController(this));
-
-            itemHandler = new ItemHandler();
+            
             projectileHandler = ProjectileHandler.Instance;
-            enemyNPCHandler = new EnemyNPCHandler(this);
-            blockHandler = new BlockHandler(this);
-
+       
             this.IsMouseVisible = true;
 	        base.Initialize();
-            
-
         }
 
         /// <summary>
@@ -76,14 +67,17 @@ namespace cse3902
 
             roomHandler = new RoomHandler(this);
 
+            camera.MoveCamera(new Vector2(256, 0), new Vector2(256, 176));
+
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
             RoomBackground.Instance.LoadTextures(Content, spriteBatch);
 
+            RoomBackground.Instance.generateRoom(new Vector3(1, 0, 0), 1);
+
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+
             projectileHandler.LoadAllTextures(Content);
-            itemHandler.LoadContent(spriteBatch, Content);
-            enemyNPCHandler.LoadContent();
-            blockHandler.LoadContent();
         }
 
         /// <summary>
@@ -111,9 +105,6 @@ namespace cse3902
 
             player.Update(gameTime);
 
-            itemHandler.Update(gameTime);
-            enemyNPCHandler.Update(gameTime);
-            blockHandler.Update(gameTime);
             RoomBackground.Instance.Update(gameTime);
             RoomItems.Instance.Update(gameTime);
             RoomEnemyNPCs.Instance.Update(gameTime);
@@ -134,10 +125,7 @@ namespace cse3902
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetTransformationMatrix());
             
             projectileHandler.Draw();
-            itemHandler.Draw();
             player.Draw();
-            blockHandler.Draw();
-            enemyNPCHandler.Draw();
             RoomBackground.Instance.Draw();
             RoomItems.Instance.Draw();
             RoomEnemyNPCs.Instance.Draw();
