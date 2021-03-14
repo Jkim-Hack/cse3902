@@ -8,81 +8,52 @@ namespace cse3902
 {
     public class AllCollidablesList
     {
-        private Dictionary<int, Dictionary<Type, IList>> AllColldiables;
+        private Dictionary<int, List<ICollidableItemEntity>> AllColldiables;
 
         public AllCollidablesList()
         {
-            AllColldiables = new Dictionary<int, Dictionary<Type, IList>>();
+            AllColldiables = new Dictionary<int, List<ICollidableItemEntity>>();
         }
 
-        public IList GetList(int priority, Type listType)
+        public IList GetList(int priority)
         {
-            return AllColldiables[priority][listType];
+            return AllColldiables[priority];
         }
 
         // False means, you need to call InsertNewList first
-        public bool Insert(Object item, int priority)
-        {
-            if (AllColldiables.ContainsKey(priority) && AllColldiables[priority].ContainsKey(item.GetType()))
-            {
-                AllColldiables[priority][item.GetType()].Add(item);
-                return true;
-            }
-            return false;
-        }
-
-        public void InsertNewList(IList collidablesList, Type collidableType, int priority)
+        public void Insert(int priority, ICollidableItemEntity item)
         {
             if (AllColldiables.ContainsKey(priority))
-            { 
-                AllColldiables[priority].Add(collidableType, collidablesList);
+            {
+                AllColldiables[priority].Add(item);
             }
             else
             {
-                AllColldiables.Add(priority, new Dictionary<Type, IList>());
-                // Lazy man's way ;)
-                InsertNewList(collidablesList, collidableType, priority);
+                AllColldiables.Add(priority, new List<ICollidableItemEntity>());
+                Insert(priority, item);
             }
+        }
+
+        public void InsertNewList(int priority, ref IList collidablesList)
+        {
+            AllColldiables[priority] = collidablesList as List<ICollidableItemEntity>;
         }
 
         public Dictionary<int, Dictionary<Rectangle, ICollidable>> GetAllCollidablesDictionary()
         {
             Dictionary<int, Dictionary<Rectangle, ICollidable>> allCollidablesDictionary = new Dictionary<int, Dictionary<Rectangle, ICollidable>>();
-            foreach (var priority in Priorities)
+            foreach (var priority in AllColldiables.Keys)
             {
                 allCollidablesDictionary.Add(priority, new Dictionary<Rectangle, ICollidable>());
-                foreach (var type in ListKeys(priority))
+                if (AllColldiables[priority] != null)
                 {
-                    foreach (var item in AllColldiables[priority][type]) 
-		            {
-                        dynamic collidable = Convert.ChangeType(item, type);
-                        if (type != typeof(ICollidable))
-                        {
-                            allCollidablesDictionary[priority].Add(collidable.Collidable.RectangleRef, collidable.Collidable);
-                        }
-                        else if (type == typeof(ICollidable))
-                        {
-                            allCollidablesDictionary[priority].Add(collidable.RectangleRef, collidable);
-                        }
+		            foreach (var collidable in AllColldiables[priority])
+                    {
+                        allCollidablesDictionary[priority].Add(collidable.Collidable.RectangleRef, collidable.Collidable);
                     }
                 }
             }
             return allCollidablesDictionary;
-        }
-
-        public Dictionary<Type, IList>.KeyCollection ListKeys(int priority)
-        {
-            return AllColldiables[priority].Keys;
-        }
-         
-	    public Dictionary<Type, IList>.ValueCollection ListValues(int priority)
-        {
-            return AllColldiables[priority].Values;
-        }
-
-	    public Dictionary<int, Dictionary<Type, IList>>.KeyCollection Priorities
-        {
-            get => AllColldiables.Keys;
         }
     }
 }

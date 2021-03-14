@@ -24,17 +24,14 @@ namespace cse3902.Collision
         private QuadTree quadTree;
         private bool isDisabled;
 
-        private Texture2D lineTexture;
-
         private Game1 game;
 
         public CollisionManager(Game1 game)
         {
             this.game = game;
+            isDisabled = false;
             quadTree = new QuadTree(0, new Rectangle(0, 0, this.game.Window.ClientBounds.Width, this.game.Window.ClientBounds.Height));
             allCollidableObjects = new Dictionary<int, Dictionary<Rectangle, ICollidable>>();
-	        lineTexture = new Texture2D(game.spriteBatch.GraphicsDevice, 1, 1);
-	        lineTexture.SetData<Color>(new Color[] { Color.White });
         }
 
         // Thank god there arent hundreds or thousands of collidables in the game
@@ -106,7 +103,7 @@ namespace cse3902.Collision
             return null;
         }
 
-        public void DrawAllRectangles(Color color, int lineWidth)
+        public void DrawAllRectangles(Texture2D lineTexture, Color color, int lineWidth)
         {
             SpriteBatch spriteBatch = this.game.spriteBatch;
             foreach (var collidableDictionary in allCollidableObjects.Values)
