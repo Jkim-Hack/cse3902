@@ -67,13 +67,13 @@ namespace cse3902
 
             roomHandler = new RoomHandler(this);
 
-            camera.MoveCamera(new Vector2(256, 0), new Vector2(256, 176));
+            //camera.MoveCamera(new Vector2(256, 0), new Vector2(256, 176));
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
             RoomBackground.Instance.LoadTextures(Content, spriteBatch);
 
-            RoomBackground.Instance.generateRoom(new Vector3(1, 0, 0), 1);
+            //RoomBackground.Instance.generateRoom(new Vector3(1, 0, 0), 1);
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
