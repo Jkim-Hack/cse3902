@@ -61,7 +61,6 @@ namespace cse3902
 	        controllerList = new List<IController>();
             controllerList.Add(new KeyboardController(this));
             controllerList.Add(new MouseController(this));
-            controllerList.Add(new KeyboardController(this));
 
             itemHandler = new ItemHandler();
             projectileHandler = ProjectileHandler.Instance;
