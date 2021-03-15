@@ -42,6 +42,7 @@
     <Folder Include="Rooms\" />
     <Folder Include="Collision\" />
     <Folder Include="Collision\Collidables\" />
+    <Folder Include="XMLParsing\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Blocks\WaterBlock.cs" />

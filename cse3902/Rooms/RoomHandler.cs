@@ -26,8 +26,6 @@ namespace cse3902.Rooms
         private RoomTransitionManager roomTransitionManager;
 
         public Vector3 currentRoom { get; set; }
-        private Vector3 previousRoom;
-
 
         public RoomHandler(Game1 game)
         {
@@ -68,12 +66,16 @@ namespace cse3902.Rooms
             RoomBlocks.Instance.LoadNewRoom(ref oldBlocks, newRoom.Blocks);
             rooms.GetValueOrDefault(currentRoom).Blocks = oldBlocks;
 
-            previousRoom = currentRoom;
+            List<IDoor> oldDoors = rooms.GetValueOrDefault(currentRoom).Doors;
+            RoomDoors.Instance.LoadNewRoom(ref oldDoors, newRoom.Doors);
+            rooms.GetValueOrDefault(currentRoom).Doors = oldDoors;
+
             currentRoom = newPos;
             rooms.GetValueOrDefault(newPos).SetToVisited();
 
             roomTransitionManager.StartTransitionManager(entranceDoor);
         }
+
         public void LoadNewRoom(Vector3 roomChange)
         {
             if (!roomTransitionManager.IsTransitioning())
