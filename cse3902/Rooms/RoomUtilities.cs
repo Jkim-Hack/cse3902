@@ -39,7 +39,8 @@ namespace cse3902.Rooms
             TOP,
             RIGHT,
             BOTTOM,
-            LEFT
+            LEFT,
+            NONE
 
         }
 
