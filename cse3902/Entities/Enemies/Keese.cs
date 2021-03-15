@@ -4,8 +4,6 @@ using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
-using System;
-using Microsoft.Xna.Framework.Input; // JUST FOR TESTING
 
 namespace cse3902.Entities.Enemies
 {
@@ -15,17 +13,16 @@ namespace cse3902.Entities.Enemies
         private KeeseStateMachine keeseStateMachine;
         private readonly Game1 game;
 
+        private Vector2 direction;
         private float speed;
         private Vector2 startingPos;
         private Vector2 center;
-        private int radius = 80;
-        private float degrees;
+        private int travelDistance;
         private Vector2 shoveDirection;
         private int shoveDistance;
 
         private ICollidable collidable;
         private int health;
-        private Vector2 direction;
 
         public Keese(Game1 game, Vector2 start)
         {
@@ -35,10 +32,10 @@ namespace cse3902.Entities.Enemies
 
             keeseSprite = (KeeseSprite)EnemySpriteFactory.Instance.CreateKeeseSprite(game.spriteBatch, center);
             keeseStateMachine = new KeeseStateMachine(keeseSprite);
-            degrees = 0;
-            speed = 0.02f;
+            direction = new Vector2(-1, 0);
+            speed = 50.0f;
+            travelDistance = 50;
             shoveDistance = -10;
-            shoveDirection = new Vector2(-2, 0);
 
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = 10;
@@ -61,7 +58,7 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-            this.keeseStateMachine.ChangeDirection(direction);
+            // Keese can't change direction
         }
 
         public void TakeDamage(int damage)
@@ -77,11 +74,11 @@ namespace cse3902.Entities.Enemies
         public void BeShoved()
         {
             this.shoveDistance = 10;
+            this.shoveDirection = new Vector2(direction.X * -2, direction.Y * -2);
         }
 
         public void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && this.shoveDistance <= -10) BeShoved(); // JUST FOR TESTING
 
             if (this.shoveDistance > -10) ShoveMovement();
             else RegularMovement(gameTime);
@@ -89,21 +86,34 @@ namespace cse3902.Entities.Enemies
 
         private void ShoveMovement()
         {
-            if (this.shoveDistance >= 0)
-            { 
-                this.CenterPosition += shoveDirection;
-                this.startingPos += shoveDirection;
-            }
+            if (this.shoveDistance >= 0) this.CenterPosition += shoveDirection;
             shoveDistance--;
         }
 
         private void RegularMovement(GameTime gameTime)
         {
-            var radians = degrees + (Math.PI / 180);
-            var unitCirclePos = new Vector2((float)Math.Cos(radians), (float)Math.Sin(radians));
-            CenterPosition = startingPos + (unitCirclePos * radius);
+            this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            degrees += speed;
+            if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance)
+            {
+                direction.X = 0;
+                direction.Y = 1;
+            }
+            else if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance)
+            {
+                direction.X = 0;
+                direction.Y = -1;
+            }
+            else if (direction.Y > 0 && CenterPosition.Y > startingPos.Y + travelDistance)
+            {
+                direction.X = -1;
+                direction.Y = 0;
+            }
+            else if (direction.Y < 0 && CenterPosition.Y < startingPos.Y - travelDistance)
+            {
+                direction.X = 1;
+                direction.Y = 0;
+            }
 
             keeseSprite.Update(gameTime);
         }
