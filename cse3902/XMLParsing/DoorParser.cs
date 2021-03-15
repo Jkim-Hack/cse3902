@@ -20,7 +20,7 @@ namespace cse3902.XMLParsing
             roomHandler = rh;
         }
 
-        public void parseDoors(Room roomobj, XElement roomxml, XDocument doc)
+        public void ParseDoors(Room roomobj, XElement roomxml, XDocument doc)
         {
             XName doorsName = XName.Get("doors", doc.Root.Name.NamespaceName);
 
@@ -30,15 +30,18 @@ namespace cse3902.XMLParsing
             foreach (XElement door in doorList)
             {
                 XElement typeName = door.Element("type");
-                XElement connRoom = door.Element("connRoom");
                 XElement doorPos = door.Element("pos");
+                XElement initState = door.Element("state"); //used only for normal doors
+                XElement xLoc = door.Element("xloc"); //not used for normal doors
+                XElement yLoc = door.Element("yloc"); //not used for normal doors
 
-                // TODO: update once the Vector3 to Vector2 method is written
-                Vector2 center = RoomUtilities.calculateDoorCenter(new Vector2(roomobj.roomPos.X, roomobj.roomPos.Y), FindDoorPos(typeName.Value));
+                RoomUtilities.DoorPos dPos = FindDoorPos(typeName.Value);
+                Vector2 center;
+                if (dPos == RoomUtilities.DoorPos.NONE) center = RoomUtilities.calculateBlockCenter(roomobj.roomPos, new Vector2(Int32.Parse(xLoc.Value), Int32.Parse(yLoc.Value)));
+                else center = RoomUtilities.calculateDoorCenter(roomobj.roomPos, dPos);
 
-                IDoor doorAdd = createDoor(typeName.Value, center);
-
-                Vector3 connectingRoom = RoomUtilities.convertToVector3(connRoom.Value);
+                IDoor doorAdd = CreateDoor(typeName.Value, center, GetInitialDoorState(initState.Value));
+                Vector3 connectingRoom = GetConnectingRoom(typeName.Value);
 
                 if (roomHandler.rooms.ContainsKey(connectingRoom))
                 {
@@ -49,22 +52,22 @@ namespace cse3902.XMLParsing
             }
         }
 
-        private IDoor createDoor(String type, Vector2 startingPos)
+        private IDoor CreateDoor(String type, Vector2 startingPos, IDoor.DoorState initialDoorState)
         {
             IDoor newDoor = null;
             switch (type)
             {
                 case "Up":
-                    newDoor = new NormalUpDoor(game, startingPos, IDoor.DoorState.Open);
+                    newDoor = new NormalUpDoor(game, startingPos, initialDoorState);
                     break;
                 case "Down":
-                    newDoor = new NormalDownDoor(game, startingPos, IDoor.DoorState.Open);
+                    newDoor = new NormalDownDoor(game, startingPos, initialDoorState);
                     break;
                 case "Left":
-                    newDoor = new NormalLeftDoor(game, startingPos, IDoor.DoorState.Open);
+                    newDoor = new NormalLeftDoor(game, startingPos, initialDoorState);
                     break;
                 case "Right":
-                    newDoor = new NormalRightDoor(game, startingPos, IDoor.DoorState.Open);
+                    newDoor = new NormalRightDoor(game, startingPos, initialDoorState);
                     break;
                 case "StairDown":
                     newDoor = new DownStaircaseDoor(game, startingPos);
@@ -79,30 +82,63 @@ namespace cse3902.XMLParsing
             return newDoor;
         }
 
+        private Vector3 GetConnectingRoom(String type)
+        {
+            switch (type)
+            {
+                case "Up":
+                    return new Vector3(0, -1, 0);
+                case "Down":
+                    return new Vector3(0, 1, 0);
+                case "Left":
+                    return new Vector3(-1, 0, 0);
+                case "Right":
+                    return new Vector3(1, 0, 0);
+                case "StairDown":
+                    return new Vector3(0, 0, -1);
+                case "OffscreenUp":
+                    return new Vector3(0, 0, 1);
+                default: //this should never happen
+                    return new Vector3(0, -1, 0);
+            }
+        }
+
+        private IDoor.DoorState GetInitialDoorState(String state)
+        {
+            switch (state)
+            {
+                case "Open":
+                    return IDoor.DoorState.Open;
+                case "Closed":
+                    return IDoor.DoorState.Closed;
+                case "Locked":
+                    return IDoor.DoorState.Locked;
+                case "Wall":
+                    return IDoor.DoorState.Wall;
+                default:
+                    return IDoor.DoorState.Open;
+            }
+        }
+
         private RoomUtilities.DoorPos FindDoorPos(String pos)
         {
             RoomUtilities.DoorPos doorPos = RoomUtilities.DoorPos.Down;
             switch (pos)
             {
                 case "Up":
-                    doorPos = RoomUtilities.DoorPos.Up;
+                    doorPos = RoomUtilities.DoorPos.TOP;
                     break;
                 case "Down":
-                    doorPos = RoomUtilities.DoorPos.Down;
+                    doorPos = RoomUtilities.DoorPos.BOTTOM;
                     break;
                 case "Left":
-                    doorPos = RoomUtilities.DoorPos.Left;
+                    doorPos = RoomUtilities.DoorPos.LEFT;
                     break;
                 case "Right":
-                    doorPos = RoomUtilities.DoorPos.Right;
-                    break;
-                case "StairDown":
-                    doorPos = RoomUtilities.DoorPos.Down;
-                    break;
-                case "OffscreenUp":
-                    doorPos = RoomUtilities.DoorPos.Up;
+                    doorPos = RoomUtilities.DoorPos.RIGHT;
                     break;
                 default:
+                    doorPos = RoomUtilities.DoorPos.NONE;
                     break;
             }
 

@@ -41,14 +41,15 @@ namespace cse3902.Rooms
         public void LoadNewRoom(Vector3 newPos, IDoor entranceDoor)
         {
             Room newRoom = rooms.GetValueOrDefault(newPos);
+            Vector2 convertedRoom = RoomUtilities.convertVector(newPos);
 
             if (currentRoom.Z == newPos.Z)
             {
-                camera.SmoothMoveCamera(new Vector2((newPos.X + (NUM_ROOMS_X * newPos.Z)) * ROOM_WIDTH, newPos.Y * ROOM_HEIGHT), CAMERA_CYCLES);
+                camera.SmoothMoveCamera(convertedRoom, CAMERA_CYCLES);
             }
             else
             {
-                camera.MoveCamera(new Vector2((newPos.X + (NUM_ROOMS_X * newPos.Z)) * ROOM_WIDTH, newPos.Y * ROOM_HEIGHT), new Vector2(ROOM_WIDTH, ROOM_HEIGHT));
+                camera.MoveCamera(convertedRoom, new Vector2(ROOM_WIDTH, ROOM_HEIGHT));
             }
 
             List<IItem> oldItems = rooms.GetValueOrDefault(currentRoom).Items;

@@ -54,8 +54,8 @@ namespace cse3902.Rooms
         {
             roomLoc *= new Vector2(ROOM_WIDTH, ROOM_HEIGHT);
             roomLoc += new Vector2(WALL_SIZE, WALL_SIZE);
-            blockLoc *= new Vector2(INTERIOR_WIDTH / NUM_BLOCKS_X, INTERIOR_HEIGHT/ NUM_BLOCKS_Y);
-            blockLoc += new Vector2((INTERIOR_WIDTH / NUM_BLOCKS_X)/2, (INTERIOR_HEIGHT / NUM_BLOCKS_Y)/2);
+            blockLoc *= new Vector2(BLOCK_SIDE, BLOCK_SIDE);
+            blockLoc += new Vector2(BLOCK_SIDE / 2, BLOCK_SIDE / 2);
             roomLoc += blockLoc;
             return roomLoc;
         }

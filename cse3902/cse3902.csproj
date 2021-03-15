@@ -15,7 +15,6 @@
     <None Remove="Content\heart.gif" />
     <None Remove="Content\fairies.png" />
     <None Remove="Content\triforce.gif" />
-    <None Remove="Content\.Content.mgcb.swp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -32,17 +31,14 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\" />
     <Folder Include="Controllers\" />
     <Folder Include="Sprites\" />
     <Folder Include="States\" />
     <Folder Include="Entities\Enemies\" />
     <Folder Include="Sprites\EnemySprites\" />
-    <Folder Include="SpriteFactory\" />
-    <Folder Include="Rooms\" />
     <Folder Include="Collision\" />
     <Folder Include="Collision\Collidables\" />
-    <Folder Include="XMLParsing\" />
+    <Folder Include="Entities\DamageMasks\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Blocks\WaterBlock.cs" />
