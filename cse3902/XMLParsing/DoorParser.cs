@@ -49,7 +49,7 @@ namespace cse3902.XMLParsing
             }
         }
 
-        public IDoor createDoor(String type, Vector2 startingPos)
+        private IDoor createDoor(String type, Vector2 startingPos)
         {
             IDoor newDoor = null;
             switch (type)

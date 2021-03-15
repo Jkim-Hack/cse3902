@@ -85,72 +85,84 @@
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>3</yloc>
+		        <push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>4</yloc>
+			    <push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>3</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>3</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>3</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>8</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>8</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>8</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
         </blocks>
     </room>
@@ -181,36 +193,42 @@
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>6</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>6</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>6</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
         </blocks>
     </room>
@@ -256,36 +274,42 @@
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>6</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>6</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>6</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
         </blocks>
     </room>
@@ -331,24 +355,28 @@
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
         </blocks>
     </room>
@@ -404,24 +432,28 @@
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
         </blocks>
     </room>
@@ -466,6 +498,7 @@
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
         </blocks>
     </room>
@@ -511,60 +544,70 @@
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>6</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
         </blocks>
     </room>
@@ -595,24 +638,28 @@
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
         </blocks>
     </room>
@@ -673,108 +720,126 @@
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>3</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>3</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>3</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>6</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>6</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>6</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>8</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>8</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>8</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
               <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>1</yloc>
+			  	<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
         </blocks>
     </room>
@@ -824,120 +889,140 @@
                 <dir>Still</dir>
                 <xloc>7</xloc>
                 <yloc>0</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>8</xloc>
                 <yloc>0</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>0</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>0</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>11</xloc>
                 <yloc>0</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>11</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
              <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>2</yloc>
+			 	<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>11</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>11</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>11</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>7</xloc>
                 <yloc>6</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>8</xloc>
                 <yloc>6</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>6</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>6</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>11</xloc>
                 <yloc>6</yloc>
+				<push>0</push>
             </block>
         </blocks>
     </room>
@@ -958,144 +1043,168 @@
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>3</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>3</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>4</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>4</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
              <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>6</xloc>
                 <yloc>1</yloc>
+			 	<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>7</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>7</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>8</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>8</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
         </blocks>
     </room>
@@ -1116,48 +1225,56 @@
                 <dir>Down</dir>
                 <xloc>4</xloc>
                 <yloc>3</yloc>
+				<push>1</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>6</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>6</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>7</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>7</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
                 <xloc>8</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
         </blocks>
     </room>
@@ -1193,144 +1310,168 @@
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>3</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>8</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>1</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>2</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>3</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>4</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>5</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>6</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>7</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>8</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>3</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>4</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>1</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>2</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>3</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>8</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>9</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
             <block>
                 <type>Water</type>
                 <dir>Still</dir>
                 <xloc>10</xloc>
                 <yloc>5</yloc>
+				<push>0</push>
             </block>
         </blocks>
     </room>

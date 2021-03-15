@@ -40,7 +40,7 @@ namespace cse3902.XMLParsing
             }
         }
 
-        public IItem createItem(String type, Vector2 startPos)
+        private IItem createItem(String type, Vector2 startPos)
         {
             IItem newItem = null;
             switch (type)

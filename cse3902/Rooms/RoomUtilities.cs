@@ -7,8 +7,10 @@ namespace cse3902.Rooms
 {
     class RoomUtilities
     {
-        public const int ROOM_WIDTH = 256;
-        public const int ROOM_HEIGHT = 176;
+        public const int BLOCK_SIDE = 16;
+
+        public const int ROOM_WIDTH = BLOCK_SIDE * 16;
+        public const int ROOM_HEIGHT = BLOCK_SIDE * 11;
         public const int NUM_ROOMS_X = 6;
         public const int NUM_ROOMS_Y = 6;
 
@@ -16,8 +18,8 @@ namespace cse3902.Rooms
 
         public const int NUM_BLOCKS_X = 12;
         public const int NUM_BLOCKS_Y = 7;
-        public const int INTERIOR_WIDTH = 192;
-        public const int INTERIOR_HEIGHT = 112;
+        public const int INTERIOR_WIDTH = BLOCK_SIDE * NUM_BLOCKS_X;
+        public const int INTERIOR_HEIGHT = BLOCK_SIDE * NUM_BLOCKS_Y;
 
         public const int WALL_SIZE = (ROOM_WIDTH - INTERIOR_WIDTH) / 2;
 
@@ -27,8 +29,8 @@ namespace cse3902.Rooms
         public const int NUM_OF_WALLS = 8;
         public const int DOOR_START_X = 111;
         public const int DOOR_START_Y = 71;
-        public const int DOOR_END_X = DOOR_START_X+32;
-        public const int DOOR_END_Y = DOOR_START_Y+32;
+        public const int DOOR_END_X = DOOR_START_X + BLOCK_SIDE * 2;
+        public const int DOOR_END_Y = DOOR_START_Y + BLOCK_SIDE * 2;
 
         public const int WALL_WIDTH = 120;
         public const int WALL_HEIGHT = 80;
