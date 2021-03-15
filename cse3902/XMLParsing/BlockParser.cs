@@ -21,7 +21,7 @@ namespace cse3902.XMLParsing
             game = gm;
         }
 
-        public void parseBlocks(Room roomobj, XElement roomxml, XDocument doc)
+        public void ParseBlocks(Room roomobj, XElement roomxml, XDocument doc)
         {
             XName blocksName = XName.Get("blocks", doc.Root.Name.NamespaceName);
 
@@ -40,14 +40,14 @@ namespace cse3902.XMLParsing
                 int y = Int32.Parse(yloc.Value);
                 int numBlocks = Int32.Parse(push.Value);
 
-                IBlock blockAdd = createBlock(typeName.Value, dir.Value, new Vector2(x, y), numBlocks);
+                Vector2 truePos = RoomUtilities.CalculateBlockCenter(RoomUtilities.ConvertVector(roomobj.roomPos), new Vector2(x, y));
+
+                IBlock blockAdd = CreateBlock(typeName.Value, dir.Value, truePos, numBlocks);
                 roomobj.AddBlock(blockAdd);
             }
-
         }
 
-
-        private IBlock createBlock(String type, String dir, Vector2 startingPos, int numBlocks)
+        private IBlock CreateBlock(String type, String dir, Vector2 startingPos, int numBlocks)
         {
             IBlock newBlock = null;
             switch (type)
