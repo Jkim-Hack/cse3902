@@ -9,7 +9,6 @@ namespace cse3902.Collision.Collidables
         private IProjectile sword;
         private int damage;
 
-        //todo: change to use some kind of sword class or interface instead of projectile
         public SwordCollidable(IProjectile projectile, int damage)
         {
             this.sword = projectile;
