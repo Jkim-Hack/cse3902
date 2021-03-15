@@ -3,6 +3,7 @@ using cse3902.Projectiles;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework.Input; // JUST FOR TESTING
 
@@ -17,10 +18,12 @@ namespace cse3902.Entities
         private LinkSprite linkSprite;
         private SpriteBatch spriteBatch;
         private Vector2 centerPosition;
+        private Vector2 previousPosition;
         private Vector2 currDirection;
 
         private float speed;
 
+        private List<IItem> itemList;
         private int currItemIndex;
         private int currWeaponIndex;
         private Game1 game;
@@ -38,6 +41,7 @@ namespace cse3902.Entities
         public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch)
         {
             this.centerPosition = centerPosition;
+            this.previousPosition = centerPosition;
             mode = LinkMode.Still;
             this.game = game;
 
@@ -49,6 +53,8 @@ namespace cse3902.Entities
 
             health = healthMax;
 
+            ProjectileHandler projectileHandler = ProjectileHandler.Instance;
+            //itemList.Add(projectileHandler.CreateSwordWeapon(spriteBatch, centerPosition, currDirection, currWeaponIndex));
             currWeaponIndex = 0;
             currItemIndex = 0;
 
@@ -214,6 +220,11 @@ namespace cse3902.Entities
             currWeaponIndex = index;
         }
 
+        public void AddItem(IItem item)
+        {
+            this.itemList.Add(item);
+        }
+
         public void UseItem()
         {
             if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
@@ -303,7 +314,7 @@ namespace cse3902.Entities
 
         public Vector2 CenterPosition
         {
-            get => this.centerPosition;
+            get => this.linkSprite.Center;
             set
             {
                 this.linkSprite.Center = value;

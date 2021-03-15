@@ -14,6 +14,8 @@ namespace cse3902.XMLParsing
     {
         private Game1 game;
 
+        private const int BLOCK_SIDE = RoomUtilities.BLOCK_SIDE;
+
         public BlockParser(Game1 gm)
         {
             game = gm;
@@ -32,37 +34,50 @@ namespace cse3902.XMLParsing
                 XElement dir = block.Element("dir");
                 XElement xloc = block.Element("xloc");
                 XElement yloc = block.Element("yloc");
+                XElement push = block.Element("push");
 
                 int x = Int32.Parse(xloc.Value);
                 int y = Int32.Parse(yloc.Value);
+                int numBlocks = Int32.Parse(push.Value);
 
-                IBlock blockAdd = createBlock(typeName.Value, dir.Value, new Vector2(x, y));
+                IBlock blockAdd = createBlock(typeName.Value, dir.Value, new Vector2(x, y), numBlocks);
                 roomobj.AddBlock(blockAdd);
             }
 
         }
 
 
-        public IBlock createBlock(String type, String dir, Vector2 startingPos)
+        private IBlock createBlock(String type, String dir, Vector2 startingPos, int numBlocks)
         {
             IBlock newBlock = null;
             switch (type)
             {
                 case "Normal":
-                    if (dir.Equals("Still"))
+                    switch (dir)
                     {
-                        newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 10, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, startingPos));
-                    }
-                    else if (dir.Equals("Down"))
-                    {
-                        newBlock = new NormalBlock(game, IBlock.PushDirection.Down, 10, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, startingPos));
+                        case "Still":
+                            newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, startingPos));
+                            break;
+                        case "Down":
+                            newBlock = new NormalBlock(game, IBlock.PushDirection.Down, BLOCK_SIDE * numBlocks, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, startingPos));
+                            break;
+                        case "Up":
+                            newBlock = new NormalBlock(game, IBlock.PushDirection.Up, BLOCK_SIDE * numBlocks, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, startingPos));
+                            break;
+                        case "Left":
+                            newBlock = new NormalBlock(game, IBlock.PushDirection.Left, BLOCK_SIDE * numBlocks, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, startingPos));
+                            break;
+                        case "Right":
+                            newBlock = new NormalBlock(game, IBlock.PushDirection.Right, BLOCK_SIDE * numBlocks, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, startingPos));
+                            break;
+                        default: //this should never happen
+                            break;
                     }
                     break;
                 case "Water":
-                    newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 10, BlockSpriteFactory.Instance.CreateWaterBlockSprite(game.spriteBatch, startingPos));
+                    newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateWaterBlockSprite(game.spriteBatch, startingPos));
                     break;
                 default:
-                    //createdItem = null;
                     break;
             }
             return newBlock;
