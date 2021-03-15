@@ -31,5 +31,11 @@ namespace cse3902.Collision.Collidables
         {
             get => 0;
         }
+
+        //necesssary for link to be able to pick item up
+        public IItem Item
+        {
+            get => this.item;
+        }
     }
 }
