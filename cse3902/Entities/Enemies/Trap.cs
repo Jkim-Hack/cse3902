@@ -22,7 +22,6 @@ namespace cse3902.Entities.Enemies
         private int shoveDistance;
 
         private ICollidable collidable;
-        private int health;
 
         public Trap(Game1 game, Vector2 start)
         {
@@ -38,12 +37,68 @@ namespace cse3902.Entities.Enemies
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 2;
         }
 
         public int Damage
         {
             get => 3;
+        }
+
+        public ref Rectangle Bounds => throw new NotImplementedException();
+
+        public int Health
+        {
+            get => 0;
+        }
+
+        public Vector2 Direction
+        {
+            get => this.direction;
+        }
+
+        public Vector2 Center
+        {
+            get => this.center;
+        }
+
+        public ICollidable Collidable
+        {
+            get => this.collidable;
+        }
+
+        public void Attack()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ChangeDirection(Vector2 direction)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TakeDamage(int damage)
+        {
+            //traps don't take damage
+        }
+
+        public void Die()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Draw()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BeShoved()
+        {
+            throw new NotImplementedException();
         }
     }
 }
