@@ -1,5 +1,6 @@
 ﻿using System;
 using cse3902.Interfaces;
+using cse3902.Blocks;
 using Microsoft.Xna.Framework;
 
 namespace cse3902.Collision.Collidables
@@ -41,6 +42,11 @@ namespace cse3902.Collision.Collidables
         public int DamageValue
         {
             get => 0;
+        }
+
+        public Boolean IsWalkable
+        {
+            get => (this.block is WalkableBlock);
         }
     }
 }

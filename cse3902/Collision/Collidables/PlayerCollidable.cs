@@ -38,8 +38,12 @@ namespace cse3902.Collision.Collidables
                 
             } else if (collidableObject is BlockCollidable)
             {
-                //prevent link from phasing into block
-                player.CenterPosition = player.PreviousPosition;
+                //prevent link from phasing into blocks that are not walkable
+                if (!((BlockCollidable)collidableObject).IsWalkable)
+                {
+                    player.CenterPosition = player.PreviousPosition;
+                }
+                
 
             } else if (collidableObject is ItemCollidable)
             {
