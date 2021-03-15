@@ -29,19 +29,20 @@ namespace cse3902.Doors
         {
             switch (doorState) {
                 case IDoor.DoorState.Open:
+                case IDoor.DoorState.Bombed:
                     game.roomHandler.LoadNewRoom(game.roomHandler.currentRoom + roomTranslationVector, connectedDoor);
                     break;
                 case IDoor.DoorState.Closed:
                 case IDoor.DoorState.Locked:
-                    doorState = IDoor.DoorState.Open;
-                    doorSprite = DoorSpriteFactory.Instance.CreateLeftDoorSprite(game.spriteBatch, doorSprite.Center, doorState);
+                    ChangeState(IDoor.DoorState.Open);
+                    connectedDoor.ChangeState(IDoor.DoorState.Open);
                     break;/*
                 case IDoor.DoorState.Locked:
                     if (game.player.inventory.contains(key))
                     {
                         game.player.inventory.key--;
-                        doorState = IDoor.DoorState.Open;
-                        doorSprite = DoorSpriteFactory.Instance.CreateLeftDoorSprite(game.spriteBatch, doorSprite.Center, doorState);
+                        ChangeState(IDoor.DoorState.Open);
+                        connectedDoor.ChangeState(IDoor.DoorState.Open);
                     }
                     break;*/
                 case IDoor.DoorState.Wall: //do nothing
@@ -56,11 +57,16 @@ namespace cse3902.Doors
         }
         public Vector2 PlayerReleaseDirection()
         {
-            return new Vector2(1, 0);
+            return new Vector2(50, 0);
         }
         public void Draw()
         {
             doorSprite.Draw();
+        }
+        public void ChangeState(IDoor.DoorState newDoorState)
+        {
+            doorState = newDoorState;
+            doorSprite = DoorSpriteFactory.Instance.CreateLeftDoorSprite(game.spriteBatch, doorSprite.Center, newDoorState);
         }
         public ref Rectangle Bounds
         {

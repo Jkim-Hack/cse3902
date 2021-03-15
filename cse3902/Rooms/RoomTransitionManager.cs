@@ -45,7 +45,7 @@ namespace cse3902.Rooms
         }
         public bool IsTransitioning()
         {
-            return steps[stepTracker] == 10.0f;
+            return steps[stepTracker] != 10.0f;
         }
 
         public void Update()
@@ -67,6 +67,7 @@ namespace cse3902.Rooms
                     break;
 
                 case 10.0f: //manager is complete/inactive - DO NOT CHANGE
+                    game.roomHandler.CompleteStart();
                     break;
 
                 default: //this should never happen
@@ -82,14 +83,22 @@ namespace cse3902.Rooms
             linkNewRoomDirection.Normalize();
             game.player.ChangeDirection(linkNewRoomDirection);
             stepTracker++;
-            if (linkNewRoomStepsRemaining == 0) stepTracker++;
+            if (linkNewRoomStepsRemaining == 0)
+            {
+                stepTracker++;
+                game.player.ChangeDirection(new Vector2(0, 0));
+            }
         }
 
         private void MoveLinkIntoRoom()
         {
             game.player.ChangeDirection(linkNewRoomDirection);
             linkNewRoomStepsRemaining--;
-            if (linkNewRoomStepsRemaining == 0) stepTracker++;
+            if (linkNewRoomStepsRemaining == 0)
+            {
+                stepTracker++;
+                game.player.ChangeDirection(new Vector2(0, 0));
+            }
         }
     }
 }

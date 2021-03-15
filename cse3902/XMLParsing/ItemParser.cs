@@ -2,7 +2,7 @@
 using System;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
-using cse3902.Items;
+using cse3902.SpriteFactory;
 using cse3902.Interfaces;
 using cse3902.Rooms;
 using System.Linq;

@@ -42,7 +42,7 @@ namespace cse3902.Rooms
                 itemParser.ParseItems(currentRoom, room, doc);
                 enemyNPCParser.ParseEnemies(currentRoom, room, doc);
                 blockParser.ParseBlocks(currentRoom, room, doc);
-                doorParser.parseDoors(currentRoom, room, doc);
+                doorParser.ParseDoors(currentRoom, room, doc);
 
                 roomHandler.rooms.Add(roomTup, currentRoom);
             }

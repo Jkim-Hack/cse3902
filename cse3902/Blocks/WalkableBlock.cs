@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using System.Collections.Generic;
 
 namespace cse3902.Blocks
 {
@@ -22,13 +23,27 @@ namespace cse3902.Blocks
             this.collidable = new BlockCollidable(this);
         }
 
-        public void Move(IBlock.PushDirection pushDirection)
+        public void Interact(IBlock.PushDirection pushDirection)
         {
-            //unmovable block
+            List<Vector2> directions = new List<Vector2>();
+            directions.Add(new Vector2(0, 0));
+            directions.Add(new Vector2(1, 0));
+            directions.Add(new Vector2(0, 1));
+            directions.Add(new Vector2(-1, 0));
+            directions.Add(new Vector2(0, -1));
+
+            //game.player.Directions = directions;
         }
-        public void Move(Vector2 pushDirection)
+        public void Interact(Vector2 pushDirection)
         {
-            //unmovable block
+            List<Vector2> directions = new List<Vector2>();
+            directions.Add(new Vector2(0, 0));
+            directions.Add(new Vector2(1, 0));
+            directions.Add(new Vector2(0, 1));
+            directions.Add(new Vector2(-1, 0));
+            directions.Add(new Vector2(0, -1));
+
+            //game.player.Directions = directions;
         }
         public void Draw()
         {

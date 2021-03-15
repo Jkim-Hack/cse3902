@@ -56,11 +56,11 @@ namespace cse3902.Rooms
         {
             oldList = new List<IEntity>();
 
-            List<IEntity> entitiesENPCs = enpcs as List<IEntity>;
+            List<IEntity> entitiesNPCs = enpcs as List<IEntity>;
 
             for (int i = 0; i < enpcs.Count; i++)
             {
-                oldList.Add(entitiesENPCs[i]);
+                oldList.Add(entitiesNPCs[i]);
             }
 
             enpcs = new List<IEntity>();

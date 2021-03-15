@@ -23,7 +23,7 @@ namespace cse3902.Collision.Collidables
 
             if (collidableObject is PlayerCollidable)
             {
-                block.Move(((PlayerCollidable)collidableObject).Direction);
+                block.Interact(((PlayerCollidable)collidableObject).Direction);
                 
             } else
             {

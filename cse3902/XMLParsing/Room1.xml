@@ -30,16 +30,66 @@
         </blocks>
         <doors>
             <door>
-                <Room></Room>
-                <Num>0</Num>
+                <type>Down</type>
+                <pos>2</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
             </door>
-            <door>
-                <Room> VECTOR OF ROOM 2 </Room>
-                <Num>0</Num>
-            </door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
         </doors>
     </room>
     <room>
+		<doors>
+            <door>
+                <type>Down</type>
+                <pos>2</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+            </door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Locked</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+        </doors>
         <number>2,5,0</number>
         <items>
         </items>
@@ -50,6 +100,36 @@
     </room>
     <room>
         <number>3,5,0</number>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
         <items>
         </items>
         <enemies>
@@ -168,6 +248,36 @@
     </room>
     <room>
         <number>2,4,0</number>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Locked</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
         <items>
         </items>
         <enemies>
@@ -234,6 +344,36 @@
     </room>
     <room>
         <number>1,3,0</number>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Locked</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
         <items>
         </items>
         <enemies>
@@ -315,6 +455,36 @@
     </room>
     <room>
         <number>2,3,0</number>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
         <items>
             <item>
                 <type>Key</type>
@@ -382,6 +552,36 @@
     </room>
     <room>
         <number>3,3,0</number>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
         <items>
         </items>
         <enemies>
@@ -459,6 +659,36 @@
     </room>
     <room>
         <number>0,2,0</number>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Closed</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
         <items>
         </items>
         <enemies>
@@ -473,6 +703,36 @@
     </room>
     <room>
         <number>1,2,0</number>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Locked</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Closed</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
         <items>
         </items>
         <enemies>
@@ -495,15 +755,45 @@
         <blocks>
             <block>
                 <type>Normal</type>
-                <dir>Still</dir>
+                <dir>Left</dir>
                 <xloc>5</xloc>
                 <yloc>3</yloc>
-				<push>0</push>
+				<push>1</push>
             </block>
         </blocks>
     </room>
     <room>
         <number>2,2,0</number>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Locked</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
         <items>
             <item>
                 <type>Map</type>
@@ -613,6 +903,36 @@
     </room>
     <room>
         <number>3,2,0</number>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Locked</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
         <items>
         </items>
         <enemies>
@@ -665,6 +985,36 @@
     </room>
     <room>
         <number>4,2,0</number>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Locked</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
         <items>
             <item>
                 <type>Key</type>
@@ -845,6 +1195,36 @@
     </room>
     <room>
         <number>2,1,0</number>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Locked</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
         <items>
         </items>
         <enemies>
@@ -869,6 +1249,36 @@
     </room>
      <room>
         <number>4,1,0</number>
+		 <doors>
+			 <door>
+				 <type>Down</type>
+				 <pos>2</pos>
+				 <state>Locked</state>
+				 <xloc>0</xloc>
+				 <yloc>0</yloc>
+			 </door>
+			 <door>
+				 <type>Left</type>
+				 <pos>3</pos>
+				 <state>Wall</state>
+				 <xloc>0</xloc>
+				 <yloc>0</yloc>
+			 </door>
+			 <door>
+				 <type>Up</type>
+				 <pos>0</pos>
+				 <state>Wall</state>
+				 <xloc>0</xloc>
+				 <yloc>0</yloc>
+			 </door>
+			 <door>
+				 <type>Right</type>
+				 <pos>1</pos>
+				 <state>Closed</state>
+				 <xloc>0</xloc>
+				 <yloc>0</yloc>
+			 </door>
+		 </doors>
         <items>
             <item>
                 <type>HeartContainer</type>
@@ -1028,6 +1438,36 @@
     </room>
     <room>
         <number>5,1,0</number>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Closed</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
         <items>
             <item>
                 <type>Triforce</type>
@@ -1210,6 +1650,43 @@
     </room>
     <room>
         <number>1,0,0</number>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Locked</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>StairDown</type>
+				<pos>0</pos>
+				<state>Open</state>
+				<xloc>6</xloc>
+				<yloc>3</yloc>
+			</door>
+		</doors>
         <items>
         </items>
         <enemies>
@@ -1280,6 +1757,36 @@
     </room>
     <room>
         <number>2,0,0</number>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Locked</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Locked</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
         <items>
             <item>
                 <type>Key</type>
@@ -1475,9 +1982,17 @@
             </block>
         </blocks>
     </room>
-</rooms>
     <room>
         <number>1,0,-1</number>
+		<doors>
+			<door>
+				<type>OffscreenUp</type>
+				<pos>4</pos>
+				<state>Open</state>
+				<xloc>3</xloc>
+				<yloc>-2</yloc>
+			</door>
+		</doors>
         <items>
              <item>
                 <type>Bow</type>
@@ -1508,6 +2023,13 @@
             </enemy>
         </enemies> 
         <blocks>
+			<block>
+				<type>Ladder</type>
+				<dir>Still</dir>
+				<xloc>3</xloc>
+				<yloc>-1</yloc>
+				<push>0</push>
+			</block>
             <block>
                 <type>Ladder</type>
                 <dir>Still</dir>
@@ -1585,6 +2107,13 @@
                 <yloc>7</yloc>
 				<push>0</push>
             </block>
+			<block>
+				<type>Brick</type>
+				<dir>Still</dir>
+				<xloc>2</xloc>
+				<yloc>-1</yloc>
+				<push>0</push>
+			</block>
             <block>
                 <type>Brick</type>
                 <dir>Still</dir>
@@ -1669,6 +2198,13 @@
                 <yloc>8</yloc>
 				<push>0</push>
             </block>
+			<block>
+				<type>Brick</type>
+				<dir>Still</dir>
+				<xloc>4</xloc>
+				<yloc>-1</yloc>
+				<push>0</push>
+			</block>
             <block>
                 <type>Brick</type>
                 <dir>Still</dir>
@@ -2085,3 +2621,4 @@
             </block>
         </blocks>
     </room>
+</rooms>

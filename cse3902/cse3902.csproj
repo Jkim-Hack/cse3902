@@ -15,7 +15,6 @@
     <None Remove="Content\heart.gif" />
     <None Remove="Content\fairies.png" />
     <None Remove="Content\triforce.gif" />
-    <None Remove="Content\.Content.mgcb.swp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -43,6 +42,7 @@
     <Folder Include="Collision\" />
     <Folder Include="Collision\Collidables\" />
     <Folder Include="XMLParsing\" />
+    <Folder Include="Entities\DamageMasks\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Blocks\WaterBlock.cs" />
