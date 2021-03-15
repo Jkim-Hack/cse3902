@@ -101,7 +101,7 @@ namespace cse3902
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.DOORS, ref RoomDoors.Instance.ListRef);
 
             xmlParser = new XMLParser(roomHandler,this);
-            xmlParser.ParseXML("Room1.xml");
+            xmlParser.ParseXML("XMLParsing/Room1.xml");
             roomHandler.LoadNewRoom(new Vector3(0, 0, 0));
         }
 
