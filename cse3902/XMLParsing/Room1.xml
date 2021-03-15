@@ -1475,7 +1475,6 @@
             </block>
         </blocks>
     </room>
-</rooms>
     <room>
         <number>1,0,-1</number>
         <items>
@@ -2085,3 +2084,4 @@
             </block>
         </blocks>
     </room>
+</rooms>

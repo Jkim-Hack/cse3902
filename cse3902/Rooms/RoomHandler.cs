@@ -44,14 +44,8 @@ namespace cse3902.Rooms
             Room newRoom = rooms.GetValueOrDefault(newPos);
             Vector2 convertedRoom = RoomUtilities.ConvertVector(newPos);
 
-            if (currentRoom.Z == newPos.Z)
-            {
-                camera.SmoothMoveCamera(convertedRoom, CAMERA_CYCLES);
-            }
-            else
-            {
-                camera.MoveCamera(convertedRoom, new Vector2(ROOM_WIDTH, ROOM_HEIGHT));
-            }
+            if (currentRoom.Z == newPos.Z) camera.SmoothMoveCamera(convertedRoom, CAMERA_CYCLES);
+            else camera.MoveCamera(convertedRoom, new Vector2(ROOM_WIDTH, ROOM_HEIGHT));
 
             List<IItem> oldItems = rooms.GetValueOrDefault(currentRoom).Items;
             RoomItems.Instance.LoadNewRoom(ref oldItems, newRoom.Items);
@@ -81,7 +75,7 @@ namespace cse3902.Rooms
             if (!roomTransitionManager.IsTransitioning())
             {
                 roomChange += currentRoom;
-                LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[0]);
+                if (rooms.ContainsKey(roomChange)) LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[0]);
             }
         }
 

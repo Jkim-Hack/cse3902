@@ -46,7 +46,7 @@ namespace cse3902.XMLParsing
 
                 if (roomHandler.rooms.ContainsKey(connectingRoom) && initialDoorState != IDoor.DoorState.Wall)
                 {
-                    HandleDoorConnection(roomobj.roomPos, connectingRoom, ref doorAdd, Int32.Parse(doorPos.Value));
+                    HandleDoorConnection(connectingRoom, ref doorAdd, Int32.Parse(doorPos.Value));
                 }
 
                 roomobj.AddDoor(doorAdd);
@@ -146,7 +146,7 @@ namespace cse3902.XMLParsing
             return doorPos;
         }
 
-        private void HandleDoorConnection(Vector3 currRoom, Vector3 connectingRoom, ref IDoor door, int pos)
+        private void HandleDoorConnection(Vector3 connectingRoom, ref IDoor door, int pos)
         {
             roomHandler.rooms.GetValueOrDefault(connectingRoom).Doors[pos].ConnectedDoor = door;
             door.ConnectedDoor = roomHandler.rooms.GetValueOrDefault(connectingRoom).Doors[pos];
