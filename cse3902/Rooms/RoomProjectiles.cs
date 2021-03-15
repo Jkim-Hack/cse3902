@@ -36,9 +36,14 @@ namespace cse3902.Rooms
 
         public void Update(GameTime gameTime)
         {
-            foreach (IProjectile projectile in projectiles)
+            for(int i =0; i < projectiles.Count; i++)
             {
-                projectile.Update(gameTime);
+                IProjectile projectile = projectiles[i] as IProjectile;
+                if (projectile.Update(gameTime) < 0)
+                {
+                    projectiles.Remove(projectile);
+                    i--;
+                }
             }
         }
 
