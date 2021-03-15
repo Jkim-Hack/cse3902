@@ -1,5 +1,4 @@
-﻿using System;
-using cse3902.Interfaces;
+﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,8 +17,6 @@ namespace cse3902.SpriteFactory
 
         private Texture2D goriyaDamageSequence;
         private Texture2D bossDamageSequence;
-	 
-	    private Vector2 defaultCenter;
 	
 	    private static EnemySpriteFactory enemySpriteFactoryInstance = new EnemySpriteFactory();
 
@@ -30,7 +27,6 @@ namespace cse3902.SpriteFactory
 
         private EnemySpriteFactory()
         {
-            defaultCenter = new Vector2(300, 200);
         }
 
         public void LoadAllTextures(ContentManager content)

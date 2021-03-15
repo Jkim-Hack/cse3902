@@ -41,7 +41,7 @@ namespace cse3902.XMLParsing
             }
         }
 
-        public IEntity createEnemy(String type, Vector2 startingPos)
+        private IEntity createEnemy(String type, Vector2 startingPos)
         {
             IEntity newEnemy = null;
             switch (type)
