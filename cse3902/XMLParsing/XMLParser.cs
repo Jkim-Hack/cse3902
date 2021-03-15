@@ -36,10 +36,12 @@ namespace cse3902.Rooms
                 Room currentRoom;
 
                 XName num = XName.Get("number", doc.Root.Name.NamespaceName);
+                XName sprite = XName.Get("sprite", doc.Root.Name.NamespaceName);
+                int spriteNum = Int32.Parse(room.Element(sprite).Value);
 
                 Vector3 roomTup = RoomUtilities.ConvertToVector3(room.Element(num).Value);
 
-                currentRoom = new Room(roomTup);
+                currentRoom = new Room(roomTup, spriteNum);
 
                 itemParser.ParseItems(currentRoom, room, doc);
                 enemyNPCParser.ParseEnemies(currentRoom, room, doc);
