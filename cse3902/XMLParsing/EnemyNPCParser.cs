@@ -36,7 +36,9 @@ namespace cse3902.XMLParsing
                 int x = Int32.Parse(xloc.Value);
                 int y = Int32.Parse(yloc.Value);
 
-                IEntity enemyAdd = createEnemy(typeName.Value, new Vector2(x, y));
+                Vector2 truePos = RoomUtilities.calculateBlockCenter(RoomUtilities.convertVector(roomobj.roomPos), new Vector2(x, y));
+
+                IEntity enemyAdd = createEnemy(typeName.Value, truePos);
                 roomobj.AddEnemy(enemyAdd);
             }
         }

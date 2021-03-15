@@ -40,12 +40,12 @@ namespace cse3902.XMLParsing
                 int y = Int32.Parse(yloc.Value);
                 int numBlocks = Int32.Parse(push.Value);
 
-                IBlock blockAdd = createBlock(typeName.Value, dir.Value, new Vector2(x, y), numBlocks);
+                Vector2 truePos = RoomUtilities.calculateBlockCenter(RoomUtilities.convertVector(roomobj.roomPos), new Vector2(x, y));
+
+                IBlock blockAdd = createBlock(typeName.Value, dir.Value, truePos, numBlocks);
                 roomobj.AddBlock(blockAdd);
             }
-
         }
-
 
         private IBlock createBlock(String type, String dir, Vector2 startingPos, int numBlocks)
         {

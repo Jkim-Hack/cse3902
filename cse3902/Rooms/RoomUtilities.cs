@@ -43,6 +43,11 @@ namespace cse3902.Rooms
             Right
         }
 
+        public static Vector2 convertVector(Vector3 vector)
+        {
+            return new Vector2(ROOM_WIDTH * (vector.X + NUM_ROOMS_X * vector.Z), vector.Y * ROOM_HEIGHT);
+        }
+
         public static Vector2 calculateRoomCenter(Vector2 roomLoc)
         {
             roomLoc *= new Vector2(ROOM_WIDTH, ROOM_HEIGHT);

@@ -50,7 +50,6 @@ namespace cse3902.Rooms
             }
         }
 
-
         public void LoadNewRoom(ref List<IItem> oldList, List<IItem> newList)
         {
             oldList = new List<IItem>();
