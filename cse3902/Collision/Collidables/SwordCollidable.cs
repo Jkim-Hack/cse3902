@@ -29,7 +29,7 @@ namespace cse3902.Collision.Collidables
              
         public int DamageValue
         {
-            get => damage;
+            get => this.sword.Damage;
         }
 
         public Vector2 Direction
