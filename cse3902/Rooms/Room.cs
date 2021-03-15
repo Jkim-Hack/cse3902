@@ -19,12 +19,20 @@ namespace cse3902.Rooms
         private List<IBlock> blocks { get; set; }
         private List<IDoor> doors { get; set; }
 
-        public Room(Vector3 position)
+        public Room(Vector3 position, int spriteNum)
         {
             roomPos = position;
            
             visited = false;
-            RoomBackground.Instance.generateRoom(position, 7);
+
+            if (spriteNum < 0)
+            {
+                RoomBackground.Instance.generateItemRoom(position);
+            }
+            else
+            {
+                RoomBackground.Instance.generateRoom(position, spriteNum);
+            }
 
             items = new List<IItem>();
             enemies = new List<IEntity>();

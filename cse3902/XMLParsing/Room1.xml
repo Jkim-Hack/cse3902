@@ -2,6 +2,7 @@
 <rooms>
     <room>
         <number>1,5,0</number>
+        <sprite>12</sprite>
         <items>
             <item>
                 <type>Key</type>
@@ -91,6 +92,7 @@
 			</door>
         </doors>
         <number>2,5,0</number>
+        <sprite>13</sprite>
         <items>
         </items>
         <enemies>
@@ -100,6 +102,7 @@
     </room>
     <room>
         <number>3,5,0</number>
+        <sprite>14</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -248,6 +251,7 @@
     </room>
     <room>
         <number>2,4,0</number>
+        <sprite>10</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -344,6 +348,7 @@
     </room>
     <room>
         <number>1,3,0</number>
+        <sprite>10</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -455,6 +460,7 @@
     </room>
     <room>
         <number>2,3,0</number>
+        <sprite>8</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -552,6 +558,7 @@
     </room>
     <room>
         <number>3,3,0</number>
+        <sprite>11</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -659,6 +666,7 @@
     </room>
     <room>
         <number>0,2,0</number>
+        <sprite>5</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -703,6 +711,7 @@
     </room>
     <room>
         <number>1,2,0</number>
+        <sprite>6</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -764,6 +773,7 @@
     </room>
     <room>
         <number>2,2,0</number>
+        <sprite>7</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -903,6 +913,7 @@
     </room>
     <room>
         <number>3,2,0</number>
+        <sprite>8</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -985,6 +996,7 @@
     </room>
     <room>
         <number>4,2,0</number>
+        <sprite>9</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -1195,6 +1207,7 @@
     </room>
     <room>
         <number>2,1,0</number>
+        <sprite>2</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -1249,6 +1262,7 @@
     </room>
      <room>
         <number>4,1,0</number>
+        <sprite>3</sprite>
 		 <doors>
 			 <door>
 				 <type>Down</type>
@@ -1438,6 +1452,7 @@
     </room>
     <room>
         <number>5,1,0</number>
+        <sprite>4</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -1650,6 +1665,7 @@
     </room>
     <room>
         <number>1,0,0</number>
+        <sprite>12</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -1757,6 +1773,7 @@
     </room>
     <room>
         <number>2,0,0</number>
+        <sprite>1</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -1984,6 +2001,7 @@
     </room>
     <room>
         <number>1,0,-1</number>
+        <sprite>-1</sprite>
 		<doors>
 			<door>
 				<type>OffscreenUp</type>

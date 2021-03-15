@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using cse3902.Collision;
 using Microsoft.Xna.Framework;
 
@@ -8,11 +9,11 @@ namespace cse3902
 {
     public class AllCollidablesList
     {
-        private Dictionary<int, List<ICollidableItemEntity>> AllColldiables;
+        private Dictionary<int, IList> AllColldiables;
 
         public AllCollidablesList()
         {
-            AllColldiables = new Dictionary<int, List<ICollidableItemEntity>>();
+            AllColldiables = new Dictionary<int, IList>();
         }
 
         public IList GetList(int priority)
@@ -36,7 +37,7 @@ namespace cse3902
 
         public void InsertNewList(int priority, ref IList collidablesList)
         {
-            AllColldiables[priority] = collidablesList as List<ICollidableItemEntity>;
+            AllColldiables[priority] = collidablesList;
         }
 
         public Dictionary<int, Dictionary<Rectangle, ICollidable>> GetAllCollidablesDictionary()
@@ -47,9 +48,12 @@ namespace cse3902
                 allCollidablesDictionary.Add(priority, new Dictionary<Rectangle, ICollidable>());
                 if (AllColldiables[priority] != null)
                 {
-		            foreach (var collidable in AllColldiables[priority])
+		            foreach (var collidable in AllColldiables[priority].Cast<ICollidableItemEntity>().ToList())
                     {
-                        allCollidablesDictionary[priority].Add(collidable.Collidable.RectangleRef, collidable.Collidable);
+                        if (!allCollidablesDictionary[priority].ContainsKey(collidable.Collidable.RectangleRef))
+                        {
+                            allCollidablesDictionary[priority].Add(collidable.Collidable.RectangleRef, collidable.Collidable);
+                        }
                     }
                 }
             }

@@ -49,7 +49,7 @@ namespace cse3902.XMLParsing
 
         private IBlock CreateBlock(String type, String dir, Vector2 startingPos, int numBlocks)
         {
-            IBlock newBlock = null;
+            IBlock newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, startingPos));
             switch (type)
             {
                 case "Normal":
