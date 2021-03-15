@@ -38,7 +38,6 @@ namespace cse3902.Rooms
             //items.Remove(item);
         }
 
-
         public void Update(GameTime gameTime)
         {
             foreach (IItem item in items)
