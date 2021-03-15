@@ -64,6 +64,7 @@ namespace cse3902.Entities.Enemies
         public void TakeDamage(int damage)
         {
             this.Health -= damage;
+            this.goriyaSprite.Damaged = true;
         }
 
         public void Die()

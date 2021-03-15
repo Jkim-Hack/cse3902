@@ -68,6 +68,7 @@ namespace cse3902.Entities.Enemies
         public void TakeDamage(int damage)
         {
             this.Health -= damage;
+            this.aquamentusSprite.Damaged = true;
         }
 
         public void Die()
