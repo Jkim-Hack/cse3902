@@ -133,8 +133,8 @@ namespace cse3902.Entities
 
         public Vector2 PreviousPosition
         {
-            //needs to be changed
-            get => linkSprite.Center;
+
+            get => linkSprite.PreviousCenter;
         }
 
         public List<Vector2> Directions

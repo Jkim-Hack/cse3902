@@ -317,6 +317,7 @@ namespace cse3902.Entities
             get => this.linkSprite.Center;
             set
             {
+                this.linkSprite.PreviousCenter = this.linkSprite.Center;
                 this.linkSprite.Center = value;
                 this.centerPosition = value;
             }
