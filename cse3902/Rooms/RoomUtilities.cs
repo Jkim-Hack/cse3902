@@ -7,7 +7,7 @@ namespace cse3902.Rooms
 {
     class RoomUtilities
     {
-        public const int BLOCK_SIDE = 15;
+        public const int BLOCK_SIDE = 16;
 
         public const int ROOM_WIDTH = BLOCK_SIDE * 16;
         public const int ROOM_HEIGHT = BLOCK_SIDE * 11;
@@ -60,8 +60,8 @@ namespace cse3902.Rooms
         public static Vector2 CalculateBlockCenter(Vector3 roomLoc, Vector2 blockLoc)
         {
             Vector2 pos = ConvertVector(roomLoc);
-            pos += new Vector2(WALL_SIZE-5, WALL_SIZE -3);
-            pos += new Vector2(BLOCK_SIDE*blockLoc.X, BLOCK_SIDE *blockLoc.Y);
+            pos += new Vector2(WALL_SIZE, WALL_SIZE);
+            pos += new Vector2((BLOCK_SIDE-1)*blockLoc.X, (BLOCK_SIDE - 1) * blockLoc.Y);
             pos += new Vector2(BLOCK_SIDE / 2, BLOCK_SIDE / 2);
             pos += blockLoc;
             return pos;
