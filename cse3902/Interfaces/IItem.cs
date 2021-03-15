@@ -5,8 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Interfaces
 {
-    public interface IItem : ISprite
+    public interface IItem : ISprite, ICollidableItemEntity
     {
-        public ICollidable Collidable { get; }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using cse3902.Collision;
+using System.Collections;
 
 namespace cse3902.Rooms
 {
@@ -16,7 +17,7 @@ namespace cse3902.Rooms
         SpriteBatch batch;
         private List<ISprite> background { get; set; }
 
-        private List<ICollidable> Walls { get; set; }
+        private IList walls;
 
         //private List<Rectangle> test { get; set; }
         //Texture2D test1;
@@ -43,7 +44,7 @@ namespace cse3902.Rooms
             //test1 = content.Load<Texture2D>("block3");
             this.batch = batch;
             background = new List<ISprite>();
-            Walls = new List<ICollidable>();
+            walls = new List<Wall>();
             //test = new List<Rectangle>();
         }
 
@@ -53,7 +54,7 @@ namespace cse3902.Rooms
             background.Add(new ExteriorSprite(batch, exterior, roomCenter));
             background.Add(new InteriorSprite(batch, interior, RoomUtilities.INTERIOR_TEXTURE_ROWS, RoomUtilities.INTERIOR_TEXTURE_COLS, roomCenter, roomNum));
             foreach(Rectangle rec in RoomUtilities.GetWallRectangles(loc)){
-                Walls.Add(new Wall(rec));
+                walls.Add(new Wall(rec));
                 //test.Add(rec);
             }
         }
@@ -116,6 +117,11 @@ namespace cse3902.Rooms
             }
 
         }*/
+
+        public ref IList WallsListRef
+        {
+            get => ref walls;
+        }
 
     }
 }
