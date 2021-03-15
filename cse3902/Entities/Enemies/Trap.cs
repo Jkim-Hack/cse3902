@@ -2,6 +2,9 @@
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using cse3902.Sprites.EnemySprites;
+using cse3902.SpriteFactory;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
 
 namespace cse3902.Entities.Enemies
 {
@@ -28,8 +31,7 @@ namespace cse3902.Entities.Enemies
             center = startingPos;
 
             //gel sprite sheet is 1 row, 2 columns
-            gelSprite = (GelSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.spriteBatch, startingPos);
-            gelStateMachine = new GelStateMachine(gelSprite);
+            trapSprite = (TrapSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.spriteBatch, startingPos);
             direction = new Vector2(-1, 0);
             speed = 50.0f;
             travelDistance = 50;
@@ -37,6 +39,11 @@ namespace cse3902.Entities.Enemies
 
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = 2;
+        }
+
+        public int Damage
+        {
+            get => 3;
         }
     }
 }
