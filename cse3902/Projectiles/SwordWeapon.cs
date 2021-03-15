@@ -4,6 +4,7 @@ using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using cse3902.Rooms;
 
 namespace cse3902.Projectiles
 {
@@ -94,6 +95,7 @@ namespace cse3902.Projectiles
 
         public int Update(GameTime gameTime)
         {
+            int val = 0;
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
 
@@ -103,11 +105,11 @@ namespace cse3902.Projectiles
                 if (currentFrame % columns == 0)
                 {
                     currentFrame -= rows;
-                    animationComplete = true;
+                    val = -1;
                 }
                 remainingDelay = delaySequence[currentFrame % columns];
             }
-            return 0;
+            return val;
         }
 
         public void Erase()
