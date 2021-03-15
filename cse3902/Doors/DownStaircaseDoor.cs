@@ -39,10 +39,19 @@ namespace cse3902.Doors
         {
             doorSprite.Draw();
         }
-        public void ChangeState(IDoor.DoorState doorState)
+
+        public IDoor.DoorState State
         {
-            //do nothing
+            get
+            {
+                return IDoor.DoorState.None;
+            }
+            set
+            {
+
+            }
         }
+
         public ref Rectangle Bounds
         {
             get

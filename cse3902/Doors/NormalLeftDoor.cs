@@ -34,15 +34,15 @@ namespace cse3902.Doors
                     break;
                 case IDoor.DoorState.Closed:
                 case IDoor.DoorState.Locked:
-                    ChangeState(IDoor.DoorState.Open);
-                    connectedDoor.ChangeState(IDoor.DoorState.Open);
+                    State = IDoor.DoorState.Open;
+                    connectedDoor.State = IDoor.DoorState.Open;
                     break;/*
                 case IDoor.DoorState.Locked:
                     if (game.player.inventory.contains(key))
                     {
                         game.player.inventory.key--;
-                        ChangeState(IDoor.DoorState.Open);
-                        connectedDoor.ChangeState(IDoor.DoorState.Open);
+                        State = IDoor.DoorState.Open;
+                        connectedDoor.State = IDoor.DoorState.Open;
                     }
                     break;*/
                 case IDoor.DoorState.Wall: //do nothing
@@ -63,10 +63,17 @@ namespace cse3902.Doors
         {
             doorSprite.Draw();
         }
-        public void ChangeState(IDoor.DoorState newDoorState)
+        public IDoor.DoorState State
         {
-            doorState = newDoorState;
-            doorSprite = DoorSpriteFactory.Instance.CreateLeftDoorSprite(game.spriteBatch, doorSprite.Center, newDoorState);
+            get
+            {
+                return doorState;
+            }
+            set
+            {
+                doorState = value;
+                doorSprite = DoorSpriteFactory.Instance.CreateDownDoorSprite(game.spriteBatch, doorSprite.Center, value);
+            }
         }
         public ref Rectangle Bounds
         {
