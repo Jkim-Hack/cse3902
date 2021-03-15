@@ -34,38 +34,72 @@ namespace cse3902.Rooms
         public const int WALL_WIDTH = 120;
         public const int WALL_HEIGHT = 80;
 
-        public static Vector2 calculateRoomCenter(Vector2 roomLoc)
+        public enum DoorPosition
         {
-            roomLoc *= new Vector2(ROOM_WIDTH, ROOM_HEIGHT);
-            roomLoc += new Vector2(ROOM_WIDTH/2, ROOM_HEIGHT/2);
-            return roomLoc;
+            TOP,
+            RIGHT,
+            BOTTOM,
+            LEFT
+
         }
 
-        public static Vector2 calculateBlockCenter(Vector2 roomLoc, Vector2 blockLoc)
+        public static Vector2 convertVector(Vector3 vector)
         {
-            roomLoc *= new Vector2(ROOM_WIDTH, ROOM_HEIGHT);
-            roomLoc += new Vector2(WALL_SIZE, WALL_SIZE);
-            blockLoc *= new Vector2(INTERIOR_WIDTH / NUM_BLOCKS_X, INTERIOR_HEIGHT/ NUM_BLOCKS_Y);
-            blockLoc += new Vector2((INTERIOR_WIDTH / NUM_BLOCKS_X)/2, (INTERIOR_HEIGHT / NUM_BLOCKS_Y)/2);
-            roomLoc += blockLoc;
-            return roomLoc;
+            return new Vector2(ROOM_WIDTH * (vector.X + NUM_ROOMS_X * vector.Z), vector.Y * ROOM_HEIGHT);
         }
 
-        public static Rectangle[] getWallRectangles(Vector2 roomLoc)
+        public static Vector2 calculateRoomCenter(Vector3 roomLoc)
         {
-            roomLoc *= new Vector2(ROOM_WIDTH, ROOM_HEIGHT);
+            Vector2 pos = convertVector(roomLoc);
+            pos += new Vector2(ROOM_WIDTH/2, ROOM_HEIGHT/2);
+            return pos;
+        }
+
+        public static Vector2 calculateBlockCenter(Vector3 roomLoc, Vector2 blockLoc)
+        {
+            Vector2 pos = convertVector(roomLoc);
+            pos += new Vector2(WALL_SIZE, WALL_SIZE);
+            pos *= new Vector2(INTERIOR_WIDTH / NUM_BLOCKS_X, INTERIOR_HEIGHT/ NUM_BLOCKS_Y);
+            pos += new Vector2((INTERIOR_WIDTH / NUM_BLOCKS_X)/2, (INTERIOR_HEIGHT / NUM_BLOCKS_Y)/2);
+            pos += blockLoc;
+            return pos;
+        }
+
+        public static Rectangle[] getWallRectangles(Vector3 roomLoc)
+        {
+            Vector2 pos = convertVector(roomLoc);
             Rectangle[] rectangles = new Rectangle[NUM_OF_WALLS];
             int current = 0;
 
-            rectangles[current++] = new Rectangle((int)roomLoc.X, (int)roomLoc.Y, WALL_WIDTH, WALL_SIZE);
-            rectangles[current++] = new Rectangle((int)roomLoc.X, (int)roomLoc.Y, WALL_SIZE, WALL_HEIGHT);
-            rectangles[current++] = new Rectangle((int)roomLoc.X + ROOM_WIDTH - WALL_WIDTH, (int)roomLoc.Y, WALL_WIDTH, WALL_SIZE);
-            rectangles[current++] = new Rectangle((int)roomLoc.X, (int)roomLoc.Y + ROOM_HEIGHT - WALL_HEIGHT, WALL_SIZE, WALL_HEIGHT);
-            rectangles[current++] = new Rectangle((int)roomLoc.X + ROOM_WIDTH - WALL_SIZE, (int)roomLoc.Y, WALL_SIZE, WALL_HEIGHT);
-            rectangles[current++] = new Rectangle((int)roomLoc.X, (int)roomLoc.Y + ROOM_HEIGHT - WALL_SIZE, WALL_WIDTH, WALL_SIZE);
-            rectangles[current++] = new Rectangle((int)roomLoc.X + ROOM_WIDTH - WALL_SIZE, (int)roomLoc.Y + ROOM_HEIGHT - WALL_HEIGHT, WALL_SIZE, WALL_HEIGHT);
-            rectangles[current++] = new Rectangle((int)roomLoc.X + ROOM_WIDTH - WALL_WIDTH, (int)roomLoc.Y + ROOM_HEIGHT - WALL_SIZE, WALL_WIDTH, WALL_SIZE);
+            rectangles[current++] = new Rectangle((int)pos.X, (int)pos.Y, WALL_WIDTH, WALL_SIZE);
+            rectangles[current++] = new Rectangle((int)pos.X, (int)pos.Y, WALL_SIZE, WALL_HEIGHT);
+            rectangles[current++] = new Rectangle((int)pos.X + ROOM_WIDTH - WALL_WIDTH, (int)pos.Y, WALL_WIDTH, WALL_SIZE);
+            rectangles[current++] = new Rectangle((int)pos.X, (int)pos.Y + ROOM_HEIGHT - WALL_HEIGHT, WALL_SIZE, WALL_HEIGHT);
+            rectangles[current++] = new Rectangle((int)pos.X + ROOM_WIDTH - WALL_SIZE, (int)pos.Y, WALL_SIZE, WALL_HEIGHT);
+            rectangles[current++] = new Rectangle((int)pos.X, (int)pos.Y + ROOM_HEIGHT - WALL_SIZE, WALL_WIDTH, WALL_SIZE);
+            rectangles[current++] = new Rectangle((int)pos.X + ROOM_WIDTH - WALL_SIZE, (int)pos.Y + ROOM_HEIGHT - WALL_HEIGHT, WALL_SIZE, WALL_HEIGHT);
+            rectangles[current++] = new Rectangle((int)pos.X + ROOM_WIDTH - WALL_WIDTH, (int)pos.Y + ROOM_HEIGHT - WALL_SIZE, WALL_WIDTH, WALL_SIZE);
             return rectangles;
+        }
+
+        public static Vector2 getDoorCenterPosition(Vector3 roomLoc, DoorPosition position)
+        {
+            Vector2 pos = convertVector(roomLoc);
+            switch (position) {
+                case DoorPosition.TOP:
+                    pos += new Vector2(ROOM_WIDTH / 2, WALL_SIZE / 2);
+                    break;
+                case DoorPosition.BOTTOM:
+                    pos += new Vector2(ROOM_WIDTH / 2, ROOM_HEIGHT - WALL_SIZE / 2);
+                    break;
+                case DoorPosition.LEFT:
+                    pos += new Vector2(WALL_SIZE / 2, ROOM_HEIGHT / 2);
+                    break;
+                case DoorPosition.RIGHT:
+                    pos += new Vector2(ROOM_WIDTH - WALL_SIZE / 2, ROOM_HEIGHT / 2);
+                    break;
+            }
+            return pos;
         }
     }
 }
