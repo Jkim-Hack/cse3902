@@ -58,6 +58,11 @@ namespace cse3902.Rooms
             }
         }
 
+        public void generateItemRoom(Vector3 loc)
+        {
+            Vector2 roomCenter = RoomUtilities.CalculateRoomCenter(loc);
+        }
+
 
         public void Update(GameTime gameTime)
         {
@@ -79,6 +84,38 @@ namespace cse3902.Rooms
                 batch.Draw(test1, rec, null, Color.White, 0f, new Vector2(0,0), SpriteEffects.None, .05f);
             }*/
         }
+
+        /*public void LoadNewRoom(ref List<ISprite> oldSpriteList, List<ISprite> newSpriteList, ref List<ICollidable> oldWallList, List<ICollidable> newWallList)
+        {
+            oldSpriteList = new List<ISprite>();
+
+            for (int i = 0; i < oldSpriteList.Count; i++)
+            {
+                oldSpriteList[i] = oldSpriteList[i];
+            }
+
+            background = new List<ISprite>();
+
+            for (int i = 0; i < newSpriteList.Count; i++)
+            {
+                background[i] = newSpriteList[i];
+            }
+
+            oldWallList = new List<ICollidable>();
+
+            for (int i = 0; i < oldWallList.Count; i++)
+            {
+                oldWallList[i] = Walls[i];
+            }
+
+            Walls = new List<ICollidable>();
+
+            for (int i = 0; i < newWallList.Count; i++)
+            {
+                Walls[i] = newWallList[i];
+            }
+
+        }*/
 
     }
 }

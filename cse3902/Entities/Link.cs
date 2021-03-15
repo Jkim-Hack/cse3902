@@ -18,6 +18,7 @@ namespace cse3902.Entities
 
         private ICollidable collidable;
         private int health;
+        private List<Vector2> directions;
 
         public Link(Game1 game)
         {
@@ -30,9 +31,20 @@ namespace cse3902.Entities
             Vector2 centerPosition = new Vector2(50, 200);
             linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 6, 4, linkDamageMaskHandler, centerPosition);
             linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition, game.spriteBatch);
+            PopulateDirections();
 
             //Link's body does no damage itself
             this.collidable = new PlayerCollidable(this, 0);
+        }
+
+        private void PopulateDirections()
+        {
+            directions = new List<Vector2>();
+            directions.Add(new Vector2(0, 0));
+            directions.Add(new Vector2(1, 0));
+            directions.Add(new Vector2(0, 1));
+            directions.Add(new Vector2(-1, 0));
+            directions.Add(new Vector2(0, -1));
         }
 
         public ref Rectangle Bounds 
@@ -51,7 +63,8 @@ namespace cse3902.Entities
 
         public void ChangeDirection(Vector2 direction)
         {
-            linkStateMachine.ChangeDirection(direction);
+            if(directions.Contains(direction))
+                linkStateMachine.ChangeDirection(direction);
             
 	    }        
 
@@ -122,6 +135,12 @@ namespace cse3902.Entities
         {
             //needs to be changed
             get => linkSprite.Center;
+        }
+
+        public List<Vector2> Directions
+        {
+            get => directions;
+            set => directions = value;
         }
 
         public int Health

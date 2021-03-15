@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using cse3902.XMLParsing;
+using System.IO;
 
 namespace cse3902.Rooms
 {
@@ -24,8 +25,9 @@ namespace cse3902.Rooms
 
         public void ParseXML(String filename)
         {
-            XDocument doc = XDocument.Load(filename);
-            XElement map = XElement.Load(filename);
+            String workingDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
+            XDocument doc = XDocument.Load(workingDirectory + "/" + filename);
+            XElement map = XElement.Load(workingDirectory + "/" + filename);
 
             XName roomName = XName.Get("room", doc.Root.Name.NamespaceName);
 
