@@ -30,7 +30,7 @@ namespace cse3902.Entities.Enemies
             center = startingPos;
 
             //gel sprite sheet is 1 row, 2 columns
-            trapSprite = (TrapSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.spriteBatch, startingPos);
+            trapSprite = (TrapSprite)EnemySpriteFactory.Instance.CreateTrapSprite(game.spriteBatch, startingPos);
             direction = new Vector2(-1, 0);
             speed = 50.0f;
             travelDistance = 50;
@@ -44,7 +44,10 @@ namespace cse3902.Entities.Enemies
             get => 3;
         }
 
-        public ref Rectangle Bounds => throw new NotImplementedException();
+        public ref Rectangle Bounds
+        {
+            get => ref this.trapSprite.Box;
+        }
 
         public int Health
         {
@@ -73,7 +76,7 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-            throw new NotImplementedException();
+            this.direction = direction;
         }
 
         public void TakeDamage(int damage)
