@@ -10,9 +10,6 @@ namespace cse3902.Sprites
         private Texture2D spriteTexture;
         private Vector2 center;
 
-        private int frameWidth;
-        private int frameHeight;
-
         private Rectangle dest;
         private Rectangle door;
 
@@ -23,9 +20,6 @@ namespace cse3902.Sprites
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
 
-            frameWidth = spriteTexture.Width;
-            frameHeight = spriteTexture.Height;
-
             center = startingPosition;
 
             door = wantedDoor;
@@ -33,9 +27,9 @@ namespace cse3902.Sprites
 
         public void Draw()
         {
-            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, door, Color.White, 0, origin, SpriteEffects.None, 0.9f);
+            Vector2 origin = new Vector2(door.Width / 2f, door.Height / 2f);
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(door.Width * sizeIncrease), (int)(door.Height * sizeIncrease));
+            spriteBatch.Draw(spriteTexture, Destination, door, Color.White, 0, origin, SpriteEffects.None, 0.3f);
         }
 
         public int Update(GameTime gameTime)
@@ -53,9 +47,7 @@ namespace cse3902.Sprites
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth) / 2;
-                int height = (int)(sizeIncrease * frameHeight);
-                Rectangle destination = new Rectangle((int)center.X, (int)center.Y, width, height);
+                Rectangle destination = new Rectangle((int)center.X, (int)center.Y, (int) (door.Width* sizeIncrease), (int)(door.Height *sizeIncrease));
                 destination.Offset(-destination.Width / 2, -destination.Height / 2);
                 dest = destination;
 
