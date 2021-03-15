@@ -9,10 +9,9 @@ namespace cse3902.Collision.Collidables
         private IProjectile sword;
         private int damage;
 
-        public SwordCollidable(IProjectile projectile, int damage)
+        public SwordCollidable(IProjectile projectile)
         {
             this.sword = projectile;
-            this.damage = damage;
         }
 
 
