@@ -93,7 +93,7 @@ namespace cse3902.Rooms
             {
                 RoomItems.Instance.Update(gameTime);
                 RoomEnemyNPCs.Instance.Update(gameTime);
-                ProjectileHandler.Instance.Update(gameTime);
+                RoomProjectiles.Instance.Update(gameTime);
             }
 
             RoomBackground.Instance.Update(gameTime);
@@ -109,7 +109,7 @@ namespace cse3902.Rooms
             {
                 RoomItems.Instance.Draw();
                 RoomEnemyNPCs.Instance.Draw();
-                ProjectileHandler.Instance.Draw();
+                RoomProjectiles.Instance.Draw();
             }
 
             RoomBlocks.Instance.Draw();

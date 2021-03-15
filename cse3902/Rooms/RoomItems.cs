@@ -67,7 +67,6 @@ namespace cse3902.Rooms
             {
                 items.Add(newList[i]);
             }
-
         }
 
         public ref IList ListRef
