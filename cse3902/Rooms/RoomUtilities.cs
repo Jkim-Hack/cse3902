@@ -53,7 +53,7 @@ namespace cse3902.Rooms
         public static Vector2 CalculateRoomCenter(Vector3 roomLoc)
         {
             Vector2 pos = ConvertVector(roomLoc);
-            pos += new Vector2(ROOM_WIDTH/2, ROOM_HEIGHT/2);
+            pos += new Vector2(ROOM_WIDTH / 2, ROOM_HEIGHT / 2);
             return pos;
         }
 
@@ -61,8 +61,8 @@ namespace cse3902.Rooms
         {
             Vector2 pos = ConvertVector(roomLoc);
             pos += new Vector2(WALL_SIZE, WALL_SIZE);
-            pos *= new Vector2(INTERIOR_WIDTH / NUM_BLOCKS_X, INTERIOR_HEIGHT/ NUM_BLOCKS_Y);
-            pos += new Vector2((INTERIOR_WIDTH / NUM_BLOCKS_X)/2, (INTERIOR_HEIGHT / NUM_BLOCKS_Y)/2);
+            pos *= new Vector2(INTERIOR_WIDTH / NUM_BLOCKS_X, INTERIOR_HEIGHT / NUM_BLOCKS_Y);
+            pos += new Vector2((INTERIOR_WIDTH / NUM_BLOCKS_X) / 2, (INTERIOR_HEIGHT / NUM_BLOCKS_Y) / 2);
             pos += blockLoc;
             return pos;
         }
@@ -97,7 +97,8 @@ namespace cse3902.Rooms
         public static Vector2 CalculateDoorCenter(Vector3 roomLoc, DoorPos position)
         {
             Vector2 pos = ConvertVector(roomLoc);
-            switch (position) {
+            switch (position)
+            {
                 case DoorPos.TOP:
                     pos += new Vector2(ROOM_WIDTH / 2, WALL_SIZE / 2);
                     break;
