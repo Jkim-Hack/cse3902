@@ -41,12 +41,12 @@ namespace cse3902.Commands
 
             leftMouseClickCommandMap = new Dictionary<Rectangle[], ICommand>()
             {
-                {new Rectangle[] {new Rectangle(windowWidth-50,0,100,100),new Rectangle(windowWidth-100,windowHeight-50,100,100),new Rectangle(windowWidth-50,windowHeight-100,100,100),new Rectangle(0,windowHeight-50,100,100)}, new ChangeRoomXYCommand(game)}
+                {new Rectangle[] {new Rectangle(windowWidth/2-50,0,100,100),new Rectangle(windowWidth-100,windowHeight/2-50,100,100),new Rectangle(windowWidth/2-50,windowHeight-100,100,100),new Rectangle(0,windowHeight/2-50,100,100)}, new ChangeRoomXYCommand(game)}
             };
 
             rightMouseClickCommandMap = new Dictionary<Rectangle[], ICommand>()
             {
-                {new Rectangle[] {new Rectangle(windowWidth-50,0,100,100),new Rectangle(windowWidth-50,windowHeight-100,100,100)}, new ChangeRoomZCommand(game)}
+                {new Rectangle[] {new Rectangle(windowWidth/2-50,0,100,100),new Rectangle(windowWidth/2-50,windowHeight-100,100,100)}, new ChangeRoomZCommand(game)}
             };
         }
 
