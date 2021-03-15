@@ -39,6 +39,10 @@ namespace cse3902.Doors
         {
             doorSprite.Draw();
         }
+        public void OpenDoor()
+        {
+            //do nothing
+        }
         public ref Rectangle Bounds
         {
             get

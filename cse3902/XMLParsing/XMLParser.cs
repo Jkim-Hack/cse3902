@@ -35,14 +35,14 @@ namespace cse3902.Rooms
 
                 XName num = XName.Get("number", doc.Root.Name.NamespaceName);
 
-                Vector3 roomTup = RoomUtilities.convertToVector3(room.Element(num).Value);
+                Vector3 roomTup = RoomUtilities.ConvertToVector3(room.Element(num).Value);
 
                 currentRoom = new Room(roomTup);
 
-                itemParser.parseItems(currentRoom, room, doc);
-                enemyNPCParser.parseEnemies(currentRoom, room, doc);
-                blockParser.parseBlocks(currentRoom, room, doc);
-                doorParser.parseDoors(currentRoom, room, doc);
+                itemParser.ParseItems(currentRoom, room, doc);
+                enemyNPCParser.ParseEnemies(currentRoom, room, doc);
+                blockParser.ParseBlocks(currentRoom, room, doc);
+                doorParser.ParseDoors(currentRoom, room, doc);
 
                 roomHandler.rooms.Add(roomTup, currentRoom);
             }

@@ -30,6 +30,7 @@ namespace cse3902.Rooms
             xmlParser = new XMLParser(this, game);
             roomTransitionManager = new RoomTransitionManager(game);
             camera = game.camera;
+            currentRoom = new Vector3(2, 5, 0);
         }
 
         public void Initialize()
@@ -41,7 +42,7 @@ namespace cse3902.Rooms
         public void LoadNewRoom(Vector3 newPos, IDoor entranceDoor)
         {
             Room newRoom = rooms.GetValueOrDefault(newPos);
-            Vector2 convertedRoom = RoomUtilities.convertVector(newPos);
+            Vector2 convertedRoom = RoomUtilities.ConvertVector(newPos);
 
             if (currentRoom.Z == newPos.Z)
             {

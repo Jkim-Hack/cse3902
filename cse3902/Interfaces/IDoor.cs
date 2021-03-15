@@ -19,5 +19,6 @@ namespace cse3902.Interfaces
         public Vector2 PlayerReleasePosition();
         public Vector2 PlayerReleaseDirection();
         public void Draw();
+        public void OpenDoor();
     }
 }

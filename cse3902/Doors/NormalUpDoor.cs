@@ -35,6 +35,7 @@ namespace cse3902.Doors
                 case IDoor.DoorState.Closed:
                 case IDoor.DoorState.Locked:
                     doorState = IDoor.DoorState.Open;
+                    connectedDoor.OpenDoor();
                     doorSprite = DoorSpriteFactory.Instance.CreateUpDoorSprite(game.spriteBatch, doorSprite.Center, doorState);
                     break;/*
                 case IDoor.DoorState.Locked:
@@ -42,6 +43,7 @@ namespace cse3902.Doors
                     {
                         game.player.inventory.key--;
                         doorState = IDoor.DoorState.Open;
+                        connectedDoor.OpenDoor();
                         doorSprite = DoorSpriteFactory.Instance.CreateUpDoorSprite(game.spriteBatch, doorSprite.Center, doorState);
                     }
                     break;*/
@@ -62,6 +64,10 @@ namespace cse3902.Doors
         public void Draw()
         {
             doorSprite.Draw();
+        }
+        public void OpenDoor()
+        {
+            doorState = IDoor.DoorState.Open;
         }
         public ref Rectangle Bounds
         {

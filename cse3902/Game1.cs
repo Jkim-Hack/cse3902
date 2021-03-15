@@ -73,15 +73,11 @@ namespace cse3902
 
             roomHandler = new RoomHandler(this);
 
-            //camera.MoveCamera(new Vector2(256, 0), new Vector2(256, 176));
-
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
             RoomBackground.Instance.LoadTextures(Content, spriteBatch);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ProjectileHandler.Instance.LoadAllTextures(Content);
-
-            //RoomBackground.Instance.generateRoom(new Vector3(1, 0, 0), 1);
 
             // For hitbox drawing
 	        lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
@@ -89,6 +85,8 @@ namespace cse3902
 
             // Testing purposes
             RoomBackground.Instance.generateRoom(new Vector3(0,0,0), 1);
+            //RoomBackground.Instance.generateRoom(new Vector3(1, 0, 0), 1);
+            //camera.MoveCamera(new Vector2(256, 0), new Vector2(256, 176));
 
             collisionManager = new CollisionManager(this);
 
@@ -97,6 +95,7 @@ namespace cse3902
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ITEMS, ref RoomItems.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BLOCKS, ref RoomBlocks.Instance.ListRef);
 
+            roomHandler.LoadNewRoom(new Vector3(0, 0, 0));
         }
 
         /// <summary>
