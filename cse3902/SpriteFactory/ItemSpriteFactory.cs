@@ -3,9 +3,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using cse3902.Projectiles;
+using cse3902.Items;
 using cse3902.Rooms;
 
-namespace cse3902.Items
+namespace cse3902.SpriteFactory
 {
     public class ItemSpriteFactory
     {
@@ -23,7 +24,7 @@ namespace cse3902.Items
         private Texture2D map;
         private Texture2D swordItems;
         private Texture2D swordWeapons;
-        
+
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
 
         public static ItemSpriteFactory Instance
@@ -88,7 +89,7 @@ namespace cse3902.Items
         {
             IItem add = new ClockItem(spriteBatch, clock, startingPos);
             RoomItems.Instance.AddItem(add);
-            return add; 
+            return add;
         }
 
         public ISprite CreateCompassItem(SpriteBatch spriteBatch, Vector2 startingPos)
@@ -144,7 +145,7 @@ namespace cse3902.Items
         {
             IItem add = new SwordWeapon(spriteBatch, swordWeapons, startingPos, dir, swordType);
             RoomItems.Instance.AddItem(add);
-            return add; 
+            return add;
         }
 
         public ISprite CreateTriforceItem(SpriteBatch spriteBatch, Vector2 startingPos)

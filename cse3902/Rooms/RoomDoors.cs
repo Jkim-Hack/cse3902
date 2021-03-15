@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using cse3902.Interfaces;
+using Microsoft.Xna.Framework;
+using System.Collections;
 
 namespace cse3902.Rooms
 {
     public class RoomDoors
     {
-        public List<IDoor> doors { get; set; }
+        public IList doors;
 
         private static RoomDoors instance = new RoomDoors();
 
@@ -39,18 +41,25 @@ namespace cse3902.Rooms
         {
             oldList = new List<IDoor>();
 
+            List<IDoor> doorsCast = doors as List<IDoor>;
+
             for (int i = 0; i < doors.Count; i++)
             {
-                oldList[i] = doors[i];
+                oldList.Add(doorsCast[i]);
             }
 
             doors = new List<IDoor>();
 
             for (int i = 0; i < newList.Count; i++)
             {
-                doors[i] = newList[i];
+                doors.Add(newList[i]);
             }
 
+        }
+
+        public ref IList ListRef
+        {
+            get => ref doors;
         }
     }
 }

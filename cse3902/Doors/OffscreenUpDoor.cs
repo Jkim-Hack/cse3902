@@ -39,7 +39,7 @@ namespace cse3902.Doors
         {
             //offscreen so nothing to draw
         }
-        public void OpenDoor()
+        public void ChangeState(IDoor.DoorState doorState)
         {
             //do nothing
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using cse3902.Interfaces;
+using cse3902.SpriteFactory;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;

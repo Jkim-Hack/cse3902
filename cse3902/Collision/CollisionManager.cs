@@ -16,7 +16,8 @@ namespace cse3902.Collision
             ENEMY_NPC = 1,
             ITEMS = 2,
             BLOCKS = 3,
-            BACKGROUND = 4
+            DOORS = 4,
+            BACKGROUND = 5
         }
 
         // <priority level, <Collidable's Rectangle, Collidable object>>

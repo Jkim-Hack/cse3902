@@ -19,10 +19,12 @@ namespace cse3902.Rooms
         private XMLParser xmlParser;
 
         private Camera camera;
-        private RoomTransitionManager roomTransitionManager;
+        public RoomTransitionManager roomTransitionManager;
 
         public Vector3 currentRoom { get; set; }
         private Vector3 previousRoom;
+        private Vector3 startingRoom { get; }
+        private bool startComplete;
 
         public RoomHandler(Game1 game)
         {
@@ -30,7 +32,9 @@ namespace cse3902.Rooms
             xmlParser = new XMLParser(this, game);
             roomTransitionManager = new RoomTransitionManager(game);
             camera = game.camera;
-            currentRoom = new Vector3(2, 5, 0);
+            startingRoom = new Vector3(2, 5, 0);
+            currentRoom = startingRoom;
+            startComplete = false;
         }
 
         public void Initialize()
@@ -44,7 +48,7 @@ namespace cse3902.Rooms
             Room newRoom = rooms.GetValueOrDefault(newPos);
             Vector2 convertedRoom = RoomUtilities.ConvertVector(newPos);
 
-            if (currentRoom.Z == newPos.Z) camera.SmoothMoveCamera(convertedRoom, CAMERA_CYCLES);
+            if (currentRoom.Z == newPos.Z && startComplete) camera.SmoothMoveCamera(convertedRoom, CAMERA_CYCLES);
             else camera.MoveCamera(convertedRoom, new Vector2(ROOM_WIDTH, ROOM_HEIGHT));
 
             List<IItem> oldItems = rooms.GetValueOrDefault(currentRoom).Items;
@@ -110,6 +114,12 @@ namespace cse3902.Rooms
 
             RoomBlocks.Instance.Draw();
             RoomBackground.Instance.Draw();
+        }
+
+        public void CompleteStart()
+        {
+            startComplete = true;
+            rooms.GetValueOrDefault(startingRoom).Doors[0].ChangeState(IDoor.DoorState.Wall);
         }
 
         public void Reset()

@@ -2,7 +2,7 @@
 using System;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
-using cse3902.Items;
+using cse3902.SpriteFactory;
 using cse3902.Interfaces;
 using cse3902.Rooms;
 using System.Linq;
@@ -35,7 +35,7 @@ namespace cse3902.XMLParsing
                 int x = Int32.Parse(xloc.Value);
                 int y = Int32.Parse(yloc.Value);
 
-                Vector2 truePos = RoomUtilities.CalculateBlockCenter(RoomUtilities.ConvertVector(roomobj.roomPos), new Vector2(x, y));
+                Vector2 truePos = RoomUtilities.CalculateBlockCenter(roomobj.roomPos, new Vector2(x, y));
 
                 IItem itemAdd = CreateItem(typeName.Value, truePos);
                 roomobj.AddItem(itemAdd);

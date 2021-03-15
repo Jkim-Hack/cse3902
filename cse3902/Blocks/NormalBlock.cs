@@ -48,11 +48,11 @@ namespace cse3902.Blocks
             this.collidable = new BlockCollidable(this);
         }
 
-        public void Move(IBlock.PushDirection pushDirection)
+        public void Interact(IBlock.PushDirection pushDirection)
         {
-            Move(BlockPushingVector(pushDirection));
+            Interact(BlockPushingVector(pushDirection));
         }
-        public void Move(Vector2 pushDirection)
+        public void Interact(Vector2 pushDirection)
         {
             if (blockPushingDirection.Equals(pushDirection))
             {

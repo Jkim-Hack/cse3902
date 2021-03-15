@@ -54,7 +54,7 @@ namespace cse3902.Sprites
             get
             {
                 int width = (int)(sizeIncrease * frameWidth);
-                int height = 18;
+                int height = (int)(sizeIncrease * frameHeight) / 2;
                 Rectangle destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 destination.Offset(-destination.Width / 2, -destination.Height / 2);
                 dest = destination;

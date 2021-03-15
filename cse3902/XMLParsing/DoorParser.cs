@@ -30,7 +30,7 @@ namespace cse3902.XMLParsing
             foreach (XElement door in doorList)
             {
                 XElement typeName = door.Element("type");
-                XElement doorPos = door.Element("pos");
+                XElement doorPos = door.Element("pos"); //not used for walls
                 XElement initState = door.Element("state"); //used only for normal doors
                 XElement xLoc = door.Element("xloc"); //not used for normal doors
                 XElement yLoc = door.Element("yloc"); //not used for normal doors
@@ -116,6 +116,8 @@ namespace cse3902.XMLParsing
                     return IDoor.DoorState.Locked;
                 case "Wall":
                     return IDoor.DoorState.Wall;
+                case "Bombed":
+                    return IDoor.DoorState.Bombed;
                 default:
                     return IDoor.DoorState.Open;
             }
@@ -123,7 +125,7 @@ namespace cse3902.XMLParsing
 
         private RoomUtilities.DoorPos FindDoorPos(String pos)
         {
-            RoomUtilities.DoorPos doorPos = RoomUtilities.DoorPos.Down;
+            RoomUtilities.DoorPos doorPos;
             switch (pos)
             {
                 case "Up":

@@ -57,16 +57,16 @@ namespace cse3902.Rooms
 
             List<IBlock> blocksCast = blocks as List<IBlock>;
 
-            for (int i = 0; i < blocksCast.Count; i++)
+            for (int i = 0; i < blocks.Count; i++)
             {
-                oldList[i] = blocksCast[i];
+                oldList.Add(blocksCast[i]);
             }
 
             blocks = new List<IBlock>();
 
             for (int i = 0; i < newList.Count; i++)
             {
-                blocks[i] = newList[i];
+                blocks.Add(newList[i]);
             }
 
         }

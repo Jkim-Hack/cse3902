@@ -10,7 +10,8 @@ namespace cse3902.Interfaces
             Open,
             Closed,
             Locked,
-            Wall
+            Wall,
+            Bombed
         }
 
         public ref Rectangle Bounds { get; }
@@ -19,6 +20,6 @@ namespace cse3902.Interfaces
         public Vector2 PlayerReleasePosition();
         public Vector2 PlayerReleaseDirection();
         public void Draw();
-        public void OpenDoor();
+        public void ChangeState(DoorState newDoorState);
     }
 }

@@ -33,6 +33,8 @@ namespace cse3902
         private Texture2D lineTexture;
 
         public Camera camera { get; set;  }
+
+        private XMLParser xmlParser;
         
         public Game1()
         {
@@ -77,6 +79,8 @@ namespace cse3902
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
             RoomBackground.Instance.LoadTextures(Content, spriteBatch);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
+            NPCSpriteFactory.Instance.LoadAllTextures(Content);
+            ItemSpriteFactory.Instance.LoadAllTextures(Content);
             ProjectileHandler.Instance.LoadAllTextures(Content);
 
             // For hitbox drawing
@@ -84,7 +88,7 @@ namespace cse3902
 	        lineTexture.SetData<Color>(new Color[] { Color.White });
 
             // Testing purposes
-            RoomBackground.Instance.generateRoom(new Vector3(0,0,0), 1);
+            RoomBackground.Instance.generateRoom(new Vector3(2,5,0), 13);
             //RoomBackground.Instance.generateRoom(new Vector3(1, 0, 0), 1);
             //camera.MoveCamera(new Vector2(256, 0), new Vector2(256, 176));
 
@@ -94,7 +98,10 @@ namespace cse3902
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ENEMY_NPC, ref RoomEnemyNPCs.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ITEMS, ref RoomItems.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BLOCKS, ref RoomBlocks.Instance.ListRef);
+            allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.DOORS, ref RoomDoors.Instance.ListRef);
 
+            xmlParser = new XMLParser(roomHandler,this);
+            xmlParser.ParseXML("Room1.xml");
             roomHandler.LoadNewRoom(new Vector3(0, 0, 0));
         }
 

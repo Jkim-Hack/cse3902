@@ -36,6 +36,7 @@ namespace cse3902.SpriteFactory
             doorStateRectangleMap.Add(IDoor.DoorState.Open, 1);
             doorStateRectangleMap.Add(IDoor.DoorState.Locked, 2);
             doorStateRectangleMap.Add(IDoor.DoorState.Closed, 3);
+            doorStateRectangleMap.Add(IDoor.DoorState.Bombed, 4);
 
             PopulateRectangleDoors();
         }
