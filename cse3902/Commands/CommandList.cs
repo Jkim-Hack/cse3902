@@ -36,17 +36,16 @@ namespace cse3902.Commands
                 {new Keys[] {Keys.D5, Keys.D6, Keys.D7, Keys.D8}, new LinkChangeWeaponCommand(game) },
                 {new Keys[] {Keys.Z, Keys.N}, new LinkSwordAttackCommand(game) },
                 {new Keys[] {Keys.G, Keys.C, Keys.V, Keys.B}, new MoveCameraCommand(game) },
-                {new Keys[] {Keys.L, Keys.M, Keys.OemComma, Keys.OemPeriod}, new SmoothMoveCameraCommand(game) }
             };
 
             leftMouseClickCommandMap = new Dictionary<Rectangle[], ICommand>()
             {
-                {new Rectangle[] {new Rectangle(windowWidth-50,0,100,100),new Rectangle(windowWidth-100,windowHeight-50,100,100),new Rectangle(windowWidth-50,windowHeight-100,100,100),new Rectangle(0,windowHeight-50,100,100)}, new ChangeRoomXYCommand(game)}
+                {new Rectangle[] {new Rectangle(windowWidth/2-50,0,100,100),new Rectangle(windowWidth-100,windowHeight/2-50,100,100),new Rectangle(windowWidth/2-50,windowHeight-100,100,100),new Rectangle(0,windowHeight/2-50,100,100)}, new ChangeRoomXYCommand(game)}
             };
 
             rightMouseClickCommandMap = new Dictionary<Rectangle[], ICommand>()
             {
-                {new Rectangle[] {new Rectangle(windowWidth-50,0,100,100),new Rectangle(windowWidth-50,windowHeight-100,100,100)}, new ChangeRoomZCommand(game)}
+                {new Rectangle[] {new Rectangle(windowWidth/2-50,0,100,100),new Rectangle(windowWidth/2-50,windowHeight-100,100,100)}, new ChangeRoomZCommand(game)}
             };
         }
 
