@@ -49,10 +49,10 @@ namespace cse3902.Rooms
 
         public void generateRoom(Vector3 loc, int roomNum)
         {
-            Vector2 roomCenter = RoomUtilities.calculateRoomCenter(new Vector2(loc.X, loc.Y));
+            Vector2 roomCenter = RoomUtilities.calculateRoomCenter(loc);
             background.Add(new ExteriorSprite(batch, exterior, roomCenter));
             background.Add(new InteriorSprite(batch, interior, RoomUtilities.INTERIOR_TEXTURE_ROWS, RoomUtilities.INTERIOR_TEXTURE_COLS, roomCenter, roomNum));
-            foreach(Rectangle rec in RoomUtilities.getWallRectangles(new Vector2(loc.X, loc.Y))){
+            foreach(Rectangle rec in RoomUtilities.getWallRectangles(loc)){
                 Walls.Add(new Wall(rec));
                 //test.Add(rec);
             }
