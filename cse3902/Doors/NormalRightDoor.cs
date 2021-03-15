@@ -73,7 +73,7 @@ namespace cse3902.Doors
             set
             {
                 doorState = value;
-                doorSprite = DoorSpriteFactory.Instance.CreateDownDoorSprite(game.spriteBatch, doorSprite.Center, value);
+                doorSprite = DoorSpriteFactory.Instance.CreateRightDoorSprite(game.spriteBatch, doorSprite.Center, value);
             }
         }
         public ref Rectangle Bounds
