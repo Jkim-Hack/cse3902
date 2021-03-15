@@ -63,7 +63,7 @@ namespace cse3902.XMLParsing
                 case "Stalfos":
                     newEnemy = new Stalfos(game, startingPos);
                     break;
-                case "WallMaster":
+                case "Wallmaster":
                     newEnemy = new WallMaster(game, startingPos);
                     break;
                 case "OldMan":
