@@ -1,12 +1,8 @@
 ﻿using System.Collections.Generic;
 using System;
-using System.Xml.Linq;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using cse3902.Items;
 using cse3902.Interfaces;
-using cse3902.Sprites;
-using cse3902.SpriteFactory;
+using cse3902.Projectiles;
 
 namespace cse3902.Rooms
 {
@@ -26,6 +22,7 @@ namespace cse3902.Rooms
         private RoomTransitionManager roomTransitionManager;
 
         public Vector3 currentRoom { get; set; }
+        private Vector3 previousRoom;
 
         public RoomHandler(Game1 game)
         {
@@ -51,9 +48,9 @@ namespace cse3902.Rooms
             }
             else
             {
-                camera.MoveCamera(new Vector2( (newPos.X + (NUM_ROOMS_X * newPos.Z)) * ROOM_WIDTH , newPos.Y * ROOM_HEIGHT), new Vector2(ROOM_WIDTH, ROOM_HEIGHT));
+                camera.MoveCamera(new Vector2((newPos.X + (NUM_ROOMS_X * newPos.Z)) * ROOM_WIDTH, newPos.Y * ROOM_HEIGHT), new Vector2(ROOM_WIDTH, ROOM_HEIGHT));
             }
-            
+
             List<IItem> oldItems = rooms.GetValueOrDefault(currentRoom).Items;
             RoomItems.Instance.LoadNewRoom(ref oldItems, newRoom.Items);
             rooms.GetValueOrDefault(currentRoom).Items = oldItems;
@@ -70,6 +67,9 @@ namespace cse3902.Rooms
             RoomDoors.Instance.LoadNewRoom(ref oldDoors, newRoom.Doors);
             rooms.GetValueOrDefault(currentRoom).Doors = oldDoors;
 
+            
+
+            previousRoom = currentRoom;
             currentRoom = newPos;
             rooms.GetValueOrDefault(newPos).SetToVisited();
 
@@ -85,26 +85,42 @@ namespace cse3902.Rooms
             }
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
-            if (roomTransitionManager.IsTransitioning()) roomTransitionManager.Update();
+            if (roomTransitionManager.IsTransitioning())
+            {
+                roomTransitionManager.Update();
+            }
             else
             {
-                //update things normally (items, enemies, projectiles)
+                RoomItems.Instance.Update(gameTime);
+                RoomEnemyNPCs.Instance.Update(gameTime);
+                ProjectileHandler.Instance.Update(gameTime);
             }
+
+            RoomBackground.Instance.Update(gameTime);
+            RoomBlocks.Instance.Update(gameTime);
         }
         public void Draw()
         {
             if (roomTransitionManager.IsTransitioning())
             {
-                //only draw things that are drawn while transitioning (previous room)
+                
             }
             else
             {
-                //only draw things when fully in a room (items, enemies, projectiles)
+                RoomItems.Instance.Draw();
+                RoomEnemyNPCs.Instance.Draw();
+                ProjectileHandler.Instance.Draw();
             }
 
-            //draw things regardless of transition or not (current room)
+            RoomBlocks.Instance.Draw();
+            RoomBackground.Instance.Draw();
+        }
+
+        public void Reset()
+        {
+            ProjectileHandler.Instance.Reset();
         }
     }
 }

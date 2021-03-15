@@ -15,7 +15,7 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            game.projectileHandler.Reset();
+            game.roomHandler.Reset();
             game.camera.Reset();
             game.player.Reset();
             game.player = new Link(game);
