@@ -16,20 +16,24 @@ namespace cse3902.Commands
         {
             id = id % 2;
             Vector3 direction;
+            int ans;
             switch (id)
             {
                 case 0:
                     direction = new Vector3(0, 0, 1);
+                    ans = 4;
                     break;
                 case 1:
                     direction = new Vector3(0, 0, -1);
+                    ans = 0;
                     break;
                 default: //this should never happen
                     direction = new Vector3(0, 0, 1);
+                    ans = 4;
                     break;
             }
 
-            game.roomHandler.LoadNewRoom(direction);
+            game.roomHandler.LoadNewRoom(direction,ans);
         }
 
         public void Unexecute()
