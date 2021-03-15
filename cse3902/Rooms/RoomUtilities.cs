@@ -35,7 +35,7 @@ namespace cse3902.Rooms
         public const int WALL_WIDTH = 120;
         public const int WALL_HEIGHT = 80;
 
-        public enum DoorPosition
+        public enum DoorPos
         {
             TOP,
             RIGHT,
@@ -45,7 +45,7 @@ namespace cse3902.Rooms
 
         }
 
-        public static Vector2 convertVector(Vector3 vector)
+        public static Vector2 ConvertVector(Vector3 vector)
         {
             return new Vector2(ROOM_WIDTH * (vector.X + NUM_ROOMS_X * vector.Z), vector.Y * ROOM_HEIGHT);
         }
