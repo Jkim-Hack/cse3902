@@ -74,12 +74,12 @@ namespace cse3902.Rooms
             roomTransitionManager.StartTransitionManager(entranceDoor);
         }
 
-        public void LoadNewRoom(Vector3 roomChange)
+        public void LoadNewRoom(Vector3 roomChange, int i)
         {
             if (!roomTransitionManager.IsTransitioning())
             {
                 roomChange += currentRoom;
-                if (rooms.ContainsKey(roomChange)) LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[0]);
+                if (rooms.ContainsKey(roomChange)) LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[i]);
             }
         }
 
