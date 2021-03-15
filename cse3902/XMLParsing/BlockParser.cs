@@ -40,7 +40,7 @@ namespace cse3902.XMLParsing
                 int y = Int32.Parse(yloc.Value);
                 int numBlocks = Int32.Parse(push.Value);
 
-                Vector2 truePos = RoomUtilities.CalculateBlockCenter(RoomUtilities.ConvertVector(roomobj.roomPos), new Vector2(x, y));
+                Vector2 truePos = RoomUtilities.CalculateBlockCenter(roomobj.roomPos, new Vector2(x, y));
 
                 IBlock blockAdd = CreateBlock(typeName.Value, dir.Value, truePos, numBlocks);
                 roomobj.AddBlock(blockAdd);
