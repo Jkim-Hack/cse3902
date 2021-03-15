@@ -3,6 +3,7 @@ using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.Rooms;
 
 namespace cse3902.Projectiles
 {
@@ -105,6 +106,11 @@ namespace cse3902.Projectiles
 
         public int Update(GameTime gameTime)
         {
+            if (animationComplete)
+            {
+                return -1;
+            }
+
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
 

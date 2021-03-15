@@ -84,7 +84,18 @@ namespace cse3902.Projectiles
 
         public int Update(GameTime gameTime)
         {
+            if (animationComplete)
+            {
+                return -1;
+            }
+
             int offset = 0;
+
+            if (turns == 1)
+            {
+                animationComplete = true;
+            }
+
             if (turns % 2 == 0)
             {
                 offset = 50;
