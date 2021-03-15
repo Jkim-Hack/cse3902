@@ -54,10 +54,14 @@ namespace cse3902.Collision.Collidables
                 }
             } else if (collidableObject is BlockCollidable || collidableObject is DoorCollidable)
             {
-                //vector of (0,0) means just change current direction to opposite
-                Vector2 direction = new Vector2(0, 0);
-                this.enemy.ChangeDirection(direction);
-                //todo: might need to slightly adjust position of entity as well
+                if (!(this.enemy is WallMaster))
+                {
+                    //vector of (0,0) means just change current direction to opposite
+                    Vector2 direction = new Vector2(0, 0);
+                    this.enemy.ChangeDirection(direction);
+                    //todo: might need to slightly adjust position of entity as well
+                }
+
 
             } else
             {
