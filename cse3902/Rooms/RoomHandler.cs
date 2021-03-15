@@ -120,7 +120,7 @@ namespace cse3902.Rooms
         public void CompleteStart()
         {
             startComplete = true;
-            rooms.GetValueOrDefault(startingRoom).Doors[0].ChangeState(IDoor.DoorState.Wall);
+            rooms.GetValueOrDefault(startingRoom).Doors[0].State = IDoor.DoorState.Wall;
         }
 
         public void Reset()

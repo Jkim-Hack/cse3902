@@ -63,11 +63,11 @@ namespace cse3902.Rooms
 
                 case 9.99f:
                     game.collisionManager.Disabled = false;
+                    //game.roomHandler.CompleteStart();
                     stepTracker++;
                     break;
 
                 case 10.0f: //manager is complete/inactive - DO NOT CHANGE
-                    game.roomHandler.CompleteStart();
                     break;
 
                 default: //this should never happen
