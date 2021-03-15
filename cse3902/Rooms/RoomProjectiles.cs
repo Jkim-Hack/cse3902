@@ -31,7 +31,8 @@ namespace cse3902.Rooms
 
         public void RemoveProjectile(IProjectile projectile)
         {
-            (projectiles as List<IItem>).RemoveAll(x => x.Center == projectile.Center);
+            projectiles.Remove(projectile);
+            //(projectiles as List<IItem>).RemoveAll(x => x.Center == projectile.Center);
         }
 
         public void Update(GameTime gameTime)
