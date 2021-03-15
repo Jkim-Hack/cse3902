@@ -30,6 +30,7 @@ namespace cse3902.Sprites
         private Texture2D spriteTexture;
 
         private Vector2 center;
+        private Vector2 previousPosition;
         private Vector2 startingPosition;
         private Vector2 size;
 
@@ -70,6 +71,7 @@ namespace cse3902.Sprites
 
 	        this.startingPosition = startingPosition;
             center = startingPosition;
+            previousPosition = center;
             
             pauseMovement = false;
         }
@@ -152,6 +154,12 @@ namespace cse3902.Sprites
         {
             get => center;
             set => center = value;
+        }
+
+        public Vector2 PreviousCenter
+        {
+            get => previousPosition;
+            set => previousPosition = value;
         }
 
         public Texture2D Texture
