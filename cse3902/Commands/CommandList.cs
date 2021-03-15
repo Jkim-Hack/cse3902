@@ -36,7 +36,6 @@ namespace cse3902.Commands
                 {new Keys[] {Keys.D5, Keys.D6, Keys.D7, Keys.D8}, new LinkChangeWeaponCommand(game) },
                 {new Keys[] {Keys.Z, Keys.N}, new LinkSwordAttackCommand(game) },
                 {new Keys[] {Keys.G, Keys.C, Keys.V, Keys.B}, new MoveCameraCommand(game) },
-                {new Keys[] {Keys.L, Keys.M, Keys.OemComma, Keys.OemPeriod}, new SmoothMoveCameraCommand(game) }
             };
 
             leftMouseClickCommandMap = new Dictionary<Rectangle[], ICommand>()
