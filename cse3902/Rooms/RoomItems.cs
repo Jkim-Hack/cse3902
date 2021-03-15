@@ -61,7 +61,7 @@ namespace cse3902.Rooms
                 oldList.Add(castedItems[i]);
             }
 
-            items = new List<IItem>();
+            items.Clear();
 
             for (int i = 0; i < newList.Count; i++)
             {

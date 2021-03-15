@@ -63,7 +63,7 @@ namespace cse3902.Rooms
                 oldList.Add(entitiesNPCs[i]);
             }
 
-            enpcs = new List<IEntity>();
+            enpcs.Clear();
 
             for (int i = 0; i < newList.Count; i++)
             {
