@@ -33,7 +33,6 @@ namespace cse3902.Rooms
             {
                 Room currentRoom;
 
-                //XName chil = XName.Get("room", doc.Root.Name.NamespaceName);
                 XName num = XName.Get("number", doc.Root.Name.NamespaceName);
 
                 Vector3 roomTup = RoomUtilities.convertToVector3(room.Element(num).Value);
@@ -46,11 +45,6 @@ namespace cse3902.Rooms
                 doorParser.parseDoors(currentRoom, room, doc);
 
                 roomHandler.rooms.Add(roomTup, currentRoom);
-
-                if (roomHandler.rooms.Count == 1)
-                {
-                    roomHandler.currentRoom = roomTup;
-                }
             }
         }
     }
