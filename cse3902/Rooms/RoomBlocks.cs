@@ -59,7 +59,7 @@ namespace cse3902.Rooms
                 oldList.Add(blocksCast[i]);
             }
 
-            blocks = new List<IBlock>();
+            blocks.Clear();
 
             for (int i = 0; i < newList.Count; i++)
             {
