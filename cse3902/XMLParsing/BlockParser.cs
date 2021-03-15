@@ -77,6 +77,12 @@ namespace cse3902.XMLParsing
                 case "Water":
                     newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateWaterBlockSprite(game.spriteBatch, startingPos));
                     break;
+                case "Ladder":
+                    newBlock = new WalkableBlock(game, BlockSpriteFactory.Instance.CreateLadderSprite(game.spriteBatch, startingPos));
+                    break;
+                case "Brick":
+                    newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateBrickSprite(game.spriteBatch, startingPos));
+                    break;
                 default:
                     break;
             }
