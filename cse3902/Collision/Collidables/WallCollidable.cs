@@ -16,6 +16,7 @@ namespace cse3902.Collision.Collidables
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
+            //
         }
 
         public ref Rectangle RectangleRef
