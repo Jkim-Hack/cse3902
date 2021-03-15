@@ -16,27 +16,32 @@ namespace cse3902
     public class Game1 : Game
     {
         private GraphicsDeviceManager graphics;
-        public SpriteBatch spriteBatch { get; set; }
+
+        private SpriteBatch spriteBatch;
+        public SpriteBatch SpriteBatch { get => spriteBatch; }
 
         private List<IController> controllerList;
 
         private AllCollidablesList allCollidablesList;
-
-        public RoomHandler roomHandler;
-
-        public IPlayer player { get; set; }
-
         public AllCollidablesList AllCollidablesList { get => this.allCollidablesList; }
 
-        public CollisionManager collisionManager { get; set; }
+        private RoomHandler roomHandler;
+        public RoomHandler RoomHandler { get => roomHandler; }
 
-        private Texture2D lineTexture;
+        private IPlayer player;
+        public IPlayer Player { get => player; }
 
-        public Camera camera { get; set;  }
+        private CollisionManager collisionManager;
+        public CollisionManager CollisionManager { get => collisionManager; }
+
+        private Camera camera;
+        public Camera Camera { get => camera; }
 
         private XMLParser xmlParser;
         
-        public Game1()
+        private Texture2D lineTexture;
+        
+	    public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";

@@ -31,7 +31,7 @@ namespace cse3902.Rooms
             rooms = new Dictionary<Vector3, Room>();
             xmlParser = new XMLParser(this, game);
             roomTransitionManager = new RoomTransitionManager(game);
-            camera = game.camera;
+            camera = game.Camera;
             startingRoom = new Vector3(2, 5, 0);
             currentRoom = startingRoom;
             startComplete = false;
