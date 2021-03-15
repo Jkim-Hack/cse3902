@@ -8,12 +8,6 @@ namespace cse3902.Sprites.EnemySprites
 {
     public class KeeseSprite: ISprite
     {
-        public enum FrameIndex
-        {
-            RightFacing = 0,
-            LeftFacing = 2
-        };
-
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
         private Vector2 center;
@@ -119,17 +113,5 @@ namespace cse3902.Sprites.EnemySprites
         {
             get => spriteTexture;
         }
-
-        public int StartingFrameIndex
-        {
-            get => startingFrameIndex;
-            set
-            {
-                startingFrameIndex = value;
-                endingFrameIndex = value + 2;
-            }
-
-        }
-
     }
 }

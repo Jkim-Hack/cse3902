@@ -61,7 +61,7 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-            this.keeseStateMachine.ChangeDirection(direction);
+            // Keese can't change direction
         }
 
         public void TakeDamage(int damage)
