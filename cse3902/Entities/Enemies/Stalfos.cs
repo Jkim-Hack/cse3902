@@ -86,7 +86,6 @@ namespace cse3902.Entities.Enemies
 
         public void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && this.shoveDistance <= -10) BeShoved(); // JUST FOR TESTING
 
             if (this.shoveDistance > -10) ShoveMovement();
             else RegularMovement(gameTime);
