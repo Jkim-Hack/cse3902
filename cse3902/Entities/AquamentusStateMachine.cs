@@ -89,6 +89,7 @@ namespace cse3902.Entities
                 {
                     aquamentusSprite.StartingFrameIndex = (int)AquamentusSprite.FrameIndex.RightFacing;
                 }
+                return;
             }
 
             if (newDirection.X > 0)

@@ -58,7 +58,17 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-            this.goriyaStateMachine.ChangeDirection(direction);
+            //direction vector of (0,0) indicates just reverse the current direction
+            if (direction == new Vector2(0, 0))
+            {
+                this.direction.X = -this.direction.X;
+                this.direction.Y = -this.direction.Y;
+            }
+            else
+            {
+                this.direction.X = direction.X;
+                this.direction.Y = direction.Y;
+            }
         }
 
         public void TakeDamage(int damage)

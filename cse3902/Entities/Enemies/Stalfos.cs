@@ -64,6 +64,10 @@ namespace cse3902.Entities.Enemies
             {
                 this.direction.X = -this.direction.X;
                 this.direction.Y = -this.direction.Y;
+            } else
+            {
+                this.direction.X = direction.X;
+                this.direction.Y = direction.Y;
             }
         }
 

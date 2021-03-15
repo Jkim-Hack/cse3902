@@ -59,13 +59,17 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-            //in the case a (0,0) vector, reverse direction
+            //direction vector of (0,0) indicates just reverse the current direction
             if (direction == new Vector2(0, 0))
             {
-                this.direction.X = -direction.X;
-                this.direction.Y = -direction.Y;
+                this.direction.X = -this.direction.X;
+                this.direction.Y = -this.direction.Y;
             }
-            this.gelStateMachine.ChangeDirection(direction);
+            else
+            {
+                this.direction.X = direction.X;
+                this.direction.Y = direction.Y;
+            }
         }
 
         public void TakeDamage(int damage)
