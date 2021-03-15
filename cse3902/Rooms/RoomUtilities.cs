@@ -35,7 +35,7 @@ namespace cse3902.Rooms
         public const int WALL_WIDTH = 120;
         public const int WALL_HEIGHT = 80;
 
-        public enum DoorPosition
+        public enum DoorPos
         {
             TOP,
             RIGHT,
@@ -45,21 +45,21 @@ namespace cse3902.Rooms
 
         }
 
-        public static Vector2 convertVector(Vector3 vector)
+        public static Vector2 ConvertVector(Vector3 vector)
         {
             return new Vector2(ROOM_WIDTH * (vector.X + NUM_ROOMS_X * vector.Z), vector.Y * ROOM_HEIGHT);
         }
 
-        public static Vector2 calculateRoomCenter(Vector3 roomLoc)
+        public static Vector2 CalculateRoomCenter(Vector3 roomLoc)
         {
-            Vector2 pos = convertVector(roomLoc);
+            Vector2 pos = ConvertVector(roomLoc);
             pos += new Vector2(ROOM_WIDTH/2, ROOM_HEIGHT/2);
             return pos;
         }
 
-        public static Vector2 calculateBlockCenter(Vector3 roomLoc, Vector2 blockLoc)
+        public static Vector2 CalculateBlockCenter(Vector3 roomLoc, Vector2 blockLoc)
         {
-            Vector2 pos = convertVector(roomLoc);
+            Vector2 pos = ConvertVector(roomLoc);
             pos += new Vector2(WALL_SIZE, WALL_SIZE);
             pos *= new Vector2(INTERIOR_WIDTH / NUM_BLOCKS_X, INTERIOR_HEIGHT/ NUM_BLOCKS_Y);
             pos += new Vector2((INTERIOR_WIDTH / NUM_BLOCKS_X)/2, (INTERIOR_HEIGHT / NUM_BLOCKS_Y)/2);
@@ -67,9 +67,9 @@ namespace cse3902.Rooms
             return pos;
         }
 
-        public static Rectangle[] getWallRectangles(Vector3 roomLoc)
+        public static Rectangle[] GetWallRectangles(Vector3 roomLoc)
         {
-            Vector2 pos = convertVector(roomLoc);
+            Vector2 pos = ConvertVector(roomLoc);
             Rectangle[] rectangles = new Rectangle[NUM_OF_WALLS];
             int current = 0;
 
@@ -94,20 +94,20 @@ namespace cse3902.Rooms
             return roomTup;
         }
 
-        public static Vector2 getDoorCenterPosition(Vector3 roomLoc, DoorPosition position)
+        public static Vector2 CalculateDoorCenter(Vector3 roomLoc, DoorPos position)
         {
-            Vector2 pos = convertVector(roomLoc);
+            Vector2 pos = ConvertVector(roomLoc);
             switch (position) {
-                case DoorPosition.TOP:
+                case DoorPos.TOP:
                     pos += new Vector2(ROOM_WIDTH / 2, WALL_SIZE / 2);
                     break;
-                case DoorPosition.BOTTOM:
+                case DoorPos.BOTTOM:
                     pos += new Vector2(ROOM_WIDTH / 2, ROOM_HEIGHT - WALL_SIZE / 2);
                     break;
-                case DoorPosition.LEFT:
+                case DoorPos.LEFT:
                     pos += new Vector2(WALL_SIZE / 2, ROOM_HEIGHT / 2);
                     break;
-                case DoorPosition.RIGHT:
+                case DoorPos.RIGHT:
                     pos += new Vector2(ROOM_WIDTH - WALL_SIZE / 2, ROOM_HEIGHT / 2);
                     break;
             }

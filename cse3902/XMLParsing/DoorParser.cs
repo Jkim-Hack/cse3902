@@ -34,11 +34,11 @@ namespace cse3902.XMLParsing
                 XElement doorPos = door.Element("pos");
 
                 // TODO: update once the Vector3 to Vector2 method is written
-                Vector2 center = RoomUtilities.calculateDoorCenter(new Vector2(roomobj.roomPos.X, roomobj.roomPos.Y), FindDoorPos(typeName.Value));
+                Vector2 center = RoomUtilities.CalculateDoorCenter(roomobj.roomPos, FindDoorPos(typeName.Value));
 
                 IDoor doorAdd = createDoor(typeName.Value, center);
 
-                Vector3 connectingRoom = RoomUtilities.convertToVector3(connRoom.Value);
+                Vector3 connectingRoom = RoomUtilities.ConvertToVector3(connRoom.Value);
 
                 if (roomHandler.rooms.ContainsKey(connectingRoom))
                 {
@@ -81,26 +81,26 @@ namespace cse3902.XMLParsing
 
         private RoomUtilities.DoorPos FindDoorPos(String pos)
         {
-            RoomUtilities.DoorPos doorPos = RoomUtilities.DoorPos.Down;
+            RoomUtilities.DoorPos doorPos = RoomUtilities.DoorPos.NONE;
             switch (pos)
             {
                 case "Up":
-                    doorPos = RoomUtilities.DoorPos.Up;
+                    doorPos = RoomUtilities.DoorPos.TOP;
                     break;
                 case "Down":
-                    doorPos = RoomUtilities.DoorPos.Down;
+                    doorPos = RoomUtilities.DoorPos.BOTTOM;
                     break;
                 case "Left":
-                    doorPos = RoomUtilities.DoorPos.Left;
+                    doorPos = RoomUtilities.DoorPos.LEFT;
                     break;
                 case "Right":
-                    doorPos = RoomUtilities.DoorPos.Right;
+                    doorPos = RoomUtilities.DoorPos.RIGHT;
                     break;
                 case "StairDown":
-                    doorPos = RoomUtilities.DoorPos.Down;
+                    doorPos = RoomUtilities.DoorPos.NONE;
                     break;
                 case "OffscreenUp":
-                    doorPos = RoomUtilities.DoorPos.Up;
+                    doorPos = RoomUtilities.DoorPos.NONE;
                     break;
                 default:
                     break;
