@@ -3,6 +3,7 @@ using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using cse3902.Rooms;
 
 namespace cse3902.Projectiles
 {
@@ -74,6 +75,7 @@ namespace cse3902.Projectiles
         {
             IProjectile newProj = new ArrowItem(spriteBatch, arrow, startingPos, dir);
             projectiles.Add(newProj);
+            RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
         }
 
@@ -81,6 +83,7 @@ namespace cse3902.Projectiles
         {
             IProjectile newProj = new BombItem(spriteBatch, bomb, startingPos);
             projectiles.Add(newProj);
+            RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
         }
 
@@ -88,12 +91,14 @@ namespace cse3902.Projectiles
         {
             IProjectile newProj = new BoomerangItem(spriteBatch, boomerang, startingPos, dir);
             projectiles.Add(newProj);
+            RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
         }
         public IProjectile CreateFireballObject(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
             IProjectile newProj = new Fireball(spriteBatch, fireball, startingPos, dir);
             projectiles.Add(newProj);
+            RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
         }
 
@@ -101,6 +106,7 @@ namespace cse3902.Projectiles
         {
             IProjectile newProj = new SwordProjectile(spriteBatch, swordItems, startingPos, dir);
             projectiles.Add(newProj);
+            RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
         }
 
@@ -108,6 +114,7 @@ namespace cse3902.Projectiles
         {
             IProjectile newProj = new SwordWeapon(spriteBatch, swordWeapons, startingPos, dir, swordType);
             projectiles.Add(newProj);
+            RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
         }
 
