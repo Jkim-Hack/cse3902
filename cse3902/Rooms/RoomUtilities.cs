@@ -7,7 +7,7 @@ namespace cse3902.Rooms
 {
     class RoomUtilities
     {
-        public const int BLOCK_SIDE = 15;
+        public const int BLOCK_SIDE = 16;
 
         public const int ROOM_WIDTH = BLOCK_SIDE * 16;
         public const int ROOM_HEIGHT = BLOCK_SIDE * 11;
