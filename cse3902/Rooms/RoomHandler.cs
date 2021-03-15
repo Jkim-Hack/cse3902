@@ -112,6 +112,7 @@ namespace cse3902.Rooms
                 ProjectileHandler.Instance.Draw();
             }
 
+            RoomDoors.Instance.Draw();
             RoomBlocks.Instance.Draw();
             RoomBackground.Instance.Draw();
         }

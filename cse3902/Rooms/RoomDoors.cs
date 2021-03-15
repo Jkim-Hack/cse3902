@@ -48,7 +48,7 @@ namespace cse3902.Rooms
                 oldList.Add(doorsCast[i]);
             }
 
-            doors = new List<IDoor>();
+            doors.Clear();
 
             for (int i = 0; i < newList.Count; i++)
             {
