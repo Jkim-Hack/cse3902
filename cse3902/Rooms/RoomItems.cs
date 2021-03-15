@@ -34,15 +34,7 @@ namespace cse3902.Rooms
 
         public void RemoveItem(IItem item)
         {
-            for (int i = items.Count; i >= 0; i --)
-            {
-                if (((IItem)items[i]).Center.X == item.Center.X && ((IItem)items[i]).Center.Y == item.Center.Y)
-                {
-                    items.RemoveAt(i);
-                }
-            }
-            //items.Remove(x => x.Center == item.Center);
-            //items.Remove(item);
+            (items as List<IItem>).RemoveAll(x => x.Center == item.Center);
         }
 
         public void Update(GameTime gameTime)
