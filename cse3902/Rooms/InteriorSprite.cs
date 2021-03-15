@@ -70,7 +70,7 @@ namespace cse3902.Rooms
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, 0.8f);
+            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, 0.9f);
         }
 
         public void Erase()
