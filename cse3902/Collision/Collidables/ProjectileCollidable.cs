@@ -1,5 +1,6 @@
 ﻿using System;
 using cse3902.Interfaces;
+using cse3902.Rooms;
 using cse3902.Projectiles;
 using Microsoft.Xna.Framework;
 
@@ -19,8 +20,8 @@ namespace cse3902.Collision.Collidables
         {
             if (!(collidableObject is ProjectileCollidable || collidableObject is SwordCollidable))
             {
-                //destroy the projectile
-                //if its the sword projectile, handle the splitting up animation
+                //projectiles also implement IItem, can cast them to item to remove
+                RoomItems.Instance.RemoveItem((IItem)this.projectile);
             }
 
 
