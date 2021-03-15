@@ -52,7 +52,7 @@ namespace cse3902.Collision.Collidables
                     //need some kind of method to be able to 'stun' the enemies
                     //they will still animate, just not move
                 }
-            } else if (collidableObject is BlockCollidable || collidableObject is DoorCollidable)
+            } else if (collidableObject is BlockCollidable || collidableObject is DoorCollidable || collidableObject is DoorCollidable)
             {
                 if (!(this.enemy is WallMaster))
                 {

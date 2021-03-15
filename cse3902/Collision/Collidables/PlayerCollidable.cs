@@ -34,7 +34,7 @@ namespace cse3902.Collision.Collidables
                     player.BeShoved();
                 }
                 
-            } else if (collidableObject is BlockCollidable)
+            } else if (collidableObject is BlockCollidable || collidableObject is WallCollidable)
             {
                 //prevent link from phasing into blocks that are not walkable
                 if (!((BlockCollidable)collidableObject).IsWalkable)
