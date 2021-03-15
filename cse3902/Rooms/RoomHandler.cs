@@ -35,7 +35,7 @@ namespace cse3902.Rooms
         public void Initialize()
         {
             String url = "https://raw.githubusercontent.com/Jkim-Hack/cse3902/file-input/cse3902/Rooms/Room1.xml";
-            xmlParser.parseXML(url);
+            xmlParser.ParseXML(url);
         }
 
         public void LoadNewRoom(Vector3 newPos, IDoor entranceDoor)
@@ -66,8 +66,6 @@ namespace cse3902.Rooms
             List<IDoor> oldDoors = rooms.GetValueOrDefault(currentRoom).Doors;
             RoomDoors.Instance.LoadNewRoom(ref oldDoors, newRoom.Doors);
             rooms.GetValueOrDefault(currentRoom).Doors = oldDoors;
-
-            
 
             previousRoom = currentRoom;
             currentRoom = newPos;
