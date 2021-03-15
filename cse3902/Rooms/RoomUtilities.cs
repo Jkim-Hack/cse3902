@@ -84,6 +84,26 @@ namespace cse3902.Rooms
             return rectangles;
         }
 
+        public static Vector2 getDoorCenterPosition(Vector3 roomLoc, DoorPosition position)
+        {
+            Vector2 pos = convertVector(roomLoc);
+            switch (position) {
+                case DoorPosition.TOP:
+                    pos += new Vector2(ROOM_WIDTH / 2, WALL_SIZE / 2);
+                    break;
+                case DoorPosition.BOTTOM:
+                    pos += new Vector2(ROOM_WIDTH / 2, ROOM_HEIGHT - WALL_SIZE / 2);
+                    break;
+                case DoorPosition.LEFT:
+                    pos += new Vector2(WALL_SIZE / 2, ROOM_HEIGHT / 2);
+                    break;
+                case DoorPosition.RIGHT:
+                    pos += new Vector2(ROOM_WIDTH - WALL_SIZE / 2, ROOM_HEIGHT / 2);
+                    break;
+            }
+            return pos;
+        }
+
         public static Vector3 ConvertToVector3(String str)
         {
             int comma = str.IndexOf(',');
