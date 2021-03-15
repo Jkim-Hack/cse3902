@@ -99,6 +99,7 @@ namespace cse3902
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ITEMS, ref RoomItems.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BLOCKS, ref RoomBlocks.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.DOORS, ref RoomDoors.Instance.ListRef);
+            allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BACKGROUND, ref RoomBackground.Instance.WallsListRef);
 
             xmlParser = new XMLParser(roomHandler,this);
             xmlParser.ParseXML("XMLParsing/Room1.xml");

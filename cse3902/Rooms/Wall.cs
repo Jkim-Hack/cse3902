@@ -1,23 +1,18 @@
 ﻿using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 
 namespace cse3902.Rooms
 {
-    class Wall: ICollidable
+    class Wall : ICollidableItemEntity
     {
-        Rectangle rectangle;
-        public ref Rectangle RectangleRef => ref rectangle;
+        private ICollidable wallCollidable;
 
-        public int DamageValue => throw new System.NotImplementedException();
+        public ICollidable Collidable { get => wallCollidable; }
 
-        public Wall(Rectangle rectangle)
+        public Wall(Rectangle hitbox)
         {
-            this.rectangle = rectangle;
-        }
-
-        public void OnCollidedWith(ICollidable collidableObject)
-        {
-            throw new System.NotImplementedException();
+            wallCollidable = new WallCollidable(ref hitbox);
         }
     }
 
