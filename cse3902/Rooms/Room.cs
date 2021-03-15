@@ -24,6 +24,7 @@ namespace cse3902.Rooms
             roomPos = position;
            
             visited = false;
+            RoomBackground.Instance.generateRoom(position, 7);
 
             items = new List<IItem>();
             enemies = new List<IEntity>();
