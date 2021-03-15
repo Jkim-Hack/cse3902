@@ -45,7 +45,7 @@ namespace cse3902.XMLParsing
 
         private IEntity CreateEnemy(String type, Vector2 startingPos)
         {
-            IEntity newEnemy = null;
+            IEntity newEnemy = new OldManNPC(game, startingPos);
             switch (type)
             {
                 case "Aquamentus":

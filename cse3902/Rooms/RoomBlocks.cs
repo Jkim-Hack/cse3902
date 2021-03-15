@@ -37,17 +37,14 @@ namespace cse3902.Rooms
 
         public void Update(GameTime gameTime)
         {
-            foreach (IEntity enemy in blocks)
-            {
-                enemy.Update(gameTime);
-            }
+            // blocks don't get updated
         }
 
         public void Draw()
         {
-            foreach (IEntity enemy in blocks)
+            foreach (IBlock block in blocks)
             {
-                enemy.Draw();
+                block.Draw();
             }
         }
 

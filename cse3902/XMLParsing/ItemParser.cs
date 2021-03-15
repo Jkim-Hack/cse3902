@@ -44,7 +44,7 @@ namespace cse3902.XMLParsing
 
         private IItem CreateItem(String type, Vector2 startPos)
         {
-            IItem newItem = null;
+            IItem newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartItem(game.spriteBatch, startPos);
             switch (type)
             {
                 case "Arrow":
@@ -67,6 +67,15 @@ namespace cse3902.XMLParsing
                     break;
                 case "Heart":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartItem(game.spriteBatch, startPos);
+                    break;
+                case "Key":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateKeyItem(game.spriteBatch, startPos);
+                    break;
+                case "Map":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateMapItem(game.spriteBatch, startPos);
+                    break;
+                case "Triforce":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateTriforceItem(game.spriteBatch, startPos);
                     break;
                 default:
                     //createdItem = null;
