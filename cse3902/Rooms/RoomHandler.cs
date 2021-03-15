@@ -24,6 +24,7 @@ namespace cse3902.Rooms
         public Vector3 currentRoom { get; set; }
         private Vector3 previousRoom;
         private Vector3 startingRoom { get; }
+        public Vector3 startingRoomTranslation { get; }
         private bool startComplete;
 
         public RoomHandler(Game1 game)
@@ -32,8 +33,9 @@ namespace cse3902.Rooms
             xmlParser = new XMLParser(this, game);
             roomTransitionManager = new RoomTransitionManager(game);
             camera = game.camera;
-            startingRoom = new Vector3(2, 5, 0);
+            startingRoom = new Vector3(2, 6, 0);
             currentRoom = startingRoom;
+            startingRoomTranslation = new Vector3(0, -1, 0);
             startComplete = false;
         }
 
@@ -120,7 +122,7 @@ namespace cse3902.Rooms
         public void CompleteStart()
         {
             startComplete = true;
-            rooms.GetValueOrDefault(startingRoom).Doors[0].State = IDoor.DoorState.Wall;
+            rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Wall;
         }
 
         public void Reset()

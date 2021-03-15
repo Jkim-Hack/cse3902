@@ -60,11 +60,30 @@
 			</door>
         </doors>
     </room>
+	<room>
+		<doors>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
+		<number>2,6,0</number>
+		<sprite>13</sprite>
+		<items>
+		</items>
+		<enemies>
+		</enemies>
+		<blocks>
+		</blocks>
+	</room>
     <room>
 		<doors>
             <door>
                 <type>Down</type>
-                <pos>2</pos>
+                <pos>0</pos>
 				<state>Open</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>

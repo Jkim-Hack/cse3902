@@ -63,7 +63,7 @@ namespace cse3902.Rooms
 
                 case 9.99f:
                     game.collisionManager.Disabled = false;
-                    //game.roomHandler.CompleteStart();
+                    game.roomHandler.CompleteStart();
                     stepTracker++;
                     break;
 
