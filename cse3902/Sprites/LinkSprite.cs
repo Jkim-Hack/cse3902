@@ -51,6 +51,8 @@ namespace cse3902.Sprites
 
         private const float damageDelay = .05f;
 
+        private const float hitboxSizeModifier = 1.5f;
+
         private bool pauseMovement;
 
         public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, DamageMaskHandler maskHandler, Vector2 startingPosition)
@@ -141,8 +143,8 @@ namespace cse3902.Sprites
         {
             get
             {
-                int width = (int)(sizeIncrease * size.X);
-                int height = (int)(sizeIncrease * size.Y);
+                int width = (int)(sizeIncrease * size.X / hitboxSizeModifier);
+                int height = (int)(sizeIncrease * size.Y / hitboxSizeModifier);
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
