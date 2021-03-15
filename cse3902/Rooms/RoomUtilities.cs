@@ -43,19 +43,19 @@ namespace cse3902.Rooms
             Right
         }
 
-        public static Vector2 convertVector(Vector3 vector)
+        public static Vector2 ConvertVector(Vector3 vector)
         {
             return new Vector2(ROOM_WIDTH * (vector.X + NUM_ROOMS_X * vector.Z), vector.Y * ROOM_HEIGHT);
         }
 
-        public static Vector2 calculateRoomCenter(Vector2 roomLoc)
+        public static Vector2 CalculateRoomCenter(Vector2 roomLoc)
         {
             roomLoc *= new Vector2(ROOM_WIDTH, ROOM_HEIGHT);
             roomLoc += new Vector2(ROOM_WIDTH/2, ROOM_HEIGHT/2);
             return roomLoc;
         }
 
-        public static Vector2 calculateBlockCenter(Vector2 roomLoc, Vector2 blockLoc)
+        public static Vector2 CalculateBlockCenter(Vector2 roomLoc, Vector2 blockLoc)
         {
             roomLoc *= new Vector2(ROOM_WIDTH, ROOM_HEIGHT);
             roomLoc += new Vector2(WALL_SIZE, WALL_SIZE);
@@ -65,12 +65,12 @@ namespace cse3902.Rooms
             return roomLoc;
         }
 
-        public static Vector2 calculateDoorCenter(Vector2 roomLoc, DoorPos pos)
+        public static Vector2 CalculateDoorCenter(Vector2 roomLoc, DoorPos pos)
         {
             return new Vector2(0, 0);
         }
 
-        public static Rectangle[] getWallRectangles(Vector2 roomLoc)
+        public static Rectangle[] GetWallRectangles(Vector2 roomLoc)
         {
             roomLoc *= new Vector2(ROOM_WIDTH, ROOM_HEIGHT);
             Rectangle[] rectangles = new Rectangle[NUM_OF_WALLS];
@@ -87,7 +87,7 @@ namespace cse3902.Rooms
             return rectangles;
         }
 
-        public static Vector3 convertToVector3(String str)
+        public static Vector3 ConvertToVector3(String str)
         {
             int comma = str.IndexOf(',');
             int comma2 = str.IndexOf(',', comma + 1);

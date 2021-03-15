@@ -22,7 +22,7 @@ namespace cse3902.Rooms
             doorParser = new DoorParser(gm, roomHandler);
         }
 
-        public void parseXML(String filename)
+        public void ParseXML(String filename)
         {
             XDocument doc = XDocument.Load(filename);
             XElement map = XElement.Load(filename);

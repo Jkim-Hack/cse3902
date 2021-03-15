@@ -19,7 +19,7 @@ namespace cse3902.XMLParsing
             game = gm;
         }
 
-        public void parseEnemies(Room roomobj, XElement roomxml, XDocument doc)
+        public void ParseEnemies(Room roomobj, XElement roomxml, XDocument doc)
         {
             XName enemiesName = XName.Get("enemies", doc.Root.Name.NamespaceName);
 
@@ -36,14 +36,14 @@ namespace cse3902.XMLParsing
                 int x = Int32.Parse(xloc.Value);
                 int y = Int32.Parse(yloc.Value);
 
-                Vector2 truePos = RoomUtilities.calculateBlockCenter(RoomUtilities.convertVector(roomobj.roomPos), new Vector2(x, y));
+                Vector2 truePos = RoomUtilities.CalculateBlockCenter(RoomUtilities.ConvertVector(roomobj.roomPos), new Vector2(x, y));
 
-                IEntity enemyAdd = createEnemy(typeName.Value, truePos);
+                IEntity enemyAdd = CreateEnemy(typeName.Value, truePos);
                 roomobj.AddEnemy(enemyAdd);
             }
         }
 
-        private IEntity createEnemy(String type, Vector2 startingPos)
+        private IEntity CreateEnemy(String type, Vector2 startingPos)
         {
             IEntity newEnemy = null;
             switch (type)

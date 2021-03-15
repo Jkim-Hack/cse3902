@@ -18,7 +18,7 @@ namespace cse3902.XMLParsing
             game = gm;
         }
 
-        public void parseItems(Room roomobj, XElement roomxml, XDocument doc)
+        public void ParseItems(Room roomobj, XElement roomxml, XDocument doc)
         {
             XName itemsName = XName.Get("items", doc.Root.Name.NamespaceName);
 
@@ -35,14 +35,14 @@ namespace cse3902.XMLParsing
                 int x = Int32.Parse(xloc.Value);
                 int y = Int32.Parse(yloc.Value);
 
-                Vector2 truePos = RoomUtilities.calculateBlockCenter(RoomUtilities.convertVector(roomobj.roomPos), new Vector2(x, y));
+                Vector2 truePos = RoomUtilities.CalculateBlockCenter(RoomUtilities.ConvertVector(roomobj.roomPos), new Vector2(x, y));
 
-                IItem itemAdd = createItem(typeName.Value, truePos);
+                IItem itemAdd = CreateItem(typeName.Value, truePos);
                 roomobj.AddItem(itemAdd);
             }
         }
 
-        private IItem createItem(String type, Vector2 startPos)
+        private IItem CreateItem(String type, Vector2 startPos)
         {
             IItem newItem = null;
             switch (type)
