@@ -36,18 +36,21 @@ namespace cse3902.Collision.Collidables
                     player.BeShoved();
                 }
                 
-                
             } else if (collidableObject is BlockCollidable)
             {
-                //three cases:
-                //immovable block
-                //movable block
-                //staircase
+                //prevent link from phasing into block
+                player.CenterPosition = player.PreviousPosition;
 
             } else if (collidableObject is ItemCollidable)
             {
-                //link needs to pick the item up (remove it from game)
-                //then add the item to inventory
+                this.player.AddItem(((ItemCollidable)collidableObject).Item);
+                //todo: destroy item object from floor/wherever
+            } else if (collidableObject is ProjectileCollidable)
+            {
+                if (((ProjectileCollidable)collidableObject).IsEnemy)
+                {
+                    player.TakeDamage(((ProjectileCollidable)collidableObject).DamageValue);
+                }
             }
            
         }
@@ -55,6 +58,11 @@ namespace cse3902.Collision.Collidables
         public ref Rectangle RectangleRef
         {
             get => ref player.Bounds;
+        }
+
+        public Vector2 Direction
+        {
+            get => player.Direction;
         }
 
         public int DamageValue

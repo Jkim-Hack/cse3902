@@ -31,7 +31,8 @@ namespace cse3902.Rooms
 
         public void RemoveItem(IItem item)
         {
-            items.RemoveAll(x => x.Center == item.Center);
+
+            (items as List<IItem>).RemoveAll(x => x.Center == item.Center);
             //items.Remove(item);
         }
 

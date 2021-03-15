@@ -85,6 +85,12 @@ namespace cse3902.Entities
         {
             linkStateMachine.UseItem();
         }
+
+        public void AddItem(IItem item)
+        {
+
+        }
+
         public void ChangeItem(int itemNum)
         {
             linkStateMachine.ChangeItem(itemNum);
@@ -110,6 +116,12 @@ namespace cse3902.Entities
         {
             set => linkStateMachine.CenterPosition = value;
             get => linkStateMachine.CenterPosition;
+        }
+
+        public Vector2 PreviousPosition
+        {
+            //needs to be changed
+            get => linkSprite.Center;
         }
 
         public int Health

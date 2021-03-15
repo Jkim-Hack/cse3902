@@ -31,7 +31,7 @@ namespace cse3902.Rooms
 
         public void RemoveBlock(IBlock block)
         {
-            blocks.RemoveAll(x => x.Center == block.Center);
+            (blocks as List<IBlock>).RemoveAll(x => x.Center == block.Center);
             //blocks.Remove(block);
         }
 
