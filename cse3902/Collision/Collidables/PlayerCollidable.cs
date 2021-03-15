@@ -36,11 +36,17 @@ namespace cse3902.Collision.Collidables
                 
             } else if (collidableObject is BlockCollidable || collidableObject is WallCollidable)
             {
-                //prevent link from phasing into blocks that are not walkable
-                if (!((BlockCollidable)collidableObject).IsWalkable)
+                if (collidableObject is BlockCollidable)
+                {
+                    if (!((BlockCollidable)collidableObject).IsWalkable)
+                    {
+                        player.CenterPosition = player.PreviousPosition;
+                    }
+                } else
                 {
                     player.CenterPosition = player.PreviousPosition;
                 }
+                
                 
 
             } else if (collidableObject is ItemCollidable)
