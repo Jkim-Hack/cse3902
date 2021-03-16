@@ -41,7 +41,7 @@ namespace cse3902.Rooms
 
         public void Initialize()
         {
-            String url = "https://raw.githubusercontent.com/Jkim-Hack/cse3902/master/cse3902/XMLParsing/Room1.xml";
+            String url = "XMLParsing/Room1.xml";
             xmlParser.ParseXML(url);
         }
 
