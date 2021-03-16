@@ -58,6 +58,7 @@ namespace cse3902.Collision.Collidables
                     if (((ProjectileCollidable)collidableObject).DamageValue > 5)
                     {
                         this.enemy.TakeDamage(collidableObject.DamageValue);
+                        this.enemy.BeShoved();
                         if (this.enemy.Health <= 0)
                         {
                             RoomEnemyNPCs.Instance.RemoveENPC(this.enemy);
