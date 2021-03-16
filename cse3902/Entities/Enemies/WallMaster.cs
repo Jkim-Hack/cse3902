@@ -16,7 +16,6 @@ namespace cse3902.Entities.Enemies
 
         private Vector2 direction;
         private float speed;
-        private Vector2 startingPos;
         private Vector2 center;
         private int travelDistance;
         private Vector2 shoveDirection;

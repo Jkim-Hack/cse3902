@@ -33,6 +33,7 @@ namespace cse3902.Entities.Enemies
 
             keeseSprite = (KeeseSprite)EnemySpriteFactory.Instance.CreateKeeseSprite(game.spriteBatch, center);
             keeseStateMachine = new KeeseStateMachine(keeseSprite);
+            direction = new Vector2(1, 0);
             speed = 30.0f;
             travelDistance = 100;
             shoveDistance = -10;
