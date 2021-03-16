@@ -104,7 +104,7 @@ namespace cse3902
 
             xmlParser = new XMLParser(roomHandler,this);
             xmlParser.ParseXML("XMLParsing/Room1.xml");
-            roomHandler.LoadNewRoom(new Vector3(0, 0, 0),0);
+            roomHandler.LoadNewRoom(roomHandler.startingRoomTranslation,0);
         }
 
         /// <summary>

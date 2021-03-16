@@ -14,17 +14,16 @@ namespace cse3902.Entities.Enemies
         private KeeseStateMachine keeseStateMachine;
         private readonly Game1 game;
 
+        private Vector2 direction;
         private float speed;
         private Vector2 startingPos;
         private Vector2 center;
-        private int radius = 80;
-        private float degrees;
+        private int travelDistance;
         private Vector2 shoveDirection;
         private int shoveDistance;
 
         private ICollidable collidable;
         private int health;
-        private Vector2 direction;
 
         public Keese(Game1 game, Vector2 start)
         {
@@ -34,7 +33,6 @@ namespace cse3902.Entities.Enemies
 
             keeseSprite = (KeeseSprite)EnemySpriteFactory.Instance.CreateKeeseSprite(game.spriteBatch, center);
             keeseStateMachine = new KeeseStateMachine(keeseSprite);
-            degrees = 0;
             speed = 0.02f;
             shoveDistance = -10;
             shoveDirection = new Vector2(-2, 0);
@@ -60,7 +58,17 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-            this.keeseStateMachine.ChangeDirection(direction);
+            //direction vector of (0,0) indicates just reverse the current direction
+            if (direction == new Vector2(0, 0))
+            {
+                this.direction.X = -this.direction.X;
+                this.direction.Y = -this.direction.Y;
+            }
+            else
+            {
+                this.direction.X = direction.X;
+                this.direction.Y = direction.Y;
+            }
         }
 
         public void TakeDamage(int damage)
@@ -76,6 +84,7 @@ namespace cse3902.Entities.Enemies
         public void BeShoved()
         {
             this.shoveDistance = 10;
+            this.shoveDirection = new Vector2(direction.X * -2, direction.Y * -2);
         }
 
         public void Update(GameTime gameTime)
@@ -97,11 +106,56 @@ namespace cse3902.Entities.Enemies
 
         private void RegularMovement(GameTime gameTime)
         {
-            var radians = degrees + (Math.PI / 180);
-            var unitCirclePos = new Vector2((float)Math.Cos(radians), (float)Math.Sin(radians));
-            CenterPosition = startingPos + (unitCirclePos * radius);
+            this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            degrees += speed;
+            if (travelDistance <= 0)
+            {
+                Random rand = new System.Random();
+                int choice = rand.Next(0, 8);
+                travelDistance = 20;
+
+                switch (choice)
+                {
+                    case 0:
+                        direction.X = 1;
+                        direction.Y = 0;
+                        break;
+                    case 1:
+                        direction.X = -1;
+                        direction.Y = 0;
+                        break;
+                    case 2:
+                        direction.X = 0;
+                        direction.Y = 1;
+                        break;
+                    case 3:
+                        direction.X = 0;
+                        direction.Y = -1;
+                        break;
+                    case 4:
+                        direction.X = 1;
+                        direction.Y = 1;
+                        break;
+                    case 5:
+                        direction.X = 1;
+                        direction.Y = -1;
+                        break;
+                    case 6:
+                        direction.X = -1;
+                        direction.Y = 1;
+                        break;
+                    case 7:
+                        direction.X = -1;
+                        direction.Y = -1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                travelDistance--;
+            }
 
             keeseSprite.Update(gameTime);
         }

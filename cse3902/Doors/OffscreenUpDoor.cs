@@ -39,9 +39,16 @@ namespace cse3902.Doors
         {
             //offscreen so nothing to draw
         }
-        public void ChangeState(IDoor.DoorState doorState)
+        public IDoor.DoorState State
         {
-            //do nothing
+            get
+            {
+                return IDoor.DoorState.None;
+            }
+            set
+            {
+
+            }
         }
         public ref Rectangle Bounds
         {
