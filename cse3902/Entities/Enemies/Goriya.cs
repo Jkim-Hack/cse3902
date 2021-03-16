@@ -92,7 +92,7 @@ namespace cse3902.Entities.Enemies
 
         public void Update(GameTime gameTime)
         {
-
+            this.collidable.ResetCollisions();
             if (this.shoveDistance > -10) ShoveMovement();
             else RegularMovement(gameTime);
         }
