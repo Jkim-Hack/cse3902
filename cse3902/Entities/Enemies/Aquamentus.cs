@@ -40,7 +40,7 @@ namespace cse3902.Entities.Enemies
             pauseAnim = false;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 10;
+            health = 20;
         }
 
         public Vector2 Center

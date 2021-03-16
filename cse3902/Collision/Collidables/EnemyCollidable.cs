@@ -52,6 +52,15 @@ namespace cse3902.Collision.Collidables
                     }
                 } else
                 {
+
+                    if (((ProjectileCollidable)collidableObject).DamageValue > 5)
+                    {
+                        this.enemy.TakeDamage(collidableObject.DamageValue);
+                        if (this.enemy.Health <= 0)
+                        {
+                            RoomEnemyNPCs.Instance.RemoveENPC(this.enemy);
+                        }
+                    }
                     //other enemies are simply stunned in place for a bit
                     //need some kind of method to be able to 'stun' the enemies
                     //they will still animate, just not move
