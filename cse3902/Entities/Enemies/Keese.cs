@@ -111,7 +111,7 @@ namespace cse3902.Entities.Enemies
             if (travelDistance <= 0)
             {
                 Random rand = new System.Random();
-                int choice = rand.Next(0, 4);
+                int choice = rand.Next(0, 8);
                 travelDistance = 20;
 
                 switch (choice)
@@ -130,6 +130,22 @@ namespace cse3902.Entities.Enemies
                         break;
                     case 3:
                         direction.X = 0;
+                        direction.Y = -1;
+                        break;
+                    case 4:
+                        direction.X = 1;
+                        direction.Y = 1;
+                        break;
+                    case 5:
+                        direction.X = 1;
+                        direction.Y = -1;
+                        break;
+                    case 6:
+                        direction.X = -1;
+                        direction.Y = 1;
+                        break;
+                    case 7:
+                        direction.X = -1;
                         direction.Y = -1;
                         break;
                     default:
