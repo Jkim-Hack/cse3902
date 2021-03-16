@@ -37,7 +37,6 @@ namespace cse3902
         private Camera camera;
         public Camera Camera { get => camera; }
 
-        public CollisionManager collisionManager { get; set; }
 
         private Texture2D lineTexture;
         
