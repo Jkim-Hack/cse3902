@@ -34,9 +34,8 @@ namespace cse3902.Entities.Enemies
             //gel sprite sheet is 1 row, 2 columns
             gelSprite = (GelSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.spriteBatch, startingPos);
             gelStateMachine = new GelStateMachine(gelSprite);
-            direction = new Vector2(-1, 0);
             speed = 25.0f;
-            travelDistance = 100;
+            travelDistance = 0;
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);

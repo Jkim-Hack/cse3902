@@ -34,9 +34,8 @@ namespace cse3902.Entities.Enemies
             //stalfos sprite sheet is 1 row, 2 columns
             stalfosSprite = (StalfosSprite)EnemySpriteFactory.Instance.CreateStalfosSprite(game.spriteBatch, center);
             stalfosStateMachine = new StalfosStateMachine(stalfosSprite);
-            direction = new Vector2(-1, 0);
             speed = 30.0f;
-            travelDistance = 80;
+            travelDistance = 0;
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);

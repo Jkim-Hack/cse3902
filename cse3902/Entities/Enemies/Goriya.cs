@@ -33,9 +33,8 @@ namespace cse3902.Entities.Enemies
 
             goriyaSprite = (GoriyaSprite)EnemySpriteFactory.Instance.CreateGoriyaSprite(game.spriteBatch, center);
             goriyaStateMachine = new GoriyaStateMachine(goriyaSprite);
-            direction = new Vector2(-1, 0);
             speed = 25.0f;
-            travelDistance = 125;
+            travelDistance = 0;
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);

@@ -32,9 +32,8 @@ namespace cse3902.Entities.Enemies
             //wallmaster sprite sheet is 4 rows, 2 columns
             wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.spriteBatch, center);
             wallMasterStateMachine = new WallMasterStateMachine(wallMasterSprite);
-            direction = new Vector2(-1, 1);
             speed = 20.0f;
-            travelDistance = 80;
+            travelDistance = 0;
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
