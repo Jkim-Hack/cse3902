@@ -16,7 +16,7 @@ namespace cse3902.Rooms
         Texture2D exterior;
         Texture2D itemRoom;
         SpriteBatch batch;
-        private List<ISprite> background { get; set; }
+        private List<ISprite> background;
 
         private IList walls;
 

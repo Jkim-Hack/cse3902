@@ -41,7 +41,7 @@ namespace cse3902.Rooms
         {
             stepTracker = 0;
             entranceDoor = entrance;
-            game.collisionManager.Disabled = true;
+            game.CollisionManager.Disabled = true;
         }
         public bool IsTransitioning()
         {
@@ -53,8 +53,8 @@ namespace cse3902.Rooms
             switch (steps[stepTracker])
             {
                 case 0.0f:
-                    game.camera.Update();
-                    if (!game.camera.GetCameraMoving()) MoveLinkToNewRoom();
+                    game.Camera.Update();
+                    if (!game.Camera.GetCameraMoving()) MoveLinkToNewRoom();
                     break;
 
                 case 1.0f:
@@ -62,8 +62,8 @@ namespace cse3902.Rooms
                     break;
 
                 case 9.99f:
-                    game.collisionManager.Disabled = false;
-                    game.roomHandler.CompleteStart();
+                    game.CollisionManager.Disabled = false;
+                    game.RoomHandler.CompleteStart();
                     stepTracker++;
                     break;
 
@@ -77,27 +77,27 @@ namespace cse3902.Rooms
 
         private void MoveLinkToNewRoom()
         {
-            game.player.CenterPosition = entranceDoor.PlayerReleasePosition();
+            game.Player.CenterPosition = entranceDoor.PlayerReleasePosition();
             linkNewRoomDirection = entranceDoor.PlayerReleaseDirection();
             linkNewRoomStepsRemaining = ((int) linkNewRoomDirection.Length()) - 1;
             linkNewRoomDirection.Normalize();
-            game.player.ChangeDirection(linkNewRoomDirection);
+            game.Player.ChangeDirection(linkNewRoomDirection);
             stepTracker++;
             if (linkNewRoomStepsRemaining == 0)
             {
                 stepTracker++;
-                game.player.ChangeDirection(new Vector2(0, 0));
+                game.Player.ChangeDirection(new Vector2(0, 0));
             }
         }
 
         private void MoveLinkIntoRoom()
         {
-            game.player.ChangeDirection(linkNewRoomDirection);
+            game.Player.ChangeDirection(linkNewRoomDirection);
             linkNewRoomStepsRemaining--;
             if (linkNewRoomStepsRemaining == 0)
             {
                 stepTracker++;
-                game.player.ChangeDirection(new Vector2(0, 0));
+                game.Player.ChangeDirection(new Vector2(0, 0));
             }
         }
     }

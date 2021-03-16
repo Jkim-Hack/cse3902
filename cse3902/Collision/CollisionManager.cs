@@ -107,7 +107,7 @@ namespace cse3902.Collision
 
         public void DrawAllRectangles(Texture2D lineTexture, Color color, int lineWidth)
         {
-            SpriteBatch spriteBatch = this.game.spriteBatch;
+            SpriteBatch spriteBatch = this.game.SpriteBatch;
             foreach (var collidableDictionary in allCollidableObjects.Values)
             {
                 foreach (var rectangle in collidableDictionary.Keys)

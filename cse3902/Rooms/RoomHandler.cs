@@ -23,7 +23,7 @@ namespace cse3902.Rooms
 
         public Vector3 currentRoom { get; set; }
         private Vector3 previousRoom;
-        private Vector3 startingRoom { get; }
+        private Vector3 startingRoom;
         public Vector3 startingRoomTranslation { get; }
         private bool startComplete;
 
@@ -32,7 +32,7 @@ namespace cse3902.Rooms
             rooms = new Dictionary<Vector3, Room>();
             xmlParser = new XMLParser(this, game);
             roomTransitionManager = new RoomTransitionManager(game);
-            camera = game.camera;
+            camera = game.Camera;
             startingRoom = new Vector3(2, 6, 0);
             currentRoom = startingRoom;
             startingRoomTranslation = new Vector3(0, -1, 0);

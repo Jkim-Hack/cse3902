@@ -32,7 +32,7 @@ namespace cse3902.Entities.Enemies
             center = startingPos;
 
             //gel sprite sheet is 1 row, 2 columns
-            gelSprite = (GelSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.spriteBatch, startingPos);
+            gelSprite = (GelSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.SpriteBatch, startingPos);
             gelStateMachine = new GelStateMachine(gelSprite);
             speed = 25.0f;
             travelDistance = 0;

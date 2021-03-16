@@ -35,7 +35,7 @@ namespace cse3902.Commands
                     break;
             }
 
-            game.camera.MoveCamera(3*direction);
+            game.Camera.MoveCamera(3*direction);
         }
 
         public void Unexecute()
