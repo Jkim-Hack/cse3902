@@ -28,6 +28,7 @@ namespace cse3902.SpriteFactory
             npcTextures.Add("oldman", content.Load<Texture2D>("oldman"));
             npcTextures.Add("medicinewoman", content.Load<Texture2D>("medicinewoman"));
             npcTextures.Add("merchant", content.Load<Texture2D>("merchant"));
+            npcTextures.Add("flame", content.Load<Texture2D>("flame"));
         }
 
         public ISprite CreateOldManSprite(SpriteBatch spriteBatch, Vector2 startingPos)
@@ -43,6 +44,11 @@ namespace cse3902.SpriteFactory
         public ISprite CreateMerchantSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
             return new NPCSprite(spriteBatch, npcTextures["merchant"], startingPos);
+        }
+
+        public ISprite CreateFlameSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new NPCSprite(spriteBatch, npcTextures["flame"], startingPos);
         }
     }
 }
