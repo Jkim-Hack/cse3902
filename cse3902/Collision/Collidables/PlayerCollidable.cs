@@ -63,7 +63,10 @@ namespace cse3902.Collision.Collidables
                 }
             } else if (collidableObject is DoorCollidable)
             {
-
+                if (((DoorCollidable)collidableObject).State == IDoor.DoorState.Closed || ((DoorCollidable)collidableObject).State == IDoor.DoorState.Locked || ((DoorCollidable)collidableObject).State == IDoor.DoorState.Wall)
+                {
+                    player.CenterPosition = player.PreviousPosition;
+                }
             }
            
         }

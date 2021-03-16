@@ -21,27 +21,42 @@ namespace cse3902.Collision.Collidables
 
             if (collidableObject is PlayerCollidable)
             {
-                if (this.door.State == IDoor.DoorState.Bombed)
+                if (this.door is NormalUpDoor)
                 {
-                    InteractDoor(collidableObject);
+                    if (collidableObject.RectangleRef.Y < this.RectangleRef.Y)
+                    {
+                        this.door.Interact();
+                    }
                 }
-                else if (this.door.State == IDoor.DoorState.Open)
+                else if (this.door is NormalDownDoor)
                 {
-                    this.door.Interact();
-
+                    if (collidableObject.RectangleRef.Y > this.RectangleRef.Y)
+                    {
+                        this.door.Interact();
+                    }
                 }
-                else if (this.door.State == IDoor.DoorState.Closed || this.door.State == IDoor.DoorState.Locked || this.door.State == IDoor.DoorState.Wall)
+                else if (this.door is NormalLeftDoor)
                 {
-                    this.door.Interact();
-
-                } else if (this.door.State == IDoor.DoorState.None)
-                {
-
+                    if (collidableObject.RectangleRef.X < this.RectangleRef.X)
+                    {
+                        this.door.Interact();
+                    }
                 }
-
+                else if (this.door is NormalRightDoor)
+                {
+                    if (collidableObject.RectangleRef.X > this.RectangleRef.X)
+                    {
+                        this.door.Interact();
+                    }
+                }
                 else
                 {
-                    //do nothing
+                    //it's a staircase
+                    //todo: make sure this is the correct direction for the threshold
+                    if (collidableObject.RectangleRef.Y > this.RectangleRef.Y)
+                    {
+                        this.door.Interact();
+                    }
                 }
             }
         }
@@ -61,45 +76,9 @@ namespace cse3902.Collision.Collidables
             get => 0;
         }
 
-        private void InteractDoor(ICollidable collidableObject)
+        public IDoor.DoorState State
         {
-            if (this.door is NormalUpDoor)
-            {
-                if (collidableObject.RectangleRef.Y < this.RectangleRef.Y)
-                {
-                    this.door.Interact();
-                }
-            }
-            else if (this.door is NormalDownDoor)
-            {
-                if (collidableObject.RectangleRef.Y > this.RectangleRef.Y)
-                {
-                    this.door.Interact();
-                }
-            }
-            else if (this.door is NormalLeftDoor)
-            {
-                if (collidableObject.RectangleRef.X < this.RectangleRef.X)
-                {
-                    this.door.Interact();
-                }
-            }
-            else if (this.door is NormalRightDoor)
-            {
-                if (collidableObject.RectangleRef.X > this.RectangleRef.X)
-                {
-                    this.door.Interact();
-                }
-            }
-            else
-            {
-                //it's a staircase
-                //todo: make sure this is the correct direction for the threshold
-                if (collidableObject.RectangleRef.Y > this.RectangleRef.Y)
-                {
-                    this.door.Interact();
-                }
-            }
+            get => this.door.State;
         }
     }
 }
