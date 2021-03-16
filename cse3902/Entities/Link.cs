@@ -82,6 +82,7 @@ namespace cse3902.Entities
         public void Update(GameTime gameTime)
         {
             linkStateMachine.Update(gameTime);
+            collidable.ResetCollisions();
         }
 
         public void Draw()
