@@ -132,7 +132,8 @@ namespace cse3902.Entities.Enemies
                     default:
                         break;
                 }
-            } else
+            }
+            else
             {
                 travelDistance--;
             }

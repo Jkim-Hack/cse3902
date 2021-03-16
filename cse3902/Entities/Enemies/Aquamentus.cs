@@ -19,7 +19,6 @@ namespace cse3902.Entities.Enemies
         private Vector2 startingPos;
         private Vector2 center;
         private int travelDistance;
-        private Boolean travelUp;
         private Vector2 shoveDirection;
         private int shoveDistance;
         private Boolean pauseAnim;
@@ -37,7 +36,6 @@ namespace cse3902.Entities.Enemies
             direction = new Vector2(-1.2f, 0);
             speed = 50.0f;
             travelDistance = 80;
-            travelUp = false;
             shoveDistance = -10;
             pauseAnim = false;
 
@@ -104,16 +102,37 @@ namespace cse3902.Entities.Enemies
 
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance)
+            if (travelDistance <= 0)
             {
-                direction.X = 1f;
-                direction.Y = 0.5f * (travelUp ? -1 : 1);
-                travelUp = !travelUp;
+                Random rand = new System.Random();
+                int choice = rand.Next(0, 4);
+                travelDistance = 20;
+
+                switch (choice)
+                {
+                    case 0:
+                        direction.X = 1;
+                        direction.Y = 0;
+                        break;
+                    case 1:
+                        direction.X = -1;
+                        direction.Y = 0;
+                        break;
+                    case 2:
+                        direction.X = 0;
+                        direction.Y = 1;
+                        break;
+                    case 3:
+                        direction.X = 0;
+                        direction.Y = -1;
+                        break;
+                    default:
+                        break;
+                }
             }
-            else if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance)
+            else
             {
-                direction.X = -1.2f;
-                direction.Y = 0;
+                travelDistance--;
             }
 
             ChangeDirection(direction);
