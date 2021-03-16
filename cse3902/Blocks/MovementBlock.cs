@@ -12,12 +12,14 @@ namespace cse3902.Blocks
         private readonly Game1 game;
         private Vector2 center;
         private Rectangle dest;
+        private int type;
 
         private ICollidable collidable;
 
-        public MovementBlock(Game1 game, Vector2 center)
+        public MovementBlock(Game1 game, Vector2 center, int type)
         {
             this.game = game;
+            this.type = type;
 
             this.collidable = new BlockCollidable(this);
             this.center = center;
@@ -29,6 +31,10 @@ namespace cse3902.Blocks
             directions.Add(new Vector2(0, 0));
             directions.Add(new Vector2(1, 0));
             directions.Add(new Vector2(-1, 0));
+            if (type == 1)
+            {
+                directions.Add(new Vector2(0, 1));
+            }
 
             game.Player.Directions = directions;
         }
@@ -38,6 +44,10 @@ namespace cse3902.Blocks
             directions.Add(new Vector2(0, 0));
             directions.Add(new Vector2(1, 0));
             directions.Add(new Vector2(-1, 0));
+            if (type == 1)
+            {
+                directions.Add(new Vector2(0, 1));
+            }
 
             game.Player.Directions = directions;
         }
