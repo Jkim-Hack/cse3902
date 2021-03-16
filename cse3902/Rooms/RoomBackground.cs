@@ -14,6 +14,7 @@ namespace cse3902.Rooms
     {
         Texture2D interior;
         Texture2D exterior;
+        Texture2D itemRoom;
         SpriteBatch batch;
         private List<ISprite> background;
 
@@ -41,6 +42,7 @@ namespace cse3902.Rooms
         {
             interior = content.Load<Texture2D>("interior");
             exterior = content.Load<Texture2D>("Exterior");
+            itemRoom = content.Load<Texture2D>("ItemRoom");
             //test1 = content.Load<Texture2D>("block3");
             this.batch = batch;
             background = new List<ISprite>();
@@ -62,6 +64,7 @@ namespace cse3902.Rooms
         public void generateItemRoom(Vector3 loc)
         {
             Vector2 roomCenter = RoomUtilities.CalculateRoomCenter(loc);
+            background.Add(new ExteriorSprite(batch, itemRoom, roomCenter));
         }
 
 
