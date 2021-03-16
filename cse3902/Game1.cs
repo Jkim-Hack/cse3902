@@ -77,8 +77,8 @@ namespace cse3902
 
             player = new Link(this);
             camera = new Camera(this);
-
             roomHandler = new RoomHandler(this);
+            collisionManager = new CollisionManager(this);
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
@@ -91,13 +91,6 @@ namespace cse3902
             // For hitbox drawing
 	        lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
 	        lineTexture.SetData<Color>(new Color[] { Color.White });
-
-            // Testing purposes
-            RoomBackground.Instance.generateRoom(new Vector3(2,5,0), 13);
-            //RoomBackground.Instance.generateRoom(new Vector3(1, 0, 0), 1);
-            //camera.MoveCamera(new Vector2(256, 0), new Vector2(256, 176));
-
-            collisionManager = new CollisionManager(this);
 
             allCollidablesList.Insert((int)CollisionManager.CollisionPriority.PLAYER, player);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ENEMY_NPC, ref RoomEnemyNPCs.Instance.ListRef);
