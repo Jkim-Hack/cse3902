@@ -26,6 +26,9 @@ namespace cse3902.Rooms
         public const int INTERIOR_TEXTURE_ROWS = 5;
         public const int INTERIOR_TEXTURE_COLS = 3;
 
+        public const int ITEM_ROOM_ROWS = 11;
+        public const int ITEM_ROOM_COLS = 16;
+
         public const int NUM_OF_WALLS = 8;
         public const int DOOR_START_X = 111;
         public const int DOOR_START_Y = 71;
@@ -60,13 +63,19 @@ namespace cse3902.Rooms
         public static Vector2 CalculateBlockCenter(Vector3 roomLoc, Vector2 blockLoc)
         {
             Vector2 pos = ConvertVector(roomLoc);
-            pos += new Vector2(WALL_SIZE, WALL_SIZE);
-            pos += new Vector2((BLOCK_SIDE-1)*blockLoc.X, (BLOCK_SIDE - 1) * blockLoc.Y);
-            pos += new Vector2(BLOCK_SIDE / 2, BLOCK_SIDE / 2);
-            pos += blockLoc;
+            if (roomLoc.Z < 0)
+            {
+                pos += new Vector2(ROOM_WIDTH / ITEM_ROOM_COLS * blockLoc.X, ROOM_HEIGHT / ITEM_ROOM_ROWS * blockLoc.Y);
+                pos += new Vector2(ROOM_WIDTH / ITEM_ROOM_COLS / 2, ROOM_HEIGHT / ITEM_ROOM_ROWS / 2);
+            }
+            else
+            {
+                pos += new Vector2(WALL_SIZE, WALL_SIZE);
+                pos += new Vector2(BLOCK_SIDE * blockLoc.X, BLOCK_SIDE * blockLoc.Y);
+                pos += new Vector2(BLOCK_SIDE / 2, BLOCK_SIDE / 2);
+            }
             return pos;
         }
-
         public static Rectangle[] GetWallRectangles(Vector3 roomLoc)
         {
             Vector2 pos = ConvertVector(roomLoc);

@@ -38,7 +38,6 @@
     <Folder Include="Entities\Enemies\" />
     <Folder Include="Sprites\EnemySprites\" />
     <Folder Include="SpriteFactory\" />
-    <Folder Include="Rooms\" />
     <Folder Include="Collision\" />
     <Folder Include="Collision\Collidables\" />
     <Folder Include="XMLParsing\" />
