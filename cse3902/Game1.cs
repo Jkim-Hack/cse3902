@@ -37,8 +37,8 @@ namespace cse3902
         private Camera camera;
         public Camera Camera { get => camera; }
 
-        private XMLParser xmlParser;
-        
+        public CollisionManager collisionManager { get; set; }
+
         private Texture2D lineTexture;
         
 	    public Game1()
@@ -92,6 +92,10 @@ namespace cse3902
 	        lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
 	        lineTexture.SetData<Color>(new Color[] { Color.White });
 
+            roomHandler.Initialize();
+
+            collisionManager = new CollisionManager(this);
+
             allCollidablesList.Insert((int)CollisionManager.CollisionPriority.PLAYER, player);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ENEMY_NPC, ref RoomEnemyNPCs.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ITEMS, ref RoomItems.Instance.ListRef);
@@ -100,8 +104,6 @@ namespace cse3902
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.DOORS, ref RoomDoors.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BACKGROUND, ref RoomBackground.Instance.WallsListRef);
 
-            xmlParser = new XMLParser(roomHandler,this);
-            xmlParser.ParseXML("XMLParsing/Room1.xml");
             roomHandler.LoadNewRoom(roomHandler.startingRoomTranslation,0);
         }
 
