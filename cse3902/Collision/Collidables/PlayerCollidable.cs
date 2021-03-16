@@ -2,6 +2,7 @@
 using cse3902.Interfaces;
 using cse3902.Rooms;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace cse3902.Collision.Collidables
 {
@@ -9,6 +10,7 @@ namespace cse3902.Collision.Collidables
     {
         private IPlayer player;
         private int damage;
+        private List<Boolean> collisionOccurrences = new List<Boolean>(6);
 
         public PlayerCollidable(IPlayer player, int damage)
         {
@@ -79,6 +81,14 @@ namespace cse3902.Collision.Collidables
         public Vector2 Direction
         {
             get => player.Direction;
+        }
+
+        public void ResetCollisions()
+        {
+            for (int i = 0; i < collisionOccurrences.Capacity; i++)
+            {
+                collisionOccurrences[i] = false;
+            }
         }
 
         public int DamageValue

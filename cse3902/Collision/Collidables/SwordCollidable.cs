@@ -1,5 +1,6 @@
 ﻿using System;
 using cse3902.Interfaces;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace cse3902.Collision.Collidables
@@ -8,6 +9,7 @@ namespace cse3902.Collision.Collidables
     {
         private IProjectile sword;
         private int damage;
+        private List<Boolean> collisionOccurrences = new List<Boolean>(6);
 
         public SwordCollidable(IProjectile projectile)
         {
@@ -34,6 +36,14 @@ namespace cse3902.Collision.Collidables
         public Vector2 Direction
         {
             get => this.sword.Direction;
+        }
+
+        public void ResetCollisions()
+        {
+            for (int i = 0; i < collisionOccurrences.Capacity; i++)
+            {
+                collisionOccurrences[i] = false;
+            }
         }
     }
 

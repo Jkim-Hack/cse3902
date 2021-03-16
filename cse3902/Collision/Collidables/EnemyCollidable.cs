@@ -1,5 +1,6 @@
 ﻿using System;
 using cse3902.Interfaces;
+using System.Collections.Generic;
 using cse3902.Rooms;
 using cse3902.Entities.Enemies;
 using Microsoft.Xna.Framework;
@@ -10,11 +11,14 @@ namespace cse3902.Collision.Collidables
     {
         private IEntity enemy;
         private int damage;
+        private Boolean[] collisionOccurrences;
 
         public EnemyCollidable(IEntity enemy, int damage)
         {
             this.enemy = enemy;
             this.damage = damage;
+            collisionOccurrences = new Boolean[6];
+            this.ResetCollisions();
         }
 
 
@@ -52,13 +56,14 @@ namespace cse3902.Collision.Collidables
                     //need some kind of method to be able to 'stun' the enemies
                     //they will still animate, just not move
                 }
-            } else if (collidableObject is BlockCollidable || collidableObject is DoorCollidable || collidableObject is DoorCollidable)
+            } else if (!collisionOccurrences[0] && (collidableObject is BlockCollidable || collidableObject is DoorCollidable || collidableObject is DoorCollidable))
             {
                 if (!(this.enemy is WallMaster))
                 {
                     //vector of (0,0) means just change current direction to opposite
                     Vector2 direction = new Vector2(0, 0);
                     this.enemy.ChangeDirection(direction);
+                    this.collisionOccurrences[0] = true;
                     //todo: might need to slightly adjust position of entity as well
                 }
 
@@ -71,6 +76,14 @@ namespace cse3902.Collision.Collidables
             
         }
 
+        public void ResetCollisions()
+        {
+            for (int i = 0; i < collisionOccurrences.Length-1; i++)
+            {
+                collisionOccurrences[i] = false;
+            }
+        }
+
         public ref Rectangle RectangleRef
         {
             get => ref enemy.Bounds;
@@ -80,5 +93,8 @@ namespace cse3902.Collision.Collidables
         {
             get => damage;
         }
+
+        
+        
     }
 }

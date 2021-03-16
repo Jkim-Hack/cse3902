@@ -35,6 +35,7 @@ namespace cse3902.Entities.Enemies
             keeseStateMachine = new KeeseStateMachine(keeseSprite);
             speed = 0.02f;
             shoveDistance = -10;
+            travelDistance = 20;
             shoveDirection = new Vector2(-2, 0);
 
             this.collidable = new EnemyCollidable(this, this.Damage);
