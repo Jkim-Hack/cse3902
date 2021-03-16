@@ -74,6 +74,7 @@ namespace cse3902.Collision.Collidables
                 if (((ProjectileCollidable)collidableObject).IsEnemy)
                 {
                     player.TakeDamage(((ProjectileCollidable)collidableObject).DamageValue);
+                    player.BeShoved();
                 }
             } else if (collidableObject is DoorCollidable)
             {
