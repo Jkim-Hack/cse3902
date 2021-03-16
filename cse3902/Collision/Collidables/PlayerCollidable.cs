@@ -27,7 +27,6 @@ namespace cse3902.Collision.Collidables
                 return;
             }
 
-
             if (collidableObject is EnemyCollidable)
             {
                 //take damage and get shoved back by enemy
@@ -37,12 +36,14 @@ namespace cse3902.Collision.Collidables
                 {
                     //remove link from room
                     RoomEnemyNPCs.Instance.RemoveENPC(this.player);
-                } else
+                } 
+		        else
                 {
                     player.BeShoved();
                 }
                 
-            } else if (collidableObject is BlockCollidable || collidableObject is WallCollidable)
+            } 
+	        else if (collidableObject is BlockCollidable || collidableObject is WallCollidable)
             {
                 if (collisionOccurrences[0])
                 {
@@ -56,26 +57,27 @@ namespace cse3902.Collision.Collidables
                         player.CenterPosition = player.PreviousPosition;
                         collisionOccurrences[0] = true;
                     }
-                } else
+                } 
+		        else
                 {
                     player.CenterPosition = player.PreviousPosition;
-                }
-                
-                
-
-            } else if (collidableObject is ItemCollidable)
+                } 
+            } 
+	        else if (collidableObject is ItemCollidable)
             {
                 this.player.AddItem(((ItemCollidable)collidableObject).Item);
                 //remove item from room
                 RoomItems.Instance.RemoveItem(((ItemCollidable)collidableObject).Item);
 
-            } else if (collidableObject is ProjectileCollidable)
+            } 
+	        else if (collidableObject is ProjectileCollidable)
             {
                 if (((ProjectileCollidable)collidableObject).IsEnemy)
                 {
                     player.TakeDamage(((ProjectileCollidable)collidableObject).DamageValue);
                 }
-            } else if (collidableObject is DoorCollidable)
+            } 
+	        else if (collidableObject is DoorCollidable)
             {
                 if (collisionOccurrences[0])
                 {
@@ -87,7 +89,6 @@ namespace cse3902.Collision.Collidables
                     collisionOccurrences[0] = true;
                 }
             }
-           
         }
 
         public ref Rectangle RectangleRef

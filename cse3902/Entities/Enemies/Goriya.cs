@@ -135,10 +135,7 @@ namespace cse3902.Entities.Enemies
                         break;
                 }
             }
-            else
-            {
-                travelDistance--;
-            }
+            else travelDistance--;
 
             ChangeDirection(direction);
             goriyaSprite.Update(gameTime);
