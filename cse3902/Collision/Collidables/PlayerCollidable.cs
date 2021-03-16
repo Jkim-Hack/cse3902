@@ -22,6 +22,11 @@ namespace cse3902.Collision.Collidables
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
+            if (collisionOccurrences[0])
+            {
+                return;
+            }
+
 
             if (collidableObject is EnemyCollidable)
             {
@@ -39,11 +44,17 @@ namespace cse3902.Collision.Collidables
                 
             } else if (collidableObject is BlockCollidable || collidableObject is WallCollidable)
             {
+                if (collisionOccurrences[0])
+                {
+                    return;
+                }
+
                 if (collidableObject is BlockCollidable)
                 {
                     if (!((BlockCollidable)collidableObject).IsWalkable)
                     {
                         player.CenterPosition = player.PreviousPosition;
+                        collisionOccurrences[0] = true;
                     }
                 } else
                 {
