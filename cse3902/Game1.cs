@@ -16,27 +16,32 @@ namespace cse3902
     public class Game1 : Game
     {
         private GraphicsDeviceManager graphics;
-        public SpriteBatch spriteBatch { get; set; }
+
+        private SpriteBatch spriteBatch;
+        public SpriteBatch SpriteBatch { get => spriteBatch; }
 
         private List<IController> controllerList;
 
         private AllCollidablesList allCollidablesList;
-
-        public RoomHandler roomHandler;
-
-        public IPlayer player { get; set; }
-
         public AllCollidablesList AllCollidablesList { get => this.allCollidablesList; }
 
-        public CollisionManager collisionManager { get; set; }
+        private RoomHandler roomHandler;
+        public RoomHandler RoomHandler { get => roomHandler; }
 
-        private Texture2D lineTexture;
+        private IPlayer player;
+        public IPlayer Player { get => player; }
 
-        public Camera camera { get; set;  }
+        private CollisionManager collisionManager;
+        public CollisionManager CollisionManager { get => collisionManager; }
+
+        private Camera camera;
+        public Camera Camera { get => camera; }
 
         private XMLParser xmlParser;
         
-        public Game1()
+        private Texture2D lineTexture;
+        
+	    public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -72,8 +77,8 @@ namespace cse3902
 
             player = new Link(this);
             camera = new Camera(this);
-
             roomHandler = new RoomHandler(this);
+            collisionManager = new CollisionManager(this);
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
@@ -86,13 +91,6 @@ namespace cse3902
             // For hitbox drawing
 	        lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
 	        lineTexture.SetData<Color>(new Color[] { Color.White });
-
-            // Testing purposes
-            RoomBackground.Instance.generateRoom(new Vector3(2,5,0), 13);
-            //RoomBackground.Instance.generateRoom(new Vector3(1, 0, 0), 1);
-            //camera.MoveCamera(new Vector2(256, 0), new Vector2(256, 176));
-
-            collisionManager = new CollisionManager(this);
 
             allCollidablesList.Insert((int)CollisionManager.CollisionPriority.PLAYER, player);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ENEMY_NPC, ref RoomEnemyNPCs.Instance.ListRef);

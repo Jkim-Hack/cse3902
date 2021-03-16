@@ -31,7 +31,7 @@ namespace cse3902.Entities.Enemies
             startingPos = start;
             center = startingPos;
 
-            goriyaSprite = (GoriyaSprite)EnemySpriteFactory.Instance.CreateGoriyaSprite(game.spriteBatch, center);
+            goriyaSprite = (GoriyaSprite)EnemySpriteFactory.Instance.CreateGoriyaSprite(game.SpriteBatch, center);
             goriyaStateMachine = new GoriyaStateMachine(goriyaSprite);
             speed = 25.0f;
             travelDistance = 0;
@@ -76,7 +76,7 @@ namespace cse3902.Entities.Enemies
         public void TakeDamage(int damage)
         {
             this.Health -= damage;
-            this.goriyaSprite.Damaged = true;
+            //this.goriyaSprite.Damaged = true;
         }
 
         public void Die()
@@ -135,10 +135,7 @@ namespace cse3902.Entities.Enemies
                         break;
                 }
             }
-            else
-            {
-                travelDistance--;
-            }
+            else travelDistance--;
 
             ChangeDirection(direction);
             goriyaSprite.Update(gameTime);

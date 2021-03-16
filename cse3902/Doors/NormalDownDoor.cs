@@ -18,7 +18,7 @@ namespace cse3902.Doors
         public NormalDownDoor(Game1 game, Vector2 center, IDoor.DoorState initialDoorState)
         {
             this.game = game;
-            doorSprite = DoorSpriteFactory.Instance.CreateDownDoorSprite(game.spriteBatch, center, initialDoorState);
+            doorSprite = DoorSpriteFactory.Instance.CreateDownDoorSprite(game.SpriteBatch, center, initialDoorState);
             roomTranslationVector = new Vector3(0, 1, 0);
             doorState = initialDoorState;
 
@@ -31,7 +31,7 @@ namespace cse3902.Doors
             {
                 case IDoor.DoorState.Open:
                 case IDoor.DoorState.Bombed:
-                    game.roomHandler.LoadNewRoom(game.roomHandler.currentRoom + roomTranslationVector, connectedDoor);
+                    game.RoomHandler.LoadNewRoom(game.RoomHandler.currentRoom + roomTranslationVector, connectedDoor);
                     break;
                 case IDoor.DoorState.Closed:
                 case IDoor.DoorState.Locked:
@@ -73,7 +73,7 @@ namespace cse3902.Doors
             set
             {
                 doorState = value;
-                doorSprite = DoorSpriteFactory.Instance.CreateDownDoorSprite(game.spriteBatch, doorSprite.Center,value);
+                doorSprite = DoorSpriteFactory.Instance.CreateDownDoorSprite(game.SpriteBatch, doorSprite.Center,value);
             }
         }
         public ref Rectangle Bounds

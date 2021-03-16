@@ -740,7 +740,7 @@
     </room>
     <room>
         <number>1,2,0</number>
-        <sprite>6</sprite>
+        <sprite>12</sprite>
 		<doors>
 			<door>
 				<type>Down</type>

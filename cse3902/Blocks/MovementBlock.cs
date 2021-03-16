@@ -30,7 +30,7 @@ namespace cse3902.Blocks
             directions.Add(new Vector2(1, 0));
             directions.Add(new Vector2(-1, 0));
 
-            game.player.Directions = directions;
+            game.Player.Directions = directions;
         }
         public void Interact(Vector2 pushDirection)
         {
@@ -39,7 +39,7 @@ namespace cse3902.Blocks
             directions.Add(new Vector2(1, 0));
             directions.Add(new Vector2(-1, 0));
 
-            game.player.Directions = directions;
+            game.Player.Directions = directions;
         }
         public void Draw()
         {
