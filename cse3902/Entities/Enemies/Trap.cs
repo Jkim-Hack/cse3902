@@ -103,5 +103,10 @@ namespace cse3902.Entities.Enemies
         {
             throw new NotImplementedException();
         }
+
+        public void StopShove()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

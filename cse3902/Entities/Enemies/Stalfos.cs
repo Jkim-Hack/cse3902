@@ -83,20 +83,25 @@ namespace cse3902.Entities.Enemies
 
         public void BeShoved()
         {
-            this.shoveDistance = 10;
-            this.shoveDirection = new Vector2(direction.X * -2, direction.Y * -2);
+            this.shoveDistance = 20;
+            this.shoveDirection = -this.direction;
+        }
+
+        public void StopShove()
+        {
+            this.shoveDistance = 0;
         }
 
         public void Update(GameTime gameTime)
         {
             this.collidable.ResetCollisions();
-            if (this.shoveDistance > -10) ShoveMovement();
+            if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
         }
 
         private void ShoveMovement()
         {
-            if (this.shoveDistance >= 0) this.CenterPosition += shoveDirection;
+            this.CenterPosition += shoveDirection;
             shoveDistance--;
         }
 

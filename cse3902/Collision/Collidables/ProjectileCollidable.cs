@@ -10,7 +10,7 @@ namespace cse3902.Collision.Collidables
     public class ProjectileCollidable : ICollidable
     {
         private IProjectile projectile;
-        private List<Boolean> collisionOccurrences = new List<Boolean>(6);
+        private Boolean[] collisionOccurrences;
 
         public ProjectileCollidable(IProjectile projectile)
         {
@@ -54,7 +54,7 @@ namespace cse3902.Collision.Collidables
 
         public void ResetCollisions()
         {
-            for (int i = 0; i < collisionOccurrences.Capacity; i++)
+            for (int i = 0; i < collisionOccurrences.Length; i++)
             {
                 collisionOccurrences[i] = false;
             }
