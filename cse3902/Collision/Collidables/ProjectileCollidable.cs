@@ -25,6 +25,11 @@ namespace cse3902.Collision.Collidables
                 RoomProjectiles.Instance.RemoveProjectile(this.projectile);
             }
 
+            if (collidableObject is PlayerCollidable && this.IsEnemy)
+            {
+                RoomProjectiles.Instance.RemoveProjectile(this.projectile);
+            }
+
 
         }
 
