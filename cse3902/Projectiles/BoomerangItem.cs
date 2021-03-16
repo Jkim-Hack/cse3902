@@ -84,16 +84,17 @@ namespace cse3902.Projectiles
 
         public int Update(GameTime gameTime)
         {
-            int offset = 0;
-            if (turns % 2 == 0)
+            if (animationComplete)
             {
-                offset = 50;
+                return -1;
             }
+
+            int offset = 50;
 
             if (direction.X == 1)
             {
                 currentX += 2;
-                if (currentX > startingPosition.X + offset)
+                if (currentX > startingPosition.X  && turns == 0)
                 {
                     direction = new Vector2(-1,0);
                     turns++;
@@ -102,7 +103,7 @@ namespace cse3902.Projectiles
             else if (direction.X == -1)
             {
                 currentX -= 2;
-                if (currentX < startingPosition.X - offset)
+                if (currentX < startingPosition.X - offset && turns == 0)
                 {
                     direction = new Vector2(1,0);
                     turns++;
@@ -112,7 +113,7 @@ namespace cse3902.Projectiles
             if (direction.Y == 1)
             {
                 currentY += 2;
-                if (currentY > startingPosition.Y + offset)
+                if (currentY > startingPosition.Y + offset && turns == 0)
                 {
                     direction = new Vector2(0, -1);
                     turns++;
@@ -121,7 +122,7 @@ namespace cse3902.Projectiles
             else
             {
                 currentY -= 2;
-                if (currentY < startingPosition.Y - offset)
+                if (currentY < startingPosition.Y - offset && turns == 0)
                 {
                     direction = new Vector2(0, 1);
                     turns++;

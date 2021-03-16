@@ -15,9 +15,10 @@ namespace cse3902.Collision
             PLAYER = 0,
             ENEMY_NPC = 1,
             ITEMS = 2,
-            BLOCKS = 3,
-            DOORS = 4,
-            BACKGROUND = 5
+            PROJECTILES = 3,
+            BLOCKS = 4,
+            DOORS = 5,
+            BACKGROUND = 6
         }
 
         // <priority level, <Collidable's Rectangle, Collidable object>>
@@ -106,7 +107,7 @@ namespace cse3902.Collision
 
         public void DrawAllRectangles(Texture2D lineTexture, Color color, int lineWidth)
         {
-            SpriteBatch spriteBatch = this.game.spriteBatch;
+            SpriteBatch spriteBatch = this.game.SpriteBatch;
             foreach (var collidableDictionary in allCollidableObjects.Values)
             {
                 foreach (var rectangle in collidableDictionary.Keys)

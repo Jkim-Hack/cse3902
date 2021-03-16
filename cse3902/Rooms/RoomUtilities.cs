@@ -61,7 +61,7 @@ namespace cse3902.Rooms
         {
             Vector2 pos = ConvertVector(roomLoc);
             pos += new Vector2(WALL_SIZE, WALL_SIZE);
-            pos *= new Vector2(BLOCK_SIDE, BLOCK_SIDE);
+            pos += new Vector2((BLOCK_SIDE-1)*blockLoc.X, (BLOCK_SIDE - 1) * blockLoc.Y);
             pos += new Vector2(BLOCK_SIDE / 2, BLOCK_SIDE / 2);
             pos += blockLoc;
             return pos;

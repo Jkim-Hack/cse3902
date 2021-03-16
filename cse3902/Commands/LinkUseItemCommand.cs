@@ -16,8 +16,8 @@ namespace cse3902.Commands
             id = id % 4;
             id++;
 
-            game.player.ChangeItem(id);
-            game.player.UseItem();
+            game.Player.ChangeItem(id);
+            game.Player.UseItem();
         }
 
         public void Unexecute()

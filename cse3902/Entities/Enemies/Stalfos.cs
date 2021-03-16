@@ -1,10 +1,10 @@
-﻿using cse3902.Interfaces;
+﻿using System;
+using cse3902.Interfaces;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input; // JUST FOR TESTING
 
 namespace cse3902.Entities.Enemies
 {
@@ -34,9 +34,8 @@ namespace cse3902.Entities.Enemies
             //stalfos sprite sheet is 1 row, 2 columns
             stalfosSprite = (StalfosSprite)EnemySpriteFactory.Instance.CreateStalfosSprite(game.spriteBatch, center);
             stalfosStateMachine = new StalfosStateMachine(stalfosSprite);
-            direction = new Vector2(-1, 0);
-            speed = 50.0f;
-            travelDistance = 80;
+            speed = 30.0f;
+            travelDistance = 0;
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
@@ -65,6 +64,10 @@ namespace cse3902.Entities.Enemies
             {
                 this.direction.X = -this.direction.X;
                 this.direction.Y = -this.direction.Y;
+            } else
+            {
+                this.direction.X = direction.X;
+                this.direction.Y = direction.Y;
             }
         }
 
@@ -86,7 +89,6 @@ namespace cse3902.Entities.Enemies
 
         public void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && this.shoveDistance <= -10) BeShoved(); // JUST FOR TESTING
 
             if (this.shoveDistance > -10) ShoveMovement();
             else RegularMovement(gameTime);
@@ -102,13 +104,37 @@ namespace cse3902.Entities.Enemies
         {
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance)
+            if (travelDistance <= 0)
             {
-                direction.X = 1;
+                Random rand = new System.Random();
+                int choice = rand.Next(0, 4);
+                travelDistance = 80;
+
+                switch (choice)
+                {
+                    case 0:
+                        direction.X = 1;
+                        direction.Y = 0;
+                        break;
+                    case 1:
+                        direction.X = -1;
+                        direction.Y = 0;
+                        break;
+                    case 2:
+                        direction.X = 0;
+                        direction.Y = 1;
+                        break;
+                    case 3:
+                        direction.X = 0;
+                        direction.Y = -1;
+                        break;
+                    default:
+                        break;
+                }
             }
-            else if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance)
+            else
             {
-                direction.X = -1;
+                travelDistance--;
             }
 
             stalfosSprite.Update(gameTime);

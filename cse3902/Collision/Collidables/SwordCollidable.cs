@@ -9,11 +9,9 @@ namespace cse3902.Collision.Collidables
         private IProjectile sword;
         private int damage;
 
-        //todo: change to use some kind of sword class or interface instead of projectile
-        public SwordCollidable(IProjectile projectile, int damage)
+        public SwordCollidable(IProjectile projectile)
         {
             this.sword = projectile;
-            this.damage = damage;
         }
 
 
@@ -30,7 +28,7 @@ namespace cse3902.Collision.Collidables
              
         public int DamageValue
         {
-            get => damage;
+            get => this.sword.Damage;
         }
 
         public Vector2 Direction

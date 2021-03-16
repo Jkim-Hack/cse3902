@@ -35,7 +35,7 @@ namespace cse3902.XMLParsing
                 int x = Int32.Parse(xloc.Value);
                 int y = Int32.Parse(yloc.Value);
 
-                Vector2 truePos = RoomUtilities.CalculateBlockCenter(roomobj.roomPos, new Vector2(x, y));
+                Vector2 truePos = RoomUtilities.CalculateBlockCenter(roomobj.RoomPos, new Vector2(x, y));
 
                 IItem itemAdd = CreateItem(typeName.Value, truePos);
                 roomobj.AddItem(itemAdd);
@@ -44,29 +44,38 @@ namespace cse3902.XMLParsing
 
         private IItem CreateItem(String type, Vector2 startPos)
         {
-            IItem newItem = null;
+            IItem newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartItem(game.SpriteBatch, startPos);
             switch (type)
             {
                 case "Arrow":
-                    newItem = ItemSpriteFactory.Instance.CreateArrowItem(game.spriteBatch, startPos, new Vector2(1, 0));
+                    newItem = ItemSpriteFactory.Instance.CreateArrowItem(game.SpriteBatch, startPos, new Vector2(1, 0));
                     break;
                 case "Bow":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(game.spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(game.SpriteBatch, startPos);
                     break;
                 case "Clock":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(game.spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(game.SpriteBatch, startPos);
                     break;
                 case "Compass":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateCompassItem(game.spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateCompassItem(game.SpriteBatch, startPos);
                     break;
                 case "Fairy":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateFairyItem(game.spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateFairyItem(game.SpriteBatch, startPos);
                     break;
                 case "HeartContainer":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartContainerItem(game.spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartContainerItem(game.SpriteBatch, startPos);
                     break;
                 case "Heart":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartItem(game.spriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartItem(game.SpriteBatch, startPos);
+                    break;
+                case "Key":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateKeyItem(game.SpriteBatch, startPos);
+                    break;
+                case "Map":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateMapItem(game.SpriteBatch, startPos);
+                    break;
+                case "Triforce":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateTriforceItem(game.SpriteBatch, startPos);
                     break;
                 default:
                     //createdItem = null;

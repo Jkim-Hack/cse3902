@@ -95,7 +95,7 @@ namespace cse3902.Rooms
                 oldSpriteList[i] = oldSpriteList[i];
             }
 
-            background = new List<ISprite>();
+            background.Clear();
 
             for (int i = 0; i < newSpriteList.Count; i++)
             {
@@ -109,7 +109,7 @@ namespace cse3902.Rooms
                 oldWallList[i] = Walls[i];
             }
 
-            Walls = new List<ICollidable>();
+            Walls.Clear();
 
             for (int i = 0; i < newWallList.Count; i++)
             {

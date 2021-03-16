@@ -36,7 +36,7 @@ namespace cse3902.XMLParsing
                 int x = Int32.Parse(xloc.Value);
                 int y = Int32.Parse(yloc.Value);
 
-                Vector2 truePos = RoomUtilities.CalculateBlockCenter(roomobj.roomPos, new Vector2(x, y));
+                Vector2 truePos = RoomUtilities.CalculateBlockCenter(roomobj.RoomPos, new Vector2(x, y));
 
                 IEntity enemyAdd = CreateEnemy(typeName.Value, truePos);
                 roomobj.AddEnemy(enemyAdd);
@@ -45,7 +45,7 @@ namespace cse3902.XMLParsing
 
         private IEntity CreateEnemy(String type, Vector2 startingPos)
         {
-            IEntity newEnemy = null;
+            IEntity newEnemy = new OldManNPC(game, startingPos);
             switch (type)
             {
                 case "Aquamentus":
@@ -63,7 +63,7 @@ namespace cse3902.XMLParsing
                 case "Stalfos":
                     newEnemy = new Stalfos(game, startingPos);
                     break;
-                case "WallMaster":
+                case "Wallmaster":
                     newEnemy = new WallMaster(game, startingPos);
                     break;
                 case "OldMan":
@@ -74,6 +74,9 @@ namespace cse3902.XMLParsing
                     break;
                 case "Merchant":
                     newEnemy = new MerchantNPC(game, startingPos);
+                    break;
+                case "Flame":
+                    newEnemy = new FlameNPC(game, startingPos);
                     break;
                 default:
                     //createdItem = null;

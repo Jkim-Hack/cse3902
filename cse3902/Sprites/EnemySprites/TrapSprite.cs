@@ -6,12 +6,12 @@ using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Sprites.EnemySprites
 {
-    public class KeeseSprite: ISprite
+    public class TrapSprite : ISprite
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
-        private Vector2 center;
 
+        private Vector2 center;
         private int currentFrame;
         private int totalFrames;
         private Rectangle[] frames;
@@ -24,11 +24,13 @@ namespace cse3902.Sprites.EnemySprites
         private const float delay = 0.2f;
         private float remainingDelay;
 
+        private bool isAttacking;
+
         private Rectangle destination;
 
         private const float sizeIncrease = 1f;
 
-        public KeeseSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
+        public TrapSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
@@ -44,11 +46,11 @@ namespace cse3902.Sprites.EnemySprites
             frameHeight = spriteTexture.Height / rows;
             frames = new Rectangle[totalFrames];
 
-            
             center = startingPosition;
 
-            DistributeFrames(columns);
+            isAttacking = false;
 
+            DistributeFrames(columns);
         }
 
         private void DistributeFrames(int columns)
@@ -112,6 +114,25 @@ namespace cse3902.Sprites.EnemySprites
         public Texture2D Texture
         {
             get => spriteTexture;
+        }
+
+        public int StartingFrameIndex
+        {
+            get => startingFrameIndex;
+            set
+            {
+                startingFrameIndex = value;
+                endingFrameIndex = value + 2;
+            }
+        }
+
+        public bool IsAttacking
+        {
+            get => isAttacking;
+            set
+            {
+                isAttacking = value;
+            }
         }
     }
 }

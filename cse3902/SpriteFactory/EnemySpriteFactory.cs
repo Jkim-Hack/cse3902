@@ -14,6 +14,7 @@ namespace cse3902.SpriteFactory
         private Texture2D keese;
         private Texture2D stalfos;
         private Texture2D wallmaster;
+        private Texture2D trap;
 
         private Texture2D goriyaDamageSequence;
         private Texture2D bossDamageSequence;
@@ -37,6 +38,7 @@ namespace cse3902.SpriteFactory
             keese = content.Load<Texture2D>("enemies/keese");
             stalfos = content.Load<Texture2D>("enemies/stalfos");
             wallmaster = content.Load<Texture2D>("enemies/wall_master");
+            trap = content.Load<Texture2D>("enemies/trap");
             goriyaDamageSequence = content.Load<Texture2D>("enemies/goriya_hurt");
             bossDamageSequence = content.Load<Texture2D>("enemies/bosses_hurt");
 	    }
@@ -69,6 +71,11 @@ namespace cse3902.SpriteFactory
         public ISprite CreateWallMasterSprite(SpriteBatch spriteBatch, Vector2 center)
         {
             return new WallMasterSprite(spriteBatch, wallmaster, 4, 2, center);
+        }
+
+        public ISprite CreateTrapSprite(SpriteBatch spriteBatch, Vector2 center)
+        {
+            return new TrapSprite(spriteBatch, wallmaster, 1, 1, center);
         }
     }
 }

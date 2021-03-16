@@ -17,7 +17,7 @@ namespace cse3902.Doors
         public DownStaircaseDoor(Game1 game, Vector2 center)
         {
             this.game = game;
-            doorSprite = DoorSpriteFactory.Instance.CreateStaircaseSprite(game.spriteBatch, center);
+            doorSprite = DoorSpriteFactory.Instance.CreateStaircaseSprite(game.SpriteBatch, center);
             roomTranslationVector = new Vector3(0, 0, -1);
 
             this.collidable = new DoorCollidable(this);
@@ -25,7 +25,7 @@ namespace cse3902.Doors
 
         public void Interact()
         {
-            game.roomHandler.LoadNewRoom(game.roomHandler.currentRoom + roomTranslationVector, connectedDoor);
+            game.RoomHandler.LoadNewRoom(game.RoomHandler.currentRoom + roomTranslationVector, connectedDoor);
         }
         public Vector2 PlayerReleasePosition()
         {
@@ -39,10 +39,19 @@ namespace cse3902.Doors
         {
             doorSprite.Draw();
         }
-        public void ChangeState(IDoor.DoorState doorState)
+
+        public IDoor.DoorState State
         {
-            //do nothing
+            get
+            {
+                return IDoor.DoorState.None;
+            }
+            set
+            {
+
+            }
         }
+
         public ref Rectangle Bounds
         {
             get

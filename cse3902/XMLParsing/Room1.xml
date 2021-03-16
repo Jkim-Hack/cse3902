@@ -2,6 +2,7 @@
 <rooms>
     <room>
         <number>1,5,0</number>
+        <sprite>12</sprite>
         <items>
             <item>
                 <type>Key</type>
@@ -59,11 +60,30 @@
 			</door>
         </doors>
     </room>
+	<room>
+		<doors>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
+		<number>2,6,0</number>
+		<sprite>13</sprite>
+		<items>
+		</items>
+		<enemies>
+		</enemies>
+		<blocks>
+		</blocks>
+	</room>
     <room>
 		<doors>
             <door>
                 <type>Down</type>
-                <pos>2</pos>
+                <pos>0</pos>
 				<state>Open</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
@@ -91,6 +111,7 @@
 			</door>
         </doors>
         <number>2,5,0</number>
+        <sprite>13</sprite>
         <items>
         </items>
         <enemies>
@@ -100,6 +121,7 @@
     </room>
     <room>
         <number>3,5,0</number>
+        <sprite>14</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -248,6 +270,7 @@
     </room>
     <room>
         <number>2,4,0</number>
+        <sprite>10</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -288,7 +311,7 @@
             </enemy>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>5</xloc>
+                <xloc>4</xloc>
                 <yloc>2</yloc>
             </enemy>
             <enemy>
@@ -344,6 +367,7 @@
     </room>
     <room>
         <number>1,3,0</number>
+        <sprite>10</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -455,6 +479,7 @@
     </room>
     <room>
         <number>2,3,0</number>
+        <sprite>8</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -552,6 +577,7 @@
     </room>
     <room>
         <number>3,3,0</number>
+        <sprite>11</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -659,6 +685,7 @@
     </room>
     <room>
         <number>0,2,0</number>
+        <sprite>5</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -697,12 +724,23 @@
                 <xloc>5</xloc>
                 <yloc>3</yloc>
             </enemy>
+            <enemy>
+                <type>Flame</type>
+                <xloc>3</xloc>
+                <yloc>3</yloc>
+            </enemy>
+            <enemy>
+                <type>Flame</type>
+                <xloc>7</xloc>
+                <yloc>3</yloc>
+            </enemy>
         </enemies>
         <blocks>
         </blocks>
     </room>
     <room>
         <number>1,2,0</number>
+        <sprite>6</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -764,6 +802,7 @@
     </room>
     <room>
         <number>2,2,0</number>
+        <sprite>7</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -903,6 +942,7 @@
     </room>
     <room>
         <number>3,2,0</number>
+        <sprite>8</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -985,6 +1025,7 @@
     </room>
     <room>
         <number>4,2,0</number>
+        <sprite>9</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -1195,6 +1236,7 @@
     </room>
     <room>
         <number>2,1,0</number>
+        <sprite>2</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -1245,10 +1287,333 @@
             </enemy>
         </enemies> 
         <blocks>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>0</xloc>
+                <yloc>0</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>1</xloc>
+                <yloc>0</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>2</xloc>
+                <yloc>0</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>3</xloc>
+                <yloc>0</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>4</xloc>
+                <yloc>0</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>7</xloc>
+                <yloc>0</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>8</xloc>
+                <yloc>0</yloc>
+				<push>0</push>
+            </block>
+             <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>9</xloc>
+                <yloc>0</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>10</xloc>
+                <yloc>0</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>11</xloc>
+                <yloc>0</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>0</xloc>
+                <yloc>1</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>4</xloc>
+                <yloc>1</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>9</xloc>
+                <yloc>1</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>11</xloc>
+                <yloc>1</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>0</xloc>
+                <yloc>2</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>2</xloc>
+                <yloc>2</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>4</xloc>
+                <yloc>2</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>6</xloc>
+                <yloc>2</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>7</xloc>
+                <yloc>2</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>9</xloc>
+                <yloc>2</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>11</xloc>
+                <yloc>2</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>2</xloc>
+                <yloc>3</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>4</xloc>
+                <yloc>3</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>7</xloc>
+                <yloc>3</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>9</xloc>
+                <yloc>3</yloc>
+				<push>0</push>
+            </block>
+             <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>0</xloc>
+                <yloc>4</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>2</xloc>
+                <yloc>4</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>4</xloc>
+                <yloc>4</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>5</xloc>
+                <yloc>4</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>7</xloc>
+                <yloc>4</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>9</xloc>
+                <yloc>4</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>11</xloc>
+                <yloc>4</yloc>
+				<push>0</push>
+            </block>
+             <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>0</xloc>
+                <yloc>5</yloc>
+				<push>0</push>
+            </block>
+             <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>2</xloc>
+                <yloc>5</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>7</xloc>
+                <yloc>5</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>11</xloc>
+                <yloc>5</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>0</xloc>
+                <yloc>6</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>1</xloc>
+                <yloc>6</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>2</xloc>
+                <yloc>6</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>3</xloc>
+                <yloc>6</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>4</xloc>
+                <yloc>6</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>7</xloc>
+                <yloc>6</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>8</xloc>
+                <yloc>6</yloc>
+				<push>0</push>
+            </block>
+             <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>9</xloc>
+                <yloc>6</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>10</xloc>
+                <yloc>6</yloc>
+				<push>0</push>
+            </block>
+            <block>
+                <type>Water</type>
+                <dir>Still</dir>
+                <xloc>11</xloc>
+                <yloc>6</yloc>
+				<push>0</push>
+            </block>
         </blocks>
     </room>
      <room>
         <number>4,1,0</number>
+        <sprite>3</sprite>
 		 <doors>
 			 <door>
 				 <type>Down</type>
@@ -1438,6 +1803,7 @@
     </room>
     <room>
         <number>5,1,0</number>
+        <sprite>4</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -1650,6 +2016,7 @@
     </room>
     <room>
         <number>1,0,0</number>
+        <sprite>12</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -1757,6 +2124,7 @@
     </room>
     <room>
         <number>2,0,0</number>
+        <sprite>1</sprite>
 		<doors>
 			<door>
 				<type>Down</type>
@@ -1984,6 +2352,7 @@
     </room>
     <room>
         <number>1,0,-1</number>
+        <sprite>-1</sprite>
 		<doors>
 			<door>
 				<type>OffscreenUp</type>
@@ -2023,6 +2392,83 @@
             </enemy>
         </enemies> 
         <blocks>
+			<block>
+				<type>Movement</type>
+				<dir>Still</dir>
+				<xloc>5</xloc>
+				<yloc>6</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Movement</type>
+				<dir>Still</dir>
+				<xloc>5</xloc>
+				<yloc>7</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Movement</type>
+				<dir>Still</dir>
+				<xloc>9</xloc>
+				<yloc>6</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Movement</type>
+				<dir>Still</dir>
+				<xloc>9</xloc>
+				<yloc>7</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Movement</type>
+				<dir>Still</dir>
+				<xloc>13</xloc>
+				<yloc>6</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Movement</type>
+				<dir>Still</dir>
+				<xloc>13</xloc>
+				<yloc>7</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Movement</type>
+				<dir>Still</dir>
+				<xloc>10</xloc>
+				<yloc>3</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Movement</type>
+				<dir>Still</dir>
+				<xloc>10</xloc>
+				<yloc>4</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Movement</type>
+				<dir>Still</dir>
+				<xloc>11</xloc>
+				<yloc>3</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Movement</type>
+				<dir>Still</dir>
+				<xloc>12</xloc>
+				<yloc>3</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Movement</type>
+				<dir>Still</dir>
+				<xloc>12</xloc>
+				<yloc>4</yloc>
+				<push>0</push>
+			</block>
 			<block>
 				<type>Ladder</type>
 				<dir>Still</dir>

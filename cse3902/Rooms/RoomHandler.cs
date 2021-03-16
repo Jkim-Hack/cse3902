@@ -23,7 +23,8 @@ namespace cse3902.Rooms
 
         public Vector3 currentRoom { get; set; }
         private Vector3 previousRoom;
-        private Vector3 startingRoom { get; }
+        private Vector3 startingRoom;
+        public Vector3 startingRoomTranslation { get; }
         private bool startComplete;
 
         public RoomHandler(Game1 game)
@@ -32,14 +33,15 @@ namespace cse3902.Rooms
             xmlParser = new XMLParser(this, game);
             roomTransitionManager = new RoomTransitionManager(game);
             camera = game.Camera;
-            startingRoom = new Vector3(2, 5, 0);
+            startingRoom = new Vector3(2, 6, 0);
             currentRoom = startingRoom;
+            startingRoomTranslation = new Vector3(0, -1, 0);
             startComplete = false;
         }
 
         public void Initialize()
         {
-            String url = "https://raw.githubusercontent.com/Jkim-Hack/cse3902/file-input/cse3902/Rooms/Room1.xml";
+            String url = "https://raw.githubusercontent.com/Jkim-Hack/cse3902/master/cse3902/XMLParsing/Room1.xml";
             xmlParser.ParseXML(url);
         }
 
@@ -74,12 +76,12 @@ namespace cse3902.Rooms
             roomTransitionManager.StartTransitionManager(entranceDoor);
         }
 
-        public void LoadNewRoom(Vector3 roomChange)
+        public void LoadNewRoom(Vector3 roomChange, int i)
         {
             if (!roomTransitionManager.IsTransitioning())
             {
                 roomChange += currentRoom;
-                if (rooms.ContainsKey(roomChange)) LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[0]);
+                if (rooms.ContainsKey(roomChange)) LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[i]);
             }
         }
 
@@ -93,7 +95,7 @@ namespace cse3902.Rooms
             {
                 RoomItems.Instance.Update(gameTime);
                 RoomEnemyNPCs.Instance.Update(gameTime);
-                ProjectileHandler.Instance.Update(gameTime);
+                RoomProjectiles.Instance.Update(gameTime);
             }
 
             RoomBackground.Instance.Update(gameTime);
@@ -109,9 +111,10 @@ namespace cse3902.Rooms
             {
                 RoomItems.Instance.Draw();
                 RoomEnemyNPCs.Instance.Draw();
-                ProjectileHandler.Instance.Draw();
+                RoomProjectiles.Instance.Draw();
             }
 
+            RoomDoors.Instance.Draw();
             RoomBlocks.Instance.Draw();
             RoomBackground.Instance.Draw();
         }
@@ -119,7 +122,7 @@ namespace cse3902.Rooms
         public void CompleteStart()
         {
             startComplete = true;
-            rooms.GetValueOrDefault(startingRoom).Doors[0].ChangeState(IDoor.DoorState.Wall);
+            rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Wall;
         }
 
         public void Reset()

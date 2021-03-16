@@ -30,6 +30,7 @@ namespace cse3902.Sprites
         private Texture2D spriteTexture;
 
         private Vector2 center;
+        private Vector2 previousPosition;
         private Vector2 startingPosition;
         private Vector2 size;
 
@@ -49,6 +50,8 @@ namespace cse3902.Sprites
         private Rectangle destination;
 
         private const float damageDelay = .05f;
+
+        private const float hitboxSizeModifier = 1.5f;
 
         private bool pauseMovement;
 
@@ -70,6 +73,7 @@ namespace cse3902.Sprites
 
 	        this.startingPosition = startingPosition;
             center = startingPosition;
+            previousPosition = center;
             
             pauseMovement = false;
         }
@@ -139,8 +143,8 @@ namespace cse3902.Sprites
         {
             get
             {
-                int width = (int)(sizeIncrease * size.X);
-                int height = (int)(sizeIncrease * size.Y);
+                int width = (int)(sizeIncrease * size.X / hitboxSizeModifier);
+                int height = (int)(sizeIncrease * size.Y / hitboxSizeModifier);
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
@@ -152,6 +156,12 @@ namespace cse3902.Sprites
         {
             get => center;
             set => center = value;
+        }
+
+        public Vector2 PreviousCenter
+        {
+            get => previousPosition;
+            set => previousPosition = value;
         }
 
         public Texture2D Texture

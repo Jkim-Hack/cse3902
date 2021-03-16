@@ -18,7 +18,7 @@ namespace cse3902.Doors
         public NormalUpDoor(Game1 game, Vector2 center, IDoor.DoorState initialDoorState)
         {
             this.game = game;
-            doorSprite = DoorSpriteFactory.Instance.CreateUpDoorSprite(game.spriteBatch, center, initialDoorState);
+            doorSprite = DoorSpriteFactory.Instance.CreateUpDoorSprite(game.SpriteBatch, center, initialDoorState);
             roomTranslationVector = new Vector3(0, -1, 0);
             doorState = initialDoorState;
 
@@ -31,19 +31,19 @@ namespace cse3902.Doors
             {
                 case IDoor.DoorState.Open:
                 case IDoor.DoorState.Bombed:
-                    game.roomHandler.LoadNewRoom(game.roomHandler.currentRoom + roomTranslationVector, connectedDoor);
+                    game.RoomHandler.LoadNewRoom(game.RoomHandler.currentRoom + roomTranslationVector, connectedDoor);
                     break;
                 case IDoor.DoorState.Closed:
                 case IDoor.DoorState.Locked:
-                    ChangeState(IDoor.DoorState.Open);
-                    connectedDoor.ChangeState(IDoor.DoorState.Open);
+                    State = IDoor.DoorState.Open;
+                    connectedDoor.State = IDoor.DoorState.Open;
                     break;/*
                 case IDoor.DoorState.Locked:
                     if (game.player.inventory.contains(key))
                     {
                         game.player.inventory.key--;
-                        ChangeState(IDoor.DoorState.Open);
-                        connectedDoor.ChangeState(IDoor.DoorState.Open);
+                        State = IDoor.DoorState.Open;
+                        connectedDoor.State = IDoor.DoorState.Open;
                     }
                     break;*/
                 case IDoor.DoorState.Wall: //do nothing
@@ -64,10 +64,17 @@ namespace cse3902.Doors
         {
             doorSprite.Draw();
         }
-        public void ChangeState(IDoor.DoorState newDoorState)
+        public IDoor.DoorState State
         {
-            doorState = newDoorState;
-            doorSprite = DoorSpriteFactory.Instance.CreateUpDoorSprite(game.spriteBatch, doorSprite.Center, newDoorState);
+            get
+            {
+                return doorState;
+            }
+            set
+            {
+                doorState = value;
+                doorSprite = DoorSpriteFactory.Instance.CreateUpDoorSprite(game.SpriteBatch, doorSprite.Center, value);
+            }
         }
         public ref Rectangle Bounds
         {

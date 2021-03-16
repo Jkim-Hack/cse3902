@@ -6,9 +6,9 @@ using cse3902.SpriteFactory;
 
 namespace cse3902.Entities
 {
-    class OldManNPC : IEntity
+    class FlameNPC : IEntity
     {
-        private ISprite oldManSprite;
+        private ISprite flameSprite;
 
         private readonly Game1 game;
 
@@ -18,17 +18,17 @@ namespace cse3902.Entities
 
         private ICollidable collidable;
 
-        public OldManNPC(Game1 game, Vector2 start)
+        public FlameNPC(Game1 game, Vector2 start)
         {
             this.game = game;
             centerPosition = start;
-            oldManSprite = NPCSpriteFactory.Instance.CreateOldManSprite(game.SpriteBatch,centerPosition);
+            flameSprite = NPCSpriteFactory.Instance.CreateFlameSprite(game.SpriteBatch, centerPosition);
 
             this.collidable = new NPCCollidable(this);
         }
         public ref Rectangle Bounds
         {
-            get => ref oldManSprite.Box;
+            get => ref flameSprite.Box;
         }
 
         public void Attack()
@@ -52,10 +52,10 @@ namespace cse3902.Entities
         {
             //NPCs don't get shoved
         }
-     
+
         public void Update(GameTime gameTime)
         {
-            oldManSprite.Update(gameTime);
+            flameSprite.Update(gameTime);
         }
 
         public void setMessage(string msg)
@@ -64,13 +64,12 @@ namespace cse3902.Entities
         }
         public void Draw()
         {
-            oldManSprite.Draw();
+            flameSprite.Draw();
         }
 
         public int Health
         {
             get => 0;
-
         }
 
         public Vector2 Direction

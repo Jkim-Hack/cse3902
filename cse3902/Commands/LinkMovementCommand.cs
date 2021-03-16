@@ -35,12 +35,12 @@ namespace cse3902.Commands
                     break;
             }
 
-            if (!game.roomHandler.roomTransitionManager.IsTransitioning()) game.player.ChangeDirection(direction);
+            if (!game.RoomHandler.roomTransitionManager.IsTransitioning()) game.Player.ChangeDirection(direction);
         }
 
         public void Unexecute()
         {
-            if (!game.roomHandler.roomTransitionManager.IsTransitioning()) game.player.ChangeDirection(new Vector2(0, 0));
+            if (!game.RoomHandler.roomTransitionManager.IsTransitioning()) game.Player.ChangeDirection(new Vector2(0, 0));
         }
     }
 }

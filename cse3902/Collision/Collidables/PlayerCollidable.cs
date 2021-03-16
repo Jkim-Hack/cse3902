@@ -1,5 +1,6 @@
 ﻿using System;
 using cse3902.Interfaces;
+using cse3902.Rooms;
 using Microsoft.Xna.Framework;
 
 namespace cse3902.Collision.Collidables
@@ -18,11 +19,7 @@ namespace cse3902.Collision.Collidables
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
-            player.TakeDamage(collidableObject.DamageValue);
 
-            //todo: these cases don't currently account for aquamentus fireball
-            //should probably just consider it a projectile and check if
-            //the projectile is fireball or not
             if (collidableObject is EnemyCollidable)
             {
                 //take damage and get shoved back by enemy
@@ -30,21 +27,34 @@ namespace cse3902.Collision.Collidables
 
                 if (player.Health <= 0)
                 {
-                    //todo: destroy object
+                    //remove link from room
+                    RoomEnemyNPCs.Instance.RemoveENPC(this.player);
                 } else
                 {
                     player.BeShoved();
                 }
                 
-            } else if (collidableObject is BlockCollidable)
+            } else if (collidableObject is BlockCollidable || collidableObject is WallCollidable)
             {
-                //prevent link from phasing into block
-                player.CenterPosition = player.PreviousPosition;
+                if (collidableObject is BlockCollidable)
+                {
+                    if (!((BlockCollidable)collidableObject).IsWalkable)
+                    {
+                        player.CenterPosition = player.PreviousPosition;
+                    }
+                } else
+                {
+                    player.CenterPosition = player.PreviousPosition;
+                }
+                
+                
 
             } else if (collidableObject is ItemCollidable)
             {
                 this.player.AddItem(((ItemCollidable)collidableObject).Item);
-                //todo: destroy item object from floor/wherever
+                //remove item from room
+                RoomItems.Instance.RemoveItem(((ItemCollidable)collidableObject).Item);
+
             } else if (collidableObject is ProjectileCollidable)
             {
                 if (((ProjectileCollidable)collidableObject).IsEnemy)

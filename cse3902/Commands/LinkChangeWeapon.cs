@@ -15,7 +15,7 @@ namespace cse3902.Commands
         {
             id = id % 4;
 
-            game.player.ChangeWeapon(id);
+            game.Player.ChangeWeapon(id);
         }
 
         public void Unexecute()

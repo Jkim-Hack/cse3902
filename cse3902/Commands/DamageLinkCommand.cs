@@ -14,7 +14,7 @@ namespace cse3902.Commands
         public void Execute(int id)
         {
             //TODO: just a placeholder, will need to reflect how much damage link was dealt
-            game.player.TakeDamage(10);
+            game.Player.TakeDamage(10);
         }
 
         public void Unexecute()

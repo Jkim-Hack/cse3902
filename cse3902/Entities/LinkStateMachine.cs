@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
-using Microsoft.Xna.Framework.Input; // JUST FOR TESTING
 
 namespace cse3902.Entities
 {
@@ -143,8 +142,6 @@ namespace cse3902.Entities
 
         public void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && this.shoveDistance <= -10) BeShoved(); // JUST FOR TESTING
-
             UpdateDamageDelay(gameTime);
             
 
@@ -317,6 +314,7 @@ namespace cse3902.Entities
             get => this.linkSprite.Center;
             set
             {
+                this.linkSprite.PreviousCenter = this.linkSprite.Center;
                 this.linkSprite.Center = value;
                 this.centerPosition = value;
             }

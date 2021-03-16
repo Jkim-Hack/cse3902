@@ -102,13 +102,14 @@ namespace cse3902
             allCollidablesList.Insert((int)CollisionManager.CollisionPriority.PLAYER, player);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ENEMY_NPC, ref RoomEnemyNPCs.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ITEMS, ref RoomItems.Instance.ListRef);
+            allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.PROJECTILES, ref RoomProjectiles.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BLOCKS, ref RoomBlocks.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.DOORS, ref RoomDoors.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BACKGROUND, ref RoomBackground.Instance.WallsListRef);
 
             xmlParser = new XMLParser(roomHandler,this);
             xmlParser.ParseXML("XMLParsing/Room1.xml");
-            roomHandler.LoadNewRoom(new Vector3(0, 0, 0));
+            roomHandler.LoadNewRoom(roomHandler.startingRoomTranslation,0);
         }
 
         /// <summary>
