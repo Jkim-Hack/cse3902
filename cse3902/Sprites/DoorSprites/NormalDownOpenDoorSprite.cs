@@ -30,7 +30,7 @@ namespace cse3902.Sprites
         {
             Vector2 origin = new Vector2(door.Width / 2f, door.Height / 2f);
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(door.Width * sizeIncrease), (int)(door.Height * sizeIncrease));
-            spriteBatch.Draw(spriteTexture, Destination, door, Color.White, 0, origin, SpriteEffects.None, 0.3f);
+            spriteBatch.Draw(spriteTexture, Destination, door, Color.White, 0, origin, SpriteEffects.None, 0.2f);
         }
 
         public int Update(GameTime gameTime)
