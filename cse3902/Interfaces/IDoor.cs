@@ -22,5 +22,6 @@ namespace cse3902.Interfaces
         public Vector2 PlayerReleaseDirection();
         public void Draw();
         public DoorState State { get; set; }
+        public void Reset();
     }
 }

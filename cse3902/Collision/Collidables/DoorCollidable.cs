@@ -23,42 +23,29 @@ namespace cse3902.Collision.Collidables
 
             if (collidableObject is PlayerCollidable)
             {
-                if (this.door is NormalUpDoor)
+                IDoor.DoorState state = this.door.State;
+                if (state == IDoor.DoorState.Open || state == IDoor.DoorState.Bombed)
                 {
-                    if (collidableObject.RectangleRef.Y < this.RectangleRef.Y)
+                    if (this.door is NormalUpDoor && collidableObject.RectangleRef.Y < this.RectangleRef.Y)
                     {
                         this.door.Interact();
                     }
-                }
-                else if (this.door is NormalDownDoor)
-                {
-                    if (collidableObject.RectangleRef.Y > this.RectangleRef.Y)
+                    else if (this.door is NormalDownDoor && collidableObject.RectangleRef.Y + collidableObject.RectangleRef.Height > this.RectangleRef.Y + this.RectangleRef.Height)
                     {
                         this.door.Interact();
                     }
-                }
-                else if (this.door is NormalLeftDoor)
-                {
-                    if (collidableObject.RectangleRef.X < this.RectangleRef.X)
+                    else if (this.door is NormalLeftDoor && collidableObject.RectangleRef.X < this.RectangleRef.X)
                     {
                         this.door.Interact();
                     }
-                }
-                else if (this.door is NormalRightDoor)
-                {
-                    if (collidableObject.RectangleRef.X > this.RectangleRef.X)
+                    else if (this.door is NormalRightDoor && collidableObject.RectangleRef.X + collidableObject.RectangleRef.Width > this.RectangleRef.X + this.RectangleRef.Width)
                     {
                         this.door.Interact();
                     }
                 }
                 else
                 {
-                    //it's a staircase
-                    //todo: make sure this is the correct direction for the threshold
-                    if (collidableObject.RectangleRef.X < this.RectangleRef.X)
-                    {
-                        this.door.Interact();
-                    }
+                    this.door.Interact();
                 }
             }
         }

@@ -42,6 +42,7 @@ namespace cse3902.Rooms
             stepTracker = 0;
             entranceDoor = entrance;
             game.CollisionManager.Disabled = true;
+            game.Player.ChangeDirection(new Vector2(0,0));
         }
         public bool IsTransitioning()
         {

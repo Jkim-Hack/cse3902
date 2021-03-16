@@ -39,6 +39,10 @@ namespace cse3902.Doors
         {
             doorSprite.Draw();
         }
+        public void Reset()
+        {
+            //doesn't reset
+        }
 
         public IDoor.DoorState State
         {

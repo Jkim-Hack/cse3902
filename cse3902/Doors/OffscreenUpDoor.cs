@@ -33,11 +33,15 @@ namespace cse3902.Doors
         }
         public Vector2 PlayerReleaseDirection()
         {
-            return new Vector2(0, 32);
+            return new Vector2(0, 40);
         }
         public void Draw()
         {
             //offscreen so nothing to draw
+        }
+        public void Reset()
+        {
+            //doesn't reset
         }
         public IDoor.DoorState State
         {
