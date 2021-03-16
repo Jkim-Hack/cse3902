@@ -19,7 +19,6 @@ namespace cse3902.Entities.Enemies
         private Vector2 startingPos;
         private Vector2 center;
         private int travelDistance;
-        private Boolean travelUp;
         private Vector2 shoveDirection;
         private int shoveDistance;
         private Boolean pauseAnim;
@@ -34,10 +33,9 @@ namespace cse3902.Entities.Enemies
             center = startingPos;
             aquamentusSprite = (AquamentusSprite)EnemySpriteFactory.Instance.CreateAquamentusSprite(game.spriteBatch, center);
             aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.spriteBatch, this.center);
-            direction = new Vector2(-1.2f, 0);
-            speed = 50.0f;
-            travelDistance = 80;
-            travelUp = false;
+            direction = new Vector2(-1, 0);
+            speed = 10.0f;
+            travelDistance = 20;
             shoveDistance = -10;
             pauseAnim = false;
 
@@ -104,19 +102,18 @@ namespace cse3902.Entities.Enemies
 
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance)
+            if (travelDistance <= 0)
             {
-                direction.X = 1f;
-                direction.Y = 0.5f * (travelUp ? -1 : 1);
-                travelUp = !travelUp;
+                direction.X *= -1;
+                travelDistance = 150;
             }
-            else if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance)
+            else
             {
-                direction.X = -1.2f;
-                direction.Y = 0;
+                travelDistance--;
             }
 
-            ChangeDirection(direction);
+            /* Doesn't seem like aquamentus really changes direction in the walkthrough */
+            // ChangeDirection(direction);
         }
 
         public void Draw()

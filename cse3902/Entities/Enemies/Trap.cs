@@ -29,7 +29,7 @@ namespace cse3902.Entities.Enemies
             startingPos = start;
             center = startingPos;
 
-            //gel sprite sheet is 1 row, 2 columns
+            //sprite sheet is 1 row, 2 columns
             trapSprite = (TrapSprite)EnemySpriteFactory.Instance.CreateTrapSprite(game.spriteBatch, startingPos);
             direction = new Vector2(-1, 0);
             speed = 50.0f;

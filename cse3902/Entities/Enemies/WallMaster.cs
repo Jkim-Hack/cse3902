@@ -1,4 +1,5 @@
-﻿using cse3902.Interfaces;
+﻿using System;
+using cse3902.Interfaces;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
@@ -16,8 +17,7 @@ namespace cse3902.Entities.Enemies
         private Vector2 direction;
         private float speed;
         private Vector2 center;
-        private float range;
-        private float traveled;
+        private int travelDistance;
         private Vector2 shoveDirection;
         private int shoveDistance;
 
@@ -32,10 +32,8 @@ namespace cse3902.Entities.Enemies
             //wallmaster sprite sheet is 4 rows, 2 columns
             wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.spriteBatch, center);
             wallMasterStateMachine = new WallMasterStateMachine(wallMasterSprite);
-            direction = new Vector2(-1, 1);
-            speed = 6.5f;
-            range = 15;
-            traveled = range;
+            speed = 20.0f;
+            travelDistance = 0;
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
@@ -59,7 +57,19 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-            this.wallMasterStateMachine.ChangeDirection(direction);
+            //direction vector of (0,0) indicates just reverse the current direction
+            if (direction == new Vector2(0, 0))
+            {
+                this.direction.X = -this.direction.X;
+                this.direction.Y = -this.direction.Y;
+            }
+            else
+            {
+                this.direction.X = direction.X;
+                this.direction.Y = direction.Y;
+            }
+
+            wallMasterStateMachine.ChangeDirection(direction);
         }
 
         public void TakeDamage(int damage)
@@ -93,32 +103,40 @@ namespace cse3902.Entities.Enemies
 
         private void RegularMovement(GameTime gameTime)
         {
-            var change = speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            traveled -= change;
-            if (traveled <= 0)
+            if (travelDistance <= 0)
             {
-                if (direction.X > 0 && direction.Y > 0)
-                {
-                    direction.Y = -1;
-                }
-                else if (direction.X > 0 && direction.Y < 0)
-                {
-                    direction.X = -1;
-                }
-                else if (direction.X < 0 && direction.Y > 0)
-                {
-                    direction.X = 1;
-                }
-                else if (direction.X < 0 && direction.Y < 0)
-                {
-                    direction.Y = 1;
-                }
+                Random rand = new System.Random();
+                int choice = rand.Next(0, 4);
+                travelDistance = 80;
 
-                traveled = range;
+                switch (choice)
+                {
+                    case 0:
+                        direction.X = 1;
+                        direction.Y = 1;
+                        break;
+                    case 1:
+                        direction.X = 1;
+                        direction.Y = -1;
+                        break;
+                    case 2:
+                        direction.X = -1;
+                        direction.Y = 1;
+                        break;
+                    case 3:
+                        direction.X = -1;
+                        direction.Y = -1;
+                        break;
+                    default:
+                        break;
+                }
             }
-
-            this.CenterPosition += direction * speed * change;
+            else
+            {
+                travelDistance--;
+            }
 
             ChangeDirection(direction);
             wallMasterSprite.Update(gameTime);

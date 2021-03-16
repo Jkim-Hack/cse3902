@@ -4,6 +4,7 @@ using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace cse3902.Entities.Enemies
 {
@@ -32,9 +33,8 @@ namespace cse3902.Entities.Enemies
 
             keeseSprite = (KeeseSprite)EnemySpriteFactory.Instance.CreateKeeseSprite(game.spriteBatch, center);
             keeseStateMachine = new KeeseStateMachine(keeseSprite);
-            direction = new Vector2(-1, 0);
-            speed = 50.0f;
-            travelDistance = 50;
+            speed = 30.0f;
+            travelDistance = 0;
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
@@ -58,7 +58,17 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-            // Keese can't change direction
+            //direction vector of (0,0) indicates just reverse the current direction
+            if (direction == new Vector2(0, 0))
+            {
+                this.direction.X = -this.direction.X;
+                this.direction.Y = -this.direction.Y;
+            }
+            else
+            {
+                this.direction.X = direction.X;
+                this.direction.Y = direction.Y;
+            }
         }
 
         public void TakeDamage(int damage)
@@ -86,7 +96,11 @@ namespace cse3902.Entities.Enemies
 
         private void ShoveMovement()
         {
-            if (this.shoveDistance >= 0) this.CenterPosition += shoveDirection;
+            if (this.shoveDistance >= 0)
+            { 
+                this.CenterPosition += shoveDirection;
+                this.startingPos += shoveDirection;
+            }
             shoveDistance--;
         }
 
@@ -94,25 +108,53 @@ namespace cse3902.Entities.Enemies
         {
             this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (direction.X > 0 && CenterPosition.X > startingPos.X + travelDistance)
+            if (travelDistance <= 0)
             {
-                direction.X = 0;
-                direction.Y = 1;
+                Random rand = new System.Random();
+                int choice = rand.Next(0, 8);
+                travelDistance = 100;
+
+                switch (choice)
+                {
+                    case 0:
+                        direction.X = 1;
+                        direction.Y = 0;
+                        break;
+                    case 1:
+                        direction.X = -1;
+                        direction.Y = 0;
+                        break;
+                    case 2:
+                        direction.X = 0;
+                        direction.Y = 1;
+                        break;
+                    case 3:
+                        direction.X = 0;
+                        direction.Y = -1;
+                        break;
+                    case 4:
+                        direction.X = 0.7f;
+                        direction.Y = 0.7f;
+                        break;
+                    case 5:
+                        direction.X = 0.7f;
+                        direction.Y = -0.7f;
+                        break;
+                    case 6:
+                        direction.X = -0.7f;
+                        direction.Y = 1;
+                        break;
+                    case 7:
+                        direction.X = -0.7f;
+                        direction.Y = -0.7f;
+                        break;
+                    default:
+                        break;
+                }
             }
-            else if (direction.X < 0 && CenterPosition.X < startingPos.X - travelDistance)
+            else
             {
-                direction.X = 0;
-                direction.Y = -1;
-            }
-            else if (direction.Y > 0 && CenterPosition.Y > startingPos.Y + travelDistance)
-            {
-                direction.X = -1;
-                direction.Y = 0;
-            }
-            else if (direction.Y < 0 && CenterPosition.Y < startingPos.Y - travelDistance)
-            {
-                direction.X = 1;
-                direction.Y = 0;
+                travelDistance--;
             }
 
             keeseSprite.Update(gameTime);
