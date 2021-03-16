@@ -105,7 +105,7 @@ namespace cse3902.Entities.Enemies
             {
                 Random rand = new System.Random();
                 int choice = rand.Next(0, 4);
-                travelDistance = 150;
+                travelDistance = 75;
 
                 switch (choice)
                 {
