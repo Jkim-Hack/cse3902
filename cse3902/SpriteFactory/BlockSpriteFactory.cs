@@ -26,7 +26,7 @@ namespace cse3902.SpriteFactory
         public void LoadAllTextures(ContentManager content)
         {
             blockTextures.Add("normalblock", content.Load<Texture2D>("normalblock"));
-            blockTextures.Add("waterblock", content.Load<Texture2D>("waterblock"));
+            blockTextures.Add("waterblock", content.Load<Texture2D>("newwaterblock"));
             blockTextures.Add("brick", content.Load<Texture2D>("brick"));
             blockTextures.Add("ladder", content.Load<Texture2D>("ladder"));
         }
