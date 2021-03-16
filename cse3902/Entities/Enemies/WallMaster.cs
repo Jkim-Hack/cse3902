@@ -68,6 +68,8 @@ namespace cse3902.Entities.Enemies
                 this.direction.X = direction.X;
                 this.direction.Y = direction.Y;
             }
+
+            wallMasterStateMachine.ChangeDirection(direction);
         }
 
         public void TakeDamage(int damage)
