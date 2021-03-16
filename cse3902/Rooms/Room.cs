@@ -9,15 +9,16 @@ namespace cse3902.Rooms
 {
     public class Room
     {
-        private bool visited;   
+        private bool visited;
 
-        public Vector3 roomPos { get; set; }
+        private Vector3 roomPos;
+        public Vector3 RoomPos { get => roomPos; }
 
-        private List<IItem> items { get; set; }
-        private List<IEntity> enemies { get; set; }
-        private List<IProjectile> projectiles { get; set; }
-        private List<IBlock> blocks { get; set; }
-        private List<IDoor> doors { get; set; }
+        private List<IItem> items;
+        private List<IEntity> enemies;
+        private List<IProjectile> projectiles;
+        private List<IBlock> blocks;
+        private List<IDoor> doors;
 
         public Room(Vector3 position, int spriteNum)
         {

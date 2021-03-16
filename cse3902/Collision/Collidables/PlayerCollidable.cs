@@ -2,6 +2,7 @@
 using cse3902.Interfaces;
 using cse3902.Rooms;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace cse3902.Collision.Collidables
 {
@@ -9,16 +10,23 @@ namespace cse3902.Collision.Collidables
     {
         private IPlayer player;
         private int damage;
+        private Boolean[] collisionOccurrences;
 
         public PlayerCollidable(IPlayer player, int damage)
         {
             this.player = player;
             this.damage = damage;
+            collisionOccurrences = new Boolean[6];
         }
 
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
+            if (collisionOccurrences[0])
+            {
+                return;
+            }
+
 
             if (collidableObject is EnemyCollidable)
             {
@@ -36,11 +44,17 @@ namespace cse3902.Collision.Collidables
                 
             } else if (collidableObject is BlockCollidable || collidableObject is WallCollidable)
             {
+                if (collisionOccurrences[0])
+                {
+                    return;
+                }
+
                 if (collidableObject is BlockCollidable)
                 {
                     if (!((BlockCollidable)collidableObject).IsWalkable)
                     {
                         player.CenterPosition = player.PreviousPosition;
+                        collisionOccurrences[0] = true;
                     }
                 } else
                 {
@@ -61,6 +75,17 @@ namespace cse3902.Collision.Collidables
                 {
                     player.TakeDamage(((ProjectileCollidable)collidableObject).DamageValue);
                 }
+            } else if (collidableObject is DoorCollidable)
+            {
+                if (collisionOccurrences[0])
+                {
+                    return;
+                }
+                if (((DoorCollidable)collidableObject).State == IDoor.DoorState.Closed || ((DoorCollidable)collidableObject).State == IDoor.DoorState.Locked || ((DoorCollidable)collidableObject).State == IDoor.DoorState.Wall)
+                {
+                    player.CenterPosition = player.PreviousPosition;
+                    collisionOccurrences[0] = true;
+                }
             }
            
         }
@@ -73,6 +98,14 @@ namespace cse3902.Collision.Collidables
         public Vector2 Direction
         {
             get => player.Direction;
+        }
+
+        public void ResetCollisions()
+        {
+            for (int i = 0; i < collisionOccurrences.Length - 1; i++)
+            {
+                collisionOccurrences[i] = false;
+            }
         }
 
         public int DamageValue

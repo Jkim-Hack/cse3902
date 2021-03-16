@@ -27,8 +27,8 @@ namespace cse3902.Entities
 
         public void LoadContent()
         {
-            blocks.Add(BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.spriteBatch, new Vector2(120, 120)));
-            blocks.Add(BlockSpriteFactory.Instance.CreateWaterBlockSprite(game.spriteBatch, new Vector2(120, 120)));
+            blocks.Add(BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.SpriteBatch, new Vector2(120, 120)));
+            blocks.Add(BlockSpriteFactory.Instance.CreateWaterBlockSprite(game.SpriteBatch, new Vector2(120, 120)));
         }
 
         public void Update(GameTime gameTime)

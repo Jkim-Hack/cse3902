@@ -32,7 +32,7 @@ namespace cse3902.Entities.Enemies
             center = startingPos;
 
             //stalfos sprite sheet is 1 row, 2 columns
-            stalfosSprite = (StalfosSprite)EnemySpriteFactory.Instance.CreateStalfosSprite(game.spriteBatch, center);
+            stalfosSprite = (StalfosSprite)EnemySpriteFactory.Instance.CreateStalfosSprite(game.SpriteBatch, center);
             stalfosStateMachine = new StalfosStateMachine(stalfosSprite);
             speed = 30.0f;
             travelDistance = 0;
@@ -89,7 +89,7 @@ namespace cse3902.Entities.Enemies
 
         public void Update(GameTime gameTime)
         {
-
+            this.collidable.ResetCollisions();
             if (this.shoveDistance > -10) ShoveMovement();
             else RegularMovement(gameTime);
         }

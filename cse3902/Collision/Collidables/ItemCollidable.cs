@@ -1,13 +1,14 @@
 ﻿using System;
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace cse3902.Collision.Collidables
 {
     public class ItemCollidable : ICollidable
     {
         private IItem item;
-
+        private List<Boolean> collisionOccurrences = new List<Boolean>(6);
 
         public ItemCollidable(IItem item)
         {
@@ -30,6 +31,14 @@ namespace cse3902.Collision.Collidables
         public int DamageValue
         {
             get => 0;
+        }
+
+        public void ResetCollisions()
+        {
+            for (int i = 0; i < collisionOccurrences.Capacity; i++)
+            {
+                collisionOccurrences[i] = false;
+            }
         }
 
         //necesssary for link to be able to pick item up

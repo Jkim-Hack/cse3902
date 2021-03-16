@@ -30,7 +30,7 @@ namespace cse3902.Entities.Enemies
             center = start;
 
             //wallmaster sprite sheet is 4 rows, 2 columns
-            wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.spriteBatch, center);
+            wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.SpriteBatch, center);
             wallMasterStateMachine = new WallMasterStateMachine(wallMasterSprite);
             speed = 20.0f;
             travelDistance = 0;

@@ -22,7 +22,7 @@ namespace cse3902.Entities
         {
             this.game = game;
             centerPosition = start;
-            flameSprite = NPCSpriteFactory.Instance.CreateFlameSprite(game.spriteBatch, centerPosition);
+            flameSprite = NPCSpriteFactory.Instance.CreateFlameSprite(game.SpriteBatch, centerPosition);
 
             this.collidable = new NPCCollidable(this);
         }

@@ -33,7 +33,7 @@ namespace cse3902.Commands
                     break;
             }
 
-            game.roomHandler.LoadNewRoom(direction,ans);
+            game.RoomHandler.LoadNewRoom(direction,ans);
         }
 
         public void Unexecute()

@@ -8,5 +8,6 @@ namespace cse3902.Collision
         void OnCollidedWith(ICollidable collidableObject);
         ref Rectangle RectangleRef { get; }
         int DamageValue { get; }
+        void ResetCollisions();
     }
 }

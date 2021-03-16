@@ -29,8 +29,8 @@ namespace cse3902.Entities
             DamageMaskHandler linkDamageMaskHandler = new DamageMaskHandler(linkTexture, linkDamageSequenceTexture, 1, 4, 0);
 
             Vector2 centerPosition = new Vector2(50, 200);
-            linkSprite = new LinkSprite(game.spriteBatch, linkTexture, 6, 4, linkDamageMaskHandler, centerPosition);
-            linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition, game.spriteBatch);
+            linkSprite = new LinkSprite(game.SpriteBatch, linkTexture, 6, 4, linkDamageMaskHandler, centerPosition);
+            linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition, game.SpriteBatch);
             PopulateDirections();
 
             //Link's body does no damage itself
@@ -82,6 +82,7 @@ namespace cse3902.Entities
         public void Update(GameTime gameTime)
         {
             linkStateMachine.Update(gameTime);
+            collidable.ResetCollisions();
         }
 
         public void Draw()
