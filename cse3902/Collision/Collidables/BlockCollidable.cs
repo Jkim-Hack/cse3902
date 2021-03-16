@@ -56,7 +56,7 @@ namespace cse3902.Collision.Collidables
 
         public Boolean IsWalkable
         {
-            get => (this.block is WalkableBlock);
+            get => (this.block is WalkableBlock || this.block is MovementBlock);
         }
 
 

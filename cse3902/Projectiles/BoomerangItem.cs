@@ -94,7 +94,7 @@ namespace cse3902.Projectiles
             if (direction.X == 1)
             {
                 currentX += 2;
-                if (currentX > startingPosition.X  && turns == 0)
+                if (currentX > startingPosition.X + offset && turns == 0)
                 {
                     direction = new Vector2(-1,0);
                     turns++;
