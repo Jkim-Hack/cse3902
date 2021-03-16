@@ -33,8 +33,6 @@ namespace cse3902
         private Texture2D lineTexture;
 
         public Camera camera { get; set;  }
-
-        private XMLParser xmlParser;
         
         public Game1()
         {
@@ -87,10 +85,7 @@ namespace cse3902
 	        lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
 	        lineTexture.SetData<Color>(new Color[] { Color.White });
 
-            // Testing purposes
-            RoomBackground.Instance.generateRoom(new Vector3(2,5,0), 13);
-            //RoomBackground.Instance.generateRoom(new Vector3(1, 0, 0), 1);
-            //camera.MoveCamera(new Vector2(256, 0), new Vector2(256, 176));
+            roomHandler.Initialize();
 
             collisionManager = new CollisionManager(this);
 
@@ -102,8 +97,6 @@ namespace cse3902
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.DOORS, ref RoomDoors.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BACKGROUND, ref RoomBackground.Instance.WallsListRef);
 
-            xmlParser = new XMLParser(roomHandler,this);
-            xmlParser.ParseXML("XMLParsing/Room1.xml");
             roomHandler.LoadNewRoom(roomHandler.startingRoomTranslation,0);
         }
 
