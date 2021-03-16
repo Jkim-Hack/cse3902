@@ -64,5 +64,10 @@ namespace cse3902.Blocks
         {
             get => this.walkableBlockSprite.Center;
         }
+
+        public void Reset()
+        {
+            //doesn't move so no reset needed
+        }
     }
 }

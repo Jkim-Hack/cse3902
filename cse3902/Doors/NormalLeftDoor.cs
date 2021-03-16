@@ -11,6 +11,7 @@ namespace cse3902.Doors
         private Game1 game;
         private IDoorSprite doorSprite;
         private Vector3 roomTranslationVector;
+        private IDoor.DoorState initialDoorState;
         private IDoor.DoorState doorState;
         private IDoor connectedDoor;
         private ICollidable collidable;
@@ -18,6 +19,7 @@ namespace cse3902.Doors
         public NormalLeftDoor(Game1 game, Vector2 center, IDoor.DoorState initialDoorState)
         {
             this.game = game;
+            this.initialDoorState = initialDoorState;
             doorSprite = DoorSpriteFactory.Instance.CreateLeftDoorSprite(game.SpriteBatch, center, initialDoorState);
             roomTranslationVector = new Vector3(-1, 0, 0);
             doorState = initialDoorState;
@@ -62,6 +64,10 @@ namespace cse3902.Doors
         public void Draw()
         {
             doorSprite.Draw();
+        }
+        public void Reset()
+        {
+            if (initialDoorState == IDoor.DoorState.Closed) State = IDoor.DoorState.Closed;
         }
         public IDoor.DoorState State
         {
