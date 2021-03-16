@@ -1,5 +1,6 @@
 ﻿using System;
 using cse3902.Interfaces;
+using System.Collections.Generic;
 using cse3902.Blocks;
 using Microsoft.Xna.Framework;
 
@@ -8,6 +9,7 @@ namespace cse3902.Collision.Collidables
     public class BlockCollidable : ICollidable
     {
         private IBlock block;
+        private List<Boolean> collisionOccurrences = new List<Boolean>(6);
 
 
         public BlockCollidable(IBlock block)
@@ -44,9 +46,19 @@ namespace cse3902.Collision.Collidables
             get => 0;
         }
 
+        public void ResetCollisions()
+        {
+            for (int i = 0; i < collisionOccurrences.Capacity; i++)
+            {
+                collisionOccurrences[i] = false;
+            }
+        }
+
         public Boolean IsWalkable
         {
             get => (this.block is WalkableBlock);
         }
+
+
     }
 }

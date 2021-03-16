@@ -97,7 +97,7 @@ namespace cse3902.Entities.Enemies
         private void ShoveMovement()
         {
             if (this.shoveDistance >= 0)
-            { 
+            {
                 this.CenterPosition += shoveDirection;
                 this.startingPos += shoveDirection;
             }
