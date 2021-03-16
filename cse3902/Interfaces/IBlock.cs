@@ -18,5 +18,6 @@ namespace cse3902.Interfaces
         public void Interact(Vector2 pushDirection);
         public void Interact(PushDirection pushDirection);
         public void Draw();
+        public void Reset();
     }
 }

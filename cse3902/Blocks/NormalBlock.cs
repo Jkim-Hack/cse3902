@@ -11,6 +11,9 @@ namespace cse3902.Blocks
 
         private ISprite normalBlockSprite;
 
+        private Vector2 initialPosition;
+        private float pixelsToPush;
+
         private Vector2 blockPushingDirection;
         private float remainingPixelsToPush;
         private const float pushSpeed = 0.5f;
@@ -36,7 +39,7 @@ namespace cse3902.Blocks
 
         private ICollidable collidable;
 
-        public NormalBlock(Game1 game, IBlock.PushDirection direction, int pixelsToPush, ISprite sprite)
+        public NormalBlock(Game1 game, IBlock.PushDirection direction, int pixelsToPush, ISprite sprite, Vector2 center)
         {
             this.game = game;
 
@@ -44,6 +47,8 @@ namespace cse3902.Blocks
 
             normalBlockSprite = sprite;
             remainingPixelsToPush = pixelsToPush;
+            this.pixelsToPush = pixelsToPush;
+            initialPosition = center;
 
             this.collidable = new BlockCollidable(this);
         }
@@ -54,22 +59,26 @@ namespace cse3902.Blocks
         }
         public void Interact(Vector2 pushDirection)
         {
-            if (blockPushingDirection.Equals(pushDirection))
+            if (blockPushingDirection.Equals(pushDirection) && remainingPixelsToPush > 0)
             {
                 normalBlockSprite.Center += blockPushingDirection * pushSpeed;
                 remainingPixelsToPush -= pushSpeed;
 
                 //block was pushed a little too far and needs to be partially undone
-                if (remainingPixelsToPush <= 0)
+                if (remainingPixelsToPush < 0)
                 {
                     normalBlockSprite.Center += remainingPixelsToPush * blockPushingDirection;
-                    blockPushingDirection = new Vector2(0, 0);
                 }
             }
         }
         public void Draw()
         {
             normalBlockSprite.Draw();
+        }
+        public void Reset()
+        {
+            normalBlockSprite.Center = initialPosition;
+            remainingPixelsToPush = pixelsToPush;
         }
 
         public ref Rectangle Bounds

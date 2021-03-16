@@ -55,7 +55,10 @@ namespace cse3902.Blocks
         {
             //nothing to draw
         }
-
+        public void Reset()
+        {
+            //doesn't move so no reset needed
+        }
         public ref Rectangle Bounds
         {
             get

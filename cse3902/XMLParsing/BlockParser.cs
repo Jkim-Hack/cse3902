@@ -49,45 +49,48 @@ namespace cse3902.XMLParsing
 
         private IBlock CreateBlock(String type, String dir, Vector2 startingPos, int numBlocks)
         {
-            IBlock newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.SpriteBatch, startingPos));
+            IBlock newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.SpriteBatch, startingPos), startingPos);
             switch (type)
             {
                 case "Normal":
                     switch (dir)
                     {
                         case "Still":
-                            newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.SpriteBatch, startingPos));
+                            newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.SpriteBatch, startingPos), startingPos);
                             break;
                         case "Down":
-                            newBlock = new NormalBlock(game, IBlock.PushDirection.Down, BLOCK_SIDE * numBlocks, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.SpriteBatch, startingPos));
+                            newBlock = new NormalBlock(game, IBlock.PushDirection.Down, BLOCK_SIDE * numBlocks, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.SpriteBatch, startingPos), startingPos);
                             break;
                         case "Up":
-                            newBlock = new NormalBlock(game, IBlock.PushDirection.Up, BLOCK_SIDE * numBlocks, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.SpriteBatch, startingPos));
+                            newBlock = new NormalBlock(game, IBlock.PushDirection.Up, BLOCK_SIDE * numBlocks, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.SpriteBatch, startingPos), startingPos);
                             break;
                         case "Left":
-                            newBlock = new NormalBlock(game, IBlock.PushDirection.Left, BLOCK_SIDE * numBlocks, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.SpriteBatch, startingPos));
+                            newBlock = new NormalBlock(game, IBlock.PushDirection.Left, BLOCK_SIDE * numBlocks, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.SpriteBatch, startingPos), startingPos);
                             break;
                         case "Right":
-                            newBlock = new NormalBlock(game, IBlock.PushDirection.Right, BLOCK_SIDE * numBlocks, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.SpriteBatch, startingPos));
+                            newBlock = new NormalBlock(game, IBlock.PushDirection.Right, BLOCK_SIDE * numBlocks, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.SpriteBatch, startingPos), startingPos);
                             break;
                         default: //this should never happen
                             break;
                     }
                     break;
                 case "Water":
-                    newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateWaterBlockSprite(game.SpriteBatch, startingPos));
+                    newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateWaterBlockSprite(game.SpriteBatch, startingPos), startingPos);
                     break;
                 case "Ladder":
                     newBlock = new WalkableBlock(game, BlockSpriteFactory.Instance.CreateLadderSprite(game.SpriteBatch, startingPos));
                     break;
                 case "Brick":
-                    newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateBrickSprite(game.SpriteBatch, startingPos));
+                    newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateBrickSprite(game.SpriteBatch, startingPos), startingPos);
                     break;
                 case "Movement0":
                     newBlock = new MovementBlock(game, startingPos, 0);
                     break;
                 case "Movement1":
                     newBlock = new MovementBlock(game, startingPos, 1);
+                    break;
+                case "Invisible":
+                    newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateInvisibleBlockSprite(game.SpriteBatch, startingPos), startingPos);
                     break;
                 default:
                     break;
