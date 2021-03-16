@@ -83,8 +83,11 @@ namespace cse3902.XMLParsing
                 case "Brick":
                     newBlock = new NormalBlock(game, IBlock.PushDirection.Still, 0, BlockSpriteFactory.Instance.CreateBrickSprite(game.spriteBatch, startingPos));
                     break;
-                case "Movement":
-                    newBlock = new MovementBlock(game, startingPos);
+                case "Movement0":
+                    newBlock = new MovementBlock(game, startingPos, 0);
+                    break;
+                case "Movement1":
+                    newBlock = new MovementBlock(game, startingPos, 1);
                     break;
                 default:
                     break;
