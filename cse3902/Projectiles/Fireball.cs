@@ -58,6 +58,7 @@ namespace cse3902.Projectiles
             if(fireballCounter < 0)
             {
                 animationComplete = true;
+                return -1;
             }
             else
             {
