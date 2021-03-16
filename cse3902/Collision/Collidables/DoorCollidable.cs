@@ -55,7 +55,7 @@ namespace cse3902.Collision.Collidables
                 {
                     //it's a staircase
                     //todo: make sure this is the correct direction for the threshold
-                    if (collidableObject.RectangleRef.Y > this.RectangleRef.Y)
+                    if (collidableObject.RectangleRef.X < this.RectangleRef.X)
                     {
                         this.door.Interact();
                     }

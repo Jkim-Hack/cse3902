@@ -40,6 +40,8 @@ namespace cse3902.Entities
                 {
                     goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.UpFacing;
                 }
+
+                return;
             }
 
             if (newDirection.X > 0)
