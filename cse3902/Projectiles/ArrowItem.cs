@@ -83,38 +83,18 @@ namespace cse3902.Projectiles
             if (direction.X == 1)
             {
                 currentX += 2;
-                if (currentX > 800)
-                {
-                    currentX = 0;
-                    animationComplete = true;
-                }
             }
             else if (direction.X == -1)
             {
                 currentX -= 2;
-                if (currentX < 0)
-                {
-                    currentX = 800;
-                    animationComplete = true;
-                }
             }
             else if (direction.Y == 1)
             {
                 currentY += 2;
-                if (currentY > 480)
-                {
-                    currentY = 0;
-                    animationComplete = true;
-                }
             }
             else
             {
                 currentY -= 2;
-                if (currentY < 0)
-                {
-                    currentY = 480;
-                    animationComplete = true;
-                }
             }
             return 0;
         }
