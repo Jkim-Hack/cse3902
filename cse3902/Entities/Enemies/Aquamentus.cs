@@ -60,7 +60,8 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-            this.aquamentusStateMachine.ChangeDirection(direction);
+            //todo: make a more fleshed out implementation for this
+            this.direction = -this.direction;
         }
 
         public void TakeDamage(int damage)
@@ -86,6 +87,7 @@ namespace cse3902.Entities.Enemies
 
             if (this.shoveDistance > -10) ShoveMovement();
             else RegularMovement(gameTime);
+            this.collidable.ResetCollisions();
 
             aquamentusStateMachine.Update(gameTime, this.CenterPosition, this.pauseAnim);
         }
@@ -112,8 +114,6 @@ namespace cse3902.Entities.Enemies
                 travelDistance--;
             }
 
-            /* Doesn't seem like aquamentus really changes direction in the walkthrough */
-            // ChangeDirection(direction);
         }
 
         public void Draw()
