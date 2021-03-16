@@ -34,8 +34,8 @@ namespace cse3902.Entities.Enemies
             wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.spriteBatch, center);
             wallMasterStateMachine = new WallMasterStateMachine(wallMasterSprite);
             direction = new Vector2(-1, 1);
-            speed = 50.0f;
-            travelDistance = 20;
+            speed = 20.0f;
+            travelDistance = 80;
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
@@ -109,7 +109,7 @@ namespace cse3902.Entities.Enemies
             {
                 Random rand = new System.Random();
                 int choice = rand.Next(0, 4);
-                travelDistance = 20;
+                travelDistance = 80;
 
                 switch (choice)
                 {

@@ -35,8 +35,8 @@ namespace cse3902.Entities.Enemies
             stalfosSprite = (StalfosSprite)EnemySpriteFactory.Instance.CreateStalfosSprite(game.spriteBatch, center);
             stalfosStateMachine = new StalfosStateMachine(stalfosSprite);
             direction = new Vector2(-1, 0);
-            speed = 50.0f;
-            travelDistance = 20;
+            speed = 30.0f;
+            travelDistance = 80;
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
@@ -109,7 +109,7 @@ namespace cse3902.Entities.Enemies
             {
                 Random rand = new System.Random();
                 int choice = rand.Next(0, 4);
-                travelDistance = 20;
+                travelDistance = 80;
 
                 switch (choice)
                 {

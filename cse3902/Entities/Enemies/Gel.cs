@@ -35,8 +35,8 @@ namespace cse3902.Entities.Enemies
             gelSprite = (GelSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.spriteBatch, startingPos);
             gelStateMachine = new GelStateMachine(gelSprite);
             direction = new Vector2(-1, 0);
-            speed = 50.0f;
-            travelDistance = 50;
+            speed = 25.0f;
+            travelDistance = 100;
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
@@ -110,7 +110,7 @@ namespace cse3902.Entities.Enemies
             {
                 Random rand = new System.Random();
                 int choice = rand.Next(0, 4);
-                travelDistance = 20;
+                travelDistance = 100;
 
                 switch (choice)
                 {

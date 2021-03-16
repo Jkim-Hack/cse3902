@@ -33,9 +33,9 @@ namespace cse3902.Entities.Enemies
             center = startingPos;
             aquamentusSprite = (AquamentusSprite)EnemySpriteFactory.Instance.CreateAquamentusSprite(game.spriteBatch, center);
             aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.spriteBatch, this.center);
-            direction = new Vector2(-1.2f, 0);
-            speed = 50.0f;
-            travelDistance = 80;
+            direction = new Vector2(-1, 0);
+            speed = 15.0f;
+            travelDistance = 150;
             shoveDistance = -10;
             pauseAnim = false;
 
@@ -106,7 +106,7 @@ namespace cse3902.Entities.Enemies
             {
                 Random rand = new System.Random();
                 int choice = rand.Next(0, 4);
-                travelDistance = 20;
+                travelDistance = 150;
 
                 switch (choice)
                 {
