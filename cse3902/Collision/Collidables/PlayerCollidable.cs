@@ -10,12 +10,13 @@ namespace cse3902.Collision.Collidables
     {
         private IPlayer player;
         private int damage;
-        private List<Boolean> collisionOccurrences = new List<Boolean>(6);
+        private Boolean[] collisionOccurrences;
 
         public PlayerCollidable(IPlayer player, int damage)
         {
             this.player = player;
             this.damage = damage;
+            collisionOccurrences = new Boolean[6];
         }
 
 
@@ -85,7 +86,7 @@ namespace cse3902.Collision.Collidables
 
         public void ResetCollisions()
         {
-            for (int i = 0; i < collisionOccurrences.Capacity; i++)
+            for (int i = 0; i < collisionOccurrences.Length - 1; i++)
             {
                 collisionOccurrences[i] = false;
             }
