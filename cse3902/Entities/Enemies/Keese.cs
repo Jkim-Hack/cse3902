@@ -31,7 +31,7 @@ namespace cse3902.Entities.Enemies
             startingPos = start;
             center = startingPos;
 
-            keeseSprite = (KeeseSprite)EnemySpriteFactory.Instance.CreateKeeseSprite(game.spriteBatch, center);
+            keeseSprite = (KeeseSprite)EnemySpriteFactory.Instance.CreateKeeseSprite(game.SpriteBatch, center);
             keeseStateMachine = new KeeseStateMachine(keeseSprite);
             speed = 30.0f;
             travelDistance = 0;
