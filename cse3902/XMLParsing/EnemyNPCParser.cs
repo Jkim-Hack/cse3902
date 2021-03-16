@@ -75,6 +75,9 @@ namespace cse3902.XMLParsing
                 case "Merchant":
                     newEnemy = new MerchantNPC(game, startingPos);
                     break;
+                case "Flame":
+                    newEnemy = new FlameNPC(game, startingPos);
+                    break;
                 default:
                     //createdItem = null;
                     break;
