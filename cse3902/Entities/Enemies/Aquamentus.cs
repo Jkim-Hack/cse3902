@@ -60,7 +60,7 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-            //this.aquamentusStateMachine.ChangeDirection(direction);
+            //todo: make a more fleshed out implementation for this
             this.direction = -this.direction;
         }
 
