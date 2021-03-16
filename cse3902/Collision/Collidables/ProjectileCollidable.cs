@@ -20,7 +20,7 @@ namespace cse3902.Collision.Collidables
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
-            if (!(collidableObject is ProjectileCollidable || collidableObject is SwordCollidable || collidableObject is BlockCollidable || (collidableObject is PlayerCollidable && collidableObject is BoomerangItem)))
+            if (!(collidableObject is ProjectileCollidable || collidableObject is SwordCollidable || collidableObject is BlockCollidable || (collidableObject is PlayerCollidable && !(collidableObject is BoomerangItem))))
             {
                 //projectiles also implement IItem, can cast them to item to remove
                 RoomProjectiles.Instance.RemoveProjectile(this.projectile);
