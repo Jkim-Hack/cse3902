@@ -77,6 +77,8 @@ namespace cse3902.Collision.Collidables
 
                 if (!(this.enemy is WallMaster))
                 {
+                    this.enemy.StopShove();
+
                     //vector of (0,0) means just change current direction to opposite
                     Vector2 direction = new Vector2(0, 0);
                     this.enemy.ChangeDirection(direction);

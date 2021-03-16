@@ -18,5 +18,6 @@ namespace cse3902.Interfaces
         public void Update(GameTime gameTime);
         public void Draw();
         public void BeShoved();
+        public void StopShove();
     }
 }
