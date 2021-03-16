@@ -19,4 +19,5 @@
 
 ## Known Bugs
 - We have not implemented traps yet.
-- 
+- Fireballs are being spawned but not drawing.
+- Can't walk around perfectly in item room.

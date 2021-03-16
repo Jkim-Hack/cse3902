@@ -1,5 +1,5 @@
 # Group 1
-## Names
+## Names:
 - Alex Book
 - Andrew Fecher
 - John Kim
@@ -13,16 +13,11 @@
 - '1', '2', '3', and '4' to have Link use items
 - 'e' to damage Link
 - 'z' and 'n' to attack with Link's selected weapon
-- '5', '6', '7', and '8' to choose Link's selected weapon
 
-### Block/obstacle controls
-- 't' and 'y' to cycle between which block is currently being shown
+### Mouse Controls
+- Click on the door in each room, and if there is a room on the other side of the door, the camera will move to the other room.
 
-### Item controls
-- 'u' and 'i' to cycle between which item is currently being shown
-
-### Enemy/NPC controls
-- 'o' and 'p' to cycle between which enemy/NPC is currently being shown
-
-### Other controls
-- 'q' to quit and 'r' to reset the program back to its initial state
+## Known Bugs
+- We have not implemented traps yet.
+- Fireballs are being spawned but not drawing.
+- Can't walk around perfectly in item room.

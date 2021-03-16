@@ -29,7 +29,6 @@ namespace cse3902.XMLParsing
             foreach (XElement enemy in enemyList)
             {
                 XElement typeName = enemy.Element("type");
-
                 XElement xloc = enemy.Element("xloc");
                 XElement yloc = enemy.Element("yloc");
 
@@ -79,7 +78,6 @@ namespace cse3902.XMLParsing
                     newEnemy = new FlameNPC(game, startingPos);
                     break;
                 default:
-                    //createdItem = null;
                     break;
             }
             return newEnemy;

@@ -28,7 +28,6 @@ namespace cse3902.XMLParsing
             foreach (XElement item in itemList)
             {
                 XElement typeName = item.Element("type");
-
                 XElement xloc = item.Element("xloc");
                 XElement yloc = item.Element("yloc");
 
@@ -78,7 +77,6 @@ namespace cse3902.XMLParsing
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateTriforceItem(game.SpriteBatch, startPos);
                     break;
                 default:
-                    //createdItem = null;
                     break;
             }
             return newItem;
