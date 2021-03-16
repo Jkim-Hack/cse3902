@@ -33,9 +33,9 @@ namespace cse3902.Entities.Enemies
 
             keeseSprite = (KeeseSprite)EnemySpriteFactory.Instance.CreateKeeseSprite(game.spriteBatch, center);
             keeseStateMachine = new KeeseStateMachine(keeseSprite);
-            speed = 0.02f;
+            speed = 30.0f;
+            travelDistance = 0;
             shoveDistance = -10;
-            shoveDirection = new Vector2(-2, 0);
 
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = 10;
@@ -112,7 +112,7 @@ namespace cse3902.Entities.Enemies
             {
                 Random rand = new System.Random();
                 int choice = rand.Next(0, 8);
-                travelDistance = 20;
+                travelDistance = 100;
 
                 switch (choice)
                 {
@@ -133,20 +133,20 @@ namespace cse3902.Entities.Enemies
                         direction.Y = -1;
                         break;
                     case 4:
-                        direction.X = 1;
-                        direction.Y = 1;
+                        direction.X = 0.7f;
+                        direction.Y = 0.7f;
                         break;
                     case 5:
-                        direction.X = 1;
-                        direction.Y = -1;
+                        direction.X = 0.7f;
+                        direction.Y = -0.7f;
                         break;
                     case 6:
-                        direction.X = -1;
+                        direction.X = -0.7f;
                         direction.Y = 1;
                         break;
                     case 7:
-                        direction.X = -1;
-                        direction.Y = -1;
+                        direction.X = -0.7f;
+                        direction.Y = -0.7f;
                         break;
                     default:
                         break;

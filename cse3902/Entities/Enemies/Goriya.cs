@@ -33,9 +33,8 @@ namespace cse3902.Entities.Enemies
 
             goriyaSprite = (GoriyaSprite)EnemySpriteFactory.Instance.CreateGoriyaSprite(game.spriteBatch, center);
             goriyaStateMachine = new GoriyaStateMachine(goriyaSprite);
-            direction = new Vector2(-1, 0);
-            speed = 50.0f;
-            travelDistance = 50;
+            speed = 25.0f;
+            travelDistance = 0;
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
@@ -70,6 +69,8 @@ namespace cse3902.Entities.Enemies
                 this.direction.X = direction.X;
                 this.direction.Y = direction.Y;
             }
+
+            goriyaStateMachine.ChangeDirection(direction);
         }
 
         public void TakeDamage(int damage)
@@ -110,7 +111,7 @@ namespace cse3902.Entities.Enemies
             {
                 Random rand = new System.Random();
                 int choice = rand.Next(0, 4);
-                travelDistance = 20;
+                travelDistance = 125;
 
                 switch (choice)
                 {

@@ -16,7 +16,6 @@ namespace cse3902.Entities.Enemies
 
         private Vector2 direction;
         private float speed;
-        private Vector2 startingPos;
         private Vector2 center;
         private int travelDistance;
         private Vector2 shoveDirection;
@@ -33,9 +32,8 @@ namespace cse3902.Entities.Enemies
             //wallmaster sprite sheet is 4 rows, 2 columns
             wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.spriteBatch, center);
             wallMasterStateMachine = new WallMasterStateMachine(wallMasterSprite);
-            direction = new Vector2(-1, 1);
-            speed = 50.0f;
-            travelDistance = 20;
+            speed = 20.0f;
+            travelDistance = 0;
             shoveDistance = -10;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
@@ -70,6 +68,8 @@ namespace cse3902.Entities.Enemies
                 this.direction.X = direction.X;
                 this.direction.Y = direction.Y;
             }
+
+            wallMasterStateMachine.ChangeDirection(direction);
         }
 
         public void TakeDamage(int damage)
@@ -109,7 +109,7 @@ namespace cse3902.Entities.Enemies
             {
                 Random rand = new System.Random();
                 int choice = rand.Next(0, 4);
-                travelDistance = 20;
+                travelDistance = 80;
 
                 switch (choice)
                 {
