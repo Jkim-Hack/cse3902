@@ -41,7 +41,6 @@ namespace cse3902.Rooms
             {
                 enemy.Update(gameTime);
             }
-
         }
 
         public void Draw()
