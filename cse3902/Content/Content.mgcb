@@ -752,6 +752,13 @@
 /processorParam:TextureFormat=Color
 /build:normalblock.png
 
+#begin npcroom.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:npcroom.spritefont
+
 #begin oldman.png
 /importer:TextureImporter
 /processor:TextureProcessor

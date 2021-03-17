@@ -30,24 +30,25 @@ namespace cse3902.XMLParsing
                 XElement typeName = npc.Element("type");
                 XElement xloc = npc.Element("xloc");
                 XElement yloc = npc.Element("yloc");
+                XElement text = npc.Element("text");
 
                 int x = Int32.Parse(xloc.Value);
                 int y = Int32.Parse(yloc.Value);
 
                 Vector2 truePos = RoomUtilities.CalculateBlockCenter(roomobj.RoomPos, new Vector2(x, y));
 
-                INPC npcAdd = CreateNPC(typeName.Value, truePos);
+                INPC npcAdd = CreateNPC(typeName.Value, truePos, text.Value);
                 roomobj.AddNPC(npcAdd);
             }
         }
 
-        private INPC CreateNPC(String type, Vector2 startingPos)
+        private INPC CreateNPC(String type, Vector2 startingPos, String text)
         {
-            INPC newEnemy = new OldManNPC(game, startingPos);
+            INPC newEnemy = new OldManNPC(game, startingPos, text);
             switch (type)
             {
                 case "OldMan":
-                    newEnemy = new OldManNPC(game, startingPos);
+                    newEnemy = new OldManNPC(game, startingPos, text);
                     break;
                 case "MedicineWoman":
                     newEnemy = new MedicineWomanNPC(game, startingPos);

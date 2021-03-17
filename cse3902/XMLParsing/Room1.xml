@@ -737,16 +737,19 @@
                 <type>OldMan</type>
                 <xloc>5</xloc>
                 <yloc>3</yloc>
+                <text>EASTMOST PENINSULA IS THE SECRET</text>
             </npc>
             <npc>
                 <type>Flame</type>
                 <xloc>3</xloc>
                 <yloc>3</yloc>
+                <text></text>
             </npc>
             <npc>
                 <type>Flame</type>
                 <xloc>7</xloc>
                 <yloc>3</yloc>
+                <text></text>
             </npc>
         </npcs>
         <items>
