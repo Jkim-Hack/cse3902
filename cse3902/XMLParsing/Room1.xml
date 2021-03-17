@@ -27,6 +27,8 @@
                 <yloc>5</yloc>
             </enemy>
         </enemies>
+        <npcs>
+        </npcs>
         <blocks>
         </blocks>
         <doors>
@@ -72,6 +74,8 @@
 		</doors>
 		<number>2,6,0</number>
 		<sprite>13</sprite>
+        <npcs>
+        </npcs>
 		<items>
 		</items>
 		<enemies>
@@ -112,6 +116,8 @@
         </doors>
         <number>2,5,0</number>
         <sprite>13</sprite>
+        <npcs>
+        </npcs>
         <items>
         </items>
         <enemies>
@@ -152,6 +158,8 @@
 				<yloc>0</yloc>
 			</door>
 		</doors>
+        <npcs>
+        </npcs>
         <items>
         </items>
         <enemies>
@@ -301,6 +309,8 @@
 				<yloc>0</yloc>
 			</door>
 		</doors>
+        <npcs>
+        </npcs>
         <items>
         </items>
         <enemies>
@@ -398,6 +408,8 @@
 				<yloc>0</yloc>
 			</door>
 		</doors>
+        <npcs>
+        </npcs>
         <items>
         </items>
         <enemies>
@@ -517,6 +529,8 @@
                 <yloc>1</yloc>
             </item>
         </items>
+        <npcs>
+        </npcs>
         <enemies>
             <enemy>
                 <type>Stalfos</type>
@@ -608,6 +622,8 @@
 				<yloc>0</yloc>
 			</door>
 		</doors>
+        <npcs>
+        </npcs>
         <items>
         </items>
         <enemies>
@@ -716,24 +732,26 @@
 				<yloc>0</yloc>
 			</door>
 		</doors>
-        <items>
-        </items>
-        <enemies>
-            <enemy>
+        <npcs>
+            <npc>
                 <type>OldMan</type>
                 <xloc>5</xloc>
                 <yloc>3</yloc>
-            </enemy>
-            <enemy>
+            </npc>
+            <npc>
                 <type>Flame</type>
                 <xloc>3</xloc>
                 <yloc>3</yloc>
-            </enemy>
-            <enemy>
+            </npc>
+            <npc>
                 <type>Flame</type>
                 <xloc>7</xloc>
                 <yloc>3</yloc>
-            </enemy>
+            </npc>
+        </npcs>
+        <items>
+        </items>
+        <enemies>
         </enemies>
         <blocks>
         </blocks>
@@ -771,6 +789,8 @@
 				<yloc>0</yloc>
 			</door>
 		</doors>
+        <npcs>
+        </npcs>
         <items>
         </items>
         <enemies>
@@ -833,6 +853,8 @@
 				<yloc>0</yloc>
 			</door>
 		</doors>
+        <npcs>
+        </npcs>
         <items>
             <item>
                 <type>Map</type>
@@ -973,6 +995,8 @@
 				<yloc>0</yloc>
 			</door>
 		</doors>
+        <npcs>
+        </npcs>
         <items>
         </items>
         <enemies>
@@ -1056,6 +1080,8 @@
 				<yloc>0</yloc>
 			</door>
 		</doors>
+        <npcs>
+        </npcs>
         <items>
             <item>
                 <type>Key</type>
@@ -1267,6 +1293,8 @@
 				<yloc>0</yloc>
 			</door>
 		</doors>
+        <npcs>
+        </npcs>
         <items>
         </items>
         <enemies>
@@ -1644,7 +1672,9 @@
 				 <yloc>0</yloc>
 			 </door>
 		 </doors>
-        <items>
+         <npcs>
+         </npcs>
+         <items>
             <item>
                 <type>HeartContainer</type>
                 <xloc>10</xloc>
@@ -1834,6 +1864,8 @@
 				<yloc>0</yloc>
 			</door>
 		</doors>
+        <npcs>
+        </npcs>
         <items>
             <item>
                 <type>Triforce</type>
@@ -2054,6 +2086,8 @@
 				<yloc>3</yloc>
 			</door>
 		</doors>
+        <npcs>
+        </npcs>
         <items>
         </items>
         <enemies>
@@ -2155,6 +2189,8 @@
 				<yloc>0</yloc>
 			</door>
 		</doors>
+        <npcs>
+        </npcs>
         <items>
             <item>
                 <type>Key</type>
@@ -2362,6 +2398,8 @@
 				<yloc>-2</yloc>
 			</door>
 		</doors>
+        <npcs>
+        </npcs>
         <items>
              <item>
                 <type>Bow</type>
