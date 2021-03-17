@@ -21,7 +21,7 @@ namespace cse3902.Rooms
 
         private RoomNPCs()
         {
-            npcs = new List<IEntity>();
+            npcs = new List<INPC>();
         }
 
         public void AddNPC(INPC npc)
