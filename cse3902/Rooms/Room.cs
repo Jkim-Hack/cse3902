@@ -16,6 +16,7 @@ namespace cse3902.Rooms
 
         private List<IItem> items;
         private List<IEntity> enemies;
+        private List<INPC> npcs;
         private List<IProjectile> projectiles;
         private List<IBlock> blocks;
         private List<IDoor> doors;
@@ -37,6 +38,7 @@ namespace cse3902.Rooms
 
             items = new List<IItem>();
             enemies = new List<IEntity>();
+            npcs = new List<INPC>();
             projectiles = new List<IProjectile>();
             blocks = new List<IBlock>();
             doors = new List<IDoor>();
@@ -50,6 +52,11 @@ namespace cse3902.Rooms
         public void AddEnemy(IEntity enemy)
         {
             enemies.Add(enemy);
+        }
+
+        public void AddNPC(INPC npc)
+        {
+            npcs.Add(npc);
         }
 
         public void AddProjectile(IProjectile projectile)
@@ -87,6 +94,12 @@ namespace cse3902.Rooms
         {
             get => enemies;
             set => enemies = value;
+        }
+
+        public List<INPC> NPCs
+        {
+            get => npcs;
+            set => npcs = value;
         }
 
         public List<IProjectile> Projectiles

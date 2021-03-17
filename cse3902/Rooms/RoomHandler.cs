@@ -58,8 +58,12 @@ namespace cse3902.Rooms
             rooms.GetValueOrDefault(currentRoom).Items = oldItems;
 
             List<IEntity> oldEnemies = rooms.GetValueOrDefault(currentRoom).Enemies;
-            RoomEnemyNPCs.Instance.LoadNewRoom(ref oldEnemies, newRoom.Enemies);
+            RoomEnemies.Instance.LoadNewRoom(ref oldEnemies, newRoom.Enemies);
             rooms.GetValueOrDefault(currentRoom).Enemies = oldEnemies;
+
+            List<INPC> oldNPCs = rooms.GetValueOrDefault(currentRoom).NPCs;
+            RoomNPCs.Instance.LoadNewRoom(ref oldNPCs, newRoom.NPCs);
+            rooms.GetValueOrDefault(currentRoom).NPCs = oldNPCs;
 
             List<IBlock> oldBlocks = rooms.GetValueOrDefault(currentRoom).Blocks;
             RoomBlocks.Instance.LoadNewRoom(ref oldBlocks, newRoom.Blocks);
@@ -94,7 +98,8 @@ namespace cse3902.Rooms
             else
             {
                 RoomItems.Instance.Update(gameTime);
-                RoomEnemyNPCs.Instance.Update(gameTime);
+                RoomEnemies.Instance.Update(gameTime);
+                RoomNPCs.Instance.Update(gameTime);
                 RoomProjectiles.Instance.Update(gameTime);
             }
 
@@ -110,7 +115,8 @@ namespace cse3902.Rooms
             else
             {
                 RoomItems.Instance.Draw();
-                RoomEnemyNPCs.Instance.Draw();
+                RoomEnemies.Instance.Draw();
+                RoomNPCs.Instance.Draw();
                 RoomProjectiles.Instance.Draw();
             }
 

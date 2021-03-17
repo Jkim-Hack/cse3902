@@ -5,13 +5,13 @@ using System.Collections;
 
 namespace cse3902.Rooms
 {
-    public class RoomEnemyNPCs
+    public class RoomEnemies
     {
-        public IList enpcs;
+        public IList enemies;
 
-        private static RoomEnemyNPCs instance = new RoomEnemyNPCs();
+        private static RoomEnemies instance = new RoomEnemies();
 
-        public static RoomEnemyNPCs Instance
+        public static RoomEnemies Instance
         {
             get
             {
@@ -19,34 +19,33 @@ namespace cse3902.Rooms
             }
         }
 
-        private RoomEnemyNPCs()
+        private RoomEnemies()
         {
-            enpcs = new List<IEntity>();
+            enemies = new List<IEntity>();
         }
 
-        public void AddENPC(IEntity enemy)
+        public void AddEnemy(IEntity enemy)
         {
-            enpcs.Add(enemy);
+            enemies.Add(enemy);
         }
 
-        public void RemoveENPC(IEntity enemy)
+        public void RemoveEnemy(IEntity enemy)
         {
-            (enpcs as List<IEntity>).RemoveAll(x => x.Center == enemy.Center);
+            (enemies as List<IEntity>).RemoveAll(x => x.Center == enemy.Center);
             //enpcs.Remove(enemy);
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (IEntity enemy in enpcs)
+            foreach (IEntity enemy in enemies)
             {
                 enemy.Update(gameTime);
             }
-
         }
 
         public void Draw()
         {
-            foreach (IEntity enemy in enpcs)
+            foreach (IEntity enemy in enemies)
             {
                 enemy.Draw();
             }
@@ -56,25 +55,24 @@ namespace cse3902.Rooms
         {
             oldList = new List<IEntity>();
 
-            List<IEntity> entitiesNPCs = enpcs as List<IEntity>;
+            List<IEntity> enemytemp = enemies as List<IEntity>;
 
-            for (int i = 0; i < enpcs.Count; i++)
+            for (int i = 0; i < enemies.Count; i++)
             {
-                oldList.Add(entitiesNPCs[i]);
+                oldList.Add(enemytemp[i]);
             }
 
-            enpcs.Clear();
+            enemies.Clear();
 
             for (int i = 0; i < newList.Count; i++)
             {
-                enpcs.Add(newList[i]);
+                enemies.Add(newList[i]);
             }
-
         }
 
         public ref IList ListRef
         {
-            get => ref enpcs;
+            get => ref enemies;
         }
 
     }

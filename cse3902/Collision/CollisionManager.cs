@@ -13,7 +13,7 @@ namespace cse3902.Collision
         public enum CollisionPriority
         {
             PLAYER = 0,
-            ENEMY_NPC = 1,
+            ENEMIES = 1,
             ITEMS = 2,
             PROJECTILES = 3,
             BLOCKS = 4,
