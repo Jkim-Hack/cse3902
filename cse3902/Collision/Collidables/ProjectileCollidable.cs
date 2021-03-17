@@ -10,7 +10,7 @@ namespace cse3902.Collision.Collidables
     public class ProjectileCollidable : ICollidable
     {
         private IProjectile projectile;
-        private List<Boolean> collisionOccurrences = new List<Boolean>(6);
+        private Boolean[] collisionOccurrences;
 
         public ProjectileCollidable(IProjectile projectile)
         {
@@ -20,9 +20,13 @@ namespace cse3902.Collision.Collidables
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
-            if (!(collidableObject is ProjectileCollidable || collidableObject is SwordCollidable || collidableObject is BlockCollidable || collidableObject is PlayerCollidable ) || (collidableObject is PlayerCollidable && projectile is BoomerangItem))
+            if (collidableObject is DoorCollidable || collidableObject is WallCollidable || collidableObject is EnemyCollidable)
             {
-                //projectiles also implement IItem, can cast them to item to remove
+                RoomProjectiles.Instance.RemoveProjectile(this.projectile);
+            }
+
+            if (collidableObject is PlayerCollidable && this.IsEnemy)
+            {
                 RoomProjectiles.Instance.RemoveProjectile(this.projectile);
             }
 
@@ -55,7 +59,7 @@ namespace cse3902.Collision.Collidables
 
         public void ResetCollisions()
         {
-            for (int i = 0; i < collisionOccurrences.Capacity; i++)
+            for (int i = 0; i < collisionOccurrences.Length; i++)
             {
                 collisionOccurrences[i] = false;
             }

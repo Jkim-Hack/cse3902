@@ -120,6 +120,11 @@ namespace cse3902.Entities
             linkStateMachine.BeShoved();
         }
 
+        public void StopShove()
+        {
+
+        }
+
         public float Speed
         {
             get => linkStateMachine.Speed;

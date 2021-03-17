@@ -135,8 +135,8 @@ namespace cse3902.Entities
 
         public void BeShoved()
         {
-            this.shoveDistance = 10;
-            this.shoveDirection = new Vector2(currDirection.X * -2, currDirection.Y * -2);
+            this.shoveDistance = 20;
+            this.shoveDirection = -this.currDirection;
             this.PauseMovement  = true;
         }
 
@@ -145,7 +145,7 @@ namespace cse3902.Entities
             UpdateDamageDelay(gameTime);
             
 
-            if (this.shoveDistance > -10) ShoveMovement();
+            if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
 
             UpdateSprite(gameTime);
@@ -167,7 +167,7 @@ namespace cse3902.Entities
 
         private void ShoveMovement()
         {
-            if (this.shoveDistance >= 0) this.CenterPosition += shoveDirection;
+            this.CenterPosition += shoveDirection;
             shoveDistance--;
         }
 
