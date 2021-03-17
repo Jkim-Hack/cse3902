@@ -33,10 +33,11 @@ namespace cse3902.Entities.Enemies
             center = startingPos;
             aquamentusSprite = (AquamentusSprite)EnemySpriteFactory.Instance.CreateAquamentusSprite(game.SpriteBatch, center);
             aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.SpriteBatch, this.center);
-            direction = new Vector2(-1, 0);
+            direction = new Vector2(1, 0);
             speed = 10.0f;
             travelDistance = 20;
             shoveDistance = -10;
+            shoveDirection = new Vector2(1, 0);
             pauseAnim = false;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
@@ -78,7 +79,6 @@ namespace cse3902.Entities.Enemies
         public void BeShoved()
         {
             this.shoveDistance = 20;
-            this.shoveDirection = -this.direction;
             this.pauseAnim = true;
         }
 
@@ -89,8 +89,7 @@ namespace cse3902.Entities.Enemies
 
         public void Update(GameTime gameTime)
         {
-
-            if (this.shoveDistance > -10) ShoveMovement();
+            if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
             this.collidable.ResetCollisions();
 
