@@ -36,7 +36,7 @@ namespace cse3902.Collision.Collidables
                 {
                     //remove link from room
                     // TODO: this will need to be changed to reset game and such
-                    RoomEnemyNPCs.Instance.RemoveENPC(this.player);
+                    RoomEnemies.Instance.RemoveEnemy(this.player);
                 } 
 		        else
                 {

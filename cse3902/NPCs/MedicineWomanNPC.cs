@@ -2,7 +2,7 @@
 using cse3902.SpriteFactory;
 using Microsoft.Xna.Framework;
 
-namespace cse3902.Entities
+namespace cse3902.NPCs
 {
     class MedicineWomanNPC : INPC
     {
@@ -12,10 +12,13 @@ namespace cse3902.Entities
 
         private string message;
 
+        private Vector2 center;
+
         public MedicineWomanNPC(Game1 game, Vector2 start)
         {
             this.game = game;
-            medicineWomanSprite = NPCSpriteFactory.Instance.CreateMedicineWomanSprite(game.SpriteBatch, start);
+            center = start;
+            medicineWomanSprite = NPCSpriteFactory.Instance.CreateMedicineWomanSprite(game.SpriteBatch, center);
         }
 
         public void Update(GameTime gameTime)
@@ -27,9 +30,16 @@ namespace cse3902.Entities
         {
             message = msg;
         }
+
         public void Draw()
         {
             medicineWomanSprite.Draw();
+        }
+
+        public Vector2 Center
+        {
+            get => center;
+            set => center = value;
         }
     }
 }

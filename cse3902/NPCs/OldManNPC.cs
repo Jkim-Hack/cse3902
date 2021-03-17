@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using cse3902.SpriteFactory;
 
-namespace cse3902.Entities
+namespace cse3902.NPCs
 {
     class OldManNPC : INPC
     {
@@ -12,10 +12,13 @@ namespace cse3902.Entities
 
         private string message;
 
+        private Vector2 center;
+
         public OldManNPC(Game1 game, Vector2 start)
         {
             this.game = game;
-            oldManSprite = NPCSpriteFactory.Instance.CreateOldManSprite(game.SpriteBatch,start);
+            center = start;
+            oldManSprite = NPCSpriteFactory.Instance.CreateOldManSprite(game.SpriteBatch, center);
         }
        
         public void Update(GameTime gameTime)
@@ -27,9 +30,16 @@ namespace cse3902.Entities
         {
             message = msg;
         }
+
         public void Draw()
         {
             oldManSprite.Draw();
+        }
+
+        public Vector2 Center
+        {
+            get => center;
+            set => center = value;
         }
     }
 }

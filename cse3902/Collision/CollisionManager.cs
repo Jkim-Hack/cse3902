@@ -13,12 +13,13 @@ namespace cse3902.Collision
         public enum CollisionPriority
         {
             PLAYER = 0,
-            ENEMY_NPC = 1,
-            ITEMS = 2,
-            PROJECTILES = 3,
-            BLOCKS = 4,
-            DOORS = 5,
-            BACKGROUND = 6
+            ENEMIES = 1,
+            NPCS = 2,
+            ITEMS = 3,
+            PROJECTILES = 4,
+            BLOCKS = 5,
+            DOORS = 6,
+            BACKGROUND = 7
         }
 
         // <priority level, <Collidable's Rectangle, Collidable object>>

@@ -10,11 +10,11 @@ using System.Linq;
 
 namespace cse3902.XMLParsing
 {
-    public class EnemyNPCParser
+    public class EnemyParser
     {
         private Game1 game;
 
-        public EnemyNPCParser(Game1 gm)
+        public EnemyParser(Game1 gm)
         {
             game = gm;
         }
@@ -44,7 +44,7 @@ namespace cse3902.XMLParsing
 
         private IEntity CreateEnemy(String type, Vector2 startingPos)
         {
-            IEntity newEnemy = new OldManNPC(game, startingPos);
+            IEntity newEnemy = new Keese(game, startingPos);
             switch (type)
             {
                 case "Aquamentus":
@@ -64,18 +64,6 @@ namespace cse3902.XMLParsing
                     break;
                 case "Wallmaster":
                     newEnemy = new WallMaster(game, startingPos);
-                    break;
-                case "OldMan":
-                    newEnemy = new OldManNPC(game, startingPos);
-                    break;
-                case "MedicineWoman":
-                    newEnemy = new MedicineWomanNPC(game, startingPos);
-                    break;
-                case "Merchant":
-                    newEnemy = new MerchantNPC(game, startingPos);
-                    break;
-                case "Flame":
-                    newEnemy = new FlameNPC(game, startingPos);
                     break;
                 default:
                     break;

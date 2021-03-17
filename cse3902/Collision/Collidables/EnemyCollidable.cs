@@ -32,7 +32,7 @@ namespace cse3902.Collision.Collidables
                 this.enemy.TakeDamage(collidableObject.DamageValue);
                 if (this.enemy.Health <= 0)
                 {
-                    RoomEnemyNPCs.Instance.RemoveENPC(this.enemy);
+                    RoomEnemies.Instance.RemoveEnemy(this.enemy);
                 } else
                 {
                     //enemies are not shoved if attack perpdincular to their movement
@@ -50,7 +50,7 @@ namespace cse3902.Collision.Collidables
                     this.enemy.TakeDamage(collidableObject.DamageValue);
                     if (this.enemy.Health <= 0)
                     {
-                        RoomEnemyNPCs.Instance.RemoveENPC(this.enemy);
+                        RoomEnemies.Instance.RemoveEnemy(this.enemy);
                     }
                 } else
                 {
@@ -61,7 +61,7 @@ namespace cse3902.Collision.Collidables
                         this.enemy.BeShoved();
                         if (this.enemy.Health <= 0)
                         {
-                            RoomEnemyNPCs.Instance.RemoveENPC(this.enemy);
+                            RoomEnemies.Instance.RemoveEnemy(this.enemy);
                         }
                     }
                     //other enemies are simply stunned in place for a bit
