@@ -43,7 +43,7 @@ namespace cse3902.Entities
             //all fireballs originate in the mouth
             Vector2 location;
             location.X = this.center.X;
-            location.Y = this.center.Y + 20;
+            location.Y = this.center.Y - 10;
 
             if (aquamentusSprite.StartingFrameIndex == (int)AquamentusSprite.FrameIndex.RightFacing)
             {
@@ -52,7 +52,7 @@ namespace cse3902.Entities
                 direction2.Normalize();
                 direction3 = new Vector2(3, -1);
                 direction3.Normalize();
-                location.X += 30;
+                location.X += 15;
             }
             else
             {
@@ -62,7 +62,7 @@ namespace cse3902.Entities
                 direction3 = new Vector2(-3, -1);
                 direction3.Normalize();
 
-                location.X += -20; //originate fireballs at mouth if facing left
+                location.X += -15; //originate fireballs at mouth if facing left
             }
 
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
