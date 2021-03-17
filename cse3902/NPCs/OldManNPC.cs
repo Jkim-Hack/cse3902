@@ -14,10 +14,17 @@ namespace cse3902.NPCs
 
         private Vector2 center;
 
-        public OldManNPC(Game1 game, Vector2 start)
+        private TextSprite textSprite;
+
+        public OldManNPC(Game1 game, Vector2 start, string text)
         {
             this.game = game;
             center = start;
+            message = text;
+            if (message.Length > 0)
+            {
+                textSprite = new TextSprite(game, text, new Vector2(center.X - 70, center.Y - 40));
+            }
             oldManSprite = NPCSpriteFactory.Instance.CreateOldManSprite(game.SpriteBatch, center);
         }
        
@@ -34,6 +41,10 @@ namespace cse3902.NPCs
         public void Draw()
         {
             oldManSprite.Draw();
+            if (message.Length != 0)
+            {
+                textSprite.Draw();
+            }
         }
 
         public Vector2 Center
