@@ -123,6 +123,90 @@
         <enemies>
         </enemies> 
         <blocks>
+            <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>1</xloc>
+                <yloc>1</yloc>
+				<push>0</push>
+           </block>
+           <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>4</xloc>
+                <yloc>1</yloc>
+				<push>0</push>
+           </block>
+           <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>7</xloc>
+                <yloc>1</yloc>
+				<push>0</push>
+           </block>
+           <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>10</xloc>
+                <yloc>1</yloc>
+				<push>0</push>
+           </block>
+           <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>1</xloc>
+                <yloc>3</yloc>
+				<push>0</push>
+           </block>
+           <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>4</xloc>
+                <yloc>3</yloc>
+				<push>0</push>
+           </block>
+           <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>7</xloc>
+                <yloc>3</yloc>
+				<push>0</push>
+           </block>
+           <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>10</xloc>
+                <yloc>3</yloc>
+				<push>0</push>
+           </block>
+           <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>1</xloc>
+                <yloc>5</yloc>
+				<push>0</push>
+           </block>
+           <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>4</xloc>
+                <yloc>5</yloc>
+				<push>0</push>
+           </block>
+           <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>7</xloc>
+                <yloc>5</yloc>
+				<push>0</push>
+           </block>
+           <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>10</xloc>
+                <yloc>5</yloc>
+				<push>0</push>
+           </block>
         </blocks>
     </room>
     <room>
@@ -1879,6 +1963,34 @@
         <enemies>
         </enemies> 
         <blocks>
+            <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>3</xloc>
+                <yloc>3</yloc>
+				<push>0</push>
+           </block>
+           <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>4</xloc>
+                <yloc>2</yloc>
+				<push>0</push>
+           </block>
+           <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>7</xloc>
+                <yloc>2</yloc>
+				<push>0</push>
+           </block>
+           <block>
+                <type>Invisible</type>
+                <dir>Still</dir>
+                <xloc>8</xloc>
+                <yloc>3</yloc>
+				<push>0</push>
+           </block>
             <block>
                 <type>Normal</type>
                 <dir>Still</dir>
