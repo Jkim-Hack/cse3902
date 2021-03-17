@@ -18,7 +18,7 @@ namespace cse3902.Entities
 
         private bool isAttacking;
         private float fireballCounter;  
-        private const float fireballDelay = 5f;
+        private const float fireballDelay = 2.5f;
         
         private Vector2 center;
 
