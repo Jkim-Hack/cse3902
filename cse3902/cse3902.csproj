@@ -53,5 +53,6 @@
     <Compile Remove="Entities\GelStateMachine.cs" />
     <Compile Remove="Entities\GoriyaStateMachine.cs" />
     <Compile Remove="Entities\KeeseStateMachine.cs" />
+    <Compile Remove="Entities\StalfosStateMachine.cs" />
   </ItemGroup>
 </Project>
