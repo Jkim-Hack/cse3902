@@ -26,7 +26,7 @@ namespace cse3902.Entities.Enemies
         private ICollidable collidable;
         private int health;
         private float remainingDamageDelay;
-        private const float damageDelay = .05f;
+        private const float damageDelay = .5f;
 
         public Aquamentus(Game1 game, Vector2 start)
         {
@@ -71,6 +71,7 @@ namespace cse3902.Entities.Enemies
         {
             this.Health -= damage;
             this.aquamentusSprite.Damaged = true;
+            this.collidable.DamageDisabled = true;
         }
 
         public void Die()

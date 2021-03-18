@@ -11,10 +11,12 @@ namespace cse3902.Collision.Collidables
         private IDoor door;
         private List<Boolean> collisionOccurrences = new List<Boolean>(6);
 
+        public bool DamageDisabled { get; set; }
 
         public DoorCollidable(IDoor door)
         {
             this.door = door;
+            DamageDisabled = true;
         }
 
 

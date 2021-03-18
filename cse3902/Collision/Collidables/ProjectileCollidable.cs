@@ -12,9 +12,12 @@ namespace cse3902.Collision.Collidables
         private IProjectile projectile;
         private Boolean[] collisionOccurrences;
 
-        public ProjectileCollidable(IProjectile projectile)
+        public bool DamageDisabled { get; set; }
+        
+	    public ProjectileCollidable(IProjectile projectile)
         {
             this.projectile = projectile;
+            DamageDisabled = true;
         }
 
 
