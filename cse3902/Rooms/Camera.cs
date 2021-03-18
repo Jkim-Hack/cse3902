@@ -8,7 +8,6 @@ namespace cse3902
         private Vector2 gameplayBounds;
         private Vector2 gameplayOffset;
 
-        // dimensions = (width,height)
         private Vector2 topLeftCoordinate;
         private Vector2 dimensionScale;
 
@@ -18,6 +17,9 @@ namespace cse3902
         private Vector2 smoothMovementDirection;
         private int smoothMovementUpdateCyclesRemaining;
         private Vector2 smoothMovementDestination;
+
+        private bool hudDisplayed;
+        private Vector2 gameplayOffsetDirection;
 
         public Camera(Game1 game)
         {
@@ -35,6 +37,9 @@ namespace cse3902
             smoothMovementDestination = new Vector2(0, 0);
 
             MoveCamera(topLeftCoordinate, windowBounds);
+
+            hudDisplayed = false;
+            gameplayOffsetDirection = new Vector2();
         }
 
         public void MoveCamera(Vector2 topLeft, Vector2 dimensions)
@@ -68,9 +73,23 @@ namespace cse3902
                 smoothMovementDestination = topLeft;
 
                 if (numberUpdateCyclesToComplete < 1) numberUpdateCyclesToComplete = 1;
-                smoothMovementDirection = (topLeft - topLeftCoordinate) / ((float)numberUpdateCyclesToComplete);
+                smoothMovementDirection = (topLeft - topLeftCoordinate) / numberUpdateCyclesToComplete;
 
                 cameraIsMoving = true;
+            }
+        }
+
+        public void ToggleHudDisplayed(int numberUpdateCyclesToComplete)
+        {
+            if (!cameraIsMoving)
+            {
+                SmoothMoveCamera(topLeftCoordinate, numberUpdateCyclesToComplete);
+                if (numberUpdateCyclesToComplete < 1) numberUpdateCyclesToComplete = 1;
+                gameplayOffsetDirection = new Vector2(0, game.Window.ClientBounds.Height - game.HudHeight * game.Scale) / numberUpdateCyclesToComplete;
+
+                if (hudDisplayed) gameplayOffsetDirection *= -1;
+
+                hudDisplayed = !hudDisplayed;
             }
         }
 
@@ -80,12 +99,15 @@ namespace cse3902
             {
                 if (smoothMovementUpdateCyclesRemaining <= 1)
                 {
+                    gameplayOffset += gameplayOffsetDirection;
                     topLeftCoordinate = smoothMovementDestination;
                     transformationMatrix.Translation = new Vector3(-topLeftCoordinate * dimensionScale + gameplayOffset, 0);
                     cameraIsMoving = false;
+                    gameplayOffsetDirection = new Vector2();
                 }
                 else
                 {
+                    gameplayOffset += gameplayOffsetDirection;
                     MoveCameraSmoothOverride(smoothMovementDirection);
                     smoothMovementUpdateCyclesRemaining--;
                 }
@@ -112,6 +134,9 @@ namespace cse3902
             smoothMovementDestination = new Vector2(0, 0);
 
             MoveCamera(topLeftCoordinate, new Vector2(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height));
+
+            hudDisplayed = false;
+            gameplayOffsetDirection = new Vector2();
         }
     }
 }

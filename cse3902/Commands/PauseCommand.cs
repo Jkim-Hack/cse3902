@@ -15,7 +15,7 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            if (cooldown < 10)
+            if (cooldown < 10 || game.Camera.GetCameraMoving())
             {
                 cooldown++;
                 return;

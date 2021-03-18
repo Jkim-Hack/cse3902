@@ -155,6 +155,7 @@ namespace cse3902
                 collisionManager.Update();
             }
 
+            camera.Update();
             base.Update(gameTime);
         }
 
@@ -172,6 +173,11 @@ namespace cse3902
             collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
 
             spriteBatch.End();
+
+            spriteBatch.Begin();
+            //draw hud stuff here
+            spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }
