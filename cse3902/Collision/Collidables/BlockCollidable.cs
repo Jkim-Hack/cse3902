@@ -11,10 +11,12 @@ namespace cse3902.Collision.Collidables
         private IBlock block;
         private List<Boolean> collisionOccurrences = new List<Boolean>(6);
 
+        public bool DamageDisabled { get; set; }
 
         public BlockCollidable(IBlock block)
         {
             this.block = block;
+            DamageDisabled = true;
         }
 
 

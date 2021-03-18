@@ -9,10 +9,13 @@ namespace cse3902.Collision.Collidables
     {
         private IItem item;
         private List<Boolean> collisionOccurrences = new List<Boolean>(6);
+        
+	    public bool DamageDisabled { get; set; }
 
         public ItemCollidable(IItem item)
         {
             this.item = item;
+            DamageDisabled = true;
         }
 
 

@@ -44,6 +44,7 @@
     <Folder Include="XMLParsing\" />
     <Folder Include="Entities\DamageMasks\" />
     <Folder Include="NPCs\" />
+    <Folder Include="Constants\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Blocks\WaterBlock.cs" />

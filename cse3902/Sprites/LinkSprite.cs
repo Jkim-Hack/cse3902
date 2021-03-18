@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using static cse3902.Interfaces.ISprite;
 using System.Collections.Generic;
 using cse3902.Entities.DamageMasks;
+using cse3902.Constants;
 
 namespace cse3902.Sprites
 {
@@ -49,8 +50,6 @@ namespace cse3902.Sprites
 
         private Rectangle destination;
 
-        private const float damageDelay = .05f;
-
         private const float hitboxSizeModifier = 1.5f;
 
         private bool pauseMovement;
@@ -69,7 +68,7 @@ namespace cse3902.Sprites
             currentFrameIndex = 0;
 
             remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
-            remainingDamageDelay = damageDelay;
+            remainingDamageDelay = DamageConstants.DamageMaskDelay;
 
 	        this.startingPosition = startingPosition;
             center = startingPosition;
@@ -98,7 +97,7 @@ namespace cse3902.Sprites
                 remainingDamageDelay -= timer;
                 if (remainingDamageDelay < 0)
                 {
-                    remainingDamageDelay = damageDelay;
+                    remainingDamageDelay = DamageConstants.DamageMaskDelay;
                     maskHandler.LoadNextMask();
                 }
             }
@@ -189,7 +188,7 @@ namespace cse3902.Sprites
             get => isDamage;
             set 
 	        {
-                remainingDamageDelay = damageDelay;
+                remainingDamageDelay = DamageConstants.DamageMaskDelay;
                 isDamage = value;
                 maskHandler.Reset();
             }

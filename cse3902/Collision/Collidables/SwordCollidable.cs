@@ -11,11 +11,13 @@ namespace cse3902.Collision.Collidables
         private int damage;
         private List<Boolean> collisionOccurrences = new List<Boolean>(6);
 
-        public SwordCollidable(IProjectile projectile)
+        public bool DamageDisabled { get; set; }
+        
+	    public SwordCollidable(IProjectile projectile)
         {
             this.sword = projectile;
+            DamageDisabled = true;
         }
-
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
