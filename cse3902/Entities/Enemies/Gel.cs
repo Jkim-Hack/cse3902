@@ -11,7 +11,6 @@ namespace cse3902.Entities.Enemies
     public class Gel : IEntity
     {
         private GelSprite gelSprite;
-        private GelStateMachine gelStateMachine;
         private readonly Game1 game;
 
         private Vector2 direction;
@@ -33,7 +32,6 @@ namespace cse3902.Entities.Enemies
 
             //gel sprite sheet is 1 row, 2 columns
             gelSprite = (GelSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.SpriteBatch, startingPos);
-            gelStateMachine = new GelStateMachine(gelSprite);
             speed = 25.0f;
             travelDistance = 0;
             shoveDistance = -10;
@@ -54,7 +52,7 @@ namespace cse3902.Entities.Enemies
 
         public void Attack()
         {
-            this.gelStateMachine.Attack();
+            //gels don' attack
         }
 
         public void ChangeDirection(Vector2 direction)
@@ -79,7 +77,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            this.gelStateMachine.Die();
+            
         }
 
         public void BeShoved()

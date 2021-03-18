@@ -49,5 +49,6 @@
     <Compile Remove="Blocks\WaterBlock.cs" />
     <Compile Remove="Entities\EnemyStateMachine.cs" />
     <Compile Remove="Collision\Collidables\NPCCollidable.cs" />
+    <Compile Remove="Entities\GelStateMachine.cs" />
   </ItemGroup>
 </Project>
