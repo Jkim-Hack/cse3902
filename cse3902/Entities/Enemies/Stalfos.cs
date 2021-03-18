@@ -11,7 +11,6 @@ namespace cse3902.Entities.Enemies
     public class Stalfos : IEntity
     {
         private StalfosSprite stalfosSprite;
-        private StalfosStateMachine stalfosStateMachine;
         private readonly Game1 game;
 
         private Vector2 direction;
@@ -33,7 +32,6 @@ namespace cse3902.Entities.Enemies
 
             //stalfos sprite sheet is 1 row, 2 columns
             stalfosSprite = (StalfosSprite)EnemySpriteFactory.Instance.CreateStalfosSprite(game.SpriteBatch, center);
-            stalfosStateMachine = new StalfosStateMachine(stalfosSprite);
             speed = 30.0f;
             travelDistance = 0;
             shoveDistance = -10;
@@ -54,7 +52,7 @@ namespace cse3902.Entities.Enemies
 
         public void Attack()
         {
-            this.stalfosStateMachine.Attack();
+            
         }
 
         public void ChangeDirection(Vector2 direction)
@@ -76,7 +74,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            this.stalfosStateMachine.Die();
+            
         }
 
         public void BeShoved()
