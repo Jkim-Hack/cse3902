@@ -62,12 +62,10 @@ namespace cse3902.Entities.Enemies
             //direction vector of (0,0) indicates just reverse the current direction
             if (direction == new Vector2(0, 0))
             {
-                this.direction.X = -this.direction.X;
-                this.direction.Y = -this.direction.Y;
+                this.direction = -this.direction;
             } else
             {
-                this.direction.X = direction.X;
-                this.direction.Y = direction.Y;
+                this.direction = direction;
             }
         }
 
@@ -99,6 +97,11 @@ namespace cse3902.Entities.Enemies
             else RegularMovement(gameTime);
         }
 
+        public void Draw()
+        {
+            stalfosSprite.Draw();
+        }
+
         private void ShoveMovement()
         {
             this.CenterPosition += shoveDirection;
@@ -111,31 +114,8 @@ namespace cse3902.Entities.Enemies
 
             if (travelDistance <= 0)
             {
-                Random rand = new System.Random();
-                int choice = rand.Next(0, 4);
                 travelDistance = 80;
-
-                switch (choice)
-                {
-                    case 0:
-                        direction.X = 1;
-                        direction.Y = 0;
-                        break;
-                    case 1:
-                        direction.X = -1;
-                        direction.Y = 0;
-                        break;
-                    case 2:
-                        direction.X = 0;
-                        direction.Y = 1;
-                        break;
-                    case 3:
-                        direction.X = 0;
-                        direction.Y = -1;
-                        break;
-                    default:
-                        break;
-                }
+                RandomDirection();
             }
             else
             {
@@ -145,9 +125,28 @@ namespace cse3902.Entities.Enemies
             stalfosSprite.Update(gameTime);
         }
 
-        public void Draw()
+        private void RandomDirection()
         {
-            stalfosSprite.Draw();
+            Random rand = new System.Random();
+            int choice = rand.Next(0, 4);
+
+            switch (choice)
+            {
+                case 0:
+                    ChangeDirection(new Vector2(1, 0));
+                    break;
+                case 1:
+                    ChangeDirection(new Vector2(-1, 0));
+                    break;
+                case 2:
+                    ChangeDirection(new Vector2(0, 1));
+                    break;
+                case 3:
+                    ChangeDirection(new Vector2(0, -1));
+                    break;
+                default:
+                    break;
+            }
         }
 
         public Vector2 CenterPosition

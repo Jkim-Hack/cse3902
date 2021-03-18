@@ -58,19 +58,17 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-            //direction vector of (0,0) indicates just reverse the current direction
+            //direction vector of (0,0) gives opposite direction
             if (direction == new Vector2(0, 0))
             {
-                this.direction.X = -this.direction.X;
-                this.direction.Y = -this.direction.Y;
+                this.direction = -this.direction;
             }
             else
             {
-                this.direction.X = direction.X;
-                this.direction.Y = direction.Y;
+                this.direction = direction;
+                goriyaStateMachine.ChangeDirection(direction);
             }
 
-            goriyaStateMachine.ChangeDirection(direction);
         }
 
         public void TakeDamage(int damage)
@@ -114,36 +112,37 @@ namespace cse3902.Entities.Enemies
 
             if (travelDistance <= 0)
             {
-                Random rand = new System.Random();
-                int choice = rand.Next(0, 4);
                 travelDistance = 125;
 
-                switch (choice)
-                {
-                    case 0:
-                        direction.X = 1;
-                        direction.Y = 0;
-                        break;
-                    case 1:
-                        direction.X = -1;
-                        direction.Y = 0;
-                        break;
-                    case 2:
-                        direction.X = 0;
-                        direction.Y = 1;
-                        break;
-                    case 3:
-                        direction.X = 0;
-                        direction.Y = -1;
-                        break;
-                    default:
-                        break;
-                }
+                RandomDirection();
             }
             else travelDistance--;
 
-            ChangeDirection(direction);
             goriyaSprite.Update(gameTime);
+        }
+
+        private void RandomDirection()
+        {
+            Random rand = new System.Random();
+            int choice = rand.Next(0, 4);
+
+            switch (choice)
+            {
+                case 0:
+                    ChangeDirection(new Vector2(1, 0));
+                    break;
+                case 1:
+                    ChangeDirection(new Vector2(-1, 0));
+                    break;
+                case 2:
+                    ChangeDirection(new Vector2(0, 1));
+                    break;
+                case 3:
+                    ChangeDirection(new Vector2(0, -1));
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void Draw()

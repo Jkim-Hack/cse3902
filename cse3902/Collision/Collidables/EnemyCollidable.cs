@@ -89,6 +89,11 @@ namespace cse3902.Collision.Collidables
 
             } else if (collidableObject is BlockCollidable)
             {
+                if (collisionOccurrences[0])
+                {
+                    return;
+                }
+
                 if (!(this.enemy is Keese))
                 {
                     this.enemy.StopShove();
