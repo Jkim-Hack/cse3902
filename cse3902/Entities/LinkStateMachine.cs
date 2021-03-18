@@ -243,7 +243,7 @@ namespace cse3902.Entities
                     break;
 
                 case 3:
-                    item = projectileHandler.CreateBoomerangItem(spriteBatch, startingPosition, currDirection);
+                    item = projectileHandler.CreateBoomerangItem(spriteBatch, this, currDirection);
                     break;
 
                 case 4:

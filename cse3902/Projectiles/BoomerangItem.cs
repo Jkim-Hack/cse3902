@@ -1,5 +1,6 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Collision;
+using cse3902.Entities;
 using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,12 +32,16 @@ namespace cse3902.Projectiles
 
         private ICollidable collidable;
 
-        public BoomerangItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
+        private LinkStateMachine linkState;
+
+        public BoomerangItem(SpriteBatch batch, Texture2D texture, LinkStateMachine linkState, Vector2 dir)
         {
             spriteBatch = batch;
             spriteTexture = texture;
 
-            startingPosition = startingPos;
+            this.linkState = linkState;
+
+            startingPosition = linkState.CenterPosition;
 
             frameWidth = spriteTexture.Width;
             frameHeight = spriteTexture.Height;
@@ -62,8 +67,8 @@ namespace cse3902.Projectiles
 
             turns = 0;
 
-            currentX = (int)startingPos.X;
-            currentY = (int)startingPos.Y;
+            currentX = (int)linkState.CenterPosition.X;
+            currentY = (int)linkState.CenterPosition.Y;
 
             animationComplete = false;
 
