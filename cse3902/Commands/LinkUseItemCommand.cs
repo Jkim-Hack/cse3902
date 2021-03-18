@@ -16,8 +16,11 @@ namespace cse3902.Commands
             id = id % 4;
             id++;
 
-            game.Player.ChangeItem(id);
-            game.Player.UseItem();
+            if (game.PausedState == Game1.PauseState.Unpaused) 
+            { 
+                game.Player.ChangeItem(id);
+                game.Player.UseItem();
+            }
         }
 
         public void Unexecute()

@@ -15,7 +15,7 @@ namespace cse3902.Commands
         {
             id = id % 4;
 
-            game.Player.ChangeWeapon(id);
+            if (game.PausedState == Game1.PauseState.Unpaused) game.Player.ChangeWeapon(id);
         }
 
         public void Unexecute()

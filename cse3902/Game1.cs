@@ -37,10 +37,23 @@ namespace cse3902
         private Camera camera;
         public Camera Camera { get => camera; }
 
+        private int scale;
+        private int hudHeight;
+        public int Scale { get => scale; }
+        public int HudHeight { get => hudHeight; }
 
         private Texture2D lineTexture;
-        
-	    public Game1()
+
+        public enum PauseState
+        {
+            Unpaused,
+            Paused,
+            HudDisplayed,
+            HudPaused
+        }
+        public PauseState PausedState;
+
+        public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -54,8 +67,16 @@ namespace cse3902
         /// </summary>
         protected override void Initialize()
         {
+            hudHeight = 56;
+            scale = 3;
+            PausedState = PauseState.Unpaused;
+
+            this.graphics.PreferredBackBufferWidth = 256 * Scale;
+            this.graphics.PreferredBackBufferHeight = 232 * Scale;
+            this.graphics.ApplyChanges();
+
             // Setup input controllers    
-	        controllerList = new List<IController>();
+            controllerList = new List<IController>();
             controllerList.Add(new KeyboardController(this));
             controllerList.Add(new MouseController(this));
 
@@ -126,11 +147,15 @@ namespace cse3902
             {
                 controller.Update();
             }
-    
-	        player.Update(gameTime);
-            roomHandler.Update(gameTime);
-            collisionManager.Update();
 
+            if (PausedState == PauseState.Unpaused)
+            {
+                player.Update(gameTime);
+                roomHandler.Update(gameTime);
+                collisionManager.Update();
+            }
+
+            camera.Update();
             base.Update(gameTime);
         }
 
@@ -148,6 +173,11 @@ namespace cse3902
             collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
 
             spriteBatch.End();
+
+            spriteBatch.Begin();
+            //draw hud stuff here
+            spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }
