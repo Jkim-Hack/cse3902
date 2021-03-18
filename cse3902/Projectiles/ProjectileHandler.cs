@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using cse3902.Interfaces;
-using cse3902.Entities;
+using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
@@ -88,7 +88,7 @@ namespace cse3902.Projectiles
             return newProj;
         }
 
-        public IProjectile CreateBoomerangItem(SpriteBatch spriteBatch, LinkStateMachine linkState, Vector2 dir)
+        public IProjectile CreateBoomerangItem(SpriteBatch spriteBatch, LinkSprite linkState, Vector2 dir)
         {
             IProjectile newProj = new BoomerangItem(spriteBatch, boomerang, linkState, dir);
             projectiles.Add(newProj);
