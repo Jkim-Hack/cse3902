@@ -73,7 +73,7 @@ namespace cse3902.SpriteFactory
 
         public ISprite CreateBoomerangItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            IItem add = new BoomerangItem(spriteBatch, boomerang, startingPos, dir);
+            IItem add = new BoomerangItem(spriteBatch, boomerang, null, dir);
             RoomItems.Instance.AddItem(add);
             return add;
         }

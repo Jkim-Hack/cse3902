@@ -13,7 +13,7 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            game.Player.Attack();
+            if (game.PausedState == Game1.PauseState.Unpaused) game.Player.Attack();
         }
 
         public void Unexecute()

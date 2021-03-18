@@ -54,7 +54,6 @@ namespace cse3902.Rooms
             switch (steps[stepTracker])
             {
                 case 0.0f:
-                    game.Camera.Update();
                     if (!game.Camera.GetCameraMoving()) MoveLinkToNewRoom();
                     break;
 
