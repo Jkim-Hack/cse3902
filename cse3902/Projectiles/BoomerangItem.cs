@@ -1,5 +1,6 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Collision;
+using cse3902.Sprites;
 using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,59 +12,38 @@ namespace cse3902.Projectiles
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
-        private Vector2 startingPosition;
         private float angle;
         private const float sizeIncrease = 1f;
 
-        private int currentX;
-        private int currentY;
+        private int travelDistance;
 
         private int frameWidth;
         private int frameHeight;
 
         private Rectangle destination;
 
-        private int turns;
-
         private Vector2 direction;
+        private Vector2 center;
 
         private bool animationComplete;
 
         private ICollidable collidable;
+        private LinkSprite link;
 
-        public BoomerangItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
+        public BoomerangItem(SpriteBatch batch, Texture2D texture, LinkSprite link, Vector2 dir)
         {
             spriteBatch = batch;
             spriteTexture = texture;
 
-            startingPosition = startingPos;
+            this.link = link;
+            center = link.Center;
 
             frameWidth = spriteTexture.Width;
             frameHeight = spriteTexture.Height;
 
             direction = dir;
-
-            if (dir.X > 0)
-            {
-                angle = (float)(Math.PI * 1.0 / 2.0);
-            }
-            else if (dir.X < 0)
-            {
-                angle = (float)(Math.PI * 3.0 / 2.0);
-            }
-            else if (dir.Y > 0)
-            {
-                angle = (float)Math.PI;
-            }
-            else
-            {
-                angle = 0;
-            }
-
-            turns = 0;
-
-            currentX = (int)startingPos.X;
-            currentY = (int)startingPos.Y;
+            angle = 0;
+            travelDistance = 35;
 
             animationComplete = false;
 
@@ -73,7 +53,7 @@ namespace cse3902.Projectiles
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
             spriteBatch.Draw(spriteTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.8f);
         }
 
@@ -84,55 +64,22 @@ namespace cse3902.Projectiles
 
         public int Update(GameTime gameTime)
         {
-            if (animationComplete)
-            {
-                return -1;
-            }
 
-            int offset = 50;
+            if (animationComplete) return -1;
 
-            if (direction.X == 1)
-            {
-                currentX += 2;
-                if (currentX > startingPosition.X + offset && turns == 0)
-                {
-                    direction = new Vector2(-1,0);
-                    turns++;
-                }
-            }
-            else if (direction.X == -1)
-            {
-                currentX -= 2;
-                if (currentX < startingPosition.X - offset && turns == 0)
-                {
-                    direction = new Vector2(1,0);
-                    turns++;
-                }
-            }
-            else
-            if (direction.Y == 1)
-            {
-                currentY += 2;
-                if (currentY > startingPosition.Y + offset && turns == 0)
-                {
-                    direction = new Vector2(0, -1);
-                    turns++;
-                }
-            }
-            else
-            {
-                currentY -= 2;
-                if (currentY < startingPosition.Y - offset && turns == 0)
-                {
-                    direction = new Vector2(0, 1);
-                    turns++;
-                }
-            }
+            center += 1.25f * direction;
+            if (direction.Y == 0) center.Y = link.Center.Y;
+            else center.X = link.Center.X;
 
-            if (turns == 2)
-            {
-                animationComplete = true;
-            }
+            travelDistance--;
+            if (travelDistance == 0) direction = -direction;
+
+            angle += (float)(Math.PI / 8);
+            if (angle >= 2 * Math.PI) angle = 0;
+
+            /* Animation is done if boomerang is travelling back to Link and collides with him */
+            if (travelDistance < 0 && link.Box.Intersects(this.Box)) animationComplete = true;
+
             return 0;
         }
 
@@ -144,7 +91,7 @@ namespace cse3902.Projectiles
                 int height = (int)(sizeIncrease * frameHeight);
                 double cos = Math.Abs(Math.Cos(angle));
                 double sin = Math.Abs(Math.Sin(angle));
-                Rectangle Destination = new Rectangle(currentX, currentY, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
+                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
                 return ref destination;
@@ -155,12 +102,12 @@ namespace cse3902.Projectiles
         {
             get
             {
-                return new Vector2(currentX, currentY);
+                return center;
             }
             set
             {
-                currentX = (int)value.X;
-                currentY = (int)value.Y;
+                center.X = value.X;
+                center.Y = value.Y;
             }
         }
 
