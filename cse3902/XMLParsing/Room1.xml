@@ -2583,35 +2583,42 @@
 			<block>
 				<type>Movement0</type>
 				<dir>Still</dir>
-				<xloc>5</xloc>
+				<xloc>1.25</xloc>
 				<yloc>7</yloc>
 				<push>0</push>
 			</block>
 			<block>
 				<type>Movement0</type>
 				<dir>Still</dir>
-				<xloc>9</xloc>
+				<xloc>4.75</xloc>
 				<yloc>7</yloc>
 				<push>0</push>
 			</block>
 			<block>
 				<type>Movement0</type>
 				<dir>Still</dir>
-				<xloc>13</xloc>
+				<xloc>9.25</xloc>
 				<yloc>7</yloc>
 				<push>0</push>
 			</block>
 			<block>
 				<type>Movement0</type>
 				<dir>Still</dir>
-				<xloc>10</xloc>
-				<yloc>4</yloc>
+				<xloc>12.75</xloc>
+				<yloc>7</yloc>
 				<push>0</push>
 			</block>
 			<block>
 				<type>Movement1</type>
 				<dir>Still</dir>
 				<xloc>11</xloc>
+				<yloc>4</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Movement0</type>
+				<dir>Still</dir>
+				<xloc>10</xloc>
 				<yloc>4</yloc>
 				<push>0</push>
 			</block>

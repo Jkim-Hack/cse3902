@@ -32,8 +32,7 @@ namespace cse3902.Commands
                         case Game1.PauseState.HudDisplayed:
                             game.PausedState = Game1.PauseState.Unpaused;
                             break;
-                        default: //this should never happen
-                            game.PausedState = Game1.PauseState.HudDisplayed;
+                        default:
                             break;
                     }
                     break;
