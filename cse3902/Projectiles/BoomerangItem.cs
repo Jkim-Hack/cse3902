@@ -42,27 +42,10 @@ namespace cse3902.Projectiles
             frameHeight = spriteTexture.Height;
 
             direction = dir;
-
-            if (dir.X > 0)
-            {
-                angle = (float)(Math.PI * 1.0 / 2.0);
-            }
-            else if (dir.X < 0)
-            {
-                angle = (float)(Math.PI * 3.0 / 2.0);
-            }
-            else if (dir.Y > 0)
-            {
-                angle = (float)Math.PI;
-            }
-            else
-            {
-                angle = 0;
-            }
+            angle = 0;
+            travelDistance = 35;
 
             animationComplete = false;
-
-            travelDistance = 70;
 
             this.collidable = new ProjectileCollidable(this);
         }
@@ -84,10 +67,17 @@ namespace cse3902.Projectiles
 
             if (animationComplete) return -1;
 
-            center += direction;
+            center += 1.25f * direction;
+            if (direction.Y == 0) center.Y = link.Center.Y;
+            else center.X = link.Center.X;
+
             travelDistance--;
             if (travelDistance == 0) direction = -direction;
 
+            angle += (float)(Math.PI / 8);
+            if (angle >= 2 * Math.PI) angle = 0;
+
+            /* Animation is done if boomerang is travelling back to Link and collides with him */
             if (travelDistance < 0 && link.Box.Intersects(this.Box)) animationComplete = true;
 
             return 0;
