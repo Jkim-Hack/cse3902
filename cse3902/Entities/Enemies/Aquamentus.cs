@@ -25,6 +25,8 @@ namespace cse3902.Entities.Enemies
 
         private ICollidable collidable;
         private int health;
+        private float remainingDamageDelay;
+        private const float damageDelay = .05f;
 
         public Aquamentus(Game1 game, Vector2 start)
         {
@@ -38,6 +40,7 @@ namespace cse3902.Entities.Enemies
             travelDistance = 20;
             shoveDistance = -10;
             pauseAnim = false;
+            remainingDamageDelay = damageDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = 20;
@@ -86,11 +89,26 @@ namespace cse3902.Entities.Enemies
         {
             this.shoveDistance = 0;
         }
+        
+	    private void UpdateDamage(GameTime gameTime)
+        {
+            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
+            if (collidable.DamageDisabled)
+            {
+                remainingDamageDelay -= timer;
+                if (remainingDamageDelay < 0)
+                {
+                    remainingDamageDelay = damageDelay;
+                    collidable.DamageDisabled = false;
+                }
+            }
+        }
 
         public void Update(GameTime gameTime)
         {
-
-            if (this.shoveDistance > -10) ShoveMovement();
+            UpdateDamage(gameTime);
+	        if (this.shoveDistance > -10) ShoveMovement();
             else RegularMovement(gameTime);
             this.collidable.ResetCollisions();
 

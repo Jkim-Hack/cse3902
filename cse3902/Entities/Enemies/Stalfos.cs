@@ -24,6 +24,8 @@ namespace cse3902.Entities.Enemies
 
         private ICollidable collidable;
         private int health;
+        private float remainingDamageDelay;
+        private const float damageDelay = .05f;
 
         public Stalfos(Game1 game, Vector2 start)
         {
@@ -37,6 +39,7 @@ namespace cse3902.Entities.Enemies
             speed = 30.0f;
             travelDistance = 0;
             shoveDistance = -10;
+            remainingDamageDelay = damageDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = 10;
@@ -91,10 +94,26 @@ namespace cse3902.Entities.Enemies
         {
             this.shoveDistance = 0;
         }
+        
+	    private void UpdateDamage(GameTime gameTime)
+        {
+            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
+            if (collidable.DamageDisabled)
+            {
+                remainingDamageDelay -= timer;
+                if (remainingDamageDelay < 0)
+                {
+                    remainingDamageDelay = damageDelay;
+                    collidable.DamageDisabled = false;
+                }
+            }
+        }
 
         public void Update(GameTime gameTime)
         {
-            this.collidable.ResetCollisions();
+            UpdateDamage(gameTime);
+	        this.collidable.ResetCollisions();
             if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
         }

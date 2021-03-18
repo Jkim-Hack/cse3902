@@ -13,13 +13,15 @@ namespace cse3902.Collision.Collidables
         private int damage;
         private Boolean[] collisionOccurrences;
 
-        public bool DamageDisabled { get; set; }
+        private bool isDamage;
+
+        public bool DamageDisabled { get => isDamage; set => isDamage = value; }
 
         public EnemyCollidable(IEntity enemy, int damage)
         {
             this.enemy = enemy;
             this.damage = damage;
-            DamageDisabled = false;
+            isDamage = false;
             collisionOccurrences = new Boolean[6];
             this.ResetCollisions();
         }
@@ -27,7 +29,7 @@ namespace cse3902.Collision.Collidables
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
-            if (collidableObject is SwordCollidable && !DamageDisabled)
+            if (collidableObject is SwordCollidable && !isDamage)
             {
                 this.enemy.TakeDamage(collidableObject.DamageValue);
                 if (this.enemy.Health <= 0)
@@ -42,7 +44,7 @@ namespace cse3902.Collision.Collidables
                     }
                 }
 
-            } else if (collidableObject is ProjectileCollidable && !DamageDisabled)
+            } else if (collidableObject is ProjectileCollidable && !isDamage)
             {
                 if (this.enemy is Gel || this.enemy is Keese)
                 {

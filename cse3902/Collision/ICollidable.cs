@@ -8,6 +8,7 @@ namespace cse3902.Collision
         void OnCollidedWith(ICollidable collidableObject);
         ref Rectangle RectangleRef { get; }
         int DamageValue { get; }
+        bool DamageDisabled { get; set; }
         void ResetCollisions();
     }
 }
