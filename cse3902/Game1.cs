@@ -37,6 +37,11 @@ namespace cse3902
         private Camera camera;
         public Camera Camera { get => camera; }
 
+        private int scale;
+        private int hudHeight;
+        public int Scale { get => scale; }
+        public int HudHeight { get => hudHeight; }
+
 
         private Texture2D lineTexture;
         
@@ -54,8 +59,15 @@ namespace cse3902
         /// </summary>
         protected override void Initialize()
         {
+            hudHeight = 56;
+            scale = 3;
+
+            this.graphics.PreferredBackBufferWidth = 256 * Scale;
+            this.graphics.PreferredBackBufferHeight = 232 * Scale;
+            this.graphics.ApplyChanges();
+
             // Setup input controllers    
-	        controllerList = new List<IController>();
+            controllerList = new List<IController>();
             controllerList.Add(new KeyboardController(this));
             controllerList.Add(new MouseController(this));
 

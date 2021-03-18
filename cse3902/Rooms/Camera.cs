@@ -24,8 +24,8 @@ namespace cse3902
             this.game = game;
             Vector2 windowBounds = new Vector2(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
             //adjustment for menu bar
-            gameplayBounds = windowBounds + new Vector2(0, 0);
-            gameplayOffset = new Vector2(0, 0);
+            gameplayBounds = windowBounds + new Vector2(0, -game.HudHeight * game.Scale);
+            gameplayOffset = new Vector2(0, game.HudHeight * game.Scale);
 
             topLeftCoordinate = new Vector2(0, 0);
 

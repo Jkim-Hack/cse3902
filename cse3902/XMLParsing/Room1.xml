@@ -2549,35 +2549,35 @@
 				<type>Invisible</type>
 				<dir>Still</dir>
 				<xloc>11</xloc>
-				<yloc>3</yloc>
+				<yloc>3.25</yloc>
 				<push>0</push>
 			</block>
 			<block>
 				<type>Invisible</type>
 				<dir>Still</dir>
 				<xloc>2</xloc>
-				<yloc>6</yloc>
+				<yloc>6.25</yloc>
 				<push>0</push>
 			</block>
 			<block>
 				<type>Invisible</type>
 				<dir>Still</dir>
 				<xloc>4</xloc>
-				<yloc>6</yloc>
+				<yloc>6.25</yloc>
 				<push>0</push>
 			</block>
 			<block>
 				<type>Invisible</type>
 				<dir>Still</dir>
 				<xloc>10</xloc>
-				<yloc>6</yloc>
+				<yloc>6.25</yloc>
 				<push>0</push>
 			</block>
 			<block>
 				<type>Invisible</type>
 				<dir>Still</dir>
 				<xloc>12</xloc>
-				<yloc>6</yloc>
+				<yloc>6.25</yloc>
 				<push>0</push>
 			</block>
 			<block>
