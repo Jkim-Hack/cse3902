@@ -5,6 +5,7 @@ using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
+using cse3902.Constants;
 
 namespace cse3902.Entities.Enemies
 {
@@ -24,7 +25,6 @@ namespace cse3902.Entities.Enemies
         private ICollidable collidable;
         private int health;
         private float remainingDamageDelay;
-        private const float damageDelay = .5f;
 
         public WallMaster(Game1 game, Vector2 start)
         {
@@ -37,7 +37,7 @@ namespace cse3902.Entities.Enemies
             speed = 20.0f;
             travelDistance = 0;
             shoveDistance = -10;
-            remainingDamageDelay = damageDelay;
+            remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = 10;
@@ -106,7 +106,7 @@ namespace cse3902.Entities.Enemies
                 remainingDamageDelay -= timer;
                 if (remainingDamageDelay < 0)
                 {
-                    remainingDamageDelay = damageDelay;
+                    remainingDamageDelay = DamageConstants.DamageDisableDelay;
                     collidable.DamageDisabled = false;
                 }
             }
