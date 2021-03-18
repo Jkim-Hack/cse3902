@@ -5,6 +5,7 @@ using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
 using System;
+using cse3902.Constants;
 
 namespace cse3902.Entities.Enemies
 {
@@ -25,6 +26,7 @@ namespace cse3902.Entities.Enemies
 
         private ICollidable collidable;
         private int health;
+        private float remainingDamageDelay;
 
         public Aquamentus(Game1 game, Vector2 start)
         {
@@ -39,6 +41,7 @@ namespace cse3902.Entities.Enemies
             shoveDistance = -10;
             shoveDirection = new Vector2(1, 0);
             pauseAnim = false;
+            remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = 20;
@@ -69,6 +72,7 @@ namespace cse3902.Entities.Enemies
         {
             this.Health -= damage;
             this.aquamentusSprite.Damaged = true;
+            this.collidable.DamageDisabled = true;
         }
 
         public void Die()
@@ -86,9 +90,25 @@ namespace cse3902.Entities.Enemies
         {
             this.shoveDistance = 0;
         }
+        
+	    private void UpdateDamage(GameTime gameTime)
+        {
+            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
+            if (collidable.DamageDisabled)
+            {
+                remainingDamageDelay -= timer;
+                if (remainingDamageDelay < 0)
+                {
+                    remainingDamageDelay = DamageConstants.DamageDisableDelay;
+                    collidable.DamageDisabled = false;
+                }
+            }
+        }
 
         public void Update(GameTime gameTime)
         {
+            UpdateDamage(gameTime);
             if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
             this.collidable.ResetCollisions();

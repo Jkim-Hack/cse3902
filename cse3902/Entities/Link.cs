@@ -7,6 +7,7 @@ using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Entities.DamageMasks;
+using cse3902.Constants;
 
 namespace cse3902.Entities
 {
@@ -19,6 +20,8 @@ namespace cse3902.Entities
         private ICollidable collidable;
         private int health;
         private List<Vector2> directions;
+        
+	    private float remainingDamageDelay;
 
         public Link(Game1 game)
         {
@@ -35,6 +38,7 @@ namespace cse3902.Entities
 
             //Link's body does no damage itself
             this.collidable = new PlayerCollidable(this, 0);
+            remainingDamageDelay = DamageConstants.DamageDisableDelay;
         }
 
         private void PopulateDirections()
@@ -75,12 +79,28 @@ namespace cse3902.Entities
 
         public void TakeDamage(int damage)
         {
-            
+            collidable.DamageDisabled = true;
             linkStateMachine.TakeDamage(damage);
 	    } 
+	    
+	    private void UpdateDamage(GameTime gameTime)
+        {
+            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
+            if (collidable.DamageDisabled)
+            {
+                remainingDamageDelay -= timer;
+                if (remainingDamageDelay < 0)
+                {
+                    remainingDamageDelay = DamageConstants.DamageDisableDelay;
+                    collidable.DamageDisabled = false;
+                }
+            }
+        }
 
         public void Update(GameTime gameTime)
         {
+            UpdateDamage(gameTime);
             linkStateMachine.Update(gameTime);
             collidable.ResetCollisions();
         }

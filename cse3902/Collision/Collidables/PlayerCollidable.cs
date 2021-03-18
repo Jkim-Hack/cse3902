@@ -12,10 +12,14 @@ namespace cse3902.Collision.Collidables
         private int damage;
         private Boolean[] collisionOccurrences;
 
+        private bool isDamageDisabled;
+        public bool DamageDisabled { get => isDamageDisabled; set => isDamageDisabled = value; }
+
         public PlayerCollidable(IPlayer player, int damage)
         {
             this.player = player;
             this.damage = damage;
+            isDamageDisabled = false;
             collisionOccurrences = new Boolean[6];
         }
 
@@ -27,7 +31,7 @@ namespace cse3902.Collision.Collidables
                 return;
             }
 
-            if (collidableObject is EnemyCollidable)
+            if (collidableObject is EnemyCollidable && !isDamageDisabled)
             {
                 //take damage and get shoved back by enemy
                 player.TakeDamage(collidableObject.DamageValue);
@@ -73,7 +77,7 @@ namespace cse3902.Collision.Collidables
             } 
 	        else if (collidableObject is ProjectileCollidable)
             {
-                if (((ProjectileCollidable)collidableObject).IsEnemy)
+                if (((ProjectileCollidable)collidableObject).IsEnemy && !isDamageDisabled)
                 {
                     player.TakeDamage(((ProjectileCollidable)collidableObject).DamageValue);
                     player.BeShoved();

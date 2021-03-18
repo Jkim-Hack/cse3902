@@ -5,6 +5,7 @@ using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
 using System;
+using cse3902.Constants;
 
 namespace cse3902.Entities.Enemies
 {
@@ -24,7 +25,8 @@ namespace cse3902.Entities.Enemies
 
         private ICollidable collidable;
         private int health;
-
+        private float remainingDamageDelay;
+        
         public Keese(Game1 game, Vector2 start)
         {
             this.game = game;
@@ -36,6 +38,7 @@ namespace cse3902.Entities.Enemies
             speed = 30.0f;
             travelDistance = 0;
             shoveDistance = -10;
+            remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = 10;
@@ -74,6 +77,7 @@ namespace cse3902.Entities.Enemies
         public void TakeDamage(int damage)
         {
             this.Health -= damage;
+            this.collidable.DamageDisabled = true;
         }
 
         public void Die()
@@ -91,10 +95,26 @@ namespace cse3902.Entities.Enemies
         {
             this.shoveDistance = 0;
         }
+        
+	    private void UpdateDamage(GameTime gameTime)
+        {
+            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
+            if (collidable.DamageDisabled)
+            {
+                remainingDamageDelay -= timer;
+                if (remainingDamageDelay < 0)
+                {
+                    remainingDamageDelay = DamageConstants.DamageDisableDelay;
+                    collidable.DamageDisabled = false;
+                }
+            }
+        }
 
         public void Update(GameTime gameTime)
         {
-            this.collidable.ResetCollisions();
+            UpdateDamage(gameTime); 
+	        this.collidable.ResetCollisions();
             if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
         }

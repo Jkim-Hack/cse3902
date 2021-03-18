@@ -10,9 +10,12 @@ namespace cse3902.Collision.Collidables
         private Rectangle hitbox;
         private List<Boolean> collisionOccurrences = new List<Boolean>(6);
 
-        public WallCollidable(ref Rectangle hitbox)
+        public bool DamageDisabled { get; set; }
+        
+	    public WallCollidable(ref Rectangle hitbox)
         {
             this.hitbox = hitbox;
+            DamageDisabled = true;
         }
 
 

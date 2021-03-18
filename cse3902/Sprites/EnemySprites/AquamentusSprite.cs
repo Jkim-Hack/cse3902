@@ -1,4 +1,5 @@
 ﻿using System;
+using cse3902.Constants;
 using cse3902.Entities.DamageMasks;
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
@@ -40,7 +41,6 @@ namespace cse3902.Sprites.EnemySprites
         private Rectangle destination;
 
         private float remainingDamageDelay;
-        private const float damageDelay = .05f;
         
         private const float sizeIncrease = 1f;
 
@@ -52,7 +52,7 @@ namespace cse3902.Sprites.EnemySprites
             remainingDelay = delay;
 
             isDamage = false;
-            remainingDamageDelay = damageDelay;
+            remainingDamageDelay = DamageConstants.DamageMaskDelay;
 
             totalFrames = rows * columns;
             currentFrame = 2;
@@ -115,7 +115,7 @@ namespace cse3902.Sprites.EnemySprites
                 remainingDamageDelay -= timer;
                 if (remainingDamageDelay < 0)
                 {
-                    remainingDamageDelay = damageDelay;
+                    remainingDamageDelay = DamageConstants.DamageMaskDelay;
                     damageMaskHandler.LoadNextMask();
                 }
             }
@@ -163,7 +163,7 @@ namespace cse3902.Sprites.EnemySprites
             get => isDamage;
             set 
 	        {
-                remainingDamageDelay = damageDelay;
+                remainingDamageDelay = DamageConstants.DamageMaskDelay;
                 isDamage = value;
                 damageMaskHandler.Reset();
             }
