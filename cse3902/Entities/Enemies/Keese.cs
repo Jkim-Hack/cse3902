@@ -11,7 +11,6 @@ namespace cse3902.Entities.Enemies
     public class Keese : IEntity
     {
         private KeeseSprite keeseSprite;
-        private KeeseStateMachine keeseStateMachine;
         private readonly Game1 game;
 
         private Vector2 direction;
@@ -32,7 +31,6 @@ namespace cse3902.Entities.Enemies
             center = startingPos;
 
             keeseSprite = (KeeseSprite)EnemySpriteFactory.Instance.CreateKeeseSprite(game.SpriteBatch, center);
-            keeseStateMachine = new KeeseStateMachine(keeseSprite);
             speed = 30.0f;
             travelDistance = 0;
             shoveDistance = -10;
@@ -53,7 +51,7 @@ namespace cse3902.Entities.Enemies
 
         public void Attack()
         {
-            this.keeseStateMachine.Attack();
+            
         }
 
         public void ChangeDirection(Vector2 direction)
@@ -78,7 +76,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            this.keeseStateMachine.Die();
+            
         }
 
         public void BeShoved()
