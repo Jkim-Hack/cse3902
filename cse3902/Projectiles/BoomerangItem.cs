@@ -12,13 +12,10 @@ namespace cse3902.Projectiles
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
-        private Vector2 startingPosition;
         private float angle;
         private const float sizeIncrease = 1f;
 
-        private int turnDistance;
         private int travelDistance;
-        private Boolean turned;
 
         private int frameWidth;
         private int frameHeight;
@@ -26,7 +23,7 @@ namespace cse3902.Projectiles
         private Rectangle destination;
 
         private Vector2 direction;
-        private Vector2 current;
+        private Vector2 center;
 
         private bool animationComplete;
 
@@ -39,9 +36,7 @@ namespace cse3902.Projectiles
             spriteTexture = texture;
 
             this.link = link;
-
-            startingPosition = link.Center;
-            current = link.Center;
+            center = link.Center;
 
             frameWidth = spriteTexture.Width;
             frameHeight = spriteTexture.Height;
@@ -67,7 +62,7 @@ namespace cse3902.Projectiles
 
             animationComplete = false;
 
-            turnDistance = 50;
+            travelDistance = 70;
 
             this.collidable = new ProjectileCollidable(this);
         }
@@ -75,7 +70,7 @@ namespace cse3902.Projectiles
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle((int)current.X, (int)current.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
             spriteBatch.Draw(spriteTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.8f);
         }
 
@@ -89,11 +84,11 @@ namespace cse3902.Projectiles
 
             if (animationComplete) return -1;
 
-            current += direction;
-            travelDistance++;
-            if (travelDistance == turnDistance) direction = -direction;
+            center += direction;
+            travelDistance--;
+            if (travelDistance == 0) direction = -direction;
 
-            if (travelDistance == turnDistance * 2) animationComplete = true;
+            if (travelDistance < 0 && link.Box.Intersects(this.Box)) animationComplete = true;
 
             return 0;
         }
@@ -106,7 +101,7 @@ namespace cse3902.Projectiles
                 int height = (int)(sizeIncrease * frameHeight);
                 double cos = Math.Abs(Math.Cos(angle));
                 double sin = Math.Abs(Math.Sin(angle));
-                Rectangle Destination = new Rectangle((int)current.X, (int)current.Y, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
+                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
                 return ref destination;
@@ -117,12 +112,12 @@ namespace cse3902.Projectiles
         {
             get
             {
-                return current;
+                return center;
             }
             set
             {
-                current.X = value.X;
-                current.Y = value.Y;
+                center.X = value.X;
+                center.Y = value.Y;
             }
         }
 
