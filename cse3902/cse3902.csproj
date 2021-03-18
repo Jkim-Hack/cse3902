@@ -50,5 +50,6 @@
     <Compile Remove="Entities\EnemyStateMachine.cs" />
     <Compile Remove="Collision\Collidables\NPCCollidable.cs" />
     <Compile Remove="Entities\GelStateMachine.cs" />
+    <Compile Remove="Entities\GoriyaStateMachine.cs" />
   </ItemGroup>
 </Project>

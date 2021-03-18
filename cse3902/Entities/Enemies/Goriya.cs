@@ -11,7 +11,6 @@ namespace cse3902.Entities.Enemies
     public class Goriya : IEntity
     {
         private GoriyaSprite goriyaSprite;
-        private GoriyaStateMachine goriyaStateMachine;
         private readonly Game1 game;
 
         private Vector2 direction;
@@ -32,7 +31,6 @@ namespace cse3902.Entities.Enemies
             center = startingPos;
 
             goriyaSprite = (GoriyaSprite)EnemySpriteFactory.Instance.CreateGoriyaSprite(game.SpriteBatch, center);
-            goriyaStateMachine = new GoriyaStateMachine(goriyaSprite);
             speed = 25.0f;
             travelDistance = 0;
             shoveDistance = -10;
@@ -53,7 +51,7 @@ namespace cse3902.Entities.Enemies
 
         public void Attack()
         {
-            this.goriyaStateMachine.Attack();
+            
         }
 
         public void ChangeDirection(Vector2 direction)
@@ -67,7 +65,7 @@ namespace cse3902.Entities.Enemies
             {
                 this.direction = direction;
             }
-            goriyaStateMachine.ChangeDirection(direction);
+            ChangeSpriteDirection(direction);
 
         }
 
@@ -79,7 +77,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            this.goriyaStateMachine.Die();
+            
         }
 
         public void BeShoved()
@@ -142,6 +140,49 @@ namespace cse3902.Entities.Enemies
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void ChangeSpriteDirection(Vector2 direction)
+        {
+            if (direction == new Vector2(0, 0))
+            {
+                //direction vector of (0,0) indicates just reverse the current direction
+                if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.RightFacing)
+                {
+                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.LeftFacing;
+                }
+                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.LeftFacing)
+                {
+                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.RightFacing;
+                }
+                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.UpFacing)
+                {
+                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.DownFacing;
+                }
+                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.DownFacing)
+                {
+                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.UpFacing;
+                }
+
+                return;
+            }
+
+            if (direction.X > 0)
+            {
+                goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.RightFacing;
+            }
+            else if (direction.X < 0)
+            {
+                goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.LeftFacing;
+            }
+            else if (direction.Y > 0)
+            {
+                goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.DownFacing;
+            }
+            else
+            {
+                goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.UpFacing;
             }
         }
 
