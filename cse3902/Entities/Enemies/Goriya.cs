@@ -66,8 +66,8 @@ namespace cse3902.Entities.Enemies
             else
             {
                 this.direction = direction;
-                goriyaStateMachine.ChangeDirection(direction);
             }
+            goriyaStateMachine.ChangeDirection(direction);
 
         }
 
