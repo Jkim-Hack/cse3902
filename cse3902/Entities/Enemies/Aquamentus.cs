@@ -102,6 +102,7 @@ namespace cse3902.Entities.Enemies
                 {
                     remainingDamageDelay = DamageConstants.DamageDisableDelay;
                     collidable.DamageDisabled = false;
+                    aquamentusSprite.Damaged = false;
                 }
             }
         }
