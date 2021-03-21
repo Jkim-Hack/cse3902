@@ -68,7 +68,7 @@ namespace cse3902.Projectiles
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
 
-            collisionTexture = ProjectileHandler.Instance.CreatePoofTexture();
+            collisionTexture = ProjectileHandler.Instance.CreateStarAnimTexture();
             this.collidable = new ProjectileCollidable(this);
         }
 

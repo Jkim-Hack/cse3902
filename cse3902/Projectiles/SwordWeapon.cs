@@ -76,7 +76,7 @@ namespace cse3902.Projectiles
                 angle = 0;
             }
 
-            collisionTexture = ProjectileHandler.Instance.CreatePoofTexture();
+            collisionTexture = ProjectileHandler.Instance.CreateStarAnimTexture();
             this.collidable = new SwordCollidable(this);
         }
 
