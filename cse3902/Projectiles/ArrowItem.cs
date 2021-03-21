@@ -18,17 +18,16 @@ namespace cse3902.Projectiles
         private int currentY;
         private int frameWidth;
         private int frameHeight;
+        private int collTime;
 
         private float angle = 0;
 
         private bool collided;
-
         private bool animationComplete;
         private Rectangle destination;
         private const float sizeIncrease = 1f;
 
         private Vector2 direction;
-
         private ICollidable collidable;
 
         public ArrowItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
@@ -61,6 +60,7 @@ namespace cse3902.Projectiles
 
             animationComplete = false;
             collided = false;
+            collTime = 5;
 
             frameWidth = spriteTexture.Width;
             frameHeight = spriteTexture.Height;
@@ -75,16 +75,24 @@ namespace cse3902.Projectiles
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
 
             if (!collided)
             {
+                Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
                 spriteBatch.Draw(spriteTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.8f);
             }
             else
             {
-                spriteBatch.Draw(collisionTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.8f);
-                animationComplete = true;
+                if (collTime >= 0)
+                {
+                    Rectangle Destination = new Rectangle(currentX, currentY, (int)(2 * collisionTexture.Width), (int)(2 * collisionTexture.Width));
+                    spriteBatch.Draw(collisionTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.2f);
+                    collTime--;
+                }
+                else
+                {
+                    animationComplete = true;
+                }
             }
         }
 
@@ -95,21 +103,28 @@ namespace cse3902.Projectiles
 
         public int Update(GameTime gameTime)
         {
-            if (direction.X == 1)
+            if (collided)
             {
-                currentX += 2;
-            }
-            else if (direction.X == -1)
-            {
-                currentX -= 2;
-            }
-            else if (direction.Y == 1)
-            {
-                currentY += 2;
+                return 0;
             }
             else
             {
-                currentY -= 2;
+                if (direction.X == 1)
+                {
+                    currentX += 2;
+                }
+                else if (direction.X == -1)
+                {
+                    currentX -= 2;
+                }
+                else if (direction.Y == 1)
+                {
+                    currentY += 2;
+                }
+                else
+                {
+                    currentY -= 2;
+                }
             }
             return 0;
         }

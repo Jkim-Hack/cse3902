@@ -55,7 +55,6 @@ namespace cse3902.Projectiles
 
         public int Update(GameTime gameTime)
         {
-
             if(fireballCounter < 0)
             {
                 animationComplete = true;
