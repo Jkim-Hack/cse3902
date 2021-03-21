@@ -18,14 +18,15 @@ namespace cse3902.Projectiles
         private int frameWidth;
         private int frameHeight;
 
-        private const float delay = 0.2f;
+        private readonly Vector2 offset = new Vector2(25, 75);
+        private const float delay = .05f;
         private float remainingDelay;
         private int currentX;
         private int currentY;
         private float angle = 0;
 
         private Rectangle destination;
-        private const float sizeIncrease = 1f;
+        private const float sizeIncrease = 0.5f;
 
         public PoofSprite(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
@@ -53,7 +54,7 @@ namespace cse3902.Projectiles
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            Rectangle Destination = new Rectangle(currentX + (int)offset.X, currentY + (int)offset.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
             spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, 0.2f);            
         }
 

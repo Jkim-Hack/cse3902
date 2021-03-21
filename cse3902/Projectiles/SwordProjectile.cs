@@ -139,6 +139,7 @@ namespace cse3902.Projectiles
             }
             else
             {
+                collisionTexture.Center = new Vector2(currentX, currentY);
                 return collisionTexture.Update(gameTime);
             }
             
