@@ -150,18 +150,6 @@ namespace cse3902.Entities
             get => linkStateMachine.Speed;
             set => linkStateMachine.Speed = value;
         }
-        
-	    public Vector2 CenterPosition
-        {
-            set => linkStateMachine.CenterPosition = value;
-            get => linkStateMachine.CenterPosition;
-        }
-
-        public Vector2 PreviousPosition
-        {
-
-            get => linkSprite.PreviousCenter;
-        }
 
         public List<Vector2> Directions
         {
@@ -186,7 +174,19 @@ namespace cse3902.Entities
 
         public Vector2 Center
         {
-            get => this.linkSprite.Center;
+            get => this.linkStateMachine.CenterPosition;
+            set
+            {
+                this.PreviousCenter = this.linkStateMachine.CenterPosition;
+                this.linkStateMachine.CenterPosition = value;
+            }
+        }
+
+        public Vector2 PreviousCenter
+        {
+
+            get => linkSprite.PreviousCenter;
+            set => this.linkSprite.PreviousCenter = value;
         }
     }
 }

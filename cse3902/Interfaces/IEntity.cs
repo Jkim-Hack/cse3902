@@ -9,7 +9,8 @@ namespace cse3902.Interfaces
         public ref Rectangle Bounds { get; }
         public int Health { get; }
         public Vector2 Direction { get; }
-        public Vector2 Center { get; }
+        public Vector2 Center { get; set; }
+        public Vector2 PreviousCenter { get; }
 
         public void Attack();
         public void ChangeDirection(Vector2 direction);

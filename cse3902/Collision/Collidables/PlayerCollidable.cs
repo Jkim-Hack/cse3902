@@ -59,13 +59,13 @@ namespace cse3902.Collision.Collidables
                 {
                     if (!((BlockCollidable)collidableObject).IsWalkable)
                     {
-                        player.CenterPosition = player.PreviousPosition;
+                        player.Center = player.PreviousCenter;
                         collisionOccurrences[0] = true;
                     }
                 } 
 		        else
                 {
-                    player.CenterPosition = player.PreviousPosition;
+                    player.Center = player.PreviousCenter;
                 } 
             } 
 	        else if (collidableObject is ItemCollidable)
@@ -91,7 +91,7 @@ namespace cse3902.Collision.Collidables
                 }
                 if (((DoorCollidable)collidableObject).State == IDoor.DoorState.Closed || ((DoorCollidable)collidableObject).State == IDoor.DoorState.Locked || ((DoorCollidable)collidableObject).State == IDoor.DoorState.Wall)
                 {
-                    player.CenterPosition = player.PreviousPosition;
+                    player.Center = player.PreviousCenter;
                     collisionOccurrences[0] = true;
                 }
             }

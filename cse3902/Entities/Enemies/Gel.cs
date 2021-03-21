@@ -12,13 +12,12 @@ namespace cse3902.Entities.Enemies
     public class Gel : IEntity
     {
         private GelSprite gelSprite;
-        private GelStateMachine gelStateMachine;
         private readonly Game1 game;
 
         private Vector2 direction;
         private float speed;
-        private Vector2 startingPos;
         private Vector2 center;
+        private Vector2 previousCenter;
         private int travelDistance;
         private Vector2 shoveDirection;
         private int shoveDistance;
@@ -30,12 +29,12 @@ namespace cse3902.Entities.Enemies
         public Gel(Game1 game, Vector2 start)
         {
             this.game = game;
-            startingPos = start;
-            center = startingPos;
+            center = start;
+            previousCenter = center;
+
 
             //gel sprite sheet is 1 row, 2 columns
-            gelSprite = (GelSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.SpriteBatch, startingPos);
-            gelStateMachine = new GelStateMachine(gelSprite);
+            gelSprite = (GelSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.SpriteBatch, this.center);
             speed = 25.0f;
             travelDistance = 0;
             shoveDistance = -10;
@@ -45,11 +44,6 @@ namespace cse3902.Entities.Enemies
             health = 2;
         }
 
-        public Vector2 Center
-        {
-            get => this.center;
-        }
-
         public ref Rectangle Bounds
         {
             get => ref gelSprite.Box;
@@ -57,7 +51,7 @@ namespace cse3902.Entities.Enemies
 
         public void Attack()
         {
-            this.gelStateMachine.Attack();
+            //gels don' attack
         }
 
         public void ChangeDirection(Vector2 direction)
@@ -83,7 +77,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            this.gelStateMachine.Die();
+            
         }
 
         public void BeShoved()
@@ -122,13 +116,13 @@ namespace cse3902.Entities.Enemies
 
         private void ShoveMovement()
         {
-            this.CenterPosition += shoveDirection;
+            this.Center += shoveDirection;
             shoveDistance--;
         }
 
         private void RegularMovement(GameTime gameTime)
         {
-            this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (travelDistance <= 0)
             {
@@ -176,13 +170,23 @@ namespace cse3902.Entities.Enemies
             gelSprite.Draw();
         }
 
-        public Vector2 CenterPosition
+        public Vector2 Center
         {
             get => this.center;
             set
             {
+                this.PreviousCenter = this.center;
                 this.center = value;
                 gelSprite.Center = value;
+            }
+        }
+
+        public Vector2 PreviousCenter
+        {
+            get => this.previousCenter;
+            set
+            {
+                this.previousCenter = value;
             }
         }
 

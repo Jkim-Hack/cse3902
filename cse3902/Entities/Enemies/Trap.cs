@@ -62,6 +62,13 @@ namespace cse3902.Entities.Enemies
         public Vector2 Center
         {
             get => this.center;
+            set => this.center = value;
+        }
+
+        public Vector2 PreviousCenter
+        {
+            //todo: not yet implemented correctly for wallmaster
+            get => this.center;
         }
 
         public ICollidable Collidable

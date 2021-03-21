@@ -12,13 +12,12 @@ namespace cse3902.Entities.Enemies
     public class Keese : IEntity
     {
         private KeeseSprite keeseSprite;
-        private KeeseStateMachine keeseStateMachine;
         private readonly Game1 game;
 
         private Vector2 direction;
         private float speed;
-        private Vector2 startingPos;
         private Vector2 center;
+        private Vector2 previousCenter;
         private int travelDistance;
         private Vector2 shoveDirection;
         private int shoveDistance;
@@ -30,11 +29,10 @@ namespace cse3902.Entities.Enemies
         public Keese(Game1 game, Vector2 start)
         {
             this.game = game;
-            startingPos = start;
-            center = startingPos;
+            center = start;
+            previousCenter = center; 
 
             keeseSprite = (KeeseSprite)EnemySpriteFactory.Instance.CreateKeeseSprite(game.SpriteBatch, center);
-            keeseStateMachine = new KeeseStateMachine(keeseSprite);
             speed = 30.0f;
             travelDistance = 0;
             shoveDistance = -10;
@@ -44,11 +42,6 @@ namespace cse3902.Entities.Enemies
             health = 10;
         }
 
-        public Vector2 Center
-        {
-            get => this.center;
-        }
-
         public ref Rectangle Bounds
         {
             get => ref keeseSprite.Box;
@@ -56,7 +49,7 @@ namespace cse3902.Entities.Enemies
 
         public void Attack()
         {
-            this.keeseStateMachine.Attack();
+            
         }
 
         public void ChangeDirection(Vector2 direction)
@@ -82,7 +75,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            this.keeseStateMachine.Die();
+            
         }
 
         public void BeShoved()
@@ -121,13 +114,13 @@ namespace cse3902.Entities.Enemies
 
         private void ShoveMovement()
         {
-            this.CenterPosition += shoveDirection;
+            this.Center += shoveDirection;
             shoveDistance--;
         }
 
         private void RegularMovement(GameTime gameTime)
         {
-            this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (travelDistance <= 0)
             {
@@ -186,13 +179,23 @@ namespace cse3902.Entities.Enemies
             this.keeseSprite.Draw();
         }
 
-        public Vector2 CenterPosition
+        public Vector2 Center
         {
             get => this.center;
             set
             {
+                this.PreviousCenter = this.center;
                 this.center = value;
                 keeseSprite.Center = value;
+            }
+        }
+
+        public Vector2 PreviousCenter
+        {
+            get => this.previousCenter;
+            set
+            {
+                this.previousCenter = value;
             }
         }
 

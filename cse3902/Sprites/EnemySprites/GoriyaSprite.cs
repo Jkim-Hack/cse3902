@@ -127,6 +127,7 @@ namespace cse3902.Sprites.EnemySprites
             {
                 int width = (int)(sizeIncrease * frameWidth);
                 int height = (int)(sizeIncrease * frameHeight);
+                width += Math.Abs(height - width); //make hitbox square
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
