@@ -12,6 +12,8 @@ namespace cse3902.Projectiles
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
+        private Texture2D collisionTexture;
+
         private Vector2 center;
 
         private int rows;
@@ -28,6 +30,7 @@ namespace cse3902.Projectiles
         private Vector2 direction;
         private float angle;
         private bool animationComplete;
+        private bool collided;
         private int swordType;
 
         private Rectangle destination;
@@ -73,6 +76,7 @@ namespace cse3902.Projectiles
                 angle = 0;
             }
 
+            collisionTexture = ProjectileHandler.Instance.CreatePoofTexture();
             this.collidable = new SwordCollidable(this);
         }
 
@@ -90,7 +94,16 @@ namespace cse3902.Projectiles
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, angle, origin, SpriteEffects.None, 0.65f);
+
+            if (!collided)
+            {
+                spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, angle, origin, SpriteEffects.None, 0.65f);
+            }
+            else
+            {
+                spriteBatch.Draw(collisionTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.65f);
+                animationComplete = true;
+            }
         }
 
         public int Update(GameTime gameTime)
@@ -169,6 +182,12 @@ namespace cse3902.Projectiles
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public bool Collided
+        {
+            get => collided;
+            set => collided = value;
         }
     }
 }

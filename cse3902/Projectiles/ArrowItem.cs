@@ -1,6 +1,7 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.SpriteFactory;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,6 +12,7 @@ namespace cse3902.Projectiles
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
+        private Texture2D collisionTexture;
 
         private int currentX;
         private int currentY;
@@ -18,6 +20,8 @@ namespace cse3902.Projectiles
         private int frameHeight;
 
         private float angle = 0;
+
+        private bool collided;
 
         private bool animationComplete;
         private Rectangle destination;
@@ -56,6 +60,7 @@ namespace cse3902.Projectiles
             }
 
             animationComplete = false;
+            collided = false;
 
             frameWidth = spriteTexture.Width;
             frameHeight = spriteTexture.Height;
@@ -63,6 +68,7 @@ namespace cse3902.Projectiles
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
 
+            collisionTexture = ProjectileHandler.Instance.CreatePoofTexture();
             this.collidable = new ProjectileCollidable(this);
         }
 
@@ -70,7 +76,16 @@ namespace cse3902.Projectiles
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.8f);
+
+            if (!collided)
+            {
+                spriteBatch.Draw(spriteTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.8f);
+            }
+            else
+            {
+                spriteBatch.Draw(collisionTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.8f);
+                animationComplete = true;
+            }
         }
 
         public void Erase()
@@ -154,6 +169,12 @@ namespace cse3902.Projectiles
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public bool Collided
+        {
+            get => collided;
+            set => collided = value;
         }
     }
 }
