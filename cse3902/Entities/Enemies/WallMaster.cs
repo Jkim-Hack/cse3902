@@ -18,6 +18,7 @@ namespace cse3902.Entities.Enemies
         private Vector2 direction;
         private float speed;
         private Vector2 center;
+        private Vector2 previousCenter;
         private int travelDistance;
         private Vector2 shoveDirection;
         private int shoveDistance;
@@ -30,6 +31,7 @@ namespace cse3902.Entities.Enemies
         {
             this.game = game;
             center = start;
+            previousCenter = center;
 
             //wallmaster sprite sheet is 4 rows, 2 columns
             wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.SpriteBatch, center);
@@ -41,11 +43,6 @@ namespace cse3902.Entities.Enemies
 
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = 10;
-        }
-
-        public Vector2 Center
-        {
-            get => this.center;
         }
 
         public ref Rectangle Bounds
@@ -122,13 +119,13 @@ namespace cse3902.Entities.Enemies
 
         private void ShoveMovement()
         {
-            this.CenterPosition += shoveDirection;
+            this.Center += shoveDirection;
             shoveDistance--;
         }
 
         private void RegularMovement(GameTime gameTime)
         {
-            this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (travelDistance <= 0)
             {
@@ -172,13 +169,23 @@ namespace cse3902.Entities.Enemies
             wallMasterSprite.Draw();
         }
 
-        public Vector2 CenterPosition
+        public Vector2 Center
         {
             get => this.center;
             set
             {
+                this.PreviousCenter = this.center;
                 this.center = value;
                 wallMasterSprite.Center = value;
+            }
+        }
+
+        public Vector2 PreviousCenter
+        {
+            get => this.previousCenter;
+            set
+            {
+                this.previousCenter = value;
             }
         }
 

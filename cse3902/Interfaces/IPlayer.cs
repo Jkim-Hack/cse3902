@@ -14,11 +14,7 @@ namespace cse3902.Interfaces
 
         public void ChangeWeapon(int index);
 
-        public Vector2 PreviousPosition { get; }
-
         public void Reset();
-
-        public Vector2 CenterPosition { get; set; }
 
         public List<Vector2> Directions { get; set; }
     }

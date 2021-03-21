@@ -16,8 +16,8 @@ namespace cse3902.Entities.Enemies
 
         private Vector2 direction;
         private float speed;
-        private Vector2 startingPos;
         private Vector2 center;
+        private Vector2 previousCenter;
         private int travelDistance;
         private Vector2 shoveDirection;
         private int shoveDistance;
@@ -29,8 +29,8 @@ namespace cse3902.Entities.Enemies
         public Keese(Game1 game, Vector2 start)
         {
             this.game = game;
-            startingPos = start;
-            center = startingPos;
+            center = start;
+            previousCenter = center; 
 
             keeseSprite = (KeeseSprite)EnemySpriteFactory.Instance.CreateKeeseSprite(game.SpriteBatch, center);
             speed = 30.0f;
@@ -40,11 +40,6 @@ namespace cse3902.Entities.Enemies
 
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = 10;
-        }
-
-        public Vector2 Center
-        {
-            get => this.center;
         }
 
         public ref Rectangle Bounds
@@ -119,13 +114,13 @@ namespace cse3902.Entities.Enemies
 
         private void ShoveMovement()
         {
-            this.CenterPosition += shoveDirection;
+            this.Center += shoveDirection;
             shoveDistance--;
         }
 
         private void RegularMovement(GameTime gameTime)
         {
-            this.CenterPosition += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (travelDistance <= 0)
             {
@@ -184,13 +179,23 @@ namespace cse3902.Entities.Enemies
             this.keeseSprite.Draw();
         }
 
-        public Vector2 CenterPosition
+        public Vector2 Center
         {
             get => this.center;
             set
             {
+                this.PreviousCenter = this.center;
                 this.center = value;
                 keeseSprite.Center = value;
+            }
+        }
+
+        public Vector2 PreviousCenter
+        {
+            get => this.previousCenter;
+            set
+            {
+                this.previousCenter = value;
             }
         }
 

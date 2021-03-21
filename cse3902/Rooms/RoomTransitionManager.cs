@@ -77,7 +77,7 @@ namespace cse3902.Rooms
 
         private void MoveLinkToNewRoom()
         {
-            game.Player.CenterPosition = entranceDoor.PlayerReleasePosition();
+            game.Player.Center = entranceDoor.PlayerReleasePosition();
             linkNewRoomDirection = entranceDoor.PlayerReleaseDirection();
             linkNewRoomStepsRemaining = ((int) linkNewRoomDirection.Length()) - 1;
             linkNewRoomDirection.Normalize();
