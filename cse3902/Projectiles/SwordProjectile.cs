@@ -11,7 +11,7 @@ namespace cse3902.Projectiles
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
-        private Texture2D collisionTexture;
+        private ISprite collisionTexture;
 
         private int rows;
         private int columns;
@@ -23,12 +23,9 @@ namespace cse3902.Projectiles
 
         private const float delay = 0.2f;
         private float remainingDelay;
-
         private int currentX;
         private int currentY;
-
         private Rectangle destination;
-
         private const float sizeIncrease = 1f;
 
         private Vector2 direction;
@@ -73,9 +70,9 @@ namespace cse3902.Projectiles
                 angle = 0;
             }
 
-            collisionTexture = ProjectileHandler.Instance.CreatePoofTexture();
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
+            collisionTexture = ProjectileHandler.Instance.CreatePoofAnim(spriteBatch, new Vector2(currentX, currentY));
             this.collidable = new ProjectileCollidable(this);
         }
 
@@ -100,44 +97,51 @@ namespace cse3902.Projectiles
             }
             else
             {
-                spriteBatch.Draw(collisionTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.8f);
-                animationComplete = true;
+                collisionTexture.Center = new Vector2(currentX, currentY);
+                collisionTexture.Draw();
             }
-
         }
 
         public int Update(GameTime gameTime)
         {
-            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            remainingDelay -= timer;
-
-            if (remainingDelay <= 0)
+            if (!collided)
             {
-                currentFrame++;
-                if (currentFrame == totalFrames)
+                var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                remainingDelay -= timer;
+
+                if (remainingDelay <= 0)
                 {
-                    currentFrame = 0;
+                    currentFrame++;
+                    if (currentFrame == totalFrames)
+                    {
+                        currentFrame = 0;
+                    }
+                    remainingDelay = delay;
                 }
-                remainingDelay = delay;
-            }
 
-            if (direction.X == 1)
-            {
-                currentX += 2;
+                if (direction.X == 1)
+                {
+                    currentX += 2;
+                }
+                else if (direction.X == -1)
+                {
+                    currentX -= 2;
+                }
+                else if (direction.Y == 1)
+                {
+                    currentY += 2;
+                }
+                else //sword is traveling up
+                {
+                    currentY -= 2;
+                }
+                return 0;
             }
-            else if (direction.X == -1)
+            else
             {
-                currentX -= 2;
+                return collisionTexture.Update(gameTime);
             }
-            else if (direction.Y == 1)
-            {
-                currentY += 2;
-            }
-            else //sword is traveling up
-            {
-                currentY -= 2;
-            }
-            return 0;
+            
         }
 
         public ref Rectangle Box

@@ -46,9 +46,10 @@ namespace cse3902.Rooms
                     projectiles.Remove(projectile);
                     i--;
                 }
-                if (projectile.AnimationComplete)
+                else if (projectile.AnimationComplete)
                 {
                     projectiles.Remove(projectile);
+                    i--;
                 }
             }
         }

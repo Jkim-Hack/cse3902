@@ -22,7 +22,6 @@ namespace cse3902.Projectiles
         private float remainingDelay;
         private int currentX;
         private int currentY;
-
         private float angle = 0;
 
         private Rectangle destination;
@@ -34,7 +33,7 @@ namespace cse3902.Projectiles
             spriteTexture = texture;
 
             remainingDelay = delay;
-            this.rows = 1;
+            this.rows = 3;
             this.columns = 2;
             currentFrame = 0;
             totalFrames = rows * columns;
@@ -55,8 +54,7 @@ namespace cse3902.Projectiles
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.8f);
-            
+            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, 0.2f);            
         }
 
         private void distributeFrames()
@@ -76,14 +74,19 @@ namespace cse3902.Projectiles
 
         public int Update(GameTime gameTime)
         {
-            if (currentFrame == totalFrames)
+            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            remainingDelay -= timer;
+
+            if (remainingDelay <= 0)
             {
-                return -1;
+                currentFrame++;
+                if (currentFrame == totalFrames)
+                {
+                    return -1;
+                }
+                remainingDelay = delay;
             }
-            else
-            {
-                return 0;
-            }
+            return 0;
         }
 
         public Vector2 Center
