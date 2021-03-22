@@ -76,7 +76,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center);
         }
 
         public void BeShoved()

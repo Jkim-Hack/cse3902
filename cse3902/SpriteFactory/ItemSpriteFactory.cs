@@ -191,7 +191,6 @@ namespace cse3902.SpriteFactory
                     CreateHeartContainerItem(spriteBatch, startingPos);
                     break;
             }
-
         }
     }
 }
