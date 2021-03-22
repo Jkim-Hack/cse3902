@@ -73,6 +73,16 @@ namespace cse3902.Rooms
             {
                 enemies.Add(newList[i]);
             }
+
+            DrawCloudAnimation();
+        }
+
+        private void DrawCloudAnimation()
+        {
+            for (int i = 0; i < enemies.Count; i ++)
+            {
+
+            }
         }
 
         public ref IList ListRef

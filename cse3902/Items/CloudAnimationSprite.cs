@@ -1,12 +1,10 @@
 ﻿using cse3902.Interfaces;
-using cse3902.Collision;
-using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Items
 {
-    public class CloudAnimation : ISprite
+    public class CloudAnimationSprite : ISprite
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -29,9 +27,7 @@ namespace cse3902.Items
 
         private const float sizeIncrease = 1f;
 
-        private ICollidable collidable;
-
-        public CloudAnimation(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
+        public CloudAnimationSprite(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
             spriteBatch = batch;
             spriteTexture = texture;
@@ -118,11 +114,6 @@ namespace cse3902.Items
         public void Erase()
         {
             spriteTexture.Dispose();
-        }
-
-        public ICollidable Collidable
-        {
-            get => this.collidable;
         }
     }
 }
