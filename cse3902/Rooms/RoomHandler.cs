@@ -14,6 +14,7 @@ namespace cse3902.Rooms
         public const int NUM_ROOMS_Y = RoomUtilities.NUM_ROOMS_Y;
         public const int CAMERA_CYCLES = RoomUtilities.CAMERA_CYCLES;
 
+        private Game1 game;
         public Dictionary<Vector3, Room> rooms;
 
         private XMLParser xmlParser;
@@ -27,8 +28,9 @@ namespace cse3902.Rooms
         public Vector3 startingRoomTranslation { get; }
         private bool startComplete;
 
-        public RoomHandler(Game1 game)
+        public RoomHandler(Game1 gm)
         {
+            this.game = gm;
             rooms = new Dictionary<Vector3, Room>();
             xmlParser = new XMLParser(this, game);
             roomTransitionManager = new RoomTransitionManager(game);
@@ -58,7 +60,7 @@ namespace cse3902.Rooms
             rooms.GetValueOrDefault(currentRoom).Items = oldItems;
 
             List<IEntity> oldEnemies = rooms.GetValueOrDefault(currentRoom).Enemies;
-            RoomEnemies.Instance.LoadNewRoom(ref oldEnemies, newRoom.Enemies);
+            RoomEnemies.Instance.LoadNewRoom(ref oldEnemies, newRoom.Enemies, game);
             rooms.GetValueOrDefault(currentRoom).Enemies = oldEnemies;
 
             List<INPC> oldNPCs = rooms.GetValueOrDefault(currentRoom).NPCs;
@@ -98,6 +100,7 @@ namespace cse3902.Rooms
             else
             {
                 RoomItems.Instance.Update(gameTime);
+                CloudAnimation.Instance.Update(gameTime);
                 RoomEnemies.Instance.Update(gameTime);
                 RoomNPCs.Instance.Update(gameTime);
                 RoomProjectiles.Instance.Update(gameTime);
@@ -115,6 +118,7 @@ namespace cse3902.Rooms
             else
             {
                 RoomItems.Instance.Draw();
+                CloudAnimation.Instance.Draw();
                 RoomEnemies.Instance.Draw();
                 RoomNPCs.Instance.Draw();
                 RoomProjectiles.Instance.Draw();
