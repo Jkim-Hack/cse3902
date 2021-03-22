@@ -4,6 +4,7 @@ using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using cse3902.Sprites;
 
 namespace cse3902.Projectiles
 {
@@ -48,8 +49,7 @@ namespace cse3902.Projectiles
             totalFrames = rows * columns;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
-            frames = new Rectangle[totalFrames];
-            distributeFrames();
+            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
             animationComplete = false;
             direction = dir;
             
@@ -74,16 +74,6 @@ namespace cse3902.Projectiles
             currentY = (int)startingPos.Y;
             collisionTexture = ProjectileHandler.Instance.CreatePoofAnim(spriteBatch, new Vector2(currentX, currentY));
             this.collidable = new ProjectileCollidable(this);
-        }
-
-        private void distributeFrames()
-        {
-            for (int i = 0; i < totalFrames; i++)
-            {
-                int Row = (int)((float)i / (float)columns);
-                int Column = i % columns;
-                frames[i] = new Rectangle(frameWidth * Column, frameHeight * Row, frameWidth, frameHeight);
-            }
         }
 
         public void Draw()

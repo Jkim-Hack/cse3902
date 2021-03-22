@@ -5,6 +5,7 @@ using cse3902.SpriteFactory;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using cse3902.Sprites;
 
 namespace cse3902.Projectiles
 {
