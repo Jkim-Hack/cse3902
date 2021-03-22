@@ -23,7 +23,7 @@ namespace cse3902.Sprites
         }
         public void Draw()
         {
-            spriteBatch.DrawString(spriteFont, text, center, Color.Black);
+            spriteBatch.DrawString(spriteFont, text, center, Color.Black, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, SpriteUtilities.BlockLayer); ;
         }
 
         public Vector2 Center { get => center; set => center = value; }

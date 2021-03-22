@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -31,8 +32,7 @@ namespace cse3902.Entities.DamageMasks
             int totalFrames = sequenceRows * sequenceColumns; 
             int frameWidth = damageSequenceTexture.Width / sequenceColumns;
             int frameHeight = damageSequenceTexture.Height / sequenceRows;
-	        damageFrames = new Rectangle[totalFrames];
-            distributeFrames(sequenceColumns, frameWidth, frameHeight, totalFrames);
+            damageFrames = SpriteUtilities.distributeFrames(sequenceColumns, sequenceRows, frameWidth, frameHeight);
 
             originalData = new Color[spriteTexture.Width * spriteTexture.Height];
             spriteTexture.GetData(originalData);
@@ -45,16 +45,6 @@ namespace cse3902.Entities.DamageMasks
 
             GenerateTextureMasks();
             Reset();
-        }
-
-        private void distributeFrames(int columns, int frameWidth, int frameHeight, int totalFrames)
-        {
-            for (int i = 0; i < totalFrames; i++)
-            {
-                int row = (int)((float)i / (float)columns);
-                int column = i % columns;
-                damageFrames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
-            }
         }
 
         private void AddColorMask(Color[] maskColors)

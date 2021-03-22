@@ -36,21 +36,11 @@ namespace cse3902.Sprites
             frames = new Rectangle[totalFrames];
             frameSize = new Vector2(frameWidth, frameHeight);
 
-            distributeFrames(columns);
+            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
             generateFrameSets();
 
             isDamage = false;
 
-        }
-
-        private void distributeFrames(int columns)
-        {
-            for (int i = 0; i < totalFrames; i++)
-            {
-                int row = (int)((float)i / (float)columns);
-                int column = i % columns;
-                frames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
-            }
         }
 
         private void generateFrameSets()
