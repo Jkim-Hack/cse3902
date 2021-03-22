@@ -1,5 +1,6 @@
 ﻿using System;
 using cse3902.Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 using cse3902.Rooms;
 using cse3902.Entities.Enemies;
@@ -12,6 +13,8 @@ namespace cse3902.Collision.Collidables
         private IEntity enemy;
         private int damage;
         private Boolean[] collisionOccurrences;
+        private int frameCount;
+        private ArrayList collisionFrames;
 
         private bool isDamageDisabled;
         public bool DamageDisabled { get => isDamageDisabled; set => isDamageDisabled = value; }
@@ -20,6 +23,8 @@ namespace cse3902.Collision.Collidables
         {
             this.enemy = enemy;
             this.damage = damage;
+            this.frameCount = 0;
+            collisionFrames = new ArrayList();
             isDamageDisabled = false;
             collisionOccurrences = new Boolean[6];
             this.ResetCollisions();
@@ -81,11 +86,10 @@ namespace cse3902.Collision.Collidables
                     this.enemy.StopShove();
                     this.enemy.Center = this.enemy.PreviousCenter;
 
-                    //vector of (0,0) means just change current direction to opposite
-                    Vector2 direction = new Vector2(0, 0);
-                    this.enemy.ChangeDirection(direction);
+                    DirectionLogic();
+
                     this.collisionOccurrences[0] = true;
-                    //todo: might need to slightly adjust position of entity as well
+
                 }
 
 
@@ -101,11 +105,9 @@ namespace cse3902.Collision.Collidables
                     this.enemy.StopShove();
                     this.enemy.Center = this.enemy.PreviousCenter;
 
-                    //vector of (0,0) means just change current direction to opposite
-                    Vector2 direction = new Vector2(0, 0);
-                    this.enemy.ChangeDirection(direction);
+                    DirectionLogic();
+
                     this.collisionOccurrences[0] = true;
-                    //todo: might need to slightly adjust position of entity as well
                 }
             }
 
@@ -119,9 +121,43 @@ namespace cse3902.Collision.Collidables
 
         public void ResetCollisions()
         {
+            this.frameCount++;
+            if (this.frameCount > 60) { frameCount = 0; }
             for (int i = 0; i < collisionOccurrences.Length-1; i++)
             {
                 collisionOccurrences[i] = false;
+            }
+        }
+
+        private void DirectionLogic()
+        {
+            if (collisionFrames.Count > 1) { collisionFrames.Clear(); }
+            collisionFrames.Add(frameCount);
+            if (collisionFrames.Count == 2)
+            {
+                if ((int)collisionFrames[1] - (int)collisionFrames[0] < 6)
+                {
+                    Random rand = new System.Random();
+                    //get 1 or -1
+                    int multiplier = rand.Next(0, 2) * 2 -1;
+
+                    if (this.enemy.Direction.Y != 0)
+                    {
+                        this.enemy.ChangeDirection(new Vector2(multiplier, 0));
+                    }
+                    else
+                    {
+                        this.enemy.ChangeDirection(new Vector2(0, multiplier));
+                    }
+                    
+                }
+                else
+                {
+                    this.enemy.ChangeDirection(new Vector2(0, 0));
+                }
+            } else
+            {
+                this.enemy.ChangeDirection(new Vector2(0, 0));
             }
         }
 
