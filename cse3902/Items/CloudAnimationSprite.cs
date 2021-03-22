@@ -17,7 +17,7 @@ namespace cse3902.Items
         private int frameWidth;
         private int frameHeight;
 
-        private const float delay = 0.2f;
+        private const float delay = 0.05f;
         private float remainingDelay;
 
         private int currentX;

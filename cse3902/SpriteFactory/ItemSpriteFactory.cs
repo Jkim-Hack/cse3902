@@ -26,6 +26,7 @@ namespace cse3902.SpriteFactory
         private Texture2D rupee;
         private Texture2D swordItems;
         private Texture2D swordWeapons;
+        private Texture2D cloud;
 
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
 
@@ -58,6 +59,7 @@ namespace cse3902.SpriteFactory
             rupee = content.Load<Texture2D>("rupee");
             swordItems = content.Load<Texture2D>("SwordItem");
             swordWeapons = content.Load<Texture2D>("SwordAnimation");
+            cloud = content.Load<Texture2D>("cloud");
         }
 
         public IItem CreateArrowItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
@@ -163,6 +165,11 @@ namespace cse3902.SpriteFactory
             IItem add = new TriforceItem(spriteBatch, triforce, startingPos);
             RoomItems.Instance.AddItem(add);
             return add;
+        }
+
+        public ISprite CreateCloudAnimation(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new CloudAnimationSprite(spriteBatch, cloud, startingPos);
         }
 
         public void SpawnRandomItem(SpriteBatch spriteBatch, Vector2 startingPos)
