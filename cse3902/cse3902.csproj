@@ -45,6 +45,7 @@
     <Folder Include="Entities\DamageMasks\" />
     <Folder Include="NPCs\" />
     <Folder Include="Constants\" />
+    <Folder Include="HUD\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Blocks\WaterBlock.cs" />
