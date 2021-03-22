@@ -22,8 +22,17 @@ namespace cse3902.HUD
         }
 
         public Dictionary<ItemType, int> inventory;
+        private static InventoryManager instance = new InventoryManager();
 
-        public InventoryManager()
+        public static InventoryManager Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
+        private InventoryManager()
         {
             inventory = new Dictionary<ItemType, int>();
             inventory.Add(ItemType.Heart, 0);
