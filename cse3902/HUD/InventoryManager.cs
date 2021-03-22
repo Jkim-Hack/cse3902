@@ -9,6 +9,7 @@ namespace cse3902.HUD
     {
         public enum ItemType
         {
+            Boomerang,
             Bow,
             Clock,
             Compass,
@@ -19,7 +20,7 @@ namespace cse3902.HUD
             Bomb,
             Key,
             Rupee,
-            Triforce
+            Triforce,
         }
 
         public Dictionary<ItemType, int> inventory;
@@ -32,15 +33,16 @@ namespace cse3902.HUD
             inventory.Add(ItemType.Bomb, 0);
             inventory.Add(ItemType.Key, 0);
             inventory.Add(ItemType.Rupee, 0);
-
         }
 
         public void AddToInventory(IItem item)
         {
-            if (item is HeartItem)
-            {
-                inventory[ItemType.Heart]++;
-            }
+            inventory[item.ItemType]++;
+        }
+
+        public void RemoveFromInventory(ItemType type)
+        {
+            inventory[type]--;
         }
     }
 }

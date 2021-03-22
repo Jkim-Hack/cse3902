@@ -1,13 +1,13 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Collision;
-using cse3902.HUD;
 using cse3902.Collision.Collidables;
+using cse3902.HUD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.Items
 {
-    public class BowItem : ISprite, IItem
+    public class BoomerangItem : ISprite, IItem
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -25,7 +25,7 @@ namespace cse3902.Items
         private ICollidable collidable;
         private InventoryManager.ItemType itemType;
 
-        public BowItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
+        public BoomerangItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
             spriteBatch = batch;
             spriteTexture = texture;
@@ -37,7 +37,7 @@ namespace cse3902.Items
             currentY = (int)startingPos.Y;
 
             this.collidable = new ItemCollidable(this);
-            itemType = InventoryManager.ItemType.Bow;
+            itemType = InventoryManager.ItemType.Boomerang;
         }
 
         public void Draw()

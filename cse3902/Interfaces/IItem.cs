@@ -8,6 +8,6 @@ namespace cse3902.Interfaces
 {
     public interface IItem : ISprite, ICollidableItemEntity
     {
-        public InventoryManager.ItemType ItemType { get; set; }
+        public InventoryManager.ItemType ItemType { get; }
     }
 }

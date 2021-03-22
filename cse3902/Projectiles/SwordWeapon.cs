@@ -8,7 +8,7 @@ using cse3902.Rooms;
 
 namespace cse3902.Projectiles
 {
-    public class SwordWeapon : IItem, IProjectile
+    public class SwordWeapon : IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;

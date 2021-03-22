@@ -8,7 +8,7 @@ using System;
 
 namespace cse3902.Projectiles
 {
-    public class BoomerangItem : IItem, IProjectile
+    public class BoomerangProjectile : IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -32,7 +32,7 @@ namespace cse3902.Projectiles
         private ICollidable collidable;
         private LinkSprite link;
 
-        public BoomerangItem(SpriteBatch batch, Texture2D texture, LinkSprite link, Vector2 dir)
+        public BoomerangProjectile(SpriteBatch batch, Texture2D texture, LinkSprite link, Vector2 dir)
         {
             spriteBatch = batch;
             spriteTexture = texture;

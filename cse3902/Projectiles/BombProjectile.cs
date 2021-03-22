@@ -7,7 +7,7 @@ using cse3902.Rooms;
 
 namespace cse3902.Projectiles
 {
-    public class BombItem : IItem, IProjectile
+    public class BombProjectile : IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -33,7 +33,7 @@ namespace cse3902.Projectiles
 
         private ICollidable collidable;
 
-        public BombItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
+        public BombProjectile(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
             spriteBatch = batch;
             spriteTexture = texture;

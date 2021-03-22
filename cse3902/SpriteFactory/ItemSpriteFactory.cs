@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using cse3902.Projectiles;
 using cse3902.Items;
 using cse3902.Rooms;
 using System;
@@ -11,7 +10,6 @@ namespace cse3902.SpriteFactory
 {
     public class ItemSpriteFactory
     {
-        private Texture2D arrow;
         private Texture2D bomb;
         private Texture2D boomerang;
         private Texture2D bow;
@@ -24,8 +22,6 @@ namespace cse3902.SpriteFactory
         private Texture2D key;
         private Texture2D map;
         private Texture2D rupee;
-        private Texture2D swordItems;
-        private Texture2D swordWeapons;
         private Texture2D cloud;
 
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
@@ -44,8 +40,7 @@ namespace cse3902.SpriteFactory
 
         public void LoadAllTextures(ContentManager content)
         {
-            arrow = content.Load<Texture2D>("arrow");
-            bomb = content.Load<Texture2D>("bombnew");
+            bomb = content.Load<Texture2D>("bomb");
             boomerang = content.Load<Texture2D>("boomerang");
             bow = content.Load<Texture2D>("bow");
             clock = content.Load<Texture2D>("clock");
@@ -57,16 +52,7 @@ namespace cse3902.SpriteFactory
             key = content.Load<Texture2D>("key");
             map = content.Load<Texture2D>("map");
             rupee = content.Load<Texture2D>("rupee");
-            swordItems = content.Load<Texture2D>("SwordItem");
-            swordWeapons = content.Load<Texture2D>("SwordAnimation");
             cloud = content.Load<Texture2D>("cloud");
-        }
-
-        public IItem CreateArrowItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
-        {
-            IItem add = new ArrowItem(spriteBatch, arrow, startingPos, dir);
-            RoomItems.Instance.AddItem(add);
-            return add;
         }
 
         public ISprite CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos)
@@ -76,9 +62,9 @@ namespace cse3902.SpriteFactory
             return add;
         }
 
-        public ISprite CreateBoomerangItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
+        public ISprite CreateBoomerangItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            IItem add = new BoomerangItem(spriteBatch, boomerang, null, dir);
+            IItem add = new BoomerangItem(spriteBatch, boomerang, startingPos);
             RoomItems.Instance.AddItem(add);
             return add;
         }
@@ -146,20 +132,6 @@ namespace cse3902.SpriteFactory
             return add;
         }
 
-        public ISprite CreateSwordProjectile(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
-        {
-            IItem add = new SwordProjectile(spriteBatch, swordItems, startingPos, dir);
-            RoomItems.Instance.AddItem(add);
-            return add;
-        }
-
-        public ISprite CreateSwordWeapon(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir, int swordType)
-        {
-            IItem add = new SwordWeapon(spriteBatch, swordWeapons, startingPos, dir, swordType);
-            RoomItems.Instance.AddItem(add);
-            return add;
-        }
-
         public ISprite CreateTriforceItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
             IItem add = new TriforceItem(spriteBatch, triforce, startingPos);
@@ -187,13 +159,15 @@ namespace cse3902.SpriteFactory
                     CreateCompassItem(spriteBatch, startingPos);
                     break;
                 case 2:
-                    CreateClockItem(spriteBatch, startingPos);
+                    CreateBoomerangItem(spriteBatch, startingPos);
                     break;
                 case 3:
                     CreateFairyItem(spriteBatch, startingPos);
                     break;
                 case 4:
                 case 5:
+                    CreateBombItem(spriteBatch, startingPos);
+                    break;
                 case 6:
                     CreateKeyItem(spriteBatch, startingPos);
                     break;
