@@ -23,6 +23,7 @@ namespace cse3902.SpriteFactory
         private Texture2D triforce;
         private Texture2D key;
         private Texture2D map;
+        private Texture2D rupee;
         private Texture2D swordItems;
         private Texture2D swordWeapons;
 
@@ -54,6 +55,7 @@ namespace cse3902.SpriteFactory
             triforce = content.Load<Texture2D>("triforce");
             key = content.Load<Texture2D>("key");
             map = content.Load<Texture2D>("map");
+            rupee = content.Load<Texture2D>("rupee");
             swordItems = content.Load<Texture2D>("SwordItem");
             swordWeapons = content.Load<Texture2D>("SwordAnimation");
         }
@@ -135,6 +137,13 @@ namespace cse3902.SpriteFactory
             return add;
         }
 
+        public IItem CreateRupeeItem(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            IItem add = new RupeeItem(spriteBatch, arrow, startingPos);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+
         public ISprite CreateSwordProjectile(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
             IItem add = new SwordProjectile(spriteBatch, swordItems, startingPos, dir);
@@ -160,7 +169,7 @@ namespace cse3902.SpriteFactory
         {
             Random rd = new Random();
 
-            int num = rd.Next(0, 10);
+            int num = rd.Next(0, 15);
 
             switch (num)
             {
@@ -178,17 +187,24 @@ namespace cse3902.SpriteFactory
                     break;
                 case 4:
                 case 5:
+                case 6:
                     CreateKeyItem(spriteBatch, startingPos);
                     break;
-                case 6:
                 case 7:
+                case 8:
+                case 9:
                     CreateHeartItem(spriteBatch, startingPos);
                     break;
-                case 8:
+                case 10:
                     CreateMapItem(spriteBatch, startingPos);
                     break;
-                case 9:
+                case 11:
                     CreateHeartContainerItem(spriteBatch, startingPos);
+                    break;
+                case 12:
+                case 13:
+                case 14:
+                    CreateRupeeItem(spriteBatch, startingPos);
                     break;
             }
         }
