@@ -31,6 +31,7 @@ namespace cse3902.Rooms
 
         public void RemoveEnemy(IEntity enemy)
         {
+            enemy.Die();
             (enemies as List<IEntity>).RemoveAll(x => x.Center == enemy.Center);
             //enpcs.Remove(enemy);
         }

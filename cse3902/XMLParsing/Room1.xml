@@ -1762,11 +1762,6 @@
          <npcs>
          </npcs>
          <items>
-            <item>
-                <type>HeartContainer</type>
-                <xloc>10</xloc>
-                <yloc>3</yloc>
-            </item> 
         </items>
         <enemies>
             <enemy>

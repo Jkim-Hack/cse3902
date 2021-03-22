@@ -109,14 +109,14 @@ namespace cse3902.SpriteFactory
 
         public ISprite CreateHeartContainerItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            IItem add = new HeartItem(spriteBatch, heart, startingPos);
+            IItem add = new HeartContainerItem(spriteBatch, heartcont, startingPos);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
         public ISprite CreateHeartItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            IItem add = new HeartContainerItem(spriteBatch, heartcont, startingPos);
+            IItem add = new HeartItem(spriteBatch, heart, startingPos);
             RoomItems.Instance.AddItem(add);
             return add;
         }
