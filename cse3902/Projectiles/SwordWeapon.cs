@@ -12,6 +12,8 @@ namespace cse3902.Projectiles
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
+        private Texture2D collisionTexture;
+
         private Vector2 center;
 
         private int rows;
@@ -21,6 +23,7 @@ namespace cse3902.Projectiles
         private Rectangle[] frames;
         private int frameWidth;
         private int frameHeight;
+        private int collTime;
 
         private float remainingDelay;
         private readonly float[] delaySequence = { 0.1f, 0.15f, 0.05f, 0.05f };
@@ -28,12 +31,11 @@ namespace cse3902.Projectiles
         private Vector2 direction;
         private float angle;
         private bool animationComplete;
+        private bool collided;
         private int swordType;
 
         private Rectangle destination;
-
         private const float sizeIncrease = 1f;
-
         private ICollidable collidable;
 
         public SwordWeapon(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir, int swordType)
@@ -53,6 +55,7 @@ namespace cse3902.Projectiles
             frames = new Rectangle[totalFrames];
             distributeFrames();
             animationComplete = false;
+            collTime = 5;
 
             this.direction = dir;
 
@@ -73,6 +76,7 @@ namespace cse3902.Projectiles
                 angle = 0;
             }
 
+            collisionTexture = ProjectileHandler.Instance.CreateStarAnimTexture();
             this.collidable = new SwordCollidable(this);
         }
 
@@ -90,7 +94,9 @@ namespace cse3902.Projectiles
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+
             spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, angle, origin, SpriteEffects.None, 0.65f);
+           
         }
 
         public int Update(GameTime gameTime)
@@ -169,6 +175,12 @@ namespace cse3902.Projectiles
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public bool Collided
+        {
+            get => collided;
+            set => collided = value;
         }
     }
 }

@@ -154,6 +154,5 @@ namespace cse3902.SpriteFactory
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
     }
 }

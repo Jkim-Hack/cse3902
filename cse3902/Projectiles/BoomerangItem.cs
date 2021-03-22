@@ -12,6 +12,7 @@ namespace cse3902.Projectiles
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
+
         private float angle;
         private const float sizeIncrease = 1f;
 
@@ -26,6 +27,7 @@ namespace cse3902.Projectiles
         private Vector2 center;
 
         private bool animationComplete;
+        private bool collided;
 
         private ICollidable collidable;
         private LinkSprite link;
@@ -138,6 +140,12 @@ namespace cse3902.Projectiles
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public bool Collided
+        {
+            get => collided;
+            set => collided = value;
         }
     }
 }

@@ -16,6 +16,8 @@ namespace cse3902.Projectiles
         private Texture2D fireball;
         private Texture2D swordItems;
         private Texture2D swordWeapons;
+        private Texture2D starAnim;
+        private Texture2D poofAnim;
 
         private List<IProjectile> projectiles { get; set; }
 
@@ -41,6 +43,8 @@ namespace cse3902.Projectiles
             fireball = content.Load<Texture2D>("fireball");
             swordItems = content.Load<Texture2D>("SwordItem");
             swordWeapons = content.Load<Texture2D>("SwordAnimation");
+            starAnim = content.Load<Texture2D>("poof");
+            poofAnim = content.Load<Texture2D>("colorpoof");
 
             projectiles = new List<IProjectile>();
         }
@@ -119,6 +123,14 @@ namespace cse3902.Projectiles
             return newProj;
         }
 
+        public Texture2D CreateStarAnimTexture()
+        {
+            return starAnim;
+        }
 
+        public ISprite CreatePoofAnim(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new PoofSprite(spriteBatch, poofAnim, startingPos);
+        }
     }
 }
