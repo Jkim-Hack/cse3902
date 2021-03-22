@@ -139,7 +139,7 @@ namespace cse3902.SpriteFactory
 
         public IItem CreateRupeeItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            IItem add = new RupeeItem(spriteBatch, arrow, startingPos);
+            IItem add = new RupeeItem(spriteBatch, rupee, startingPos);
             RoomItems.Instance.AddItem(add);
             return add;
         }
