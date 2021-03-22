@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using cse3902.Interfaces;
+using cse3902.Entities;
 using Microsoft.Xna.Framework;
 using System.Collections;
 
@@ -31,6 +32,10 @@ namespace cse3902.Rooms
 
         public void RemoveEnemy(IEntity enemy)
         {
+            if (!(enemy is Link))
+            {
+                enemy.Die();
+            }
             (enemies as List<IEntity>).RemoveAll(x => x.Center == enemy.Center);
             //enpcs.Remove(enemy);
         }

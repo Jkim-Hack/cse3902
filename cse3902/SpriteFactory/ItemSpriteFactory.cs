@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using cse3902.Projectiles;
 using cse3902.Items;
 using cse3902.Rooms;
+using System;
 
 namespace cse3902.SpriteFactory
 {
@@ -108,14 +109,14 @@ namespace cse3902.SpriteFactory
 
         public ISprite CreateHeartContainerItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            IItem add = new HeartItem(spriteBatch, heart, startingPos);
+            IItem add = new HeartContainerItem(spriteBatch, heartcont, startingPos);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
         public ISprite CreateHeartItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            IItem add = new HeartContainerItem(spriteBatch, heartcont, startingPos);
+            IItem add = new HeartItem(spriteBatch, heart, startingPos);
             RoomItems.Instance.AddItem(add);
             return add;
         }
@@ -153,6 +154,43 @@ namespace cse3902.SpriteFactory
             IItem add = new TriforceItem(spriteBatch, triforce, startingPos);
             RoomItems.Instance.AddItem(add);
             return add;
+        }
+
+        public void SpawnRandomItem(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            Random rd = new Random();
+
+            int num = rd.Next(0, 10);
+
+            switch (num)
+            {
+                case 0:
+                    CreateBowItem(spriteBatch, startingPos);
+                    break;
+                case 1:
+                    CreateCompassItem(spriteBatch, startingPos);
+                    break;
+                case 2:
+                    CreateClockItem(spriteBatch, startingPos);
+                    break;
+                case 3:
+                    CreateFairyItem(spriteBatch, startingPos);
+                    break;
+                case 4:
+                case 5:
+                    CreateKeyItem(spriteBatch, startingPos);
+                    break;
+                case 6:
+                case 7:
+                    CreateHeartItem(spriteBatch, startingPos);
+                    break;
+                case 8:
+                    CreateMapItem(spriteBatch, startingPos);
+                    break;
+                case 9:
+                    CreateHeartContainerItem(spriteBatch, startingPos);
+                    break;
+            }
         }
     }
 }
