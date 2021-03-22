@@ -10,6 +10,7 @@ namespace cse3902.SpriteFactory
     public class NPCSpriteFactory : ISpriteFactory
     {
         private Dictionary<string, Texture2D> npcTextures;
+        private Texture2D flame;
 
         private static NPCSpriteFactory npcSpriteFactoryInstance = new NPCSpriteFactory();
 
@@ -28,7 +29,8 @@ namespace cse3902.SpriteFactory
             npcTextures.Add("oldman", content.Load<Texture2D>("oldman"));
             npcTextures.Add("medicinewoman", content.Load<Texture2D>("medicinewoman"));
             npcTextures.Add("merchant", content.Load<Texture2D>("merchant"));
-            npcTextures.Add("flame", content.Load<Texture2D>("flame"));
+            flame = content.Load<Texture2D>("fire");
+
         }
 
         public ISprite CreateOldManSprite(SpriteBatch spriteBatch, Vector2 startingPos)
@@ -48,7 +50,7 @@ namespace cse3902.SpriteFactory
 
         public ISprite CreateFlameSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            return new NPCSprite(spriteBatch, npcTextures["flame"], startingPos);
+            return new FlameSprite(spriteBatch, flame, startingPos);
         }
     }
 }
