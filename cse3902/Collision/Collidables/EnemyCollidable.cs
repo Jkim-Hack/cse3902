@@ -138,16 +138,8 @@ namespace cse3902.Collision.Collidables
                 if ((int)collisionFrames[1] - (int)collisionFrames[0] < 6)
                 {
                     Random rand = new System.Random();
-                    int choice = rand.Next(0, 2);
-                    int multiplier = 0;
-
-                    if (choice == 0)
-                    {
-                        multiplier = 1;
-                    } else
-                    {
-                        multiplier = -1;
-                    }
+                    //get 1 or -1
+                    int multiplier = rand.Next(0, 2) * 2 -1;
 
                     if (this.enemy.Direction.Y != 0)
                     {
