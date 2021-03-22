@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using cse3902.Interfaces;
-using cse3902.Items;
 
 namespace cse3902.HUD
 {
@@ -33,6 +31,13 @@ namespace cse3902.HUD
             inventory.Add(ItemType.Bomb, 0);
             inventory.Add(ItemType.Key, 0);
             inventory.Add(ItemType.Rupee, 0);
+            inventory.Add(ItemType.Map, 0);
+            inventory.Add(ItemType.Compass, 0);
+            inventory.Add(ItemType.Boomerang, 0);
+            inventory.Add(ItemType.Bow, 0);
+            inventory.Add(ItemType.Clock, 0);
+            inventory.Add(ItemType.Fairy, 0);
+            inventory.Add(ItemType.Triforce, 0);
         }
 
         public void AddToInventory(IItem item)
