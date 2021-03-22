@@ -11,6 +11,7 @@ namespace cse3902.Projectiles
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
+        private ISprite collisionTexture;
 
         private int rows;
         private int columns;
@@ -22,18 +23,16 @@ namespace cse3902.Projectiles
 
         private const float delay = 0.2f;
         private float remainingDelay;
-
         private int currentX;
         private int currentY;
-
         private Rectangle destination;
-
         private const float sizeIncrease = 1f;
 
         private Vector2 direction;
 
         private float angle;
         private bool animationComplete;
+        private bool collided;
 
         private ICollidable collidable;
 
@@ -73,7 +72,7 @@ namespace cse3902.Projectiles
 
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
-
+            collisionTexture = ProjectileHandler.Instance.CreatePoofAnim(spriteBatch, new Vector2(currentX, currentY));
             this.collidable = new ProjectileCollidable(this);
         }
 
@@ -91,41 +90,59 @@ namespace cse3902.Projectiles
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, angle, origin, SpriteEffects.None, 0.8f);
+
+            if (!collided)
+            {
+                spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, angle, origin, SpriteEffects.None, 0.8f);
+            }
+            else
+            {
+                collisionTexture.Center = new Vector2(currentX, currentY);
+                collisionTexture.Draw();
+            }
         }
 
         public int Update(GameTime gameTime)
         {
-            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            remainingDelay -= timer;
-
-            if (remainingDelay <= 0)
+            if (!collided)
             {
-                currentFrame++;
-                if (currentFrame == totalFrames)
+                var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                remainingDelay -= timer;
+
+                if (remainingDelay <= 0)
                 {
-                    currentFrame = 0;
+                    currentFrame++;
+                    if (currentFrame == totalFrames)
+                    {
+                        currentFrame = 0;
+                    }
+                    remainingDelay = delay;
                 }
-                remainingDelay = delay;
-            }
 
-            if (direction.X == 1)
-            {
-                currentX += 2;
+                if (direction.X == 1)
+                {
+                    currentX += 2;
+                }
+                else if (direction.X == -1)
+                {
+                    currentX -= 2;
+                }
+                else if (direction.Y == 1)
+                {
+                    currentY += 2;
+                }
+                else //sword is traveling up
+                {
+                    currentY -= 2;
+                }
+                return 0;
             }
-            else if (direction.X == -1)
+            else
             {
-                currentX -= 2;
+                collisionTexture.Center = new Vector2(currentX, currentY);
+                return collisionTexture.Update(gameTime);
             }
-            else if (direction.Y == 1)
-            {
-                currentY += 2;
-            }
-            else //sword is traveling up
-            {
-                currentY -= 2;
-            }
-            return 0;
+            
         }
 
         public ref Rectangle Box
@@ -187,6 +204,12 @@ namespace cse3902.Projectiles
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public bool Collided
+        {
+            get => collided;
+            set => collided = value;
         }
     }
 }

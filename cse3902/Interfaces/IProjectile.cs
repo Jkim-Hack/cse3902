@@ -9,5 +9,8 @@ namespace cse3902.Interfaces
         public bool AnimationComplete { get; set; }
         public Vector2 Direction { get; set; }
         public int Damage { get; }
+        //public void CollisionAnimation();
+        public bool Collided { get; set; }
+
     }
 }

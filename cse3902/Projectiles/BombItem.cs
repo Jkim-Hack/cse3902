@@ -155,5 +155,11 @@ namespace cse3902.Projectiles
         {
             get => this.collidable;
         }
+
+        public bool Collided
+        {
+            get => animationComplete;
+            set => animationComplete = value;
+        }
     }
 }

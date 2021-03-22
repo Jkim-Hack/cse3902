@@ -16,6 +16,7 @@ namespace cse3902.Projectiles
 
         private const float speed = 1.3f;
         private bool animationComplete;
+        private bool collided;
 
         private float fireballCounter;
         private const float fireballDelay = 3f;
@@ -54,7 +55,6 @@ namespace cse3902.Projectiles
 
         public int Update(GameTime gameTime)
         {
-
             if(fireballCounter < 0)
             {
                 animationComplete = true;
@@ -115,6 +115,12 @@ namespace cse3902.Projectiles
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public bool Collided
+        {
+            get => collided;
+            set => collided = value;
         }
     }
 }
