@@ -46,14 +46,17 @@ namespace cse3902.XMLParsing
             IItem newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartItem(game.SpriteBatch, startPos);
             switch (type)
             {
-                case "Arrow":
-                    newItem = ItemSpriteFactory.Instance.CreateArrowItem(game.SpriteBatch, startPos, new Vector2(1, 0));
+                case "Bomb":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBombItem(game.SpriteBatch, startPos);
+                    break;
+                case "Boomerang":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBoomerangItem(game.SpriteBatch, startPos);
                     break;
                 case "Bow":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(game.SpriteBatch, startPos);
                     break;
                 case "Clock":
-                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBowItem(game.SpriteBatch, startPos);
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateClockItem(game.SpriteBatch, startPos);
                     break;
                 case "Compass":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateCompassItem(game.SpriteBatch, startPos);

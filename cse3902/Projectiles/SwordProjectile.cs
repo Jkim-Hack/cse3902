@@ -7,7 +7,7 @@ using System;
 
 namespace cse3902.Projectiles
 {
-    public class SwordProjectile : IItem, IProjectile
+    public class SwordProjectile : IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;

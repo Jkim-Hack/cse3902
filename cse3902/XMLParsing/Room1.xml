@@ -405,8 +405,8 @@
             </enemy>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>4</xloc>
-                <yloc>0</yloc>
+                <xloc>9</xloc>
+                <yloc>1</yloc>
             </enemy>
         </enemies> 
         <blocks>

@@ -1,6 +1,7 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.HUD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -30,6 +31,7 @@ namespace cse3902.Items
         private int currentY;
 
         private ICollidable collidable;
+        private InventoryManager.ItemType itemType;
 
         public FairyItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
@@ -50,6 +52,7 @@ namespace cse3902.Items
             currentY = (int)startingPos.Y;
 
             this.collidable = new ItemCollidable(this);
+            itemType = InventoryManager.ItemType.Fairy;
         }
 
         private void distributeFrames()
@@ -125,6 +128,11 @@ namespace cse3902.Items
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public InventoryManager.ItemType ItemType
+        {
+            get => itemType;
         }
     }
 }

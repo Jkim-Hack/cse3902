@@ -8,7 +8,7 @@ using System;
 
 namespace cse3902.Projectiles
 {
-    public class ArrowItem : IItem, IProjectile
+    public class ArrowProjectile : IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -30,7 +30,7 @@ namespace cse3902.Projectiles
         private Vector2 direction;
         private ICollidable collidable;
 
-        public ArrowItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
+        public ArrowProjectile(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
         {
             spriteBatch = batch;
             spriteTexture = texture;

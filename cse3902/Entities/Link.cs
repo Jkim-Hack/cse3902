@@ -122,7 +122,7 @@ namespace cse3902.Entities
 
         public void AddItem(IItem item)
         {
-
+            linkStateMachine.AddItem(item);
         }
 
         public void ChangeItem(int itemNum)

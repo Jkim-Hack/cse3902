@@ -1,13 +1,10 @@
 ﻿using cse3902.Interfaces;
-using cse3902.Collision;
-using cse3902.Collision.Collidables;
-using cse3902.HUD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace cse3902.Items
+namespace cse3902.Sprites
 {
-    public class HeartItem : ISprite, IItem
+    public class FlameSprite : ISprite
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -23,17 +20,14 @@ namespace cse3902.Items
         private const float delay = 0.2f;
         private float remainingDelay;
 
-        private int currentX;
-        private int currentY;
+        private const float sizeIncrease = 1f;
 
         private Rectangle destination;
 
-        private const float sizeIncrease = 1f;
+        private int currentX;
+        private int currentY;
 
-        private ICollidable collidable;
-        private InventoryManager.ItemType itemType;
-
-        public HeartItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
+        public FlameSprite(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
             spriteBatch = batch;
             spriteTexture = texture;
@@ -50,9 +44,6 @@ namespace cse3902.Items
 
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
-
-            this.collidable = new ItemCollidable(this);
-            itemType = InventoryManager.ItemType.Heart;
         }
 
         private void distributeFrames()
@@ -89,6 +80,11 @@ namespace cse3902.Items
             return 0;
         }
 
+        public Texture2D Texture
+        {
+            get => spriteTexture;
+        }
+
         public void Erase()
         {
             spriteTexture.Dispose();
@@ -118,21 +114,6 @@ namespace cse3902.Items
                 currentX = (int)value.X;
                 currentY = (int)value.Y;
             }
-        }
-
-        public Texture2D Texture
-        {
-            get => spriteTexture;
-        }
-
-        public ICollidable Collidable
-        {
-            get => this.collidable;
-        }
-
-        public InventoryManager.ItemType ItemType
-        {
-            get => itemType;
         }
     }
 }
