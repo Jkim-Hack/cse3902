@@ -55,6 +55,42 @@ namespace cse3902.Items
             itemType = InventoryManager.ItemType.Fairy;
         }
 
+        {
+            for (int i = 0; i < totalFrames; i++)
+            {
+                int Row = (int)((float)i / (float)columns);
+                int Column = i % columns;
+                frames[i] = new Rectangle(frameWidth * Column, frameHeight * Row, frameWidth, frameHeight);
+            }
+        }
+
+        {
+            for (int i = 0; i < totalFrames; i++)
+            {
+                int Row = (int)((float)i / (float)columns);
+                int Column = i % columns;
+                frames[i] = new Rectangle(frameWidth * Column, frameHeight * Row, frameWidth, frameHeight);
+            }
+        }
+
+        {
+            for (int i = 0; i < totalFrames; i++)
+            {
+                int Row = (int)((float)i / (float)columns);
+                int Column = i % columns;
+                frames[i] = new Rectangle(frameWidth * Column, frameHeight * Row, frameWidth, frameHeight);
+            }
+        }
+
+        {
+            for (int i = 0; i < totalFrames; i++)
+            {
+                int Row = (int)((float)i / (float)columns);
+                int Column = i % columns;
+                frames[i] = new Rectangle(frameWidth * Column, frameHeight * Row, frameWidth, frameHeight);
+            }
+        }
+
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
