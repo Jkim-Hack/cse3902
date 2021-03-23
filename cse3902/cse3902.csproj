@@ -33,6 +33,7 @@
   <ItemGroup>
     <Folder Include="Commands\" />
     <Folder Include="Controllers\" />
+    <Folder Include="Sprites\" />
     <Folder Include="States\" />
     <Folder Include="Entities\Enemies\" />
     <Folder Include="Sprites\EnemySprites\" />
