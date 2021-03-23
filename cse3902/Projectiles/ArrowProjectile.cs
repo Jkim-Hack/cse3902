@@ -80,14 +80,14 @@ namespace cse3902.Projectiles
             if (!collided)
             {
                 Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-                spriteBatch.Draw(spriteTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.8f);
+                spriteBatch.Draw(spriteTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
             }
             else
             {
                 if (collTime >= 0)
                 {
                     Rectangle Destination = new Rectangle(currentX, currentY, (int)(2 * collisionTexture.Width), (int)(2 * collisionTexture.Width));
-                    spriteBatch.Draw(collisionTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.2f);
+                    spriteBatch.Draw(collisionTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, SpriteUtilities.EffectsLayer);
                     collTime--;
                 }
                 else

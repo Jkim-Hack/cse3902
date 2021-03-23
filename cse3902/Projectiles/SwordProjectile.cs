@@ -83,7 +83,7 @@ namespace cse3902.Projectiles
 
             if (!collided)
             {
-                spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, angle, origin, SpriteEffects.None, 0.8f);
+                spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, angle, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
             }
             else
             {

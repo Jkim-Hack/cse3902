@@ -4,9 +4,10 @@ namespace cse3902.Sprites
 {
     internal class SpriteUtilities
     {
-        public static float DoorTopLayer { get => .15f; }
-        public static float LinkLayer { get => .2f; }
-        public static float ProjectileLayer { get => .3f; }
+        public static float EffectsLayer { get => .2f; }
+        public static float TopBackgroundLayer { get => .3f; }
+        public static float LinkLayer { get => .4f; }
+        public static float ProjectileLayer { get => .5f; }
         public static float EnemyLayer { get => .65f; }
         public static float ItemLayer { get => .7f; }
         public static float BlockLayer { get => .8f; }
