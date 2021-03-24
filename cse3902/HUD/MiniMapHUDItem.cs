@@ -1,6 +1,7 @@
 using cse3902.Interfaces;
 using cse3902.Constants;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace cse3902.HUD
 {
@@ -10,9 +11,9 @@ namespace cse3902.HUD
         private Game1 game;
         private Rectangle currentRoom;
 
-        public MiniMapHUDItem()
+        public MiniMapHUDItem(Game1 game)
         {
-
+            this.game = game;
         }
 
         public void Update()
@@ -22,7 +23,10 @@ namespace cse3902.HUD
 
         public void Draw()
         {
-            
+            foreach(Rectangle rec in MiniMapRoomLayout.RoomLayout)
+            {
+                Console.WriteLine(rec);
+            }
         }
     }
 }
