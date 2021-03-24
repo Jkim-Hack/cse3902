@@ -32,8 +32,8 @@ namespace cse3902.XMLParsing
                 XElement yloc = npc.Element("yloc");
                 XElement text = npc.Element("text");
 
-                int x = Int32.Parse(xloc.Value);
-                int y = Int32.Parse(yloc.Value);
+                float x = float.Parse(xloc.Value);
+                float y = float.Parse(yloc.Value);
 
                 Vector2 truePos = RoomUtilities.CalculateBlockCenter(roomobj.RoomPos, new Vector2(x, y));
 
