@@ -10,13 +10,13 @@ namespace cse3902
 
         private Vector2 hudTopLeftCoord;
 
-        public Camera(Vector2 hudTopLeftCoordinate)
+        public Camera(Vector2 menuTopLeftCoordinate)
         {
             gameplayCamera = new CameraPart(DimensionConstants.WindowDimensions + new Vector2(0, -DimensionConstants.HudHeight), new Vector2(0, DimensionConstants.HudHeight));
             hudCamera = new CameraPart(DimensionConstants.WindowDimensions, new Vector2(0, -DimensionConstants.GameplayHeight));
 
-            hudCamera.MoveCamera(hudTopLeftCoordinate, DimensionConstants.WindowDimensions);
-            hudTopLeftCoord = hudTopLeftCoordinate;
+            hudTopLeftCoord = menuTopLeftCoordinate;
+            hudCamera.MoveCamera(hudTopLeftCoord, DimensionConstants.WindowDimensions);
         }
 
         public void MoveCamera(Vector2 topLeft, Vector2 dimensions)
