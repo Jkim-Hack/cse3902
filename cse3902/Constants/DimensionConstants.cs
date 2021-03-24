@@ -1,15 +1,20 @@
-﻿namespace cse3902.Constants
+﻿using Microsoft.Xna.Framework;
+
+namespace cse3902.Constants
 {
     public class DimensionConstants
     {
-        private const int Scale = 3;
+        private const int scale = 3;
 
-        private const int DefaultHudHeight = 56;
-        private const int DefaultWindowWidth = 256;
-        private const int DefaultWindowHeight = 232;
+        private const int defaultHudHeight = 56;
+        private const int defaultWindowWidth = 256;
+        private const int defaultWindowHeight = 232;
 
-        public const int HudHeight = DefaultHudHeight * Scale;
-        public const int WindowWidth = DefaultWindowWidth * Scale;
-        public const int WindowHeight = DefaultWindowHeight * Scale;
+        public const int HudHeight = defaultHudHeight * scale;
+        public const int WindowWidth = defaultWindowWidth * scale;
+        public const int WindowHeight = defaultWindowHeight * scale;
+
+        private static Vector2 windowDimensions = new Vector2(WindowWidth, WindowHeight);
+        public static Vector2 WindowDimensions { get => windowDimensions; }
     }
 }

@@ -25,7 +25,7 @@ namespace cse3902
         public Camera(Game1 game)
         {
             this.game = game;
-            Vector2 windowBounds = new Vector2(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
+            Vector2 windowBounds = DimensionConstants.WindowDimensions;
             //adjustment for menu bar
             gameplayBounds = windowBounds + new Vector2(0, -DimensionConstants.HudHeight);
             gameplayOffset = new Vector2(0, DimensionConstants.HudHeight);
@@ -120,7 +120,7 @@ namespace cse3902
             return transformationMatrix;
         }
 
-        public bool GetCameraMoving()
+        public bool IsCameraMoving()
         {
             return cameraIsMoving;
         }
@@ -134,7 +134,7 @@ namespace cse3902
             smoothMovementUpdateCyclesRemaining = 0;
             smoothMovementDestination = new Vector2(0, 0);
 
-            MoveCamera(topLeftCoordinate, new Vector2(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height));
+            MoveCamera(topLeftCoordinate, DimensionConstants.WindowDimensions);
 
             hudDisplayed = false;
             gameplayOffsetDirection = new Vector2();
