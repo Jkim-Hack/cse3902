@@ -28,9 +28,11 @@ namespace cse3902.Commands
                     {
                         case Game1.PauseState.Unpaused:
                             game.PausedState = Game1.PauseState.HudDisplayed;
+                            game.Camera.ToggleHudDisplayed(60);
                             break;
                         case Game1.PauseState.HudDisplayed:
                             game.PausedState = Game1.PauseState.Unpaused;
+                            game.Camera.ToggleHudDisplayed(60);
                             break;
                         default:
                             break;
