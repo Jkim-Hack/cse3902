@@ -5,139 +5,69 @@ namespace cse3902
 {
     public class Camera
     {
-        private Game1 game;
-        private Vector2 gameplayBounds;
-        private Vector2 gameplayOffset;
+        private CameraPart gameplayCamera;
+        private CameraPart hudCamera;
 
-        private Vector2 topLeftCoordinate;
-        private Vector2 dimensionScale;
+        private Vector2 hudTopLeftCoord;
 
-        private Matrix transformationMatrix;
-
-        private bool cameraIsMoving;
-        private Vector2 smoothMovementDirection;
-        private int smoothMovementUpdateCyclesRemaining;
-        private Vector2 smoothMovementDestination;
-
-        private bool hudDisplayed;
-        private Vector2 gameplayOffsetDirection;
-
-        public Camera(Game1 game)
+        public Camera(Vector2 hudTopLeftCoordinate)
         {
-            this.game = game;
-            Vector2 windowBounds = DimensionConstants.WindowDimensions;
-            //adjustment for menu bar
-            gameplayBounds = windowBounds + new Vector2(0, -DimensionConstants.HudHeight);
-            gameplayOffset = new Vector2(0, DimensionConstants.HudHeight);
+            gameplayCamera = new CameraPart(DimensionConstants.WindowDimensions + new Vector2(0, -DimensionConstants.HudHeight), new Vector2(0, DimensionConstants.HudHeight));
+            hudCamera = new CameraPart(DimensionConstants.WindowDimensions, new Vector2(0, -DimensionConstants.GameplayHeight));
 
-            topLeftCoordinate = new Vector2(0, 0);
-
-            cameraIsMoving = false;
-            smoothMovementDirection = new Vector2(0, 0);
-            smoothMovementUpdateCyclesRemaining = 0;
-            smoothMovementDestination = new Vector2(0, 0);
-
-            MoveCamera(topLeftCoordinate, windowBounds);
-
-            hudDisplayed = false;
-            gameplayOffsetDirection = new Vector2();
+            hudCamera.MoveCamera(hudTopLeftCoordinate, DimensionConstants.WindowDimensions);
+            hudCamera.MoveCamera(hudTopLeftCoordinate, new Vector2(16, 16));
+            hudTopLeftCoord = hudTopLeftCoordinate;
         }
 
         public void MoveCamera(Vector2 topLeft, Vector2 dimensions)
         {
-            if (!cameraIsMoving)
-            {
-                topLeftCoordinate = topLeft;
-                dimensionScale = gameplayBounds / dimensions;
-
-                transformationMatrix = Matrix.CreateScale(new Vector3(dimensionScale, 0));
-                transformationMatrix.Translation = new Vector3(-topLeft * dimensionScale + gameplayOffset, 0);
-            }
+            gameplayCamera.MoveCamera(topLeft, dimensions);
         }
 
         public void MoveCamera(Vector2 translation)
         {
-            if (!cameraIsMoving) MoveCameraSmoothOverride(translation);
-        }
-
-        private void MoveCameraSmoothOverride(Vector2 translation)
-        {
-            topLeftCoordinate += translation;
-            transformationMatrix.Translation = new Vector3(-topLeftCoordinate * dimensionScale + gameplayOffset, 0);
+            gameplayCamera.MoveCamera(translation);
         }
 
         public void SmoothMoveCamera(Vector2 topLeft, int numberUpdateCyclesToComplete)
         {
-            if (!cameraIsMoving)
-            {
-                smoothMovementUpdateCyclesRemaining = numberUpdateCyclesToComplete;
-                smoothMovementDestination = topLeft;
-
-                if (numberUpdateCyclesToComplete < 1) numberUpdateCyclesToComplete = 1;
-                smoothMovementDirection = (topLeft - topLeftCoordinate) / numberUpdateCyclesToComplete;
-
-                cameraIsMoving = true;
-            }
+            gameplayCamera.SmoothMoveCamera(topLeft, numberUpdateCyclesToComplete);
         }
 
         public void ToggleHudDisplayed(int numberUpdateCyclesToComplete)
         {
-            if (!cameraIsMoving)
-            {
-                SmoothMoveCamera(topLeftCoordinate, numberUpdateCyclesToComplete);
-                if (numberUpdateCyclesToComplete < 1) numberUpdateCyclesToComplete = 1;
-                gameplayOffsetDirection = new Vector2(0, DimensionConstants.WindowHeight - DimensionConstants.HudHeight) / numberUpdateCyclesToComplete;
-
-                if (hudDisplayed) gameplayOffsetDirection *= -1;
-
-                hudDisplayed = !hudDisplayed;
-            }
+            gameplayCamera.ToggleHudDisplayed(numberUpdateCyclesToComplete);
+            hudCamera.ToggleHudDisplayed(numberUpdateCyclesToComplete);
         }
 
         public void Update()
         {
-            if (cameraIsMoving)
-            {
-                if (smoothMovementUpdateCyclesRemaining <= 1)
-                {
-                    gameplayOffset += gameplayOffsetDirection;
-                    topLeftCoordinate = smoothMovementDestination;
-                    transformationMatrix.Translation = new Vector3(-topLeftCoordinate * dimensionScale + gameplayOffset, 0);
-                    cameraIsMoving = false;
-                    gameplayOffsetDirection = new Vector2();
-                }
-                else
-                {
-                    gameplayOffset += gameplayOffsetDirection;
-                    MoveCameraSmoothOverride(smoothMovementDirection);
-                    smoothMovementUpdateCyclesRemaining--;
-                }
-            }
+            gameplayCamera.Update();
+            hudCamera.Update();
         }
 
-        public Matrix GetTransformationMatrix()
+        public Matrix GetGameplayTransformationMatrix()
         {
-            return transformationMatrix;
+            return gameplayCamera.GetTransformationMatrix();
+        }
+
+        public Matrix GetHudTransformationMatrix()
+        {
+            return hudCamera.GetTransformationMatrix();
         }
 
         public bool IsCameraMoving()
         {
-            return cameraIsMoving;
+            return gameplayCamera.IsCameraMoving();
         }
 
         public void Reset()
         {
-            topLeftCoordinate = new Vector2(0, 0);
+            gameplayCamera.Reset();
+            hudCamera.Reset();
 
-            cameraIsMoving = false;
-            smoothMovementDirection = new Vector2(0, 0);
-            smoothMovementUpdateCyclesRemaining = 0;
-            smoothMovementDestination = new Vector2(0, 0);
-
-            MoveCamera(topLeftCoordinate, DimensionConstants.WindowDimensions);
-
-            hudDisplayed = false;
-            gameplayOffsetDirection = new Vector2();
+            hudCamera.MoveCamera(hudTopLeftCoord, DimensionConstants.WindowDimensions);
         }
     }
 }

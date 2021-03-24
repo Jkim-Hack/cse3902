@@ -1,16 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
+using cse3902.Rooms;
 
 namespace cse3902.Constants
 {
     public class DimensionConstants
     {
+        //changeable constants
         private const int scale = 3;
 
-        private const int defaultHudHeight = 56;
-        private const int defaultWindowWidth = 256;
-        private const int defaultWindowHeight = 232;
+        public const int defaultHudHeight = 56;
+
+        //unchangeable constants
+        private const int defaultGameplayHeight = RoomUtilities.ROOM_HEIGHT;
+        private const int defaultWindowWidth = RoomUtilities.ROOM_WIDTH;
+        private const int defaultWindowHeight = defaultHudHeight + defaultGameplayHeight;
 
         public const int HudHeight = defaultHudHeight * scale;
+        public const int GameplayHeight = defaultGameplayHeight * scale;
         public const int WindowWidth = defaultWindowWidth * scale;
         public const int WindowHeight = defaultWindowHeight * scale;
 

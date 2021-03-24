@@ -90,7 +90,7 @@ namespace cse3902
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             player = new Link(this);
-            camera = new Camera(this);
+            camera = new Camera(new Vector2(0,0));
             roomHandler = new RoomHandler(this);
             collisionManager = new CollisionManager(this);
 
@@ -160,7 +160,7 @@ namespace cse3902
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetTransformationMatrix());
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetGameplayTransformationMatrix());
 
             player.Draw();
             roomHandler.Draw();
@@ -168,7 +168,7 @@ namespace cse3902
 
             spriteBatch.End();
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetHudTransformationMatrix());
             //draw hud stuff here
             spriteBatch.End();
 
