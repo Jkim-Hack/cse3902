@@ -7,12 +7,18 @@ namespace cse3902.HUD.HUDItems
     public class HealthHUDItem : IHUDItem
     {
         private Vector2 center;
-        private Texture2D texture;
+        private Texture2D spriteTexture;
+        private Rectangle box;
+        private Vector2 size;
+        private SpriteBatch spriteBatch;
 
-        public HealthHUDItem(Texture2D UITexture, Vector2 centerPosition)
+        public HealthHUDItem(Game1 game, Texture2D UITexture, Vector2 centerPosition)
         {
             center = centerPosition;
-            texture = UITexture; 
+            spriteTexture = UITexture;
+            size = new Vector2(spriteTexture.Bounds.Width, spriteTexture.Bounds.Height);
+            box = new Rectangle((int)(center.X - (size.X/2)), (int)(center.Y - (size.Y/2)), (int)size.X, (int)size.Y);
+            spriteBatch = game.SpriteBatch;
         }
 
         public Vector2 Center 
@@ -23,17 +29,19 @@ namespace cse3902.HUD.HUDItems
 
         public Texture2D Texture
         {
-            get => texture;
+            get => spriteTexture;
         }
 
         public ref Rectangle Box
         {
-            get; set;
+            get => ref box;
         }
 
         public void Draw()
-        {
-            throw new NotImplementedException();
+        { 
+            Vector2 origin = new Vector2(size.X / 2f, size.Y / 2f);
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(size.X), (int)(size.Y));
+            spriteBatch.Draw(spriteTexture, Destination, Color.White);
         }
 
         public void Erase()
