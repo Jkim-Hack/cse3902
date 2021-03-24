@@ -1,14 +1,11 @@
 ﻿using cse3902.Interfaces;
-using cse3902.Collision;
-using cse3902.Collision.Collidables;
-using cse3902.HUD;
+using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using cse3902.Sprites;
 
 namespace cse3902.Items
 {
-    public class HeartItem : ISprite, IItem
+    public class CloudAnimationSprite : ISprite
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -21,7 +18,7 @@ namespace cse3902.Items
         private int frameWidth;
         private int frameHeight;
 
-        private const float delay = 0.2f;
+        private const float delay = 0.05f;
         private float remainingDelay;
 
         private int currentX;
@@ -31,28 +28,33 @@ namespace cse3902.Items
 
         private const float sizeIncrease = 1f;
 
-        private ICollidable collidable;
-        private InventoryManager.ItemType itemType;
-
-        public HeartItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
+        public CloudAnimationSprite(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
             spriteBatch = batch;
             spriteTexture = texture;
 
             remainingDelay = delay;
-            this.rows = 1;
-            this.columns = 2;
+            this.rows = 4;
+            this.columns = 3;
             currentFrame = 0;
             totalFrames = rows * columns;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
-            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
+            frames = new Rectangle[totalFrames];
+            distributeFrames();
 
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
+        }
 
-            this.collidable = new ItemCollidable(this);
-            itemType = InventoryManager.ItemType.Heart;
+        private void distributeFrames()
+        {
+            for (int i = 0; i < totalFrames; i++)
+            {
+                int Row = (int)((float)i / (float)columns);
+                int Column = i % columns;
+                frames[i] = new Rectangle(frameWidth * Column, frameHeight * Row, frameWidth, frameHeight);
+            }
         }
 
         public void Draw()
@@ -72,16 +74,11 @@ namespace cse3902.Items
                 currentFrame++;
                 if (currentFrame == totalFrames)
                 {
-                    currentFrame = 0;
+                    return -1;
                 }
                 remainingDelay = delay;
             }
             return 0;
-        }
-
-        public void Erase()
-        {
-            spriteTexture.Dispose();
         }
 
         public ref Rectangle Box
@@ -115,14 +112,9 @@ namespace cse3902.Items
             get => spriteTexture;
         }
 
-        public ICollidable Collidable
+        public void Erase()
         {
-            get => this.collidable;
-        }
-
-        public InventoryManager.ItemType ItemType
-        {
-            get => itemType;
+            spriteTexture.Dispose();
         }
     }
 }

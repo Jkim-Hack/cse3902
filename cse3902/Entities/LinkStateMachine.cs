@@ -1,6 +1,7 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Projectiles;
 using cse3902.Sprites;
+using cse3902.HUD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -22,7 +23,6 @@ namespace cse3902.Entities
 
         private float speed;
 
-        private List<IItem> itemList;
         private int currItemIndex;
         private int currWeaponIndex;
         private Game1 game;
@@ -219,7 +219,7 @@ namespace cse3902.Entities
 
         public void AddItem(IItem item)
         {
-            this.itemList.Add(item);
+            InventoryManager.Instance.AddToInventory(item);
         }
 
         public void UseItem()

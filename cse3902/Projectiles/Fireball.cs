@@ -3,6 +3,7 @@ using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.Sprites;
 
 namespace cse3902.Projectiles
 
@@ -73,7 +74,7 @@ namespace cse3902.Projectiles
         {
             Vector2 origin = new Vector2(Texture.Width / 2f, Texture.Height / 2f);
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * Texture.Width), (int)(sizeIncrease * Texture.Height));
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, 0.6f);
+            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
         }
 
         public ref Rectangle Box

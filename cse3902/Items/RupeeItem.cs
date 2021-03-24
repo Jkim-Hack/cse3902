@@ -1,68 +1,65 @@
-﻿using System;
-using cse3902.Interfaces;
+﻿using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
+using cse3902.HUD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static cse3902.Interfaces.ISprite;
+using cse3902.Sprites;
 
-namespace cse3902.Sprites.EnemySprites
+namespace cse3902.Items
 {
-    public class StalfosSprite: ISprite
+    public class RupeeItem : ISprite, IItem
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
 
-        private Vector2 center;
-
+        private int rows;
+        private int columns;
         private int currentFrame;
         private int totalFrames;
         private Rectangle[] frames;
         private int frameWidth;
         private int frameHeight;
 
-        private int startingFrameIndex;
-        private int endingFrameIndex;
-
         private const float delay = 0.2f;
         private float remainingDelay;
 
-        private bool isAttacking;
+        private int currentX;
+        private int currentY;
 
         private Rectangle destination;
 
         private const float sizeIncrease = 1f;
 
-        public StalfosSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
+        private ICollidable collidable;
+        private InventoryManager.ItemType itemType;
+
+        public RupeeItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
-            this.spriteBatch = spriteBatch;
+            spriteBatch = batch;
             spriteTexture = texture;
+
             remainingDelay = delay;
-
-            totalFrames = rows * columns;
+            this.rows = 2;
+            this.columns = 1;
             currentFrame = 0;
-
-            startingFrameIndex = 0;
-            endingFrameIndex = 2;
-
+            totalFrames = rows * columns;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
             frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
 
-            center = startingPosition;
+            currentX = (int)startingPos.X;
+            currentY = (int)startingPos.Y;
 
-            isAttacking = false;
-
+            this.collidable = new ItemCollidable(this);
+            itemType = InventoryManager.ItemType.Rupee;
         }
 
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
-        }
-
-        public void Erase()
-        {
-            spriteTexture.Dispose();
+            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ItemLayer);
         }
 
         public int Update(GameTime gameTime)
@@ -73,9 +70,9 @@ namespace cse3902.Sprites.EnemySprites
             if (remainingDelay <= 0)
             {
                 currentFrame++;
-                if (currentFrame == endingFrameIndex)
+                if (currentFrame == totalFrames)
                 {
-                    currentFrame = startingFrameIndex;
+                    currentFrame = 0;
                 }
                 remainingDelay = delay;
             }
@@ -88,7 +85,7 @@ namespace cse3902.Sprites.EnemySprites
             {
                 int width = (int)(sizeIncrease * frameWidth);
                 int height = (int)(sizeIncrease * frameHeight);
-                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
+                Rectangle Destination = new Rectangle(currentX, currentY, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
                 return ref destination;
@@ -97,8 +94,15 @@ namespace cse3902.Sprites.EnemySprites
 
         public Vector2 Center
         {
-            get => center;
-            set => center = value;
+            get
+            {
+                return new Vector2(currentX, currentY);
+            }
+            set
+            {
+                currentX = (int)value.X;
+                currentY = (int)value.Y;
+            }
         }
 
         public Texture2D Texture
@@ -106,25 +110,19 @@ namespace cse3902.Sprites.EnemySprites
             get => spriteTexture;
         }
 
-        public int StartingFrameIndex
+        public void Erase()
         {
-            get => startingFrameIndex;
-            set
-            {
-                startingFrameIndex = value;
-                endingFrameIndex = value + 2;
-            }
+            spriteTexture.Dispose();
         }
 
-        public bool IsAttacking
+        public ICollidable Collidable
         {
-            get => isAttacking;
-            set
-            {
-                isAttacking = value;
-            }
+            get => this.collidable;
+        }
+
+        public InventoryManager.ItemType ItemType
+        {
+            get => itemType;
         }
     }
 }
-    
-

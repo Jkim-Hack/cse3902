@@ -15,7 +15,7 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            if (cooldown < 10 || game.Camera.GetCameraMoving())
+            if (cooldown < 10 || game.Camera.IsCameraMoving())
             {
                 cooldown++;
                 return;
@@ -28,9 +28,11 @@ namespace cse3902.Commands
                     {
                         case Game1.PauseState.Unpaused:
                             game.PausedState = Game1.PauseState.HudDisplayed;
+                            game.Camera.ToggleHudDisplayed(60);
                             break;
                         case Game1.PauseState.HudDisplayed:
                             game.PausedState = Game1.PauseState.Unpaused;
+                            game.Camera.ToggleHudDisplayed(60);
                             break;
                         default:
                             break;

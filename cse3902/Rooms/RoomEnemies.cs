@@ -42,21 +42,27 @@ namespace cse3902.Rooms
 
         public void Update(GameTime gameTime)
         {
-            foreach (IEntity enemy in enemies)
+            if (CloudAnimation.Instance.cloudAnims.Count == 0)
             {
-                enemy.Update(gameTime);
+                foreach (IEntity enemy in enemies)
+                {
+                    enemy.Update(gameTime);
+                }
             }
         }
 
         public void Draw()
         {
-            foreach (IEntity enemy in enemies)
+            if (CloudAnimation.Instance.cloudAnims.Count == 0)
             {
-                enemy.Draw();
+                foreach (IEntity enemy in enemies)
+                {
+                    enemy.Draw();
+                }
             }
         }
 
-        public void LoadNewRoom(ref List<IEntity> oldList, List<IEntity> newList)
+        public void LoadNewRoom(ref List<IEntity> oldList, List<IEntity> newList, Game1 game)
         {
             oldList = new List<IEntity>();
 
@@ -73,6 +79,8 @@ namespace cse3902.Rooms
             {
                 enemies.Add(newList[i]);
             }
+
+            CloudAnimation.Instance.LoadNewRoom(newList, game.SpriteBatch);
         }
 
         public ref IList ListRef

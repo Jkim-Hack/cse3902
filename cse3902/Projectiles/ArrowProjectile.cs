@@ -5,10 +5,11 @@ using cse3902.SpriteFactory;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using cse3902.Sprites;
 
 namespace cse3902.Projectiles
 {
-    public class ArrowItem : IItem, IProjectile
+    public class ArrowProjectile : IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -30,7 +31,7 @@ namespace cse3902.Projectiles
         private Vector2 direction;
         private ICollidable collidable;
 
-        public ArrowItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
+        public ArrowProjectile(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
         {
             spriteBatch = batch;
             spriteTexture = texture;
@@ -79,14 +80,14 @@ namespace cse3902.Projectiles
             if (!collided)
             {
                 Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-                spriteBatch.Draw(spriteTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.8f);
+                spriteBatch.Draw(spriteTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
             }
             else
             {
                 if (collTime >= 0)
                 {
                     Rectangle Destination = new Rectangle(currentX, currentY, (int)(2 * collisionTexture.Width), (int)(2 * collisionTexture.Width));
-                    spriteBatch.Draw(collisionTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, 0.2f);
+                    spriteBatch.Draw(collisionTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, SpriteUtilities.EffectsLayer);
                     collTime--;
                 }
                 else

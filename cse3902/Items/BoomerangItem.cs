@@ -8,21 +8,13 @@ using cse3902.Sprites;
 
 namespace cse3902.Items
 {
-    public class HeartItem : ISprite, IItem
+    public class BoomerangItem : ISprite, IItem
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
 
-        private int rows;
-        private int columns;
-        private int currentFrame;
-        private int totalFrames;
-        private Rectangle[] frames;
         private int frameWidth;
         private int frameHeight;
-
-        private const float delay = 0.2f;
-        private float remainingDelay;
 
         private int currentX;
         private int currentY;
@@ -34,54 +26,36 @@ namespace cse3902.Items
         private ICollidable collidable;
         private InventoryManager.ItemType itemType;
 
-        public HeartItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
+        public BoomerangItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
             spriteBatch = batch;
             spriteTexture = texture;
 
-            remainingDelay = delay;
-            this.rows = 1;
-            this.columns = 2;
-            currentFrame = 0;
-            totalFrames = rows * columns;
-            frameWidth = spriteTexture.Width / columns;
-            frameHeight = spriteTexture.Height / rows;
-            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
+            frameWidth = spriteTexture.Width;
+            frameHeight = spriteTexture.Height;
 
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
 
             this.collidable = new ItemCollidable(this);
-            itemType = InventoryManager.ItemType.Heart;
+            itemType = InventoryManager.ItemType.Boomerang;
         }
 
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ItemLayer);
-        }
-
-        public int Update(GameTime gameTime)
-        {
-            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            remainingDelay -= timer;
-
-            if (remainingDelay <= 0)
-            {
-                currentFrame++;
-                if (currentFrame == totalFrames)
-                {
-                    currentFrame = 0;
-                }
-                remainingDelay = delay;
-            }
-            return 0;
+            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ItemLayer);
         }
 
         public void Erase()
         {
             spriteTexture.Dispose();
+        }
+
+        public int Update(GameTime gameTime)
+        {
+            return 0;
         }
 
         public ref Rectangle Box
