@@ -25,6 +25,9 @@ namespace cse3902.HUD
 
         public void Draw()
         {
+            /* Draw background */
+            DrawRectangle(new Rectangle(0, 0, game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height), Color.Black);
+
             /* Draw whole map first, then current room */
             foreach(Rectangle rec in MiniMapRoomLayout.RoomLayout)
             {
