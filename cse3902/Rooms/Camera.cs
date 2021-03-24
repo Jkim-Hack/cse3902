@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using cse3902.Constants;
 
 namespace cse3902
 {
@@ -26,8 +27,8 @@ namespace cse3902
             this.game = game;
             Vector2 windowBounds = new Vector2(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
             //adjustment for menu bar
-            gameplayBounds = windowBounds + new Vector2(0, -game.HudHeight * game.Scale);
-            gameplayOffset = new Vector2(0, game.HudHeight * game.Scale);
+            gameplayBounds = windowBounds + new Vector2(0, -DimensionConstants.HudHeight);
+            gameplayOffset = new Vector2(0, DimensionConstants.HudHeight);
 
             topLeftCoordinate = new Vector2(0, 0);
 
@@ -85,7 +86,7 @@ namespace cse3902
             {
                 SmoothMoveCamera(topLeftCoordinate, numberUpdateCyclesToComplete);
                 if (numberUpdateCyclesToComplete < 1) numberUpdateCyclesToComplete = 1;
-                gameplayOffsetDirection = new Vector2(0, game.Window.ClientBounds.Height - game.HudHeight * game.Scale) / numberUpdateCyclesToComplete;
+                gameplayOffsetDirection = new Vector2(0, DimensionConstants.WindowHeight - DimensionConstants.HudHeight) / numberUpdateCyclesToComplete;
 
                 if (hudDisplayed) gameplayOffsetDirection *= -1;
 

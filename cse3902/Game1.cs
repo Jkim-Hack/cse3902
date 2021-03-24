@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.SpriteFactory;
 using cse3902.Collision;
+using cse3902.Constants;
 
 namespace cse3902
 {
@@ -37,11 +38,6 @@ namespace cse3902
         private Camera camera;
         public Camera Camera { get => camera; }
 
-        private int scale;
-        private int hudHeight;
-        public int Scale { get => scale; }
-        public int HudHeight { get => hudHeight; }
-
         private Texture2D lineTexture;
 
         public enum PauseState
@@ -67,12 +63,10 @@ namespace cse3902
         /// </summary>
         protected override void Initialize()
         {
-            hudHeight = 56;
-            scale = 3;
             PausedState = PauseState.Unpaused;
 
-            this.graphics.PreferredBackBufferWidth = 256 * Scale;
-            this.graphics.PreferredBackBufferHeight = 232 * Scale;
+            this.graphics.PreferredBackBufferWidth = DimensionConstants.WindowWidth;
+            this.graphics.PreferredBackBufferHeight = DimensionConstants.WindowHeight;
             this.graphics.ApplyChanges();
 
             // Setup input controllers    
