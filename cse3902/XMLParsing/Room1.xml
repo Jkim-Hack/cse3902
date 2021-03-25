@@ -822,7 +822,7 @@
 			<door>
 				<type>Right</type>
 				<pos>1</pos>
-				<state>Closed</state>
+				<state>Open</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
@@ -941,6 +941,9 @@
     <room>
         <number>1,2,0</number>
 		<conditions>
+			<condition>
+				<id>1</id>
+			</condition>
 		</conditions>
         <sprite>12</sprite>
 		<doors>
@@ -1824,6 +1827,9 @@
      <room>
         <number>4,1,0</number>
 		 <conditions>
+			 <condition>
+				 <id>0</id>
+			 </condition>
 		 </conditions>
         <sprite>3</sprite>
 		 <doors>
@@ -2026,7 +2032,7 @@
 			<door>
 				<type>Left</type>
 				<pos>3</pos>
-				<state>Closed</state>
+				<state>Open</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>

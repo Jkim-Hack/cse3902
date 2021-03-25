@@ -15,6 +15,7 @@ namespace cse3902.Rooms
             roomConditions = new List<CheckingCondition>();
 
             roomConditions.Add(AllEnemiesKilledOpenRightDoor);
+            roomConditions.Add(AllBlocksPushedOpenLeftDoor);
         }
 
         public CheckingCondition GetRoomCondition(int i)
@@ -31,6 +32,24 @@ namespace cse3902.Rooms
             else
             {
                 roomHandler.rooms.GetValueOrDefault(roomHandler.currentRoom).Doors[3].State = IDoor.DoorState.Closed;
+            }
+        }
+
+        private void AllBlocksPushedOpenLeftDoor()
+        {
+            bool isNotMoved = false;
+            foreach (IBlock block in RoomBlocks.Instance.ListRef)
+            {
+                if (!block.IsMoved()) isNotMoved = true;
+            }
+
+            if (isNotMoved)
+            {
+                roomHandler.rooms.GetValueOrDefault(roomHandler.currentRoom).Doors[1].State = IDoor.DoorState.Closed;
+            }
+            else
+            {
+                roomHandler.rooms.GetValueOrDefault(roomHandler.currentRoom).Doors[1].State = IDoor.DoorState.Open;
             }
         }
     }
