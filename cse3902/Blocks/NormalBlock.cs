@@ -100,6 +100,10 @@ namespace cse3902.Blocks
         {
             normalBlockSprite.Draw();
         }
+        public bool IsMoved()
+        {
+            return !isMoving && remainingPixelsToPush <= 0;
+        }
         public void Reset()
         {
             normalBlockSprite.Center = initialPosition;

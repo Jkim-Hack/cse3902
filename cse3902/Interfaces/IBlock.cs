@@ -20,5 +20,6 @@ namespace cse3902.Interfaces
         public void Update();
         public void Draw();
         public void Reset();
+        public bool IsMoved();
     }
 }

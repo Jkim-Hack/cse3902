@@ -2643,7 +2643,49 @@
 			<block>
 				<type>Invisible</type>
 				<dir>Still</dir>
+				<xloc>7</xloc>
+				<yloc>3.25</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Invisible</type>
+				<dir>Still</dir>
+				<xloc>8</xloc>
+				<yloc>3.25</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Invisible</type>
+				<dir>Still</dir>
+				<xloc>9</xloc>
+				<yloc>3.25</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Invisible</type>
+				<dir>Still</dir>
+				<xloc>10</xloc>
+				<yloc>3.25</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Invisible</type>
+				<dir>Still</dir>
 				<xloc>11</xloc>
+				<yloc>3.25</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Invisible</type>
+				<dir>Still</dir>
+				<xloc>12</xloc>
+				<yloc>3.25</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Invisible</type>
+				<dir>Still</dir>
+				<xloc>13</xloc>
 				<yloc>3.25</yloc>
 				<push>0</push>
 			</block>
@@ -2664,6 +2706,41 @@
 			<block>
 				<type>Invisible</type>
 				<dir>Still</dir>
+				<xloc>5</xloc>
+				<yloc>6.25</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Invisible</type>
+				<dir>Still</dir>
+				<xloc>6</xloc>
+				<yloc>6.25</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Invisible</type>
+				<dir>Still</dir>
+				<xloc>7</xloc>
+				<yloc>6.25</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Invisible</type>
+				<dir>Still</dir>
+				<xloc>8</xloc>
+				<yloc>6.25</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Invisible</type>
+				<dir>Still</dir>
+				<xloc>9</xloc>
+				<yloc>6.25</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Invisible</type>
+				<dir>Still</dir>
 				<xloc>10</xloc>
 				<yloc>6.25</yloc>
 				<push>0</push>
@@ -2676,52 +2753,10 @@
 				<push>0</push>
 			</block>
 			<block>
-				<type>Movement0</type>
+				<type>Invisible</type>
 				<dir>Still</dir>
-				<xloc>1.25</xloc>
-				<yloc>7</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Movement0</type>
-				<dir>Still</dir>
-				<xloc>4.75</xloc>
-				<yloc>7</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Movement0</type>
-				<dir>Still</dir>
-				<xloc>9.25</xloc>
-				<yloc>7</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Movement0</type>
-				<dir>Still</dir>
-				<xloc>12.75</xloc>
-				<yloc>7</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Movement1</type>
-				<dir>Still</dir>
-				<xloc>11</xloc>
-				<yloc>4</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Movement0</type>
-				<dir>Still</dir>
-				<xloc>10</xloc>
-				<yloc>4</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Movement0</type>
-				<dir>Still</dir>
-				<xloc>12</xloc>
-				<yloc>4</yloc>
+				<xloc>13</xloc>
+				<yloc>6.25</yloc>
 				<push>0</push>
 			</block>
 			<block>

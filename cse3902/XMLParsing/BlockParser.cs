@@ -62,12 +62,6 @@ namespace cse3902.XMLParsing
                 case "Brick":
                     newBlock = new NormalBlock(game, 0, BlockSpriteFactory.Instance.CreateBrickSprite(game.SpriteBatch, startingPos), startingPos);
                     break;
-                case "Movement0":
-                    newBlock = new MovementBlock(game, startingPos, 0);
-                    break;
-                case "Movement1":
-                    newBlock = new MovementBlock(game, startingPos, 1);
-                    break;
                 case "Invisible":
                     newBlock = new NormalBlock(game, 0, BlockSpriteFactory.Instance.CreateInvisibleBlockSprite(game.SpriteBatch, startingPos), startingPos);
                     break;

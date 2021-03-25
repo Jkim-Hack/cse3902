@@ -74,5 +74,10 @@ namespace cse3902.Blocks
         {
             //doesn't move so no reset needed
         }
+
+        public bool IsMoved()
+        {
+            return true;
+        }
     }
 }
