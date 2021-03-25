@@ -8,6 +8,7 @@ namespace cse3902.Rooms
     public class RoomBlocks
     {
         public IList blocks;
+        private IList oldBlocks;
 
         private static RoomBlocks instance = new RoomBlocks();
 
@@ -48,9 +49,18 @@ namespace cse3902.Rooms
             }
         }
 
+        public void DrawOld()
+        {
+            foreach (IBlock block in oldBlocks)
+            {
+                block.Draw();
+            }
+        }
+
         public void LoadNewRoom(ref List<IBlock> oldList, List<IBlock> newList)
         {
             oldList = new List<IBlock>();
+            oldBlocks = oldList;
 
             List<IBlock> blocksCast = blocks as List<IBlock>;
 

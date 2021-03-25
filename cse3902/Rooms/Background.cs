@@ -10,7 +10,7 @@ using System.Collections;
 namespace cse3902.Rooms
 {
     //Rename this and 
-    public class RoomBackground
+    public class Background
     {
         Texture2D interior;
         Texture2D exterior;
@@ -23,9 +23,9 @@ namespace cse3902.Rooms
         //private List<Rectangle> test { get; set; }
         //Texture2D test1;
 
-        private static RoomBackground instance = new RoomBackground();
+        private static Background instance = new Background();
 
-        public static RoomBackground Instance
+        public static Background Instance
         {
             get
             {
@@ -33,7 +33,7 @@ namespace cse3902.Rooms
             }
         }
 
-        private RoomBackground()
+        private Background()
         {
 
         }

@@ -29,11 +29,11 @@ namespace cse3902.Rooms
 
             if (spriteNum < 0)
             {
-                RoomBackground.Instance.generateItemRoom(position);
+                Background.Instance.generateItemRoom(position);
             }
             else
             {
-                RoomBackground.Instance.generateRoom(position, spriteNum);
+                Background.Instance.generateRoom(position, spriteNum);
             }
 
             items = new List<IItem>();
