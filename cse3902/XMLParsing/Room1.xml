@@ -4,6 +4,13 @@
         <number>1,5,0</number>
         <sprite>12</sprite>
 		<conditions>
+			<condition>
+				<id>0</id>
+				<variables>
+					<variable>8</variable>
+					<variable>6</variable>
+				</variables>
+			</condition>
 		</conditions>
         <items>
         </items>
@@ -468,7 +475,10 @@
         <number>1,3,0</number>
 		<conditions>
 			<condition>
-				<id>0</id>
+				<id>1</id>
+				<variables>
+					<variable>3</variable>
+				</variables>
 			</condition>
 		</conditions>
         <sprite>10</sprite>
@@ -586,6 +596,13 @@
     <room>
         <number>2,3,0</number>
 		<conditions>
+			<condition>
+				<id>0</id>
+				<variables>
+					<variable>6</variable>
+					<variable>1</variable>
+				</variables>
+			</condition>
 		</conditions>
         <sprite>8</sprite>
 		<doors>
@@ -942,7 +959,10 @@
         <number>1,2,0</number>
 		<conditions>
 			<condition>
-				<id>1</id>
+				<id>2</id>
+				<variables>
+					<variable>1</variable>
+				</variables>
 			</condition>
 		</conditions>
         <sprite>12</sprite>
@@ -1271,6 +1291,11 @@
         <npcs>
         </npcs>
         <items>
+			<item>
+				<type>Key</type>
+				<xloc>8</xloc>
+				<yloc>6</yloc>
+			</item>
         </items>
         <enemies>
             <enemy>
@@ -1828,7 +1853,10 @@
         <number>4,1,0</number>
 		 <conditions>
 			 <condition>
-				 <id>0</id>
+				 <id>1</id>
+				 <variables>
+					 <variable>3</variable>
+				 </variables>
 			 </condition>
 		 </conditions>
         <sprite>3</sprite>
@@ -2376,6 +2404,13 @@
     <room>
         <number>2,0,0</number>
 		<conditions>
+			<condition>
+				<id>0</id>
+				<variables>
+					<variable>6</variable>
+					<variable>1</variable>
+				</variables>
+			</condition>
 		</conditions>
         <sprite>1</sprite>
 		<doors>

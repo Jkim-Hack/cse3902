@@ -24,7 +24,7 @@ namespace cse3902.Rooms
             npcParser = new NPCParser(gm);
             blockParser = new BlockParser(gm);
             doorParser = new DoorParser(gm, roomHandler);
-            conditionParser = new ConditionParser(roomHandler);
+            conditionParser = new ConditionParser();
         }
 
         public void ParseXML(String filename)

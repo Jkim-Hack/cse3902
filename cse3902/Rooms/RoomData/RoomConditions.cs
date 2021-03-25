@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System.Collections;
+using cse3902.Interfaces;
 
 namespace cse3902.Rooms
 {
@@ -20,22 +21,22 @@ namespace cse3902.Rooms
 
         private RoomConditions()
         {
-            conditions = new List<RoomConditionList.CheckingCondition>();
+            conditions = new List<ICondition>();
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (RoomConditionList.CheckingCondition condition in conditions)
+            foreach (ICondition condition in conditions)
             {
-                condition();
+                condition.CheckCondition();
             }
         }
 
-        public void LoadNewRoom(ref List<RoomConditionList.CheckingCondition> oldList, List<RoomConditionList.CheckingCondition> newList)
+        public void LoadNewRoom(ref List<ICondition> oldList, List<ICondition> newList)
         {
-            oldList = new List<RoomConditionList.CheckingCondition>();
+            oldList = new List<ICondition>();
 
-            List<RoomConditionList.CheckingCondition> conditiontemp = conditions as List<RoomConditionList.CheckingCondition>;
+            List<ICondition> conditiontemp = conditions as List<ICondition>;
 
             for (int i = 0; i < conditions.Count; i++)
             {

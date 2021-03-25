@@ -1,21 +1,17 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Xml.Linq;
-using Microsoft.Xna.Framework;
-using cse3902.Interfaces;
-using cse3902.Doors;
 using cse3902.Rooms;
 using System.Linq;
-
+using cse3902.Interfaces;
+using cse3902.Rooms.Conditions;
+using Microsoft.Xna.Framework;
 namespace cse3902.XMLParsing
 {
     public class ConditionParser
     {
-        private RoomHandler roomHandler;
-
-        public ConditionParser(RoomHandler rh)
+        public ConditionParser()
         {
-            roomHandler = rh;
         }
 
         public void ParseCondtions(Room roomobj, XElement roomxml, XDocument doc)
@@ -28,8 +24,47 @@ namespace cse3902.XMLParsing
             foreach (XElement condition in conditionList)
             {
                 XElement conditionID = condition.Element("id");
-                roomobj.AddCondition(roomHandler.roomConditionList.GetRoomCondition(Int32.Parse(conditionID.Value)));
+                XElement variables = condition.Element("variables");
+                List<XElement> variableList = variables.Elements("variable").ToList();
+
+                roomobj.AddCondition(CreateCondition(conditionID.Value,GetConditionVariables(variableList),roomobj));
             }
+        }
+
+        private ICondition CreateCondition(string id, List<int> conditionVariables, Room roomobj)
+        {
+            ICondition condition = null;
+            switch (id)
+            {
+                case "0":
+                    Vector2 truePos = RoomUtilities.CalculateBlockCenter(roomobj.RoomPos, new Vector2(conditionVariables[0], conditionVariables[1]));
+                    conditionVariables[0] = (int)truePos.X;
+                    conditionVariables[1] = (int)truePos.Y;
+                    condition = new AllEnemiesKilledDropKey(conditionVariables);
+                    break;
+                case "1":
+                    condition = new AllEnemiesKilledOpenDoor(conditionVariables);
+                    break;
+                case "2":
+                    condition = new AllBlocksPushedOpenDoor(conditionVariables);
+                    break;
+                default: //this should never happen
+                    break;
+            }
+
+            return condition;
+        }
+
+        private List<int> GetConditionVariables(List<XElement> variableList)
+        {
+            List<int> list = new List<int>();
+            
+            foreach (XElement variable in variableList)
+            {
+                list.Add(Int32.Parse(variable.Value));
+            }
+
+            return list;
         }
     }
 }
