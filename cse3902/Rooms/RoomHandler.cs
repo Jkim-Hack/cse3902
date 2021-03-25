@@ -21,6 +21,7 @@ namespace cse3902.Rooms
 
         private Camera camera;
         public RoomTransitionManager roomTransitionManager;
+        public RoomConditionList roomConditionList { get; }
 
         public Vector3 currentRoom { get; set; }
         private Vector3 previousRoom;
@@ -34,6 +35,7 @@ namespace cse3902.Rooms
             rooms = new Dictionary<Vector3, Room>();
             xmlParser = new XMLParser(this, game);
             roomTransitionManager = new RoomTransitionManager(game);
+            roomConditionList = new RoomConditionList(this);
             camera = game.Camera;
             startingRoom = new Vector3(2, 6, 0);
             currentRoom = startingRoom;
@@ -75,6 +77,10 @@ namespace cse3902.Rooms
             RoomDoors.Instance.LoadNewRoom(ref oldDoors, newRoom.Doors);
             rooms.GetValueOrDefault(currentRoom).Doors = oldDoors;
 
+            List<RoomConditionList.CheckingCondition> oldConditions = rooms.GetValueOrDefault(currentRoom).Conditions;
+            RoomConditions.Instance.LoadNewRoom(ref oldConditions, newRoom.Conditions);
+            rooms.GetValueOrDefault(currentRoom).Conditions = oldConditions;
+
             previousRoom = currentRoom;
             currentRoom = newPos;
             rooms.GetValueOrDefault(newPos).SetToVisited();
@@ -104,6 +110,7 @@ namespace cse3902.Rooms
                 RoomEnemies.Instance.Update(gameTime);
                 RoomNPCs.Instance.Update(gameTime);
                 RoomProjectiles.Instance.Update(gameTime);
+                RoomConditions.Instance.Update(gameTime);
             }
 
             RoomBackground.Instance.Update(gameTime);

@@ -20,6 +20,7 @@ namespace cse3902.Rooms
         private List<IProjectile> projectiles;
         private List<IBlock> blocks;
         private List<IDoor> doors;
+        private List<RoomConditionList.CheckingCondition> conditions;
 
         public Room(Vector3 position, int spriteNum)
         {
@@ -42,6 +43,7 @@ namespace cse3902.Rooms
             projectiles = new List<IProjectile>();
             blocks = new List<IBlock>();
             doors = new List<IDoor>();
+            conditions = new List<RoomConditionList.CheckingCondition>();
         }
 
         public void AddItem (IItem item)
@@ -72,6 +74,11 @@ namespace cse3902.Rooms
         public void AddDoor(IDoor door)
         {
             doors.Add(door);
+        }
+
+        public void AddCondition(RoomConditionList.CheckingCondition condition)
+        {
+            conditions.Add(condition);
         }
 
         public bool IsVisited()
@@ -118,6 +125,12 @@ namespace cse3902.Rooms
         {
             get => doors;
             set => doors = value;
+        }
+
+        public List<RoomConditionList.CheckingCondition> Conditions
+        {
+            get => conditions;
+            set => conditions = value;
         }
     }
 }
