@@ -37,7 +37,10 @@ namespace cse3902.Rooms
 
         public void Update(GameTime gameTime)
         {
-            // blocks don't get updated
+            foreach (IBlock block in blocks)
+            {
+                block.Update();
+            }
         }
 
         public void Draw()
@@ -66,6 +69,14 @@ namespace cse3902.Rooms
                 blocks.Add(newList[i]);
             }
 
+        }
+
+        public void Reset()
+        {
+            foreach (IBlock block in blocks)
+            {
+                block.Reset();
+            }
         }
 
         public ref IList ListRef

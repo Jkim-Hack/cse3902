@@ -45,6 +45,11 @@ namespace cse3902.Blocks
 
             game.Player.Directions = directions;
         }
+
+        public void Update()
+        {
+            //nothing to update
+        }
         public void Draw()
         {
             walkableBlockSprite.Draw();

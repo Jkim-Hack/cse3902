@@ -57,6 +57,14 @@ namespace cse3902.Rooms
 
         }
 
+        public void Reset()
+        {
+            foreach (IDoor door in doors)
+            {
+                door.Reset();
+            }
+        }
+
         public ref IList ListRef
         {
             get => ref doors;

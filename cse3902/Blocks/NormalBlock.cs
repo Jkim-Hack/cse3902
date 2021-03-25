@@ -13,10 +13,16 @@ namespace cse3902.Blocks
 
         private Vector2 initialPosition;
         private float pixelsToPush;
+        private const int pushThreshold = 20;
 
-        private Vector2 blockPushingDirection;
+        private Vector2 pushingDirection;
+
         private float remainingPixelsToPush;
+        private int remainingPush;
         private const float pushSpeed = 0.5f;
+
+        private bool justPushed;
+        private bool isMoving;
 
         private Vector2 BlockPushingVector(IBlock.PushDirection direction)
         {
@@ -39,16 +45,18 @@ namespace cse3902.Blocks
 
         private ICollidable collidable;
 
-        public NormalBlock(Game1 game, IBlock.PushDirection direction, int pixelsToPush, ISprite sprite, Vector2 center)
+        public NormalBlock(Game1 game, int pixelsToPush, ISprite sprite, Vector2 center)
         {
             this.game = game;
-
-            blockPushingDirection = BlockPushingVector(direction);
 
             normalBlockSprite = sprite;
             remainingPixelsToPush = pixelsToPush;
             this.pixelsToPush = pixelsToPush;
             initialPosition = center;
+            remainingPush = pushThreshold;
+            justPushed = false;
+            isMoving = false;
+            pushingDirection = new Vector2();
 
             this.collidable = new BlockCollidable(this);
         }
@@ -59,17 +67,34 @@ namespace cse3902.Blocks
         }
         public void Interact(Vector2 pushDirection)
         {
-            if (blockPushingDirection.Equals(pushDirection) && remainingPixelsToPush > 0)
+            if (!isMoving && remainingPixelsToPush > 0)
             {
-                normalBlockSprite.Center += blockPushingDirection * pushSpeed;
+                justPushed = true;
+                remainingPush--;
+                pushingDirection = pushDirection;
+                if (remainingPush == 0) isMoving = true;
+            }
+        }
+        public void Update()
+        {
+            if (!isMoving)
+            {
+                if (!justPushed) remainingPush = pushThreshold;
+            } 
+            else
+            {
+                normalBlockSprite.Center += pushingDirection * pushSpeed;
                 remainingPixelsToPush -= pushSpeed;
 
                 //block was pushed a little too far and needs to be partially undone
                 if (remainingPixelsToPush < 0)
                 {
-                    normalBlockSprite.Center += remainingPixelsToPush * blockPushingDirection;
+                    normalBlockSprite.Center += remainingPixelsToPush * pushingDirection;
+                    isMoving = false;
                 }
             }
+
+            justPushed = false;
         }
         public void Draw()
         {
@@ -79,6 +104,10 @@ namespace cse3902.Blocks
         {
             normalBlockSprite.Center = initialPosition;
             remainingPixelsToPush = pixelsToPush;
+            remainingPush = pushThreshold;
+
+            isMoving = false;
+            justPushed = false;
         }
 
         public ref Rectangle Bounds

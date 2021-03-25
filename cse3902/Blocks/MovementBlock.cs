@@ -15,7 +15,7 @@ namespace cse3902.Blocks
         private int type;
 
         private ICollidable collidable;
-
+        public void Update() { }
         public MovementBlock(Game1 game, Vector2 center, int type)
         {
             this.game = game;

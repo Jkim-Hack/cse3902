@@ -144,7 +144,8 @@ namespace cse3902.Rooms
 
         public void Reset()
         {
-            ProjectileHandler.Instance.Reset();
+            RoomBlocks.Instance.Reset();
+            RoomDoors.Instance.Reset();
         }
     }
 }
