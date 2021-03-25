@@ -166,20 +166,17 @@ namespace cse3902.SpriteFactory
                     CreateBowItem(spriteBatch, startingPos);
                     break;
                 case 1:
-                    CreateCompassItem(spriteBatch, startingPos);
                     break;
                 case 2:
                     CreateBoomerangItem(spriteBatch, startingPos);
                     break;
                 case 3:
-                    CreateFairyItem(spriteBatch, startingPos);
                     break;
                 case 4:
                 case 5:
                     CreateBombItem(spriteBatch, startingPos);
                     break;
                 case 6:
-                    CreateKeyItem(spriteBatch, startingPos);
                     break;
                 case 7:
                 case 8:
@@ -187,10 +184,8 @@ namespace cse3902.SpriteFactory
                     CreateHeartItem(spriteBatch, startingPos);
                     break;
                 case 10:
-                    CreateMapItem(spriteBatch, startingPos);
                     break;
                 case 11:
-                    CreateHeartContainerItem(spriteBatch, startingPos);
                     break;
                 case 12:
                 case 13:
