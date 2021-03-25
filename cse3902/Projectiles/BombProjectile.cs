@@ -4,6 +4,7 @@ using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Rooms;
+using cse3902.Sprites;
 
 namespace cse3902.Projectiles
 {
@@ -45,8 +46,7 @@ namespace cse3902.Projectiles
             totalFrames = rows * columns;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
-            frames = new Rectangle[totalFrames];
-            distributeFrames();
+            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
 
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
@@ -54,16 +54,6 @@ namespace cse3902.Projectiles
             this.animationComplete = false;
 
             this.collidable = new ProjectileCollidable(this);
-        }
-
-        private void distributeFrames()
-        {
-            for (int i = 0; i < totalFrames; i++)
-            {
-                int Row = (int)((float)i / (float)columns);
-                int Column = i % columns;
-                frames[i] = new Rectangle(frameWidth * Column, frameHeight * Row, frameWidth, frameHeight);
-            }
         }
 
         public ref Rectangle Box
@@ -101,7 +91,7 @@ namespace cse3902.Projectiles
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0f, origin, SpriteEffects.None, 0.8f);
+            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0f, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
         }
 
         public int Update(GameTime gameTime)

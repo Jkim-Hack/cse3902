@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
+using cse3902.Constants;
 
 namespace cse3902.Commands
 {
@@ -22,7 +23,7 @@ namespace cse3902.Commands
             this.game = game;
             windowWidth = game.GraphicsDevice.Viewport.Width;
             windowHeight = game.GraphicsDevice.Viewport.Height;
-            hudHeight = game.HudHeight * game.Scale;
+            hudHeight = DimensionConstants.HudHeight;
             BuildCommands();
         }
 

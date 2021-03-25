@@ -23,7 +23,7 @@ namespace cse3902.NPCs
             message = text;
             if (message.Length > 0)
             {
-                textSprite = new TextSprite(game, text, new Vector2(center.X - 70, center.Y - 40));
+                textSprite = new TextSprite(game, text, new Vector2(center.X - 75, center.Y - 30));
             }
             oldManSprite = NPCSpriteFactory.Instance.CreateOldManSprite(game.SpriteBatch, center);
         }
