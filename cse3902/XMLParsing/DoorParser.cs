@@ -44,7 +44,7 @@ namespace cse3902.XMLParsing
                 IDoor doorAdd = CreateDoor(typeName.Value, center, initialDoorState);
                 Vector3 connectingRoom = roomobj.RoomPos + GetConnectingRoom(typeName.Value);
 
-                if (roomHandler.rooms.ContainsKey(connectingRoom) && initialDoorState != IDoor.DoorState.Wall)
+                if (roomHandler.rooms.ContainsKey(connectingRoom))
                 {
                     HandleDoorConnection(connectingRoom, ref doorAdd, Int32.Parse(doorPos.Value));
                 }

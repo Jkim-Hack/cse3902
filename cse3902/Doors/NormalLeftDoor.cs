@@ -92,6 +92,7 @@ namespace cse3902.Doors
         public IDoor ConnectedDoor
         {
             set => connectedDoor = value;
+            get => connectedDoor;
         }
 
         public ICollidable Collidable

@@ -26,7 +26,7 @@ namespace cse3902.Collision.Collidables
             if (collidableObject is PlayerCollidable)
             {
                 IDoor.DoorState state = this.door.State;
-                if (state == IDoor.DoorState.Open || state == IDoor.DoorState.Bombed)
+                if (state == IDoor.DoorState.Open)
                 {
                     if (this.door is NormalUpDoor && collidableObject.RectangleRef.Y < this.RectangleRef.Y)
                     {

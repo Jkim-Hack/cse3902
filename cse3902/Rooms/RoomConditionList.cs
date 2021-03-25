@@ -43,11 +43,7 @@ namespace cse3902.Rooms
                 if (!block.IsMoved()) isNotMoved = true;
             }
 
-            if (isNotMoved)
-            {
-                roomHandler.rooms.GetValueOrDefault(roomHandler.currentRoom).Doors[1].State = IDoor.DoorState.Closed;
-            }
-            else
+            if (!isNotMoved)
             {
                 roomHandler.rooms.GetValueOrDefault(roomHandler.currentRoom).Doors[1].State = IDoor.DoorState.Open;
             }

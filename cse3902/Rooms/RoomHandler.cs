@@ -139,6 +139,7 @@ namespace cse3902.Rooms
         public void CompleteStart()
         {
             startComplete = true;
+            rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].ConnectedDoor = null;
             rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Wall;
         }
 
