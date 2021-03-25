@@ -7,7 +7,7 @@ namespace cse3902.Rooms
 {
     public class RoomConditions
     {
-        public IList conditions;
+        private IList conditions;
 
         private static RoomConditions instance = new RoomConditions();
 
