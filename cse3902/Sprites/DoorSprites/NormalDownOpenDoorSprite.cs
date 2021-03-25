@@ -48,7 +48,7 @@ namespace cse3902.Sprites
         {
             get
             {
-                Rectangle destination = new Rectangle((int)center.X, (int)center.Y, (int)(door.Width * sizeIncrease), (int)(door.Height * sizeIncrease));
+                Rectangle destination = new Rectangle((int)center.X, (int)center.Y, (int)(door.Width * sizeIncrease)/2, (int)(door.Height * sizeIncrease)-2);
                 destination.Offset(-destination.Width / 2, -destination.Height / 2);
                 dest = destination;
 

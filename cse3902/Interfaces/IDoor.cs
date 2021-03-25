@@ -16,7 +16,7 @@ namespace cse3902.Interfaces
         }
 
         public ref Rectangle Bounds { get; }
-        public IDoor ConnectedDoor { set; }
+        public IDoor ConnectedDoor { get; set; }
         public void Interact();
         public Vector2 PlayerReleasePosition();
         public Vector2 PlayerReleaseDirection();

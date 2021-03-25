@@ -1,9 +1,7 @@
 ﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using cse3902.Entities;
-using System;
+
 
 namespace cse3902.Rooms
 {
@@ -20,6 +18,7 @@ namespace cse3902.Rooms
         private List<IProjectile> projectiles;
         private List<IBlock> blocks;
         private List<IDoor> doors;
+        private List<ICondition> conditions;
 
         public Room(Vector3 position, int spriteNum)
         {
@@ -42,6 +41,7 @@ namespace cse3902.Rooms
             projectiles = new List<IProjectile>();
             blocks = new List<IBlock>();
             doors = new List<IDoor>();
+            conditions = new List<ICondition>();
         }
 
         public void AddItem (IItem item)
@@ -72,6 +72,11 @@ namespace cse3902.Rooms
         public void AddDoor(IDoor door)
         {
             doors.Add(door);
+        }
+
+        public void AddCondition(ICondition condition)
+        {
+            conditions.Add(condition);
         }
 
         public bool IsVisited()
@@ -118,6 +123,12 @@ namespace cse3902.Rooms
         {
             get => doors;
             set => doors = value;
+        }
+
+        public List<ICondition> Conditions
+        {
+            get => conditions;
+            set => conditions = value;
         }
     }
 }

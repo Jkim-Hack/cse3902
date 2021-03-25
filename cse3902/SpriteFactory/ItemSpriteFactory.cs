@@ -10,6 +10,8 @@ namespace cse3902.SpriteFactory
 {
     public class ItemSpriteFactory
     {
+        private SpriteBatch spriteBatch;
+
         private Texture2D bomb;
         private Texture2D boomerang;
         private Texture2D bow;
@@ -38,8 +40,10 @@ namespace cse3902.SpriteFactory
         {
         }
 
-        public void LoadAllTextures(ContentManager content)
+        public void LoadAllTextures(ContentManager content, SpriteBatch spriteBatch)
         {
+            this.spriteBatch = spriteBatch;
+
             bomb = content.Load<Texture2D>("bomb");
             boomerang = content.Load<Texture2D>("boomerang");
             bow = content.Load<Texture2D>("bow");
@@ -112,6 +116,12 @@ namespace cse3902.SpriteFactory
         }
 
         public ISprite CreateKeyItem(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            IItem add = new KeyItem(spriteBatch, key, startingPos);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+        public ISprite CreateKeyItem(Vector2 startingPos)
         {
             IItem add = new KeyItem(spriteBatch, key, startingPos);
             RoomItems.Instance.AddItem(add);
