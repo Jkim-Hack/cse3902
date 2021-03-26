@@ -3,12 +3,9 @@ using Microsoft.Xna.Framework;
 
 namespace cse3902.Constants
 {
-    public class MiniMapRoomLayout
+    public class MiniMapConstants
     {
-        public const int offsetX = 100;
-        public const int offsetY = 600;
-
-        public const int currentRoomSize = 8;
+        public const int greenSize = 8;
 
         /* "Coordinate system", with the starting room at (0, 0) */
         private static List<Vector2> RoomCoordinates = new List<Vector2>
@@ -32,16 +29,23 @@ namespace cse3902.Constants
             new Vector2(-1, 5),
         };
 
+        private const int gap = 3;
+
         /* Calculates room sizes and positions */
         public static List<Rectangle> GetRoomLayout()
         {
             /* Real aspect ratio of blue minimap boxes is 7:3, with a gap of 2 */
-            int width = 16, height = 8, gap = 3;
+            int width = 17, height = 8;
 
             List<Rectangle> RoomLayout = new List<Rectangle>();
-            foreach (Vector2 room in RoomCoordinates) RoomLayout.Add(new Rectangle((int)room.X * (width + gap), (int)room.Y * (height + gap) * -1, width, height));
+            foreach (Vector2 room in RoomCoordinates) RoomLayout.Add(CalculatePos((int)room.X, (int)room.Y, width, height));
 
             return RoomLayout;
+        }
+
+        public static Rectangle CalculatePos(int x, int y, int width, int height)
+        {
+            return new Rectangle(x * (width + gap), y * (height + gap) * -1, width, height);
         }
     }
 }
