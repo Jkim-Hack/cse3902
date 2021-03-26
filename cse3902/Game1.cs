@@ -155,6 +155,7 @@ namespace cse3902
 
             camera.Update();
             base.Update(gameTime);
+            miniMapHUDItem.Update();
         }
 
         /// <summary>

@@ -7,6 +7,9 @@ namespace cse3902.Constants
     {
         public const int greenSize = 8;
 
+        public static Color roomColor = new Color(38, 39, 227);
+        public static Color currentRoomColor = new Color(107, 203, 44);
+
         /* "Coordinate system", with the starting room at (0, 0) */
         private static List<Vector2> RoomCoordinates = new List<Vector2>
         {
@@ -35,7 +38,7 @@ namespace cse3902.Constants
         public static List<Rectangle> GetRoomLayout()
         {
             /* Real aspect ratio of blue minimap boxes is 7:3, with a gap of 2 */
-            int width = 17, height = 8;
+            int width = 18, height = 8;
 
             List<Rectangle> RoomLayout = new List<Rectangle>();
             foreach (Vector2 room in RoomCoordinates) RoomLayout.Add(CalculatePos((int)room.X, (int)room.Y, width, height));
