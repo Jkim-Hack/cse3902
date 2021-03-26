@@ -5,10 +5,13 @@ namespace cse3902.Constants
 {
     public class MiniMapConstants
     {
-        public const int greenSize = 8;
+        /* Real aspect ratio of blue minimap boxes is 7:3, with a gap of 2 */
+        public const int Width = 18;
+        public const int Height = 8;
+        private const int gap = 3;
 
-        public static Color roomColor = new Color(38, 39, 227);
-        public static Color currentRoomColor = new Color(107, 203, 44);
+        public static Color RoomColor = new Color(38, 39, 227);
+        public static Color CurrentRoomColor = new Color(107, 203, 44);
 
         /* "Coordinate system", with the starting room at (0, 0) */
         private static List<Vector2> RoomCoordinates = new List<Vector2>
@@ -32,16 +35,11 @@ namespace cse3902.Constants
             new Vector2(-1, 5),
         };
 
-        private const int gap = 3;
-
         /* Calculates room sizes and positions */
         public static List<Rectangle> GetRoomLayout()
         {
-            /* Real aspect ratio of blue minimap boxes is 7:3, with a gap of 2 */
-            int width = 18, height = 8;
-
             List<Rectangle> RoomLayout = new List<Rectangle>();
-            foreach (Vector2 room in RoomCoordinates) RoomLayout.Add(CalculatePos((int)room.X, (int)room.Y, width, height));
+            foreach (Vector2 room in RoomCoordinates) RoomLayout.Add(CalculatePos((int)room.X, (int)room.Y, Width, Height));
 
             return RoomLayout;
         }

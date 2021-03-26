@@ -33,7 +33,6 @@ namespace cse3902.HUD
             if (game.RoomHandler.roomTransitionManager.IsTransitioning() && !alreadyChanged)
             {
                 currentRoom += (game.RoomHandler.RoomChangeDirection * new Vector3(1, -1, 1));
-                Console.WriteLine(currentRoom);
                 alreadyChanged = true;
             }
 
@@ -48,12 +47,17 @@ namespace cse3902.HUD
             /* Draw background (just for testing) */
             DrawRectangle(new Rectangle(0 - offsetX, 0 - offsetY, game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height), Color.Black);
 
-            /* Draw whole map first, then current room */
-            foreach(Rectangle rec in MiniMapConstants.GetRoomLayout()) DrawRectangle(rec, MiniMapConstants.roomColor);
+            /* Draw entire map */
+            foreach(Rectangle rec in MiniMapConstants.GetRoomLayout()) DrawRectangle(rec, MiniMapConstants.RoomColor);
 
-            Rectangle currentRoomRectangle = MiniMapConstants.CalculatePos((int)currentRoom.X, (int)currentRoom.Y, MiniMapConstants.greenSize, MiniMapConstants.greenSize);
-            currentRoomRectangle.X += 5;
-            DrawRectangle(currentRoomRectangle, MiniMapConstants.currentRoomColor);
+            /* Only draw current room square if not in item room */
+            if (currentRoom.Z == 0)
+            {
+                Rectangle currentRoomRectangle = MiniMapConstants.CalculatePos((int)currentRoom.X, (int)currentRoom.Y, MiniMapConstants.Width, MiniMapConstants.Height);
+                currentRoomRectangle.X += 5;
+                currentRoomRectangle.Width = MiniMapConstants.Height;
+                DrawRectangle(currentRoomRectangle, MiniMapConstants.CurrentRoomColor);
+            }
         }
 
         private void DrawRectangle(Rectangle rec, Color color)
