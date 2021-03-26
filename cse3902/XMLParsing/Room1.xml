@@ -9,6 +9,7 @@
 				<variables>
 					<variable>8</variable>
 					<variable>6</variable>
+				    <variable>0</variable>
 				</variables>
 			</condition>
 		</conditions>
@@ -23,11 +24,11 @@
             <enemy>
                 <type>Keese</type>
                 <xloc>3</xloc>
-                <yloc>3</yloc>
+                <yloc>2</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
-                <xloc>2</xloc>
+                <xloc>1</xloc>
                 <yloc>5</yloc>
             </enemy>
         </enemies>
@@ -260,26 +261,26 @@
             <enemy>
                 <type>Stalfos</type>
                 <xloc>3</xloc>
-                <yloc>5</yloc>
+                <yloc>6</yloc>
             </enemy>
             <enemy>
                 <type>Stalfos</type>
                 <xloc>6</xloc>
-                <yloc>1</yloc>
+                <yloc>2</yloc>
             </enemy>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>7</xloc>
+                <xloc>6</xloc>
                 <yloc>4</yloc>
             </enemy>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>9</xloc>
+                <xloc>10</xloc>
                 <yloc>1</yloc>
             </enemy>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>11</xloc>
+                <xloc>10</xloc>
                 <yloc>5</yloc>
             </enemy>
         </enemies> 
@@ -413,17 +414,17 @@
             <enemy>
                 <type>Stalfos</type>
                 <xloc>4</xloc>
-                <yloc>0</yloc>
-            </enemy>
-            <enemy>
-                <type>Stalfos</type>
-                <xloc>4</xloc>
                 <yloc>2</yloc>
             </enemy>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>9</xloc>
-                <yloc>1</yloc>
+                <xloc>7</xloc>
+                <yloc>2</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>8</xloc>
+                <yloc>0</yloc>
             </enemy>
         </enemies> 
         <blocks>
@@ -601,6 +602,7 @@
 				<variables>
 					<variable>6</variable>
 					<variable>1</variable>
+				    <variable>0</variable>
 				</variables>
 			</condition>
 		</conditions>
@@ -642,28 +644,28 @@
         <enemies>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>3</xloc>
-                <yloc>4</yloc>
-            </enemy>
-            <enemy>
-                <type>Stalfos</type>
-                <xloc>4</xloc>
-                <yloc>2</yloc>
-            </enemy>
-            <enemy>
-                <type>Stalfos</type>
                 <xloc>6</xloc>
                 <yloc>3</yloc>
             </enemy>
             <enemy>
                 <type>Stalfos</type>
                 <xloc>7</xloc>
+                <yloc>2</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>8</xloc>
+                <yloc>4</yloc>
+            </enemy>
+            <enemy>
+                <type>Stalfos</type>
+                <xloc>8</xloc>
                 <yloc>0</yloc>
             </enemy>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>7</xloc>
-                <yloc>2</yloc>
+                <xloc>10</xloc>
+                <yloc>1</yloc>
             </enemy>
         </enemies>
         <blocks>
@@ -735,6 +737,11 @@
         <npcs>
         </npcs>
         <items>
+			<item>
+				<type>Compass</type>
+				<xloc>10</xloc>
+				<yloc>3</yloc>
+			</item>
         </items>
         <enemies>
             <enemy>
@@ -744,13 +751,13 @@
             </enemy>
             <enemy>
                 <type>Keese</type>
-                <xloc>6</xloc>
-                <yloc>2</yloc>
+                <xloc>3</xloc>
+                <yloc>6</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
                 <xloc>6</xloc>
-                <yloc>4</yloc>
+                <yloc>2</yloc>
             </enemy>
             <enemy>
                 <type>Keese</type>
@@ -1003,18 +1010,18 @@
         <enemies>
             <enemy>
                 <type>Gel</type>
-                <xloc>5</xloc>
+                <xloc>1</xloc>
                 <yloc>1</yloc>
             </enemy>
             <enemy>
                 <type>Gel</type>
-                <xloc>5</xloc>
-                <yloc>5</yloc>
+                <xloc>10</xloc>
+                <yloc>1</yloc>
             </enemy>
             <enemy>
                 <type>Gel</type>
                 <xloc>3</xloc>
-                <yloc>3</yloc>
+                <yloc>0</yloc>
             </enemy>
         </enemies>
         <blocks>
@@ -1065,22 +1072,17 @@
         <npcs>
         </npcs>
         <items>
+			<item>
+				<type>Map</type>
+				<xloc>10</xloc>
+				<yloc>3</yloc>
+			</item>
         </items>
         <enemies>
             <enemy>
                 <type>Gel</type>
-                <xloc>2</xloc>
-                <yloc>0</yloc>
-            </enemy>
-            <enemy>
-                <type>Gel</type>
-                <xloc>8</xloc>
-                <yloc>0</yloc>
-            </enemy>
-            <enemy>
-                <type>Gel</type>
                 <xloc>3</xloc>
-                <yloc>2</yloc>
+                <yloc>0</yloc>
             </enemy>
             <enemy>
                 <type>Gel</type>
@@ -1089,8 +1091,18 @@
             </enemy>
             <enemy>
                 <type>Gel</type>
-                <xloc>8</xloc>
+                <xloc>6</xloc>
                 <yloc>2</yloc>
+            </enemy>
+            <enemy>
+                <type>Gel</type>
+                <xloc>6</xloc>
+                <yloc>4</yloc>
+            </enemy>
+            <enemy>
+                <type>Gel</type>
+                <xloc>11</xloc>
+                <yloc>3</yloc>
             </enemy>
         </enemies> 
         <blocks>
@@ -1169,6 +1181,14 @@
     <room>
         <number>3,2,0</number>
 		<conditions>
+			<condition>
+				<id>0</id>
+				<variables>
+					<variable>6</variable>
+					<variable>1</variable>
+				    <variable>1</variable>
+				</variables>
+			</condition>
 		</conditions>
         <sprite>8</sprite>
 		<doors>
@@ -1208,18 +1228,18 @@
         <enemies>
             <enemy>
                 <type>Goriya</type>
-                <xloc>7</xloc>
+                <xloc>3</xloc>
                 <yloc>0</yloc>
             </enemy>
             <enemy>
                 <type>Goriya</type>
-                <xloc>9</xloc>
-                <yloc>1</yloc>
+                <xloc>10</xloc>
+                <yloc>5</yloc>
             </enemy>
             <enemy>
                 <type>Goriya</type>
-                <xloc>7</xloc>
-                <yloc>4</yloc>
+                <xloc>11</xloc>
+                <yloc>3</yloc>
             </enemy>
         </enemies> 
         <blocks>
@@ -1300,43 +1320,43 @@
         <enemies>
             <enemy>
                 <type>Wallmaster</type>
-                <xloc>2</xloc>
-                <yloc>0</yloc>
-            </enemy>
-            <enemy>
-                <type>Wallmaster</type>
-                <xloc>3</xloc>
-                <yloc>0</yloc>
+                <xloc>-1</xloc>
+                <yloc>6</yloc>
             </enemy>
             <enemy>
                 <type>Wallmaster</type>
                 <xloc>8</xloc>
-                <yloc>0</yloc>
+                <yloc>7</yloc>
+            </enemy>
+            <enemy>
+                <type>Wallmaster</type>
+                <xloc>7</xloc>
+                <yloc>7</yloc>
+            </enemy>
+            <enemy>
+                <type>Wallmaster</type>
+                <xloc>5</xloc>
+                <yloc>7</yloc>
+            </enemy>
+            <enemy>
+                <type>Wallmaster</type>
+                <xloc>4</xloc>
+                <yloc>7</yloc>
+            </enemy>
+            <enemy>
+                <type>Wallmaster</type>
+                <xloc>7</xloc>
+                <yloc>-1</yloc>
+            </enemy>
+            <enemy>
+                <type>Wallmaster</type>
+                <xloc>8</xloc>
+                <yloc>-1</yloc>
             </enemy>
             <enemy>
                 <type>Wallmaster</type>
                 <xloc>9</xloc>
-                <yloc>0</yloc>
-            </enemy>
-            <enemy>
-                <type>Wallmaster</type>
-                <xloc>0</xloc>
-                <yloc>3</yloc>
-            </enemy>
-            <enemy>
-                <type>Wallmaster</type>
-                <xloc>0</xloc>
-                <yloc>5</yloc>
-            </enemy>
-            <enemy>
-                <type>Wallmaster</type>
-                <xloc>11</xloc>
-                <yloc>4</yloc>
-            </enemy>
-            <enemy>
-                <type>Wallmaster</type>
-                <xloc>11</xloc>
-                <yloc>6</yloc>
+                <yloc>-1</yloc>
             </enemy>
         </enemies> 
         <blocks>
@@ -1510,8 +1530,8 @@
         <enemies>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>3</xloc>
-                <yloc>1</yloc>
+                <xloc>8</xloc>
+                <yloc>4</yloc>
             </enemy>
             <enemy>
                 <type>Stalfos</type>
@@ -1520,7 +1540,7 @@
             </enemy>
             <enemy>
                 <type>Stalfos</type>
-                <xloc>10</xloc>
+                <xloc>6</xloc>
                 <yloc>3</yloc>
             </enemy>
         </enemies> 
@@ -1852,6 +1872,14 @@
      <room>
         <number>4,1,0</number>
 		 <conditions>
+			<condition>
+				<id>0</id>
+				<variables>
+					<variable>10</variable>
+					<variable>3</variable>
+				    <variable>2</variable>
+				</variables>
+			</condition>
 			 <condition>
 				 <id>1</id>
 				 <variables>
@@ -1897,8 +1925,8 @@
         <enemies>
             <enemy>
                 <type>Aquamentus</type>
-                <xloc>8</xloc>
-                <yloc>3</yloc>
+                <xloc>8.75</xloc>
+                <yloc>2.5</yloc>
             </enemy>
         </enemies> 
         <blocks>
@@ -2084,8 +2112,8 @@
         <items>
             <item>
                 <type>Triforce</type>
-                <xloc>6</xloc>
-                <yloc>3</yloc>
+                <xloc>5.5</xloc>
+                <yloc>3.25</yloc>
             </item> 
         </items>
         <enemies>
@@ -2336,11 +2364,6 @@
         <items>
         </items>
         <enemies>
-            <enemy>
-                <type>Goriya</type>
-                <xloc>1</xloc>
-                <yloc>1</yloc>
-            </enemy>
         </enemies> 
         <blocks>
             <block>
@@ -2409,6 +2432,7 @@
 				<variables>
 					<variable>6</variable>
 					<variable>1</variable>
+				    <variable>0</variable>
 				</variables>
 			</condition>
 		</conditions>
@@ -2450,17 +2474,17 @@
         <enemies>
             <enemy>
                 <type>Goriya</type>
-                <xloc>7</xloc>
+                <xloc>3</xloc>
                 <yloc>0</yloc>
             </enemy>
             <enemy>
                 <type>Goriya</type>
-                <xloc>6</xloc>
+                <xloc>4</xloc>
                 <yloc>2</yloc>
             </enemy>
             <enemy>
                 <type>Goriya</type>
-                <xloc>9</xloc>
+                <xloc>3</xloc>
                 <yloc>4</yloc>
             </enemy>
         </enemies> 

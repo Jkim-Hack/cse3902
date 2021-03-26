@@ -72,6 +72,12 @@ namespace cse3902.SpriteFactory
             RoomItems.Instance.AddItem(add);
             return add;
         }
+        public ISprite CreateBoomerangItem(Vector2 startingPos)
+        {
+            IItem add = new BoomerangItem(spriteBatch, boomerang, startingPos);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
 
         public ISprite CreateBowItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
@@ -102,6 +108,12 @@ namespace cse3902.SpriteFactory
         }
 
         public ISprite CreateHeartContainerItem(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            IItem add = new HeartContainerItem(spriteBatch, heartcont, startingPos);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+        public ISprite CreateHeartContainerItem(Vector2 startingPos)
         {
             IItem add = new HeartContainerItem(spriteBatch, heartcont, startingPos);
             RoomItems.Instance.AddItem(add);
@@ -163,23 +175,18 @@ namespace cse3902.SpriteFactory
             switch (num)
             {
                 case 0:
-                    CreateBowItem(spriteBatch, startingPos);
                     break;
                 case 1:
-                    CreateCompassItem(spriteBatch, startingPos);
                     break;
                 case 2:
-                    CreateBoomerangItem(spriteBatch, startingPos);
                     break;
                 case 3:
-                    CreateFairyItem(spriteBatch, startingPos);
                     break;
                 case 4:
                 case 5:
                     CreateBombItem(spriteBatch, startingPos);
                     break;
                 case 6:
-                    CreateKeyItem(spriteBatch, startingPos);
                     break;
                 case 7:
                 case 8:
@@ -187,10 +194,8 @@ namespace cse3902.SpriteFactory
                     CreateHeartItem(spriteBatch, startingPos);
                     break;
                 case 10:
-                    CreateMapItem(spriteBatch, startingPos);
                     break;
                 case 11:
-                    CreateHeartContainerItem(spriteBatch, startingPos);
                     break;
                 case 12:
                 case 13:

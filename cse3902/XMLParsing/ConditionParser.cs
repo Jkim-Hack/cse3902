@@ -40,7 +40,7 @@ namespace cse3902.XMLParsing
                     Vector2 truePos = RoomUtilities.CalculateBlockCenter(roomobj.RoomPos, new Vector2(conditionVariables[0], conditionVariables[1]));
                     conditionVariables[0] = (int)truePos.X;
                     conditionVariables[1] = (int)truePos.Y;
-                    condition = new AllEnemiesKilledDropKey(conditionVariables);
+                    condition = new AllEnemiesKilledDropItem(conditionVariables);
                     break;
                 case "1":
                     condition = new AllEnemiesKilledOpenDoor(conditionVariables);
