@@ -10,6 +10,8 @@ namespace cse3902.SpriteFactory
 {
     public class ItemSpriteFactory
     {
+        private SpriteBatch spriteBatch;
+
         private Texture2D bomb;
         private Texture2D boomerang;
         private Texture2D bow;
@@ -38,8 +40,10 @@ namespace cse3902.SpriteFactory
         {
         }
 
-        public void LoadAllTextures(ContentManager content)
+        public void LoadAllTextures(ContentManager content, SpriteBatch spriteBatch)
         {
+            this.spriteBatch = spriteBatch;
+
             bomb = content.Load<Texture2D>("bomb");
             boomerang = content.Load<Texture2D>("boomerang");
             bow = content.Load<Texture2D>("bow");
@@ -63,6 +67,12 @@ namespace cse3902.SpriteFactory
         }
 
         public ISprite CreateBoomerangItem(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            IItem add = new BoomerangItem(spriteBatch, boomerang, startingPos);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+        public ISprite CreateBoomerangItem(Vector2 startingPos)
         {
             IItem add = new BoomerangItem(spriteBatch, boomerang, startingPos);
             RoomItems.Instance.AddItem(add);
@@ -103,6 +113,12 @@ namespace cse3902.SpriteFactory
             RoomItems.Instance.AddItem(add);
             return add;
         }
+        public ISprite CreateHeartContainerItem(Vector2 startingPos)
+        {
+            IItem add = new HeartContainerItem(spriteBatch, heartcont, startingPos);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
 
         public ISprite CreateHeartItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
@@ -112,6 +128,12 @@ namespace cse3902.SpriteFactory
         }
 
         public ISprite CreateKeyItem(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            IItem add = new KeyItem(spriteBatch, key, startingPos);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+        public ISprite CreateKeyItem(Vector2 startingPos)
         {
             IItem add = new KeyItem(spriteBatch, key, startingPos);
             RoomItems.Instance.AddItem(add);
@@ -153,23 +175,18 @@ namespace cse3902.SpriteFactory
             switch (num)
             {
                 case 0:
-                    CreateBowItem(spriteBatch, startingPos);
                     break;
                 case 1:
-                    CreateCompassItem(spriteBatch, startingPos);
                     break;
                 case 2:
-                    CreateBoomerangItem(spriteBatch, startingPos);
                     break;
                 case 3:
-                    CreateFairyItem(spriteBatch, startingPos);
                     break;
                 case 4:
                 case 5:
                     CreateBombItem(spriteBatch, startingPos);
                     break;
                 case 6:
-                    CreateKeyItem(spriteBatch, startingPos);
                     break;
                 case 7:
                 case 8:
@@ -177,10 +194,8 @@ namespace cse3902.SpriteFactory
                     CreateHeartItem(spriteBatch, startingPos);
                     break;
                 case 10:
-                    CreateMapItem(spriteBatch, startingPos);
                     break;
                 case 11:
-                    CreateHeartContainerItem(spriteBatch, startingPos);
                     break;
                 case 12:
                 case 13:

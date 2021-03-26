@@ -103,7 +103,7 @@ namespace cse3902
             RoomBackground.Instance.LoadTextures(Content, spriteBatch);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             NPCSpriteFactory.Instance.LoadAllTextures(Content);
-            ItemSpriteFactory.Instance.LoadAllTextures(Content);
+            ItemSpriteFactory.Instance.LoadAllTextures(Content, spriteBatch);
             ProjectileHandler.Instance.LoadAllTextures(Content);
 
             // For hitbox drawing

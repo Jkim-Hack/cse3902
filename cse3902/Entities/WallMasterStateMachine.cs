@@ -57,7 +57,6 @@ namespace cse3902.Entities
 
         public void Die()
         {
-            this.wallMasterSprite.Erase();
         }
     }
 }

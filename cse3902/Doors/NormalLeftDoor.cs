@@ -35,6 +35,7 @@ namespace cse3902.Doors
                     game.RoomHandler.LoadNewRoom(game.RoomHandler.currentRoom + roomTranslationVector, connectedDoor);
                     break;
                 case IDoor.DoorState.Closed:
+                    break;
                 case IDoor.DoorState.Locked:
                     State = IDoor.DoorState.Open;
                     connectedDoor.State = IDoor.DoorState.Open;
@@ -91,6 +92,7 @@ namespace cse3902.Doors
         public IDoor ConnectedDoor
         {
             set => connectedDoor = value;
+            get => connectedDoor;
         }
 
         public ICollidable Collidable

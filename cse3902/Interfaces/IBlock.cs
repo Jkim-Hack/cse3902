@@ -17,7 +17,9 @@ namespace cse3902.Interfaces
         public Vector2 Center { get; }
         public void Interact(Vector2 pushDirection);
         public void Interact(PushDirection pushDirection);
+        public void Update();
         public void Draw();
         public void Reset();
+        public bool IsMoved();
     }
 }

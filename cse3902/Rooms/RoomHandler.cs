@@ -75,6 +75,10 @@ namespace cse3902.Rooms
             RoomDoors.Instance.LoadNewRoom(ref oldDoors, newRoom.Doors);
             rooms.GetValueOrDefault(currentRoom).Doors = oldDoors;
 
+            List<ICondition> oldConditions = rooms.GetValueOrDefault(currentRoom).Conditions;
+            RoomConditions.Instance.LoadNewRoom(ref oldConditions, newRoom.Conditions);
+            rooms.GetValueOrDefault(currentRoom).Conditions = oldConditions;
+
             previousRoom = currentRoom;
             currentRoom = newPos;
             rooms.GetValueOrDefault(newPos).SetToVisited();
@@ -104,6 +108,7 @@ namespace cse3902.Rooms
                 RoomEnemies.Instance.Update(gameTime);
                 RoomNPCs.Instance.Update(gameTime);
                 RoomProjectiles.Instance.Update(gameTime);
+                RoomConditions.Instance.Update(gameTime);
             }
 
             RoomBackground.Instance.Update(gameTime);
@@ -132,12 +137,14 @@ namespace cse3902.Rooms
         public void CompleteStart()
         {
             startComplete = true;
+            rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].ConnectedDoor = null;
             rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Wall;
         }
 
         public void Reset()
         {
-            ProjectileHandler.Instance.Reset();
+            RoomBlocks.Instance.Reset();
+            RoomDoors.Instance.Reset();
         }
     }
 }
