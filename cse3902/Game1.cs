@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using cse3902.SpriteFactory;
 using cse3902.Collision;
 using cse3902.Constants;
+using cse3902.HUD;
 
 namespace cse3902
 {
@@ -38,6 +39,8 @@ namespace cse3902
         private Camera camera;
         public Camera Camera { get => camera; }
 
+        private MiniMapHUDItem miniMapHUDItem; // testing
+        
         private Texture2D lineTexture;
 
         public enum PauseState
@@ -93,6 +96,7 @@ namespace cse3902
             camera = new Camera(new Vector2(0,0));
             roomHandler = new RoomHandler(this);
             collisionManager = new CollisionManager(this);
+            miniMapHUDItem = new MiniMapHUDItem(this); // testing
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
@@ -151,6 +155,7 @@ namespace cse3902
 
             camera.Update();
             base.Update(gameTime);
+            miniMapHUDItem.Update();
         }
 
         /// <summary>
@@ -169,7 +174,7 @@ namespace cse3902
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetHudTransformationMatrix());
-            //draw hud stuff here
+            miniMapHUDItem.Draw(); // testing
             spriteBatch.End();
 
             base.Draw(gameTime);

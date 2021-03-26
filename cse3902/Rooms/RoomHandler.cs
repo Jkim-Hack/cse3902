@@ -146,5 +146,10 @@ namespace cse3902.Rooms
             RoomBlocks.Instance.Reset();
             RoomDoors.Instance.Reset();
         }
+
+        public Vector3 RoomChangeDirection
+        {
+            get => currentRoom - previousRoom;
+        }
     }
 }
