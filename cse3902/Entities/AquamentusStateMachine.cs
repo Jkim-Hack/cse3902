@@ -118,7 +118,6 @@ namespace cse3902.Entities
 
         public void Die()
         {
-            this.aquamentusSprite.Erase();
         }
 
         public void Update(GameTime gameTime, Vector2 center, Boolean pauseAnim)

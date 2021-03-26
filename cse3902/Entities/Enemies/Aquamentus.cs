@@ -73,8 +73,6 @@ namespace cse3902.Entities.Enemies
         public void Die()
         {
             this.aquamentusStateMachine.Die();
-            // prob should move somewhere else, high coupling
-            ItemSpriteFactory.Instance.CreateHeartContainerItem(game.SpriteBatch, center);
         }
 
         public void BeShoved()
