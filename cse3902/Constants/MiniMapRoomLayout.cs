@@ -10,18 +10,24 @@ namespace cse3902.Constants
 
         public const int currentRoomSize = 8;
 
-        /* Real aspect ratio of blue minimap boxes is 7:3, with a gap of 2 */
-        private const int width = 16;
-        private const int height = 8;
-        private const int gap = 3;
-
-        /* Can be thought of as a "coordinate system", with the starting room at (0, 0) */
-        public static List<Rectangle> RoomLayout = new List<Rectangle>
+        /* "Coordinate system", with the starting room at (0, 0) */
+        private static List<Vector2> RoomCoordinates = new List<Vector2>
         {
-            new Rectangle(0 * (width + gap), 0 * (height + gap) * -1, width, height),
-            new Rectangle(-1 * (width + gap), 0 * (height + gap) * -1, width, height),
-            new Rectangle(1 * (width + gap), 0 * (height + gap) * -1, width, height),
-            new Rectangle(0 * (width + gap), 1 * (height + gap) * -1, width, height)
+            new Vector2(0, 0),
+            new Vector2(-1, 0),
+            new Vector2(1, 0)
         };
+
+        /* Calculates room sizes and positions */
+        public static List<Rectangle> GetRoomLayout()
+        {
+            /* Real aspect ratio of blue minimap boxes is 7:3, with a gap of 2 */
+            int width = 16, height = 8, gap = 3;
+
+            List<Rectangle> RoomLayout = new List<Rectangle>();
+            foreach (Vector2 room in RoomCoordinates) RoomLayout.Add(new Rectangle((int)room.X * (width + gap), (int)room.Y * (height + gap) * -1, width, height));
+
+            return RoomLayout;
+        }
     }
 }

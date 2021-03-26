@@ -29,7 +29,7 @@ namespace cse3902.HUD
             DrawRectangle(new Rectangle(0 - MiniMapRoomLayout.offsetX, 0 - MiniMapRoomLayout.offsetY, game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height), Color.Black);
 
             /* Draw whole map first, then current room */
-            foreach(Rectangle rec in MiniMapRoomLayout.RoomLayout) DrawRectangle(rec, Color.RoyalBlue);
+            foreach(Rectangle rec in MiniMapRoomLayout.GetRoomLayout()) DrawRectangle(rec, Color.RoyalBlue);
             DrawRectangle(currentRoom, Color.LimeGreen);
         }
 
