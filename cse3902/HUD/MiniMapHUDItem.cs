@@ -15,7 +15,7 @@ namespace cse3902.HUD
         public MiniMapHUDItem(Game1 game)
         {
             this.game = game;
-            this.currentRoom = new Rectangle(40 + MiniMapRoomLayout.offsetX, 40 + MiniMapRoomLayout.offsetY, 50, 50);
+            this.currentRoom = new Rectangle(0, 0, 0, 0);
         }
 
         public void Update()
@@ -25,23 +25,20 @@ namespace cse3902.HUD
 
         public void Draw()
         {
-            /* Draw background */
-            DrawRectangle(new Rectangle(0, 0, game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height), Color.Black);
+            /* Draw background (just for testing) */
+            DrawRectangle(new Rectangle(0 - MiniMapRoomLayout.offsetX, 0 - MiniMapRoomLayout.offsetY, game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height), Color.Black);
 
             /* Draw whole map first, then current room */
-            foreach(Rectangle rec in MiniMapRoomLayout.RoomLayout)
-            {
-                DrawRectangle(new Rectangle(rec.X + MiniMapRoomLayout.offsetX, rec.Y + MiniMapRoomLayout.offsetY, rec.Width, rec.Height), Color.RoyalBlue);
-            }
+            foreach(Rectangle rec in MiniMapRoomLayout.RoomLayout) DrawRectangle(rec, Color.RoyalBlue);
             DrawRectangle(currentRoom, Color.LimeGreen);
         }
 
-        private void DrawRectangle(Rectangle rectangle, Color color)
+        private void DrawRectangle(Rectangle rec, Color color)
         {
-            Texture2D txt = new Texture2D(game.GraphicsDevice, 1, 1);
-            txt.SetData(new Color[] { Color.White });
+            Texture2D texture = new Texture2D(game.GraphicsDevice, 1, 1);
+            texture.SetData(new Color[] { Color.White });
 
-            game.SpriteBatch.Draw(txt, rectangle, color);
+            game.SpriteBatch.Draw(texture, new Rectangle(rec.X + MiniMapRoomLayout.offsetX, rec.Y + MiniMapRoomLayout.offsetY, rec.Width, rec.Height), color);
         }
     }
 }
