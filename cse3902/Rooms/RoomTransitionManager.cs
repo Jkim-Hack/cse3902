@@ -100,5 +100,10 @@ namespace cse3902.Rooms
                 game.Player.ChangeDirection(new Vector2(0, 0));
             }
         }
+
+        public Vector2 NewRoomDirection
+        {
+            get => linkNewRoomDirection;
+        }
     }
 }
