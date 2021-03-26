@@ -10,24 +10,37 @@ namespace cse3902.HUD
     {
         private Game1 game;
 
-        private Rectangle currentRoom;
+        private Vector3 currentRoom;
         
         private int offsetX;
         private int offsetY;
 
+        private Boolean alreadyChanged;
+
         public MiniMapHUDItem(Game1 game)
         {
             this.game = game;
-            this.currentRoom = new Rectangle();
+            this.currentRoom = new Vector3(0, -1, 0);
 
             this.offsetX = 125;
             this.offsetY = game.GraphicsDevice.Viewport.Height - 30;
+
+            this.alreadyChanged = false;
         }
 
         public void Update()
         {
-            currentRoom = MiniMapConstants.CalculatePos(0, 0, MiniMapConstants.greenSize, MiniMapConstants.greenSize);
-            currentRoom.X += 5;
+            if (game.RoomHandler.roomTransitionManager.IsTransitioning() && !alreadyChanged)
+            {
+                currentRoom += (game.RoomHandler.RoomChangeDirection * new Vector3(1, -1, 1));
+                Console.WriteLine(currentRoom);
+                alreadyChanged = true;
+            }
+
+            if (!game.RoomHandler.roomTransitionManager.IsTransitioning())
+            {
+                alreadyChanged = false;
+            }
         }
 
         public void Draw()
@@ -37,7 +50,10 @@ namespace cse3902.HUD
 
             /* Draw whole map first, then current room */
             foreach(Rectangle rec in MiniMapConstants.GetRoomLayout()) DrawRectangle(rec, MiniMapConstants.roomColor);
-            DrawRectangle(currentRoom, MiniMapConstants.currentRoomColor);
+
+            Rectangle currentRoomRectangle = MiniMapConstants.CalculatePos((int)currentRoom.X, (int)currentRoom.Y, MiniMapConstants.greenSize, MiniMapConstants.greenSize);
+            currentRoomRectangle.X += 5;
+            DrawRectangle(currentRoomRectangle, MiniMapConstants.currentRoomColor);
         }
 
         private void DrawRectangle(Rectangle rec, Color color)
