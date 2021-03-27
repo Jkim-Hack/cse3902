@@ -18,7 +18,7 @@ namespace cse3902.Constants
         public const int OriginalWindowWidth = RoomUtilities.ROOM_WIDTH;
         public const int OriginalWindowHeight = OriginalHudHeight + OriginalGameplayHeight;
 
-        public const int ScaledHudHeight = OriginalHudHeight * scale;
+        public const int HudHeight = OriginalHudHeight * scale;
         public const int GameplayHeight = OriginalGameplayHeight * scale;
         public const int WindowWidth = OriginalWindowWidth * scale;
         public const int WindowHeight = OriginalWindowHeight * scale;

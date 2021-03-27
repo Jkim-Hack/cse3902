@@ -12,7 +12,7 @@ namespace cse3902
 
         public Camera(Vector2 menuTopLeftCoordinate)
         {
-            gameplayCamera = new CameraPart(DimensionConstants.WindowDimensions + new Vector2(0, -DimensionConstants.ScaledHudHeight), new Vector2(0, DimensionConstants.ScaledHudHeight));
+            gameplayCamera = new CameraPart(DimensionConstants.WindowDimensions + new Vector2(0, -DimensionConstants.HudHeight), new Vector2(0, DimensionConstants.HudHeight));
             hudCamera = new CameraPart(DimensionConstants.WindowDimensions, new Vector2(0, -DimensionConstants.GameplayHeight));
 
             hudTopLeftCoord = menuTopLeftCoordinate;

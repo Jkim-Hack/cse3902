@@ -85,7 +85,7 @@ namespace cse3902
             {
                 SmoothMoveCamera(topLeftCoordinate, numberUpdateCyclesToComplete);
                 if (numberUpdateCyclesToComplete < 1) numberUpdateCyclesToComplete = 1;
-                gameplayOffsetDirection = new Vector2(0, DimensionConstants.WindowHeight - DimensionConstants.ScaledHudHeight) / numberUpdateCyclesToComplete;
+                gameplayOffsetDirection = new Vector2(0, DimensionConstants.WindowHeight - DimensionConstants.HudHeight) / numberUpdateCyclesToComplete;
 
                 if (hudDisplayed) gameplayOffsetDirection *= -1;
 

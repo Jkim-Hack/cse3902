@@ -24,7 +24,7 @@ namespace cse3902.Commands
             this.game = game;
             windowWidth = game.GraphicsDevice.Viewport.Width;
             windowHeight = game.GraphicsDevice.Viewport.Height;
-            hudHeight = DimensionConstants.ScaledHudHeight;
+            hudHeight = DimensionConstants.HudHeight;
             BuildCommands();
         }
 
