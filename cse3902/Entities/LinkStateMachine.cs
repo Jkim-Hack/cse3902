@@ -18,7 +18,6 @@ namespace cse3902.Entities
         private LinkSprite linkSprite;
         private SpriteBatch spriteBatch;
         private Vector2 centerPosition;
-        private Vector2 previousPosition;
         private Vector2 currDirection;
 
         private float speed;
@@ -40,7 +39,6 @@ namespace cse3902.Entities
         public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch)
         {
             this.centerPosition = centerPosition;
-            this.previousPosition = centerPosition;
             mode = LinkMode.Still;
             this.game = game;
 
@@ -51,9 +49,6 @@ namespace cse3902.Entities
             this.linkSprite = linkSprite;
 
             health = healthMax;
-
-            ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            //itemList.Add(projectileHandler.CreateSwordWeapon(spriteBatch, centerPosition, currDirection, currWeaponIndex));
             currWeaponIndex = 0;
             currItemIndex = 0;
 
@@ -123,16 +118,6 @@ namespace cse3902.Entities
             }
         }
 
-
-        private void onSpriteAnimationComplete()
-        {
-            if (mode == LinkMode.Attack)
-            {
-                mode = LinkMode.Still;
-                ChangeDirection(new Vector2(0, 0));
-            }
-        }
-
         public void BeShoved()
         {
             this.shoveDistance = 20;
@@ -191,7 +176,8 @@ namespace cse3902.Entities
                 }
             }
         }
-
+        
+        //TODO Move this just to sprite.draw in link.cs ?
         public void Draw()
         {
             linkSprite.Draw();
@@ -212,19 +198,23 @@ namespace cse3902.Entities
             SetAttackAnimation();
         }
 
+        //TODO Send this to Inventory
         public void ChangeWeapon(int index)
         {
             currWeaponIndex = index;
         }
 
+        //TODO Send this to Inventory
         public void AddItem(IItem item)
         {
-           // if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
+            //The basic logic to use item. needs to add Pause Game during the duration and such..
+            //if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
             //mode = LinkMode.Item;
             //linkSprite.setFrameSet(LinkSprite.AnimationState.Item);
             InventoryManager.Instance.AddToInventory(item);
         }
 
+        //TODO Send part of this to Inventory
         public void UseItem()
         {
             if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
@@ -260,6 +250,7 @@ namespace cse3902.Entities
             SetAttackAnimation();
         }
 
+        //TODO Send this to Inventory
         public void ChangeItem(int index)
         {
             currItemIndex = index;
@@ -294,11 +285,6 @@ namespace cse3902.Entities
                 health -= damage;
                 remainingDamageDelay = damageDelay;
             }
-        }
-
-        public void CycleWeapon(int dir)
-        {
-            throw new NotImplementedException();
         }
 
         public Vector2 Direction
