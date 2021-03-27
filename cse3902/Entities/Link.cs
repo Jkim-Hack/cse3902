@@ -74,7 +74,6 @@ namespace cse3902.Entities
 
         public void Die()
         {
-            this.linkSprite.Erase();
         }
 
         public void TakeDamage(int damage)

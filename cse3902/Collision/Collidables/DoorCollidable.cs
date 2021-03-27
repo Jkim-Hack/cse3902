@@ -26,7 +26,7 @@ namespace cse3902.Collision.Collidables
             if (collidableObject is PlayerCollidable)
             {
                 IDoor.DoorState state = this.door.State;
-                if (state == IDoor.DoorState.Open || state == IDoor.DoorState.Bombed)
+                if (state == IDoor.DoorState.Open)
                 {
                     if (this.door is NormalUpDoor && collidableObject.RectangleRef.Y < this.RectangleRef.Y)
                     {
@@ -48,6 +48,14 @@ namespace cse3902.Collision.Collidables
                 else
                 {
                     this.door.Interact();
+                }
+            } 
+            else if (collidableObject is ProjectileCollidable) //needs to be modified to only allow bomb projectile to do this
+            {
+                if (this.door.State == IDoor.DoorState.Wall && this.door.ConnectedDoor != null)
+                {
+                    this.door.State = IDoor.DoorState.Bombed;
+                    this.door.ConnectedDoor.State = IDoor.DoorState.Bombed;
                 }
             }
         }

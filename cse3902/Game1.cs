@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using cse3902.SpriteFactory;
 using cse3902.Collision;
 using cse3902.Constants;
+using cse3902.HUD;
 
 namespace cse3902
 {
@@ -38,16 +39,9 @@ namespace cse3902
         private Camera camera;
         public Camera Camera { get => camera; }
 
+        private MiniMapHUDItem miniMapHUDItem; // testing
+        
         private Texture2D lineTexture;
-
-        public enum PauseState
-        {
-            Unpaused,
-            Paused,
-            HudDisplayed,
-            HudPaused
-        }
-        public PauseState PausedState;
 
         public Game1()
         {
@@ -63,8 +57,6 @@ namespace cse3902
         /// </summary>
         protected override void Initialize()
         {
-            PausedState = PauseState.Unpaused;
-
             this.graphics.PreferredBackBufferWidth = DimensionConstants.WindowWidth;
             this.graphics.PreferredBackBufferHeight = DimensionConstants.WindowHeight;
             this.graphics.ApplyChanges();
@@ -93,13 +85,16 @@ namespace cse3902
             camera = new Camera(new Vector2(0,0));
             roomHandler = new RoomHandler(this);
             collisionManager = new CollisionManager(this);
+            miniMapHUDItem = new MiniMapHUDItem(this); // testing
+
+            GameStateManager.Instance.Camera = camera;
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
             RoomBackground.Instance.LoadTextures(Content, spriteBatch);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             NPCSpriteFactory.Instance.LoadAllTextures(Content);
-            ItemSpriteFactory.Instance.LoadAllTextures(Content);
+            ItemSpriteFactory.Instance.LoadAllTextures(Content, spriteBatch);
             ProjectileHandler.Instance.LoadAllTextures(Content);
 
             // For hitbox drawing
@@ -142,7 +137,7 @@ namespace cse3902
                 controller.Update();
             }
 
-            if (PausedState == PauseState.Unpaused)
+            if (GameStateManager.Instance.IsUnpaused())
             {
                 player.Update(gameTime);
                 roomHandler.Update(gameTime);
@@ -150,7 +145,9 @@ namespace cse3902
             }
 
             camera.Update();
+            GameStateManager.Instance.Update();
             base.Update(gameTime);
+            miniMapHUDItem.Update();
         }
 
         /// <summary>
@@ -169,7 +166,7 @@ namespace cse3902
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetHudTransformationMatrix());
-            //draw hud stuff here
+            miniMapHUDItem.Draw(); // testing
             spriteBatch.End();
 
             base.Draw(gameTime);

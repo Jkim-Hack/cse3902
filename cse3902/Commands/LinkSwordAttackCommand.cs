@@ -13,7 +13,7 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            if (game.PausedState == Game1.PauseState.Unpaused) game.Player.Attack();
+            if (GameStateManager.Instance.IsUnpaused() && !game.RoomHandler.roomTransitionManager.IsTransitioning()) game.Player.Attack();
         }
 
         public void Unexecute()
