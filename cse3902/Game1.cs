@@ -87,6 +87,8 @@ namespace cse3902
             collisionManager = new CollisionManager(this);
             miniMapHUDItem = new MiniMapHUDItem(this); // testing
 
+            GameStateManager.Instance.Camera = camera;
+
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
             RoomBackground.Instance.LoadTextures(Content, spriteBatch);
@@ -135,7 +137,7 @@ namespace cse3902
                 controller.Update();
             }
 
-            if (GameStateManager.Instance.PausedState == GameStateManager.PauseState.Unpaused)
+            if (GameStateManager.Instance.IsUnpaused())
             {
                 player.Update(gameTime);
                 roomHandler.Update(gameTime);
@@ -143,6 +145,7 @@ namespace cse3902
             }
 
             camera.Update();
+            GameStateManager.Instance.Update();
             base.Update(gameTime);
             miniMapHUDItem.Update();
         }

@@ -16,7 +16,7 @@ namespace cse3902.Commands
             id = id % 4;
             id++;
 
-            if (GameStateManager.Instance.PausedState == GameStateManager.PauseState.Unpaused && !game.RoomHandler.roomTransitionManager.IsTransitioning()) 
+            if (GameStateManager.Instance.IsUnpaused() && !game.RoomHandler.roomTransitionManager.IsTransitioning()) 
             { 
                 game.Player.ChangeItem(id);
                 game.Player.UseItem();

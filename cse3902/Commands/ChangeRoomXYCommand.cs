@@ -35,7 +35,7 @@ namespace cse3902.Commands
                     break;
             }
 
-            if (GameStateManager.Instance.PausedState == GameStateManager.PauseState.Unpaused) game.RoomHandler.LoadNewRoom(direction,id);
+            if (GameStateManager.Instance.IsUnpaused()) game.RoomHandler.LoadNewRoom(direction,id);
         }
 
         public void Unexecute()
