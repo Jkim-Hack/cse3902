@@ -11,7 +11,7 @@ namespace cse3902.Entities
 {
     public class LinkStateMachine : IEntityStateMachine
     {
-        private enum LinkMode { Still, Moving, Attack };
+        private enum LinkMode { Still, Moving, Attack, Item };
 
         private LinkMode mode;
 
@@ -66,7 +66,7 @@ namespace cse3902.Entities
         public void ChangeDirection(Vector2 newDirection)
         {
             /* No need to update sprite if currently attacking or knocked back */
-            if (mode == LinkMode.Attack || pauseMovement) return;
+            if (mode == LinkMode.Attack || mode == LinkMode.Item || pauseMovement) return;
 
             if (newDirection.Equals(currDirection) && mode == LinkMode.Moving) return;
 
@@ -184,7 +184,7 @@ namespace cse3902.Entities
         {
             if(linkSprite.Update(gameTime) != 0)
             {
-                if (mode == LinkMode.Attack)
+                if (mode == LinkMode.Attack|| mode == LinkMode.Item)
                 {
                     mode = LinkMode.Still;
                     ChangeDirection(new Vector2(0, 0));
@@ -219,6 +219,9 @@ namespace cse3902.Entities
 
         public void AddItem(IItem item)
         {
+           // if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
+            //mode = LinkMode.Item;
+            //linkSprite.setFrameSet(LinkSprite.AnimationState.Item);
             InventoryManager.Instance.AddToInventory(item);
         }
 
