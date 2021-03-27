@@ -36,7 +36,7 @@ namespace cse3902
             smoothMovementUpdateCyclesRemaining = 0;
             smoothMovementDestination = new Vector2(0, 0);
 
-            MoveCamera(topLeftCoordinate, DimensionConstants.WindowDimensions);
+            MoveCamera(topLeftCoordinate, DimensionConstants.OriginalWindowDimensions);
 
             hudDisplayed = false;
             gameplayOffsetDirection = new Vector2();
@@ -85,7 +85,7 @@ namespace cse3902
             {
                 SmoothMoveCamera(topLeftCoordinate, numberUpdateCyclesToComplete);
                 if (numberUpdateCyclesToComplete < 1) numberUpdateCyclesToComplete = 1;
-                gameplayOffsetDirection = new Vector2(0, DimensionConstants.WindowHeight - DimensionConstants.HudHeight) / numberUpdateCyclesToComplete;
+                gameplayOffsetDirection = new Vector2(0, DimensionConstants.WindowHeight - DimensionConstants.ScaledHudHeight) / numberUpdateCyclesToComplete;
 
                 if (hudDisplayed) gameplayOffsetDirection *= -1;
 
@@ -134,7 +134,7 @@ namespace cse3902
             smoothMovementUpdateCyclesRemaining = 0;
             smoothMovementDestination = new Vector2(0, 0);
 
-            MoveCamera(topLeftCoordinate, DimensionConstants.WindowDimensions);
+            MoveCamera(topLeftCoordinate, DimensionConstants.OriginalWindowDimensions);
 
             hudDisplayed = false;
             gameplayOffsetDirection = new Vector2();

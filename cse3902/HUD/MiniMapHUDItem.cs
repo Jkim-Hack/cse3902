@@ -15,15 +15,15 @@ namespace cse3902.HUD
         private int offsetX;
         private int offsetY;
 
-        private Boolean alreadyChanged;
+        private bool alreadyChanged;
 
         public MiniMapHUDItem(Game1 game)
         {
             this.game = game;
             this.currentRoom = game.RoomHandler.currentRoom;
 
-            this.offsetX = DimensionConstants.Scale * 40;
-            this.offsetY = DimensionConstants.WindowHeight - 40 * DimensionConstants.Scale;
+            this.offsetX = 40;
+            this.offsetY = DimensionConstants.OriginalWindowHeight - 40;
 
             this.alreadyChanged = false;
         }
@@ -45,7 +45,7 @@ namespace cse3902.HUD
         public void Draw()
         {
             /* Draw background (just for testing) */
-            DrawRectangle(new Rectangle(0 - offsetX, 0 - offsetY, DimensionConstants.WindowWidth,DimensionConstants.WindowHeight), Color.Black);
+            DrawRectangle(new Rectangle(0 - offsetX, 0 - offsetY, DimensionConstants.OriginalWindowWidth, DimensionConstants.OriginalWindowHeight), Color.Black);
 
             /* Draw entire map */
             foreach(Rectangle rec in MiniMapConstants.GetRoomLayout()) DrawRectangle(rec, MiniMapConstants.RoomColor);

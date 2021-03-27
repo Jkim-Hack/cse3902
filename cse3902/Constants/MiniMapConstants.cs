@@ -6,9 +6,9 @@ namespace cse3902.Constants
     public class MiniMapConstants
     {
         /* Real aspect ratio of blue minimap boxes is 7:3, with a gap of 2 */
-        public const int Width = 7 * DimensionConstants.Scale;
-        public const int Height = 3 * DimensionConstants.Scale;
-        private const int gap = 2 * DimensionConstants.Scale;
+        public const int Width = 7;
+        public const int Height = 3;
+        private const int gap = 2;
 
         public static Color RoomColor = new Color(38, 39, 227);
         public static Color CurrentRoomColor = new Color(107, 203, 44);

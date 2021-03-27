@@ -17,14 +17,14 @@ namespace cse3902.Commands
         private int windowWidth;
         private int windowHeight;
         private int hudHeight;
-        private const int doorSide = DimensionConstants.Scale * 32;
+        private const int doorSide = DimensionConstants.MouseClickSide;
 
         public CommandList(Game1 game)
         {
             this.game = game;
             windowWidth = game.GraphicsDevice.Viewport.Width;
             windowHeight = game.GraphicsDevice.Viewport.Height;
-            hudHeight = DimensionConstants.HudHeight;
+            hudHeight = DimensionConstants.ScaledHudHeight;
             BuildCommands();
         }
 

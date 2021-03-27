@@ -6,21 +6,26 @@ namespace cse3902.Constants
     public class DimensionConstants
     {
         //changeable constants
-        public const int Scale = 3;
+        private const int scale = 1;
 
-        public const int defaultHudHeight = 56;
+        public const int OriginalHudHeight = 56;
+        private const int originalMouseClickSide = 32;
 
         //unchangeable constants
-        private const int defaultGameplayHeight = RoomUtilities.ROOM_HEIGHT;
-        private const int defaultWindowWidth = RoomUtilities.ROOM_WIDTH;
-        private const int defaultWindowHeight = defaultHudHeight + defaultGameplayHeight;
+        public const int MouseClickSide = originalMouseClickSide * scale;
 
-        public const int HudHeight = defaultHudHeight * Scale;
-        public const int GameplayHeight = defaultGameplayHeight * Scale;
-        public const int WindowWidth = defaultWindowWidth * Scale;
-        public const int WindowHeight = defaultWindowHeight * Scale;
+        public const int OriginalGameplayHeight = RoomUtilities.ROOM_HEIGHT;
+        public const int OriginalWindowWidth = RoomUtilities.ROOM_WIDTH;
+        public const int OriginalWindowHeight = OriginalHudHeight + OriginalGameplayHeight;
 
+        public const int ScaledHudHeight = OriginalHudHeight * scale;
+        public const int GameplayHeight = OriginalGameplayHeight * scale;
+        public const int WindowWidth = OriginalWindowWidth * scale;
+        public const int WindowHeight = OriginalWindowHeight * scale;
+
+        private static Vector2 originalWindowDimensions = new Vector2(OriginalWindowWidth, OriginalWindowHeight);
         private static Vector2 windowDimensions = new Vector2(WindowWidth, WindowHeight);
+        public static Vector2 OriginalWindowDimensions { get => originalWindowDimensions; }
         public static Vector2 WindowDimensions { get => windowDimensions; }
     }
 }
