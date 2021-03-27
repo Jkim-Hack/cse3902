@@ -19,19 +19,16 @@ namespace cse3902.Rooms.Conditions
 
         public void CheckCondition()
         {
-            bool isNotMoved = false;
+            IDoor.DoorState doorState = IDoor.DoorState.Open;
             foreach (IBlock block in RoomBlocks.Instance.ListRef)
             {
-                if (!block.IsMoved()) isNotMoved = true;
+                if (!block.IsMoved()) doorState = IDoor.DoorState.Closed;
             }
 
-            if (!isNotMoved)
+            List<IDoor> doors = RoomDoors.Instance.ListRef as List<IDoor>;
+            foreach (int doornum in conditionVariables)
             {
-                List<IDoor> doors = RoomDoors.Instance.ListRef as List<IDoor>;
-                foreach (int doornum in conditionVariables)
-                {
-                    doors[doornum].State = IDoor.DoorState.Open;
-                }
+                doors[doornum].State = doorState;
             }
         }
     }
