@@ -6,7 +6,7 @@ namespace cse3902.Constants
     public class DimensionConstants
     {
         //changeable constants
-        private const int scale = 1;
+        private const int scale = 3;
 
         public const int OriginalHudHeight = 56;
         private const int originalMouseClickSide = 32;
