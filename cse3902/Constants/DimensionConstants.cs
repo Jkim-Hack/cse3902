@@ -6,7 +6,7 @@ namespace cse3902.Constants
     public class DimensionConstants
     {
         //changeable constants
-        public const int Scale = 1;
+        public const int Scale = 3;
 
         public const int defaultHudHeight = 56;
 
