@@ -16,7 +16,7 @@ namespace cse3902
             hudCamera = new CameraPart(DimensionConstants.WindowDimensions, new Vector2(0, -DimensionConstants.GameplayHeight));
 
             hudTopLeftCoord = menuTopLeftCoordinate;
-            hudCamera.MoveCamera(hudTopLeftCoord, DimensionConstants.WindowDimensions);
+            hudCamera.MoveCamera(hudTopLeftCoord, DimensionConstants.OriginalWindowDimensions);
         }
 
         public void MoveCamera(Vector2 topLeft, Vector2 dimensions)
@@ -66,7 +66,7 @@ namespace cse3902
             gameplayCamera.Reset();
             hudCamera.Reset();
 
-            hudCamera.MoveCamera(hudTopLeftCoord, DimensionConstants.WindowDimensions);
+            hudCamera.MoveCamera(hudTopLeftCoord, DimensionConstants.OriginalWindowDimensions);
         }
     }
 }

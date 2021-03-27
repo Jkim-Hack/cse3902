@@ -17,7 +17,7 @@ namespace cse3902.Commands
         private int windowWidth;
         private int windowHeight;
         private int hudHeight;
-        private const int doorSide = DimensionConstants.Scale * 32;
+        private const int doorSide = DimensionConstants.MouseClickSide;
 
         public CommandList(Game1 game)
         {
