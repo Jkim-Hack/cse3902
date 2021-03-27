@@ -24,14 +24,14 @@ namespace cse3902.Commands
 
             switch (id) {
                 case 0:
-                    switch (game.PausedState)
+                    switch (GameStateManager.Instance.PausedState)
                     {
-                        case Game1.PauseState.Unpaused:
-                            game.PausedState = Game1.PauseState.HudDisplayed;
+                        case GameStateManager.PauseState.Unpaused:
+                            GameStateManager.Instance.PausedState = GameStateManager.PauseState.MenuDisplayed;
                             game.Camera.ToggleHudDisplayed(60);
                             break;
-                        case Game1.PauseState.HudDisplayed:
-                            game.PausedState = Game1.PauseState.Unpaused;
+                        case GameStateManager.PauseState.MenuDisplayed:
+                            GameStateManager.Instance.PausedState = GameStateManager.PauseState.Unpaused;
                             game.Camera.ToggleHudDisplayed(60);
                             break;
                         default:
@@ -39,22 +39,22 @@ namespace cse3902.Commands
                     }
                     break;
                 case 1:
-                    switch (game.PausedState)
+                    switch (GameStateManager.Instance.PausedState)
                     {
-                        case Game1.PauseState.Unpaused:
-                            game.PausedState = Game1.PauseState.Paused;
+                        case GameStateManager.PauseState.Unpaused:
+                            GameStateManager.Instance.PausedState = GameStateManager.PauseState.Paused;
                             break;
-                        case Game1.PauseState.Paused:
-                            game.PausedState = Game1.PauseState.Unpaused;
+                        case GameStateManager.PauseState.Paused:
+                            GameStateManager.Instance.PausedState = GameStateManager.PauseState.Unpaused;
                             break;
-                        case Game1.PauseState.HudDisplayed:
-                            game.PausedState = Game1.PauseState.HudPaused;
+                        case GameStateManager.PauseState.MenuDisplayed:
+                            GameStateManager.Instance.PausedState = GameStateManager.PauseState.MenuPaused;
                             break;
-                        case Game1.PauseState.HudPaused:
-                            game.PausedState = Game1.PauseState.HudDisplayed;
+                        case GameStateManager.PauseState.MenuPaused:
+                            GameStateManager.Instance.PausedState = GameStateManager.PauseState.MenuDisplayed;
                             break;
                         default: //this should never happen
-                            game.PausedState = Game1.PauseState.Paused;
+                            GameStateManager.Instance.PausedState = GameStateManager.PauseState.Paused;
                             break;
                     }
                     break;
