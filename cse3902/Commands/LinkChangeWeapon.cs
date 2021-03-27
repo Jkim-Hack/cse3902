@@ -15,7 +15,7 @@ namespace cse3902.Commands
         {
             id = id % 4;
 
-            if (GameStateManager.Instance.PausedState == GameStateManager.PauseState.Unpaused) game.Player.ChangeWeapon(id);
+            if (GameStateManager.Instance.PausedState == GameStateManager.PauseState.Unpaused && !game.RoomHandler.roomTransitionManager.IsTransitioning()) game.Player.ChangeWeapon(id);
         }
 
         public void Unexecute()
