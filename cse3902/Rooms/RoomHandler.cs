@@ -144,7 +144,6 @@ namespace cse3902.Rooms
         public void Reset()
         {
             RoomBlocks.Instance.Reset();
-            RoomDoors.Instance.Reset();
         }
 
         public Vector3 RoomChangeDirection

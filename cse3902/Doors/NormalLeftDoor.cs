@@ -22,7 +22,7 @@ namespace cse3902.Doors
             this.initialDoorState = initialDoorState;
             doorSprite = DoorSpriteFactory.Instance.CreateLeftDoorSprite(game.SpriteBatch, center, initialDoorState);
             roomTranslationVector = new Vector3(-1, 0, 0);
-            doorState = initialDoorState;
+            State = initialDoorState;
 
             this.collidable = new DoorCollidable(this);
         }

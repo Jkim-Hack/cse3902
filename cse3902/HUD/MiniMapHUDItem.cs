@@ -20,10 +20,10 @@ namespace cse3902.HUD
         public MiniMapHUDItem(Game1 game)
         {
             this.game = game;
-            this.currentRoom = new Vector3(0, -1, 0);
+            this.currentRoom = game.RoomHandler.currentRoom;
 
-            this.offsetX = 125;
-            this.offsetY = game.GraphicsDevice.Viewport.Height - 30;
+            this.offsetX = DimensionConstants.Scale * 40;
+            this.offsetY = DimensionConstants.WindowHeight - 40 * DimensionConstants.Scale;
 
             this.alreadyChanged = false;
         }
@@ -32,7 +32,7 @@ namespace cse3902.HUD
         {
             if (game.RoomHandler.roomTransitionManager.IsTransitioning() && !alreadyChanged)
             {
-                currentRoom += (game.RoomHandler.RoomChangeDirection * new Vector3(1, -1, 1));
+                currentRoom += game.RoomHandler.RoomChangeDirection;
                 alreadyChanged = true;
             }
 
@@ -45,7 +45,7 @@ namespace cse3902.HUD
         public void Draw()
         {
             /* Draw background (just for testing) */
-            DrawRectangle(new Rectangle(0 - offsetX, 0 - offsetY, game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height), Color.Black);
+            DrawRectangle(new Rectangle(0 - offsetX, 0 - offsetY, DimensionConstants.WindowWidth,DimensionConstants.WindowHeight), Color.Black);
 
             /* Draw entire map */
             foreach(Rectangle rec in MiniMapConstants.GetRoomLayout()) DrawRectangle(rec, MiniMapConstants.RoomColor);
@@ -54,7 +54,7 @@ namespace cse3902.HUD
             if (currentRoom.Z == 0)
             {
                 Rectangle currentRoomRectangle = MiniMapConstants.CalculatePos((int)currentRoom.X, (int)currentRoom.Y, MiniMapConstants.Width, MiniMapConstants.Height);
-                currentRoomRectangle.X += 5;
+                currentRoomRectangle.X += (MiniMapConstants.Width - MiniMapConstants.Height) / 2;
                 currentRoomRectangle.Width = MiniMapConstants.Height;
                 DrawRectangle(currentRoomRectangle, MiniMapConstants.CurrentRoomColor);
             }

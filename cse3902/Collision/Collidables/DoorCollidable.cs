@@ -49,6 +49,14 @@ namespace cse3902.Collision.Collidables
                 {
                     this.door.Interact();
                 }
+            } 
+            else if (collidableObject is ProjectileCollidable) //needs to be modified to only allow bomb projectile to do this
+            {
+                if (this.door.State == IDoor.DoorState.Wall && this.door.ConnectedDoor != null)
+                {
+                    this.door.State = IDoor.DoorState.Bombed;
+                    this.door.ConnectedDoor.State = IDoor.DoorState.Bombed;
+                }
             }
         }
 
