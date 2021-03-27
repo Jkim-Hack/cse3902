@@ -13,7 +13,7 @@ namespace cse3902.Constants
         public static Color RoomColor = new Color(38, 39, 227);
         public static Color CurrentRoomColor = new Color(107, 203, 44);
 
-        /* "Coordinate system", with the starting room at (2, 6) */
+        /* "Coordinate system", with the starting room at (2, 5) */
         private static List<Vector2> roomCoordinates = new List<Vector2>();
 
         /* Calculates room sizes and positions */

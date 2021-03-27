@@ -45,6 +45,7 @@
                     break;
                 case PauseState.MenuDisplayed:
                     closingMenu = true;
+                    pausedState = PauseState.MenuPaused;
                     camera.ToggleHudDisplayed(cameraCycles);
                     break;
                 default:
