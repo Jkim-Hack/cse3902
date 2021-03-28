@@ -15,6 +15,9 @@ namespace cse3902.HUD
         private int offsetX;
         private int offsetY;
 
+        private bool colorRed;
+        private int delay;
+
         private bool alreadyChanged;
 
         public MiniMapHUDItem(Game1 game)
@@ -26,6 +29,8 @@ namespace cse3902.HUD
             this.offsetY = DimensionConstants.OriginalWindowHeight - 40;
 
             this.alreadyChanged = false;
+            colorRed = false;
+            delay = MiniMapConstants.COLOR_DELAY;
         }
 
         public void Update()
@@ -44,7 +49,6 @@ namespace cse3902.HUD
 
         public void Draw()
         {
-            
             /* Draw background (just for testing) */
             DrawRectangle(new Rectangle(0 - offsetX, 0 - offsetY, DimensionConstants.OriginalWindowWidth, DimensionConstants.OriginalWindowHeight), Color.Black);
 
@@ -52,6 +56,28 @@ namespace cse3902.HUD
             {
                 /* Draw entire map */
                 foreach (Rectangle rec in MiniMapConstants.GetRoomLayout()) DrawRectangle(rec, MiniMapConstants.RoomColor);
+            }
+
+
+            if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Compass] > 0)
+            {
+                Rectangle triforceRectangle = MiniMapConstants.CalculatePos((int)MiniMapConstants.TriforcePos.X, (int)MiniMapConstants.TriforcePos.Y);
+                triforceRectangle.X += (MiniMapConstants.Width - MiniMapConstants.Height) / 2;
+                triforceRectangle.Width = MiniMapConstants.Height;
+                if (colorRed)
+                {
+                    DrawRectangle(triforceRectangle, MiniMapConstants.TriforceRed);
+                }
+                else
+                {
+                    DrawRectangle(triforceRectangle, MiniMapConstants.TriforceGreen);
+                }
+                delay--;
+                if (delay < 0)
+                {
+                    delay = MiniMapConstants.COLOR_DELAY;
+                    colorRed = !colorRed;
+                }
             }
 
             /* Only draw current room square if not in item room */
