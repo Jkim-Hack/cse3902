@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using cse3902.Interfaces;
-using cse3902.Collision;
+﻿using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.Constants;
+using cse3902.Entities.DamageMasks;
+using cse3902.Interfaces;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using cse3902.Entities.DamageMasks;
-using cse3902.Constants;
 
 namespace cse3902.Entities
 {
     public class Link : IPlayer
     {
-	    private LinkSprite linkSprite;
+        private LinkSprite linkSprite;
         private LinkStateMachine linkStateMachine;
-	    private Game1 game;
+        private LinkInventory linkInventory;
+        private Game1 game;
 
         private ICollidable collidable;
-        
-	    private float remainingDamageDelay;
+
+        private float remainingDamageDelay;
 
         public Link(Game1 game)
         {
@@ -32,31 +31,27 @@ namespace cse3902.Entities
             Vector2 centerPosition = new Vector2(50, 200);
             linkSprite = new LinkSprite(game.SpriteBatch, linkTexture, 6, 4, linkDamageMaskHandler, centerPosition);
             linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition, game.SpriteBatch);
+            linkInventory = linkStateMachine.Inventory;
 
             //Link's body does no damage itself
             this.collidable = new PlayerCollidable(this, 0);
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
         }
 
-        public ref Rectangle Bounds 
-	    { 
-	        get => ref linkSprite.Box; 
-	    }
+        public ref Rectangle Bounds
+        {
+            get => ref linkSprite.Box;
+        }
 
         public void Attack()
         {
-
             linkStateMachine.Attack();
-            // TODO: Add Item damages here
-            // TODO: Add collision detection here
-
         }
 
         public void ChangeDirection(Vector2 direction)
         {
-                linkStateMachine.ChangeDirection(direction);
-            
-	    }        
+            linkStateMachine.ChangeDirection(direction);
+        }
 
         public void Die()
         {
@@ -66,12 +61,12 @@ namespace cse3902.Entities
         {
             collidable.DamageDisabled = true;
             linkStateMachine.TakeDamage(damage);
-	    } 
-	    
-	    private void UpdateDamage(GameTime gameTime)
+        }
+
+        private void UpdateDamage(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            
+
             if (collidable.DamageDisabled)
             {
                 remainingDamageDelay -= timer;
@@ -102,22 +97,22 @@ namespace cse3902.Entities
 
         public void UseItem()
         {
-            linkStateMachine.UseItem();
+            linkInventory.UseItem();
         }
 
         public void AddItem(IItem item)
         {
-            linkStateMachine.AddItem(item);
+            linkInventory.AddItem(item);
         }
 
         public void ChangeItem(int itemNum)
         {
-            linkStateMachine.ChangeItem(itemNum);
+            linkInventory.ChangeItem(itemNum);
         }
 
         public void ChangeWeapon(int index)
         {
-            linkStateMachine.ChangeWeapon(index); ;
+            linkInventory.ChangeWeapon(index); ;
         }
 
         public void BeShoved()
@@ -127,7 +122,6 @@ namespace cse3902.Entities
 
         public void StopShove()
         {
-
         }
 
         public float Speed
@@ -135,7 +129,6 @@ namespace cse3902.Entities
             get => linkStateMachine.Speed;
             set => linkStateMachine.Speed = value;
         }
-
 
         public int Health
         {
@@ -164,7 +157,6 @@ namespace cse3902.Entities
 
         public Vector2 PreviousCenter
         {
-
             get => linkSprite.PreviousCenter;
             set => this.linkSprite.PreviousCenter = value;
         }

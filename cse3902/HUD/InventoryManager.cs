@@ -49,9 +49,9 @@ namespace cse3902.HUD
             inventory.Add(ItemType.Triforce, 0);
         }
 
-        public void AddToInventory(IItem item)
+        public void AddToInventory(ItemType type)
         {
-            inventory[item.ItemType]++;
+            inventory[type]++;
         }
 
         public void RemoveFromInventory(ItemType type)

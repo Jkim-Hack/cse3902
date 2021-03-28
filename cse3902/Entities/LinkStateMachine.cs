@@ -21,11 +21,8 @@ namespace cse3902.Entities
         private Vector2 currDirection;
 
         private float speed;
-
-        private int currItemIndex;
-        private int currWeaponIndex;
         private Game1 game;
-
+        private LinkInventory linkInventory;
         private const int healthMax = 10;
         private int health;
 
@@ -41,6 +38,7 @@ namespace cse3902.Entities
             this.centerPosition = centerPosition;
             mode = LinkMode.Still;
             this.game = game;
+            linkInventory = new LinkInventory(game, this);
 
             currDirection = new Vector2(1, 0);
             speed = 50.0f;
@@ -49,8 +47,6 @@ namespace cse3902.Entities
             this.linkSprite = linkSprite;
 
             health = healthMax;
-            currWeaponIndex = 0;
-            currItemIndex = 0;
 
             remainingDamageDelay = damageDelay;
 
@@ -171,8 +167,10 @@ namespace cse3902.Entities
             {
                 if (mode == LinkMode.Attack|| mode == LinkMode.Item)
                 {
+                    if (mode == LinkMode.Item) Inventory.RemoveItemAnimation();
                     mode = LinkMode.Still;
                     ChangeDirection(new Vector2(0, 0));
+                    
                 }
             }
         }
@@ -188,73 +186,34 @@ namespace cse3902.Entities
             if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
             mode = LinkMode.Attack;
 
-            // TODO: Move this to Link.cs not needed in state machine
-            Vector2 spriteSize = linkSprite.Size;
-            Vector2 offset = (spriteSize * currDirection) / 1.5f;
-            Vector2 startingPosition = centerPosition + offset;
-
-            ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            IProjectile weapon = projectileHandler.CreateSwordWeapon(spriteBatch, startingPosition, currDirection, currWeaponIndex);
+            Vector2 startingPosition = getItemLocation(currDirection);
+            linkInventory.CreateWeapon(startingPosition, currDirection);
             SetAttackAnimation();
         }
 
-        //TODO Send this to Inventory
-        public void ChangeWeapon(int index)
-        {
-            currWeaponIndex = index;
-        }
-
-        //TODO Send this to Inventory
-        public void AddItem(IItem item)
+        public Vector2 CollectItemAnimation()
         {
             //The basic logic to use item. needs to add Pause Game during the duration and such..
-            //if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
-            //mode = LinkMode.Item;
-            //linkSprite.setFrameSet(LinkSprite.AnimationState.Item);
-            InventoryManager.Instance.AddToInventory(item);
+            mode = LinkMode.Item;
+            linkSprite.setFrameSet(LinkSprite.AnimationState.Item);
+            return getItemLocation(new Vector2(0,-1));
         }
 
-        //TODO Send part of this to Inventory
-        public void UseItem()
+        public Vector2 UseItemAnimation()
         {
-            if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
-
+            if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return new Vector2(-1, -1);
+            Vector2 startingPosition = getItemLocation(currDirection);
             mode = LinkMode.Attack;
-            IProjectile item;
-            Vector2 spriteSize = linkSprite.Size;
-            Vector2 offset = (spriteSize * currDirection) / 1.5f;
-            Vector2 startingPosition = centerPosition + offset;
-            ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            switch (currItemIndex)
-            {
-                case 1:
-                    item = projectileHandler.CreateSwordItem(spriteBatch, startingPosition, currDirection);
-                    break;
-
-                case 2:
-                    item = projectileHandler.CreateArrowItem(spriteBatch, startingPosition, currDirection);
-                    break;
-
-                case 3:
-                    item = projectileHandler.CreateBoomerangItem(spriteBatch, linkSprite, currDirection);
-                    break;
-
-                case 4:
-                    item = projectileHandler.CreateBombItem(spriteBatch, startingPosition);
-                    break;
-
-                default:
-                    item = null;
-                    break;
-            }
             SetAttackAnimation();
+            return startingPosition;
+        }
+        private Vector2 getItemLocation(Vector2 direction)
+        {
+            Vector2 spriteSize = linkSprite.Size;
+            Vector2 offset = (spriteSize * direction) / 1.5f;
+            return centerPosition + offset;
         }
 
-        //TODO Send this to Inventory
-        public void ChangeItem(int index)
-        {
-            currItemIndex = index;
-        }
 
         private void SetAttackAnimation()
         {
@@ -321,6 +280,16 @@ namespace cse3902.Entities
                 this.pauseMovement = value;
                 linkSprite.PauseMovement = value;
             }
+        }
+
+        public LinkSprite Sprite
+        {
+            get => this.linkSprite;
+        }
+
+        public LinkInventory Inventory
+        {
+            get => linkInventory;
         }
     }
 }
