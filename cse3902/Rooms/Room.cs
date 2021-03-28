@@ -89,19 +89,6 @@ namespace cse3902.Rooms
             visited = true;
         }
 
-        public void Reset()
-        {
-            // TODO: double check what needs to be reset
-            foreach (IDoor door in doors)
-            {
-                door.Reset();
-            }
-            foreach (IEntity enemy in enemies)
-            {
-                //enemy.Reset();
-            }
-        }
-
         public List<IItem> Items
         {
             get => items;

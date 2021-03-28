@@ -147,15 +147,7 @@ namespace cse3902.Rooms
 
         public void Reset()
         {
-            //rooms = new Dictionary<Vector3, Room>();
-            //new XMLParser(this, game);
-            //xmlParser.ParseXML(url);
-            // is this even needed??
             RoomBlocks.Instance.Reset();
-            //for (int i = 0; i < rooms.Count; i++)
-            //{
-            //    rooms.ElementAt(i).Value.Reset();
-            //}
         }
 
         public Vector3 RoomChangeDirection
