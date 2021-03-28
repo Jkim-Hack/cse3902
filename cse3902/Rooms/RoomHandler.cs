@@ -29,6 +29,8 @@ namespace cse3902.Rooms
         public Vector3 startingRoomTranslation { get; }
         private bool startComplete;
 
+        private String url;
+
         public RoomHandler(Game1 gm)
         {
             this.game = gm;
@@ -44,7 +46,7 @@ namespace cse3902.Rooms
 
         public void Initialize()
         {
-            String url = "XMLParsing/Room1.xml";
+            url = "XMLParsing/Room1.xml";
             xmlParser.ParseXML(url);
         }
 
@@ -145,12 +147,15 @@ namespace cse3902.Rooms
 
         public void Reset()
         {
+            //rooms = new Dictionary<Vector3, Room>();
+            //new XMLParser(this, game);
+            //xmlParser.ParseXML(url);
             // is this even needed??
             RoomBlocks.Instance.Reset();
-            for (int i = 0; i < rooms.Count; i++)
-            {
-                rooms.ElementAt(i).Value.Reset();
-            }
+            //for (int i = 0; i < rooms.Count; i++)
+            //{
+            //    rooms.ElementAt(i).Value.Reset();
+            //}
         }
 
         public Vector3 RoomChangeDirection
