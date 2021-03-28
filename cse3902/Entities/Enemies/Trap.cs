@@ -31,7 +31,7 @@ namespace cse3902.Entities.Enemies
 
             //sprite sheet is 1 row, 2 columns
             trapSprite = (TrapSprite)EnemySpriteFactory.Instance.CreateTrapSprite(game.SpriteBatch, startingPos);
-            direction = new Vector2(-1, 0);
+            this.direction = direction;
             speed = 50.0f;
             travelDistance = 50;
             shoveDistance = -10;
