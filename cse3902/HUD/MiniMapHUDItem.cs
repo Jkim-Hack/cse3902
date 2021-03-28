@@ -45,6 +45,13 @@ namespace cse3902.HUD
             {
                 alreadyChanged = false;
             }
+
+            delay--;
+            if (delay < 0)
+            {
+                delay = MiniMapConstants.COLOR_DELAY;
+                colorRed = !colorRed;
+            }
         }
 
         public void Draw()
@@ -58,26 +65,13 @@ namespace cse3902.HUD
                 foreach (Rectangle rec in MiniMapConstants.GetRoomLayout()) DrawRectangle(rec, MiniMapConstants.RoomColor);
             }
 
-
             if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Compass] > 0)
             {
                 Rectangle triforceRectangle = MiniMapConstants.CalculatePos((int)MiniMapConstants.TriforcePos.X, (int)MiniMapConstants.TriforcePos.Y);
                 triforceRectangle.X += (MiniMapConstants.Width - MiniMapConstants.Height) / 2;
                 triforceRectangle.Width = MiniMapConstants.Height;
-                if (colorRed)
-                {
-                    DrawRectangle(triforceRectangle, MiniMapConstants.TriforceRed);
-                }
-                else
-                {
-                    DrawRectangle(triforceRectangle, MiniMapConstants.TriforceGreen);
-                }
-                delay--;
-                if (delay < 0)
-                {
-                    delay = MiniMapConstants.COLOR_DELAY;
-                    colorRed = !colorRed;
-                }
+                if (colorRed) DrawRectangle(triforceRectangle, MiniMapConstants.TriforceRed);
+                else DrawRectangle(triforceRectangle, MiniMapConstants.TriforceGreen);
             }
 
             /* Only draw current room square if not in item room */
@@ -88,7 +82,6 @@ namespace cse3902.HUD
                 currentRoomRectangle.Width = MiniMapConstants.Height;
                 DrawRectangle(currentRoomRectangle, MiniMapConstants.CurrentRoomColor);
             }
-            
         }
 
         private void DrawRectangle(Rectangle rec, Color color)
