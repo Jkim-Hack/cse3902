@@ -3,6 +3,7 @@ using cse3902.Interfaces;
 using cse3902.SpriteFactory;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.HUD;
 
 namespace cse3902.Doors
 {
@@ -37,17 +38,13 @@ namespace cse3902.Doors
                 case IDoor.DoorState.Closed:
                     break;
                 case IDoor.DoorState.Locked:
-                    State = IDoor.DoorState.Open;
-                    connectedDoor.State = IDoor.DoorState.Open;
-                    break;/*
-                case IDoor.DoorState.Locked:
-                    if (game.player.inventory.contains(key))
+                    if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Key] > 0)
                     {
-                        game.player.inventory.key--;
+                        InventoryManager.Instance.inventory[InventoryManager.ItemType.Key]--;
                         State = IDoor.DoorState.Open;
                         connectedDoor.State = IDoor.DoorState.Open;
                     }
-                    break;*/
+                    break;
                 case IDoor.DoorState.Wall: //do nothing
                     break;
                 default: //this should never happen
