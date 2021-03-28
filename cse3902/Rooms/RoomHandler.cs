@@ -3,6 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
 using cse3902.Projectiles;
+using System.Linq;
 
 namespace cse3902.Rooms
 {
@@ -144,7 +145,12 @@ namespace cse3902.Rooms
 
         public void Reset()
         {
+            // is this even needed??
             RoomBlocks.Instance.Reset();
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                rooms.ElementAt(i).Value.Reset();
+            }
         }
 
         public Vector3 RoomChangeDirection
