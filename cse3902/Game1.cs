@@ -143,7 +143,12 @@ namespace cse3902
                 roomHandler.Update(gameTime);
                 collisionManager.Update();
             }
+            else if (GameStateManager.Instance.IsPickingUpItem())
+            {
+                player.Update(gameTime);
+            }
 
+            //player.Update(gameTime);
             camera.Update();
             GameStateManager.Instance.Update();
             base.Update(gameTime);
@@ -159,7 +164,7 @@ namespace cse3902
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetGameplayTransformationMatrix());
 
-            player.Draw();
+            if (!GameStateManager.Instance.InMenu(true)) player.Draw();
             roomHandler.Draw();
             collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
 

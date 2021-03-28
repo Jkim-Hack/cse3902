@@ -121,7 +121,7 @@ namespace cse3902.Rooms
                 RoomDoors.Instance.DrawOld();
                 RoomBlocks.Instance.DrawOld();
             }
-            else
+            else if(!GameStateManager.Instance.InMenu(true))
             {
                 RoomItems.Instance.Draw();
                 CloudAnimation.Instance.Draw();

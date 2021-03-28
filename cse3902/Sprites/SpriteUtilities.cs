@@ -11,6 +11,7 @@ namespace cse3902.Sprites
         public static float EnemyLayer { get => .65f; }
         public static float ItemLayer { get => .7f; }
         public static float BlockLayer { get => .8f; }
+        public static float BombedDoorBackgroundLayer { get => .9f; }
         public static float BackgroundLayer { get => .95f; }
 
         public static Rectangle[] distributeFrames(int columns, int rows, int frameWidth, int frameHeight)
