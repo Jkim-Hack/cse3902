@@ -21,30 +21,34 @@ namespace cse3902.XMLParsing
 
         public void ParseTraps(Room roomobj, XElement roomxml, XDocument doc)
         {
-            XName enemiesName = XName.Get("enemies", doc.Root.Name.NamespaceName);
+            XName trapsName = XName.Get("traps", doc.Root.Name.NamespaceName);
 
-            XElement enemies = roomxml.Element(enemiesName);
-            List<XElement> enemyList = enemies.Elements("enemy").ToList();
+            XElement traps = roomxml.Element(trapsName);
+            List<XElement> trapList = traps.Elements("trap").ToList();
 
-            foreach (XElement enemy in enemyList)
+            foreach (XElement trap in trapList)
             {
-                XElement typeName = enemy.Element("type");
-                XElement xloc = enemy.Element("xloc");
-                XElement yloc = enemy.Element("yloc");
+                XElement xloc = trap.Element("xloc");
+                XElement yloc = trap.Element("yloc");
+                XElement xdir = trap.Element("xdir");
+                XElement ydir = trap.Element("ydir");
 
                 float x = float.Parse(xloc.Value);
                 float y = float.Parse(yloc.Value);
 
+                int xdirection = (int) float.Parse(xdir.Value);
+                int ydirection = (int) float.Parse(ydir.Value);
+
                 Vector2 truePos = RoomUtilities.CalculateBlockCenter(roomobj.RoomPos, new Vector2(x, y));
 
-                IEntity enemyAdd = CreateEnemy(typeName.Value, truePos);
+                IEntity enemyAdd = CreateTrap(truePos, new Vector2(xdirection, ydirection));
                 roomobj.AddEnemy(enemyAdd);
             }
         }
 
-        private IEntity CreateEnemy(String type, Vector2 startingPos)
+        private IEntity CreateTrap(Vector2 startingPos, Vector2 direction)
         {
-            IEntity trap = new Trap(game, startingPos);
+            IEntity trap = new Trap(game, startingPos, direction);
             
             return trap;
         }

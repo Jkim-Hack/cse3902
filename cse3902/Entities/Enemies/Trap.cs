@@ -23,7 +23,7 @@ namespace cse3902.Entities.Enemies
 
         private ICollidable collidable;
 
-        public Trap(Game1 game, Vector2 start)
+        public Trap(Game1 game, Vector2 start, Vector2 direction)
         {
             this.game = game;
             startingPos = start;
