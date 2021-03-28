@@ -3,6 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
 using cse3902.Projectiles;
+using System.Linq;
 
 namespace cse3902.Rooms
 {
@@ -28,6 +29,8 @@ namespace cse3902.Rooms
         public Vector3 startingRoomTranslation { get; }
         private bool startComplete;
 
+        private String url;
+
         public RoomHandler(Game1 gm)
         {
             this.game = gm;
@@ -43,7 +46,7 @@ namespace cse3902.Rooms
 
         public void Initialize()
         {
-            String url = "XMLParsing/Room1.xml";
+            url = "XMLParsing/Room1.xml";
             xmlParser.ParseXML(url);
         }
 
