@@ -24,6 +24,7 @@ namespace cse3902.Entities
         private Game1 game;
 
         private int totalHealth;
+        private LinkInventory linkInventory;
         private const int healthMax = 10;
         private int health;
 
