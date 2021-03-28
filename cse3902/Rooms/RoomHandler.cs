@@ -111,16 +111,17 @@ namespace cse3902.Rooms
                 RoomConditions.Instance.Update(gameTime);
             }
 
-            RoomBackground.Instance.Update(gameTime);
+            Background.Instance.Update(gameTime);
             RoomBlocks.Instance.Update(gameTime);
         }
         public void Draw()
         {
             if (roomTransitionManager.IsTransitioning())
             {
-                
+                RoomDoors.Instance.DrawOld();
+                RoomBlocks.Instance.DrawOld();
             }
-            else
+            else if(!GameStateManager.Instance.InMenu(true))
             {
                 RoomItems.Instance.Draw();
                 CloudAnimation.Instance.Draw();
@@ -131,7 +132,7 @@ namespace cse3902.Rooms
 
             RoomDoors.Instance.Draw();
             RoomBlocks.Instance.Draw();
-            RoomBackground.Instance.Draw();
+            Background.Instance.Draw();
         }
 
         public void CompleteStart()

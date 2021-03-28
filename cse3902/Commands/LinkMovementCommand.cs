@@ -40,7 +40,7 @@ namespace cse3902.Commands
 
         public void Unexecute()
         {
-            if (GameStateManager.Instance.IsUnpaused() && !game.RoomHandler.roomTransitionManager.IsTransitioning()) game.Player.ChangeDirection(new Vector2(0, 0));
+            game.Player.ChangeDirection(new Vector2(0, 0));
         }
     }
 }
