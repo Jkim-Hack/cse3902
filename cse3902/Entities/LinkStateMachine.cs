@@ -208,10 +208,11 @@ namespace cse3902.Entities
         public void AddItem(IItem item)
         {
             //The basic logic to use item. needs to add Pause Game during the duration and such..
-            //if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
-            //mode = LinkMode.Item;
-            //linkSprite.setFrameSet(LinkSprite.AnimationState.Item);
+            if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
+            mode = LinkMode.Item;
+            linkSprite.setFrameSet(LinkSprite.AnimationState.Item);
             InventoryManager.Instance.AddToInventory(item);
+            GameStateManager.Instance.LinkPickupItem(36);
         }
 
         //TODO Send part of this to Inventory

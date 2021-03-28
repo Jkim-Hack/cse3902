@@ -2,12 +2,15 @@
 {
     public class GameStateManager
     {
-        public enum PauseState
+        private enum PauseState
         {
             Unpaused,
             Paused,
             MenuDisplayed,
-            MenuPaused
+            MenuOpening,
+            MenuClosing,
+            ItemPickup,
+            ItemPickupPaused
         }
         private PauseState pausedState;
         private Camera camera;
@@ -15,10 +18,8 @@
         private int remainingToggleCooldown;
         private const int toggleCooldown = 10;
 
-        private bool closingMenu;
-        private bool openingMenu;
-
         private const int cameraCycles = 60;
+        private int itemPickupCycles;
 
         private static GameStateManager gameStateManagerInstance = new GameStateManager();
         public static GameStateManager Instance
@@ -29,8 +30,7 @@
         {
             pausedState = PauseState.Unpaused;
             remainingToggleCooldown = 0;
-            closingMenu = false;
-            openingMenu = false;
+            itemPickupCycles = 0;
         }
 
         public void ToggleMenuDisplayed()
@@ -39,13 +39,11 @@
             switch (pausedState)
             {
                 case PauseState.Unpaused:
-                    openingMenu = true;
-                    pausedState = PauseState.MenuPaused;
+                    pausedState = PauseState.MenuOpening;
                     camera.ToggleHudDisplayed(cameraCycles);
                     break;
                 case PauseState.MenuDisplayed:
-                    closingMenu = true;
-                    pausedState = PauseState.MenuPaused;
+                    pausedState = PauseState.MenuClosing;
                     camera.ToggleHudDisplayed(cameraCycles);
                     break;
                 default:
@@ -64,21 +62,26 @@
                 case PauseState.Paused:
                     pausedState = PauseState.Unpaused;
                     break;
-                case PauseState.MenuDisplayed:
-                    pausedState = PauseState.MenuPaused;
+                case PauseState.ItemPickup:
+                    pausedState = PauseState.ItemPickupPaused;
                     break;
-                case PauseState.MenuPaused:
-                    pausedState = PauseState.MenuDisplayed;
+                case PauseState.ItemPickupPaused:
+                    pausedState = PauseState.ItemPickup;
                     break;
-                default: //this should never happen
-                    pausedState = PauseState.Paused;
+                default:
                     break;
             }
         }
 
+        public void LinkPickupItem(int numberUpdateCyclesToComplete)
+        {
+            pausedState = PauseState.ItemPickup;
+            itemPickupCycles = numberUpdateCyclesToComplete;
+        }
+
         private bool ValidToggle()
         {
-            if (remainingToggleCooldown > 0 || closingMenu || openingMenu) return false;
+            if (remainingToggleCooldown > 0 || pausedState == PauseState.MenuOpening || pausedState == PauseState.MenuClosing || camera.IsCameraMoving()) return false;
             remainingToggleCooldown = toggleCooldown;
             return true;
         }
@@ -87,23 +90,30 @@
         {
             return pausedState == PauseState.Unpaused;
         }
-        public bool InMenu()
+        public bool InMenu(bool isTransitioning)
         {
-            return pausedState == PauseState.MenuDisplayed;
+            return pausedState == PauseState.MenuDisplayed || (isTransitioning && (pausedState == PauseState.MenuOpening || pausedState == PauseState.MenuClosing));
+        }
+        public bool IsPickingUpItem()
+        {
+            return pausedState == PauseState.ItemPickup;
         }
 
         public void Update()
         {
             remainingToggleCooldown--;
-            if (closingMenu && !camera.IsCameraMoving())
+            if (pausedState == PauseState.MenuClosing && !camera.IsCameraMoving())
             {
-                closingMenu = false;
                 pausedState = PauseState.Unpaused;
             }
-            else if (openingMenu && !camera.IsCameraMoving())
+            else if (pausedState == PauseState.MenuOpening && !camera.IsCameraMoving())
             {
-                openingMenu = false;
                 pausedState = PauseState.MenuDisplayed;
+            } 
+            else if (IsPickingUpItem())
+            {
+                itemPickupCycles--;
+                if (itemPickupCycles <= 0) pausedState = PauseState.Unpaused;
             }
         }
 
