@@ -44,11 +44,15 @@ namespace cse3902.HUD
 
         public void Draw()
         {
+            
             /* Draw background (just for testing) */
             DrawRectangle(new Rectangle(0 - offsetX, 0 - offsetY, DimensionConstants.OriginalWindowWidth, DimensionConstants.OriginalWindowHeight), Color.Black);
 
-            /* Draw entire map */
-            foreach(Rectangle rec in MiniMapConstants.GetRoomLayout()) DrawRectangle(rec, MiniMapConstants.RoomColor);
+            if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Map] > 0)
+            {
+                /* Draw entire map */
+                foreach (Rectangle rec in MiniMapConstants.GetRoomLayout()) DrawRectangle(rec, MiniMapConstants.RoomColor);
+            }
 
             /* Only draw current room square if not in item room */
             if (currentRoom.Z == 0)
@@ -58,6 +62,7 @@ namespace cse3902.HUD
                 currentRoomRectangle.Width = MiniMapConstants.Height;
                 DrawRectangle(currentRoomRectangle, MiniMapConstants.CurrentRoomColor);
             }
+            
         }
 
         private void DrawRectangle(Rectangle rec, Color color)
