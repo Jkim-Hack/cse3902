@@ -65,7 +65,6 @@ namespace cse3902
         {
             gameplayCamera.Reset();
             hudCamera.Reset();
-
             hudCamera.MoveCamera(hudTopLeftCoord, DimensionConstants.OriginalWindowDimensions);
         }
     }
