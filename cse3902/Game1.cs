@@ -91,7 +91,7 @@ namespace cse3902
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
-            RoomBackground.Instance.LoadTextures(Content, spriteBatch);
+            Background.Instance.LoadTextures(Content, spriteBatch);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             NPCSpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content, spriteBatch);
@@ -111,7 +111,7 @@ namespace cse3902
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.PROJECTILES, ref RoomProjectiles.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BLOCKS, ref RoomBlocks.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.DOORS, ref RoomDoors.Instance.ListRef);
-            allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BACKGROUND, ref RoomBackground.Instance.WallsListRef);
+            allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BACKGROUND, ref Background.Instance.WallsListRef);
 
             roomHandler.LoadNewRoom(roomHandler.startingRoomTranslation,0);
         }
