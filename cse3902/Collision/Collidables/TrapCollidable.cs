@@ -11,52 +11,37 @@ namespace cse3902.Collision.Collidables
     {
         private IEntity trap;
         private Boolean[] collisionOccurrences;
+        private int damage;
 
         public bool DamageDisabled { get; set; }
 
-        public TrapCollidable(IEntity trap)
+        public TrapCollidable(IEntity trap, int damage)
         {
             this.trap = trap;
+            this.damage = damage;
             DamageDisabled = true;
         }
 
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
-            if (collidableObject is DoorCollidable || collidableObject is WallCollidable || collidableObject is EnemyCollidable)
+            //if the trap has been 'triggered', its collisions will be different
+            //might want trap to have some property that keeps track of
+            //whether it has been triggered or not
+            if (collidableObject is TrapCollidable || collidableObject is WallCollidable)
             {
-                RoomProjectiles.Instance.RemoveProjectile(this.projectile);
-            }
 
-            if (collidableObject is PlayerCollidable && this.IsEnemy)
-            {
-                RoomProjectiles.Instance.RemoveProjectile(this.projectile);
             }
         }
 
         public ref Rectangle RectangleRef
         {
-            get => ref projectile.Box;
-        }
-
-        public Boolean IsEnemy
-        {
-            get
-            {
-                if (this.projectile is Fireball)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            get => ref trap.Bounds;
         }
 
         public int DamageValue
         {
-            get => projectile.Damage;
+            get => this.damage;
         }
 
         public void ResetCollisions()
@@ -65,11 +50,6 @@ namespace cse3902.Collision.Collidables
             {
                 collisionOccurrences[i] = false;
             }
-        }
-
-        public IProjectile Projectile
-        {
-            get => projectile;
         }
     }
 
