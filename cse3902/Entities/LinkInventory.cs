@@ -55,12 +55,13 @@ namespace cse3902.Entities
             if (item.Equals(AnimationItem)) return;
             InventoryManager.ItemType type = item.ItemType;
             InventoryManager.Instance.AddToInventory(type);
-            if(type == InventoryManager.ItemType.Triforce || type == InventoryManager.ItemType.Bow)
+            if (type == InventoryManager.ItemType.Triforce || type == InventoryManager.ItemType.Bow)
             {
                 //The basic logic to use item. needs to add Pause Game during the duration and such..
                 Vector2 startingPos = linkState.CollectItemAnimation();
                 item.Center = startingPos;
                 AnimationItem = item;
+                GameStateManager.Instance.LinkPickupItem(36);
             } else
             {
                 RoomItems.Instance.RemoveItem(item);
