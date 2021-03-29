@@ -34,7 +34,7 @@ namespace cse3902.Entities.Enemies
             speed = 50.0f;
             travelDistance = 50;
 
-            this.collidable = new TrapCollidable(this, this.Damage);
+            this.collidable = new TrapCollidable(this);
         }
 
         public int Damage

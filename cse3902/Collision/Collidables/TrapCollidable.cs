@@ -11,14 +11,12 @@ namespace cse3902.Collision.Collidables
     {
         private ITrap trap;
         private Boolean[] collisionOccurrences;
-        private int damage;
 
         public bool DamageDisabled { get; set; }
 
-        public TrapCollidable(ITrap trap, int damage)
+        public TrapCollidable(ITrap trap)
         {
             this.trap = trap;
-            this.damage = damage;
             DamageDisabled = true;
         }
 
@@ -41,7 +39,7 @@ namespace cse3902.Collision.Collidables
 
         public int DamageValue
         {
-            get => this.damage;
+            get => this.trap.Damage;
         }
 
         public void ResetCollisions()
