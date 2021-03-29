@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using cse3902.Interfaces;
+using System.Linq;
 
 namespace cse3902.HUD
 {
@@ -57,6 +58,15 @@ namespace cse3902.HUD
         public void RemoveFromInventory(ItemType type)
         {
             inventory[type]--;
+        }
+
+        public void Reset()
+        {
+            for (int index = 0; index < inventory.Count; index++)
+            {
+                KeyValuePair<ItemType, int> entry = inventory.ElementAt(index);
+                inventory[entry.Key] = 0;
+            }
         }
     }
 }

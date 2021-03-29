@@ -3,6 +3,7 @@ using cse3902.Interfaces;
 using System.Collections.Generic;
 using cse3902.Doors;
 using Microsoft.Xna.Framework;
+using cse3902.Projectiles;
 
 namespace cse3902.Collision.Collidables
 {
@@ -18,7 +19,6 @@ namespace cse3902.Collision.Collidables
             this.door = door;
             DamageDisabled = true;
         }
-
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
@@ -52,7 +52,7 @@ namespace cse3902.Collision.Collidables
             } 
             else if (collidableObject is ProjectileCollidable) //needs to be modified to only allow bomb projectile to do this
             {
-                if (this.door.State == IDoor.DoorState.Wall && this.door.ConnectedDoor != null)
+                if (this.door.State == IDoor.DoorState.Wall && this.door.ConnectedDoor != null && ((ProjectileCollidable)collidableObject).Projectile is BombProjectile )
                 {
                     this.door.State = IDoor.DoorState.Bombed;
                     this.door.ConnectedDoor.State = IDoor.DoorState.Bombed;
@@ -60,15 +60,10 @@ namespace cse3902.Collision.Collidables
             }
         }
 
-
-
-
         public ref Rectangle RectangleRef
         {
             get => ref door.Bounds;
         }
-
-
 
         public int DamageValue
         {
