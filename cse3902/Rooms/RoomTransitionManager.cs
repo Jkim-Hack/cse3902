@@ -43,6 +43,7 @@ namespace cse3902.Rooms
             entranceDoor = entrance;
             game.CollisionManager.Disabled = true;
             game.Player.ChangeDirection(new Vector2(0,0));
+            game.RoomHandler.Reset();
         }
         public bool IsTransitioning()
         {
@@ -54,7 +55,7 @@ namespace cse3902.Rooms
             switch (steps[stepTracker])
             {
                 case 0.0f:
-                    if (!game.Camera.GetCameraMoving()) MoveLinkToNewRoom();
+                    if (!game.Camera.IsCameraMoving()) MoveLinkToNewRoom();
                     break;
 
                 case 1.0f:

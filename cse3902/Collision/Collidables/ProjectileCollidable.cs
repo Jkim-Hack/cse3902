@@ -32,8 +32,6 @@ namespace cse3902.Collision.Collidables
             {
                 RoomProjectiles.Instance.RemoveProjectile(this.projectile);
             }
-
-
         }
 
         public ref Rectangle RectangleRef
@@ -66,6 +64,11 @@ namespace cse3902.Collision.Collidables
             {
                 collisionOccurrences[i] = false;
             }
+        }
+
+        public IProjectile Projectile
+        {
+            get => projectile;
         }
     }
 

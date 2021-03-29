@@ -78,7 +78,7 @@ namespace cse3902.Projectiles
 
         public IProjectile CreateArrowItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            IProjectile newProj = new ArrowItem(spriteBatch, arrow, startingPos, dir);
+            IProjectile newProj = new ArrowProjectile(spriteBatch, arrow, startingPos, dir);
             projectiles.Add(newProj);
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
@@ -86,7 +86,7 @@ namespace cse3902.Projectiles
 
         public IProjectile CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            IProjectile newProj = new BombItem(spriteBatch, bomb, startingPos);
+            IProjectile newProj = new BombProjectile(spriteBatch, bomb, startingPos);
             projectiles.Add(newProj);
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
@@ -94,7 +94,7 @@ namespace cse3902.Projectiles
 
         public IProjectile CreateBoomerangItem(SpriteBatch spriteBatch, LinkSprite linkState, Vector2 dir)
         {
-            IProjectile newProj = new BoomerangItem(spriteBatch, boomerang, linkState, dir);
+            IProjectile newProj = new BoomerangProjectile(spriteBatch, boomerang, linkState, dir);
             projectiles.Add(newProj);
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;

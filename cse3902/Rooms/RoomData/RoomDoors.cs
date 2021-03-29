@@ -8,6 +8,7 @@ namespace cse3902.Rooms
     public class RoomDoors
     {
         public IList doors;
+        private IList oldDoors;
 
         private static RoomDoors instance = new RoomDoors();
 
@@ -22,6 +23,7 @@ namespace cse3902.Rooms
         private RoomDoors()
         {
             doors = new List<IDoor>();
+            oldDoors = new List<IDoor>();
         }
 
         public void AddDoor(IDoor door)
@@ -37,9 +39,18 @@ namespace cse3902.Rooms
             }
         }
 
+        public void DrawOld()
+        {
+            foreach (IDoor door in oldDoors)
+            {
+                door.Draw();
+            }
+        }
+
         public void LoadNewRoom(ref List<IDoor> oldList, List<IDoor> newList)
         {
             oldList = new List<IDoor>();
+            oldDoors = oldList;
 
             List<IDoor> doorsCast = doors as List<IDoor>;
 
@@ -55,6 +66,14 @@ namespace cse3902.Rooms
                 doors.Add(newList[i]);
             }
 
+        }
+
+        public void Reset()
+        {
+            foreach (IDoor door in doors)
+            {
+                door.Reset();
+            }
         }
 
         public ref IList ListRef

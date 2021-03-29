@@ -42,30 +42,19 @@ namespace cse3902.Sprites.EnemySprites
 
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
-            frames = new Rectangle[totalFrames];
+            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
 
-            
+
             center = startingPosition;
 
-            DistributeFrames(columns);
 
-        }
-
-        private void DistributeFrames(int columns)
-        {
-            for (int i = 0; i < totalFrames; i++)
-            {
-                int row = (int)((float)i / (float)columns);
-                int column = i % columns;
-                frames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
-            }
         }
 
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, 0.6f);
+            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
         }
 
         public void Erase()

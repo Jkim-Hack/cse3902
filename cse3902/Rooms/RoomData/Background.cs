@@ -6,16 +6,18 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using cse3902.Collision;
 using System.Collections;
+using cse3902.Sprites;
 
 namespace cse3902.Rooms
 {
     //Rename this and 
-    public class RoomBackground
+    public class Background
     {
-        Texture2D interior;
-        Texture2D exterior;
-        Texture2D itemRoom;
-        SpriteBatch batch;
+        private Texture2D interior;
+        private Texture2D exterior;
+        private Texture2D exterior2;
+        private Texture2D itemRoom;
+        private SpriteBatch batch;
         private List<ISprite> background;
 
         private IList walls;
@@ -23,9 +25,9 @@ namespace cse3902.Rooms
         //private List<Rectangle> test { get; set; }
         //Texture2D test1;
 
-        private static RoomBackground instance = new RoomBackground();
+        private static Background instance = new Background();
 
-        public static RoomBackground Instance
+        public static Background Instance
         {
             get
             {
@@ -33,7 +35,7 @@ namespace cse3902.Rooms
             }
         }
 
-        private RoomBackground()
+        private Background()
         {
 
         }
@@ -42,6 +44,7 @@ namespace cse3902.Rooms
         {
             interior = content.Load<Texture2D>("interior");
             exterior = content.Load<Texture2D>("Exterior");
+            exterior2 = content.Load<Texture2D>("Exterior2");
             itemRoom = content.Load<Texture2D>("ItemRoom");
             //test1 = content.Load<Texture2D>("block3");
             this.batch = batch;
@@ -53,7 +56,8 @@ namespace cse3902.Rooms
         public void generateRoom(Vector3 loc, int roomNum)
         {
             Vector2 roomCenter = RoomUtilities.CalculateRoomCenter(loc);
-            background.Add(new ExteriorSprite(batch, exterior, roomCenter));
+            background.Add(new ExteriorSprite(batch, exterior, roomCenter, SpriteUtilities.BackgroundLayer));
+            background.Add(new ExteriorSprite(batch, exterior2, roomCenter, SpriteUtilities.TopBackgroundLayer));
             background.Add(new InteriorSprite(batch, interior, RoomUtilities.INTERIOR_TEXTURE_ROWS, RoomUtilities.INTERIOR_TEXTURE_COLS, roomCenter, roomNum));
             foreach(Rectangle rec in RoomUtilities.GetWallRectangles(loc)){
                 walls.Add(new Wall(rec));
@@ -64,7 +68,7 @@ namespace cse3902.Rooms
         public void generateItemRoom(Vector3 loc)
         {
             Vector2 roomCenter = RoomUtilities.CalculateRoomCenter(loc);
-            background.Add(new ExteriorSprite(batch, itemRoom, roomCenter));
+            background.Add(new ExteriorSprite(batch, itemRoom, roomCenter, SpriteUtilities.BackgroundLayer));
         }
 
 

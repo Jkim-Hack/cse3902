@@ -1,5 +1,6 @@
 ﻿using System;
 using cse3902.Interfaces;
+using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -40,8 +41,7 @@ namespace cse3902.Projectiles
             totalFrames = rows * columns;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
-            frames = new Rectangle[totalFrames];
-            distributeFrames();
+            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
 
             frameWidth = spriteTexture.Width;
             frameHeight = spriteTexture.Height;
@@ -55,7 +55,7 @@ namespace cse3902.Projectiles
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle(currentX + (int)offset.X, currentY + (int)offset.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, 0.2f);            
+            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EffectsLayer);            
         }
 
         private void distributeFrames()

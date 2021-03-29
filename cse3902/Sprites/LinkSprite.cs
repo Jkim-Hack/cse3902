@@ -25,6 +25,7 @@ namespace cse3902.Sprites
             RightAttack,
             UpAttack,
             DownAttack,
+            Item
         };
 
         private SpriteBatch spriteBatch;
@@ -81,7 +82,7 @@ namespace cse3902.Sprites
         {
             Vector2 origin = new Vector2(size.X / 2f, size.Y / 2f);
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * size.X), (int)(sizeIncrease * size.Y));
-            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, 0.2f);
+            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.LinkLayer);
         }
        
 

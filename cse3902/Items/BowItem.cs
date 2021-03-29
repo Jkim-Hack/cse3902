@@ -1,8 +1,10 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Collision;
+using cse3902.HUD;
 using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.Sprites;
 
 namespace cse3902.Items
 {
@@ -22,6 +24,7 @@ namespace cse3902.Items
         private const float sizeIncrease = 1f;
 
         private ICollidable collidable;
+        private InventoryManager.ItemType itemType;
 
         public BowItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
@@ -35,13 +38,14 @@ namespace cse3902.Items
             currentY = (int)startingPos.Y;
 
             this.collidable = new ItemCollidable(this);
+            itemType = InventoryManager.ItemType.Bow;
         }
 
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, 0.8f);
+            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ItemLayer);
         }
 
         public void Erase()
@@ -88,6 +92,11 @@ namespace cse3902.Items
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public InventoryManager.ItemType ItemType
+        {
+            get => itemType;
         }
     }
 }

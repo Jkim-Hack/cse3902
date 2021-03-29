@@ -18,8 +18,6 @@ namespace cse3902.Entities
 	    private Game1 game;
 
         private ICollidable collidable;
-        private int health;
-        private List<Vector2> directions;
         
 	    private float remainingDamageDelay;
 
@@ -34,21 +32,10 @@ namespace cse3902.Entities
             Vector2 centerPosition = new Vector2(50, 200);
             linkSprite = new LinkSprite(game.SpriteBatch, linkTexture, 6, 4, linkDamageMaskHandler, centerPosition);
             linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition, game.SpriteBatch);
-            PopulateDirections();
 
             //Link's body does no damage itself
             this.collidable = new PlayerCollidable(this, 0);
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
-        }
-
-        private void PopulateDirections()
-        {
-            directions = new List<Vector2>();
-            directions.Add(new Vector2(0, 0));
-            directions.Add(new Vector2(1, 0));
-            directions.Add(new Vector2(0, 1));
-            directions.Add(new Vector2(-1, 0));
-            directions.Add(new Vector2(0, -1));
         }
 
         public ref Rectangle Bounds 
@@ -67,14 +54,12 @@ namespace cse3902.Entities
 
         public void ChangeDirection(Vector2 direction)
         {
-            if(directions.Contains(direction))
                 linkStateMachine.ChangeDirection(direction);
             
 	    }        
 
         public void Die()
         {
-            this.linkSprite.Erase();
         }
 
         public void TakeDamage(int damage)
@@ -122,7 +107,7 @@ namespace cse3902.Entities
 
         public void AddItem(IItem item)
         {
-
+            linkStateMachine.AddItem(item);
         }
 
         public void ChangeItem(int itemNum)
@@ -151,11 +136,6 @@ namespace cse3902.Entities
             set => linkStateMachine.Speed = value;
         }
 
-        public List<Vector2> Directions
-        {
-            get => directions;
-            set => directions = value;
-        }
 
         public int Health
         {

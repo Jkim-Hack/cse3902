@@ -22,7 +22,7 @@ namespace cse3902.Doors
             this.initialDoorState = initialDoorState;
             doorSprite = DoorSpriteFactory.Instance.CreateRightDoorSprite(game.SpriteBatch, center, initialDoorState);
             roomTranslationVector = new Vector3(1, 0, 0);
-            doorState = initialDoorState;
+            State = initialDoorState;
 
             this.collidable = new DoorCollidable(this);
         }
@@ -36,6 +36,7 @@ namespace cse3902.Doors
                     game.RoomHandler.LoadNewRoom(game.RoomHandler.currentRoom + roomTranslationVector, connectedDoor);
                     break;
                 case IDoor.DoorState.Closed:
+                    break;
                 case IDoor.DoorState.Locked:
                     State = IDoor.DoorState.Open;
                     connectedDoor.State = IDoor.DoorState.Open;
@@ -92,6 +93,7 @@ namespace cse3902.Doors
         public IDoor ConnectedDoor
         {
             set => connectedDoor = value;
+            get => connectedDoor;
         }
 
         public ICollidable Collidable

@@ -1,6 +1,4 @@
-﻿using System;
-using cse3902.Interfaces;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using static cse3902.Sprites.LinkSprite;
@@ -36,21 +34,10 @@ namespace cse3902.Sprites
             frames = new Rectangle[totalFrames];
             frameSize = new Vector2(frameWidth, frameHeight);
 
-            distributeFrames(columns);
+            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
             generateFrameSets();
 
             isDamage = false;
-
-        }
-
-        private void distributeFrames(int columns)
-        {
-            for (int i = 0; i < totalFrames; i++)
-            {
-                int row = (int)((float)i / (float)columns);
-                int column = i % columns;
-                frames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
-            }
         }
 
         private void generateFrameSets()
@@ -69,21 +56,21 @@ namespace cse3902.Sprites
                 { AnimationState.RightAttack, ( new int[]  { 8, 8, 1, 0 },     new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
                 { AnimationState.UpAttack,    ( new int[]  { 10, 10, 4, 5 },   new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
                 { AnimationState.DownAttack,  ( new int[]  { 11, 11, 6, 7 },   new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
-            }; 
-	    }
-
+                { AnimationState.Item,        ( new int[]  { 21, 20, 21 },     new float[] { 0.05f, 0.5f, 0.05f }) }
+            };
+        }
 
         public (Rectangle, float)[] getFrameSet(AnimationState animationState)
         {
             List<(Rectangle, float)> frameSet = new List<(Rectangle, float)>();
 
             var indicies = frameSetIndicies[animationState];
-		    
-	        for (int i = 0; i < indicies.frame.Length; i++)
-		    {
-			    var frameTuple = (frames[indicies.frame[i]], frameSetIndicies[animationState].delay[i]);
-			    frameSet.Add(frameTuple);
-		    }
+
+            for (int i = 0; i < indicies.frame.Length; i++)
+            {
+                var frameTuple = (frames[indicies.frame[i]], frameSetIndicies[animationState].delay[i]);
+                frameSet.Add(frameTuple);
+            }
             return frameSet.ToArray();
         }
 
@@ -97,6 +84,5 @@ namespace cse3902.Sprites
             get => isDamage;
             set => isDamage = value;
         }
-
     }
 }

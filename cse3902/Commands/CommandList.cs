@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
+using cse3902.Constants;
 
 namespace cse3902.Commands
 {
@@ -16,13 +17,14 @@ namespace cse3902.Commands
         private int windowWidth;
         private int windowHeight;
         private int hudHeight;
-        
+        private const int doorSide = DimensionConstants.MouseClickSide;
+
         public CommandList(Game1 game)
         {
             this.game = game;
             windowWidth = game.GraphicsDevice.Viewport.Width;
             windowHeight = game.GraphicsDevice.Viewport.Height;
-            hudHeight = game.HudHeight * game.Scale;
+            hudHeight = DimensionConstants.HudHeight;
             BuildCommands();
         }
 
@@ -42,12 +44,12 @@ namespace cse3902.Commands
 
             leftMouseClickCommandMap = new Dictionary<Rectangle[], ICommand>()
             {
-                {new Rectangle[] {new Rectangle(windowWidth/2-50, hudHeight, 100,100),new Rectangle(windowWidth-100,(windowHeight+hudHeight)/2-50,100,100),new Rectangle(windowWidth/2-50,windowHeight-100,100,100),new Rectangle(0,(windowHeight+hudHeight)/2-50,100,100)}, new ChangeRoomXYCommand(game)}
+                {new Rectangle[] {new Rectangle(windowWidth/2- doorSide/2, hudHeight, doorSide, doorSide),new Rectangle(windowWidth- doorSide, (windowHeight+hudHeight)/2- doorSide/2, doorSide, doorSide),new Rectangle(windowWidth/2- doorSide/2, windowHeight- doorSide, doorSide, doorSide),new Rectangle(0,(windowHeight+hudHeight)/2- doorSide/2, doorSide, doorSide) }, new ChangeRoomXYCommand(game)}
             };
 
             rightMouseClickCommandMap = new Dictionary<Rectangle[], ICommand>()
             {
-                {new Rectangle[] {new Rectangle(windowWidth/2-50, hudHeight, 100,100),new Rectangle(windowWidth/2-50,windowHeight-100,100,100)}, new ChangeRoomZCommand(game)}
+                {new Rectangle[] {new Rectangle(windowWidth/2- doorSide/2, hudHeight, doorSide, doorSide),new Rectangle(windowWidth/2- doorSide/2, windowHeight- doorSide, doorSide, doorSide) }, new ChangeRoomZCommand(game)}
             };
         }
 

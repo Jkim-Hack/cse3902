@@ -1,4 +1,5 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,6 +12,7 @@ namespace cse3902.Rooms
         private Texture2D spriteTexture;
         private Vector2 center;
 
+        private float layer;
         private int frameWidth;
         private int frameHeight;
         private Rectangle destination;
@@ -37,13 +39,14 @@ namespace cse3902.Rooms
             }
         }
 
-        public ExteriorSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 centerPosition)
+        public ExteriorSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 centerPosition, float layer)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
             frameWidth = texture.Width;
             frameHeight = texture.Height;
 
+            this.layer = layer;
             this.center = centerPosition;
         }
 
@@ -51,7 +54,7 @@ namespace cse3902.Rooms
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, 0.9f);
+            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, layer);
         }
 
         public void Erase()

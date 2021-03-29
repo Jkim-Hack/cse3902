@@ -25,25 +25,16 @@ namespace cse3902.Blocks
 
         public void Interact(IBlock.PushDirection pushDirection)
         {
-            List<Vector2> directions = new List<Vector2>();
-            directions.Add(new Vector2(0, 0));
-            directions.Add(new Vector2(1, 0));
-            directions.Add(new Vector2(0, 1));
-            directions.Add(new Vector2(-1, 0));
-            directions.Add(new Vector2(0, -1));
-
-            game.Player.Directions = directions;
+            //no interaction
         }
         public void Interact(Vector2 pushDirection)
         {
-            List<Vector2> directions = new List<Vector2>();
-            directions.Add(new Vector2(0, 0));
-            directions.Add(new Vector2(1, 0));
-            directions.Add(new Vector2(0, 1));
-            directions.Add(new Vector2(-1, 0));
-            directions.Add(new Vector2(0, -1));
+            //no interaction
+        }
 
-            game.Player.Directions = directions;
+        public void Update()
+        {
+            //nothing to update
         }
         public void Draw()
         {
@@ -68,6 +59,11 @@ namespace cse3902.Blocks
         public void Reset()
         {
             //doesn't move so no reset needed
+        }
+
+        public bool IsMoved()
+        {
+            return true;
         }
     }
 }

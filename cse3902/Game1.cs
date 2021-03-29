@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.SpriteFactory;
 using cse3902.Collision;
+using cse3902.Constants;
+using cse3902.HUD;
 
 namespace cse3902
 {
@@ -37,21 +39,9 @@ namespace cse3902
         private Camera camera;
         public Camera Camera { get => camera; }
 
-        private int scale;
-        private int hudHeight;
-        public int Scale { get => scale; }
-        public int HudHeight { get => hudHeight; }
-
+        private MiniMapHUDItem miniMapHUDItem; // testing
+        
         private Texture2D lineTexture;
-
-        public enum PauseState
-        {
-            Unpaused,
-            Paused,
-            HudDisplayed,
-            HudPaused
-        }
-        public PauseState PausedState;
 
         public Game1()
         {
@@ -67,12 +57,8 @@ namespace cse3902
         /// </summary>
         protected override void Initialize()
         {
-            hudHeight = 56;
-            scale = 3;
-            PausedState = PauseState.Unpaused;
-
-            this.graphics.PreferredBackBufferWidth = 256 * Scale;
-            this.graphics.PreferredBackBufferHeight = 232 * Scale;
+            this.graphics.PreferredBackBufferWidth = DimensionConstants.WindowWidth;
+            this.graphics.PreferredBackBufferHeight = DimensionConstants.WindowHeight;
             this.graphics.ApplyChanges();
 
             // Setup input controllers    
@@ -96,16 +82,19 @@ namespace cse3902
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             player = new Link(this);
-            camera = new Camera(this);
+            camera = new Camera(new Vector2(0,0));
             roomHandler = new RoomHandler(this);
             collisionManager = new CollisionManager(this);
+            miniMapHUDItem = new MiniMapHUDItem(this); // testing
+
+            GameStateManager.Instance.Camera = camera;
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
-            RoomBackground.Instance.LoadTextures(Content, spriteBatch);
+            Background.Instance.LoadTextures(Content, spriteBatch);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             NPCSpriteFactory.Instance.LoadAllTextures(Content);
-            ItemSpriteFactory.Instance.LoadAllTextures(Content);
+            ItemSpriteFactory.Instance.LoadAllTextures(Content, spriteBatch);
             ProjectileHandler.Instance.LoadAllTextures(Content);
 
             // For hitbox drawing
@@ -122,7 +111,7 @@ namespace cse3902
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.PROJECTILES, ref RoomProjectiles.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BLOCKS, ref RoomBlocks.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.DOORS, ref RoomDoors.Instance.ListRef);
-            allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BACKGROUND, ref RoomBackground.Instance.WallsListRef);
+            allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BACKGROUND, ref Background.Instance.WallsListRef);
 
             roomHandler.LoadNewRoom(roomHandler.startingRoomTranslation,0);
         }
@@ -148,15 +137,22 @@ namespace cse3902
                 controller.Update();
             }
 
-            if (PausedState == PauseState.Unpaused)
+            if (GameStateManager.Instance.IsUnpaused())
             {
                 player.Update(gameTime);
                 roomHandler.Update(gameTime);
                 collisionManager.Update();
             }
+            else if (GameStateManager.Instance.IsPickingUpItem())
+            {
+                player.Update(gameTime);
+            }
 
+            //player.Update(gameTime);
             camera.Update();
+            GameStateManager.Instance.Update();
             base.Update(gameTime);
+            miniMapHUDItem.Update();
         }
 
         /// <summary>
@@ -166,16 +162,16 @@ namespace cse3902
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetTransformationMatrix());
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetGameplayTransformationMatrix());
 
-            player.Draw();
+            if (!GameStateManager.Instance.InMenu(true)) player.Draw();
             roomHandler.Draw();
             collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
 
             spriteBatch.End();
 
-            spriteBatch.Begin();
-            //draw hud stuff here
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetHudTransformationMatrix());
+            miniMapHUDItem.Draw(); // testing
             spriteBatch.End();
 
             base.Draw(gameTime);

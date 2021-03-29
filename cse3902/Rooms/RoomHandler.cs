@@ -3,6 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
 using cse3902.Projectiles;
+using System.Linq;
 
 namespace cse3902.Rooms
 {
@@ -14,6 +15,7 @@ namespace cse3902.Rooms
         public const int NUM_ROOMS_Y = RoomUtilities.NUM_ROOMS_Y;
         public const int CAMERA_CYCLES = RoomUtilities.CAMERA_CYCLES;
 
+        private Game1 game;
         public Dictionary<Vector3, Room> rooms;
 
         private XMLParser xmlParser;
@@ -27,8 +29,11 @@ namespace cse3902.Rooms
         public Vector3 startingRoomTranslation { get; }
         private bool startComplete;
 
-        public RoomHandler(Game1 game)
+        private String url;
+
+        public RoomHandler(Game1 gm)
         {
+            this.game = gm;
             rooms = new Dictionary<Vector3, Room>();
             xmlParser = new XMLParser(this, game);
             roomTransitionManager = new RoomTransitionManager(game);
@@ -41,7 +46,7 @@ namespace cse3902.Rooms
 
         public void Initialize()
         {
-            String url = "XMLParsing/Room1.xml";
+            url = "XMLParsing/Room1.xml";
             xmlParser.ParseXML(url);
         }
 
@@ -58,7 +63,7 @@ namespace cse3902.Rooms
             rooms.GetValueOrDefault(currentRoom).Items = oldItems;
 
             List<IEntity> oldEnemies = rooms.GetValueOrDefault(currentRoom).Enemies;
-            RoomEnemies.Instance.LoadNewRoom(ref oldEnemies, newRoom.Enemies);
+            RoomEnemies.Instance.LoadNewRoom(ref oldEnemies, newRoom.Enemies, game);
             rooms.GetValueOrDefault(currentRoom).Enemies = oldEnemies;
 
             List<INPC> oldNPCs = rooms.GetValueOrDefault(currentRoom).NPCs;
@@ -72,6 +77,10 @@ namespace cse3902.Rooms
             List<IDoor> oldDoors = rooms.GetValueOrDefault(currentRoom).Doors;
             RoomDoors.Instance.LoadNewRoom(ref oldDoors, newRoom.Doors);
             rooms.GetValueOrDefault(currentRoom).Doors = oldDoors;
+
+            List<ICondition> oldConditions = rooms.GetValueOrDefault(currentRoom).Conditions;
+            RoomConditions.Instance.LoadNewRoom(ref oldConditions, newRoom.Conditions);
+            rooms.GetValueOrDefault(currentRoom).Conditions = oldConditions;
 
             previousRoom = currentRoom;
             currentRoom = newPos;
@@ -98,23 +107,27 @@ namespace cse3902.Rooms
             else
             {
                 RoomItems.Instance.Update(gameTime);
+                CloudAnimation.Instance.Update(gameTime);
                 RoomEnemies.Instance.Update(gameTime);
                 RoomNPCs.Instance.Update(gameTime);
                 RoomProjectiles.Instance.Update(gameTime);
+                RoomConditions.Instance.Update(gameTime);
             }
 
-            RoomBackground.Instance.Update(gameTime);
+            Background.Instance.Update(gameTime);
             RoomBlocks.Instance.Update(gameTime);
         }
         public void Draw()
         {
             if (roomTransitionManager.IsTransitioning())
             {
-                
+                RoomDoors.Instance.DrawOld();
+                RoomBlocks.Instance.DrawOld();
             }
-            else
+            else if(!GameStateManager.Instance.InMenu(true))
             {
                 RoomItems.Instance.Draw();
+                CloudAnimation.Instance.Draw();
                 RoomEnemies.Instance.Draw();
                 RoomNPCs.Instance.Draw();
                 RoomProjectiles.Instance.Draw();
@@ -122,18 +135,24 @@ namespace cse3902.Rooms
 
             RoomDoors.Instance.Draw();
             RoomBlocks.Instance.Draw();
-            RoomBackground.Instance.Draw();
+            Background.Instance.Draw();
         }
 
         public void CompleteStart()
         {
             startComplete = true;
+            rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].ConnectedDoor = null;
             rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Wall;
         }
 
         public void Reset()
         {
-            ProjectileHandler.Instance.Reset();
+            RoomBlocks.Instance.Reset();
+        }
+
+        public Vector3 RoomChangeDirection
+        {
+            get => currentRoom - previousRoom;
         }
     }
 }
