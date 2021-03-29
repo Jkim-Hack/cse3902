@@ -39,7 +39,7 @@ namespace cse3902.HUD
                 case HUDItemKey.INVENTORY:
                     break;
                 case HUDItemKey.HEALTH:
-                    CreateHealthHUDItem();
+                    HUDItems.Add(HUDItemKey.HEALTH, CreateHealthHUDItem());
                     break;
                 // ... Add more when new HUDItems are implemented
             }
