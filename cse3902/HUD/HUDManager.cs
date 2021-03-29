@@ -47,6 +47,8 @@ namespace cse3902.HUD
                 case HUDItemKey.HEALTH:
                     HUDItems.Add(HUDItemKey.HEALTH, CreateHealthHUDItem());
                     break;
+                case HUDItemKey.MINIMAP:
+                    break;
                 // ... Add more when new HUDItems are implemented
             }
         }
@@ -55,8 +57,8 @@ namespace cse3902.HUD
         {
             return HUDSpriteFactory.Instance.CreateHealthHUDItem(game, HUDPositionConstants.HealthHUDPosition);
         }
-
-        public void Update(GameTime gameTime)
+ 
+	    public void Update(GameTime gameTime)
         {
             foreach (var hudItem in HUDItems.Values)
             {
