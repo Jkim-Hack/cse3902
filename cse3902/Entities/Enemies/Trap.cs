@@ -8,7 +8,7 @@ using cse3902.Collision.Collidables;
 
 namespace cse3902.Entities.Enemies
 {
-    public class Trap: IEntity
+    public class Trap: ITrap
     {
         private TrapSprite trapSprite;
         private readonly Game1 game;
@@ -18,8 +18,7 @@ namespace cse3902.Entities.Enemies
         private Vector2 startingPos;
         private Vector2 center;
         private int travelDistance;
-        private Vector2 shoveDirection;
-        private int shoveDistance;
+
 
         private ICollidable collidable;
 
@@ -34,9 +33,8 @@ namespace cse3902.Entities.Enemies
             this.direction = direction;
             speed = 50.0f;
             travelDistance = 50;
-            shoveDistance = -10;
 
-            this.collidable = new EnemyCollidable(this, this.Damage);
+            this.collidable = new TrapCollidable(this, this.Damage);
         }
 
         public int Damage
@@ -47,11 +45,6 @@ namespace cse3902.Entities.Enemies
         public ref Rectangle Bounds
         {
             get => ref this.trapSprite.Box;
-        }
-
-        public int Health
-        {
-            get => 0;
         }
 
         public Vector2 Direction
@@ -67,7 +60,7 @@ namespace cse3902.Entities.Enemies
 
         public Vector2 PreviousCenter
         {
-            //todo: not yet implemented correctly for wallmaster
+            //todo: not yet implemented correctly for trap
             get => this.center;
         }
 
@@ -75,45 +68,16 @@ namespace cse3902.Entities.Enemies
         {
             get => this.collidable;
         }
-
-        public void Attack()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ChangeDirection(Vector2 direction)
-        {
-            this.direction = direction;
-        }
-
-        public void TakeDamage(int damage)
-        {
-            //traps don't take damage
-        }
-
-        public void Die()
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            this.trapSprite.Update(gameTime);
         }
 
         public void Draw()
         {
-            throw new NotImplementedException();
+            this.trapSprite.Draw();
         }
 
-        public void BeShoved()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void StopShove()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
