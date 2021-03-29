@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using cse3902.Constants;
 using cse3902.Interfaces;
+using cse3902.SpriteFactory;
 using Microsoft.Xna.Framework;
 
 namespace cse3902.HUD
@@ -32,10 +34,12 @@ namespace cse3902.HUD
         // This will only be called once per HUD item
         public void CreateHUDItemWithKey(HUDItemKey key)
         {
-
             switch (key)
             {
                 case HUDItemKey.INVENTORY:
+                    break;
+                case HUDItemKey.HEALTH:
+                    CreateHealthHUDItem();
                     break;
                 // ... Add more when new HUDItems are implemented
             }
@@ -43,8 +47,7 @@ namespace cse3902.HUD
 
         private IHUDItem CreateHealthHUDItem()
         {
-            // TODO: Add HealthHUDItem here
-            return null;
+            return HUDSpriteFactory.Instance.CreateHealthHUDItem(game, HUDPositionConstants.HealthHUDPosition);
         }
 
         public void Update(GameTime gameTime)

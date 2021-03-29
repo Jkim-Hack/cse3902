@@ -22,6 +22,7 @@ namespace cse3902.HUD.HUDItems
         private Vector2 heartContainerOrigin;
 
         private float heartCount;
+        private float totalHeartCount;
         private List<HeartHUDSprite> hearts;
 
         public HealthHUDItem(Game1 game, Texture2D UITexture, Texture2D heartTexture, Vector2 origin)
@@ -34,6 +35,7 @@ namespace cse3902.HUD.HUDItems
             player = game.Player;
 
             heartCount = player.Health;
+            totalHeartCount = player.Health;
 	        this.heartTexture = heartTexture;
             hearts = new List<HeartHUDSprite>();
             heartContainerOrigin = new Vector2(origin.X + HeartConstants.HeartHUDContainerOffsetX, origin.Y + HeartConstants.HeartHUDContainerOffsetY);
@@ -93,9 +95,13 @@ namespace cse3902.HUD.HUDItems
         }
 
         private void UpdateHearts()
-        {
+        { 
             if (heartCount != player.Health)
             {
+                if (heartCount < player.Health)
+                {
+                    totalHeartCount = player.Health;
+                }
                 heartCount = player.Health;
             }
         }
@@ -116,7 +122,7 @@ namespace cse3902.HUD.HUDItems
                 i++;
             }
 
-            for (; i < hearts.Count; i++)
+            for (; i < totalHeartCount; i++)
             {
                 hearts[i].Empty = true;
                 hearts[i].Draw();
