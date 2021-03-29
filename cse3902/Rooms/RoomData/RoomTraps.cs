@@ -25,36 +25,32 @@ namespace cse3902.Rooms
             traps = new List<ITrap>();
         }
 
-        public void AddEnemy(ITrap enemy)
+        public void AddTrap(ITrap trap)
         {
-            traps.Add(enemy);
+            traps.Add(trap);
         }
 
-        public void RemoveEnemy(ITrap enemy)
+        public void RemoveTrap(ITrap trap)
         {
-            (traps as List<ITrap>).RemoveAll(x => x.Center == enemy.Center);
+            (traps as List<ITrap>).RemoveAll(x => x.Center == trap.Center);
         }
 
         public void Update(GameTime gameTime)
         {
-            if (CloudAnimation.Instance.cloudAnims.Count == 0)
+            foreach (ITrap trap in traps)
             {
-                foreach (ITrap trap in traps)
-                {
-                    trap.Update(gameTime);
-                }
+                trap.Update(gameTime);
             }
         }
 
         public void Draw()
         {
-            if (CloudAnimation.Instance.cloudAnims.Count == 0)
+
+            foreach (ITrap trap in traps)
             {
-                foreach (ITrap trap in traps)
-                {
-                    trap.Draw();
-                }
+                trap.Draw();
             }
+
         }
 
         public void LoadNewRoom(ref List<ITrap> oldList, List<ITrap> newList, Game1 game)

@@ -109,6 +109,7 @@ namespace cse3902.Rooms
                 RoomItems.Instance.Update(gameTime);
                 CloudAnimation.Instance.Update(gameTime);
                 RoomEnemies.Instance.Update(gameTime);
+                RoomTraps.Instance.Update(gameTime);
                 RoomNPCs.Instance.Update(gameTime);
                 RoomProjectiles.Instance.Update(gameTime);
                 RoomConditions.Instance.Update(gameTime);
@@ -129,6 +130,7 @@ namespace cse3902.Rooms
                 RoomItems.Instance.Draw();
                 CloudAnimation.Instance.Draw();
                 RoomEnemies.Instance.Draw();
+                RoomTraps.Instance.Draw();
                 RoomNPCs.Instance.Draw();
                 RoomProjectiles.Instance.Draw();
             }
