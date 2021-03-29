@@ -38,7 +38,7 @@ namespace cse3902.SpriteFactory
             keese = content.Load<Texture2D>("enemies/keese");
             stalfos = content.Load<Texture2D>("enemies/stalfos");
             wallmaster = content.Load<Texture2D>("enemies/wall_master");
-            trap = content.Load<Texture2D>("enemies/trap");
+            trap = content.Load<Texture2D>("trap");
             goriyaDamageSequence = content.Load<Texture2D>("enemies/goriya_hurt");
             bossDamageSequence = content.Load<Texture2D>("enemies/bosses_hurt");
 	    }
