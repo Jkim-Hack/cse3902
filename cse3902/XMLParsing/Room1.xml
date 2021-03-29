@@ -2241,25 +2241,25 @@
         </enemies> 
         <traps>
             <trap>
-                <xloc>1</xloc>
-                <yloc>1</yloc>
+                <xloc>0</xloc>
+                <yloc>0</yloc>
                 <xdir>1</xdir>
                 <ydir>1</ydir>
             </trap>
             <trap>
-                <xloc>6</xloc>
-                <yloc>1</yloc>
+                <xloc>11</xloc>
+                <yloc>0</yloc>
                 <xdir>-1</xdir>
                 <ydir>1</ydir>
             </trap>
             <trap>
-                <xloc>1</xloc>
+                <xloc>0</xloc>
                 <yloc>6</yloc>
                 <xdir>1</xdir>
                 <ydir>-1</ydir>
             </trap>
             <trap>
-                <xloc>6</xloc>
+                <xloc>11</xloc>
                 <yloc>6</yloc>
                 <xdir>-1</xdir>
                 <ydir>-1</ydir>
