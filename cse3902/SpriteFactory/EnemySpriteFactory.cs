@@ -75,7 +75,7 @@ namespace cse3902.SpriteFactory
 
         public ISprite CreateTrapSprite(SpriteBatch spriteBatch, Vector2 center)
         {
-            return new TrapSprite(spriteBatch, wallmaster, 1, 1, center);
+            return new TrapSprite(spriteBatch, trap, 1, 1, center);
         }
     }
 }
