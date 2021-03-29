@@ -9,13 +9,13 @@ namespace cse3902.Collision.Collidables
 {
     public class TrapCollidable : ICollidable
     {
-        private IEntity trap;
+        private ITrap trap;
         private Boolean[] collisionOccurrences;
         private int damage;
 
         public bool DamageDisabled { get; set; }
 
-        public TrapCollidable(IEntity trap, int damage)
+        public TrapCollidable(ITrap trap, int damage)
         {
             this.trap = trap;
             this.damage = damage;
