@@ -27,6 +27,8 @@
                 <yloc>5</yloc>
             </enemy>
         </enemies>
+        <traps>
+        </traps>
         <npcs>
         </npcs>
         <blocks>
@@ -80,6 +82,8 @@
 		</items>
 		<enemies>
 		</enemies>
+        <traps>
+        </traps>
 		<blocks>
 		</blocks>
 	</room>
@@ -122,6 +126,8 @@
         </items>
         <enemies>
         </enemies> 
+        <traps>
+        </traps>
         <blocks>
             <block>
                 <type>Invisible</type>
@@ -272,7 +278,9 @@
                 <xloc>11</xloc>
                 <yloc>5</yloc>
             </enemy>
-        </enemies> 
+        </enemies>
+        <traps>
+        </traps>
         <blocks>
             <block>
                 <type>Normal</type>
@@ -414,6 +422,8 @@
                 <yloc>0</yloc>
             </enemy>
         </enemies> 
+        <traps>
+        </traps>
         <blocks>
             <block>
                 <type>Normal</type>
@@ -528,6 +538,8 @@
                 <yloc>6</yloc>
             </enemy>
         </enemies>
+        <traps>
+        </traps>
         <blocks>
             <block>
                 <type>Normal</type>
@@ -642,6 +654,8 @@
                 <yloc>2</yloc>
             </enemy>
         </enemies>
+        <traps>
+        </traps>
         <blocks>
             <block>
                 <type>Normal</type>
@@ -752,6 +766,8 @@
                 <yloc>3</yloc>
             </enemy>
         </enemies>
+        <traps>
+        </traps>
         <blocks>
             <block>
                 <type>Normal</type>
@@ -840,6 +856,8 @@
         </items>
         <enemies>
         </enemies>
+        <traps>
+        </traps>
         <blocks>
         </blocks>
     </room>
@@ -897,6 +915,8 @@
                 <yloc>3</yloc>
             </enemy>
         </enemies>
+        <traps>
+        </traps>
         <blocks>
             <block>
                 <type>Normal</type>
@@ -976,6 +996,8 @@
                 <yloc>2</yloc>
             </enemy>
         </enemies> 
+        <traps>
+        </traps>
         <blocks>
             <block>
                 <type>Normal</type>
@@ -1103,6 +1125,8 @@
                 <yloc>4</yloc>
             </enemy>
         </enemies> 
+        <traps>
+        </traps>
         <blocks>
             <block>
                 <type>Normal</type>
@@ -1217,7 +1241,9 @@
                 <xloc>11</xloc>
                 <yloc>6</yloc>
             </enemy>
-        </enemies> 
+        </enemies>
+        <traps>
+        </traps>
         <blocks>
             <block>
                 <type>Normal</type>
@@ -1401,6 +1427,8 @@
                 <yloc>3</yloc>
             </enemy>
         </enemies> 
+        <traps>
+        </traps>
         <blocks>
             <block>
                 <type>Water</type>
@@ -1775,6 +1803,8 @@
                 <yloc>3</yloc>
             </enemy>
         </enemies> 
+        <traps>
+        </traps>
         <blocks>
             <block>
                 <type>Normal</type>
@@ -1962,6 +1992,8 @@
         </items>
         <enemies>
         </enemies> 
+        <traps>
+        </traps>
         <blocks>
             <block>
                 <type>Invisible</type>
@@ -2356,6 +2388,8 @@
                 <yloc>4</yloc>
             </enemy>
         </enemies> 
+        <traps>
+        </traps>
         <blocks>
             <block>
                 <type>Water</type>
@@ -2570,6 +2604,8 @@
                 <yloc>5</yloc>
             </enemy>
         </enemies> 
+        <traps>
+        </traps>
         <blocks>
 			<block>
 				<type>Invisible</type>
