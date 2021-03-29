@@ -30,7 +30,7 @@ namespace cse3902.Collision.Collidables
             //whether it has been triggered or not
             if (collidableObject is TrapCollidable || collidableObject is WallCollidable)
             {
-
+                //trap needs to stop its forward movement and begin moving back
             }
         }
 
