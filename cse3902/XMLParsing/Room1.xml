@@ -2238,11 +2238,6 @@
         <items>
         </items>
         <enemies>
-            <enemy>
-                <type>Goriya</type>
-                <xloc>1</xloc>
-                <yloc>1</yloc>
-            </enemy>
         </enemies> 
         <traps>
             <trap>
