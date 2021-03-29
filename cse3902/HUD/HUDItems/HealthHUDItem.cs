@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using cse3902.Constants;
 using cse3902.Interfaces;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
@@ -32,9 +33,10 @@ namespace cse3902.HUD.HUDItems
             spriteBatch = game.SpriteBatch;
             player = game.Player;
 
-            this.heartTexture = heartTexture;
+            heartCount = player.Health;
+	        this.heartTexture = heartTexture;
             hearts = new List<HeartHUDSprite>();
-            heartContainerOrigin = new Vector2(origin.X + 3, origin.Y - 18);
+            heartContainerOrigin = new Vector2(origin.X + HeartConstants.HeartHUDContainerOffsetX, origin.Y + HeartConstants.HeartHUDContainerOffsetY);
             InstantiateHearts();
         }
 
