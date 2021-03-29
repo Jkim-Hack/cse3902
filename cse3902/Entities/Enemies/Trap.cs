@@ -19,7 +19,8 @@ namespace cse3902.Entities.Enemies
         private Vector2 center;
         private int travelDistance;
 
-
+        private Rectangle detectionBox;
+        private Boolean triggered;
         private ICollidable collidable;
 
         public Trap(Game1 game, Vector2 start, Vector2 direction)
@@ -28,12 +29,13 @@ namespace cse3902.Entities.Enemies
             startingPos = start;
             center = startingPos;
 
-            //sprite sheet is 1 row, 2 columns
             trapSprite = (TrapSprite)EnemySpriteFactory.Instance.CreateTrapSprite(game.SpriteBatch, startingPos);
             this.direction = direction;
             speed = 50.0f;
             travelDistance = 50;
 
+            this.detectionBox = this.trapSprite.Box;
+            this.triggered = false;
             this.collidable = new TrapCollidable(this);
         }
 
@@ -42,9 +44,24 @@ namespace cse3902.Entities.Enemies
             get => 3;
         }
 
+        public Boolean IsTriggered
+        {
+            get => this.triggered;
+            set => this.triggered = value;
+        }
+
         public ref Rectangle Bounds
         {
-            get => ref this.trapSprite.Box;
+            get
+            {
+                if (this.IsTriggered)
+                {
+                    return ref this.trapSprite.Box;
+                } else
+                {
+                    return ref this.trapSprite.Box;
+                }
+            }
         }
 
         public Vector2 Direction
@@ -77,6 +94,24 @@ namespace cse3902.Entities.Enemies
         public void Draw()
         {
             this.trapSprite.Draw();
+        }
+
+        private void ConstructDetectionBoxes(Vector2 direction)
+        {
+            //todo: test these magic number values
+            if (direction.X > 0)
+            {
+                this.detectionBox. = this.trapSprite.Box.X + 800;
+            }
+            else
+            {
+                this.detectionBox.X = this.trapSprite.Box.X - 800;
+            }
+
+            if (direction.Y > 0)
+            {
+                this.detectionBox.
+            }
         }
 
     }

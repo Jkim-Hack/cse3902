@@ -10,6 +10,7 @@ namespace cse3902.Interfaces
         public Vector2 Center { get; set; }
         public Vector2 PreviousCenter { get; }
         public int Damage { get; }
+        public Boolean IsTriggered { get; set; }
 
         public void Update(GameTime gameTime);
         public void Draw();
