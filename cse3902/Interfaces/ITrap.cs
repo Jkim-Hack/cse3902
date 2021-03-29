@@ -4,7 +4,7 @@ using cse3902.Collision;
 
 namespace cse3902.Interfaces
 {
-    public interface ITrap
+    public interface ITrap: ICollidableItemEntity
     {
         public ref Rectangle Bounds { get; }
         public Vector2 Center { get; set; }
