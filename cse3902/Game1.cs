@@ -107,7 +107,7 @@ namespace cse3902
 
             allCollidablesList.Insert((int)CollisionManager.CollisionPriority.PLAYER, player);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ENEMIES, ref RoomEnemies.Instance.ListRef);
-            allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ENEMIES, ref RoomTraps.Instance.ListRef);
+            allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.TRAPS, ref RoomTraps.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ITEMS, ref RoomItems.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.PROJECTILES, ref RoomProjectiles.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BLOCKS, ref RoomBlocks.Instance.ListRef);
