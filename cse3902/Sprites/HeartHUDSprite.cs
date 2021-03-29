@@ -85,6 +85,7 @@ namespace cse3902.Sprites
             set 
 	        {
                 isHalf = value;
+                isEmpty = false;
                 if (isHalf) currentFrame = HeartType.HALF;
                 else if (isHalf && !isEmpty) currentFrame = HeartType.HALF;
                 else if (!isHalf && isEmpty) currentFrame = HeartType.EMPTY;
