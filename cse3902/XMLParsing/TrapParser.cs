@@ -41,14 +41,14 @@ namespace cse3902.XMLParsing
 
                 Vector2 truePos = RoomUtilities.CalculateBlockCenter(roomobj.RoomPos, new Vector2(x, y));
 
-                IEntity enemyAdd = CreateTrap(truePos, new Vector2(xdirection, ydirection));
-                roomobj.AddEnemy(enemyAdd);
+                ITrap trapAdd = CreateTrap(truePos, new Vector2(xdirection, ydirection));
+                roomobj.AddTrap(trapAdd);
             }
         }
 
-        private IEntity CreateTrap(Vector2 startingPos, Vector2 direction)
+        private ITrap CreateTrap(Vector2 startingPos, Vector2 direction)
         {
-            IEntity trap = new Trap(game, startingPos, direction);
+            ITrap trap = new Trap(game, startingPos, direction);
             
             return trap;
         }
