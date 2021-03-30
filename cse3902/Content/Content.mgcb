@@ -764,6 +764,12 @@
 /processorParam:TextureFormat=Color
 /build:LinkDamageSequence.png
 
+#begin LOZ_Get_Heart.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Get_Heart.wav
+
 #begin map.png
 /importer:TextureImporter
 /processor:TextureProcessor
