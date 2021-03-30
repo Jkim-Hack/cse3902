@@ -30,7 +30,7 @@ namespace cse3902.SpriteFactory
         public void LoadAllTextures(ContentManager content)
         {
             HealthUITexture = content.Load<Texture2D>("UI/HealthUI");
-            HealthUITexture = content.Load<Texture2D>("UI/HeartsUI");
+            HeartUITexture = content.Load<Texture2D>("UI/HeartsUI");
         }
 
         public IHUDItem CreateHealthHUDItem(Game1 game, Vector2 startingPos)

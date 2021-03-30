@@ -41,6 +41,9 @@ namespace cse3902
 
         private MiniMapHUDItem miniMapHUDItem; // testing
         
+	    private HUDManager hudManager;
+        public HUDManager HUDManager { get => hudManager; }
+        
         private Texture2D lineTexture;
 
         public Game1()
@@ -69,6 +72,7 @@ namespace cse3902
             allCollidablesList = new AllCollidablesList();
 
             this.IsMouseVisible = true;
+
             base.Initialize();
         }
 
@@ -96,6 +100,7 @@ namespace cse3902
             NPCSpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content, spriteBatch);
             ProjectileHandler.Instance.LoadAllTextures(Content);
+            HUDSpriteFactory.Instance.LoadAllTextures(Content);
 
             // For hitbox drawing
 	        lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
@@ -104,6 +109,9 @@ namespace cse3902
             roomHandler.Initialize();
 
             collisionManager = new CollisionManager(this);
+
+            hudManager = new HUDManager(this);
+            hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.HEALTH);
 
             allCollidablesList.Insert((int)CollisionManager.CollisionPriority.PLAYER, player);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ENEMIES, ref RoomEnemies.Instance.ListRef);
@@ -148,6 +156,8 @@ namespace cse3902
                 player.Update(gameTime);
             }
 
+            hudManager.Update(gameTime);
+
             //player.Update(gameTime);
             camera.Update();
             GameStateManager.Instance.Update();
@@ -171,7 +181,8 @@ namespace cse3902
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetHudTransformationMatrix());
-            miniMapHUDItem.Draw(); // testing
+            hudManager.Draw();
+	        miniMapHUDItem.Draw(); // testing
             spriteBatch.End();
 
             base.Draw(gameTime);

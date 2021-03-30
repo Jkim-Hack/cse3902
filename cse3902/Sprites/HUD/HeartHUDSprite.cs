@@ -134,7 +134,7 @@ namespace cse3902.Sprites
         public void Draw()
         {
             Rectangle Destination = new Rectangle((int)this.origin.X, (int)this.origin.Y, frameWidth, frameHeight);
-            spriteBatch.Draw(texture, Destination, frames[(int)currentFrame], Color.White, 0, origin, SpriteEffects.None, 0.8f);
+            spriteBatch.Draw(texture, Destination, frames[(int)currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.LinkLayer); // Link layer for now before we add a HUD layer
         }
 
         public void Erase()

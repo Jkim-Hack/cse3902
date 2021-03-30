@@ -30,7 +30,7 @@ namespace cse3902.HUD.HUDItems
             center = new Vector2(origin.X / 2f, origin.Y / 2f);
             uiSpriteTexture = UITexture;
             size = new Vector2(uiSpriteTexture.Bounds.Width, uiSpriteTexture.Bounds.Height);
-            box = new Rectangle((int)origin.X, (int)origin.Y, (int)size.X, (int)size.Y);
+            box = new Rectangle((int)size.X, (int)size.Y, (int)size.X, (int)size.Y);
             spriteBatch = game.SpriteBatch;
             player = game.Player;
 
@@ -60,8 +60,7 @@ namespace cse3902.HUD.HUDItems
 
         public void Draw()
         { 
-            Rectangle Destination = new Rectangle((int)origin.X, (int)origin.Y, (int)(size.X), (int)(size.Y));
-            spriteBatch.Draw(uiSpriteTexture, Destination, Color.White);
+            spriteBatch.Draw(uiSpriteTexture, origin, box, Color.White, 0, new Vector2(0,0), 1f, SpriteEffects.None, SpriteUtilities.TopBackgroundLayer);
             DrawHeartDisplay();
         }
 

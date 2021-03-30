@@ -60,7 +60,7 @@ namespace cse3902.HUD
             if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Map] > 0)
             {
                 /* Draw entire map */
-                foreach (Rectangle rec in MiniMapConstants.GetRoomLayout()) HUDUtilities.DrawRectangle(game, rec, MiniMapConstants.RoomColor, 0, 0);
+                foreach (Rectangle rec in MiniMapConstants.GetRoomLayout()) HUDUtilities.DrawRectangle(game, rec, MiniMapConstants.RoomColor, offsetX, offsetY);
             }
 
             if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Compass] > 0)
@@ -68,8 +68,8 @@ namespace cse3902.HUD
                 Rectangle triforceRectangle = MiniMapConstants.CalculatePos((int)MiniMapConstants.TriforcePos.X, (int)MiniMapConstants.TriforcePos.Y);
                 triforceRectangle.X += (MiniMapConstants.Width - MiniMapConstants.Height) / 2;
                 triforceRectangle.Width = MiniMapConstants.Height;
-                if (colorRed) HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceRed, 0, 0);
-                else HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceGreen, 0, 0);
+                if (colorRed) HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceRed, offsetX, offsetY);
+                else HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceGreen, offsetX, offsetY);
             }
 
             /* Only draw current room square if not in item room */
@@ -78,7 +78,7 @@ namespace cse3902.HUD
                 Rectangle currentRoomRectangle = MiniMapConstants.CalculatePos((int)currentRoom.X, (int)currentRoom.Y, MiniMapConstants.Width, MiniMapConstants.Height);
                 currentRoomRectangle.X += (MiniMapConstants.Width - MiniMapConstants.Height) / 2;
                 currentRoomRectangle.Width = MiniMapConstants.Height;
-                HUDUtilities.DrawRectangle(game, currentRoomRectangle, MiniMapConstants.CurrentRoomColor, 0, 0);
+                HUDUtilities.DrawRectangle(game, currentRoomRectangle, MiniMapConstants.CurrentRoomColor, offsetX, offsetY);
             }
         }
     }
