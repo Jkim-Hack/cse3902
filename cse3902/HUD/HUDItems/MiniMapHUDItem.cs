@@ -10,8 +10,10 @@ namespace cse3902.HUD
     public class MiniMapHUDItem : IHUDItem
     {
         private Game1 game;
-
         private Vector3 currentRoom;
+
+        private Texture2D level;
+        private Texture2D number;
         
         private int offsetX;
         private int offsetY;
@@ -23,10 +25,13 @@ namespace cse3902.HUD
 
         private Rectangle box; // placeholder since this HUD item doesn't have a real rectangle
 
-        public MiniMapHUDItem(Game1 game)
+        public MiniMapHUDItem(Game1 game, Texture2D level, Texture2D number)
         {
             this.game = game;
             this.currentRoom = game.RoomHandler.currentRoom;
+
+            this.level = level;
+            this.number = number;
 
             // needs to be updated to be more positionally accurate
             this.offsetX = 40;
@@ -64,6 +69,8 @@ namespace cse3902.HUD
 
         public void Draw()
         {
+            DrawLevelLabel();
+
             if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Map] > 0)
             {
                 /* Draw entire map */
@@ -89,6 +96,11 @@ namespace cse3902.HUD
             }
         }
 
+        private void DrawLevelLabel()
+        {
+            
+        }
+
         public void Erase() {} // needs to be deleted once isprite is updated
 
         public Vector2 Center {
@@ -101,6 +113,7 @@ namespace cse3902.HUD
             }
         }
 
+        /* minimap doesn't have a texture other than the level label */
         public Texture2D Texture {
 
             get => null;
