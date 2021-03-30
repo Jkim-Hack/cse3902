@@ -30,11 +30,12 @@ namespace cse3902.HUD
         {
             this.game = game;
             this.currentRoom = game.RoomHandler.currentRoom;
+            this.currentRoom.Y++;
 
             this.level = level;
 
             this.offsetX = 25;
-            this.offsetY = DimensionConstants.OriginalWindowHeight - 30;
+            this.offsetY = DimensionConstants.OriginalWindowHeight - 33;
 
             int scaledWidth = (int)(level.Bounds.Width * 0.4f) - 1;
             int scaledHeight = (int)(level.Bounds.Height * 0.4f);
@@ -73,13 +74,26 @@ namespace cse3902.HUD
         public void Draw()
         {
             DrawLevelLabel();
+            DrawMap();
+            DrawTriforce();
+            DrawCurrentRoom();
+        }
 
+        private void DrawLevelLabel()
+        {
+            game.SpriteBatch.Draw(level, levelPos, Color.White);
+        }
+
+        private void DrawMap()
+        {
             if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Map] > 0)
             {
-                /* Draw entire map */
                 foreach (Rectangle rec in MiniMapConstants.GetRoomLayout()) HUDUtilities.DrawRectangle(game, rec, MiniMapConstants.RoomColor, offsetX, offsetY); 
             }
+        }
 
+        private void DrawTriforce()
+        {
             if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Compass] > 0)
             {
                 Rectangle triforceRectangle = MiniMapConstants.CalculatePos((int)MiniMapConstants.TriforcePos.X, (int)MiniMapConstants.TriforcePos.Y);
@@ -88,7 +102,10 @@ namespace cse3902.HUD
                 if (colorRed) HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceRed, offsetX, offsetY);
                 else HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceGreen, offsetX, offsetY);
             }
+        }
 
+        private void DrawCurrentRoom()
+        {
             /* Only draw current room square if not in item room */
             if (currentRoom.Z == 0)
             {
@@ -97,11 +114,6 @@ namespace cse3902.HUD
                 currentRoomRectangle.Width = MiniMapConstants.Height;
                 HUDUtilities.DrawRectangle(game, currentRoomRectangle, MiniMapConstants.CurrentRoomColor, offsetX, offsetY);
             }
-        }
-
-        private void DrawLevelLabel()
-        {
-            game.SpriteBatch.Draw(level, levelPos, Color.White);
         }
 
         public void Erase() {} // needs to be deleted once isprite is updated
