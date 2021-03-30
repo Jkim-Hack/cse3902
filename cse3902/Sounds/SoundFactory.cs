@@ -21,11 +21,13 @@ namespace cse3902.Sounds
         public SoundEffect bombBlow { get; set; }
         public SoundEffect lowHealth { get; set; }
         public SoundEffect getItem { get; set; }
+        public SoundEffect getRupee { get; set; }
         public SoundEffect text { get; set; }
         public SoundEffect keyAppear { get; set; }
         public SoundEffect doorUnlock { get; set; }
         public SoundEffect stairs { get; set; }
         public SoundEffect bossScream { get; set; }
+        public SoundEffect bossHurt { get; set; }
 
         private static SoundFactory instance = new SoundFactory();
 
@@ -54,11 +56,15 @@ namespace cse3902.Sounds
             bombBlow = content.Load<SoundEffect>("LOZ_Bomb_Blow");
             lowHealth = content.Load<SoundEffect>("LOZ_LowHealth");
             getItem = content.Load<SoundEffect>("LOZ_Get_Item");
+            // change to rupee sound
+            getRupee = content.Load<SoundEffect>("LOZ_Get_Item");
             text = content.Load<SoundEffect>("LOZ_Text");
             keyAppear = content.Load<SoundEffect>("LOZ_Key_Appear");
             doorUnlock = content.Load<SoundEffect>("LOZ_Door_Unlock");
             stairs = content.Load<SoundEffect>("LOZ_Stairs");
             bossScream = content.Load<SoundEffect>("LOZ_Boss_Scream1");
+            // change to boss hurt
+            bossHurt = content.Load<SoundEffect>("LOZ_Boss_Scream1");
         }
 
         public static void PlaySound(SoundEffect sound)

@@ -54,9 +54,13 @@ namespace cse3902.Entities
             {
                 SoundFactory.PlaySound(SoundFactory.Instance.getHeart);
             }
-            else if (item.ItemType == InventoryManager.ItemType.Rupee || item.ItemType == InventoryManager.ItemType.Bomb || item.ItemType == InventoryManager.ItemType.Boomerang)
+            else if (item.ItemType == InventoryManager.ItemType.Bomb || item.ItemType == InventoryManager.ItemType.Boomerang)
             {
                 SoundFactory.PlaySound(SoundFactory.Instance.getItem);
+            }
+            else if (item.ItemType == InventoryManager.ItemType.Rupee)
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.getRupee);
             }
             if (item.Equals(AnimationItem)) return;
             InventoryManager.ItemType type = item.ItemType;

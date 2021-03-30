@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Rooms;
 using cse3902.Sprites;
+using cse3902.Sounds;
 
 namespace cse3902.Projectiles
 {
@@ -98,6 +99,7 @@ namespace cse3902.Projectiles
         {
             if (animationComplete)
             {
+                SoundFactory.PlaySound(SoundFactory.Instance.bombBlow);
                 return -1;
             }
 
