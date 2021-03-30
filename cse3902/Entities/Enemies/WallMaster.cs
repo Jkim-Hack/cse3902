@@ -6,6 +6,7 @@ using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
 using cse3902.Constants;
+using cse3902.Sounds;
 
 namespace cse3902.Entities.Enemies
 {
@@ -75,12 +76,17 @@ namespace cse3902.Entities.Enemies
         public void TakeDamage(int damage)
         {
             this.Health -= damage;
+            if (this.Health > 0)
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.enemyHit);
+            }
             this.collidable.DamageDisabled = true;
         }
 
         public void Die()
         {
             this.wallMasterStateMachine.Die();
+            SoundFactory.PlaySound(SoundFactory.Instance.enemyHit);
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center);
         }
 

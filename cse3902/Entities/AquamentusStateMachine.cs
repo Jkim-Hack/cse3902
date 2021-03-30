@@ -1,5 +1,6 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Projectiles;
+using cse3902.Sounds;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -69,6 +70,9 @@ namespace cse3902.Entities
             fireball1 = projectileHandler.CreateFireballObject(spriteBatch, location, direction1);
             fireball2 = projectileHandler.CreateFireballObject(spriteBatch, location, direction2);
             fireball3 = projectileHandler.CreateFireballObject(spriteBatch, location, direction3);
+
+            // correct location for this?
+            SoundFactory.PlaySound(SoundFactory.Instance.bossScream);
         }
 
         public void CycleWeapon(int dir)
