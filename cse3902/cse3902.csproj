@@ -44,6 +44,9 @@
     <Folder Include="NPCs\" />
     <Folder Include="Constants\" />
     <Folder Include="HUD\" />
+    <Folder Include="HUD\HUDItems\" />
+    <Folder Include="Content\UI\" />
+    <Folder Include="Sprites\HUD\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Blocks\WaterBlock.cs" />
