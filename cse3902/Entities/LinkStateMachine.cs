@@ -1,4 +1,5 @@
-﻿using cse3902.Sprites;
+﻿using cse3902.Sounds;
+using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -229,6 +230,14 @@ namespace cse3902.Entities
                 linkSprite.Damaged = true;
                 health -= damage;
                 remainingDamageDelay = damageDelay;
+            }
+            if (health <= 2)
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.lowHealth);
+            }
+            else if (health > 0)
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.linkHit);
             }
         }
 

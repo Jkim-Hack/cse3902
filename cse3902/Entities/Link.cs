@@ -3,6 +3,7 @@ using cse3902.Collision.Collidables;
 using cse3902.Constants;
 using cse3902.Entities.DamageMasks;
 using cse3902.Interfaces;
+using cse3902.Sounds;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -55,6 +56,7 @@ namespace cse3902.Entities
 
         public void Die()
         {
+            SoundFactory.PlaySound(SoundFactory.Instance.linkDie);
         }
 
         public void TakeDamage(int damage)
