@@ -16,8 +16,9 @@ namespace cse3902.Entities.Enemies
 
         private Vector2 direction;
         private float speed;
-        private Vector2 startingPos;
+
         private Vector2 center;
+        private Vector2 previousCenter;
         private int travelDistance;
 
         private Rectangle detectionBox1;
@@ -32,10 +33,11 @@ namespace cse3902.Entities.Enemies
         {
             this.game = game;
 
-            startingPos = start;
-            center = startingPos;
+            center = start;
+            previousCenter = center;
 
-            trapSprite = (TrapSprite)EnemySpriteFactory.Instance.CreateTrapSprite(game.SpriteBatch, startingPos);
+
+            trapSprite = (TrapSprite)EnemySpriteFactory.Instance.CreateTrapSprite(game.SpriteBatch, start);
             this.direction = direction;
             speed = 50.0f;
             travelDistance = 50;
@@ -84,6 +86,7 @@ namespace cse3902.Entities.Enemies
             get => this.center;
             set
             {
+                this.PreviousCenter = this.center;
                 this.center = value;
                 this.trapSprite.Center = value;
             }
@@ -91,8 +94,8 @@ namespace cse3902.Entities.Enemies
 
         public Vector2 PreviousCenter
         {
-            //todo: not yet implemented correctly for trap
-            get => this.center;
+            get => this.previousCenter;
+            set => this.previousCenter = value;
         }
 
         public ICollidable Collidable
