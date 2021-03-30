@@ -50,10 +50,14 @@ namespace cse3902.Entities
 
         public void AddItem(IItem item)
         {
-            if (item.ItemType == InventoryManager.ItemType.Heart)
+            if (item.ItemType == InventoryManager.ItemType.Heart || item.ItemType == InventoryManager.ItemType.Key)
             {
                 SoundFactory.PlaySound(SoundFactory.Instance.getHeart);
-            }    
+            }
+            else if (item.ItemType == InventoryManager.ItemType.Rupee || item.ItemType == InventoryManager.ItemType.Bomb || item.ItemType == InventoryManager.ItemType.Boomerang)
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.getItem);
+            }
             if (item.Equals(AnimationItem)) return;
             InventoryManager.ItemType type = item.ItemType;
             InventoryManager.Instance.AddToInventory(type);
