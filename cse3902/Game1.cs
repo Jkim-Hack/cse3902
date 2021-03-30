@@ -41,8 +41,6 @@ namespace cse3902
 
         private HUDManager hudManager;
         public HUDManager HudManager { get => hudManager; }
-
-        private MiniMapHUDItem map;
         
         private Texture2D lineTexture;
 
@@ -91,8 +89,6 @@ namespace cse3902
             hudManager = new HUDManager(this);
 
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.MINIMAP);
-
-            // map = new MiniMapHUDItem(this);
 
             GameStateManager.Instance.Camera = camera;
 
@@ -161,7 +157,6 @@ namespace cse3902
             base.Update(gameTime);
 
             hudManager.Update(gameTime);
-            // map.Update(gameTime);
         }
 
         /// <summary>
@@ -181,7 +176,6 @@ namespace cse3902
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetHudTransformationMatrix());
             hudManager.Draw();
-            // map.Draw();
             spriteBatch.End();
 
             base.Draw(gameTime);
