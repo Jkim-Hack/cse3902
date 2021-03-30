@@ -19,7 +19,10 @@ namespace cse3902.Entities.Enemies
         private Vector2 center;
         private int travelDistance;
 
-        private Rectangle detectionBox;
+        private Rectangle detectionBox1;
+        private Rectangle detectionBox2;
+        private Rectangle currentDetectionBox;
+
         private Boolean triggered;
         private ICollidable collidable;
 
@@ -34,7 +37,8 @@ namespace cse3902.Entities.Enemies
             speed = 50.0f;
             travelDistance = 50;
 
-            this.detectionBox = this.trapSprite.Box;
+            ConstructDetectionBoxes(direction);
+
             this.triggered = false;
             this.collidable = new TrapCollidable(this);
         }
@@ -59,7 +63,7 @@ namespace cse3902.Entities.Enemies
                     return ref this.trapSprite.Box;
                 } else
                 {
-                    return ref this.trapSprite.Box;
+                    return ref currentDetectionBox;
                 }
             }
         }
@@ -88,6 +92,14 @@ namespace cse3902.Entities.Enemies
         
         public void Update(GameTime gameTime)
         {
+            if (currentDetectionBox == detectionBox1)
+            {
+                currentDetectionBox = detectionBox2;
+            } else
+            {
+                currentDetectionBox = detectionBox1;
+            }
+
             this.trapSprite.Update(gameTime);
         }
 
@@ -99,19 +111,27 @@ namespace cse3902.Entities.Enemies
         private void ConstructDetectionBoxes(Vector2 direction)
         {
             //todo: test these magic number values
-            if (direction.X > 0)
+            if (direction.X == 1)
             {
-                this.detectionBox. = this.trapSprite.Box.X + 800;
+                detectionBox1 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, 300, 800);
+
+
             }
             else
             {
-                this.detectionBox.X = this.trapSprite.Box.X - 800;
+                detectionBox1 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, 300, 800);
+                detectionBox1.Offset(-1000, 0);
             }
 
-            if (direction.Y > 0)
+            if (direction.Y == 1)
             {
-                this.detectionBox.
+                detectionBox2  = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, 800, 300);
+            } else
+            {
+                detectionBox2 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, 800, 300);
+                detectionBox2.Offset(0, 1000);
             }
+
         }
 
     }
