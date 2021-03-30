@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,7 +16,6 @@ namespace cse3902.Sounds
         public SoundEffect paddleBounceSound { get; set; }
         public SoundEffect wallBounceSound { get; set; }
         public SoundEffect missSound { get; set; }
-        public SpriteFont labelFont { get; set; }
 
         private static SoundFactory instance = new SoundFactory();
 
@@ -36,6 +34,11 @@ namespace cse3902.Sounds
         public void LoadAllTextures(ContentManager content)
         {
             getHeart = content.Load<SoundEffect>("LOZ_Get_Heart");
+        }
+
+        public void PlaySound(SoundEffect sound)
+        {
+
         }
     }
 }

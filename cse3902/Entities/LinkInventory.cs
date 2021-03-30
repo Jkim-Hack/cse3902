@@ -4,6 +4,8 @@ using cse3902.HUD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Rooms;
+using Microsoft.Xna.Framework.Audio;
+using cse3902.Sounds;
 
 namespace cse3902.Entities
 {
@@ -48,6 +50,10 @@ namespace cse3902.Entities
 
         public void AddItem(IItem item)
         {
+            if (item.ItemType == InventoryManager.ItemType.Heart)
+            {
+                PlaySound(SoundFactory.Instance.getHeart);
+            }    
             if (item.Equals(AnimationItem)) return;
             InventoryManager.ItemType type = item.ItemType;
             InventoryManager.Instance.AddToInventory(type);
@@ -105,6 +111,15 @@ namespace cse3902.Entities
         {
             RoomItems.Instance.RemoveItem(AnimationItem);
             AnimationItem = null;
+        }
+
+        public static void PlaySound(SoundEffect sound)
+        {
+            float volume = 1;
+            float pitch = 0.0f;
+            float pan = 0.0f;
+
+            sound.Play(volume, pitch, pan);
         }
     }
 }
