@@ -15,7 +15,6 @@ namespace cse3902.HUD
         private Texture2D level;
 
         private Rectangle levelPos;
-        private Rectangle numberPos;
         
         private int offsetX;
         private int offsetY;
@@ -34,9 +33,12 @@ namespace cse3902.HUD
 
             this.level = level;
 
-            // needs to be updated to be more positionally accurate
-            this.offsetX = 40;
-            this.offsetY = DimensionConstants.OriginalWindowHeight - 40;
+            this.offsetX = 25;
+            this.offsetY = DimensionConstants.OriginalWindowHeight - 30;
+
+            int scaledWidth = (int)(level.Bounds.Width * 0.4f) - 1;
+            int scaledHeight = (int)(level.Bounds.Height * 0.4f);
+            this.levelPos = new Rectangle(offsetX, offsetY - scaledHeight - 7, scaledWidth, scaledHeight);
 
             this.alreadyChanged = false;
             colorRed = false;
@@ -99,7 +101,7 @@ namespace cse3902.HUD
 
         private void DrawLevelLabel()
         {
-            // game.SpriteBatch.Draw(level, levelPos, Color.White);
+            game.SpriteBatch.Draw(level, levelPos, Color.White);
         }
 
         public void Erase() {} // needs to be deleted once isprite is updated
