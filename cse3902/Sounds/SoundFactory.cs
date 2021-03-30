@@ -28,6 +28,7 @@ namespace cse3902.Sounds
         public SoundEffect stairs { get; set; }
         public SoundEffect bossScream { get; set; }
         public SoundEffect bossHurt { get; set; }
+        public SoundEffect secret { get; set; }
 
         private static SoundFactory instance = new SoundFactory();
 
@@ -65,6 +66,7 @@ namespace cse3902.Sounds
             bossScream = content.Load<SoundEffect>("LOZ_Boss_Scream1");
             // change to boss hurt
             bossHurt = content.Load<SoundEffect>("LOZ_Boss_Scream1");
+            //secret = content.Load<SoundEffect>("LOZ_Secret");
         }
 
         public static void PlaySound(SoundEffect sound)
