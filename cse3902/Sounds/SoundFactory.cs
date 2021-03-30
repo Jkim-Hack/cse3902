@@ -12,10 +12,10 @@ namespace cse3902.Sounds
     public class SoundFactory
     {
         public SoundEffect getHeart { get; set; }
-        public SoundEffect brickSound { get; set; }
-        public SoundEffect paddleBounceSound { get; set; }
-        public SoundEffect wallBounceSound { get; set; }
-        public SoundEffect missSound { get; set; }
+        public SoundEffect enemyHit { get; set; }
+        public SoundEffect enemyDie { get; set; }
+        public SoundEffect linkHit { get; set; }
+        public SoundEffect linkDie { get; set; }
 
         private static SoundFactory instance = new SoundFactory();
 
@@ -34,11 +34,16 @@ namespace cse3902.Sounds
         public void LoadAllTextures(ContentManager content)
         {
             getHeart = content.Load<SoundEffect>("LOZ_Get_Heart");
+            enemyHit = content.Load<SoundEffect>("LOZ_Get_Heart");
         }
 
-        public void PlaySound(SoundEffect sound)
+        public static void PlaySound(SoundEffect sound)
         {
+            float volume = 1;
+            float pitch = 0.0f;
+            float pan = 0.0f;
 
+            sound.Play(volume, pitch, pan);
         }
     }
 }

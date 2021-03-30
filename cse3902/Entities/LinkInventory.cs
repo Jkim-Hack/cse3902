@@ -52,7 +52,7 @@ namespace cse3902.Entities
         {
             if (item.ItemType == InventoryManager.ItemType.Heart)
             {
-                PlaySound(SoundFactory.Instance.getHeart);
+                SoundFactory.PlaySound(SoundFactory.Instance.getHeart);
             }    
             if (item.Equals(AnimationItem)) return;
             InventoryManager.ItemType type = item.ItemType;
@@ -111,15 +111,6 @@ namespace cse3902.Entities
         {
             RoomItems.Instance.RemoveItem(AnimationItem);
             AnimationItem = null;
-        }
-
-        public static void PlaySound(SoundEffect sound)
-        {
-            float volume = 1;
-            float pitch = 0.0f;
-            float pan = 0.0f;
-
-            sound.Play(volume, pitch, pan);
         }
     }
 }
