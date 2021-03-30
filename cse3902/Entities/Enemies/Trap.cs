@@ -39,7 +39,9 @@ namespace cse3902.Entities.Enemies
             speed = 50.0f;
             travelDistance = 50;
 
+            
             ConstructDetectionBoxes(direction);
+            currentDetectionBox = detectionBox1;
 
             this.triggered = false;
             this.collidable = new TrapCollidable(this);
@@ -98,13 +100,13 @@ namespace cse3902.Entities.Enemies
         
         public void Update(GameTime gameTime)
         {
-            if (currentDetectionBox == detectionBox1)
-            {
-                currentDetectionBox = detectionBox2;
-            } else
-            {
-                currentDetectionBox = detectionBox1;
-            }
+            //if (currentDetectionBox == detectionBox1)
+            //{
+            //    currentDetectionBox = detectionBox2;
+            //} else
+            //{
+            //    currentDetectionBox = detectionBox1;
+            //}
 
             this.trapSprite.Update(gameTime);
         }
@@ -118,9 +120,7 @@ namespace cse3902.Entities.Enemies
         { 
             if (direction.X == 1)
             {
-                detectionBox1 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_X*RoomUtilities.BLOCK_SIDE));
-
-
+                detectionBox1 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, (RoomUtilities.NUM_BLOCKS_X * RoomUtilities.BLOCK_SIDE), RoomUtilities.BLOCK_SIDE);
             }
             else
             {
