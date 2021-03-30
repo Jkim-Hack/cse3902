@@ -13,7 +13,9 @@ namespace cse3902.HUD
         private Vector3 currentRoom;
 
         private Texture2D level;
-        private Texture2D number;
+
+        private Rectangle levelPos;
+        private Rectangle numberPos;
         
         private int offsetX;
         private int offsetY;
@@ -25,13 +27,12 @@ namespace cse3902.HUD
 
         private Rectangle box; // placeholder since this HUD item doesn't have a real rectangle
 
-        public MiniMapHUDItem(Game1 game, Texture2D level, Texture2D number)
+        public MiniMapHUDItem(Game1 game, Texture2D level)
         {
             this.game = game;
             this.currentRoom = game.RoomHandler.currentRoom;
 
             this.level = level;
-            this.number = number;
 
             // needs to be updated to be more positionally accurate
             this.offsetX = 40;
@@ -98,7 +99,7 @@ namespace cse3902.HUD
 
         private void DrawLevelLabel()
         {
-            
+            // game.SpriteBatch.Draw(level, levelPos, Color.White);
         }
 
         public void Erase() {} // needs to be deleted once isprite is updated

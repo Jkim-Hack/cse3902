@@ -88,8 +88,6 @@ namespace cse3902
             collisionManager = new CollisionManager(this);
             hudManager = new HUDManager(this);
 
-            hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.MINIMAP);
-
             GameStateManager.Instance.Camera = camera;
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
@@ -99,6 +97,7 @@ namespace cse3902
             NPCSpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content, spriteBatch);
             ProjectileHandler.Instance.LoadAllTextures(Content);
+            HUDSpriteFactory.Instance.LoadAllTextures(Content);
 
             // For hitbox drawing
 	        lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
@@ -117,6 +116,8 @@ namespace cse3902
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BACKGROUND, ref Background.Instance.WallsListRef);
 
             roomHandler.LoadNewRoom(roomHandler.startingRoomTranslation,0);
+
+            hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.MINIMAP);
         }
 
         /// <summary>

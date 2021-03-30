@@ -33,8 +33,7 @@ namespace cse3902.SpriteFactory
         {
             HealthUITexture = content.Load<Texture2D>("UI/HealthUI");
             HealthUITexture = content.Load<Texture2D>("UI/HeartsUI");
-            LevelLabel = content.Load<Texture2D>("UI/level");
-            NumberLabel = content.Load<Texture2D>("UI/number1");
+            LevelLabel = content.Load<Texture2D>("UI/level1");
         }
 
         public IHUDItem CreateHealthHUDItem(Game1 game, Vector2 startingPos)
@@ -44,7 +43,7 @@ namespace cse3902.SpriteFactory
 
         public IHUDItem CreateMinimapHUDItem(Game1 game)
         {
-            return new MiniMapHUDItem(game, LevelLabel, NumberLabel);
+            return new MiniMapHUDItem(game, LevelLabel);
         }
     }
 }
