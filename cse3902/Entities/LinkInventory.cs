@@ -1,12 +1,8 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Projectiles;
-using cse3902.Sprites;
 using cse3902.HUD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using System;
-using cse3902.SpriteFactory;
 using cse3902.Rooms;
 
 namespace cse3902.Entities

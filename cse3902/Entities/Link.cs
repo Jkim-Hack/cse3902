@@ -87,7 +87,7 @@ namespace cse3902.Entities
 
         public void Draw()
         {
-            linkStateMachine.Draw();
+            linkSprite.Draw();
         }
 
         public Vector2 Direction

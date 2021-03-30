@@ -29,13 +29,13 @@ namespace cse3902.Rooms.Conditions
                 switch (conditionVariables[2])
                 {
                     case 0:
-                        ItemSpriteFactory.Instance.CreateKeyItem(startPos, false);
+                        ItemSpriteFactory.Instance.CreateKeyItem(startPos, true);
                         break;
                     case 1:
-                        ItemSpriteFactory.Instance.CreateBoomerangItem(startPos, false);
+                        ItemSpriteFactory.Instance.CreateBoomerangItem(startPos, true);
                         break;
                     case 2:
-                        ItemSpriteFactory.Instance.CreateHeartContainerItem(startPos, false);
+                        ItemSpriteFactory.Instance.CreateHeartContainerItem(startPos, true);
                         break;
                     default: //this should never happen
                         break;

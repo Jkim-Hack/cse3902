@@ -1,10 +1,6 @@
-﻿using cse3902.Interfaces;
-using cse3902.Projectiles;
-using cse3902.Sprites;
-using cse3902.HUD;
+﻿using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using System;
 
 namespace cse3902.Entities
@@ -124,13 +120,9 @@ namespace cse3902.Entities
         public void Update(GameTime gameTime)
         {
             UpdateDamageDelay(gameTime);
-            
-
             if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
-
-            UpdateSprite(gameTime);
-             
+            UpdateSprite(gameTime); 
         }
 
         private void UpdateDamageDelay(GameTime gameTime)
@@ -174,12 +166,6 @@ namespace cse3902.Entities
                 }
             }
         }
-        
-        //TODO Move this just to sprite.draw in link.cs ?
-        public void Draw()
-        {
-            linkSprite.Draw();
-        }
 
         public void Attack()
         {
@@ -207,13 +193,13 @@ namespace cse3902.Entities
             SetAttackAnimation();
             return startingPosition;
         }
+
         private Vector2 getItemLocation(Vector2 direction)
         {
             Vector2 spriteSize = linkSprite.Size;
             Vector2 offset = (spriteSize * direction) / 1.5f;
             return centerPosition + offset;
         }
-
 
         private void SetAttackAnimation()
         {
