@@ -2,6 +2,7 @@
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using cse3902.Sprites.EnemySprites;
+using cse3902.Rooms;
 using cse3902.SpriteFactory;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
@@ -29,6 +30,7 @@ namespace cse3902.Entities.Enemies
         public Trap(Game1 game, Vector2 start, Vector2 direction)
         {
             this.game = game;
+
             startingPos = start;
             center = startingPos;
 
@@ -76,7 +78,11 @@ namespace cse3902.Entities.Enemies
         public Vector2 Center
         {
             get => this.center;
-            set => this.center = value;
+            set
+            {
+                this.center = value;
+                this.trapSprite.Center = value;
+            }
         }
 
         public Vector2 PreviousCenter
@@ -109,27 +115,26 @@ namespace cse3902.Entities.Enemies
         }
 
         private void ConstructDetectionBoxes(Vector2 direction)
-        {
-            //todo: test these magic number values
+        { 
             if (direction.X == 1)
             {
-                detectionBox1 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, 300, 800);
+                detectionBox1 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_X*RoomUtilities.BLOCK_SIDE));
 
 
             }
             else
             {
-                detectionBox1 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, 300, 800);
-                detectionBox1.Offset(-1000, 0);
+                detectionBox1 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_X * RoomUtilities.BLOCK_SIDE));
+                detectionBox1.Offset(-((RoomUtilities.NUM_BLOCKS_X-1) * RoomUtilities.BLOCK_SIDE), 0);
             }
 
             if (direction.Y == 1)
             {
-                detectionBox2  = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, 800, 300);
+                detectionBox2  = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, (RoomUtilities.NUM_BLOCKS_Y * RoomUtilities.BLOCK_SIDE), RoomUtilities.BLOCK_SIDE);
             } else
             {
-                detectionBox2 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, 800, 300);
-                detectionBox2.Offset(0, 1000);
+                detectionBox2 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, (RoomUtilities.NUM_BLOCKS_X * RoomUtilities.BLOCK_SIDE), RoomUtilities.BLOCK_SIDE);
+                detectionBox2.Offset(0, -((RoomUtilities.NUM_BLOCKS_Y - 1) * RoomUtilities.BLOCK_SIDE));
             }
 
         }
