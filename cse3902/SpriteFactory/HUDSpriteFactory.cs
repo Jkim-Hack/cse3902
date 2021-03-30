@@ -37,5 +37,10 @@ namespace cse3902.SpriteFactory
         {
             return new HealthHUDItem(game, HealthUITexture, HeartUITexture, startingPos);
         }
+
+        public IHUDItem CreateMinimapHUDItem(Game1 game)
+        {
+            return new MiniMapHUDItem(game);
+        }
     }
 }
