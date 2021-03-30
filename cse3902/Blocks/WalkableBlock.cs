@@ -27,7 +27,7 @@ namespace cse3902.Blocks
         public void Interact(IBlock.PushDirection pushDirection)
         {
             // have to test to make sure its not weird
-            SoundFactory.PlaySound(SoundFactory.Instance.stairs);
+            //SoundFactory.PlaySound(SoundFactory.Instance.stairs);
         }
         public void Interact(Vector2 pushDirection)
         {
