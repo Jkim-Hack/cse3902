@@ -117,6 +117,7 @@ namespace cse3902
 
             roomHandler.LoadNewRoom(roomHandler.startingRoomTranslation,0);
 
+            // hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.HEALTH); <- has a null reference error
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.MINIMAP);
         }
 
