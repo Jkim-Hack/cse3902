@@ -23,6 +23,7 @@ namespace cse3902.Entities.Enemies
         private Rectangle detectionBox1;
         private Rectangle detectionBox2;
         private Rectangle currentDetectionBox;
+        private int counter;
 
         private Boolean triggered;
         private ICollidable collidable;
@@ -42,6 +43,7 @@ namespace cse3902.Entities.Enemies
             
             ConstructDetectionBoxes(direction);
             currentDetectionBox = detectionBox1;
+            counter = 0;
 
             this.triggered = false;
             this.collidable = new TrapCollidable(this);
@@ -100,13 +102,21 @@ namespace cse3902.Entities.Enemies
         
         public void Update(GameTime gameTime)
         {
-            //if (currentDetectionBox == detectionBox1)
-            //{
-            //    currentDetectionBox = detectionBox2;
-            //} else
-            //{
-            //    currentDetectionBox = detectionBox1;
-            //}
+            counter++;
+            if (counter > 60)
+            {
+                counter = 0;
+
+                if (currentDetectionBox == detectionBox1)
+                {
+                    currentDetectionBox = detectionBox2;
+                }
+                else
+                {
+                    currentDetectionBox = detectionBox1;
+                }
+            }
+
 
             this.trapSprite.Update(gameTime);
         }
@@ -124,16 +134,16 @@ namespace cse3902.Entities.Enemies
             }
             else
             {
-                detectionBox1 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_X * RoomUtilities.BLOCK_SIDE));
+                detectionBox1 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, (RoomUtilities.NUM_BLOCKS_X * RoomUtilities.BLOCK_SIDE), RoomUtilities.BLOCK_SIDE);
                 detectionBox1.Offset(-((RoomUtilities.NUM_BLOCKS_X-1) * RoomUtilities.BLOCK_SIDE), 0);
             }
 
             if (direction.Y == 1)
             {
-                detectionBox2  = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, (RoomUtilities.NUM_BLOCKS_Y * RoomUtilities.BLOCK_SIDE), RoomUtilities.BLOCK_SIDE);
+                detectionBox2  = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_Y * RoomUtilities.BLOCK_SIDE));
             } else
             {
-                detectionBox2 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, (RoomUtilities.NUM_BLOCKS_X * RoomUtilities.BLOCK_SIDE), RoomUtilities.BLOCK_SIDE);
+                detectionBox2 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_Y * RoomUtilities.BLOCK_SIDE));
                 detectionBox2.Offset(0, -((RoomUtilities.NUM_BLOCKS_Y - 1) * RoomUtilities.BLOCK_SIDE));
             }
 
