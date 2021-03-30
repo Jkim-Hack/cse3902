@@ -26,10 +26,6 @@ namespace cse3902.Collision.Collidables
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
-            if (collisionOccurrences[0])
-            {
-                return;
-            }
 
             if (collidableObject is EnemyCollidable && !isDamageDisabled)
             {
@@ -93,6 +89,26 @@ namespace cse3902.Collision.Collidables
                 {
                     player.Center = player.PreviousCenter;
                     collisionOccurrences[0] = true;
+                }
+            }
+            else if (collidableObject is TrapCollidable && !isDamageDisabled)
+            {
+                if (((TrapCollidable)collidableObject).Trap.IsTriggered)
+                {
+                    //take damage and get shoved back by enemy
+                    player.TakeDamage(collidableObject.DamageValue);
+
+                    if (player.Health <= 0)
+                    {
+                        //remove link from room
+                        // TODO: this will need to be changed to reset game and such
+                        RoomEnemies.Instance.RemoveEnemy(this.player);
+                    }
+                    else
+                    {
+                        player.BeShoved();
+                    }
+
                 }
             }
         }

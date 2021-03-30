@@ -79,6 +79,7 @@ namespace cse3902.Entities.Enemies
         public Vector2 Direction
         {
             get => this.direction;
+            set => this.direction = value;
         }
 
         public Vector2 Center
@@ -127,6 +128,11 @@ namespace cse3902.Entities.Enemies
         public void Draw()
         {
             this.trapSprite.Draw();
+        }
+
+        public void Trigger()
+        {
+            this.IsTriggered = true;
         }
 
         private void ConstructDetectionBoxes(Vector2 direction)

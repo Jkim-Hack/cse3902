@@ -18,6 +18,7 @@ namespace cse3902.Collision.Collidables
         {
             this.trap = trap;
             DamageDisabled = true;
+            ResetCollisions();
         }
 
 
@@ -28,7 +29,19 @@ namespace cse3902.Collision.Collidables
             //whether it has been triggered or not
             if (collidableObject is TrapCollidable || collidableObject is WallCollidable)
             {
-                //trap needs to stop its forward movement and begin moving back
+                if (this.trap.IsTriggered)
+                {
+                    this.trap.Direction = -this.trap.Direction;
+                    this.trap.Center = this.trap.PreviousCenter;
+                }
+            }
+
+            if (collidableObject is PlayerCollidable)
+            {
+                if (!this.trap.IsTriggered)
+                {
+                    this.trap.Trigger();
+                }
             }
         }
 
@@ -40,6 +53,11 @@ namespace cse3902.Collision.Collidables
         public int DamageValue
         {
             get => this.trap.Damage;
+        }
+
+        public ITrap Trap
+        {
+            get => this.trap;
         }
 
         public void ResetCollisions()
