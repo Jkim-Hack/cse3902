@@ -4,6 +4,7 @@ using cse3902.SpriteFactory;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.HUD;
+using cse3902.Sounds;
 
 namespace cse3902.Doors
 {
@@ -44,6 +45,7 @@ namespace cse3902.Doors
                         InventoryManager.Instance.inventory[InventoryManager.ItemType.Key]--;
                         State = IDoor.DoorState.Open;
                         connectedDoor.State = IDoor.DoorState.Open;
+                        SoundFactory.PlaySound(SoundFactory.Instance.doorUnlock);
                     }
                     break;
                 case IDoor.DoorState.Wall: //do nothing

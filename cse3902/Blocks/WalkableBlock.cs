@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using System.Collections.Generic;
+using cse3902.Sounds;
 
 namespace cse3902.Blocks
 {
@@ -25,7 +26,8 @@ namespace cse3902.Blocks
 
         public void Interact(IBlock.PushDirection pushDirection)
         {
-            //no interaction
+            // have to test to make sure its not weird
+            SoundFactory.PlaySound(SoundFactory.Instance.stairs);
         }
         public void Interact(Vector2 pushDirection)
         {
