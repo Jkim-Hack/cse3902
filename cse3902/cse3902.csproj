@@ -48,6 +48,7 @@
     <Folder Include="Content\UI\" />
     <Folder Include="Sprites\HUD\" />
     <Folder Include="Content\sounds\" />
+    <Folder Include="Sounds\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Blocks\WaterBlock.cs" />
