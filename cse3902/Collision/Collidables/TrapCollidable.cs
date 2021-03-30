@@ -18,23 +18,19 @@ namespace cse3902.Collision.Collidables
         {
             this.trap = trap;
             DamageDisabled = true;
-            ResetCollisions();
         }
 
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
-            //if the trap has been 'triggered', its collisions will be different
-            //might want trap to have some property that keeps track of
-            //whether it has been triggered or not
-            if (collidableObject is TrapCollidable || collidableObject is WallCollidable)
-            {
-                if (this.trap.IsTriggered)
-                {
-                    this.trap.Direction = -this.trap.Direction;
-                    this.trap.Center = this.trap.PreviousCenter;
-                }
-            }
+            //if (collidableObject is TrapCollidable)
+            //{
+            //    if (this.trap.IsTriggered && ((TrapCollidable)collidableObject).Trap.IsTriggered)
+            //    {
+            //        this.trap.Direction = -this.trap.Direction;
+            //        this.trap.Center = this.trap.PreviousCenter;
+            //    }
+            //}
 
             if (collidableObject is PlayerCollidable)
             {

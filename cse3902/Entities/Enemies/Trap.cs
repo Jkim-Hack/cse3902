@@ -21,8 +21,8 @@ namespace cse3902.Entities.Enemies
         private Vector2 previousCenter;
         private int travelDistance;
 
-        private Rectangle detectionBox1;
-        private Rectangle detectionBox2;
+        private Rectangle detectionBoxX;
+        private Rectangle detectionBoxY;
         private Rectangle currentDetectionBox;
         private int counter;
 
@@ -44,7 +44,7 @@ namespace cse3902.Entities.Enemies
 
             
             ConstructDetectionBoxes(direction);
-            currentDetectionBox = detectionBox1;
+            currentDetectionBox = detectionBoxX;
             counter = 0;
 
             this.triggered = false;
@@ -107,20 +107,24 @@ namespace cse3902.Entities.Enemies
         public void Update(GameTime gameTime)
         {
             counter++;
-            if (counter > 60)
+            if (counter > 20)
             {
                 counter = 0;
 
-                if (currentDetectionBox == detectionBox1)
+                if (currentDetectionBox == detectionBoxX)
                 {
-                    currentDetectionBox = detectionBox2;
+                    currentDetectionBox = detectionBoxY;
                 }
                 else
                 {
-                    currentDetectionBox = detectionBox1;
+                    currentDetectionBox = detectionBoxX;
                 }
             }
 
+            if (this.IsTriggered)
+            {
+                this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
 
             this.trapSprite.Update(gameTime);
         }
@@ -133,27 +137,35 @@ namespace cse3902.Entities.Enemies
         public void Trigger()
         {
             this.IsTriggered = true;
+
+            if (currentDetectionBox == detectionBoxX)
+            {
+                this.Direction = new Vector2(this.Direction.X, 0);
+            } else
+            {
+                this.Direction = new Vector2(0, this.Direction.Y);
+            }
         }
 
         private void ConstructDetectionBoxes(Vector2 direction)
         { 
             if (direction.X == 1)
             {
-                detectionBox1 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, (RoomUtilities.NUM_BLOCKS_X * RoomUtilities.BLOCK_SIDE), RoomUtilities.BLOCK_SIDE);
+                detectionBoxX = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, (RoomUtilities.NUM_BLOCKS_X * RoomUtilities.BLOCK_SIDE), RoomUtilities.BLOCK_SIDE);
             }
             else
             {
-                detectionBox1 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, (RoomUtilities.NUM_BLOCKS_X * RoomUtilities.BLOCK_SIDE), RoomUtilities.BLOCK_SIDE);
-                detectionBox1.Offset(-((RoomUtilities.NUM_BLOCKS_X-1) * RoomUtilities.BLOCK_SIDE), 0);
+                detectionBoxX = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, (RoomUtilities.NUM_BLOCKS_X * RoomUtilities.BLOCK_SIDE), RoomUtilities.BLOCK_SIDE);
+                detectionBoxX.Offset(-((RoomUtilities.NUM_BLOCKS_X-1) * RoomUtilities.BLOCK_SIDE), 0);
             }
 
             if (direction.Y == 1)
             {
-                detectionBox2  = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_Y * RoomUtilities.BLOCK_SIDE));
+                detectionBoxX  = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_Y * RoomUtilities.BLOCK_SIDE));
             } else
             {
-                detectionBox2 = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_Y * RoomUtilities.BLOCK_SIDE));
-                detectionBox2.Offset(0, -((RoomUtilities.NUM_BLOCKS_Y - 1) * RoomUtilities.BLOCK_SIDE));
+                detectionBoxY = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_Y * RoomUtilities.BLOCK_SIDE));
+                detectionBoxY.Offset(0, -((RoomUtilities.NUM_BLOCKS_Y - 1) * RoomUtilities.BLOCK_SIDE));
             }
 
         }

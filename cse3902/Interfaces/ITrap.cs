@@ -13,6 +13,7 @@ namespace cse3902.Interfaces
         public Boolean IsTriggered { get; set; }
         public Vector2 Direction { get; set; }
 
+        public void Trigger();
         public void Update(GameTime gameTime);
         public void Draw();
     }
