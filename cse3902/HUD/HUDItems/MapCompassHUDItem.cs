@@ -25,7 +25,7 @@ namespace cse3902.HUD
 
         private Rectangle box;
 
-        public CompassHUDItem(Game1 game, Texture2D label, Texture2D compass)
+        public MapCompassHUDItem(Game1 game, Texture2D label, Texture2D compass)
         {
             this.game = game;
             this.currentRoom = game.RoomHandler.currentRoom;
@@ -52,7 +52,8 @@ namespace cse3902.HUD
 
         public void Draw()
         {
-            
+            game.SpriteBatch.Draw(label, labelPos, Color.White);
+            game.SpriteBatch.Draw(compass, compassPos, Color.White);
         }
 
         public void Erase() {} // needs to be deleted once isprite is updated
