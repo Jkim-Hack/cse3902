@@ -7,7 +7,7 @@ using System;
 
 namespace cse3902.HUD
 {
-    public class CompassHUDItem : IHUDItem
+    public class MapCompassHUDItem : IHUDItem
     {
         private Game1 game;
         private Vector3 currentRoom;
