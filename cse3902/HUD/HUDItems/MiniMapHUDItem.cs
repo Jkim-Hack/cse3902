@@ -118,10 +118,9 @@ namespace cse3902.HUD
             }
         }
 
-        /* minimap doesn't have a texture other than the level label */
         public Texture2D Texture {
 
-            get => null;
+            get => level;
         }
 
         public ref Rectangle Box {
