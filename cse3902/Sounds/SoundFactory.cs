@@ -30,6 +30,8 @@ namespace cse3902.Sounds
         //need to implement
         public SoundEffect secret { get; set; }
 
+        private SoundEffect backgroundMusic;
+
         private static SoundFactory instance = new SoundFactory();
 
         public static SoundFactory Instance
@@ -65,6 +67,7 @@ namespace cse3902.Sounds
             // change to boss hurt, currently unavailable
             bossHurt = content.Load<SoundEffect>("LOZ_Boss_Scream1");
             secret = content.Load<SoundEffect>("LOZ_Secret");
+            backgroundMusic = content.Load<SoundEffect>("LOZ_Background_Music");
         }
 
         public static void PlaySound(SoundEffect sound)

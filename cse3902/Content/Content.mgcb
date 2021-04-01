@@ -770,11 +770,23 @@
 /processorParam:Quality=Best
 /build:LOZ_Arrow_Boomerang.wav
 
+#begin LOZ_Background_Music.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Background_Music.wav
+
 #begin LOZ_Bomb_Blow.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:LOZ_Bomb_Blow.wav
+
+#begin LOZ_Bomb_Drop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Bomb_Drop.wav
 
 #begin LOZ_Boss_Scream1.wav
 /importer:WavImporter
@@ -799,6 +811,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:LOZ_Enemy_Hit.wav
+
+#begin LOZ_Fanfare.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Fanfare.wav
 
 #begin LOZ_Get_Heart.wav
 /importer:WavImporter
