@@ -58,6 +58,7 @@ namespace cse3902.HUD
         {
             DrawMap();
             DrawRooms();
+            DrawCurrentRoom();
         }
 
         private void DrawMap()
@@ -67,12 +68,17 @@ namespace cse3902.HUD
 
         private void DrawRooms()
         {
-            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector2(2, 5)), 0, 0, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
-            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector2(1, 5)), 0, 0, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
-            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector2(3, 5)), 0, 0, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
+            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector3(2, 5, 0)), 0, 0, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
+            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector3(1, 5, 0)), 0, 0, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
+            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector3(3, 5, 0)), 0, 0, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
         }
 
-        private Rectangle GetRoomPosition(Vector2 coords)
+        private void DrawCurrentRoom()
+        {
+            HUDUtilities.DrawRectangle(game, GetRoomPosition(currentRoom), Color.White, offsetX, offsetY, HUDUtilities.OrangeMapCurrentRoomLayer);
+        }
+
+        private Rectangle GetRoomPosition(Vector3 coords)
         {
             int scaled = (int)(8 / 1.5f);
             int x = (int)(offsetX + scaledMapWidth / 2 + (coords.X - 2) * scaled);

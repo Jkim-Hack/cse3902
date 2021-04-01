@@ -10,7 +10,6 @@ namespace cse3902.HUD
     public class MiniMapHUDItem : IHUDItem
     {
         private Game1 game;
-        private Vector3 currentRoom;
 
         private Texture2D level;
 
@@ -27,8 +26,6 @@ namespace cse3902.HUD
         public MiniMapHUDItem(Game1 game, Texture2D level)
         {
             this.game = game;
-            this.currentRoom = game.RoomHandler.currentRoom;
-            this.currentRoom.Y++;
 
             this.level = level;
 
@@ -44,17 +41,6 @@ namespace cse3902.HUD
 
         public int Update(GameTime gameTime)
         {
-            if (game.RoomHandler.roomTransitionManager.IsTransitioning() && !alreadyChanged)
-            {
-                currentRoom += game.RoomHandler.RoomChangeDirection;
-                alreadyChanged = true;
-            }
-
-            if (!game.RoomHandler.roomTransitionManager.IsTransitioning())
-            {
-                alreadyChanged = false;
-            }
-
             delay--;
             if (delay < 0)
             {
@@ -70,7 +56,7 @@ namespace cse3902.HUD
             DrawLevelLabel();
             if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Map] > 0) DrawMap();
             if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Compass] > 0) DrawTriforce();
-            if (currentRoom.Z == 0) DrawCurrentRoom();
+            if (game.RoomHandler.currentRoom.Z == 0) DrawCurrentRoom();
         }
 
         private void DrawLevelLabel()
@@ -94,7 +80,7 @@ namespace cse3902.HUD
 
         private void DrawCurrentRoom()
         {
-            Rectangle currentRoomRectangle = MiniMapConstants.CalculatePos((int)currentRoom.X, (int)currentRoom.Y, MiniMapConstants.Width, MiniMapConstants.Height);
+            Rectangle currentRoomRectangle = MiniMapConstants.CalculatePos((int)game.RoomHandler.currentRoom.X, (int)game.RoomHandler.currentRoom.Y, MiniMapConstants.Width, MiniMapConstants.Height);
             currentRoomRectangle.X += (MiniMapConstants.Width - MiniMapConstants.Height) / 2;
             currentRoomRectangle.Width = MiniMapConstants.Height;
             HUDUtilities.DrawRectangle(game, currentRoomRectangle, MiniMapConstants.CurrentRoomColor, offsetX, offsetY, HUDUtilities.MinimapCurrentRoomLayer);
