@@ -6,6 +6,8 @@ namespace cse3902.Interfaces
 {
     public interface IPlayer: IEntity
     {
+        public int TotalHealthCount { get; }
+
         public void UseItem();
 
         public void AddItem(IItem item);

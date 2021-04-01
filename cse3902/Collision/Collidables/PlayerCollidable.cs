@@ -66,6 +66,7 @@ namespace cse3902.Collision.Collidables
 		        else
                 {
                     player.Center = player.PreviousCenter;
+                    collisionOccurrences[0] = true;
                 } 
             } 
 	        else if (collidableObject is ItemCollidable)

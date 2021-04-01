@@ -71,6 +71,7 @@ namespace cse3902
             allCollidablesList = new AllCollidablesList();
 
             this.IsMouseVisible = true;
+
             base.Initialize();
         }
 
@@ -109,6 +110,9 @@ namespace cse3902
 
             collisionManager = new CollisionManager(this);
 
+            hudManager = new HUDManager(this);
+            hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.HEALTH);
+
             allCollidablesList.Insert((int)CollisionManager.CollisionPriority.PLAYER, player);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ENEMIES, ref RoomEnemies.Instance.ListRef);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ITEMS, ref RoomItems.Instance.ListRef);
@@ -121,6 +125,8 @@ namespace cse3902
 
             // hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.HEALTH); <- has a null reference error
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.MINIMAP);
+            hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.MAP_COMPASS_ITEM);
+            hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.ORANGE_MAP);
         }
 
         /// <summary>
@@ -155,6 +161,8 @@ namespace cse3902
                 player.Update(gameTime);
             }
 
+            hudManager.Update(gameTime);
+
             //player.Update(gameTime);
             camera.Update();
             GameStateManager.Instance.Update();
@@ -170,7 +178,7 @@ namespace cse3902
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetGameplayTransformationMatrix());
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetGameplayTransformationMatrix());
 
             if (!GameStateManager.Instance.InMenu(true)) player.Draw();
             roomHandler.Draw();
@@ -178,7 +186,7 @@ namespace cse3902
 
             spriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetHudTransformationMatrix());
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetHudTransformationMatrix());
             hudManager.Draw();
             spriteBatch.End();
 

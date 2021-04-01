@@ -2,6 +2,7 @@
 using cse3902.Collision.Collidables;
 using cse3902.Constants;
 using cse3902.Entities.DamageMasks;
+using cse3902.HUD;
 using cse3902.Interfaces;
 using cse3902.Sounds;
 using cse3902.Sprites;
@@ -31,7 +32,7 @@ namespace cse3902.Entities
 
             Vector2 centerPosition = new Vector2(50, 200);
             linkSprite = new LinkSprite(game.SpriteBatch, linkTexture, 6, 4, linkDamageMaskHandler, centerPosition);
-            linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition, game.SpriteBatch);
+            linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition);
             linkInventory = linkStateMachine.Inventory;
 
             //Link's body does no damage itself
@@ -99,17 +100,17 @@ namespace cse3902.Entities
 
         public void UseItem()
         {
-            linkInventory.UseItem();
+            linkStateMachine.UseItem();
         }
 
         public void AddItem(IItem item)
         {
-            linkInventory.AddItem(item);
+            linkInventory.AddItemToInventory(item);
         }
 
         public void ChangeItem(int itemNum)
         {
-            linkInventory.ChangeItem(itemNum);
+            linkInventory.ChangeItem((InventoryManager.ItemType) itemNum);
         }
 
         public void ChangeWeapon(int index)
@@ -130,6 +131,11 @@ namespace cse3902.Entities
         {
             get => linkStateMachine.Speed;
             set => linkStateMachine.Speed = value;
+        }
+
+        public int TotalHealthCount
+        {
+            get => linkStateMachine.TotalHealth;
         }
 
         public int Health
@@ -162,5 +168,6 @@ namespace cse3902.Entities
             get => linkSprite.PreviousCenter;
             set => this.linkSprite.PreviousCenter = value;
         }
+
     }
 }

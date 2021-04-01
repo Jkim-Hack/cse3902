@@ -3,6 +3,7 @@ using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using cse3902.Constants;
 
 namespace cse3902.Entities
 {
@@ -13,41 +14,38 @@ namespace cse3902.Entities
         private LinkMode mode;
 
         private LinkSprite linkSprite;
-        private SpriteBatch spriteBatch;
+        private LinkInventory linkInventory;
         private Vector2 centerPosition;
         private Vector2 currDirection;
 
         private float speed;
-        private Game1 game;
-        private LinkInventory linkInventory;
-        private const int healthMax = 10;
+
+        private int totalHealth;
         private int health;
 
-        private const double damageDelay = 1.0f;
         private double remainingDamageDelay;
 
         private Vector2 shoveDirection;
         private int shoveDistance;
         private Boolean pauseMovement;
 
-        public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch)
+        public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
         {
             this.centerPosition = centerPosition;
             mode = LinkMode.Still;
-            this.game = game;
             linkInventory = new LinkInventory(game, this);
 
-            currDirection = new Vector2(1, 0);
-            speed = 50.0f;
+            currDirection = new Vector2(LinkConstants.defaultXDirection, LinkConstants.defaultYDirection);
+            speed = LinkConstants.defaultSpeed;
 
-            this.spriteBatch = spriteBatch;
             this.linkSprite = linkSprite;
 
-            health = healthMax;
+            totalHealth = HeartConstants.DefaultHeartCount;
+            health = totalHealth;
 
-            remainingDamageDelay = damageDelay;
+            remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
-            shoveDistance = -10;
+            shoveDistance = LinkConstants.defaultShoveDistance;
             PauseMovement = false;
         }
 
@@ -123,7 +121,17 @@ namespace cse3902.Entities
             UpdateDamageDelay(gameTime);
             if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
-            UpdateSprite(gameTime); 
+
+            if (linkSprite.Update(gameTime) != 0)
+            {
+                if (mode == LinkMode.Attack || mode == LinkMode.Item)
+                {
+                    if (mode == LinkMode.Item) Inventory.RemoveItemAnimation();
+                    mode = LinkMode.Still;
+                    ChangeDirection(new Vector2(0, 0));
+
+                }
+            }
         }
 
         private void UpdateDamageDelay(GameTime gameTime)
@@ -133,7 +141,7 @@ namespace cse3902.Entities
                 remainingDamageDelay -= gameTime.ElapsedGameTime.TotalSeconds;
                 if (remainingDamageDelay <= 0)
                 {
-                    remainingDamageDelay = damageDelay;
+                    remainingDamageDelay = DamageConstants.DamageDisableDelay;
                     linkSprite.Damaged = false;
                 }
             }
@@ -154,20 +162,6 @@ namespace cse3902.Entities
             }
         }
 
-        private void UpdateSprite(GameTime gameTime)
-        {
-            if(linkSprite.Update(gameTime) != 0)
-            {
-                if (mode == LinkMode.Attack|| mode == LinkMode.Item)
-                {
-                    if (mode == LinkMode.Item) Inventory.RemoveItemAnimation();
-                    mode = LinkMode.Still;
-                    ChangeDirection(new Vector2(0, 0));
-                    
-                }
-            }
-        }
-
         public void Attack()
         {
             if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
@@ -175,6 +169,10 @@ namespace cse3902.Entities
 
             Vector2 startingPosition = getItemLocation(currDirection);
             linkInventory.CreateWeapon(startingPosition, currDirection);
+            if(HeartConstants.swordProjectileMinHealth <= health)
+            {
+                linkInventory.CreateSwordProjectile(startingPosition, currDirection);
+            }
             SetAttackAnimation();
         }
 
@@ -186,13 +184,16 @@ namespace cse3902.Entities
             return getItemLocation(new Vector2(0,-1));
         }
 
-        public Vector2 UseItemAnimation()
+        public void UseItem()
         {
-            if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return new Vector2(-1, -1);
+            if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
             Vector2 startingPosition = getItemLocation(currDirection);
-            mode = LinkMode.Attack;
-            SetAttackAnimation();
-            return startingPosition;
+            if (linkInventory.CreateItem(startingPosition))
+            {
+                mode = LinkMode.Attack;
+                SetAttackAnimation();
+            }
+            return;
         }
 
         private Vector2 getItemLocation(Vector2 direction)
@@ -229,7 +230,7 @@ namespace cse3902.Entities
                 if (remainingDamageDelay > 0 && linkSprite.Damaged) return;
                 linkSprite.Damaged = true;
                 health -= damage;
-                remainingDamageDelay = damageDelay;
+                remainingDamageDelay = DamageConstants.DamageDisableDelay;
             }
             if (health <= 2)
             {
@@ -263,7 +264,12 @@ namespace cse3902.Entities
             }
         }
 
-        public int Health
+        public int TotalHealth
+        {
+            get => this.totalHealth;
+        }
+        
+	    public int Health
         {
             get => this.health;
         }
