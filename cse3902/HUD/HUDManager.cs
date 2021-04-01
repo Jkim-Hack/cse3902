@@ -33,7 +33,7 @@ namespace cse3902.HUD
 
         private void DrawBlackBackground()
         {
-            HUDUtilities.DrawRectangle(game, new Rectangle(0 - backgroundOffsetX, 0 - backgroundOffsetY, DimensionConstants.OriginalWindowWidth, DimensionConstants.OriginalWindowHeight), Color.Black, backgroundOffsetX, backgroundOffsetY);
+            HUDUtilities.DrawRectangle(game, new Rectangle(0 - backgroundOffsetX, 0 - backgroundOffsetY, DimensionConstants.OriginalWindowWidth, DimensionConstants.OriginalWindowHeight), Color.Black, backgroundOffsetX, backgroundOffsetY, HUDUtilities.BackgroundLayer);
         }
 
         // This will only be called once per HUD item

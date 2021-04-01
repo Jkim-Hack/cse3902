@@ -80,7 +80,7 @@ namespace cse3902.HUD
 
         private void DrawMap()
         {
-            foreach (Rectangle rec in MiniMapConstants.GetRoomLayout()) HUDUtilities.DrawRectangle(game, rec, MiniMapConstants.RoomColor, offsetX, offsetY); 
+            foreach (Rectangle rec in MiniMapConstants.GetRoomLayout()) HUDUtilities.DrawRectangle(game, rec, MiniMapConstants.RoomColor, offsetX, offsetY, HUDUtilities.MapLayer);
         }
 
         private void DrawTriforce()
@@ -88,8 +88,8 @@ namespace cse3902.HUD
             Rectangle triforceRectangle = MiniMapConstants.CalculatePos((int)MiniMapConstants.TriforcePos.X, (int)MiniMapConstants.TriforcePos.Y, MiniMapConstants.Width, MiniMapConstants.Height);
             triforceRectangle.X += (MiniMapConstants.Width - MiniMapConstants.Height) / 2;
             triforceRectangle.Width = MiniMapConstants.Height;
-            if (colorRed) HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceRed, offsetX, offsetY);
-            else HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceGreen, offsetX, offsetY);
+            if (colorRed) HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceRed, offsetX, offsetY, HUDUtilities.TriforceLayer);
+            else HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceGreen, offsetX, offsetY, HUDUtilities.TriforceLayer);
         }
 
         private void DrawCurrentRoom()
@@ -97,7 +97,7 @@ namespace cse3902.HUD
             Rectangle currentRoomRectangle = MiniMapConstants.CalculatePos((int)currentRoom.X, (int)currentRoom.Y, MiniMapConstants.Width, MiniMapConstants.Height);
             currentRoomRectangle.X += (MiniMapConstants.Width - MiniMapConstants.Height) / 2;
             currentRoomRectangle.Width = MiniMapConstants.Height;
-            HUDUtilities.DrawRectangle(game, currentRoomRectangle, MiniMapConstants.CurrentRoomColor, offsetX, offsetY);
+            HUDUtilities.DrawRectangle(game, currentRoomRectangle, MiniMapConstants.CurrentRoomColor, offsetX, offsetY, HUDUtilities.CurrentRoomLayer);
         }
 
         public void Erase() {} // needs to be deleted once isprite is updated

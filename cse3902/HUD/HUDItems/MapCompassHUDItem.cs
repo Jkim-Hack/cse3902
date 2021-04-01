@@ -61,7 +61,7 @@ namespace cse3902.HUD
 
         public void DrawMapCover()
         {
-            HUDUtilities.DrawRectangle(game, mapCover, Color.Black, offsetX, offsetY);
+            HUDUtilities.DrawRectangle(game, mapCover, Color.Black, offsetX, offsetY, 0.9f);
         }
 
         public void DrawCompass()
