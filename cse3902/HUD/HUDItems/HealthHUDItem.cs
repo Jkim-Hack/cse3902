@@ -27,16 +27,19 @@ namespace cse3902.HUD.HUDItems
 
         public HealthHUDItem(Game1 game, Texture2D UITexture, Texture2D heartTexture, Vector2 origin)
         {
-            center = new Vector2(origin.X / 2f, origin.Y / 2f);
             this.origin = origin;
-            uiSpriteTexture = UITexture;
+            center = new Vector2(origin.X / 2f, origin.Y / 2f);
+            
+	        uiSpriteTexture = UITexture;
             size = new Vector2(uiSpriteTexture.Bounds.Width, uiSpriteTexture.Bounds.Height);
             box = new Rectangle((int)size.X, (int)size.Y, (int)size.X, (int)size.Y);
             spriteBatch = game.SpriteBatch;
-            player = game.Player;
+            
+	        player = game.Player;
 
             heartCount = player.Health;
-            totalHeartCount = player.Health;
+            totalHeartCount = player.TotalHealthCount / 2;
+
 	        this.heartTexture = heartTexture;
             hearts = new List<HeartHUDSprite>();
             heartContainerOrigin = new Vector2(origin.X + HeartConstants.HeartHUDContainerOffsetX, origin.Y + HeartConstants.HeartHUDContainerOffsetY);
@@ -98,11 +101,11 @@ namespace cse3902.HUD.HUDItems
         { 
             if (heartCount != player.Health)
             {
-                if (heartCount < player.Health)
-                {
-                    totalHeartCount = player.Health;
-                }
                 heartCount = player.Health;
+            }
+            if (totalHeartCount != player.TotalHealthCount)
+            {
+                totalHeartCount = player.TotalHealthCount / 2;
             }
         }
 

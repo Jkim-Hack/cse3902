@@ -21,7 +21,6 @@ namespace cse3902.Sprites
 
         private int rows;
         private int columns;
-        private int totalFrames;
 
         private int frameWidth;
         private int frameHeight;
@@ -45,21 +44,9 @@ namespace cse3902.Sprites
 
             this.rows = 1;
             this.columns = 3;
-            totalFrames = rows * columns;
             frameWidth = texture.Width / columns;
             frameHeight = texture.Height / rows;
-            frames = new Rectangle[totalFrames];
-            distributeFrames();
-        }
-
-        private void distributeFrames()
-        {
-            for (int i = 0; i < totalFrames; i++)
-            {
-                int row = (int)((float)i / (float)columns);
-                int column = i % columns;
-                frames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
-            }
+            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
         }
 	    
 	    public bool Full

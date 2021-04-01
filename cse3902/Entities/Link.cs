@@ -136,6 +136,10 @@ namespace cse3902.Entities
             set => linkStateMachine.Speed = value;
         }
 
+        public int TotalHealthCount
+        {
+            get => linkStateMachine.TotalHealth;
+        }
 
         public int Health
         {
@@ -168,5 +172,6 @@ namespace cse3902.Entities
             get => linkSprite.PreviousCenter;
             set => this.linkSprite.PreviousCenter = value;
         }
+
     }
 }
