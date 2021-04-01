@@ -79,13 +79,13 @@ namespace cse3902.HUD
             }
         }
 
-        public SwordType SlotA
+        public SwordType SwordSlot
         {
             get => slotA;
             set => slotA = value;
         }
 
-        public ItemType SlotB
+        public ItemType ItemSlot
         {
             get => slotB;
             set => slotB = value;

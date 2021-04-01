@@ -2,6 +2,7 @@
 using cse3902.Collision.Collidables;
 using cse3902.Constants;
 using cse3902.Entities.DamageMasks;
+using cse3902.HUD;
 using cse3902.Interfaces;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
@@ -87,7 +88,7 @@ namespace cse3902.Entities
 
         public void Draw()
         {
-            linkStateMachine.Draw();
+            linkSprite.Draw();
         }
 
         public Vector2 Direction
@@ -97,7 +98,7 @@ namespace cse3902.Entities
 
         public void UseItem()
         {
-            linkInventory.UseItem();
+            linkStateMachine.UseItem();
         }
 
         public void AddItem(IItem item)
@@ -107,7 +108,7 @@ namespace cse3902.Entities
 
         public void ChangeItem(int itemNum)
         {
-            linkInventory.ChangeItem(itemNum);
+            linkInventory.ChangeItem((InventoryManager.ItemType) itemNum);
         }
 
         public void ChangeWeapon(int index)

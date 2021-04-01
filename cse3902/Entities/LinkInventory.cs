@@ -14,48 +14,30 @@ namespace cse3902.Entities
     public class LinkInventory 
     {
         private LinkStateMachine linkState;
-        private Game1 game;
         private SpriteBatch batch;
         private IItem AnimationItem;
         private IProjectile weapon;
-
-        private int currItemIndex;
-        private int currWeaponIndex;
 
 
         public LinkInventory(Game1 game, LinkStateMachine linkState)
         {
             this.linkState = linkState;
-            this.game = game;
             batch = game.SpriteBatch;
-
-            currWeaponIndex = 0;
-            currItemIndex = 0;
-        }
-
-
-        public void Update(GameTime gameTime)
-        {
-             
-        }
-
-        public void ChangeWeapon(int index)
-        {
-            InventoryManager.Instance.SlotA = (InventoryManager.SwordType) index;
         }
 
         public void CreateWeapon(Vector2 startingPosition, Vector2 direction)
         {
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            projectileHandler.CreateSwordWeapon(batch, startingPosition, direction, (int) InventoryManager.Instance.SlotA);
+            projectileHandler.CreateSwordWeapon(batch, startingPosition, direction, (int) InventoryManager.Instance.SwordSlot);
         }
 
         public void CreateSwordProjectile(Vector2 startingPosition, Vector2 direction)
         {
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            //Vector2 startingPosition = linkState.UseItemAnimation();
-            if (startingPosition.Equals(new Vector2(-1, -1))) return;
-            weapon = projectileHandler.CreateSwordItem(batch, startingPosition, direction);
+            if (!RoomProjectiles.Instance.projectiles.Contains(weapon))
+            {
+                weapon = projectileHandler.CreateSwordItem(batch, startingPosition, direction);
+            }
         }
 
         public void AddItemToInventory(IItem item)
@@ -76,29 +58,22 @@ namespace cse3902.Entities
             }
         }
 
-        public void UseItem()
+        public void CreateItem(Vector2 startingPos)
         {
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            if (RoomProjectiles.Instance.projectiles.Contains(weapon) && currItemIndex == 1) return;
-            Vector2 startingPosition = linkState.UseItemAnimation();
-            if (startingPosition.Equals(new Vector2(-1, -1))) return;
             IProjectile projectile;
-            switch (currItemIndex)
+            switch (InventoryManager.Instance.ItemSlot)
             {
-                case 1:
-                    weapon = projectileHandler.CreateSwordItem(batch, startingPosition, linkState.Direction);
+                case InventoryManager.ItemType.Bow:
+                    projectile =  projectileHandler.CreateArrowItem(batch, startingPos, linkState.Direction);
                     break;
 
-                case 2:
-                    projectile =  projectileHandler.CreateArrowItem(batch, startingPosition, linkState.Direction);
-                    break;
-
-                case 3:
+                case InventoryManager.ItemType.Boomerang:
                     projectile =  projectileHandler.CreateBoomerangItem(batch, linkState.Sprite, linkState.Direction);
                     break;
 
-                case 4:
-                    projectile =  projectileHandler.CreateBombItem(batch, startingPosition);
+                case InventoryManager.ItemType.Bomb:
+                    projectile =  projectileHandler.CreateBombItem(batch, startingPos);
                     break;
 
                 default:
@@ -107,10 +82,13 @@ namespace cse3902.Entities
             }
 
         }
-
-        public void ChangeItem(int index)
+        public void ChangeWeapon(int index)
         {
-            currItemIndex = index;
+            InventoryManager.Instance.SwordSlot = (InventoryManager.SwordType)index;
+        }
+        public void ChangeItem(InventoryManager.ItemType type)
+        {
+            InventoryManager.Instance.ItemSlot = type;
         }
 
         public void RemoveItemAnimation()
@@ -118,5 +96,6 @@ namespace cse3902.Entities
             RoomItems.Instance.RemoveItem(AnimationItem);
             AnimationItem = null;
         }
+
     }
 }
