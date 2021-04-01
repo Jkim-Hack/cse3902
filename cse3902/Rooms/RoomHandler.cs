@@ -66,6 +66,10 @@ namespace cse3902.Rooms
             RoomEnemies.Instance.LoadNewRoom(ref oldEnemies, newRoom.Enemies, game);
             rooms.GetValueOrDefault(currentRoom).Enemies = oldEnemies;
 
+            List<ITrap> oldTraps = rooms.GetValueOrDefault(currentRoom).Traps;
+            RoomTraps.Instance.LoadNewRoom(ref oldTraps, newRoom.Traps, game);
+            rooms.GetValueOrDefault(currentRoom).Traps = oldTraps;
+
             List<INPC> oldNPCs = rooms.GetValueOrDefault(currentRoom).NPCs;
             RoomNPCs.Instance.LoadNewRoom(ref oldNPCs, newRoom.NPCs);
             rooms.GetValueOrDefault(currentRoom).NPCs = oldNPCs;
@@ -109,6 +113,7 @@ namespace cse3902.Rooms
                 RoomItems.Instance.Update(gameTime);
                 CloudAnimation.Instance.Update(gameTime);
                 RoomEnemies.Instance.Update(gameTime);
+                RoomTraps.Instance.Update(gameTime);
                 RoomNPCs.Instance.Update(gameTime);
                 RoomProjectiles.Instance.Update(gameTime);
                 RoomConditions.Instance.Update(gameTime);
@@ -129,6 +134,7 @@ namespace cse3902.Rooms
                 RoomItems.Instance.Draw();
                 CloudAnimation.Instance.Draw();
                 RoomEnemies.Instance.Draw();
+                RoomTraps.Instance.Draw();
                 RoomNPCs.Instance.Draw();
                 RoomProjectiles.Instance.Draw();
             }

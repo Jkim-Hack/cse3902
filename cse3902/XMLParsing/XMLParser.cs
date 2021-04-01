@@ -12,6 +12,7 @@ namespace cse3902.Rooms
         private RoomHandler roomHandler;
         private ItemParser itemParser;
         private EnemyParser enemyParser;
+        private TrapsParser trapParser;
         private NPCParser npcParser;
         private BlockParser blockParser;
         private DoorParser doorParser;
@@ -22,6 +23,7 @@ namespace cse3902.Rooms
             roomHandler = roomHand;
             itemParser = new ItemParser(gm);
             enemyParser = new EnemyParser(gm);
+            trapParser = new TrapsParser(gm);
             npcParser = new NPCParser(gm);
             blockParser = new BlockParser(gm);
             doorParser = new DoorParser(gm, roomHandler);
@@ -51,10 +53,11 @@ namespace cse3902.Rooms
 
                 itemParser.ParseItems(currentRoom, room, doc);
                 enemyParser.ParseEnemies(currentRoom, room, doc);
+                trapParser.ParseTraps(currentRoom, room, doc);
                 npcParser.ParseNPCs(currentRoom, room, doc);
                 blockParser.ParseBlocks(currentRoom, room, doc);
                 doorParser.ParseDoors(currentRoom, room, doc);
-                conditionParser.ParseCondtions(currentRoom, room, doc);
+                //conditionParser.ParseCondtions(currentRoom, room, doc);
 
                 roomHandler.rooms.Add(roomTup, currentRoom);
             }
