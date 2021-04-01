@@ -55,9 +55,12 @@ namespace cse3902.Entities
             }
         }
 
-        public void CreateItem(Vector2 startingPos)
+        public bool CreateItem(Vector2 startingPos)
         {
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
+            //TODO: Remove comment below once implemented inventory system
+            //if (InventoryManager.Instance.inventory[InventoryManager.Instance.ItemSlot] == 0) return false;
+            //InventoryManager.Instance.inventory[InventoryManager.Instance.ItemSlot]--;
             switch (InventoryManager.Instance.ItemSlot)
             {
                 case InventoryManager.ItemType.Bow:
@@ -76,6 +79,7 @@ namespace cse3902.Entities
                     throw new NotImplementedException();
                     break;
             }
+            return true;
         }
 
         public void ChangeWeapon(int index)

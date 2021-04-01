@@ -190,9 +190,11 @@ namespace cse3902.Entities
         {
             if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
             Vector2 startingPosition = getItemLocation(currDirection);
-            mode = LinkMode.Attack;
-            SetAttackAnimation();
-            linkInventory.CreateItem(startingPosition);
+            if (linkInventory.CreateItem(startingPosition))
+            {
+                mode = LinkMode.Attack;
+                SetAttackAnimation();
+            }
             return;
         }
         private Vector2 getItemLocation(Vector2 direction)
