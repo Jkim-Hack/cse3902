@@ -70,6 +70,7 @@ namespace cse3902
             allCollidablesList = new AllCollidablesList();
 
             this.IsMouseVisible = true;
+
             base.Initialize();
         }
 
@@ -106,6 +107,9 @@ namespace cse3902
             roomHandler.Initialize();
 
             collisionManager = new CollisionManager(this);
+
+            hudManager = new HUDManager(this);
+            hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.HEALTH);
 
             allCollidablesList.Insert((int)CollisionManager.CollisionPriority.PLAYER, player);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ENEMIES, ref RoomEnemies.Instance.ListRef);
@@ -152,6 +156,8 @@ namespace cse3902
             {
                 player.Update(gameTime);
             }
+
+            hudManager.Update(gameTime);
 
             //player.Update(gameTime);
             camera.Update();

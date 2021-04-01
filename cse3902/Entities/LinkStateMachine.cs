@@ -26,6 +26,7 @@ namespace cse3902.Entities
         private int currWeaponIndex;
         private Game1 game;
 
+        private int totalHealth;
         private const int healthMax = 10;
         private int health;
 
@@ -49,6 +50,7 @@ namespace cse3902.Entities
             this.linkSprite = linkSprite;
 
             health = healthMax;
+            totalHealth = healthMax + 4;
             currWeaponIndex = 0;
             currItemIndex = 0;
 
@@ -310,7 +312,12 @@ namespace cse3902.Entities
             }
         }
 
-        public int Health
+        public int TotalHealth
+        {
+            get => this.totalHealth;
+        }
+        
+	    public int Health
         {
             get => this.health;
         }

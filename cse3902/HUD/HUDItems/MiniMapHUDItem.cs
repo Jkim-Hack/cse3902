@@ -88,7 +88,8 @@ namespace cse3902.HUD
         {
             if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Map] > 0)
             {
-                foreach (Rectangle rec in MiniMapConstants.GetRoomLayout()) HUDUtilities.DrawRectangle(game, rec, MiniMapConstants.RoomColor, offsetX, offsetY); 
+                /* Draw entire map */
+                foreach (Rectangle rec in MiniMapConstants.GetRoomLayout()) HUDUtilities.DrawRectangle(game, rec, MiniMapConstants.RoomColor, offsetX, offsetY);
             }
         }
 
