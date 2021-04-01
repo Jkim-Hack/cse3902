@@ -90,24 +90,32 @@ namespace cse3902.Collision.Collidables
                     collisionOccurrences[0] = true;
                 }
             }
-            else if (collidableObject is TrapCollidable && !isDamageDisabled)
+            else if (collidableObject is TrapCollidable)
             {
                 if (((TrapCollidable)collidableObject).Trap.IsTriggered)
                 {
                     //take damage and get shoved back by enemy
-                    player.TakeDamage(collidableObject.DamageValue);
+                    if (!isDamageDisabled) {
+                        player.TakeDamage(collidableObject.DamageValue);
 
-                    if (player.Health <= 0)
-                    {
-                        //remove link from room
-                        // TODO: this will need to be changed to reset game and such
-                        RoomEnemies.Instance.RemoveEnemy(this.player);
-                    }
-                    else
-                    {
-                        player.BeShoved();
-                    }
+                        if (player.Health <= 0)
+                        {
+                            //remove link from room
+                            // TODO: this will need to be changed to reset game and such
+                            RoomEnemies.Instance.RemoveEnemy(this.player);
+                        }
+                        else
+                        {
+                            player.BeShoved();
+                        }
 
+                    }
+                    
+                    
+
+                } else
+                {
+                    ((TrapCollidable)collidableObject).Trap.Trigger();
                 }
             }
         }

@@ -127,6 +127,7 @@ namespace cse3902.Entities.Enemies
             }
 
             this.trapSprite.Update(gameTime);
+            this.collidable.ResetCollisions();
         }
 
         public void Draw()
