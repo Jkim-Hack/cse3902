@@ -65,26 +65,15 @@ namespace cse3902.HUD
 
         private void DrawRooms()
         {
-            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector3(2, 5, 0)), offsetX, offsetY, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
-            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector3(1, 5, 0)), offsetX, offsetY, HUDUtilities.OrangeMapRoomLayer, roomFrames[4]);
-            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector3(3, 5, 0)), offsetX, offsetY, HUDUtilities.OrangeMapRoomLayer, roomFrames[8]);
+            HUDUtilities.DrawTexture(game, roomsTexture, OrangeMapConstants.CalculatePos(new Vector3(2, 5, 0), OrangeMapConstants.RoomSize, scaledMapWidth, scaledMapHeight), offsetX, offsetY, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
+            HUDUtilities.DrawTexture(game, roomsTexture, OrangeMapConstants.CalculatePos(new Vector3(1, 5, 0), OrangeMapConstants.RoomSize, scaledMapWidth, scaledMapHeight), offsetX, offsetY, HUDUtilities.OrangeMapRoomLayer, roomFrames[4]);
+            HUDUtilities.DrawTexture(game, roomsTexture, OrangeMapConstants.CalculatePos(new Vector3(3, 5, 0), OrangeMapConstants.RoomSize, scaledMapWidth, scaledMapHeight), offsetX, offsetY, HUDUtilities.OrangeMapRoomLayer, roomFrames[8]);
         }
 
         private void DrawCurrentRoom()
         {
-            HUDUtilities.DrawRectangle(game, GetRoomPosition(game.RoomHandler.currentRoom, 3), Color.Red, offsetX, offsetY, HUDUtilities.OrangeMapCurrentRoomLayer);
-        }
-
-        private Rectangle GetRoomPosition(Vector3 coords, int? size = null)
-        {
-            int scaled = 7;
-            if (size == null) size = scaled;
-
-            int sizeOffset = (scaled - (int)size) / 2;
-            int x = (int)(scaledMapWidth / 2.2f + (coords.X - 2) * scaled) + sizeOffset;
-            int y = (int)(scaledMapHeight / 1.3f + (coords.Y - 5) * scaled) + sizeOffset;
-
-            return new Rectangle(x, y, (int)size, (int)size);
+            Rectangle destination = OrangeMapConstants.CalculatePos(game.RoomHandler.currentRoom, OrangeMapConstants.CurrentRoomSize, scaledMapWidth, scaledMapHeight);
+            HUDUtilities.DrawRectangle(game, destination, OrangeMapConstants.CurrentRoomColor, offsetX, offsetY, HUDUtilities.OrangeMapCurrentRoomLayer);
         }
 
         public void Erase() {} // needs to be deleted once isprite is updated
