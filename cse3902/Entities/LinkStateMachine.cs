@@ -16,7 +16,6 @@ namespace cse3902.Entities
         private LinkMode mode;
 
         private LinkSprite linkSprite;
-        private SpriteBatch spriteBatch;
         private Vector2 centerPosition;
         private Vector2 currDirection;
 
@@ -25,7 +24,7 @@ namespace cse3902.Entities
 
         private int totalHealth;
         private LinkInventory linkInventory;
-        private const int healthMax = 10;
+        private int healthMax;
         private int health;
 
         private const double damageDelay = 1.0f;
@@ -35,19 +34,18 @@ namespace cse3902.Entities
         private int shoveDistance;
         private Boolean pauseMovement;
 
-        public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch)
+        public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
         {
             this.centerPosition = centerPosition;
             mode = LinkMode.Still;
-            this.game = game;
             linkInventory = new LinkInventory(game, this);
 
             currDirection = new Vector2(1, 0);
             speed = 50.0f;
 
-            this.spriteBatch = spriteBatch;
             this.linkSprite = linkSprite;
 
+            healthMax = 10;
             health = healthMax;
             totalHealth = healthMax + 4;
             currWeaponIndex = 0;

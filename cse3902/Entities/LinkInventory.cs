@@ -41,16 +41,24 @@ namespace cse3902.Entities
 
         public void ChangeWeapon(int index)
         {
-            currWeaponIndex = index;
+            InventoryManager.Instance.SlotA = (InventoryManager.SwordType) index;
         }
 
         public void CreateWeapon(Vector2 startingPosition, Vector2 direction)
         {
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            projectileHandler.CreateSwordWeapon(batch, startingPosition, direction, currWeaponIndex);
+            projectileHandler.CreateSwordWeapon(batch, startingPosition, direction, (int) InventoryManager.Instance.SlotA);
         }
 
-        public void AddItem(IItem item)
+        public void CreateSwordProjectile(Vector2 startingPosition, Vector2 direction)
+        {
+            ProjectileHandler projectileHandler = ProjectileHandler.Instance;
+            //Vector2 startingPosition = linkState.UseItemAnimation();
+            if (startingPosition.Equals(new Vector2(-1, -1))) return;
+            weapon = projectileHandler.CreateSwordItem(batch, startingPosition, direction);
+        }
+
+        public void AddItemToInventory(IItem item)
         {
             if (item.Equals(AnimationItem)) return;
             InventoryManager.ItemType type = item.ItemType;
