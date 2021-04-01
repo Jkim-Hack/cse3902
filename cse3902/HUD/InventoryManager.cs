@@ -6,6 +6,14 @@ namespace cse3902.HUD
 {
     public class InventoryManager
     {
+        public enum SwordType
+        {
+            Wood,
+            White,
+            Magical,
+            MagicalRod,
+        }
+
         public enum ItemType
         {
             Boomerang,
@@ -24,6 +32,8 @@ namespace cse3902.HUD
 
         public Dictionary<ItemType, int> inventory;
         private static InventoryManager instance = new InventoryManager();
+        private SwordType slotA = SwordType.Wood;
+        private ItemType slotB;
 
         public static InventoryManager Instance
         {
@@ -50,9 +60,9 @@ namespace cse3902.HUD
             inventory.Add(ItemType.Triforce, 0);
         }
 
-        public void AddToInventory(IItem item)
+        public void AddToInventory(ItemType type)
         {
-            inventory[item.ItemType]++;
+            inventory[type]++;
         }
 
         public void RemoveFromInventory(ItemType type)
@@ -67,6 +77,18 @@ namespace cse3902.HUD
                 KeyValuePair<ItemType, int> entry = inventory.ElementAt(index);
                 inventory[entry.Key] = 0;
             }
+        }
+
+        public SwordType SwordSlot
+        {
+            get => slotA;
+            set => slotA = value;
+        }
+
+        public ItemType ItemSlot
+        {
+            get => slotB;
+            set => slotB = value;
         }
     }
 }

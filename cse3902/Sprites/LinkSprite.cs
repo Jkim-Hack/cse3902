@@ -31,14 +31,8 @@ namespace cse3902.Sprites
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
 
-        private Vector2 center;
-        private Vector2 previousPosition;
-        private Vector2 startingPosition;
+        private (Vector2 current, Vector2 previous) positions;
         private Vector2 size;
-
-        private const float sizeIncrease = 1f;
-
-        private bool isDamage;
 
         private (Rectangle frame, float delay)[] currentFrameSet;
         private int currentFrameIndex;
@@ -46,12 +40,10 @@ namespace cse3902.Sprites
 
         private DamageMaskHandler maskHandler;
 
-        private float remainingFrameDelay;
-        private float remainingDamageDelay;
+        private bool isDamaged;
+        private (float frame, float damage) remainingDelay;
 
         private Rectangle destination;
-
-        private const float hitboxSizeModifier = 0.75f;
 
         private bool pauseMovement;
 
@@ -60,7 +52,6 @@ namespace cse3902.Sprites
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
 
-            isDamage = false;
             this.maskHandler = maskHandler;
 
 	        animationHandler = new LinkSpriteAnimationHandler(texture, rows, columns);
@@ -68,12 +59,12 @@ namespace cse3902.Sprites
             currentFrameSet = animationHandler.getFrameSet(AnimationState.RightFacing);
             currentFrameIndex = 0;
 
-            remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
-            remainingDamageDelay = DamageConstants.DamageMaskDelay;
+            remainingDelay.frame = currentFrameSet[currentFrameIndex].delay;
+            remainingDelay.damage = -1;
+            isDamaged = false;
 
-	        this.startingPosition = startingPosition;
-            center = startingPosition;
-            previousPosition = center;
+            positions.current = startingPosition;
+            positions.previous = positions.current;
             
             pauseMovement = false;
         }
@@ -81,7 +72,7 @@ namespace cse3902.Sprites
         public void Draw()
         {
             Vector2 origin = new Vector2(size.X / 2f, size.Y / 2f);
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * size.X), (int)(sizeIncrease * size.Y));
+            Rectangle Destination = new Rectangle((int)positions.current.X, (int)positions.current.Y, (int)(size.X), (int)(size.Y));
             spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.LinkLayer);
         }
        
@@ -93,12 +84,12 @@ namespace cse3902.Sprites
             
             if (!this.pauseMovement) returnCode = UpdateFrame(timer);
 
-            if (isDamage)
+            if (isDamaged)
             {
-                remainingDamageDelay -= timer;
-                if (remainingDamageDelay < 0)
+                remainingDelay.damage -= timer;
+                if (remainingDelay.damage < 0)
                 {
-                    remainingDamageDelay = DamageConstants.DamageMaskDelay;
+                    remainingDelay.damage = DamageConstants.DamageMaskDelay;
                     maskHandler.LoadNextMask();
                 }
             }
@@ -110,9 +101,9 @@ namespace cse3902.Sprites
         {
             int returnCode = 0;
 
-            remainingFrameDelay -= timer;
+            remainingDelay.frame -= timer;
 
-            if (remainingFrameDelay <= 0)
+            if (remainingDelay.frame <= 0)
             {
                 currentFrameIndex++;
                 if (currentFrameIndex >= currentFrameSet.Length)
@@ -121,7 +112,7 @@ namespace cse3902.Sprites
                     returnCode = -1;
                 }
 
-                remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
+                remainingDelay.frame = currentFrameSet[currentFrameIndex].delay;
             }
 
             return returnCode;
@@ -131,7 +122,7 @@ namespace cse3902.Sprites
         {
             currentFrameSet = animationHandler.getFrameSet(animState);
             currentFrameIndex = 0;
-            remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
+            remainingDelay.frame = currentFrameSet[currentFrameIndex].delay;
 	    }
 
         public void Erase()
@@ -143,9 +134,9 @@ namespace cse3902.Sprites
         {
             get
             {
-                int width = (int)(sizeIncrease * size.X * hitboxSizeModifier);
-                int height = (int)(sizeIncrease * size.Y * hitboxSizeModifier);
-                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
+                int width = (int)(size.X * LinkConstants.hitboxSizeModifier);
+                int height = (int)(size.Y * LinkConstants.hitboxSizeModifier);
+                Rectangle Destination = new Rectangle((int)positions.current.X, (int)positions.current.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
                 return ref destination;
@@ -154,14 +145,14 @@ namespace cse3902.Sprites
 
         public Vector2 Center
         {
-            get => center;
-            set => center = value;
+            get => positions.current;
+            set => positions.current = value;
         }
 
         public Vector2 PreviousCenter
         {
-            get => previousPosition;
-            set => previousPosition = value;
+            get => positions.previous;
+            set => positions.previous = value;
         }
 
         public Texture2D Texture
@@ -169,28 +160,18 @@ namespace cse3902.Sprites
             get => spriteTexture;
         }
 
-        public Vector2 StartingPosition
-        {
-            get => this.startingPosition;
-            set
-            {
-                this.startingPosition = value;
-                this.center = value;
-            }
-        }
-
         public Vector2 Size
         {
-            get => size * sizeIncrease;
+            get => size;
         }
 
         public bool Damaged
         {
-            get => isDamage;
+            get => isDamaged;
             set 
 	        {
-                remainingDamageDelay = DamageConstants.DamageMaskDelay;
-                isDamage = value;
+                isDamaged = value;
+                remainingDelay.damage = DamageConstants.DamageMaskDelay;
                 maskHandler.Reset();
             }
         }
