@@ -13,8 +13,8 @@ namespace cse3902.HUD
         public enum HUDItemKey
         {
             INVENTORY,
-            COMPASS_ITEM,
-            YELLOW_MAP,
+            MAP_COMPASS_ITEM,
+            ORANGE_MAP,
             MINIMAP,
             HEALTH
         }
@@ -33,7 +33,7 @@ namespace cse3902.HUD
 
         private void DrawBlackBackground()
         {
-            HUDUtilities.DrawRectangle(game, new Rectangle(0 - backgroundOffsetX, 0 - backgroundOffsetY, DimensionConstants.OriginalWindowWidth, DimensionConstants.OriginalWindowHeight), Color.Black, backgroundOffsetX, backgroundOffsetY);
+            HUDUtilities.DrawRectangle(game, new Rectangle(0 - backgroundOffsetX, 0 - backgroundOffsetY, DimensionConstants.OriginalWindowWidth, DimensionConstants.OriginalWindowHeight), Color.Black, backgroundOffsetX, backgroundOffsetY, HUDUtilities.BackgroundLayer);
         }
 
         // This will only be called once per HUD item
@@ -49,6 +49,12 @@ namespace cse3902.HUD
                 case HUDItemKey.MINIMAP:
                     HUDItems.Add(key, CreateMinimapHUDItem());
                     break;
+                case HUDItemKey.MAP_COMPASS_ITEM:
+                    HUDItems.Add(key, CreateMapCompassHUDItem());
+                    break;
+                case HUDItemKey.ORANGE_MAP:
+                    HUDItems.Add(key, CreateOrangeMapHUDItem());
+                    break;
                 // ... Add more when new HUDItems are implemented
             }
         }
@@ -61,6 +67,16 @@ namespace cse3902.HUD
         private IHUDItem CreateMinimapHUDItem()
         {
             return HUDSpriteFactory.Instance.CreateMinimapHUDItem(game);
+        }
+
+        private IHUDItem CreateMapCompassHUDItem()
+        {
+            return HUDSpriteFactory.Instance.CreateMapCompassHUDItem(game);
+        }
+
+        private IHUDItem CreateOrangeMapHUDItem()
+        {
+            return HUDSpriteFactory.Instance.CreateOrangeMapHUDItem(game);
         }
  
 	    public void Update(GameTime gameTime)

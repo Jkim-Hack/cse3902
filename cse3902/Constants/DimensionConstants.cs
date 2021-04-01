@@ -23,6 +23,8 @@ namespace cse3902.Constants
         public const int WindowWidth = OriginalWindowWidth * scale;
         public const int WindowHeight = OriginalWindowHeight * scale;
 
+        public const int DrawScale = scale;
+
         private static Vector2 originalWindowDimensions = new Vector2(OriginalWindowWidth, OriginalWindowHeight);
         private static Vector2 windowDimensions = new Vector2(WindowWidth, WindowHeight);
         public static Vector2 OriginalWindowDimensions { get => originalWindowDimensions; }
