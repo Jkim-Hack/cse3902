@@ -15,8 +15,11 @@ namespace cse3902.Sounds
         //need to implement
         public SoundEffect arrowBoomerang { get; set; }
         //need to implement
+        public SoundEffect bombDrop { get; set; }
         public SoundEffect bombBlow { get; set; }
         public SoundEffect lowHealth { get; set; }
+        //need to implement
+        public SoundEffect fanfare { get; set; }
         public SoundEffect getItem { get; set; }
         public SoundEffect getRupee { get; set; }
         //need to implement
@@ -55,8 +58,10 @@ namespace cse3902.Sounds
             linkDie = content.Load<SoundEffect>("LOZ_Link_Die");
             swordSlash = content.Load<SoundEffect>("LOZ_Sword_Slash");
             arrowBoomerang = content.Load<SoundEffect>("LOZ_Arrow_Boomerang");
+            bombDrop = content.Load<SoundEffect>("LOZ_Bomb_Drop");
             bombBlow = content.Load<SoundEffect>("LOZ_Bomb_Blow");
             lowHealth = content.Load<SoundEffect>("LOZ_LowHealth");
+            fanfare = content.Load<SoundEffect>("LOZ_Fanfare");
             getItem = content.Load<SoundEffect>("LOZ_Get_Item");
             getRupee = content.Load<SoundEffect>("LOZ_Get_Rupee");
             text = content.Load<SoundEffect>("LOZ_Text");
