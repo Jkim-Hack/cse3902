@@ -85,7 +85,7 @@ namespace cse3902.HUD
 
         private void DrawTriforce()
         {
-            Rectangle triforceRectangle = MiniMapConstants.CalculatePos((int)MiniMapConstants.TriforcePos.X, (int)MiniMapConstants.TriforcePos.Y);
+            Rectangle triforceRectangle = MiniMapConstants.CalculatePos((int)MiniMapConstants.TriforcePos.X, (int)MiniMapConstants.TriforcePos.Y, MiniMapConstants.Width, MiniMapConstants.Height);
             triforceRectangle.X += (MiniMapConstants.Width - MiniMapConstants.Height) / 2;
             triforceRectangle.Width = MiniMapConstants.Height;
             if (colorRed) HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceRed, offsetX, offsetY);

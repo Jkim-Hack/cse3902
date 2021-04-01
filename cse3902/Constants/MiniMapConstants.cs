@@ -33,13 +33,7 @@ namespace cse3902.Constants
         public static Rectangle CalculatePos(int x, int y, int width, int height)
         {
             return new Rectangle(x * (width + gap), y * (height + gap) , width, height);
-        }
-
-        // overloaded
-        public static Rectangle CalculatePos(int x, int y)
-        {
-            return new Rectangle(x * (Width + gap), y * (Height + gap), Width, Height);
-        }
+        } 
 
         public static List<Vector2> RoomListZ0
         {
