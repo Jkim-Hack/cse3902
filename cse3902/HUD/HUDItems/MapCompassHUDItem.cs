@@ -10,32 +10,26 @@ namespace cse3902.HUD
     public class MapCompassHUDItem : IHUDItem
     {
         private Game1 game;
-        private Vector3 currentRoom;
 
         private Texture2D label;
         private Texture2D compass;
 
         private Rectangle labelPos;
         private Rectangle compassPos;
+        private Rectangle mapCover;
         
         private int offsetX;
         private int offsetY;
 
-        private bool alreadyChanged;
-
-        private Rectangle box;
-
         public MapCompassHUDItem(Game1 game, Texture2D label, Texture2D compass)
         {
             this.game = game;
-            this.currentRoom = game.RoomHandler.currentRoom;
-            this.currentRoom.Y++;
 
             this.label = label;
             this.compass = compass;
 
-            this.offsetX = 0;
-            this.offsetY = 0;
+            this.offsetX = 35;
+            this.offsetY = DimensionConstants.OriginalWindowHeight / 2;
 
             int scaledLabelWidth = label.Bounds.Width / DimensionConstants.DrawScale;
             int scaledLabelHeight = label.Bounds.Height / DimensionConstants.DrawScale;
@@ -45,9 +39,7 @@ namespace cse3902.HUD
             int scaledCompassHeight = (int)(compass.Bounds.Height / 1.3f);
             this.compassPos = new Rectangle(offsetX + (scaledLabelWidth / 2) - (scaledCompassWidth / 2), offsetY + scaledLabelHeight + 5, scaledCompassWidth, scaledCompassHeight);
 
-            this.alreadyChanged = false;
-
-            box = new Rectangle();
+            this.mapCover = new Rectangle(0, scaledLabelHeight / 4, scaledLabelWidth, scaledLabelHeight / 2);
         }
 
         public int Update(GameTime gameTime)
@@ -57,7 +49,23 @@ namespace cse3902.HUD
 
         public void Draw()
         {
+            DrawLabel();
+            if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Map] == 0) DrawMapCover();
+            if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Compass] > 0) DrawCompass();
+        }
+
+        public void DrawLabel()
+        {
             game.SpriteBatch.Draw(label, labelPos, Color.White);
+        }
+
+        public void DrawMapCover()
+        {
+            HUDUtilities.DrawRectangle(game, mapCover, Color.Black, offsetX, offsetY);
+        }
+
+        public void DrawCompass()
+        {
             game.SpriteBatch.Draw(compass, compassPos, Color.White);
         }
 
@@ -80,7 +88,7 @@ namespace cse3902.HUD
 
         public ref Rectangle Box {
 
-            get => ref box;
+            get => ref labelPos;
         }
     }
 }
