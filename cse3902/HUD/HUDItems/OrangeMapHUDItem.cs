@@ -12,7 +12,6 @@ namespace cse3902.HUD
     public class OrangeMapHUDItem : IHUDItem
     {
         private Game1 game;
-        private Vector3 currentRoom;
 
         private Texture2D map;
         private Rectangle mapPos;
@@ -30,8 +29,6 @@ namespace cse3902.HUD
         public OrangeMapHUDItem(Game1 game, Texture2D map, Texture2D roomsTexture)
         {
             this.game = game;
-            this.currentRoom = game.RoomHandler.currentRoom;
-            this.currentRoom.Y++;
 
             this.map = map;
             this.roomsTexture = roomsTexture;
@@ -68,22 +65,26 @@ namespace cse3902.HUD
 
         private void DrawRooms()
         {
-            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector3(2, 5, 0)), 0, 0, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
-            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector3(1, 5, 0)), 0, 0, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
-            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector3(3, 5, 0)), 0, 0, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
+            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector3(2, 5, 0)), offsetX, offsetY, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
+            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector3(1, 5, 0)), offsetX, offsetY, HUDUtilities.OrangeMapRoomLayer, roomFrames[4]);
+            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector3(3, 5, 0)), offsetX, offsetY, HUDUtilities.OrangeMapRoomLayer, roomFrames[8]);
         }
 
         private void DrawCurrentRoom()
         {
-            HUDUtilities.DrawRectangle(game, GetRoomPosition(currentRoom), Color.White, offsetX, offsetY, HUDUtilities.OrangeMapCurrentRoomLayer);
+            HUDUtilities.DrawRectangle(game, GetRoomPosition(game.RoomHandler.currentRoom, 3), Color.Red, offsetX, offsetY, HUDUtilities.OrangeMapCurrentRoomLayer);
         }
 
-        private Rectangle GetRoomPosition(Vector3 coords)
+        private Rectangle GetRoomPosition(Vector3 coords, int? size = null)
         {
-            int scaled = (int)(8 / 1.5f);
-            int x = (int)(offsetX + scaledMapWidth / 2 + (coords.X - 2) * scaled);
-            int y = (int)(offsetY + scaledMapHeight / 1.5f + (coords.Y - 5) * scaled);
-            return new Rectangle(x, y, scaled, scaled);
+            int scaled = 7;
+            if (size == null) size = scaled;
+
+            int sizeOffset = (scaled - (int)size) / 2;
+            int x = (int)(scaledMapWidth / 2.2f + (coords.X - 2) * scaled) + sizeOffset;
+            int y = (int)(scaledMapHeight / 1.3f + (coords.Y - 5) * scaled) + sizeOffset;
+
+            return new Rectangle(x, y, (int)size, (int)size);
         }
 
         public void Erase() {} // needs to be deleted once isprite is updated
