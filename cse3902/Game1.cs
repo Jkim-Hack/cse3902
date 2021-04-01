@@ -39,10 +39,8 @@ namespace cse3902
         private Camera camera;
         public Camera Camera { get => camera; }
 
-        private MiniMapHUDItem miniMapHUDItem; // testing
-        
-	    private HUDManager hudManager;
-        public HUDManager HUDManager { get => hudManager; }
+        private HUDManager hudManager;
+        public HUDManager HudManager { get => hudManager; }
         
         private Texture2D lineTexture;
 
@@ -89,7 +87,7 @@ namespace cse3902
             camera = new Camera(new Vector2(0,0));
             roomHandler = new RoomHandler(this);
             collisionManager = new CollisionManager(this);
-            miniMapHUDItem = new MiniMapHUDItem(this); // testing
+            hudManager = new HUDManager(this);
 
             GameStateManager.Instance.Camera = camera;
 
@@ -122,6 +120,9 @@ namespace cse3902
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.BACKGROUND, ref Background.Instance.WallsListRef);
 
             roomHandler.LoadNewRoom(roomHandler.startingRoomTranslation,0);
+
+            // hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.HEALTH); <- has a null reference error
+            hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.MINIMAP);
         }
 
         /// <summary>
@@ -162,7 +163,8 @@ namespace cse3902
             camera.Update();
             GameStateManager.Instance.Update();
             base.Update(gameTime);
-            miniMapHUDItem.Update();
+
+            hudManager.Update(gameTime);
         }
 
         /// <summary>
@@ -182,7 +184,6 @@ namespace cse3902
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetHudTransformationMatrix());
             hudManager.Draw();
-	        miniMapHUDItem.Draw(); // testing
             spriteBatch.End();
 
             base.Draw(gameTime);

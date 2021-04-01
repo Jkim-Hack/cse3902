@@ -13,7 +13,6 @@ namespace cse3902.HUD
         public enum HUDItemKey
         {
             INVENTORY,
-            MAP_ITEM,
             COMPASS_ITEM,
             YELLOW_MAP,
             MINIMAP,
@@ -45,9 +44,10 @@ namespace cse3902.HUD
                 case HUDItemKey.INVENTORY:
                     break;
                 case HUDItemKey.HEALTH:
-                    HUDItems.Add(HUDItemKey.HEALTH, CreateHealthHUDItem());
+                    HUDItems.Add(key, CreateHealthHUDItem());
                     break;
                 case HUDItemKey.MINIMAP:
+                    HUDItems.Add(key, CreateMinimapHUDItem());
                     break;
                 // ... Add more when new HUDItems are implemented
             }
@@ -56,6 +56,11 @@ namespace cse3902.HUD
         private IHUDItem CreateHealthHUDItem()
         {
             return HUDSpriteFactory.Instance.CreateHealthHUDItem(game, HUDPositionConstants.HealthHUDPosition);
+        }
+
+        private IHUDItem CreateMinimapHUDItem()
+        {
+            return HUDSpriteFactory.Instance.CreateMinimapHUDItem(game);
         }
  
 	    public void Update(GameTime gameTime)
