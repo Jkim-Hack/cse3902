@@ -24,6 +24,7 @@ namespace cse3902.Entities
         private int health;
 
         private double remainingDamageDelay;
+        private int lowHealthSoundDelay;
 
         private Vector2 shoveDirection;
         private int shoveDistance;
@@ -44,6 +45,7 @@ namespace cse3902.Entities
             health = totalHealth;
 
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
+            lowHealthSoundDelay = LinkConstants.defaultSoundDelay;
 
             shoveDistance = LinkConstants.defaultShoveDistance;
             PauseMovement = false;
@@ -130,6 +132,16 @@ namespace cse3902.Entities
                     mode = LinkMode.Still;
                     ChangeDirection(new Vector2(0, 0));
 
+                }
+            }
+
+            if (health <= 2)
+            {
+                lowHealthSoundDelay--;
+                if (lowHealthSoundDelay == 0)
+                {
+                    lowHealthSoundDelay = LinkConstants.defaultSoundDelay;
+                    SoundFactory.PlaySound(SoundFactory.Instance.lowHealth);
                 }
             }
         }
@@ -234,14 +246,8 @@ namespace cse3902.Entities
                 health -= damage;
                 remainingDamageDelay = DamageConstants.DamageDisableDelay;
             }
-            if (health <= 2)
-            {
-                SoundFactory.PlaySound(SoundFactory.Instance.lowHealth);
-            }
-            else if (health > 0)
-            {
-                SoundFactory.PlaySound(SoundFactory.Instance.linkHit);
-            }
+
+            SoundFactory.PlaySound(SoundFactory.Instance.linkHit);
         }
 
         public Vector2 Direction

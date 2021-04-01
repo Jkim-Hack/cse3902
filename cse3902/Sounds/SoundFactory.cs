@@ -15,19 +15,16 @@ namespace cse3902.Sounds
         public SoundEffect bombDrop { get; set; }
         public SoundEffect bombBlow { get; set; }
         public SoundEffect lowHealth { get; set; }
-        //need to implement
         public SoundEffect fanfare { get; set; }
         public SoundEffect getItem { get; set; }
         public SoundEffect getRupee { get; set; }
-        //need to implement
+        //need to implement (with scrolling text in old man room)
         public SoundEffect text { get; set; }
         public SoundEffect keyAppear { get; set; }
         public SoundEffect doorUnlock { get; set; }
-        //need to implement
         public SoundEffect stairs { get; set; }
         public SoundEffect bossScream { get; set; }
         public SoundEffect bossHurt { get; set; }
-        //need to implement
         public SoundEffect secret { get; set; }
 
         private SoundEffectInstance backgroundMusicInstance;
@@ -73,7 +70,7 @@ namespace cse3902.Sounds
             SoundEffect backgroundMusic = content.Load<SoundEffect>("LOZ_Background_Music");
             backgroundMusicInstance = backgroundMusic.CreateInstance();
             backgroundMusicInstance.IsLooped = true;
-            backgroundMusicInstance.Volume *= 0.4f;
+            backgroundMusicInstance.Volume *= 0.25f;
             backgroundMusicInstance.Play();
         }
 
