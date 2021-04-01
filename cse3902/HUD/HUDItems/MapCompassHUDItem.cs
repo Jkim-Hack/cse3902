@@ -37,8 +37,13 @@ namespace cse3902.HUD
             this.offsetX = 0;
             this.offsetY = 0;
 
-            this.labelPos = new Rectangle(offsetX, offsetY, label.Bounds.Width, label.Bounds.Height);
-            this.compassPos = new Rectangle(offsetX + (label.Bounds.Width / 2) - (compass.Bounds.Width / 2), offsetY + label.Bounds.Height, compass.Bounds.Width, compass.Bounds.Height);
+            int scaledLabelWidth = label.Bounds.Width / DimensionConstants.DrawScale;
+            int scaledLabelHeight = label.Bounds.Height / DimensionConstants.DrawScale;
+            this.labelPos = new Rectangle(offsetX, offsetY, scaledLabelWidth, scaledLabelHeight);
+
+            int scaledCompassWidth = (int)(compass.Bounds.Width / 1.3f);
+            int scaledCompassHeight = (int)(compass.Bounds.Height / 1.3f);
+            this.compassPos = new Rectangle(offsetX + (scaledLabelWidth / 2) - (scaledCompassWidth / 2), offsetY + scaledLabelHeight + 5, scaledCompassWidth, scaledCompassHeight);
 
             this.alreadyChanged = false;
 

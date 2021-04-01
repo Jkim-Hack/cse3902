@@ -24,8 +24,6 @@ namespace cse3902.HUD
 
         private bool alreadyChanged;
 
-        private Rectangle box; // placeholder since this HUD item doesn't have a real rectangle
-
         public MiniMapHUDItem(Game1 game, Texture2D level)
         {
             this.game = game;
@@ -35,17 +33,13 @@ namespace cse3902.HUD
             this.level = level;
 
             this.offsetX = 25;
-            this.offsetY = DimensionConstants.OriginalWindowHeight - 33;
+            this.offsetY = DimensionConstants.OriginalWindowHeight - 32;
 
-            int scaledWidth = (int)(level.Bounds.Width * 0.4f) - 1;
-            int scaledHeight = (int)(level.Bounds.Height * 0.4f);
-            this.levelPos = new Rectangle(offsetX, offsetY - scaledHeight - 7, scaledWidth, scaledHeight);
+            this.levelPos = new Rectangle(offsetX, offsetY - level.Bounds.Height / DimensionConstants.DrawScale - 7, level.Bounds.Width / DimensionConstants.DrawScale, level.Bounds.Height / DimensionConstants.DrawScale + 1);
 
             this.alreadyChanged = false;
             colorRed = false;
             delay = MiniMapConstants.COLOR_DELAY;
-
-            box = new Rectangle();
         }
 
         public int Update(GameTime gameTime)
@@ -125,7 +119,7 @@ namespace cse3902.HUD
 
         public ref Rectangle Box {
 
-            get => ref box;
+            get => ref levelPos;
         }
     }
 }
