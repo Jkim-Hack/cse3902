@@ -14,7 +14,7 @@ namespace cse3902.HUD
         {
             INVENTORY,
             MAP_COMPASS_ITEM,
-            YELLOW_MAP,
+            ORANGE_MAP,
             MINIMAP,
             HEALTH
         }
@@ -52,6 +52,9 @@ namespace cse3902.HUD
                 case HUDItemKey.MAP_COMPASS_ITEM:
                     HUDItems.Add(key, CreateMapCompassHUDItem());
                     break;
+                case HUDItemKey.ORANGE_MAP:
+                    HUDItems.Add(key, CreateOrangeMapHUDItem());
+                    break;
                 // ... Add more when new HUDItems are implemented
             }
         }
@@ -68,7 +71,12 @@ namespace cse3902.HUD
 
         private IHUDItem CreateMapCompassHUDItem()
         {
-            return HUDSpriteFactory.Instance.CreateMapCompassItem(game);
+            return HUDSpriteFactory.Instance.CreateMapCompassHUDItem(game);
+        }
+
+        private IHUDItem CreateOrangeMapHUDItem()
+        {
+            return HUDSpriteFactory.Instance.CreateOrangeMapHUDItem(game);
         }
  
 	    public void Update(GameTime gameTime)

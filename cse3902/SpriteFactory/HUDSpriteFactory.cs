@@ -16,6 +16,8 @@ namespace cse3902.SpriteFactory
         private Texture2D NumberLabel;
         private Texture2D MapCompassLabel;
         private Texture2D Compass;
+        private Texture2D OrangeMap;
+        private Texture2D OrangeMapRooms;
 
         private static HUDSpriteFactory instance = new HUDSpriteFactory();
 
@@ -38,6 +40,8 @@ namespace cse3902.SpriteFactory
             LevelLabel = content.Load<Texture2D>("UI/level1");
             MapCompassLabel = content.Load<Texture2D>("UI/map_compass_item");
             Compass = content.Load<Texture2D>("compass");
+            OrangeMap = content.Load<Texture2D>("UI/orange_map");
+            OrangeMapRooms = content.Load<Texture2D>("UI/orange_map_rooms");
         }
 
         public IHUDItem CreateHealthHUDItem(Game1 game, Vector2 startingPos)
@@ -50,9 +54,14 @@ namespace cse3902.SpriteFactory
             return new MiniMapHUDItem(game, LevelLabel);
         }
 
-        public IHUDItem CreateMapCompassItem(Game1 game)
+        public IHUDItem CreateMapCompassHUDItem(Game1 game)
         {
             return new MapCompassHUDItem(game, MapCompassLabel, Compass);
+        }
+
+        public IHUDItem CreateOrangeMapHUDItem(Game1 game)
+        {
+            return new OrangeMapHUDItem(game, OrangeMap, OrangeMapRooms);
         }
     }
 }

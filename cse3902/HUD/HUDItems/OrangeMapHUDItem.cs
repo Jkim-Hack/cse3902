@@ -14,15 +14,29 @@ namespace cse3902.HUD
 
         private Texture2D map;
         private Rectangle mapPos;
+
+        private Texture2D roomsTexture;
         
         private int offsetX;
         private int offsetY;
 
         private bool alreadyChanged;
 
-        public OrangeMapHUDItem()
+        public OrangeMapHUDItem(Game1 game, Texture2D map, Texture2D roomsTexture)
         {
-            
+            this.game = game;
+            this.currentRoom = game.RoomHandler.currentRoom;
+            this.currentRoom.Y++;
+
+            this.map = map;
+            this.roomsTexture = roomsTexture;
+
+            this.offsetX = 0;
+            this.offsetY = 0;
+
+            this.mapPos = new Rectangle(0, 0, map.Bounds.Width, map.Bounds.Height);
+
+            this.alreadyChanged = false;
         }
 
         public int Update(GameTime gameTime)

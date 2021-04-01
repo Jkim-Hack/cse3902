@@ -124,6 +124,7 @@ namespace cse3902
             // hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.HEALTH); <- has a null reference error
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.MINIMAP);
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.MAP_COMPASS_ITEM);
+            hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.ORANGE_MAP);
         }
 
         /// <summary>
