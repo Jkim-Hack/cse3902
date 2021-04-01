@@ -27,6 +27,7 @@ namespace cse3902.Projectiles
         private const float sizeIncrease = 1f;
 
         private Rectangle destination;
+        private Rectangle preExplosion;
 
         private const float delay = 0.8f;
         private float remainingDelay;
@@ -49,6 +50,8 @@ namespace cse3902.Projectiles
             frameHeight = spriteTexture.Height / rows;
             frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
 
+            preExplosion = new Rectangle();
+
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
 
@@ -63,10 +66,12 @@ namespace cse3902.Projectiles
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth);
-                int height = (int)(sizeIncrease * frameHeight);
+                if (currentFrame == 0) return ref preExplosion;
+
+                int width = (int)(sizeIncrease * frameWidth / 1.5f);
+                int height = (int)(sizeIncrease * frameHeight / 1.5f);
                 Rectangle Destination = new Rectangle(currentX, currentY, width, height);
-                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2 - 1);
                 this.destination = Destination;
                 return ref destination;
             }
@@ -99,11 +104,7 @@ namespace cse3902.Projectiles
 
         public int Update(GameTime gameTime)
         {
-            if (animationComplete)
-            {
-                // SoundFactory.PlaySound(SoundFactory.Instance.bombBlow);
-                return -1;
-            }
+            if (animationComplete) return -1;
 
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
             remainingDelay -= timer;
@@ -111,7 +112,7 @@ namespace cse3902.Projectiles
             if (remainingDelay <= 0)
             {
                 if (currentFrame == 0) SoundFactory.PlaySound(SoundFactory.Instance.bombBlow);
-                
+
                 currentFrame++;
                 if (currentFrame == totalFrames)
                 {
