@@ -28,6 +28,7 @@ namespace cse3902.HUD.HUDItems
         public HealthHUDItem(Game1 game, Texture2D UITexture, Texture2D heartTexture, Vector2 origin)
         {
             center = new Vector2(origin.X / 2f, origin.Y / 2f);
+            this.origin = origin;
             uiSpriteTexture = UITexture;
             size = new Vector2(uiSpriteTexture.Bounds.Width, uiSpriteTexture.Bounds.Height);
             box = new Rectangle((int)size.X, (int)size.Y, (int)size.X, (int)size.Y);
@@ -60,7 +61,7 @@ namespace cse3902.HUD.HUDItems
 
         public void Draw()
         { 
-            spriteBatch.Draw(uiSpriteTexture, origin, box, Color.White, 0, new Vector2(0,0), 1f, SpriteEffects.None, SpriteUtilities.TopBackgroundLayer);
+            spriteBatch.Draw(uiSpriteTexture, origin, null, Color.White, 0, new Vector2(0,0), 1f, SpriteEffects.None, 0);
             DrawHeartDisplay();
         }
 
@@ -83,11 +84,11 @@ namespace cse3902.HUD.HUDItems
                 if (i > 7)
                 {
                     origin.Y += 8;
-                    origin.X = (i - 8) * 8f;
+                    origin.X += (i - 8) * 8f;
                 }
                 else
                 {
-                    origin.X = i * 8f;
+                    origin.X += i * 8f;
                 }
                 hearts.Add(new HeartHUDSprite(spriteBatch, heartTexture, origin));
             }
@@ -107,14 +108,16 @@ namespace cse3902.HUD.HUDItems
 
         private void DrawHeartDisplay()
         {
+            int fullCount = (int)heartCount / 2;
+
             int i = 0;
-            for (; i < heartCount; i++)
+	        for (; i < fullCount; i++)
             {
                 hearts[i].Full = true;
                 hearts[i].Draw();
             }
 
-            if (heartCount % 1 != 0)
+            if (heartCount % 2 > 0)
             {
                 hearts[i].Half = true;
                 hearts[i].Draw();
