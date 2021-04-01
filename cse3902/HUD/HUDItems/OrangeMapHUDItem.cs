@@ -1,8 +1,10 @@
 using cse3902.Interfaces;
 using cse3902.Constants;
 using cse3902.Utilities;
+using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using System;
 
 namespace cse3902.HUD
@@ -14,8 +16,11 @@ namespace cse3902.HUD
 
         private Texture2D map;
         private Rectangle mapPos;
+        private int scaledMapWidth;
+        private int scaledMapHeight;
 
         private Texture2D roomsTexture;
+        private Rectangle[] roomFrames;
         
         private int offsetX;
         private int offsetY;
@@ -31,10 +36,15 @@ namespace cse3902.HUD
             this.map = map;
             this.roomsTexture = roomsTexture;
 
-            this.offsetX = 0;
-            this.offsetY = 0;
+            this.offsetX = (int)(DimensionConstants.OriginalWindowWidth / 2.25f);
+            this.offsetY = (int)(DimensionConstants.OriginalWindowHeight / 2.15f);
 
-            this.mapPos = new Rectangle(0, 0, map.Bounds.Width, map.Bounds.Height);
+            this.scaledMapWidth = (int)(map.Bounds.Width / 1.3f);
+            this.scaledMapHeight = (int)(map.Bounds.Height / 1.3f);
+
+            this.mapPos = new Rectangle(0, 0, scaledMapWidth, scaledMapHeight);
+
+            this.roomFrames = SpriteUtilities.distributeFrames(16, 1, 8, 8);
 
             this.alreadyChanged = false;
         }
@@ -46,7 +56,28 @@ namespace cse3902.HUD
 
         public void Draw()
         {
-            
+            DrawMap();
+            DrawRooms();
+        }
+
+        private void DrawMap()
+        {
+            HUDUtilities.DrawTexture(game, map, mapPos, offsetX, offsetY, HUDUtilities.OrangeMapLayer);
+        }
+
+        private void DrawRooms()
+        {
+            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector2(2, 5)), 0, 0, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
+            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector2(1, 5)), 0, 0, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
+            HUDUtilities.DrawTexture(game, roomsTexture, GetRoomPosition(new Vector2(3, 5)), 0, 0, HUDUtilities.OrangeMapRoomLayer, roomFrames[15]);
+        }
+
+        private Rectangle GetRoomPosition(Vector2 coords)
+        {
+            int scaled = (int)(8 / 1.5f);
+            int x = (int)(offsetX + scaledMapWidth / 2 + (coords.X - 2) * scaled);
+            int y = (int)(offsetY + scaledMapHeight / 1.5f + (coords.Y - 5) * scaled);
+            return new Rectangle(x, y, scaled, scaled);
         }
 
         public void Erase() {} // needs to be deleted once isprite is updated
