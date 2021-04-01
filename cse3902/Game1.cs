@@ -124,6 +124,8 @@ namespace cse3902
 
             // hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.HEALTH); <- has a null reference error
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.MINIMAP);
+            hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.MAP_COMPASS_ITEM);
+            hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.ORANGE_MAP);
         }
 
         /// <summary>
@@ -175,7 +177,7 @@ namespace cse3902
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetGameplayTransformationMatrix());
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetGameplayTransformationMatrix());
 
             if (!GameStateManager.Instance.InMenu(true)) player.Draw();
             roomHandler.Draw();
@@ -183,7 +185,7 @@ namespace cse3902
 
             spriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.GetHudTransformationMatrix());
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetHudTransformationMatrix());
             hudManager.Draw();
             spriteBatch.End();
 
