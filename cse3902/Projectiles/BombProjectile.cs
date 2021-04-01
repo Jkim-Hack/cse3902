@@ -1,6 +1,7 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.Sounds;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Rooms;
@@ -55,6 +56,8 @@ namespace cse3902.Projectiles
             this.animationComplete = false;
 
             this.collidable = new ProjectileCollidable(this);
+
+            SoundFactory.PlaySound(SoundFactory.Instance.bombDrop);
         }
 
         public ref Rectangle Box

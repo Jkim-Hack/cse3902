@@ -2,6 +2,7 @@
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
+using cse3902.Sounds;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -71,6 +72,8 @@ namespace cse3902.Projectiles
 
             collisionTexture = ProjectileHandler.Instance.CreateStarAnimTexture();
             this.collidable = new ProjectileCollidable(this);
+
+            SoundFactory.PlaySound(SoundFactory.Instance.arrowBoomerang);
         }
 
         public void Draw()

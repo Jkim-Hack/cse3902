@@ -1,6 +1,7 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Collision;
 using cse3902.Sprites;
+using cse3902.Sounds;
 using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -78,6 +79,7 @@ namespace cse3902.Projectiles
 
             angle += (float)(Math.PI / 8);
             if (angle >= 2 * Math.PI) angle = 0;
+            if (Math.Abs(angle - Math.PI / 4) <= 0.1) SoundFactory.PlaySound(SoundFactory.Instance.arrowBoomerang);
 
             /* Animation is done if boomerang is travelling back to Link and collides with him */
             if (travelDistance < 0 && link.Box.Intersects(this.Box)) animationComplete = true;

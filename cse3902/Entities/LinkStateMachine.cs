@@ -166,6 +166,7 @@ namespace cse3902.Entities
         {
             if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
             mode = LinkMode.Attack;
+            SoundFactory.PlaySound(SoundFactory.Instance.swordSlash);
 
             Vector2 startingPosition = getItemLocation(currDirection);
             linkInventory.CreateWeapon(startingPosition, currDirection);

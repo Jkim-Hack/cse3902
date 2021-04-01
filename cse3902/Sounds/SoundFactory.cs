@@ -10,11 +10,8 @@ namespace cse3902.Sounds
         public SoundEffect enemyDie { get; set; }
         public SoundEffect linkHit { get; set; }
         public SoundEffect linkDie { get; set; }
-        //need to implement
         public SoundEffect swordSlash { get; set; }
-        //need to implement
         public SoundEffect arrowBoomerang { get; set; }
-        //need to implement
         public SoundEffect bombDrop { get; set; }
         public SoundEffect bombBlow { get; set; }
         public SoundEffect lowHealth { get; set; }
@@ -76,7 +73,7 @@ namespace cse3902.Sounds
             SoundEffect backgroundMusic = content.Load<SoundEffect>("LOZ_Background_Music");
             backgroundMusicInstance = backgroundMusic.CreateInstance();
             backgroundMusicInstance.IsLooped = true;
-            backgroundMusicInstance.Play();
+            // backgroundMusicInstance.Play();
         }
 
         public static void PlaySound(SoundEffect sound)
