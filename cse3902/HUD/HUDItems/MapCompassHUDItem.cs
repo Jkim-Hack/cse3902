@@ -33,11 +33,11 @@ namespace cse3902.HUD
 
             int scaledLabelWidth = label.Bounds.Width / DimensionConstants.DrawScale;
             int scaledLabelHeight = label.Bounds.Height / DimensionConstants.DrawScale;
-            this.labelPos = new Rectangle(offsetX, offsetY, scaledLabelWidth, scaledLabelHeight);
+            this.labelPos = new Rectangle(0, 0, scaledLabelWidth, scaledLabelHeight);
 
             int scaledCompassWidth = (int)(compass.Bounds.Width / 1.3f);
             int scaledCompassHeight = (int)(compass.Bounds.Height / 1.3f);
-            this.compassPos = new Rectangle(offsetX + (scaledLabelWidth / 2) - (scaledCompassWidth / 2), offsetY + scaledLabelHeight + 5, scaledCompassWidth, scaledCompassHeight);
+            this.compassPos = new Rectangle((scaledLabelWidth / 2) - (scaledCompassWidth / 2), scaledLabelHeight + 5, scaledCompassWidth, scaledCompassHeight);
 
             this.mapCover = new Rectangle(0, scaledLabelHeight / 4, scaledLabelWidth, scaledLabelHeight / 2);
         }
@@ -56,17 +56,17 @@ namespace cse3902.HUD
 
         public void DrawLabel()
         {
-            game.SpriteBatch.Draw(label, labelPos, Color.White);
+            HUDUtilities.DrawTexture(game, label, labelPos, offsetX, offsetY, HUDUtilities.MapCompassLabelLayer);
         }
 
         public void DrawMapCover()
         {
-            HUDUtilities.DrawRectangle(game, mapCover, Color.Black, offsetX, offsetY, 0.9f);
+            HUDUtilities.DrawRectangle(game, mapCover, Color.Black, offsetX, offsetY, HUDUtilities.MapCoverLayer);
         }
 
         public void DrawCompass()
         {
-            game.SpriteBatch.Draw(compass, compassPos, Color.White);
+            HUDUtilities.DrawTexture(game, compass, compassPos, offsetX, offsetY, HUDUtilities.MapCompassLabelLayer);
         }
 
         public void Erase() {} // needs to be deleted once isprite is updated

@@ -35,7 +35,7 @@ namespace cse3902.HUD
             this.offsetX = 25;
             this.offsetY = DimensionConstants.OriginalWindowHeight - 32;
 
-            this.levelPos = new Rectangle(offsetX, offsetY - level.Bounds.Height / DimensionConstants.DrawScale - 7, level.Bounds.Width / DimensionConstants.DrawScale, level.Bounds.Height / DimensionConstants.DrawScale + 1);
+            this.levelPos = new Rectangle(0, (-level.Bounds.Height / DimensionConstants.DrawScale) - 7, level.Bounds.Width / DimensionConstants.DrawScale, level.Bounds.Height / DimensionConstants.DrawScale + 1);
 
             this.alreadyChanged = false;
             colorRed = false;
@@ -75,12 +75,12 @@ namespace cse3902.HUD
 
         private void DrawLevelLabel()
         {
-            game.SpriteBatch.Draw(level, levelPos, Color.White);
+            HUDUtilities.DrawTexture(game, level, levelPos, offsetX, offsetY, HUDUtilities.MinimapLabelLayer);
         }
 
         private void DrawMap()
         {
-            foreach (Rectangle rec in MiniMapConstants.GetRoomLayout()) HUDUtilities.DrawRectangle(game, rec, MiniMapConstants.RoomColor, offsetX, offsetY, HUDUtilities.MapLayer);
+            foreach (Rectangle rec in MiniMapConstants.GetRoomLayout()) HUDUtilities.DrawRectangle(game, rec, MiniMapConstants.RoomColor, offsetX, offsetY, HUDUtilities.MinimapLayer);
         }
 
         private void DrawTriforce()
@@ -88,8 +88,8 @@ namespace cse3902.HUD
             Rectangle triforceRectangle = MiniMapConstants.CalculatePos((int)MiniMapConstants.TriforcePos.X, (int)MiniMapConstants.TriforcePos.Y, MiniMapConstants.Width, MiniMapConstants.Height);
             triforceRectangle.X += (MiniMapConstants.Width - MiniMapConstants.Height) / 2;
             triforceRectangle.Width = MiniMapConstants.Height;
-            if (colorRed) HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceRed, offsetX, offsetY, HUDUtilities.TriforceLayer);
-            else HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceGreen, offsetX, offsetY, HUDUtilities.TriforceLayer);
+            if (colorRed) HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceRed, offsetX, offsetY, HUDUtilities.MinimapTriforceLayer);
+            else HUDUtilities.DrawRectangle(game, triforceRectangle, MiniMapConstants.TriforceGreen, offsetX, offsetY, HUDUtilities.MinimapTriforceLayer);
         }
 
         private void DrawCurrentRoom()
@@ -97,7 +97,7 @@ namespace cse3902.HUD
             Rectangle currentRoomRectangle = MiniMapConstants.CalculatePos((int)currentRoom.X, (int)currentRoom.Y, MiniMapConstants.Width, MiniMapConstants.Height);
             currentRoomRectangle.X += (MiniMapConstants.Width - MiniMapConstants.Height) / 2;
             currentRoomRectangle.Width = MiniMapConstants.Height;
-            HUDUtilities.DrawRectangle(game, currentRoomRectangle, MiniMapConstants.CurrentRoomColor, offsetX, offsetY, HUDUtilities.CurrentRoomLayer);
+            HUDUtilities.DrawRectangle(game, currentRoomRectangle, MiniMapConstants.CurrentRoomColor, offsetX, offsetY, HUDUtilities.MinimapCurrentRoomLayer);
         }
 
         public void Erase() {} // needs to be deleted once isprite is updated
