@@ -180,6 +180,7 @@ namespace cse3902.Entities
         public Vector2 CollectItemAnimation()
         {
             //The basic logic to use item. needs to add Pause Game during the duration and such..
+            SoundFactory.PlaySound(SoundFactory.Instance.fanfare);
             mode = LinkMode.Item;
             linkSprite.setFrameSet(LinkSprite.AnimationState.Item);
             return getItemLocation(new Vector2(0,-1));
