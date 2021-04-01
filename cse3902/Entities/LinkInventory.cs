@@ -1,23 +1,19 @@
-﻿using cse3902.Interfaces;
+﻿using cse3902.HUD;
+using cse3902.Interfaces;
 using cse3902.Projectiles;
-using cse3902.Sprites;
-using cse3902.HUD;
+using cse3902.Rooms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using System;
-using cse3902.SpriteFactory;
-using cse3902.Rooms;
 
 namespace cse3902.Entities
 {
-    public class LinkInventory 
+    public class LinkInventory
     {
         private LinkStateMachine linkState;
         private SpriteBatch batch;
         private IItem AnimationItem;
         private IProjectile weapon;
-
 
         public LinkInventory(Game1 game, LinkStateMachine linkState)
         {
@@ -28,7 +24,7 @@ namespace cse3902.Entities
         public void CreateWeapon(Vector2 startingPosition, Vector2 direction)
         {
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            projectileHandler.CreateSwordWeapon(batch, startingPosition, direction, (int) InventoryManager.Instance.SwordSlot);
+            projectileHandler.CreateSwordWeapon(batch, startingPosition, direction, (int)InventoryManager.Instance.SwordSlot);
         }
 
         public void CreateSwordProjectile(Vector2 startingPosition, Vector2 direction)
@@ -52,7 +48,8 @@ namespace cse3902.Entities
                 item.Center = startingPos;
                 AnimationItem = item;
                 GameStateManager.Instance.LinkPickupItem(36);
-            } else
+            }
+            else
             {
                 RoomItems.Instance.RemoveItem(item);
             }
@@ -61,31 +58,33 @@ namespace cse3902.Entities
         public void CreateItem(Vector2 startingPos)
         {
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            IProjectile projectile;
             switch (InventoryManager.Instance.ItemSlot)
             {
                 case InventoryManager.ItemType.Bow:
-                    projectile =  projectileHandler.CreateArrowItem(batch, startingPos, linkState.Direction);
+                    projectileHandler.CreateArrowItem(batch, startingPos, linkState.Direction);
                     break;
 
                 case InventoryManager.ItemType.Boomerang:
-                    projectile =  projectileHandler.CreateBoomerangItem(batch, linkState.Sprite, linkState.Direction);
+                    projectileHandler.CreateBoomerangItem(batch, linkState.Sprite, linkState.Direction);
                     break;
 
                 case InventoryManager.ItemType.Bomb:
-                    projectile =  projectileHandler.CreateBombItem(batch, startingPos);
+                    projectileHandler.CreateBombItem(batch, startingPos);
                     break;
 
                 default:
-                    projectile = null;
+                    throw new NotImplementedException();
                     break;
             }
-
         }
+
         public void ChangeWeapon(int index)
         {
+            //TODO: Remove comment below once implemented inventory system
+            //if((int) InventoryManager.Instance.SwordSlot < index)
             InventoryManager.Instance.SwordSlot = (InventoryManager.SwordType)index;
         }
+
         public void ChangeItem(InventoryManager.ItemType type)
         {
             InventoryManager.Instance.ItemSlot = type;
@@ -96,6 +95,5 @@ namespace cse3902.Entities
             RoomItems.Instance.RemoveItem(AnimationItem);
             AnimationItem = null;
         }
-
     }
 }
