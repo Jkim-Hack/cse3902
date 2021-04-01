@@ -18,27 +18,22 @@ namespace cse3902.Collision.Collidables
         {
             this.trap = trap;
             DamageDisabled = true;
-            collisionOccurrences = new Boolean[6];
-            ResetCollisions();
 
         }
 
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
-            if (collidableObject is PlayerCollidable)
-            {
-                collisionOccurrences[0] = true;
-            }
-            if (collidableObject is TrapCollidable)
-            {
-                if (this.trap.IsTriggered && ((TrapCollidable)collidableObject).Trap.IsTriggered && !collisionOccurrences[0])
-                {
-                    this.trap.Direction = -this.trap.Direction;
-                    this.trap.Center = this.trap.PreviousCenter;
-                }
-            }
-            //} else if (collidableObject is WallCollidable)
+            //if (collidableObject is TrapCollidable)
+            //{
+            //    if (this.trap.IsTriggered && ((TrapCollidable)collidableObject).Trap.IsTriggered)
+            //    {
+            //        this.trap.Direction = -this.trap.Direction;
+            //        this.trap.Center = this.trap.PreviousCenter;
+            //    }
+            //}
+
+            //if (collidableObject is WallCollidable)
             //{
             //    this.trap.Direction = new Vector2(0, 0);
             //}

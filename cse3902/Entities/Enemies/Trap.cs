@@ -15,11 +15,14 @@ namespace cse3902.Entities.Enemies
         private readonly Game1 game;
 
         private Vector2 direction;
+        private Vector2 triggerDirection;
         private float speed;
 
         private Vector2 center;
         private Vector2 previousCenter;
-        private int travelDistance;
+
+        private int triggerDistance;
+        private Boolean inReverse;
 
         private Rectangle detectionBoxX;
         private Rectangle detectionBoxY;
@@ -39,8 +42,11 @@ namespace cse3902.Entities.Enemies
 
             trapSprite = (TrapSprite)EnemySpriteFactory.Instance.CreateTrapSprite(game.SpriteBatch, start);
             this.direction = direction;
+            this.triggerDirection = direction;
             speed = 50.0f;
-            travelDistance = 50;
+
+            triggerDistance = 0;
+            inReverse = false;
 
             
             ConstructDetectionBoxes(direction);
@@ -124,10 +130,35 @@ namespace cse3902.Entities.Enemies
             if (this.IsTriggered)
             {
                 this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                triggerDistance--;
+
+                if (triggerDistance <= 0)
+                {
+                    if (inReverse)
+                    {
+                        this.IsTriggered = false;
+                        inReverse = false;
+                    } else
+                    {
+                        this.Direction = -this.Direction;
+                        if (this.Direction.X == 0)
+                        {
+                            this.triggerDistance = 50;
+                        } else
+                        {
+                            this.triggerDistance = 100;
+                        }
+
+                        inReverse = true;
+                    }
+
+                    
+
+
+                }
             }
 
             this.trapSprite.Update(gameTime);
-            this.collidable.ResetCollisions();
         }
 
         public void Draw()
@@ -138,13 +169,17 @@ namespace cse3902.Entities.Enemies
         public void Trigger()
         {
             this.IsTriggered = true;
+            
+
 
             if (currentDetectionBox == detectionBoxX)
             {
-                this.Direction = new Vector2(this.Direction.X, 0);
+                this.Direction = new Vector2(this.triggerDirection.X, 0);
+                this.triggerDistance = 100;
             } else
             {
-                this.Direction = new Vector2(0, this.Direction.Y);
+                this.Direction = new Vector2(0, this.triggerDirection.Y);
+                this.triggerDistance = 50;
             }
         }
 
