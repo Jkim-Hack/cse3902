@@ -34,7 +34,7 @@ namespace cse3902.SpriteFactory
         public void LoadAllTextures(ContentManager content)
         {
             HealthUITexture = content.Load<Texture2D>("UI/HealthUI");
-            HealthUITexture = content.Load<Texture2D>("UI/HeartsUI");
+            HeartUITexture = content.Load<Texture2D>("UI/HeartsUI");
             LevelLabel = content.Load<Texture2D>("UI/level1");
             MapCompassLabel = content.Load<Texture2D>("UI/map_compass_item");
             Compass = content.Load<Texture2D>("compass");
