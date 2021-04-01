@@ -9,6 +9,7 @@ using cse3902.SpriteFactory;
 using cse3902.Collision;
 using cse3902.Constants;
 using cse3902.HUD;
+using cse3902.Sounds;
 
 namespace cse3902
 {
@@ -98,6 +99,7 @@ namespace cse3902
             NPCSpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content, spriteBatch);
             ProjectileHandler.Instance.LoadAllTextures(Content);
+            SoundFactory.Instance.LoadAllTextures(Content);
             HUDSpriteFactory.Instance.LoadAllTextures(Content);
 
             // For hitbox drawing

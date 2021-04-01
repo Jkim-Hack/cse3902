@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using cse3902.SpriteFactory;
 using Microsoft.Xna.Framework;
+using cse3902.Sounds;
 
 namespace cse3902.Rooms.Conditions
 {
@@ -29,13 +30,14 @@ namespace cse3902.Rooms.Conditions
                 switch (conditionVariables[2])
                 {
                     case 0:
-                        ItemSpriteFactory.Instance.CreateKeyItem(startPos);
+                        ItemSpriteFactory.Instance.CreateKeyItem(startPos, true);
+                        SoundFactory.PlaySound(SoundFactory.Instance.keyAppear);
                         break;
                     case 1:
-                        ItemSpriteFactory.Instance.CreateBoomerangItem(startPos);
+                        ItemSpriteFactory.Instance.CreateBoomerangItem(startPos, true);
                         break;
                     case 2:
-                        ItemSpriteFactory.Instance.CreateHeartContainerItem(startPos);
+                        ItemSpriteFactory.Instance.CreateHeartContainerItem(startPos, true);
                         break;
                     default: //this should never happen
                         break;

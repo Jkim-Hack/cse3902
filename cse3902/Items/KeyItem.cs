@@ -24,8 +24,9 @@ namespace cse3902.Items
 
         private ICollidable collidable;
         private InventoryManager.ItemType itemType;
+        private bool isKept;
 
-        public KeyItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
+        public KeyItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, bool kept)
         {
             spriteBatch = batch;
             spriteTexture = texture;
@@ -38,6 +39,7 @@ namespace cse3902.Items
 
             this.collidable = new ItemCollidable(this);
             itemType = InventoryManager.ItemType.Key;
+            isKept = kept;
         }
 
         public void Draw()
@@ -96,6 +98,11 @@ namespace cse3902.Items
         public InventoryManager.ItemType ItemType
         {
             get => itemType;
+        }
+
+        public bool IsKept
+        {
+            get => isKept;
         }
     }
 }

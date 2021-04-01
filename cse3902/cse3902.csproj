@@ -46,6 +46,8 @@
     <Folder Include="HUD\HUDItems\" />
     <Folder Include="Content\UI\" />
     <Folder Include="Sprites\HUD\" />
+    <Folder Include="Content\sounds\" />
+    <Folder Include="Sounds\" />
     <Folder Include="Utilities\" />
   </ItemGroup>
   <ItemGroup>

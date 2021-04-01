@@ -55,10 +55,13 @@ namespace cse3902.Rooms
             oldList = new List<IItem>();
 
             List<IItem> castedItems = items as List<IItem>;
-            
-	        for (int i = 0; i < items.Count; i++)
+
+            for (int i = 0; i < items.Count; i++)
             {
-                oldList.Add(castedItems[i]);
+                if (castedItems[i].IsKept)
+                {
+                    oldList.Add(castedItems[i]);
+                }
             }
 
             items.Clear();

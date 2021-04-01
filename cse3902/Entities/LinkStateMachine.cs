@@ -1,5 +1,7 @@
-﻿using cse3902.Sprites;
+﻿using cse3902.Sounds;
+using cse3902.Sprites;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using cse3902.Constants;
 
@@ -22,6 +24,7 @@ namespace cse3902.Entities
         private int health;
 
         private double remainingDamageDelay;
+        private int lowHealthSoundDelay;
 
         private Vector2 shoveDirection;
         private int shoveDistance;
@@ -42,6 +45,7 @@ namespace cse3902.Entities
             health = totalHealth;
 
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
+            lowHealthSoundDelay = LinkConstants.defaultSoundDelay;
 
             shoveDistance = LinkConstants.defaultShoveDistance;
             PauseMovement = false;
@@ -117,8 +121,6 @@ namespace cse3902.Entities
         public void Update(GameTime gameTime)
         {
             UpdateDamageDelay(gameTime);
-            
-
             if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
 
@@ -133,7 +135,15 @@ namespace cse3902.Entities
                 }
             }
 
-
+            if (health <= 2)
+            {
+                lowHealthSoundDelay--;
+                if (lowHealthSoundDelay == 0)
+                {
+                    lowHealthSoundDelay = LinkConstants.defaultSoundDelay;
+                    SoundFactory.PlaySound(SoundFactory.Instance.lowHealth);
+                }
+            }
         }
 
         private void UpdateDamageDelay(GameTime gameTime)
@@ -168,6 +178,7 @@ namespace cse3902.Entities
         {
             if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
             mode = LinkMode.Attack;
+            SoundFactory.PlaySound(SoundFactory.Instance.swordSlash);
 
             Vector2 startingPosition = getItemLocation(currDirection);
             linkInventory.CreateWeapon(startingPosition, currDirection);
@@ -181,6 +192,7 @@ namespace cse3902.Entities
         public Vector2 CollectItemAnimation()
         {
             //The basic logic to use item. needs to add Pause Game during the duration and such..
+            SoundFactory.PlaySound(SoundFactory.Instance.fanfare);
             mode = LinkMode.Item;
             linkSprite.setFrameSet(LinkSprite.AnimationState.Item);
             return getItemLocation(new Vector2(0,-1));
@@ -197,6 +209,7 @@ namespace cse3902.Entities
             }
             return;
         }
+
         private Vector2 getItemLocation(Vector2 direction)
         {
             Vector2 spriteSize = linkSprite.Size;
@@ -233,6 +246,8 @@ namespace cse3902.Entities
                 health -= damage;
                 remainingDamageDelay = DamageConstants.DamageDisableDelay;
             }
+
+            SoundFactory.PlaySound(SoundFactory.Instance.linkHit);
         }
 
         public Vector2 Direction

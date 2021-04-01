@@ -3,6 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
 using cse3902.Projectiles;
+using cse3902.Sounds;
 using System.Linq;
 
 namespace cse3902.Rooms
@@ -52,6 +53,8 @@ namespace cse3902.Rooms
 
         public void LoadNewRoom(Vector3 newPos, IDoor entranceDoor)
         {
+            if (newPos.Z != 0) SoundFactory.PlaySound(SoundFactory.Instance.stairs);
+
             Room newRoom = rooms.GetValueOrDefault(newPos);
             Vector2 convertedRoom = RoomUtilities.ConvertVector(newPos);
 

@@ -9,5 +9,6 @@ namespace cse3902.Interfaces
     public interface IItem : ISprite, ICollidableItemEntity
     {
         public InventoryManager.ItemType ItemType { get; }
+        public bool IsKept { get; }
     }
 }

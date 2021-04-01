@@ -1,9 +1,11 @@
 ﻿using cse3902.HUD;
 using cse3902.Interfaces;
 using cse3902.Projectiles;
-using cse3902.Rooms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.Rooms;
+using Microsoft.Xna.Framework.Audio;
+using cse3902.Sounds;
 using System;
 
 namespace cse3902.Entities
@@ -38,6 +40,19 @@ namespace cse3902.Entities
 
         public void AddItemToInventory(IItem item)
         {
+            if (item.ItemType == InventoryManager.ItemType.Heart || item.ItemType == InventoryManager.ItemType.Key)
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.getHeart);
+            }
+            else if (item.ItemType == InventoryManager.ItemType.Rupee)
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.getRupee);
+            }
+            else
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.getItem);
+            }
+
             if (item.Equals(AnimationItem)) return;
             InventoryManager.ItemType type = item.ItemType;
             InventoryManager.Instance.AddToInventory(type);
