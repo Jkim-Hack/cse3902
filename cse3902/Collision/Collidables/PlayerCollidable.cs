@@ -66,13 +66,12 @@ namespace cse3902.Collision.Collidables
 		        else
                 {
                     player.Center = player.PreviousCenter;
+                    collisionOccurrences[0] = true;
                 } 
             } 
 	        else if (collidableObject is ItemCollidable)
             {
                 this.player.AddItem(((ItemCollidable)collidableObject).Item);
-                //remove item from room
-                RoomItems.Instance.RemoveItem(((ItemCollidable)collidableObject).Item);
 
             } 
 	        else if (collidableObject is ProjectileCollidable)

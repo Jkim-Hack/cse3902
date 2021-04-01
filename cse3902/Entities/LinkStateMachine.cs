@@ -1,11 +1,7 @@
-﻿using cse3902.Interfaces;
-using cse3902.Projectiles;
-using cse3902.Sprites;
-using cse3902.HUD;
+﻿using cse3902.Sprites;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using System;
+using cse3902.Constants;
 
 namespace cse3902.Entities
 {
@@ -16,47 +12,38 @@ namespace cse3902.Entities
         private LinkMode mode;
 
         private LinkSprite linkSprite;
-        private SpriteBatch spriteBatch;
+        private LinkInventory linkInventory;
         private Vector2 centerPosition;
         private Vector2 currDirection;
 
         private float speed;
 
-        private int currItemIndex;
-        private int currWeaponIndex;
-        private Game1 game;
-
         private int totalHealth;
-        private const int healthMax = 10;
         private int health;
 
-        private const double damageDelay = 1.0f;
         private double remainingDamageDelay;
 
         private Vector2 shoveDirection;
         private int shoveDistance;
         private Boolean pauseMovement;
 
-        public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition, SpriteBatch spriteBatch)
+        public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
         {
             this.centerPosition = centerPosition;
             mode = LinkMode.Still;
-            this.game = game;
+            linkInventory = new LinkInventory(game, this);
 
-            currDirection = new Vector2(1, 0);
-            speed = 50.0f;
+            currDirection = new Vector2(LinkConstants.defaultXDirection, LinkConstants.defaultYDirection);
+            speed = LinkConstants.defaultSpeed;
 
-            this.spriteBatch = spriteBatch;
             this.linkSprite = linkSprite;
 
-            health = healthMax;
-            totalHealth = healthMax + 4;
-            currWeaponIndex = 0;
-            currItemIndex = 0;
+            totalHealth = HeartConstants.DefaultHeartCount;
+            health = totalHealth;
 
-            remainingDamageDelay = damageDelay;
+            remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
-            shoveDistance = -10;
+            shoveDistance = LinkConstants.defaultShoveDistance;
             PauseMovement = false;
         }
 
@@ -135,8 +122,18 @@ namespace cse3902.Entities
             if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
 
-            UpdateSprite(gameTime);
-             
+            if (linkSprite.Update(gameTime) != 0)
+            {
+                if (mode == LinkMode.Attack || mode == LinkMode.Item)
+                {
+                    if (mode == LinkMode.Item) Inventory.RemoveItemAnimation();
+                    mode = LinkMode.Still;
+                    ChangeDirection(new Vector2(0, 0));
+
+                }
+            }
+
+
         }
 
         private void UpdateDamageDelay(GameTime gameTime)
@@ -146,7 +143,7 @@ namespace cse3902.Entities
                 remainingDamageDelay -= gameTime.ElapsedGameTime.TotalSeconds;
                 if (remainingDamageDelay <= 0)
                 {
-                    remainingDamageDelay = damageDelay;
+                    remainingDamageDelay = DamageConstants.DamageDisableDelay;
                     linkSprite.Damaged = false;
                 }
             }
@@ -167,96 +164,44 @@ namespace cse3902.Entities
             }
         }
 
-        private void UpdateSprite(GameTime gameTime)
-        {
-            if(linkSprite.Update(gameTime) != 0)
-            {
-                if (mode == LinkMode.Attack|| mode == LinkMode.Item)
-                {
-                    mode = LinkMode.Still;
-                    ChangeDirection(new Vector2(0, 0));
-                }
-            }
-        }
-        
-        //TODO Move this just to sprite.draw in link.cs ?
-        public void Draw()
-        {
-            linkSprite.Draw();
-        }
-
         public void Attack()
         {
             if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
             mode = LinkMode.Attack;
 
-            // TODO: Move this to Link.cs not needed in state machine
-            Vector2 spriteSize = linkSprite.Size;
-            Vector2 offset = (spriteSize * currDirection) / 1.5f;
-            Vector2 startingPosition = centerPosition + offset;
-
-            ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            IProjectile weapon = projectileHandler.CreateSwordWeapon(spriteBatch, startingPosition, currDirection, currWeaponIndex);
-            SetAttackAnimation();
-        }
-
-        //TODO Send this to Inventory
-        public void ChangeWeapon(int index)
-        {
-            currWeaponIndex = index;
-        }
-
-        //TODO Send this to Inventory
-        public void AddItem(IItem item)
-        {
-            //The basic logic to use item. needs to add Pause Game during the duration and such..
-            if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
-            mode = LinkMode.Item;
-            linkSprite.setFrameSet(LinkSprite.AnimationState.Item);
-            InventoryManager.Instance.AddToInventory(item);
-            GameStateManager.Instance.LinkPickupItem(36);
-        }
-
-        //TODO Send part of this to Inventory
-        public void UseItem()
-        {
-            if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
-
-            mode = LinkMode.Attack;
-            IProjectile item;
-            Vector2 spriteSize = linkSprite.Size;
-            Vector2 offset = (spriteSize * currDirection) / 1.5f;
-            Vector2 startingPosition = centerPosition + offset;
-            ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            switch (currItemIndex)
+            Vector2 startingPosition = getItemLocation(currDirection);
+            linkInventory.CreateWeapon(startingPosition, currDirection);
+            if(HeartConstants.swordProjectileMinHealth <= health)
             {
-                case 1:
-                    item = projectileHandler.CreateSwordItem(spriteBatch, startingPosition, currDirection);
-                    break;
-
-                case 2:
-                    item = projectileHandler.CreateArrowItem(spriteBatch, startingPosition, currDirection);
-                    break;
-
-                case 3:
-                    item = projectileHandler.CreateBoomerangItem(spriteBatch, linkSprite, currDirection);
-                    break;
-
-                case 4:
-                    item = projectileHandler.CreateBombItem(spriteBatch, startingPosition);
-                    break;
-
-                default:
-                    item = null;
-                    break;
+                linkInventory.CreateSwordProjectile(startingPosition, currDirection);
             }
             SetAttackAnimation();
         }
 
-        //TODO Send this to Inventory
-        public void ChangeItem(int index)
+        public Vector2 CollectItemAnimation()
         {
-            currItemIndex = index;
+            //The basic logic to use item. needs to add Pause Game during the duration and such..
+            mode = LinkMode.Item;
+            linkSprite.setFrameSet(LinkSprite.AnimationState.Item);
+            return getItemLocation(new Vector2(0,-1));
+        }
+
+        public void UseItem()
+        {
+            if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
+            Vector2 startingPosition = getItemLocation(currDirection);
+            if (linkInventory.CreateItem(startingPosition))
+            {
+                mode = LinkMode.Attack;
+                SetAttackAnimation();
+            }
+            return;
+        }
+        private Vector2 getItemLocation(Vector2 direction)
+        {
+            Vector2 spriteSize = linkSprite.Size;
+            Vector2 offset = (spriteSize * direction) / 1.5f;
+            return centerPosition + offset;
         }
 
         private void SetAttackAnimation()
@@ -286,7 +231,7 @@ namespace cse3902.Entities
                 if (remainingDamageDelay > 0 && linkSprite.Damaged) return;
                 linkSprite.Damaged = true;
                 health -= damage;
-                remainingDamageDelay = damageDelay;
+                remainingDamageDelay = DamageConstants.DamageDisableDelay;
             }
         }
 
@@ -329,6 +274,16 @@ namespace cse3902.Entities
                 this.pauseMovement = value;
                 linkSprite.PauseMovement = value;
             }
+        }
+
+        public LinkSprite Sprite
+        {
+            get => this.linkSprite;
+        }
+
+        public LinkInventory Inventory
+        {
+            get => linkInventory;
         }
     }
 }
