@@ -491,6 +491,7 @@
 				<id>1</id>
 				<variables>
 					<variable>3</variable>
+					<variable>1</variable>
 				</variables>
 			</condition>
 		</conditions>
@@ -989,6 +990,7 @@
 				<id>2</id>
 				<variables>
 					<variable>1</variable>
+					<variable>0</variable>
 				</variables>
 			</condition>
 		</conditions>
@@ -1914,6 +1916,7 @@
 				<id>1</id>
 				<variables>
 					<variable>3</variable>
+					<variable>0</variable>
 				</variables>
 			</condition>
 		</conditions>
