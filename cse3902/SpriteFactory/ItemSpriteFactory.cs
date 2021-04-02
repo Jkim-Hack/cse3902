@@ -2,8 +2,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using System.Collections.Generic;
 using cse3902.Items;
 using cse3902.Rooms;
+using cse3902.HUD;
 using System;
 
 namespace cse3902.SpriteFactory
@@ -26,6 +28,10 @@ namespace cse3902.SpriteFactory
         private Texture2D rupee;
         private Texture2D cloud;
 
+        private Dictionary<IEntity.EnemyType, List<InventoryManager.ItemType>> dropList;
+        private Dictionary<IEntity.EnemyType, int> dropRate;
+        private int killCounter;
+
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
 
         public static ItemSpriteFactory Instance
@@ -36,8 +42,111 @@ namespace cse3902.SpriteFactory
             }
         }
 
+        // https://www.zeldadungeon.net/zelda-runners-examining-random-and-forced-drops-and-chatting-with-zant/
         private ItemSpriteFactory()
         {
+            dropRate = new Dictionary<IEntity.EnemyType, int>();
+            dropList = new Dictionary<IEntity.EnemyType, List<InventoryManager.ItemType>>();
+
+            dropRate.Add(IEntity.EnemyType.A, 31);
+            dropRate.Add(IEntity.EnemyType.B, 41);
+            dropRate.Add(IEntity.EnemyType.C, 59);
+            dropRate.Add(IEntity.EnemyType.D, 41);
+            dropRate.Add(IEntity.EnemyType.X, 9);
+
+            LoadA();
+            LoadB();
+            LoadC();
+            LoadD();
+            LoadX();
+
+            killCounter = 0;
+        }
+
+        private void LoadA()
+        {
+            List<InventoryManager.ItemType> items = new List<InventoryManager.ItemType>();
+
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Heart);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Fairy);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Heart);
+            items.Add(InventoryManager.ItemType.Heart);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Heart);
+
+            dropList.Add(IEntity.EnemyType.A, items);
+        }
+        private void LoadB()
+        {
+            List<InventoryManager.ItemType> items = new List<InventoryManager.ItemType>();
+
+            items.Add(InventoryManager.ItemType.Bomb);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Clock);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Heart);
+            items.Add(InventoryManager.ItemType.Bomb);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Bomb);
+            items.Add(InventoryManager.ItemType.Heart);
+            items.Add(InventoryManager.ItemType.Heart);
+
+            dropList.Add(IEntity.EnemyType.B, items);
+        }
+        private void LoadC()
+        {
+            List<InventoryManager.ItemType> items = new List<InventoryManager.ItemType>();
+
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Heart);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Heart);
+            items.Add(InventoryManager.ItemType.Clock);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Rupee);
+
+            dropList.Add(IEntity.EnemyType.C, items);
+        }
+        private void LoadD()
+        {
+            List<InventoryManager.ItemType> items = new List<InventoryManager.ItemType>();
+
+            items.Add(InventoryManager.ItemType.Heart);
+            items.Add(InventoryManager.ItemType.Fairy);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Heart);
+            items.Add(InventoryManager.ItemType.Fairy);
+            items.Add(InventoryManager.ItemType.Heart);
+            items.Add(InventoryManager.ItemType.Heart);
+            items.Add(InventoryManager.ItemType.Heart);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Heart);
+
+            dropList.Add(IEntity.EnemyType.D, items);
+        }
+        private void LoadX()
+        {
+            List<InventoryManager.ItemType> items = new List<InventoryManager.ItemType>();
+
+            items.Add(InventoryManager.ItemType.Bomb);
+            items.Add(InventoryManager.ItemType.Bomb);
+            items.Add(InventoryManager.ItemType.Bomb);
+            items.Add(InventoryManager.ItemType.Fairy);
+            items.Add(InventoryManager.ItemType.Heart);
+            items.Add(InventoryManager.ItemType.Clock);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Heart);
+            items.Add(InventoryManager.ItemType.Rupee);
+            items.Add(InventoryManager.ItemType.Heart);
+
+            dropList.Add(IEntity.EnemyType.X, items);
         }
 
         public void LoadAllTextures(ContentManager content, SpriteBatch spriteBatch)
@@ -166,46 +275,36 @@ namespace cse3902.SpriteFactory
             return new CloudAnimationSprite(spriteBatch, cloud, startingPos);
         }
 
-        public void SpawnRandomItem(SpriteBatch spriteBatch, Vector2 startingPos)
+        public void SpawnRandomItem(SpriteBatch spriteBatch, Vector2 startingPos, IEntity.EnemyType type)
         {
             Random rd = new Random();
+            int num = rd.Next(0, 100);
 
-            int num = rd.Next(0, 15);
-
-            bool kept = false;
-            bool resetKept = false;
-
-            switch (num)
+            if (num < dropRate[type])
             {
-                case 0:
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                case 5:
-                    CreateBombItem(spriteBatch, startingPos, kept, resetKept);
-                    break;
-                case 6:
-                    break;
-                case 7:
-                case 8:
-                case 9:
-                    CreateHeartItem(spriteBatch, startingPos, kept, resetKept);
-                    break;
-                case 10:
-                    break;
-                case 11:
-                    break;
-                case 12:
-                case 13:
-                case 14:
-                    CreateRupeeItem(spriteBatch, startingPos, kept, resetKept);
-                    break;
+                switch (dropList[type][killCounter % 10])
+                {
+                    case InventoryManager.ItemType.Rupee:
+                        CreateRupeeItem(spriteBatch, startingPos, false, false);
+                        break;
+                    case InventoryManager.ItemType.Heart:
+                        CreateHeartItem(spriteBatch, startingPos, false, false);
+                        break;
+                    case InventoryManager.ItemType.Bomb:
+                        CreateBombItem(spriteBatch, startingPos, false, false);
+                        break;
+                    case InventoryManager.ItemType.Fairy:
+                        CreateFairyItem(spriteBatch, startingPos, false, false);
+                        break;
+                    case InventoryManager.ItemType.Clock:
+                        CreateClockItem(spriteBatch, startingPos, false, false);
+                        break;
+                    default: //this should never happen
+                        break;
+                }
             }
+
+            killCounter++;
         }
     }
 }

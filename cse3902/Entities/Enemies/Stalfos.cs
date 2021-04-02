@@ -27,11 +27,14 @@ namespace cse3902.Entities.Enemies
         private int health;
         private float remainingDamageDelay;
 
-        public Stalfos(Game1 game, Vector2 start)
+        private IEntity.EnemyType type;
+
+        public Stalfos(Game1 game, Vector2 start, IEntity.EnemyType type)
         {
             this.game = game;
             center = start;
             previousCenter = center;
+            this.type = type;
 
             //stalfos sprite sheet is 1 row, 2 columns
             stalfosSprite = (StalfosSprite)EnemySpriteFactory.Instance.CreateStalfosSprite(game.SpriteBatch, center);
@@ -79,7 +82,7 @@ namespace cse3902.Entities.Enemies
         public void Die()
         {
             SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
-            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, type);
         }
 
         public void BeShoved()
@@ -170,7 +173,12 @@ namespace cse3902.Entities.Enemies
 
         public IEntity Duplicate()
         {
-            return new Stalfos(game, center);
+            return new Stalfos(game, center, type);
+        }
+
+        public IEntity.EnemyType Type
+        {
+            get => type;
         }
 
         public Vector2 Center

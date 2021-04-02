@@ -100,6 +100,12 @@ namespace cse3902.Entities
             return new Link(game);
         }
 
+        //  DO NOT USE - only here to prevent compile error
+        public IEntity.EnemyType Type
+        {
+            get => IEntity.EnemyType.X;
+        }
+
         public Vector2 Direction
         {
             get => linkStateMachine.Direction;

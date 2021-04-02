@@ -29,9 +29,12 @@ namespace cse3902.Entities.Enemies
         private int health;
         private float remainingDamageDelay;
 
-        public Aquamentus(Game1 game, Vector2 start)
+        private IEntity.EnemyType type;
+
+        public Aquamentus(Game1 game, Vector2 start, IEntity.EnemyType type)
         {
             this.game = game;
+            this.type = type;
             center = start;
             previousCenter = center;
             aquamentusSprite = (AquamentusSprite)EnemySpriteFactory.Instance.CreateAquamentusSprite(game.SpriteBatch, center);
@@ -78,6 +81,7 @@ namespace cse3902.Entities.Enemies
         public void Die()
         {
             this.aquamentusStateMachine.Die();
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, type);
         }
 
         public void BeShoved()
@@ -148,7 +152,12 @@ namespace cse3902.Entities.Enemies
 
         public IEntity Duplicate()
         {
-            return new Aquamentus(game, center);
+            return new Aquamentus(game, center, type);
+        }
+
+        public IEntity.EnemyType Type
+        {
+            get => type;
         }
 
         public Vector2 Center

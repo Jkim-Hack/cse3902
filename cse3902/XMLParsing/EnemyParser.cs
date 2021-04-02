@@ -3,7 +3,6 @@ using System;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
-using cse3902.Entities;
 using cse3902.Entities.Enemies;
 using cse3902.Rooms;
 using System.Linq;
@@ -44,26 +43,26 @@ namespace cse3902.XMLParsing
 
         private IEntity CreateEnemy(String type, Vector2 startingPos)
         {
-            IEntity newEnemy = new Keese(game, startingPos);
+            IEntity newEnemy = new Keese(game, startingPos, IEntity.EnemyType.X);
             switch (type)
             {
                 case "Aquamentus":
-                    newEnemy = new Aquamentus(game, startingPos);
+                    newEnemy = new Aquamentus(game, startingPos, IEntity.EnemyType.D);
                     break;
                 case "Gel":
-                    newEnemy = new Gel(game, startingPos);
+                    newEnemy = new Gel(game, startingPos, IEntity.EnemyType.X);
                     break;
                 case "Goriya":
-                    newEnemy = new Goriya(game, startingPos);
+                    newEnemy = new Goriya(game, startingPos, IEntity.EnemyType.D);
                     break;
                 case "Keese":
-                    newEnemy = new Keese(game, startingPos);
+                    newEnemy = new Keese(game, startingPos, IEntity.EnemyType.X);
                     break;
                 case "Stalfos":
-                    newEnemy = new Stalfos(game, startingPos);
+                    newEnemy = new Stalfos(game, startingPos, IEntity.EnemyType.C);
                     break;
                 case "Wallmaster":
-                    newEnemy = new WallMaster(game, startingPos);
+                    newEnemy = new WallMaster(game, startingPos, IEntity.EnemyType.C);
                     break;
                 default:
                     break;
