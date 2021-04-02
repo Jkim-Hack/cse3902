@@ -174,6 +174,11 @@ namespace cse3902.Entities.Enemies
             gelSprite.Draw();
         }
 
+        public IEntity Duplicate()
+        {
+            return new Gel(game, center);
+        }
+
         public Vector2 Center
         {
             get => this.center;

@@ -212,6 +212,11 @@ namespace cse3902.Entities.Enemies
             this.goriyaSprite.Draw();
         }
 
+        public IEntity Duplicate()
+        {
+            return new Goriya(game, center);
+        }
+
         public Vector2 Center
         {
             get => this.center;

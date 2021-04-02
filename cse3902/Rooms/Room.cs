@@ -1,7 +1,7 @@
 ﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-
+using cse3902.Items;
 
 namespace cse3902.Rooms
 {
@@ -14,6 +14,8 @@ namespace cse3902.Rooms
 
         private List<IItem> items;
         private List<IEntity> enemies;
+        private List<IEntity> originalEnemies;
+        private List<ITrap> originalTraps;
         private List<ITrap> traps;
         private List<INPC> npcs;
         private List<IProjectile> projectiles;
@@ -38,6 +40,8 @@ namespace cse3902.Rooms
 
             items = new List<IItem>();
             enemies = new List<IEntity>();
+            originalEnemies = new List<IEntity>();
+            originalTraps = new List<ITrap>();
             traps = new List<ITrap>();
             npcs = new List<INPC>();
             projectiles = new List<IProjectile>();
@@ -54,11 +58,13 @@ namespace cse3902.Rooms
         public void AddEnemy(IEntity enemy)
         {
             enemies.Add(enemy);
+            originalEnemies.Add(enemy.Duplicate());
         }
 
         public void AddTrap(ITrap trap)
         {
             traps.Add(trap);
+            originalTraps.Add(trap.Duplicate());
         }
 
         public void AddNPC(INPC npc)
@@ -94,6 +100,33 @@ namespace cse3902.Rooms
         public void SetToVisited()
         {
             visited = true;
+        }
+
+        public void Reset()
+        {
+            List<IItem> itemList = new List<IItem>();
+            foreach (IItem item in items)
+            {
+                if (item.IsKept && item.IsResetKept) itemList.Add(item);
+            }
+            items = itemList;
+
+            foreach (ICondition condition in conditions)
+            {
+                condition.Reset();
+            }
+
+            enemies = new List<IEntity>();
+            foreach (IEntity enemy in originalEnemies)
+            {
+                enemies.Add(enemy.Duplicate());
+            }
+
+            traps = new List<ITrap>();
+            foreach (ITrap trap in originalTraps)
+            {
+                traps.Add(trap.Duplicate());
+            }
         }
 
         public List<IItem> Items

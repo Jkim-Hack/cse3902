@@ -184,6 +184,11 @@ namespace cse3902.Entities.Enemies
             this.keeseSprite.Draw();
         }
 
+        public IEntity Duplicate()
+        {
+            return new Keese(game, center);
+        }
+
         public Vector2 Center
         {
             get => this.center;

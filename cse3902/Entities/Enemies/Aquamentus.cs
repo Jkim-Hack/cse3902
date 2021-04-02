@@ -146,6 +146,11 @@ namespace cse3902.Entities.Enemies
             aquamentusStateMachine.Draw();
         }
 
+        public IEntity Duplicate()
+        {
+            return new Aquamentus(game, center);
+        }
+
         public Vector2 Center
         {
             get => this.center;

@@ -59,104 +59,104 @@ namespace cse3902.SpriteFactory
             cloud = content.Load<Texture2D>("cloud");
         }
 
-        public ISprite CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept)
+        public ISprite CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new BombItem(spriteBatch, bomb, startingPos, kept);
+            IItem add = new BombItem(spriteBatch, bomb, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
-        public ISprite CreateBoomerangItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept)
+        public ISprite CreateBoomerangItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new BoomerangItem(spriteBatch, boomerang, startingPos, kept);
+            IItem add = new BoomerangItem(spriteBatch, boomerang, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
-        public ISprite CreateBoomerangItem(Vector2 startingPos, bool kept)
+        public ISprite CreateBoomerangItem(Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new BoomerangItem(spriteBatch, boomerang, startingPos, kept);
-            RoomItems.Instance.AddItem(add);
-            return add;
-        }
-
-        public ISprite CreateBowItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept)
-        {
-            IItem add = new BowItem(spriteBatch, bow, startingPos, kept);
+            IItem add = new BoomerangItem(spriteBatch, boomerang, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
-        public ISprite CreateClockItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept)
+        public ISprite CreateBowItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new ClockItem(spriteBatch, clock, startingPos, kept);
+            IItem add = new BowItem(spriteBatch, bow, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
-        public ISprite CreateCompassItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept)
+        public ISprite CreateClockItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new CompassItem(spriteBatch, compass, startingPos, kept);
+            IItem add = new ClockItem(spriteBatch, clock, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
-        public ISprite CreateFairyItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept)
+        public ISprite CreateCompassItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new FairyItem(spriteBatch, fairy, startingPos, kept);
+            IItem add = new CompassItem(spriteBatch, compass, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
-        public ISprite CreateHeartContainerItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept)
+        public ISprite CreateFairyItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new HeartContainerItem(spriteBatch, heartcont, startingPos, kept);
-            RoomItems.Instance.AddItem(add);
-            return add;
-        }
-        public ISprite CreateHeartContainerItem(Vector2 startingPos, bool kept)
-        {
-            IItem add = new HeartContainerItem(spriteBatch, heartcont, startingPos, kept);
+            IItem add = new FairyItem(spriteBatch, fairy, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
-        public ISprite CreateHeartItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept)
+        public ISprite CreateHeartContainerItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new HeartItem(spriteBatch, heart, startingPos, kept);
+            IItem add = new HeartContainerItem(spriteBatch, heartcont, startingPos, kept, resetKept);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+        public ISprite CreateHeartContainerItem(Vector2 startingPos, bool kept, bool resetKept)
+        {
+            IItem add = new HeartContainerItem(spriteBatch, heartcont, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
-        public ISprite CreateKeyItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept)
+        public ISprite CreateHeartItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new KeyItem(spriteBatch, key, startingPos, kept);
-            RoomItems.Instance.AddItem(add);
-            return add;
-        }
-        public ISprite CreateKeyItem(Vector2 startingPos, bool kept)
-        {
-            IItem add = new KeyItem(spriteBatch, key, startingPos, kept);
+            IItem add = new HeartItem(spriteBatch, heart, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
-        public ISprite CreateMapItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept)
+        public ISprite CreateKeyItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new MapItem(spriteBatch, map, startingPos, kept);
+            IItem add = new KeyItem(spriteBatch, key, startingPos, kept, resetKept);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+        public ISprite CreateKeyItem(Vector2 startingPos, bool kept, bool resetKept)
+        {
+            IItem add = new KeyItem(spriteBatch, key, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
-        public IItem CreateRupeeItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept)
+        public ISprite CreateMapItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new RupeeItem(spriteBatch, rupee, startingPos, kept);
+            IItem add = new MapItem(spriteBatch, map, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
-        public ISprite CreateTriforceItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept)
+        public IItem CreateRupeeItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new TriforceItem(spriteBatch, triforce, startingPos, kept);
+            IItem add = new RupeeItem(spriteBatch, rupee, startingPos, kept, resetKept);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+
+        public ISprite CreateTriforceItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
+        {
+            IItem add = new TriforceItem(spriteBatch, triforce, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
@@ -173,6 +173,7 @@ namespace cse3902.SpriteFactory
             int num = rd.Next(0, 15);
 
             bool kept = false;
+            bool resetKept = false;
 
             switch (num)
             {
@@ -186,14 +187,14 @@ namespace cse3902.SpriteFactory
                     break;
                 case 4:
                 case 5:
-                    CreateBombItem(spriteBatch, startingPos, kept);
+                    CreateBombItem(spriteBatch, startingPos, kept, resetKept);
                     break;
                 case 6:
                     break;
                 case 7:
                 case 8:
                 case 9:
-                    CreateHeartItem(spriteBatch, startingPos, kept);
+                    CreateHeartItem(spriteBatch, startingPos, kept, resetKept);
                     break;
                 case 10:
                     break;
@@ -202,7 +203,7 @@ namespace cse3902.SpriteFactory
                 case 12:
                 case 13:
                 case 14:
-                    CreateRupeeItem(spriteBatch, startingPos, kept);
+                    CreateRupeeItem(spriteBatch, startingPos, kept, resetKept);
                     break;
             }
         }

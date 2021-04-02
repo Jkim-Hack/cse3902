@@ -16,5 +16,6 @@ namespace cse3902.Interfaces
         public void Trigger();
         public void Update(GameTime gameTime);
         public void Draw();
+        public ITrap Duplicate();
     }
 }

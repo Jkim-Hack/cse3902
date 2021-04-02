@@ -15,6 +15,7 @@ namespace cse3902.Entities.Enemies
         private readonly Game1 game;
 
         private Vector2 direction;
+        private Vector2 originalDirection;
         private Vector2 triggerDirection;
         private float speed;
 
@@ -38,7 +39,7 @@ namespace cse3902.Entities.Enemies
 
             center = start;
             previousCenter = center;
-
+            originalDirection = direction;
 
             trapSprite = (TrapSprite)EnemySpriteFactory.Instance.CreateTrapSprite(game.SpriteBatch, start);
             this.direction = direction;
@@ -181,6 +182,11 @@ namespace cse3902.Entities.Enemies
                 this.Direction = new Vector2(0, this.triggerDirection.Y);
                 this.triggerDistance = 50;
             }
+        }
+
+        public ITrap Duplicate()
+        {
+            return new Trap(game, center, originalDirection);
         }
 
         private void ConstructDetectionBoxes(Vector2 direction)

@@ -171,6 +171,11 @@ namespace cse3902.Collision.Collidables
             get => damage;
         }
 
+        public IEntity Enemy
+        {
+            get => enemy;
+        }
+
         
         
     }

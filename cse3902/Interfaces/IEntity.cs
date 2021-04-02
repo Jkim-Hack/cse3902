@@ -20,5 +20,6 @@ namespace cse3902.Interfaces
         public void Draw();
         public void BeShoved();
         public void StopShove();
+        public IEntity Duplicate();
     }
 }

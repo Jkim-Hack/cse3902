@@ -168,6 +168,11 @@ namespace cse3902.Entities.Enemies
             }
         }
 
+        public IEntity Duplicate()
+        {
+            return new Stalfos(game, center);
+        }
+
         public Vector2 Center
         {
             get => this.center;

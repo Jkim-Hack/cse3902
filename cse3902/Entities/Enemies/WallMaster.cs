@@ -176,6 +176,11 @@ namespace cse3902.Entities.Enemies
             wallMasterSprite.Draw();
         }
 
+        public IEntity Duplicate()
+        {
+            return new WallMaster(game, center);
+        }
+
         public Vector2 Center
         {
             get => this.center;
