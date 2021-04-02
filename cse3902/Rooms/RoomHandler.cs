@@ -96,6 +96,7 @@ namespace cse3902.Rooms
             if (!roomTransitionManager.IsTransitioning())
             {
                 roomChange += currentRoom;
+                //if (rooms.ContainsKey(roomChange) && !roomChange.Equals(startingRoom) && rooms.GetValueOrDefault(roomChange).Doors[i].State != IDoor.DoorState.Wall) LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[i]);
                 if (rooms.ContainsKey(roomChange) && !roomChange.Equals(startingRoom)) LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[i]);
             }
         }
