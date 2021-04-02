@@ -156,20 +156,17 @@ namespace cse3902
                 player.Update(gameTime);
                 roomHandler.Update(gameTime);
                 collisionManager.Update();
+                hudManager.Update(gameTime);
             }
             else if (GameStateManager.Instance.IsPickingUpItem())
             {
                 player.Update(gameTime);
             }
 
-            hudManager.Update(gameTime);
-
             //player.Update(gameTime);
             camera.Update();
             GameStateManager.Instance.Update();
             base.Update(gameTime);
-
-            hudManager.Update(gameTime);
         }
 
         /// <summary>
