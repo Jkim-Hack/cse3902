@@ -1,7 +1,6 @@
 ﻿using cse3902.Interfaces;
 using System.Collections.Generic;
 using cse3902.Sounds;
-using Microsoft.Xna.Framework.Audio;
 
 namespace cse3902.Rooms.Conditions
 {
@@ -41,6 +40,7 @@ namespace cse3902.Rooms.Conditions
                 if (!block.IsMoved())
                 {
                     doorState = IDoor.DoorState.Closed;
+                    break;
                 }
             }
 

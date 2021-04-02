@@ -229,6 +229,14 @@
 		<traps>
 		</traps>
 		<conditions>
+			<condition>
+				<id>0</id>
+				<variables>
+					<variable>3</variable>
+					<variable>6</variable>
+					<variable>0</variable>
+				</variables>
+			</condition>
 		</conditions>
 		<sprite>14</sprite>
 		<doors>
@@ -991,6 +999,16 @@
 				<variables>
 					<variable>1</variable>
 					<variable>0</variable>
+				</variables>
+			</condition>
+			<condition>
+				<id>3</id>
+				<variables>
+				</variables>
+			</condition>
+			<condition>
+				<id>4</id>
+				<variables>
 				</variables>
 			</condition>
 		</conditions>
@@ -2381,6 +2399,11 @@
 			</trap>
 		</traps>
 		<conditions>
+			<condition>
+				<id>4</id>
+				<variables>
+				</variables>
+			</condition>
 		</conditions>
 		<sprite>12</sprite>
 		<doors>

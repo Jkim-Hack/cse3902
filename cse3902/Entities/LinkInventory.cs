@@ -54,6 +54,8 @@ namespace cse3902.Entities
 
             if (item.ItemType == InventoryManager.ItemType.Key || item.ItemType == InventoryManager.ItemType.HeartContainer || item.ItemType == InventoryManager.ItemType.Boomerang) RoomConditions.Instance.SendSignals();
 
+            if (item.ItemType == InventoryManager.ItemType.Triforce) InventoryManager.Instance.inventory[InventoryManager.ItemType.Compass]--;
+
             if (item.Equals(AnimationItem)) return;
             InventoryManager.ItemType type = item.ItemType;
             InventoryManager.Instance.AddToInventory(type);
