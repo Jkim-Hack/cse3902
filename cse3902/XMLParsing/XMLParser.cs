@@ -57,7 +57,7 @@ namespace cse3902.Rooms
                 npcParser.ParseNPCs(currentRoom, room, doc);
                 blockParser.ParseBlocks(currentRoom, room, doc);
                 doorParser.ParseDoors(currentRoom, room, doc);
-                //conditionParser.ParseCondtions(currentRoom, room, doc);
+                conditionParser.ParseCondtions(currentRoom, room, doc);
 
                 roomHandler.rooms.Add(roomTup, currentRoom);
             }
