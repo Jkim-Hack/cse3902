@@ -19,6 +19,7 @@ namespace cse3902.Rooms.Conditions
              */
             conditionVariables = condVariables;
             conditionVariables.Add(0);
+            conditionVariables.Add(0);
         }
 
         public void CheckCondition()
@@ -43,6 +44,16 @@ namespace cse3902.Rooms.Conditions
                         break;
                 }
             }
+        }
+
+        public void SendSignal()
+        {
+            conditionVariables[4] = 1;
+        }
+
+        public void Reset()
+        {
+            if (conditionVariables[4] == 0) conditionVariables[3] = 0;
         }
     }
 }

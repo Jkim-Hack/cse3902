@@ -4,7 +4,6 @@ using cse3902.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Rooms;
-using Microsoft.Xna.Framework.Audio;
 using cse3902.Sounds;
 using System;
 
@@ -52,6 +51,8 @@ namespace cse3902.Entities
             {
                 SoundFactory.PlaySound(SoundFactory.Instance.getItem);
             }
+
+            if (item.ItemType == InventoryManager.ItemType.Key || item.ItemType == InventoryManager.ItemType.HeartContainer || item.ItemType == InventoryManager.ItemType.Boomerang) RoomConditions.Instance.SendSignals();
 
             if (item.Equals(AnimationItem)) return;
             InventoryManager.ItemType type = item.ItemType;

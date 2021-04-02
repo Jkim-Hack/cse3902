@@ -50,5 +50,15 @@ namespace cse3902.Rooms.Conditions
             if (doorState != prevState) SoundFactory.PlaySound(SoundFactory.Instance.doorUnlock);
             prevState = doorState;
         }
+
+        public void SendSignal()
+        {
+
+        }
+
+        public void Reset()
+        {
+
+        }
     }
 }
