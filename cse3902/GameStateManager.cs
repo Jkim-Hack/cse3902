@@ -1,4 +1,6 @@
-﻿namespace cse3902
+﻿using cse3902.Sounds;
+
+namespace cse3902
 {
     public class GameStateManager
     {
@@ -58,15 +60,19 @@
             {
                 case PauseState.Unpaused:
                     pausedState = PauseState.Paused;
+                    SoundFactory.Instance.backgroundMusic.Pause();
                     break;
                 case PauseState.Paused:
                     pausedState = PauseState.Unpaused;
+                    SoundFactory.Instance.backgroundMusic.Play();
                     break;
                 case PauseState.ItemPickup:
                     pausedState = PauseState.ItemPickupPaused;
+                    SoundFactory.Instance.fanfare.Pause();
                     break;
                 case PauseState.ItemPickupPaused:
                     pausedState = PauseState.ItemPickup;
+                    SoundFactory.Instance.fanfare.Play();
                     break;
                 default:
                     break;
@@ -77,6 +83,8 @@
         {
             pausedState = PauseState.ItemPickup;
             itemPickupCycles = numberUpdateCyclesToComplete;
+            SoundFactory.Instance.backgroundMusic.Stop();
+            SoundFactory.Instance.fanfare.Play();
         }
 
         private bool ValidToggle()
@@ -113,7 +121,11 @@
             else if (IsPickingUpItem())
             {
                 itemPickupCycles--;
-                if (itemPickupCycles <= 0) pausedState = PauseState.Unpaused;
+                if (itemPickupCycles <= 0)
+                {
+                    pausedState = PauseState.Unpaused;
+                    SoundFactory.Instance.backgroundMusic.Play();
+                }
             }
         }
 

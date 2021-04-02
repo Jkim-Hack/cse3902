@@ -50,5 +50,13 @@ namespace cse3902.Rooms
                 conditions.Add(newList[i]);
             }
         }
+
+        public void SendSignals()
+        {
+            foreach (ICondition condition in conditions)
+            {
+                condition.SendSignal();
+            }
+        }
     }
 }

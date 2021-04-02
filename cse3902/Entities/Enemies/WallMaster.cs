@@ -28,11 +28,14 @@ namespace cse3902.Entities.Enemies
         private int health;
         private float remainingDamageDelay;
 
-        public WallMaster(Game1 game, Vector2 start)
+        private IEntity.EnemyType type;
+
+        public WallMaster(Game1 game, Vector2 start, IEntity.EnemyType type)
         {
             this.game = game;
             center = start;
             previousCenter = center;
+            this.type = type;
 
             //wallmaster sprite sheet is 4 rows, 2 columns
             wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.SpriteBatch, center);
@@ -87,7 +90,7 @@ namespace cse3902.Entities.Enemies
         {
             this.wallMasterStateMachine.Die();
             SoundFactory.PlaySound(SoundFactory.Instance.enemyHit);
-            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, type);
         }
 
         public void BeShoved()
@@ -174,6 +177,16 @@ namespace cse3902.Entities.Enemies
         public void Draw()
         {
             wallMasterSprite.Draw();
+        }
+
+        public IEntity Duplicate()
+        {
+            return new WallMaster(game, center, type);
+        }
+
+        public IEntity.EnemyType Type
+        {
+            get => type;
         }
 
         public Vector2 Center

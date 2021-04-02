@@ -48,6 +48,12 @@ namespace cse3902.XMLParsing
                 case "2":
                     condition = new AllBlocksPushedOpenDoor(conditionVariables);
                     break;
+                case "3":
+                    condition = new AllEnemiesKilledBlocksPushable();
+                    break;
+                case "4":
+                    condition = new AllBlocksPushedPlaySound();
+                    break;
                 default: //this should never happen
                     break;
             }

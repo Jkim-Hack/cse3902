@@ -34,8 +34,9 @@ namespace cse3902.Items
         private ICollidable collidable;
         private InventoryManager.ItemType itemType;
         private bool isKept;
+        private bool isResetKept;
 
-        public FairyItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, bool kept)
+        public FairyItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, bool kept, bool resetKept)
         {
             spriteBatch = batch;
             spriteTexture = texture;
@@ -55,6 +56,7 @@ namespace cse3902.Items
             this.collidable = new ItemCollidable(this);
             itemType = InventoryManager.ItemType.Fairy;
             isKept = kept;
+            isResetKept = resetKept;
         }
 
         public void Draw()
@@ -130,6 +132,11 @@ namespace cse3902.Items
         public bool IsKept
         {
             get => isKept;
+        }
+
+        public bool IsResetKept
+        {
+            get => isResetKept;
         }
     }
 }

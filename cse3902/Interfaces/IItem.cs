@@ -10,5 +10,6 @@ namespace cse3902.Interfaces
     {
         public InventoryManager.ItemType ItemType { get; }
         public bool IsKept { get; }
+        public bool IsResetKept { get; }
     }
 }

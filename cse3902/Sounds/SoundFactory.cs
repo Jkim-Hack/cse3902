@@ -15,7 +15,6 @@ namespace cse3902.Sounds
         public SoundEffect bombDrop { get; set; }
         public SoundEffect bombBlow { get; set; }
         public SoundEffect lowHealth { get; set; }
-        public SoundEffect fanfare { get; set; }
         public SoundEffect getItem { get; set; }
         public SoundEffect getRupee { get; set; }
         //need to implement (with scrolling text in old man room)
@@ -27,7 +26,11 @@ namespace cse3902.Sounds
         public SoundEffect bossHurt { get; set; }
         public SoundEffect secret { get; set; }
 
+
         private SoundEffectInstance backgroundMusicInstance;
+        private SoundEffectInstance fanfareInstance;
+        public SoundEffectInstance backgroundMusic { get => backgroundMusicInstance; }
+        public SoundEffectInstance fanfare { get => fanfareInstance; }
 
         private static SoundFactory instance = new SoundFactory();
 
@@ -55,7 +58,7 @@ namespace cse3902.Sounds
             bombDrop = content.Load<SoundEffect>("LOZ_Bomb_Drop");
             bombBlow = content.Load<SoundEffect>("LOZ_Bomb_Blow");
             lowHealth = content.Load<SoundEffect>("LOZ_LowHealth");
-            fanfare = content.Load<SoundEffect>("LOZ_Fanfare");
+            fanfareInstance = content.Load<SoundEffect>("LOZ_Fanfare").CreateInstance();
             getItem = content.Load<SoundEffect>("LOZ_Get_Item");
             getRupee = content.Load<SoundEffect>("LOZ_Get_Rupee");
             text = content.Load<SoundEffect>("LOZ_Text");

@@ -68,12 +68,9 @@ namespace cse3902.HUD
 
         public void Draw()
         {
-            if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Map] > 0)
-            {
-                DrawMap();
-                DrawRooms();
-                DrawCurrentRoom();
-            }
+            DrawMap();
+            DrawRooms();
+            DrawCurrentRoom();
         }
 
         private void DrawMap()

@@ -5,5 +5,7 @@ namespace cse3902.Interfaces
     public interface ICondition
     {
         public void CheckCondition();
+        public void SendSignal();
+        public void Reset();
     }
 }

@@ -19,6 +19,7 @@ namespace cse3902.Rooms.Conditions
              */
             conditionVariables = condVariables;
             conditionVariables.Add(0);
+            conditionVariables.Add(0);
         }
 
         public void CheckCondition()
@@ -30,19 +31,29 @@ namespace cse3902.Rooms.Conditions
                 switch (conditionVariables[2])
                 {
                     case 0:
-                        ItemSpriteFactory.Instance.CreateKeyItem(startPos, true);
+                        ItemSpriteFactory.Instance.CreateKeyItem(startPos, true, false);
                         SoundFactory.PlaySound(SoundFactory.Instance.keyAppear);
                         break;
                     case 1:
-                        ItemSpriteFactory.Instance.CreateBoomerangItem(startPos, true);
+                        ItemSpriteFactory.Instance.CreateBoomerangItem(startPos, true, false);
                         break;
                     case 2:
-                        ItemSpriteFactory.Instance.CreateHeartContainerItem(startPos, true);
+                        ItemSpriteFactory.Instance.CreateHeartContainerItem(startPos, true, false);
                         break;
                     default: //this should never happen
                         break;
                 }
             }
+        }
+
+        public void SendSignal()
+        {
+            conditionVariables[4] = 1;
+        }
+
+        public void Reset()
+        {
+            if (conditionVariables[4] == 0) conditionVariables[3] = 0;
         }
     }
 }

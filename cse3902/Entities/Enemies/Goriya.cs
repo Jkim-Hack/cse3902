@@ -27,11 +27,14 @@ namespace cse3902.Entities.Enemies
         private int health;
         private float remainingDamageDelay;
 
-        public Goriya(Game1 game, Vector2 start)
+        private IEntity.EnemyType type;
+
+        public Goriya(Game1 game, Vector2 start, IEntity.EnemyType type)
         {
             this.game = game;
             center = start;
             previousCenter = center;
+            this.type = type;
 
             goriyaSprite = (GoriyaSprite)EnemySpriteFactory.Instance.CreateGoriyaSprite(game.SpriteBatch, center);
             speed = 25.0f;
@@ -82,7 +85,7 @@ namespace cse3902.Entities.Enemies
         public void Die()
         {
             SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
-            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, type);
         }
 
         public void BeShoved()
@@ -210,6 +213,16 @@ namespace cse3902.Entities.Enemies
         public void Draw()
         {
             this.goriyaSprite.Draw();
+        }
+
+        public IEntity Duplicate()
+        {
+            return new Goriya(game, center, type);
+        }
+
+        public IEntity.EnemyType Type
+        {
+            get => type;
         }
 
         public Vector2 Center

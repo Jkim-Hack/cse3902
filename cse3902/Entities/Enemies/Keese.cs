@@ -26,12 +26,15 @@ namespace cse3902.Entities.Enemies
         private ICollidable collidable;
         private int health;
         private float remainingDamageDelay;
-        
-        public Keese(Game1 game, Vector2 start)
+
+        private IEntity.EnemyType type;
+
+        public Keese(Game1 game, Vector2 start, IEntity.EnemyType type)
         {
             this.game = game;
             center = start;
-            previousCenter = center; 
+            previousCenter = center;
+            this.type = type;
 
             keeseSprite = (KeeseSprite)EnemySpriteFactory.Instance.CreateKeeseSprite(game.SpriteBatch, center);
             speed = 30.0f;
@@ -81,6 +84,7 @@ namespace cse3902.Entities.Enemies
         public void Die()
         {
             SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, type);
         }
 
         public void BeShoved()
@@ -182,6 +186,16 @@ namespace cse3902.Entities.Enemies
         public void Draw()
         {
             this.keeseSprite.Draw();
+        }
+
+        public IEntity Duplicate()
+        {
+            return new Keese(game, center, type);
+        }
+
+        public IEntity.EnemyType Type
+        {
+            get => type;
         }
 
         public Vector2 Center

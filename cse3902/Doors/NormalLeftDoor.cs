@@ -33,6 +33,9 @@ namespace cse3902.Doors
         {
             switch (doorState) {
                 case IDoor.DoorState.Open:
+                    connectedDoor.State = IDoor.DoorState.Open;
+                    game.RoomHandler.LoadNewRoom(game.RoomHandler.currentRoom + roomTranslationVector, connectedDoor);
+                    break;
                 case IDoor.DoorState.Bombed:
                     game.RoomHandler.LoadNewRoom(game.RoomHandler.currentRoom + roomTranslationVector, connectedDoor);
                     break;

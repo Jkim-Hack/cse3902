@@ -2,9 +2,8 @@
 using System;
 using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
-using cse3902.Projectiles;
-using cse3902.Sounds;
-using System.Linq;
+using cse3902.HUD;
+using cse3902.Doors;
 
 namespace cse3902.Rooms
 {
@@ -53,8 +52,6 @@ namespace cse3902.Rooms
 
         public void LoadNewRoom(Vector3 newPos, IDoor entranceDoor)
         {
-            if (newPos.Z != 0) SoundFactory.PlaySound(SoundFactory.Instance.stairs);
-
             Room newRoom = rooms.GetValueOrDefault(newPos);
             Vector2 convertedRoom = RoomUtilities.ConvertVector(newPos);
 
@@ -101,6 +98,7 @@ namespace cse3902.Rooms
             if (!roomTransitionManager.IsTransitioning())
             {
                 roomChange += currentRoom;
+                //if (rooms.ContainsKey(roomChange) && !roomChange.Equals(startingRoom) && rooms.GetValueOrDefault(roomChange).Doors[i].State != IDoor.DoorState.Wall) LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[i]);
                 if (rooms.ContainsKey(roomChange) && !roomChange.Equals(startingRoom)) LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[i]);
             }
         }
@@ -132,7 +130,7 @@ namespace cse3902.Rooms
                 RoomDoors.Instance.DrawOld();
                 RoomBlocks.Instance.DrawOld();
             }
-            else if(!GameStateManager.Instance.InMenu(true))
+            else if (!GameStateManager.Instance.InMenu(true))
             {
                 RoomItems.Instance.Draw();
                 CloudAnimation.Instance.Draw();
@@ -156,7 +154,17 @@ namespace cse3902.Rooms
 
         public void Reset()
         {
-            RoomBlocks.Instance.Reset();
+            game.Camera.Reset();
+            game.Player.Reset();
+            // add Link health reset here
+            startComplete = false;
+            rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Open;
+            LoadNewRoom(startingRoom + startingRoomTranslation, rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0]);
+
+            foreach (Room room in rooms.Values)
+            {
+                room.Reset();
+            }
         }
 
         public Vector3 RoomChangeDirection

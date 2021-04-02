@@ -2,12 +2,14 @@
 using cse3902.Interfaces;
 using cse3902.Rooms;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+using cse3902.Entities.Enemies;
 
 namespace cse3902.Collision.Collidables
 {
     public class PlayerCollidable : ICollidable
     {
+        private Game1 game;
+
         private IPlayer player;
         private int damage;
         private Boolean[] collisionOccurrences;
@@ -15,12 +17,13 @@ namespace cse3902.Collision.Collidables
         private bool isDamageDisabled;
         public bool DamageDisabled { get => isDamageDisabled; set => isDamageDisabled = value; }
 
-        public PlayerCollidable(IPlayer player, int damage)
+        public PlayerCollidable(IPlayer player, int damage, Game1 game)
         {
             this.player = player;
             this.damage = damage;
             isDamageDisabled = false;
             collisionOccurrences = new Boolean[6];
+            this.game = game;
         }
 
 
@@ -34,11 +37,15 @@ namespace cse3902.Collision.Collidables
 
                 if (player.Health <= 0)
                 {
-                    //remove link from room
-                    // TODO: this will need to be changed to reset game and such
-                    RoomEnemies.Instance.RemoveEnemy(this.player);
+                    this.player.Die();
                 } 
-		        else
+		        else if (((EnemyCollidable)collidableObject).Enemy is WallMaster)
+                {
+                    //commented for now for easier testing
+                    //wallmaster reset sequence needs to be implemented
+                    //game.RoomHandler.Reset();
+                }
+                else 
                 {
                     player.BeShoved();
                 }

@@ -36,7 +36,7 @@ namespace cse3902.Entities
             linkInventory = linkStateMachine.Inventory;
 
             //Link's body does no damage itself
-            this.collidable = new PlayerCollidable(this, 0);
+            this.collidable = new PlayerCollidable(this, 0, game);
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
         }
 
@@ -58,6 +58,7 @@ namespace cse3902.Entities
         public void Die()
         {
             SoundFactory.PlaySound(SoundFactory.Instance.linkDie);
+            game.RoomHandler.Reset(); //will need to put this at the end of a death animation when added
         }
 
         public void TakeDamage(int damage)
@@ -91,6 +92,18 @@ namespace cse3902.Entities
         public void Draw()
         {
             linkSprite.Draw();
+        }
+
+        //  DO NOT USE - only here to prevent compile error
+        public IEntity Duplicate()
+        {
+            return new Link(game);
+        }
+
+        //  DO NOT USE - only here to prevent compile error
+        public IEntity.EnemyType Type
+        {
+            get => IEntity.EnemyType.X;
         }
 
         public Vector2 Direction

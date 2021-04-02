@@ -27,11 +27,14 @@ namespace cse3902.Entities.Enemies
         private int health;
         private float remainingDamageDelay;
 
-        public Gel(Game1 game, Vector2 start)
+        private IEntity.EnemyType type;
+
+        public Gel(Game1 game, Vector2 start, IEntity.EnemyType type)
         {
             this.game = game;
             center = start;
             previousCenter = center;
+            this.type = type;
 
             //gel sprite sheet is 1 row, 2 columns
             gelSprite = (GelSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.SpriteBatch, this.center);
@@ -82,6 +85,7 @@ namespace cse3902.Entities.Enemies
         public void Die()
         {
             SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, type);
         }
 
         public void BeShoved()
@@ -172,6 +176,16 @@ namespace cse3902.Entities.Enemies
         public void Draw()
         {
             gelSprite.Draw();
+        }
+
+        public IEntity Duplicate()
+        {
+            return new Gel(game, center, type);
+        }
+
+        public IEntity.EnemyType Type
+        {
+            get => type;
         }
 
         public Vector2 Center
