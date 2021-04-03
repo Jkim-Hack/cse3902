@@ -32,18 +32,12 @@ namespace cse3902.Collision.Collidables
 
             if (collidableObject is EnemyCollidable && !isDamageDisabled)
             {
-                //take damage and get shoved back by enemy
-                player.TakeDamage(collidableObject.DamageValue);
-
-                if (player.Health <= 0)
-                {
-                    this.player.Die();
-                } 
-		        else if (((EnemyCollidable)collidableObject).Enemy is WallMaster)
+		        if (((EnemyCollidable)collidableObject).Enemy is WallMaster)
                 {
                     if (((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered) 
                     {
-                        GameStateManager.Instance.LinkGrabbedByWallMaster(1);
+                        player.TakeDamage(collidableObject.DamageValue);
+                        //GameStateManager.Instance.LinkGrabbedByWallMaster(1);
                         //call wall master reset sequence starter
                     } else
                     {
@@ -53,6 +47,13 @@ namespace cse3902.Collision.Collidables
                 }
                 else 
                 {
+                    //take damage and get shoved back by enemy
+                    player.TakeDamage(collidableObject.DamageValue);
+
+                    if (player.Health <= 0)
+                    {
+                        this.player.Die();
+                    }
                     player.BeShoved();
                 }
                 
