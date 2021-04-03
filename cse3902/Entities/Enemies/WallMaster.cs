@@ -2,6 +2,7 @@
 using cse3902.Interfaces;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.Rooms;
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
@@ -24,6 +25,9 @@ namespace cse3902.Entities.Enemies
         private Vector2 shoveDirection;
         private int shoveDistance;
 
+        private Boolean isTriggered;
+        private Rectangle detectionBox;
+
         private ICollidable collidable;
         private int health;
         private float remainingDamageDelay;
@@ -45,13 +49,9 @@ namespace cse3902.Entities.Enemies
             shoveDistance = -10;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
+            isTriggered = false;
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = 10;
-        }
-
-        public ref Rectangle Bounds
-        {
-            get => ref wallMasterSprite.Box;
         }
 
         public void Attack()
@@ -189,6 +189,21 @@ namespace cse3902.Entities.Enemies
             get => type;
         }
 
+        public ref Rectangle Bounds
+        {
+            get
+            {
+                if (this.IsTriggered)
+                {
+                    return ref this.wallMasterSprite.Box;
+                } else
+                {
+                    return ref this.detectionBox;
+                }
+
+            }
+        }
+
         public Vector2 Center
         {
             get => this.center;
@@ -223,6 +238,12 @@ namespace cse3902.Entities.Enemies
             }
         }
 
+        public Boolean IsTriggered
+        {
+            get => this.isTriggered;
+            set => this.isTriggered = value;
+        }
+
         public Vector2 Direction
         {
             get => this.direction;
@@ -231,6 +252,13 @@ namespace cse3902.Entities.Enemies
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        private void ConstructDetectionBox()
+        {
+            this.detectionBox = new Rectangle(this.wallMasterSprite.Box.X, this.wallMasterSprite.Box.Y, 2*this.wallMasterSprite.Box.Width, 2 * this.wallMasterSprite.Box.Height);
+            this.detectionBox.Offset(RoomUtilities.BLOCK_SIDE, RoomUtilities.BLOCK_SIDE);
+
         }
     }
 }
