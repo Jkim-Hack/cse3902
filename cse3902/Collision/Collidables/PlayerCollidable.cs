@@ -37,7 +37,6 @@ namespace cse3902.Collision.Collidables
 
                 if (player.Health <= 0)
                 {
-                    //GameStateManager.Instance.LinkDies(somenumber);
                     this.player.Die();
                 } 
 		        else if (((EnemyCollidable)collidableObject).Enemy is WallMaster)
