@@ -100,7 +100,7 @@ namespace cse3902.Collision.Collidables
                     return;
                 }
 
-                if (!(this.enemy is Keese))
+                if (!(this.enemy is Keese || this.enemy is WallMaster))
                 {
                     this.enemy.StopShove();
                     this.enemy.Center = this.enemy.PreviousCenter;

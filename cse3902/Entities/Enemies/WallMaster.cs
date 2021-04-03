@@ -163,7 +163,7 @@ namespace cse3902.Entities.Enemies
                 travelDistance--;
             }
 
-            if (direction.X == 0 && direction.Y == -1)
+            if (direction.X == 0 && direction.Y == 0)
             {
                 int x = 0;
             }
