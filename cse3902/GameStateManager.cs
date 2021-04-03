@@ -98,7 +98,6 @@ namespace cse3902
 
         public void LinkGrabbedByWallMaster(int numberUpdateCyclesToComplete)
         {
-            SoundFactory.Instance.backgroundMusic.Stop();
             updateCycles = numberUpdateCyclesToComplete;
             pausedState = PauseState.WallMasterGrabbed;
             game.CollisionManager.Disabled = true;
@@ -148,6 +147,7 @@ namespace cse3902
                 updateCycles--;
                 if (updateCycles <= 0)
                 {
+                    SoundFactory.Instance.backgroundMusic.Stop();
                     SoundFactory.Instance.backgroundMusic.Play();
                     game.CollisionManager.Disabled = false;
                     if (IsDying() || IsGrabbedByWallMaster()) game.RoomHandler.Reset();
