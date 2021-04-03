@@ -31,8 +31,8 @@ namespace cse3902.HUD
             this.offsetX = 35;
             this.offsetY = DimensionConstants.OriginalWindowHeight / 2;
 
-            int scaledLabelWidth = label.Bounds.Width / DimensionConstants.DrawScale;
-            int scaledLabelHeight = label.Bounds.Height / DimensionConstants.DrawScale;
+            int scaledLabelWidth = label.Bounds.Width / 3;
+            int scaledLabelHeight = label.Bounds.Height / 3;
             this.labelPos = new Rectangle(0, 0, scaledLabelWidth, scaledLabelHeight);
 
             int scaledCompassWidth = (int)(compass.Bounds.Width / 1.3f);
