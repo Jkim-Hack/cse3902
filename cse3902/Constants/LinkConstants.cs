@@ -12,7 +12,6 @@ namespace cse3902.Constants
         public const int defaultShoveDistance = -10;
         public const float hitboxSizeModifier = 0.75f;
         public const int defaultSoundDelay = 20;
-        public const float defaultDeathResetDelay = 1f;
 
         private const float defaultDelay = 0.2f;
         public static Dictionary<AnimationState, (int[] frame, float[] delay)> generateFrameSets()
@@ -32,7 +31,7 @@ namespace cse3902.Constants
                 { AnimationState.UpAttack,    ( new int[]  { 10, 10, 4, 5 },   new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
                 { AnimationState.DownAttack,  ( new int[]  { 11, 11, 6, 7 },   new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
                 { AnimationState.Item,        ( new int[]  { 21, 20, 21 },     new float[] { 0.05f, 0.5f, 0.05f }) },
-                { AnimationState.Death,       ( new int[]  { 6, 0, 4, 2 },     new float[] { defaultDelay, defaultDelay, defaultDelay, defaultDelay }) }
+                { AnimationState.Death,       ( new int[]  { 6, 0, 4, 2, 6, 0, 4, 2, 6 },new float[] { defaultDelay, defaultDelay, defaultDelay, defaultDelay, defaultDelay, defaultDelay, defaultDelay, defaultDelay, defaultDelay }) }
             };
             return frameSetIndicies;
         }
