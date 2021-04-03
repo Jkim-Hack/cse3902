@@ -12,6 +12,7 @@ namespace cse3902.Constants
         public const int defaultShoveDistance = -10;
         public const float hitboxSizeModifier = 0.75f;
         public const int defaultSoundDelay = 20;
+        public const float defaultDeathResetDelay = 1f;
 
         private const float defaultDelay = 0.2f;
         public static Dictionary<AnimationState, (int[] frame, float[] delay)> generateFrameSets()

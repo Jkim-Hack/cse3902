@@ -11,6 +11,8 @@ namespace cse3902.Entities
     {
         private enum LinkMode { Still, Moving, Attack, Item, Death };
 
+        private Game1 game;
+
         private LinkMode mode;
 
         private LinkSprite linkSprite;
@@ -25,6 +27,7 @@ namespace cse3902.Entities
 
         private double remainingDamageDelay;
         private int lowHealthSoundDelay;
+        private double remainingDeathDelay;
 
         private Vector2 shoveDirection;
         private int shoveDistance;
@@ -34,6 +37,7 @@ namespace cse3902.Entities
         
 	    public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
         {
+            this.game = game;
             this.centerPosition = centerPosition;
             mode = LinkMode.Still;
             linkInventory = new LinkInventory(game, this);
@@ -48,6 +52,7 @@ namespace cse3902.Entities
 
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
             lowHealthSoundDelay = LinkConstants.defaultSoundDelay;
+            remainingDeathDelay = LinkConstants.defaultDeathResetDelay;
 
             shoveDistance = LinkConstants.defaultShoveDistance;
             PauseMovement = false;
@@ -136,10 +141,18 @@ namespace cse3902.Entities
                 }
                 else if (mode == LinkMode.Death)
                 {
+                    remainingDeathDelay -= gameTime.ElapsedGameTime.TotalSeconds;
                     animationDeathCycleCount++;
                     if (animationDeathCycleCount > 1)
                     {
-                        
+                        linkSprite.DeathMaskHandler.LoadMask();
+                    }
+                    if (remainingDeathDelay <= 0)
+                    {
+                        remainingDeathDelay = LinkConstants.defaultDeathResetDelay;
+                        animationDeathCycleCount = 0;
+                        mode = LinkMode.Still;
+                        game.RoomHandler.Reset(); //will need to put this at the end of a death animation when added
                     }
                 }
             }
