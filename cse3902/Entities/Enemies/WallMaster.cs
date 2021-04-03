@@ -264,7 +264,6 @@ namespace cse3902.Entities.Enemies
             {
                 this.wallType = WallType.LEFTWALL;
                 this.detectionBox.Inflate(0, RoomUtilities.BLOCK_SIDE);
-                this.detectionBox.Offset(RoomUtilities.BLOCK_SIDE, 0);
             } else if (startingPosition.X > 11)
             {
                 this.wallType = WallType.RIGHTWALL;
@@ -273,13 +272,13 @@ namespace cse3902.Entities.Enemies
             } else if (startingPosition.Y < 0)
             {
                 this.wallType = WallType.TOPWALL;
-                this.detectionBox.Inflate(-RoomUtilities.BLOCK_SIDE, 0);
-                this.detectionBox.Offset(0, RoomUtilities.BLOCK_SIDE * 2);
+                this.detectionBox.Inflate(RoomUtilities.BLOCK_SIDE, 0);
+                this.detectionBox.Offset(RoomUtilities.BLOCK_SIDE, 0);
             } else
             {
                 this.wallType = WallType.BOTTOMWALL;
-                this.detectionBox.Inflate(-RoomUtilities.BLOCK_SIDE, 0);
-                this.detectionBox.Offset(0, -RoomUtilities.BLOCK_SIDE * 2);
+                this.detectionBox.Inflate(RoomUtilities.BLOCK_SIDE, 0);
+                this.detectionBox.Offset(0, -RoomUtilities.BLOCK_SIDE);
             }
         }
 

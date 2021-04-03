@@ -1381,7 +1381,7 @@
 			</enemy>
 			<enemy>
 				<type>Wallmaster</type>
-				<xloc>10</xloc>
+				<xloc>9</xloc>
 				<yloc>7</yloc>
 			</enemy>
 		</enemies>
