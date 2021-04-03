@@ -53,7 +53,6 @@ namespace cse3902.HUD
         {
             if (game.RoomHandler.currentRoom.Z == 0 && !rooms.ContainsKey(game.RoomHandler.currentRoom))
             {
-                /* change to add correct # for doors */
                 rooms.Add(game.RoomHandler.currentRoom, GetRoomIndex(game.RoomHandler.rooms[game.RoomHandler.currentRoom].Doors));
             }
 
@@ -65,22 +64,14 @@ namespace cse3902.HUD
             /* List of doors is modeled as (bottom, left, top, right) */
             /* int represents a 4-bit integer, modeled as (left, right, top, bottom), with 0 meaning closed and 1 meaning open */
             int doors = 0;
-
-            doors |= IsOpen(roomDoors[1]);
-            doors <<= 1;
-            doors |= IsOpen(roomDoors[3]);
-            doors <<= 1;
-            doors |= IsOpen(roomDoors[2]);
-            doors <<= 1;
-            doors |= IsOpen(roomDoors[0]);
-
+            doors = IsOpen(roomDoors[1], 0) | IsOpen(roomDoors[3], 1) | IsOpen(roomDoors[2], 2) | IsOpen(roomDoors[0], 3);
             return doors;
         }
 
-        private int IsOpen(IDoor door)
+        private int IsOpen(IDoor door, int index)
         {
-            if (door.State == IDoor.DoorState.Open || door.State == IDoor.DoorState.Bombed) return 0b1;
-            else return 0b0;
+            if (door.State == IDoor.DoorState.Open || door.State == IDoor.DoorState.Bombed) return 0b0001 << (3 - index);
+            else return 0b0000;
         }
 
         public void Draw()
@@ -97,17 +88,10 @@ namespace cse3902.HUD
 
         private void DrawRooms()
         {
-            // foreach (Vector3 coords in rooms.Keys)
-            // {
-            //     Rectangle destination = OrangeMapConstants.CalculatePos(coords, OrangeMapConstants.RoomSize, scaledMapWidth, scaledMapHeight);
-            //     HUDUtilities.DrawTexture(game, roomsTexture, destination, offsetX, offsetY, HUDUtilities.OrangeMapRoomLayer, roomFrames[rooms[coords]]);
-            // }
-            foreach (Vector3 coords in game.RoomHandler.rooms.Keys)
+            foreach (Vector3 coords in rooms.Keys)
             {
-                if (game.RoomHandler.rooms[coords].Doors.Count != 4) continue;
-                Rectangle frame = roomFrames[GetRoomIndex(game.RoomHandler.rooms[coords].Doors)];
                 Rectangle destination = OrangeMapConstants.CalculatePos(coords, OrangeMapConstants.RoomSize, scaledMapWidth, scaledMapHeight);
-                HUDUtilities.DrawTexture(game, roomsTexture, destination, offsetX, offsetY, HUDUtilities.OrangeMapRoomLayer, frame);
+                HUDUtilities.DrawTexture(game, roomsTexture, destination, offsetX, offsetY, HUDUtilities.OrangeMapRoomLayer, roomFrames[rooms[coords]]);
             }
         }
 
