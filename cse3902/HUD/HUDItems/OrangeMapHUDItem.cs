@@ -51,9 +51,11 @@ namespace cse3902.HUD
 
         public int Update(GameTime gameTime)
         {
-            if (game.RoomHandler.currentRoom.Z == 0 && !rooms.ContainsKey(game.RoomHandler.currentRoom))
+            if (game.RoomHandler.currentRoom.Z == 0) rooms[game.RoomHandler.currentRoom] = 0;
+
+            foreach(Vector3 coords in game.RoomHandler.rooms.Keys)
             {
-                rooms.Add(game.RoomHandler.currentRoom, GetRoomIndex(game.RoomHandler.rooms[game.RoomHandler.currentRoom].Doors));
+                if (rooms.ContainsKey(coords)) rooms[coords] = GetRoomIndex(game.RoomHandler.rooms[coords].Doors);
             }
 
             return 0;
