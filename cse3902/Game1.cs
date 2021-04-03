@@ -90,7 +90,7 @@ namespace cse3902
             collisionManager = new CollisionManager(this);
             hudManager = new HUDManager(this);
 
-            GameStateManager.Instance.Camera = camera;
+            GameStateManager.Instance.Game = this;
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
@@ -151,14 +151,14 @@ namespace cse3902
                 controller.Update();
             }
 
-            if (GameStateManager.Instance.IsUnpaused())
+            if (GameStateManager.Instance.IsUnpaused() || GameStateManager.Instance.IsGrabbedByWallMaster())
             {
                 player.Update(gameTime);
                 roomHandler.Update(gameTime);
                 collisionManager.Update();
                 hudManager.Update(gameTime);
             }
-            else if (GameStateManager.Instance.IsPickingUpItem())
+            else if (GameStateManager.Instance.IsPickingUpItem() || GameStateManager.Instance.IsDying())
             {
                 player.Update(gameTime);
             }

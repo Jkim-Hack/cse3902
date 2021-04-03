@@ -70,7 +70,7 @@ namespace cse3902.HUD
         {
             DrawMap();
             DrawRooms();
-            DrawCurrentRoom();
+            if (game.RoomHandler.currentRoom.Z == 0) DrawCurrentRoom();
         }
 
         private void DrawMap()

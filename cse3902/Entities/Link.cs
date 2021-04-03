@@ -61,6 +61,7 @@ namespace cse3902.Entities
         {
             linkStateMachine.Die();
 	        SoundFactory.PlaySound(SoundFactory.Instance.linkDie);
+            GameStateManager.Instance.LinkDies(128);
         }
 
         public void TakeDamage(int damage)

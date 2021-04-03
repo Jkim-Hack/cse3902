@@ -42,8 +42,8 @@ namespace cse3902.Collision.Collidables
 		        else if (((EnemyCollidable)collidableObject).Enemy is WallMaster)
                 {
                     //commented for now for easier testing
-                    //wallmaster reset sequence needs to be implemented
-                    //game.RoomHandler.Reset();
+                    //GameStateManager.Instance.LinkGrabbedByWallMaster(somenumber);
+                    //call wall master reset sequence starter
                 }
                 else 
                 {
