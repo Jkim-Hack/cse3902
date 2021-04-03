@@ -19,6 +19,7 @@ namespace cse3902.Entities.Enemies
 
         private Vector2 direction;
         private float speed;
+        private Vector2 abstractStart;
         private Vector2 center;
         private Vector2 previousCenter;
         private int travelDistance;
@@ -32,11 +33,13 @@ namespace cse3902.Entities.Enemies
         private int health;
         private float remainingDamageDelay;
 
+        private WallType wallType;
         private IEntity.EnemyType type;
 
-        public WallMaster(Game1 game, Vector2 start, IEntity.EnemyType type)
+        public WallMaster(Game1 game, Vector2 start, Vector2 abstractStart, IEntity.EnemyType type)
         {
             this.game = game;
+            this.abstractStart = abstractStart;
             center = start;
             previousCenter = center;
             this.type = type;
@@ -50,6 +53,7 @@ namespace cse3902.Entities.Enemies
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             isTriggered = false;
+            ConstructDetectionBox(abstractStart);
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = 10;
         }
@@ -123,8 +127,13 @@ namespace cse3902.Entities.Enemies
         {
             UpdateDamage(gameTime);
 	        this.collidable.ResetCollisions();
-            if (this.shoveDistance > 0) ShoveMovement();
-            else RegularMovement(gameTime);
+
+            if (this.IsTriggered)
+            {
+                if (this.shoveDistance > 0) ShoveMovement();
+                else RegularMovement(gameTime);
+            }
+            
         }
 
         private void ShoveMovement()
@@ -181,7 +190,7 @@ namespace cse3902.Entities.Enemies
 
         public IEntity Duplicate()
         {
-            return new WallMaster(game, center, type);
+            return new WallMaster(game, center, abstractStart, type);
         }
 
         public IEntity.EnemyType Type
@@ -254,11 +263,39 @@ namespace cse3902.Entities.Enemies
             get => this.collidable;
         }
 
-        private void ConstructDetectionBox()
+        private void ConstructDetectionBox(Vector2 startingPosition)
         {
-            this.detectionBox = new Rectangle(this.wallMasterSprite.Box.X, this.wallMasterSprite.Box.Y, 2*this.wallMasterSprite.Box.Width, 2 * this.wallMasterSprite.Box.Height);
-            this.detectionBox.Offset(RoomUtilities.BLOCK_SIDE, RoomUtilities.BLOCK_SIDE);
+            this.detectionBox = new Rectangle(this.wallMasterSprite.Box.X, this.wallMasterSprite.Box.Y, 2 * this.wallMasterSprite.Box.Width, 2 * this.wallMasterSprite.Box.Height);
 
+            if (startingPosition.X < 0)
+            {
+                this.wallType = WallType.LEFTWALL;
+                this.detectionBox.Inflate(0, RoomUtilities.BLOCK_SIDE);
+                this.detectionBox.Offset(RoomUtilities.BLOCK_SIDE, 0);
+            } else if (startingPosition.X > 11)
+            {
+                this.wallType = WallType.RIGHTWALL;
+                this.detectionBox.Inflate(0, RoomUtilities.BLOCK_SIDE);
+                this.detectionBox.Offset(-RoomUtilities.BLOCK_SIDE * 2, 0);
+            } else if (startingPosition.Y < 0)
+            {
+                this.wallType = WallType.BOTTOMWALL;
+                this.detectionBox.Inflate(-RoomUtilities.BLOCK_SIDE, 0);
+                this.detectionBox.Offset(0, RoomUtilities.BLOCK_SIDE * 2);
+            } else
+            {
+                this.wallType = WallType.TOPWALL;
+                this.detectionBox.Inflate(-RoomUtilities.BLOCK_SIDE, 0);
+                this.detectionBox.Offset(0, -RoomUtilities.BLOCK_SIDE * 2);
+            }
+        }
+
+        private enum WallType
+        {
+            LEFTWALL = 0,
+            RIGHTWALL = 1,
+            TOPWALL = 2,
+            BOTTOMWALL = 3
         }
     }
 }
