@@ -158,6 +158,8 @@ namespace cse3902
 
         public void Reset()
         {
+            SoundFactory.Instance.backgroundMusic.Stop();
+            SoundFactory.Instance.backgroundMusic.Play();
             pausedState = PauseState.Unpaused;
             remainingToggleCooldown = 0;
             updateCycles = 0;
