@@ -1366,23 +1366,23 @@
 		<enemies>
 			<enemy>
 				<type>Wallmaster</type>
-				<xloc>-2</xloc>
-				<yloc>4</yloc>
+				<xloc>-1</xloc>
+				<yloc>6</yloc>
 			</enemy>
 			<enemy>
 				<type>Wallmaster</type>
-				<xloc>13</xloc>
-				<yloc>4</yloc>
+				<xloc>12</xloc>
+				<yloc>2</yloc>
 			</enemy>
 			<enemy>
 				<type>Wallmaster</type>
-				<xloc>7</xloc>
-				<yloc>-2</yloc>
+				<xloc>2</xloc>
+				<yloc>-1</yloc>
 			</enemy>
 			<enemy>
 				<type>Wallmaster</type>
-				<xloc>7</xloc>
-				<yloc>8</yloc>
+				<xloc>10</xloc>
+				<yloc>7</yloc>
 			</enemy>
 		</enemies>
 		<blocks>

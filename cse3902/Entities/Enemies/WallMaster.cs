@@ -47,7 +47,8 @@ namespace cse3902.Entities.Enemies
             //wallmaster sprite sheet is 4 rows, 2 columns
             wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.SpriteBatch, center);
             wallMasterStateMachine = new WallMasterStateMachine(wallMasterSprite);
-            speed = 20.0f;
+            speed = 30.0f;
+            this.direction = new Vector2(0, 0);
             travelDistance = 0;
             shoveDistance = -10;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
@@ -126,7 +127,6 @@ namespace cse3902.Entities.Enemies
         public void Update(GameTime gameTime)
         {
             UpdateDamage(gameTime);
-	        this.collidable.ResetCollisions();
 
             if (this.IsTriggered)
             {
@@ -272,12 +272,12 @@ namespace cse3902.Entities.Enemies
                 this.detectionBox.Offset(-RoomUtilities.BLOCK_SIDE * 2, 0);
             } else if (startingPosition.Y < 0)
             {
-                this.wallType = WallType.BOTTOMWALL;
+                this.wallType = WallType.TOPWALL;
                 this.detectionBox.Inflate(-RoomUtilities.BLOCK_SIDE, 0);
                 this.detectionBox.Offset(0, RoomUtilities.BLOCK_SIDE * 2);
             } else
             {
-                this.wallType = WallType.TOPWALL;
+                this.wallType = WallType.BOTTOMWALL;
                 this.detectionBox.Inflate(-RoomUtilities.BLOCK_SIDE, 0);
                 this.detectionBox.Offset(0, -RoomUtilities.BLOCK_SIDE * 2);
             }
@@ -289,25 +289,30 @@ namespace cse3902.Entities.Enemies
             {
                 case 1:
                     direction.X = 0;
-                    direction.Y = 1;
-                    travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                    direction.Y = -1;
+                    travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     break;
                 case -1:
                     direction.X = 0;
-                    direction.Y = -1;
-                    travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                    direction.Y = 1;
+                    travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     break;
                 case 0:
-                    if (direction.Y == 1)
+                    if (direction.Y == -1)
                     {
                         direction.X = -1;
                         direction.Y = 0;
                         travelDistance = RoomUtilities.BLOCK_SIDE * 2;
-                    } else
+                    } else if (direction.Y == 1)
                     {
                         direction.X = 0;
                         direction.Y = 0;
                         this.IsTriggered = false;
+                    } else
+                    {
+                        direction.X = 1;
+                        direction.Y = 0;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
                     break;
                 default:
@@ -321,26 +326,31 @@ namespace cse3902.Entities.Enemies
             {
                 case 1:
                     direction.X = 0;
-                    direction.Y = -1;
-                    travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                    direction.Y = 1;
+                    travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     break;
                 case -1:
                     direction.X = 0;
-                    direction.Y = 1;
-                    travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                    direction.Y = -1;
+                    travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     break;
                 case 0:
-                    if (direction.Y == 1)
+                    if (direction.Y == -1)
                     {
                         direction.X = 1;
                         direction.Y = 0;
                         travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
-                    else
+                    else if (direction.Y == 1)
                     {
                         direction.X = 0;
                         direction.Y = 0;
                         this.IsTriggered = false;
+                    } else
+                    {
+                        direction.X = -1;
+                        direction.Y = 0;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
                     break;
                 default:
@@ -359,21 +369,26 @@ namespace cse3902.Entities.Enemies
                     break;
                 case -1:
                     direction.X = 0;
-                    direction.Y = -1;
+                    direction.Y = 1;
                     travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     break;
                 case 0:
-                    if (direction.Y == 1)
+                    if (direction.Y == -1)
                     {
                         direction.X = -1;
                         direction.Y = 0;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     }
-                    else
+                    else if (direction.Y == 1)
                     {
                         direction.X = 1;
                         direction.Y = 0;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 4;
+                    } else
+                    {
+                        direction.X = 0;
+                        direction.Y = -1;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
                     break;
                 default:
@@ -392,21 +407,26 @@ namespace cse3902.Entities.Enemies
                     break;
                 case -1:
                     direction.X = 0;
-                    direction.Y = 1;
+                    direction.Y = -1;
                     travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     break;
                 case 0:
-                    if (direction.Y == 1)
+                    if (direction.Y == -1)
                     {
                         direction.X = 1;
                         direction.Y = 0;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     }
-                    else
+                    else if (direction.Y == 1)
                     {
                         direction.X = -1;
                         direction.Y = 0;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 4;
+                    } else
+                    {
+                        direction.X = 0;
+                        direction.Y = 1;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
                     break;
                 default:
