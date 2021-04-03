@@ -151,6 +151,7 @@ namespace cse3902
                     pausedState = PauseState.Unpaused;
                     SoundFactory.Instance.backgroundMusic.Play();
                     game.CollisionManager.Disabled = false;
+                    if (IsDying() || IsGrabbedByWallMaster()) game.RoomHandler.Reset();
                 }
             }
         }
