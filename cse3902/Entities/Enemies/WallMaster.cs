@@ -148,27 +148,20 @@ namespace cse3902.Entities.Enemies
 
             if (travelDistance <= 0)
             {
-                Random rand = new System.Random();
-                int choice = rand.Next(0, 4);
-                travelDistance = 80;
 
-                switch (choice)
+                switch (this.wallType)
                 {
-                    case 0:
-                        direction.X = 1;
-                        direction.Y = 1;
+                    case WallType.LEFTWALL:
+                        LeftWallMovement();
                         break;
-                    case 1:
-                        direction.X = 1;
-                        direction.Y = -1;
+                    case WallType.RIGHTWALL:
+                        RightWallMovement();
                         break;
-                    case 2:
-                        direction.X = -1;
-                        direction.Y = 1;
+                    case WallType.BOTTOMWALL:
+                        BottomWallMovement();
                         break;
-                    case 3:
-                        direction.X = -1;
-                        direction.Y = -1;
+                    case WallType.TOPWALL:
+                        TopWallMovement();
                         break;
                     default:
                         break;
@@ -287,6 +280,137 @@ namespace cse3902.Entities.Enemies
                 this.wallType = WallType.TOPWALL;
                 this.detectionBox.Inflate(-RoomUtilities.BLOCK_SIDE, 0);
                 this.detectionBox.Offset(0, -RoomUtilities.BLOCK_SIDE * 2);
+            }
+        }
+
+        private void LeftWallMovement()
+        {
+            switch (this.direction.X)
+            {
+                case 1:
+                    direction.X = 0;
+                    direction.Y = 1;
+                    travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                    break;
+                case -1:
+                    direction.X = 0;
+                    direction.Y = -1;
+                    travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                    break;
+                case 0:
+                    if (direction.Y == 1)
+                    {
+                        direction.X = -1;
+                        direction.Y = 0;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
+                    } else
+                    {
+                        direction.X = 1;
+                        direction.Y = 0;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void RightWallMovement()
+        {
+            switch (this.direction.X)
+            {
+                case 1:
+                    direction.X = 0;
+                    direction.Y = -1;
+                    travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                    break;
+                case -1:
+                    direction.X = 0;
+                    direction.Y = 1;
+                    travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                    break;
+                case 0:
+                    if (direction.Y == 1)
+                    {
+                        direction.X = 1;
+                        direction.Y = 0;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
+                    }
+                    else
+                    {
+                        direction.X = -1;
+                        direction.Y = 0;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void BottomWallMovement()
+        {
+            switch (this.direction.X)
+            {
+                case 1:
+                    direction.X = 0;
+                    direction.Y = 1;
+                    travelDistance = RoomUtilities.BLOCK_SIDE * 2;
+                    break;
+                case -1:
+                    direction.X = 0;
+                    direction.Y = -1;
+                    travelDistance = RoomUtilities.BLOCK_SIDE * 2;
+                    break;
+                case 0:
+                    if (direction.Y == 1)
+                    {
+                        direction.X = -1;
+                        direction.Y = 0;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                    }
+                    else
+                    {
+                        direction.X = 1;
+                        direction.Y = 0;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void TopWallMovement()
+        {
+            switch (this.direction.X)
+            {
+                case 1:
+                    direction.X = 0;
+                    direction.Y = -1;
+                    travelDistance = RoomUtilities.BLOCK_SIDE * 2;
+                    break;
+                case -1:
+                    direction.X = 0;
+                    direction.Y = 1;
+                    travelDistance = RoomUtilities.BLOCK_SIDE * 2;
+                    break;
+                case 0:
+                    if (direction.Y == 1)
+                    {
+                        direction.X = 1;
+                        direction.Y = 0;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                    }
+                    else
+                    {
+                        direction.X = -1;
+                        direction.Y = 0;
+                        travelDistance = RoomUtilities.BLOCK_SIDE * 3;
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
