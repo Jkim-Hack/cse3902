@@ -32,7 +32,7 @@ namespace cse3902.HUD
             this.offsetX = 25;
             this.offsetY = DimensionConstants.OriginalWindowHeight - 32;
 
-            this.levelPos = new Rectangle(0, (-level.Bounds.Height / DimensionConstants.DrawScale) - 7, level.Bounds.Width / DimensionConstants.DrawScale, level.Bounds.Height / DimensionConstants.DrawScale + 1);
+            this.levelPos = new Rectangle(0, (-level.Bounds.Height / 3) - 7, level.Bounds.Width / 3, level.Bounds.Height / 3 + 1);
 
             this.alreadyChanged = false;
             colorRed = false;
