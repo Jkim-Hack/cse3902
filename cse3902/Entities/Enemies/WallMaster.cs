@@ -66,17 +66,8 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-            //direction vector of (0,0) indicates just reverse the current direction
-            if (direction == new Vector2(0, 0))
-            {
-                this.direction.X = -this.direction.X;
-                this.direction.Y = -this.direction.Y;
-            }
-            else
-            {
-                this.direction.X = direction.X;
-                this.direction.Y = direction.Y;
-            }
+            this.direction.X = direction.X;
+            this.direction.Y = direction.Y;
 
             wallMasterStateMachine.ChangeDirection(direction);
         }
@@ -172,7 +163,17 @@ namespace cse3902.Entities.Enemies
                 travelDistance--;
             }
 
+            if (direction.X == 0 && direction.Y == -1)
+            {
+                int x = 0;
+            }
+
             ChangeDirection(direction);
+
+            if (direction.X == -0 && direction.Y == 1)
+            {
+                int x = 0;
+            }
             wallMasterSprite.Update(gameTime);
         }
 
@@ -268,12 +269,12 @@ namespace cse3902.Entities.Enemies
             {
                 this.wallType = WallType.RIGHTWALL;
                 this.detectionBox.Inflate(0, RoomUtilities.BLOCK_SIDE);
-                this.detectionBox.Offset(-RoomUtilities.BLOCK_SIDE * 2, 0);
+                this.detectionBox.Offset(-RoomUtilities.BLOCK_SIDE, -RoomUtilities.BLOCK_SIDE);
             } else if (startingPosition.Y < 0)
             {
                 this.wallType = WallType.TOPWALL;
                 this.detectionBox.Inflate(RoomUtilities.BLOCK_SIDE, 0);
-                this.detectionBox.Offset(RoomUtilities.BLOCK_SIDE, 0);
+                this.detectionBox.Offset(-RoomUtilities.BLOCK_SIDE, 0);
             } else
             {
                 this.wallType = WallType.BOTTOMWALL;
@@ -345,7 +346,8 @@ namespace cse3902.Entities.Enemies
                         direction.X = 0;
                         direction.Y = 0;
                         this.IsTriggered = false;
-                    } else
+                    }
+                    else
                     {
                         direction.X = -1;
                         direction.Y = 0;
@@ -383,7 +385,8 @@ namespace cse3902.Entities.Enemies
                         direction.X = 1;
                         direction.Y = 0;
                         travelDistance = RoomUtilities.BLOCK_SIDE * 4;
-                    } else
+                    }
+                    else
                     {
                         direction.X = 0;
                         direction.Y = -1;
