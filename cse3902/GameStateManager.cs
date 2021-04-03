@@ -148,10 +148,10 @@ namespace cse3902
                 updateCycles--;
                 if (updateCycles <= 0)
                 {
-                    pausedState = PauseState.Unpaused;
                     SoundFactory.Instance.backgroundMusic.Play();
                     game.CollisionManager.Disabled = false;
                     if (IsDying() || IsGrabbedByWallMaster()) game.RoomHandler.Reset();
+                    pausedState = PauseState.Unpaused;
                 }
             }
         }
