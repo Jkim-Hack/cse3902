@@ -165,10 +165,5 @@ namespace cse3902.Rooms
                 room.Reset();
             }
         }
-
-        public Vector3 RoomChangeDirection
-        {
-            get => currentRoom - previousRoom;
-        }
     }
 }
