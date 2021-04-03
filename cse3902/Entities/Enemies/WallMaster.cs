@@ -305,9 +305,9 @@ namespace cse3902.Entities.Enemies
                         travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     } else
                     {
-                        direction.X = 1;
+                        direction.X = 0;
                         direction.Y = 0;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
+                        this.IsTriggered = false;
                     }
                     break;
                 default:
@@ -338,9 +338,9 @@ namespace cse3902.Entities.Enemies
                     }
                     else
                     {
-                        direction.X = -1;
+                        direction.X = 0;
                         direction.Y = 0;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
+                        this.IsTriggered = false;
                     }
                     break;
                 default:
@@ -354,8 +354,8 @@ namespace cse3902.Entities.Enemies
             {
                 case 1:
                     direction.X = 0;
-                    direction.Y = 1;
-                    travelDistance = RoomUtilities.BLOCK_SIDE * 2;
+                    direction.Y = 0;
+                    this.IsTriggered = false;
                     break;
                 case -1:
                     direction.X = 0;
@@ -387,8 +387,8 @@ namespace cse3902.Entities.Enemies
             {
                 case 1:
                     direction.X = 0;
-                    direction.Y = -1;
-                    travelDistance = RoomUtilities.BLOCK_SIDE * 2;
+                    direction.Y = 0;
+                    this.IsTriggered = false;
                     break;
                 case -1:
                     direction.X = 0;

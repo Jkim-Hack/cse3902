@@ -41,9 +41,15 @@ namespace cse3902.Collision.Collidables
                 } 
 		        else if (((EnemyCollidable)collidableObject).Enemy is WallMaster)
                 {
-                    //commented for now for easier testing
-                    //GameStateManager.Instance.LinkGrabbedByWallMaster(somenumber);
-                    //call wall master reset sequence starter
+                    if (((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered) 
+                    {
+                        GameStateManager.Instance.LinkGrabbedByWallMaster(1);
+                        //call wall master reset sequence starter
+                    } else
+                    {
+                        ((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered = true;
+                    }
+
                 }
                 else 
                 {
