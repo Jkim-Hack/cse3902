@@ -18,6 +18,7 @@ namespace cse3902.Commands
             if (!pressed)
             {
                 pressed = true;
+                GameStateManager.Instance.Reset();
                 game.RoomHandler.Reset();
             }
         }

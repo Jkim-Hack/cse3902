@@ -57,8 +57,9 @@ namespace cse3902.Entities
 
         public void Die()
         {
+            //GameStateManager.Instance.LinkDies(somenumber);
             SoundFactory.PlaySound(SoundFactory.Instance.linkDie);
-            game.RoomHandler.Reset(); //will need to put this at the end of a death animation when added
+            //call method to start death animation here
         }
 
         public void TakeDamage(int damage)

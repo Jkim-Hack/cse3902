@@ -12,16 +12,18 @@ namespace cse3902
             MenuOpening,
             MenuClosing,
             ItemPickup,
-            ItemPickupPaused
+            ItemPickupPaused,
+            Dying,
+            WallMasterGrabbed
         }
         private PauseState pausedState;
-        private Camera camera;
+        private Game1 game;
 
         private int remainingToggleCooldown;
         private const int toggleCooldown = 10;
 
         private const int cameraCycles = 60;
-        private int itemPickupCycles;
+        private int updateCycles;
 
         private static GameStateManager gameStateManagerInstance = new GameStateManager();
         public static GameStateManager Instance
@@ -32,7 +34,7 @@ namespace cse3902
         {
             pausedState = PauseState.Unpaused;
             remainingToggleCooldown = 0;
-            itemPickupCycles = 0;
+            updateCycles = 0;
         }
 
         public void ToggleMenuDisplayed()
@@ -42,11 +44,11 @@ namespace cse3902
             {
                 case PauseState.Unpaused:
                     pausedState = PauseState.MenuOpening;
-                    camera.ToggleHudDisplayed(cameraCycles);
+                    game.Camera.ToggleHudDisplayed(cameraCycles);
                     break;
                 case PauseState.MenuDisplayed:
                     pausedState = PauseState.MenuClosing;
-                    camera.ToggleHudDisplayed(cameraCycles);
+                    game.Camera.ToggleHudDisplayed(cameraCycles);
                     break;
                 default:
                     break;
@@ -82,14 +84,28 @@ namespace cse3902
         public void LinkPickupItem(int numberUpdateCyclesToComplete)
         {
             pausedState = PauseState.ItemPickup;
-            itemPickupCycles = numberUpdateCyclesToComplete;
+            updateCycles = numberUpdateCyclesToComplete;
             SoundFactory.Instance.backgroundMusic.Stop();
             SoundFactory.Instance.fanfare.Play();
         }
 
+        public void LinkDies(int numberUpdateCyclesToComplete)
+        {
+            SoundFactory.Instance.backgroundMusic.Stop();
+            updateCycles = numberUpdateCyclesToComplete;
+            pausedState = PauseState.Dying;
+        }
+
+        public void LinkGrabbedByWallMaster(int numberUpdateCyclesToComplete)
+        {
+            updateCycles = numberUpdateCyclesToComplete;
+            pausedState = PauseState.WallMasterGrabbed;
+            game.CollisionManager.Disabled = true;
+        }
+
         private bool ValidToggle()
         {
-            if (remainingToggleCooldown > 0 || pausedState == PauseState.MenuOpening || pausedState == PauseState.MenuClosing || camera.IsCameraMoving()) return false;
+            if (remainingToggleCooldown > 0 || pausedState == PauseState.MenuOpening || pausedState == PauseState.MenuClosing || game.Camera.IsCameraMoving()) return false;
             remainingToggleCooldown = toggleCooldown;
             return true;
         }
@@ -106,32 +122,52 @@ namespace cse3902
         {
             return pausedState == PauseState.ItemPickup;
         }
+        public bool IsDying()
+        {
+            return pausedState == PauseState.Dying;
+        }
+        public bool IsGrabbedByWallMaster()
+        {
+            return pausedState == PauseState.WallMasterGrabbed;
+        }
 
         public void Update()
         {
             remainingToggleCooldown--;
-            if (pausedState == PauseState.MenuClosing && !camera.IsCameraMoving())
+            if (pausedState == PauseState.MenuClosing && !game.Camera.IsCameraMoving())
             {
                 pausedState = PauseState.Unpaused;
             }
-            else if (pausedState == PauseState.MenuOpening && !camera.IsCameraMoving())
+            else if (pausedState == PauseState.MenuOpening && !game.Camera.IsCameraMoving())
             {
                 pausedState = PauseState.MenuDisplayed;
             } 
-            else if (IsPickingUpItem())
+            else if (IsPickingUpItem() || IsDying() || IsGrabbedByWallMaster())
             {
-                itemPickupCycles--;
-                if (itemPickupCycles <= 0)
+                updateCycles--;
+                if (updateCycles <= 0)
                 {
-                    pausedState = PauseState.Unpaused;
+                    SoundFactory.Instance.backgroundMusic.Stop();
                     SoundFactory.Instance.backgroundMusic.Play();
+                    game.CollisionManager.Disabled = false;
+                    if (IsDying() || IsGrabbedByWallMaster()) game.RoomHandler.Reset();
+                    pausedState = PauseState.Unpaused;
                 }
             }
         }
 
-        public Camera Camera
+        public void Reset()
         {
-            set => camera = value;
+            SoundFactory.Instance.backgroundMusic.Stop();
+            SoundFactory.Instance.backgroundMusic.Play();
+            pausedState = PauseState.Unpaused;
+            remainingToggleCooldown = 0;
+            updateCycles = 0;
+        }
+
+        public Game1 Game
+        {
+            set => this.game = value;
         }
     }
 }

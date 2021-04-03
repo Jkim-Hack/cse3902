@@ -130,7 +130,7 @@ namespace cse3902.Rooms
                 RoomDoors.Instance.DrawOld();
                 RoomBlocks.Instance.DrawOld();
             }
-            else if (!GameStateManager.Instance.InMenu(true))
+            else if (!GameStateManager.Instance.InMenu(true) && !GameStateManager.Instance.IsDying())
             {
                 RoomItems.Instance.Draw();
                 CloudAnimation.Instance.Draw();
@@ -156,7 +156,6 @@ namespace cse3902.Rooms
         {
             game.Camera.Reset();
             game.Player.Reset();
-            // add Link health reset here
             startComplete = false;
             rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Open;
             LoadNewRoom(startingRoom + startingRoomTranslation, rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0]);
@@ -165,11 +164,6 @@ namespace cse3902.Rooms
             {
                 room.Reset();
             }
-        }
-
-        public Vector3 RoomChangeDirection
-        {
-            get => currentRoom - previousRoom;
         }
     }
 }
