@@ -25,7 +25,8 @@ namespace cse3902.Sprites
             RightAttack,
             UpAttack,
             DownAttack,
-            Item
+            Item,
+            Death
         };
 
         private SpriteBatch spriteBatch;

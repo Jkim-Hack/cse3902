@@ -9,7 +9,7 @@ namespace cse3902.Entities
 {
     public class LinkStateMachine : IEntityStateMachine
     {
-        private enum LinkMode { Still, Moving, Attack, Item };
+        private enum LinkMode { Still, Moving, Attack, Item, Death };
 
         private LinkMode mode;
 
@@ -30,7 +30,9 @@ namespace cse3902.Entities
         private int shoveDistance;
         private Boolean pauseMovement;
 
-        public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
+        private int animationDeathCycleCount;
+        
+	    public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
         {
             this.centerPosition = centerPosition;
             mode = LinkMode.Still;
@@ -131,7 +133,14 @@ namespace cse3902.Entities
                     if (mode == LinkMode.Item) Inventory.RemoveItemAnimation();
                     mode = LinkMode.Still;
                     ChangeDirection(new Vector2(0, 0));
-
+                }
+                else if (mode == LinkMode.Death)
+                {
+                    animationDeathCycleCount++;
+                    if (animationDeathCycleCount > 1)
+                    {
+                        
+                    }
                 }
             }
 
@@ -247,6 +256,13 @@ namespace cse3902.Entities
             }
 
             SoundFactory.PlaySound(SoundFactory.Instance.linkHit);
+        }
+
+        public void Die()
+        {
+            linkSprite.setFrameSet(LinkSprite.AnimationState.Death);
+            animationDeathCycleCount = 0;
+            mode = LinkMode.Death;
         }
 
         public Vector2 Direction
