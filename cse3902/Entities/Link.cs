@@ -29,10 +29,12 @@ namespace cse3902.Entities
             // TODO Add this into sprite factory
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
             Texture2D linkDamageSequenceTexture = game.Content.Load<Texture2D>("LinkDamageSequence");
+            Texture2D linkDeathTexture = game.Content.Load<Texture2D>("LinkDeath");
             DamageMaskHandler linkDamageMaskHandler = new DamageMaskHandler(linkTexture, linkDamageSequenceTexture, 1, 4, 0);
+            SingleMaskHandler linkDeathMaskHandler = new SingleMaskHandler(linkTexture, linkDeathTexture);
 
             Vector2 centerPosition = new Vector2(50, 200);
-            linkSprite = new LinkSprite(game.SpriteBatch, linkTexture, 6, 4, linkDamageMaskHandler, centerPosition);
+            linkSprite = new LinkSprite(game.SpriteBatch, linkTexture, 6, 4, linkDamageMaskHandler, linkDeathMaskHandler, centerPosition);
             linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition);
             linkInventory = linkStateMachine.Inventory;
 
@@ -58,9 +60,9 @@ namespace cse3902.Entities
 
         public void Die()
         {
-            //GameStateManager.Instance.LinkDies(somenumber);
-            SoundFactory.PlaySound(SoundFactory.Instance.linkDie);
-            //call method to start death animation here
+	        SoundFactory.PlaySound(SoundFactory.Instance.linkDie);
+            GameStateManager.Instance.LinkDies(128);
+            linkStateMachine.Die();
         }
 
         public void TakeDamage(int damage)
@@ -161,6 +163,7 @@ namespace cse3902.Entities
         public int Health
         {
             get => linkStateMachine.Health;
+            set => linkStateMachine.Health = value;
         }
 
         public ICollidable Collidable
@@ -171,6 +174,7 @@ namespace cse3902.Entities
         public void Reset()
         {
             linkSprite.DamageMaskHandler.Reset();
+            linkStateMachine.Health = linkStateMachine.TotalHealth;
         }
 
         public Vector2 Center

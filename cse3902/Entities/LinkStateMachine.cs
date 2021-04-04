@@ -9,7 +9,7 @@ namespace cse3902.Entities
 {
     public class LinkStateMachine : IEntityStateMachine
     {
-        private enum LinkMode { Still, Moving, Attack, Item };
+        private enum LinkMode { Still, Moving, Attack, Item, Death };
 
         private LinkMode mode;
 
@@ -30,6 +30,7 @@ namespace cse3902.Entities
         private int shoveDistance;
         private Boolean pauseMovement;
         private Boolean isGrabbed;
+
 
         public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
         {
@@ -148,7 +149,14 @@ namespace cse3902.Entities
                     if (mode == LinkMode.Item) Inventory.RemoveItemAnimation();
                     mode = LinkMode.Still;
                     ChangeDirection(new Vector2(0, 0));
-
+                }
+                else if (mode == LinkMode.Death)
+                {
+                    linkSprite.DeathMaskHandler.LoadMask();
+                    mode = LinkMode.Still;
+                    this.pauseMovement = true;
+                    linkSprite.setFrameSet(LinkSprite.AnimationState.DownFacing);
+                    linkSprite.DamageMaskHandler.Disabled = false;
                 }
             }
 
@@ -276,6 +284,13 @@ namespace cse3902.Entities
             this.shoveDistance = 80;
         }
 
+        public void Die()
+        {
+            linkSprite.setFrameSet(LinkSprite.AnimationState.Death);
+            linkSprite.DamageMaskHandler.Disabled = true;
+            mode = LinkMode.Death;
+        }
+
         public Vector2 Direction
         {
             get => this.currDirection;
@@ -301,11 +316,13 @@ namespace cse3902.Entities
         public int TotalHealth
         {
             get => this.totalHealth;
+            set => this.totalHealth = value;
         }
         
 	    public int Health
         {
             get => this.health;
+            set => this.health = value;
         }
 
         private Boolean PauseMovement

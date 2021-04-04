@@ -30,7 +30,8 @@ namespace cse3902.Constants
                 { AnimationState.RightAttack, ( new int[]  { 8, 8, 1, 0 },     new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
                 { AnimationState.UpAttack,    ( new int[]  { 10, 10, 4, 5 },   new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
                 { AnimationState.DownAttack,  ( new int[]  { 11, 11, 6, 7 },   new float[] { 0.1f, 0.15f, 0.05f, 0.05f }) },
-                { AnimationState.Item,        ( new int[]  { 21, 20, 21 },     new float[] { 0.05f, 0.5f, 0.05f }) }
+                { AnimationState.Item,        ( new int[]  { 21, 20, 21 },     new float[] { 0.05f, 0.5f, 0.05f }) },
+                { AnimationState.Death,       ( new int[]  { 6, 0, 4, 2, 6, 0, 4, 2, 6 },new float[] { defaultDelay, defaultDelay, defaultDelay, defaultDelay, defaultDelay, defaultDelay, defaultDelay, defaultDelay, defaultDelay }) }
             };
             return frameSetIndicies;
         }

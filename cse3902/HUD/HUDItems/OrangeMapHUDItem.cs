@@ -21,7 +21,6 @@ namespace cse3902.HUD
         private Texture2D roomsTexture;
         private Rectangle[] roomFrames;
 
-        /* Each room is stored as its coordinates and doors - int represents a 4-bit integer, modeled as (left, right, top, bottom), with 0 meaning closed and 1 meaning open */
         private Dictionary<Vector3, int> rooms;
 
         private int offsetX;
@@ -52,18 +51,29 @@ namespace cse3902.HUD
 
         public int Update(GameTime gameTime)
         {
-            if (game.RoomHandler.currentRoom.Z == 0 && !rooms.ContainsKey(game.RoomHandler.currentRoom))
+            if (game.RoomHandler.currentRoom.Z == 0) rooms[game.RoomHandler.currentRoom] = 0;
+
+            foreach(Vector3 coords in game.RoomHandler.rooms.Keys)
             {
-                /* change to add correct # for doors */
-                rooms.Add(game.RoomHandler.currentRoom, 15);
+                if (rooms.ContainsKey(coords)) rooms[coords] = GetRoomIndex(game.RoomHandler.rooms[coords].Doors);
             }
 
             return 0;
         }
 
-        public void UpdateRoomDoors(Vector3 coords, int newDoors)
+        private int GetRoomIndex(List<IDoor> roomDoors)
         {
-            rooms[coords] = newDoors;
+            /* List of doors is modeled as (bottom, left, top, right) */
+            /* int represents a 4-bit integer, modeled as (left, right, top, bottom), with 0 meaning closed and 1 meaning open */
+            int doors = 0;
+            doors = IsOpen(roomDoors[1], 0) | IsOpen(roomDoors[3], 1) | IsOpen(roomDoors[2], 2) | IsOpen(roomDoors[0], 3);
+            return doors;
+        }
+
+        private int IsOpen(IDoor door, int index)
+        {
+            if (door.State == IDoor.DoorState.Open || door.State == IDoor.DoorState.Bombed) return 0b0001 << (3 - index);
+            else return 0b0000;
         }
 
         public void Draw()
