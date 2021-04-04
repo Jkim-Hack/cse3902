@@ -40,7 +40,10 @@ namespace cse3902.Commands
 
         public void Unexecute()
         {
-            game.Player.ChangeDirection(new Vector2(0, 0));
+            if (!GameStateManager.Instance.IsDying())
+            {
+                game.Player.ChangeDirection(new Vector2(0, 0));
+            }
         }
     }
 }

@@ -87,7 +87,7 @@ namespace cse3902.Sprites
             
             if (!this.pauseMovement) returnCode = UpdateFrame(timer);
 
-            if (isDamaged)
+            if (isDamaged && !maskHandler.Disabled)
             {
                 remainingDelay.damage -= timer;
                 if (remainingDelay.damage < 0)

@@ -24,6 +24,8 @@ namespace cse3902.Entities.DamageMasks
 
         private int currentMaskIndex;
 
+        private bool isDisabled;
+
         public DamageMaskHandler(Texture2D spriteTexture, Texture2D damageSequenceTexture, int sequenceRows, int sequenceColumns, int startingColorIndex)
         {
             this.spriteTexture = spriteTexture;
@@ -38,6 +40,7 @@ namespace cse3902.Entities.DamageMasks
             spriteTexture.GetData(originalData);
 
             this.startingColorIndex = startingColorIndex;
+            isDisabled = false;
 
             allMaskColors = new List<Color[]>();
             textureColorSequence = new List<Color[]>();
@@ -99,6 +102,7 @@ namespace cse3902.Entities.DamageMasks
 
         public void LoadNextMask()
         {
+            if (isDisabled) return;
             currentMaskIndex++;
 
             if (currentMaskIndex >= totalMasks)
@@ -111,6 +115,12 @@ namespace cse3902.Entities.DamageMasks
         {
             currentMaskIndex = 0;
             spriteTexture.SetData(textureColorSequence[currentMaskIndex]);
+        }
+
+        public bool Disabled
+        {
+            get => isDisabled;
+            set => isDisabled = value;
         }
     }
 }

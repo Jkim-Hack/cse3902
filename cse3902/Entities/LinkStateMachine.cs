@@ -11,8 +11,6 @@ namespace cse3902.Entities
     {
         private enum LinkMode { Still, Moving, Attack, Item, Death };
 
-        private Game1 game;
-
         private LinkMode mode;
 
         private LinkSprite linkSprite;
@@ -31,11 +29,9 @@ namespace cse3902.Entities
         private Vector2 shoveDirection;
         private int shoveDistance;
         private Boolean pauseMovement;
-
         
 	    public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
         {
-            this.game = game;
             this.centerPosition = centerPosition;
             mode = LinkMode.Still;
             linkInventory = new LinkInventory(game, this);
@@ -142,6 +138,7 @@ namespace cse3902.Entities
                     mode = LinkMode.Still;
                     this.pauseMovement = true;
                     linkSprite.setFrameSet(LinkSprite.AnimationState.DownFacing);
+                    linkSprite.DamageMaskHandler.Disabled = false;
                 }
             }
 
@@ -262,6 +259,7 @@ namespace cse3902.Entities
         public void Die()
         {
             linkSprite.setFrameSet(LinkSprite.AnimationState.Death);
+            linkSprite.DamageMaskHandler.Disabled = true;
             mode = LinkMode.Death;
         }
 
