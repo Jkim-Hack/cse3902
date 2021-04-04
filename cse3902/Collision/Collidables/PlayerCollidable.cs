@@ -38,8 +38,8 @@ namespace cse3902.Collision.Collidables
                     {
                         player.TakeDamage(collidableObject.DamageValue);
                         //todo: magic number
-                        //player.BeGrabbed((WallMaster)((EnemyCollidable)collidableObject).Enemy, 30.0f);
-                        GameStateManager.Instance.LinkGrabbedByWallMaster(1);
+                        player.BeGrabbed((WallMaster)((EnemyCollidable)collidableObject).Enemy, 30.0f);
+                        //GameStateManager.Instance.LinkGrabbedByWallMaster(1);
 
                     } else
                     {
@@ -77,8 +77,16 @@ namespace cse3902.Collision.Collidables
                 } 
 		        else
                 {
-                    player.Center = player.PreviousCenter;
-                    collisionOccurrences[0] = true;
+                    if (!player.IsGrabbed)
+                    {
+                        player.Center = player.PreviousCenter;
+                        collisionOccurrences[0] = true;
+                    } else
+                    {
+                        GameStateManager.Instance.LinkGrabbedByWallMaster(1);
+                        player.IsGrabbed = false;
+                    }
+                    
                 } 
             } 
 	        else if (collidableObject is ItemCollidable)

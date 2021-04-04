@@ -8,6 +8,8 @@ namespace cse3902.Interfaces
     {
         public int TotalHealthCount { get; }
 
+        public Boolean IsGrabbed { get; set; }
+
         public void UseItem();
 
         public void AddItem(IItem item);

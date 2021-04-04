@@ -127,7 +127,6 @@ namespace cse3902.Entities
             {
                 if (this.shoveDistance < 0)
                 {
-                    GameStateManager.Instance.LinkGrabbedByWallMaster(1);
                     isGrabbed = false;
                 } else
                 {
@@ -281,7 +280,7 @@ namespace cse3902.Entities
             this.currDirection = enemy.Direction;
             this.speed = speed;
             //todo: magic number
-            this.shoveDistance = 80;
+            this.shoveDistance = 100;
         }
 
         public void Die()
