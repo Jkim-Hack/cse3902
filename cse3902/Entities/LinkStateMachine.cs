@@ -9,7 +9,7 @@ namespace cse3902.Entities
 {
     public class LinkStateMachine : IEntityStateMachine
     {
-        private enum LinkMode { Still, Moving, Attack, Item };
+        private enum LinkMode { Still, Moving, Attack, Item, Death };
 
         private LinkMode mode;
 
@@ -29,8 +29,8 @@ namespace cse3902.Entities
         private Vector2 shoveDirection;
         private int shoveDistance;
         private Boolean pauseMovement;
-
-        public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
+        
+	    public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
         {
             this.centerPosition = centerPosition;
             mode = LinkMode.Still;
@@ -131,7 +131,14 @@ namespace cse3902.Entities
                     if (mode == LinkMode.Item) Inventory.RemoveItemAnimation();
                     mode = LinkMode.Still;
                     ChangeDirection(new Vector2(0, 0));
-
+                }
+                else if (mode == LinkMode.Death)
+                {
+                    linkSprite.DeathMaskHandler.LoadMask();
+                    mode = LinkMode.Still;
+                    this.pauseMovement = true;
+                    linkSprite.setFrameSet(LinkSprite.AnimationState.DownFacing);
+                    linkSprite.DamageMaskHandler.Disabled = false;
                 }
             }
 
@@ -247,6 +254,13 @@ namespace cse3902.Entities
             }
 
             SoundFactory.PlaySound(SoundFactory.Instance.linkHit);
+        }
+
+        public void Die()
+        {
+            linkSprite.setFrameSet(LinkSprite.AnimationState.Death);
+            linkSprite.DamageMaskHandler.Disabled = true;
+            mode = LinkMode.Death;
         }
 
         public Vector2 Direction

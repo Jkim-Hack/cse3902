@@ -25,7 +25,8 @@ namespace cse3902.Sprites
             RightAttack,
             UpAttack,
             DownAttack,
-            Item
+            Item,
+            Death
         };
 
         private SpriteBatch spriteBatch;
@@ -39,6 +40,7 @@ namespace cse3902.Sprites
         private LinkSpriteAnimationHandler animationHandler;
 
         private DamageMaskHandler maskHandler;
+        private SingleMaskHandler deathMaskHandler;
 
         private bool isDamaged;
         private (float frame, float damage) remainingDelay;
@@ -47,12 +49,13 @@ namespace cse3902.Sprites
 
         private bool pauseMovement;
 
-        public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, DamageMaskHandler maskHandler, Vector2 startingPosition)
+        public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, DamageMaskHandler maskHandler, SingleMaskHandler singleMaskHandler, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
 
             this.maskHandler = maskHandler;
+            deathMaskHandler = singleMaskHandler;
 
 	        animationHandler = new LinkSpriteAnimationHandler(texture, rows, columns);
             size = animationHandler.FrameSize;
@@ -84,7 +87,7 @@ namespace cse3902.Sprites
             
             if (!this.pauseMovement) returnCode = UpdateFrame(timer);
 
-            if (isDamaged)
+            if (isDamaged && !maskHandler.Disabled)
             {
                 remainingDelay.damage -= timer;
                 if (remainingDelay.damage < 0)
@@ -186,5 +189,9 @@ namespace cse3902.Sprites
             get => this.maskHandler;
         }
 
+        public SingleMaskHandler DeathMaskHandler
+        {
+            get => this.deathMaskHandler;
+        }
     }
 }
