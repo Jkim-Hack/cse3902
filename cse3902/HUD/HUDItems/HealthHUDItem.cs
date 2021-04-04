@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using cse3902.Constants;
 using cse3902.Interfaces;
 using cse3902.Sprites;
+using cse3902.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -64,7 +65,7 @@ namespace cse3902.HUD.HUDItems
 
         public void Draw()
         { 
-            spriteBatch.Draw(uiSpriteTexture, origin, null, Color.White, 0, new Vector2(0,0), 1f, SpriteEffects.None, 0);
+            spriteBatch.Draw(uiSpriteTexture, origin, null, Color.White, 0, new Vector2(0,0), 1f, SpriteEffects.None, HUDUtilities.HealthHUDLayer);
             DrawHeartDisplay();
         }
 
