@@ -288,11 +288,13 @@ namespace cse3902.Entities
         public int TotalHealth
         {
             get => this.totalHealth;
+            set => this.totalHealth = value;
         }
         
 	    public int Health
         {
             get => this.health;
+            set => this.health = value;
         }
 
         private Boolean PauseMovement

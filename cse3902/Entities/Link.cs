@@ -157,6 +157,7 @@ namespace cse3902.Entities
         public int Health
         {
             get => linkStateMachine.Health;
+            set => linkStateMachine.Health = value;
         }
 
         public ICollidable Collidable
@@ -167,6 +168,7 @@ namespace cse3902.Entities
         public void Reset()
         {
             linkSprite.DamageMaskHandler.Reset();
+            linkStateMachine.Health = linkStateMachine.TotalHealth;
         }
 
         public Vector2 Center
