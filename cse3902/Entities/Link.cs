@@ -1,4 +1,5 @@
-﻿using cse3902.Collision;
+﻿using System;
+using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.Constants;
 using cse3902.Entities.DamageMasks;
@@ -66,6 +67,11 @@ namespace cse3902.Entities
         {
             collidable.DamageDisabled = true;
             linkStateMachine.TakeDamage(damage);
+        }
+
+        public void BeGrabbed(IEntity enemy, float speed)
+        {
+            this.linkStateMachine.BeGrabbed(enemy, speed);
         }
 
         private void UpdateDamage(GameTime gameTime)
@@ -182,6 +188,8 @@ namespace cse3902.Entities
             get => linkSprite.PreviousCenter;
             set => this.linkSprite.PreviousCenter = value;
         }
+
+      
 
     }
 }

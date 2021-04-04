@@ -37,8 +37,10 @@ namespace cse3902.Collision.Collidables
                     if (((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered) 
                     {
                         player.TakeDamage(collidableObject.DamageValue);
-                        GameStateManager.Instance.LinkGrabbedByWallMaster(60*2);
-                        //call wall master reset sequence starter
+                        //todo: magic number
+                        //player.BeGrabbed((WallMaster)((EnemyCollidable)collidableObject).Enemy, 30.0f);
+                        GameStateManager.Instance.LinkGrabbedByWallMaster(1);
+
                     } else
                     {
                         ((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered = true;

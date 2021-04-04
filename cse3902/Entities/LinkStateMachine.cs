@@ -1,7 +1,7 @@
 ﻿using cse3902.Sounds;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using cse3902.Interfaces;
 using System;
 using cse3902.Constants;
 
@@ -29,6 +29,7 @@ namespace cse3902.Entities
         private Vector2 shoveDirection;
         private int shoveDistance;
         private Boolean pauseMovement;
+        private Boolean isGrabbed;
 
         public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
         {
@@ -49,6 +50,7 @@ namespace cse3902.Entities
 
             shoveDistance = LinkConstants.defaultShoveDistance;
             PauseMovement = false;
+            isGrabbed = false;
         }
 
         public void ChangeDirection(Vector2 newDirection)
@@ -120,6 +122,21 @@ namespace cse3902.Entities
 
         public void Update(GameTime gameTime)
         {
+            if (this.isGrabbed)
+            {
+                if (this.shoveDistance < 0)
+                {
+                    GameStateManager.Instance.LinkGrabbedByWallMaster(1);
+                    isGrabbed = false;
+                } else
+                {
+                    CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    this.shoveDistance--;
+                }
+                return;
+                
+            }
+
             UpdateDamageDelay(gameTime);
             if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
@@ -247,6 +264,16 @@ namespace cse3902.Entities
             }
 
             SoundFactory.PlaySound(SoundFactory.Instance.linkHit);
+        }
+
+        public void BeGrabbed(IEntity enemy, float speed)
+        {
+            this.isGrabbed = true;
+            this.CenterPosition = enemy.Center;
+            this.currDirection = enemy.Direction;
+            this.speed = speed;
+            //todo: magic number
+            this.shoveDistance = 80;
         }
 
         public Vector2 Direction

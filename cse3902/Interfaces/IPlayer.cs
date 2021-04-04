@@ -16,6 +16,8 @@ namespace cse3902.Interfaces
 
         public void ChangeWeapon(int index);
 
+        public void BeGrabbed(IEntity enemy, float speed);
+
         public void Reset();
     }
 }
