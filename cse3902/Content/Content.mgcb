@@ -800,6 +800,18 @@
 /processorParam:Quality=Best
 /build:LOZ_Bomb_Drop.wav
 
+#begin LOZ_Boss_Defeat.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Boss_Defeat.wav
+
+#begin LOZ_Boss_Hurt.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Boss_Hurt.wav
+
 #begin LOZ_Boss_Scream1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -895,6 +907,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:LOZ_Text.wav
+
+#begin LOZ_Triforce.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Triforce.wav
 
 #begin map.png
 /importer:TextureImporter

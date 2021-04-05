@@ -9,7 +9,7 @@ namespace cse3902.Entities
 {
     public class LinkStateMachine : IEntityStateMachine
     {
-        private enum LinkMode { Still, Moving, Attack, Item, Death };
+        private enum LinkMode { Still, Moving, Attack, Item, GameWon, Death };
 
         private LinkMode mode;
 
@@ -58,7 +58,7 @@ namespace cse3902.Entities
         public void ChangeDirection(Vector2 newDirection)
         {
             /* No need to update sprite if currently attacking or knocked back */
-            if (mode == LinkMode.Attack || mode == LinkMode.Item || pauseMovement) return;
+            if (mode == LinkMode.Attack || mode == LinkMode.Item || mode == LinkMode.GameWon || pauseMovement) return;
 
             if (newDirection.Equals(currDirection) && mode == LinkMode.Moving) return;
 
@@ -220,6 +220,15 @@ namespace cse3902.Entities
             //The basic logic to use item. needs to add Pause Game during the duration and such..
             mode = LinkMode.Item;
             linkSprite.setFrameSet(LinkSprite.AnimationState.Item);
+            return getItemLocation(new Vector2(0,-1));
+        }
+
+        public Vector2 GameWonAnimation()
+        {
+            //The basic logic to use item. needs to add Pause Game during the duration and such..
+            mode = LinkMode.GameWon;
+            linkSprite.setFrameSet(LinkSprite.AnimationState.GameWon);
+            linkSprite.SetGameWon();
             return getItemLocation(new Vector2(0,-1));
         }
 
