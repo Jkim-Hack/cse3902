@@ -51,6 +51,7 @@ namespace cse3902.Sprites
 
         private bool pauseMovement;
 
+        private bool gameWon;
         private int gameWinFlashDelay;
         private int gameWinRectangleWidth;
 
@@ -78,6 +79,7 @@ namespace cse3902.Sprites
             
             pauseMovement = false;
 
+            gameWon = false;
             gameWinFlashDelay = 0;
             gameWinRectangleWidth = 0;
         }
@@ -86,10 +88,12 @@ namespace cse3902.Sprites
         {
             Vector2 origin = new Vector2(size.X / 2f, size.Y / 2f);
             Rectangle Destination = new Rectangle((int)positions.current.X, (int)positions.current.Y, (int)(size.X), (int)(size.Y));
-            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.LinkLayer);
+            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, (gameWon) ? 0 : SpriteUtilities.LinkLayer);
 
-            // if (gameWinFlashDelay > 0 && ((gameWinFlashDelay / 10) % 2 == 0)) DrawRectangle(Color.White, new Rectangle(0, 0, 1000, 1000), 0);
-            DrawRectangle(Color.White * 0.75f, new Rectangle(0, 0, 1000, 1000), 0);
+            if (gameWinFlashDelay > 0 && gameWinFlashDelay <= 60 && ((gameWinFlashDelay / 5) % 2 == 0))
+            {
+                DrawRectangle(Color.White * 0.75f, new Rectangle(0, DimensionConstants.WindowHeight, DimensionConstants.WindowWidth, DimensionConstants.GameplayHeight), SpriteUtilities.GameWonLayer);
+            }
         }
 
         private void DrawRectangle(Color color, Rectangle destination, float layer)
@@ -112,6 +116,11 @@ namespace cse3902.Sprites
                     remainingDelay.damage = DamageConstants.DamageMaskDelay;
                     maskHandler.LoadNextMask();
                 }
+            }
+
+            if (gameWinFlashDelay > 0)
+            {
+                gameWinFlashDelay--;
             }
             
             return returnCode;
@@ -147,7 +156,8 @@ namespace cse3902.Sprites
 
         public void SetGameWon()
         {
-            gameWinFlashDelay = 120;
+            gameWon = true;
+            gameWinFlashDelay = 100;
         }
 
         public void Erase()
