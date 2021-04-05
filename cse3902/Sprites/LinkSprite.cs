@@ -58,6 +58,7 @@ namespace cse3902.Sprites
         private bool death;
         private int deathColorChangeDelay;
         private Color deathColor;
+        private float deathOpacity;
 
         public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, Texture2D rectangle, int rows, int columns, DamageMaskHandler maskHandler, SingleMaskHandler singleMaskHandler, Vector2 startingPosition)
         {
@@ -88,7 +89,8 @@ namespace cse3902.Sprites
             gameWinRectangleWidth = 0;
 
             deathColorChangeDelay = 0;
-            deathColor = Color.Red;
+            deathColor = Color.Black;
+            deathOpacity = 0;
         }
 
         public void Draw()
@@ -121,8 +123,10 @@ namespace cse3902.Sprites
         {
             if (deathColorChangeDelay > 0)
             {
-                deathColorChangeDelay--;
-                DrawRectangle(deathColor * 0.75f, new Rectangle(0, 0, width * 6, height * 6), SpriteUtilities.DeathEffectLayer);
+                if (deathColorChangeDelay == 30) deathOpacity = 1.0f;
+                if ((deathColorChangeDelay - 1) % 27 == 0) deathColor.R -= 255 / 4;
+
+                DrawRectangle(deathColor * deathOpacity, new Rectangle(0, 0, width * 6, height * 6), SpriteUtilities.DeathEffectLayer);
             }
         }
 
@@ -149,7 +153,10 @@ namespace cse3902.Sprites
             }
 
             if (gameWinFlashDelay > -50) gameWinFlashDelay--;
-            if (gameWon && gameWinFlashDelay == -50) gameWinRectangleWidth++;
+            if (gameWon && gameWinFlashDelay == -50 && gameWinRectangleWidth < DimensionConstants.OriginalWindowWidth) gameWinRectangleWidth++;
+
+            if (deathColorChangeDelay > 0) deathColorChangeDelay--;
+            else death = false;
             
             return returnCode;
         }
@@ -186,12 +193,15 @@ namespace cse3902.Sprites
         {
             gameWon = true;
             gameWinFlashDelay = 100;
+            gameWinRectangleWidth = 0;
         }
 
         public void SetDeath()
         {
             death = true;
             deathColorChangeDelay = 135;
+            deathColor = Color.Red;
+            deathOpacity = 0.75f;
         }
 
         public void Erase()
