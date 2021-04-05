@@ -22,9 +22,7 @@ namespace cse3902.HUD.HUDItems
         private SpriteBatch spriteBatch;
 
         private int furthestWeaponX;
-        private int furthestItemX;
         private Vector2 weaponStartOrigin;
-        private Vector2 itemStartOrigin;
 
         private (ItemType, ISprite) currentBItem;
         private Vector2 BItemOrigin;
@@ -46,8 +44,6 @@ namespace cse3902.HUD.HUDItems
 
             weaponStartOrigin = this.origin + new Vector2(132, 48);
             furthestWeaponX = (int)weaponStartOrigin.X;
-            itemStartOrigin = this.origin + new Vector2(132, 64);
-            furthestItemX = (int)itemStartOrigin.X;
 
             BItemOrigin = this.origin + new Vector2(68 + 4, 48 + 8);
 
