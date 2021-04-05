@@ -100,12 +100,15 @@ namespace cse3902.HUD.HUDItems
         public void Draw()
         {
             spriteBatch.Draw(inventoryTexture, origin, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryHUDLayer);
-            spriteBatch.Draw(cursorTexture, new Vector2(cursorBox.X, cursorBox.Y), null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryItemLayer);
-	        foreach (var sprite in drawList)
+            if (GameStateManager.Instance.InMenu(false))
             {
-                sprite.Value.Draw();
-	        }
-            if (currentBItem.Item2 != null) currentBItem.Item2.Draw();
+                spriteBatch.Draw(cursorTexture, new Vector2(cursorBox.X, cursorBox.Y), null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryItemLayer);
+                foreach (var sprite in drawList)
+                {
+                    sprite.Value.Draw();
+                }
+                if (currentBItem.Item2 != null) currentBItem.Item2.Draw();
+            }
 	    }
 
         public void Erase()
