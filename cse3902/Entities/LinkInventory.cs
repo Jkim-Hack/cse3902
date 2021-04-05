@@ -57,7 +57,7 @@ namespace cse3902.Entities
                 SoundFactory.PlaySound(SoundFactory.Instance.getItem);
             }
 
-            //update health if certain item
+            //special effect
             if (type == InventoryManager.ItemType.Heart)
             {
                 linkState.Health += 2;
@@ -66,6 +66,9 @@ namespace cse3902.Entities
             {
                 linkState.TotalHealth += 2;
                 linkState.Health += 2;
+            } else if (type == InventoryManager.ItemType.Fairy)
+            {
+                linkState.Health = linkState.TotalHealth;
             }
 
             //pickup animation if certain item
