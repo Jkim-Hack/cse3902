@@ -79,7 +79,9 @@ namespace cse3902.Entities
             {
                 InventoryManager.Instance.RemoveFromInventory(InventoryManager.ItemType.Compass);
                 GameStateManager.Instance.LinkPickupItem(Int32.MaxValue);
-                //call method to start animation here
+                Vector2 startingPos = linkState.GameWonAnimation();
+                item.Center = startingPos;
+                AnimationItem = item;
             }
             else
             {

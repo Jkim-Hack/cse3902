@@ -26,6 +26,7 @@ namespace cse3902.Sprites
             UpAttack,
             DownAttack,
             Item,
+            GameWon,
             Death
         };
 
