@@ -43,26 +43,26 @@ namespace cse3902.XMLParsing
 
         private IEntity CreateEnemy(String type, Vector2 startingPos, Vector2 abstractPos)
         {
-            IEntity newEnemy = new Keese(game, startingPos, IEntity.EnemyType.X);
+            IEntity newEnemy = new Keese(game, startingPos);
             switch (type)
             {
                 case "Aquamentus":
-                    newEnemy = new Aquamentus(game, startingPos, IEntity.EnemyType.D);
+                    newEnemy = new Aquamentus(game, startingPos);
                     break;
                 case "Gel":
-                    newEnemy = new Gel(game, startingPos, IEntity.EnemyType.X);
+                    newEnemy = new Gel(game, startingPos);
                     break;
                 case "Goriya":
-                    newEnemy = new Goriya(game, startingPos, IEntity.EnemyType.D);
+                    newEnemy = new Goriya(game, startingPos);
                     break;
                 case "Keese":
-                    newEnemy = new Keese(game, startingPos, IEntity.EnemyType.X);
+                    newEnemy = new Keese(game, startingPos);
                     break;
                 case "Stalfos":
-                    newEnemy = new Stalfos(game, startingPos, IEntity.EnemyType.C);
+                    newEnemy = new Stalfos(game, startingPos);
                     break;
                 case "Wallmaster":
-                    newEnemy = new WallMaster(game, startingPos, abstractPos, IEntity.EnemyType.C);
+                    newEnemy = new WallMaster(game, startingPos, abstractPos);
                     break;
                 default:
                     break;
