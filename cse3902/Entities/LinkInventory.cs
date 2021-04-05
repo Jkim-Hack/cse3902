@@ -78,15 +78,18 @@ namespace cse3902.Entities
                 Vector2 startingPos = linkState.CollectItemAnimation();
                 item.Center = startingPos;
                 AnimationItem = item;
-                GameStateManager.Instance.LinkPickupItem(96);
-            } else if (type == InventoryManager.ItemType.Triforce)
+                GameStateManager.Instance.LinkPickupItem(96, false);
+                SoundFactory.Instance.fanfare.Play();
+            } 
+            else if (type == InventoryManager.ItemType.Triforce)
             {
                 InventoryManager.Instance.RemoveFromInventory(InventoryManager.ItemType.Compass);
-                GameStateManager.Instance.LinkPickupItem(Int32.MaxValue);
+                GameStateManager.Instance.LinkPickupItem(480, true);
                 Vector2 startingPos = linkState.GameWonAnimation();
                 item.Center = startingPos;
                 AnimationItem = item;
                 ((TriforceItem)item).GameWon = true;
+                SoundFactory.PlaySound(SoundFactory.Instance.getItem, 0.25f);
                 SoundFactory.PlaySound(SoundFactory.Instance.triforce, 0.25f);
             }
             else
