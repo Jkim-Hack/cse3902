@@ -265,6 +265,7 @@ namespace cse3902.Entities.Enemies
             {
                 this.wallType = WallType.LEFTWALL;
                 this.detectionBox.Inflate(0, RoomUtilities.BLOCK_SIDE);
+                this.detectionBox.Offset(0, -RoomUtilities.BLOCK_SIDE);
             } else if (startingPosition.X > 11)
             {
                 this.wallType = WallType.RIGHTWALL;

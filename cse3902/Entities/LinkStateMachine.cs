@@ -18,7 +18,8 @@ namespace cse3902.Entities
         private Vector2 centerPosition;
         private Vector2 currDirection;
 
-        private float speed;
+        //todo: for testing only
+        public float speed;
 
         private int totalHealth;
         private int health;
@@ -128,6 +129,7 @@ namespace cse3902.Entities
                 if (this.shoveDistance < 0)
                 {
                     isGrabbed = false;
+                    this.speed = LinkConstants.defaultSpeed;
                 } else
                 {
                     CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;

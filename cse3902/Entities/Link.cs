@@ -199,7 +199,11 @@ namespace cse3902.Entities
         public Boolean IsGrabbed
         {
             get => this.isGrabbed;
-            set => this.isGrabbed = value;
+            set
+            {
+                this.isGrabbed = value;
+                this.linkStateMachine.speed = LinkConstants.defaultSpeed;
+            }
         }
       
 
