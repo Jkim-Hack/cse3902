@@ -16,6 +16,7 @@ namespace cse3902.HUD
 
         public enum ItemType
         {
+            Arrow,
             Boomerang,
             Bow,
             Clock,
@@ -28,6 +29,7 @@ namespace cse3902.HUD
             Key,
             Rupee,
             Triforce,
+            None
         }
 
         public Dictionary<ItemType, int> inventory;
