@@ -39,6 +39,7 @@ namespace cse3902.Entities
             linkSprite = new LinkSprite(game.SpriteBatch, linkTexture, rectangleTexture, 6, 4, linkDamageMaskHandler, linkDeathMaskHandler, centerPosition);
             linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition);
             linkInventory = linkStateMachine.Inventory;
+            linkInventory.ChangeItem(InventoryManager.ItemType.None);
 
             //Link's body does no damage itself
             this.collidable = new PlayerCollidable(this, 0, game);
