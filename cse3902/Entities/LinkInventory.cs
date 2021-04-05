@@ -111,7 +111,7 @@ namespace cse3902.Entities
                     break;
 
                 default:
-                    throw new NotImplementedException();
+                    // throw new NotImplementedException();
                     break;
             }
             return true;
