@@ -51,10 +51,6 @@ namespace cse3902.HUD.HUDItems
             currentBItem.Item1 = ItemType.None;
 	        currentBItem.Item2 = null;
 
-            InventoryManager.Instance.AddToInventory(ItemType.Bow);
-            InventoryManager.Instance.AddToInventory(ItemType.Bomb);
-            InventoryManager.Instance.AddToInventory(ItemType.Bomb);
-            InventoryManager.Instance.AddToInventory(ItemType.Boomerang);
         }
 
         public Vector2 Center
