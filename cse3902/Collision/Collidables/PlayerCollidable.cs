@@ -99,7 +99,14 @@ namespace cse3902.Collision.Collidables
                 if (((ProjectileCollidable)collidableObject).IsEnemy && !isDamageDisabled)
                 {
                     player.TakeDamage(((ProjectileCollidable)collidableObject).DamageValue);
-                    player.BeShoved();
+                    if (player.Health <= 0)
+                    {
+                        this.player.Die();
+                    }
+                    else
+                    {
+                        player.BeShoved();
+                    }
                 }
             } 
 	        else if (collidableObject is DoorCollidable)
@@ -124,10 +131,8 @@ namespace cse3902.Collision.Collidables
 
                         if (player.Health <= 0)
                         {
-                            //remove link from room
-                            // TODO: this will need to be changed to reset game and such
-                            RoomEnemies.Instance.RemoveEnemy(this.player);
-                        }
+                            this.player.Die();
+			            }
                         else
                         {
                             player.BeShoved();
