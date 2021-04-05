@@ -14,6 +14,7 @@ namespace cse3902.SpriteFactory
     {
         private SpriteBatch spriteBatch;
 
+        private Texture2D arrow;
         private Texture2D bomb;
         private Texture2D boomerang;
         private Texture2D bow;
@@ -153,6 +154,7 @@ namespace cse3902.SpriteFactory
         {
             this.spriteBatch = spriteBatch;
 
+            arrow = content.Load<Texture2D>("arrow");
             bomb = content.Load<Texture2D>("bomb");
             boomerang = content.Load<Texture2D>("boomerang");
             bow = content.Load<Texture2D>("bow");
@@ -168,7 +170,15 @@ namespace cse3902.SpriteFactory
             cloud = content.Load<Texture2D>("cloud");
         }
 
-        public ISprite CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
+        // Only used for HUD
+        public ISprite CreateArrowItem(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            IItem add = new ArrowItem(spriteBatch, arrow, startingPos, new Vector2(0, 1));
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+        
+	    public ISprite CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new BombItem(spriteBatch, bomb, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
@@ -311,6 +321,8 @@ namespace cse3902.SpriteFactory
         {
             switch (itemType)
             {
+                case InventoryManager.ItemType.Arrow:
+                    return CreateArrowItem(spriteBatch, origin);
                 case InventoryManager.ItemType.Bomb:
                     return CreateBombItem(spriteBatch, origin, false, false);
                 case InventoryManager.ItemType.Boomerang:

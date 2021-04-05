@@ -36,6 +36,7 @@ namespace cse3902.HUD.HUDItems
 
         public InventoryHUDItem(Game1 game, Texture2D inventoryTexture, Texture2D cursorTexture, Vector2 origin)
         {
+            drawList = new Dictionary<ItemType, ISprite>();
             spriteBatch = game.SpriteBatch;
             this.inventoryTexture = inventoryTexture;
             this.cursorTexture = cursorTexture;
@@ -48,7 +49,11 @@ namespace cse3902.HUD.HUDItems
             itemStartOrigin = this.origin + new Vector2(132, 64);
             furthestItemX = (int)itemStartOrigin.X;
 
-            BItemOrigin = this.origin + new Vector2(68, 48);
+            BItemOrigin = this.origin + new Vector2(68 + 4, 48 + 8);
+
+            cursorBox = new Rectangle((int)weaponStartOrigin.X - 4, (int)weaponStartOrigin.Y, cursorTexture.Width, cursorTexture.Height);
+            currentBItem.Item1 = ItemType.None;
+	        currentBItem.Item2 = null;
         }
 
         public Vector2 Center
@@ -109,7 +114,7 @@ namespace cse3902.HUD.HUDItems
             {
                 sprite.Value.Draw();
 	        }
-            currentBItem.Item2.Draw();
+            if (currentBItem.Item2 != null) currentBItem.Item2.Draw();
 	    }
 
         public void Erase()
@@ -120,7 +125,7 @@ namespace cse3902.HUD.HUDItems
         {
             foreach (var item in InventoryManager.Instance.inventory)
             {
-                if (item.Value > 1)
+                if (item.Value > 0)
                 {
                     if (!drawList.ContainsKey(item.Key))
                     {
@@ -146,8 +151,10 @@ namespace cse3902.HUD.HUDItems
         {
             if (itemType is ItemType.Bow)
             {
-                ISprite sprite = ItemSpriteFactory.Instance.CreateItemWithType(itemType, new Vector2(weaponStartOrigin.X + 44 + 8, weaponStartOrigin.Y));
-                drawList.Add(itemType, sprite);
+                ISprite spriteBow = ItemSpriteFactory.Instance.CreateItemWithType(itemType, new Vector2(weaponStartOrigin.X + 44 + 8 + 4, weaponStartOrigin.Y + 8));
+                ISprite spriteArrow = ItemSpriteFactory.Instance.CreateItemWithType(ItemType.Arrow, new Vector2(weaponStartOrigin.X + 44 + 4, weaponStartOrigin.Y + 8));
+                drawList.Add(ItemType.Arrow, spriteArrow);
+                drawList.Add(ItemType.Bow, spriteBow);
             }
             else if (itemType is ItemType.Boomerang || itemType is ItemType.Bomb) // There's a candle but we can ignore that because its not in the dungeons
             {
@@ -156,19 +163,8 @@ namespace cse3902.HUD.HUDItems
                 {
                     furthestWeaponX += 16 + 12;
                 }
-                ISprite sprite = ItemSpriteFactory.Instance.CreateItemWithType(itemType, new Vector2(furthestWeaponX, weaponStartOrigin.Y));
+                ISprite sprite = ItemSpriteFactory.Instance.CreateItemWithType(itemType, new Vector2(furthestWeaponX + 4, weaponStartOrigin.Y + 8));
                 furthestWeaponX += 20;
-                drawList.Add(itemType, sprite);
-            }
-            else
-            { 
-                if (furthestItemX > (itemStartOrigin.X + 79)) return; // Items are full
-                if ((furthestItemX + 12) == (itemStartOrigin.X + 44))
-                {
-                    furthestItemX += 16;
-                }
-                ISprite sprite = ItemSpriteFactory.Instance.CreateItemWithType(itemType, new Vector2(furthestItemX, itemStartOrigin.Y));
-                furthestItemX += 20;
                 drawList.Add(itemType, sprite);
             }
         }
