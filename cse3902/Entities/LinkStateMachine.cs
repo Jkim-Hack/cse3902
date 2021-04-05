@@ -297,6 +297,7 @@ namespace cse3902.Entities
         public void Die()
         {
             linkSprite.setFrameSet(LinkSprite.AnimationState.Death);
+            linkSprite.SetDeath();
             linkSprite.DamageMaskHandler.Disabled = true;
             mode = LinkMode.Death;
         }
