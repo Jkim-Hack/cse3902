@@ -92,7 +92,9 @@ namespace cse3902.Sprites
 
             if (gameWinFlashDelay > 0 && gameWinFlashDelay <= 60 && ((gameWinFlashDelay / 5) % 2 == 0))
             {
-                DrawRectangle(Color.White * 0.75f, new Rectangle(0, DimensionConstants.WindowHeight, DimensionConstants.WindowWidth, DimensionConstants.GameplayHeight), SpriteUtilities.GameWonLayer);
+                int width = DimensionConstants.OriginalWindowWidth;
+                int height = DimensionConstants.GameplayHeight / 3;
+                DrawRectangle(Color.White * 0.75f, new Rectangle(width * 5, height * 1, width, height), SpriteUtilities.GameWonLayer);
             }
         }
 
