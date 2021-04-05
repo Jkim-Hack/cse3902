@@ -14,6 +14,7 @@ namespace cse3902.SpriteFactory
     {
         private SpriteBatch spriteBatch;
 
+        private Texture2D arrow;
         private Texture2D bomb;
         private Texture2D boomerang;
         private Texture2D bow;
@@ -153,6 +154,7 @@ namespace cse3902.SpriteFactory
         {
             this.spriteBatch = spriteBatch;
 
+            arrow = content.Load<Texture2D>("arrow");
             bomb = content.Load<Texture2D>("bomb");
             boomerang = content.Load<Texture2D>("boomerang");
             bow = content.Load<Texture2D>("bow");
@@ -168,7 +170,15 @@ namespace cse3902.SpriteFactory
             cloud = content.Load<Texture2D>("cloud");
         }
 
-        public ISprite CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
+        // Only used for HUD
+        public ISprite CreateArrowItem(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            IItem add = new ArrowItem(spriteBatch, arrow, startingPos, new Vector2(0, 1));
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+        
+	    public ISprite CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new BombItem(spriteBatch, bomb, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
@@ -305,6 +315,41 @@ namespace cse3902.SpriteFactory
             }
 
             killCounter++;
+        }
+
+        public ISprite CreateItemWithType(InventoryManager.ItemType itemType, Vector2 origin)
+        {
+            switch (itemType)
+            {
+                case InventoryManager.ItemType.Arrow:
+                    return CreateArrowItem(spriteBatch, origin);
+                case InventoryManager.ItemType.Bomb:
+                    return CreateBombItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Boomerang:
+                    return CreateBoomerangItem(origin, false, false);
+                case InventoryManager.ItemType.Bow:
+                    return CreateBowItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Clock:
+                    return CreateClockItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Compass:
+                    return CreateCompassItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Fairy:
+                    return CreateFairyItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Heart:
+                    return CreateHeartItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.HeartContainer:
+                    return CreateHeartContainerItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Key:
+                    return CreateKeyItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Map:
+                    return CreateMapItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Rupee:
+                    return CreateRupeeItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Triforce:
+                    return CreateTriforceItem(spriteBatch, origin, false, false);
+                default:
+                    return null;
+            }
         }
     }
 }

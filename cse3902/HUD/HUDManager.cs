@@ -42,6 +42,7 @@ namespace cse3902.HUD
             switch (key)
             {
                 case HUDItemKey.INVENTORY:
+                    HUDItems.Add(key, CreateInventoryHUDItem());
                     break;
                 case HUDItemKey.HEALTH:
                     HUDItems.Add(key, CreateHealthHUDItem());
@@ -59,7 +60,12 @@ namespace cse3902.HUD
             }
         }
 
-        private IHUDItem CreateHealthHUDItem()
+        private IHUDItem CreateInventoryHUDItem()
+        {
+            return HUDSpriteFactory.Instance.CreateInventoryHUDItem(game, HUDPositionConstants.InventoryHUDPosition);
+        }
+        
+	    private IHUDItem CreateHealthHUDItem()
         {
             return HUDSpriteFactory.Instance.CreateHealthHUDItem(game, HUDPositionConstants.HealthHUDPosition);
         }
