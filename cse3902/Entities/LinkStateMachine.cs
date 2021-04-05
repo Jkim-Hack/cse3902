@@ -13,8 +13,6 @@ namespace cse3902.Entities
 
         private LinkMode mode;
 
-        private Game1 game;
-
         private LinkSprite linkSprite;
         private LinkInventory linkInventory;
         private Vector2 centerPosition;
@@ -34,7 +32,6 @@ namespace cse3902.Entities
         
 	    public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
         {
-            this.game = game;
             this.centerPosition = centerPosition;
             mode = LinkMode.Still;
             linkInventory = new LinkInventory(game, this);
