@@ -28,6 +28,9 @@ namespace cse3902.Utilities
         public const float HealthHUDLayer = 0.8f;
         public const float HeartsLayer = 0.7f;
 
+        /* Inventory layers */
+        public const float InventoryHUDLayer = 0.8f;
+        public const float InventoryItemLayer = 0.7f;
 
 	    public static void DrawRectangle(Game1 game, Rectangle rec, Color color, int offsetX, int offsetY, float layer)
         {
