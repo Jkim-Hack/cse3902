@@ -77,7 +77,7 @@ namespace cse3902.Entities
                 GameStateManager.Instance.LinkPickupItem(36);
             } else if (type == InventoryManager.ItemType.Triforce)
             {
-                InventoryManager.Instance.inventory[InventoryManager.ItemType.Compass]--;
+                InventoryManager.Instance.RemoveFromInventory(InventoryManager.ItemType.Compass);
                 GameStateManager.Instance.LinkPickupItem(Int32.MaxValue);
                 //call method to start animation here
             }
