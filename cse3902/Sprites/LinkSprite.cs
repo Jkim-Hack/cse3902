@@ -90,11 +90,18 @@ namespace cse3902.Sprites
             Rectangle Destination = new Rectangle((int)positions.current.X, (int)positions.current.Y, (int)(size.X), (int)(size.Y));
             spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, (gameWon) ? 0 : SpriteUtilities.LinkLayer);
 
+            int width = DimensionConstants.OriginalWindowWidth;
+            int height = DimensionConstants.GameplayHeight / 3;
+
             if (gameWinFlashDelay > 0 && gameWinFlashDelay <= 60 && ((gameWinFlashDelay / 5) % 2 == 0))
             {
-                int width = DimensionConstants.OriginalWindowWidth;
-                int height = DimensionConstants.GameplayHeight / 3;
                 DrawRectangle(Color.White * 0.75f, new Rectangle(width * 5, height * 1, width, height), SpriteUtilities.GameWonLayer);
+            }
+
+            if (gameWon)
+            {
+                DrawRectangle(Color.Black, new Rectangle(width * 5, height * 1, gameWinRectangleWidth, height), SpriteUtilities.GameWonLayer);
+                DrawRectangle(Color.Black, new Rectangle((width * 6) - gameWinRectangleWidth, height * 1, gameWinRectangleWidth, height), SpriteUtilities.GameWonLayer);
             }
         }
 
@@ -120,10 +127,8 @@ namespace cse3902.Sprites
                 }
             }
 
-            if (gameWinFlashDelay > 0)
-            {
-                gameWinFlashDelay--;
-            }
+            if (gameWinFlashDelay > 0) gameWinFlashDelay--;
+            if (gameWon && gameWinFlashDelay == 0) gameWinRectangleWidth++;
             
             return returnCode;
         }
