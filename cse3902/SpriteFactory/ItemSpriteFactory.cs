@@ -306,5 +306,38 @@ namespace cse3902.SpriteFactory
 
             killCounter++;
         }
+
+        public ISprite CreateItemWithType(InventoryManager.ItemType itemType, Vector2 origin)
+        {
+            switch (itemType)
+            {
+                case InventoryManager.ItemType.Bomb:
+                    return CreateBombItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Boomerang:
+                    return CreateBoomerangItem(origin, false, false);
+                case InventoryManager.ItemType.Bow:
+                    return CreateBowItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Clock:
+                    return CreateClockItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Compass:
+                    return CreateCompassItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Fairy:
+                    return CreateFairyItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Heart:
+                    return CreateHeartItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.HeartContainer:
+                    return CreateHeartContainerItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Key:
+                    return CreateKeyItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Map:
+                    return CreateMapItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Rupee:
+                    return CreateRupeeItem(spriteBatch, origin, false, false);
+                case InventoryManager.ItemType.Triforce:
+                    return CreateTriforceItem(spriteBatch, origin, false, false);
+                default:
+                    return null;
+            }
+        }
     }
 }
