@@ -80,7 +80,7 @@ namespace cse3902.Sprites
             pauseMovement = false;
 
             gameWon = false;
-            gameWinFlashDelay = 0;
+            gameWinFlashDelay = -50;
             gameWinRectangleWidth = 0;
         }
 
@@ -127,8 +127,8 @@ namespace cse3902.Sprites
                 }
             }
 
-            if (gameWinFlashDelay > 0) gameWinFlashDelay--;
-            if (gameWon && gameWinFlashDelay == 0) gameWinRectangleWidth++;
+            if (gameWinFlashDelay > -50) gameWinFlashDelay--;
+            if (gameWon && gameWinFlashDelay == -50) gameWinRectangleWidth++;
             
             return returnCode;
         }
