@@ -72,7 +72,7 @@ namespace cse3902.Entities.Enemies
             this.Health -= damage;
             if (this.Health > 0)
             {
-                SoundFactory.PlaySound(SoundFactory.Instance.bossHurt);
+                SoundFactory.PlaySound(SoundFactory.Instance.bossHurt, 0.2f);
             }
             this.aquamentusSprite.Damaged = true;
             this.collidable.DamageDisabled = true;
@@ -80,7 +80,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat);
+            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, 0.2f);
             this.aquamentusStateMachine.Die();
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, type);
         }

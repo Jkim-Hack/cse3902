@@ -79,9 +79,8 @@ namespace cse3902.Sounds
             backgroundMusicInstance.Play();
         }
 
-        public static void PlaySound(SoundEffect sound)
+        public static void PlaySound(SoundEffect sound, float volume = 1)
         {
-            float volume = 1;
             float pitch = 0.0f;
             float pan = 0.0f;
 
