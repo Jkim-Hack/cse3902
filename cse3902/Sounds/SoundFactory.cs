@@ -24,8 +24,9 @@ namespace cse3902.Sounds
         public SoundEffect stairs { get; set; }
         public SoundEffect bossScream { get; set; }
         public SoundEffect bossHurt { get; set; }
+        public SoundEffect bossDefeat { get; set; }
         public SoundEffect secret { get; set; }
-
+        public SoundEffect triforce { get; set; }
 
         private SoundEffectInstance backgroundMusicInstance;
         private SoundEffectInstance fanfareInstance;
@@ -66,9 +67,10 @@ namespace cse3902.Sounds
             doorUnlock = content.Load<SoundEffect>("LOZ_Door_Unlock");
             stairs = content.Load<SoundEffect>("LOZ_Stairs");
             bossScream = content.Load<SoundEffect>("LOZ_Boss_Scream1");
-            // change to boss hurt, currently unavailable
-            bossHurt = content.Load<SoundEffect>("LOZ_Boss_Scream1");
+            bossHurt = content.Load<SoundEffect>("LOZ_Boss_Hurt");
+            bossDefeat = content.Load<SoundEffect>("LOZ_Boss_Defeat");
             secret = content.Load<SoundEffect>("LOZ_Secret");
+            triforce = content.Load<SoundEffect>("LOZ_Triforce");
 
             SoundEffect backgroundMusic = content.Load<SoundEffect>("LOZ_Background_Music");
             backgroundMusicInstance = backgroundMusic.CreateInstance();

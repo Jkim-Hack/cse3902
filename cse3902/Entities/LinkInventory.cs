@@ -84,6 +84,7 @@ namespace cse3902.Entities
                 item.Center = startingPos;
                 AnimationItem = item;
                 ((TriforceItem)item).GameWon = true;
+                SoundFactory.PlaySound(SoundFactory.Instance.triforce);
             }
             else
             {

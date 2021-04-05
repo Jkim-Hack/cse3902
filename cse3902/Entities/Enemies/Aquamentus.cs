@@ -80,6 +80,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
+            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat);
             this.aquamentusStateMachine.Die();
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, type);
         }
