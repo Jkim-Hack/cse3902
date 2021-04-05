@@ -15,7 +15,6 @@ namespace cse3902.SpriteFactory
         private Texture2D HealthUITexture;
         private Texture2D HeartUITexture;
         private Texture2D LevelLabel;
-        private Texture2D NumberLabel;
         private Texture2D MapCompassLabel;
         private Texture2D Compass;
         private Texture2D OrangeMap;

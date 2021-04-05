@@ -26,8 +26,6 @@ namespace cse3902.HUD
         private int offsetX;
         private int offsetY;
 
-        private bool alreadyChanged;
-
         public OrangeMapHUDItem(Game1 game, Texture2D map, Texture2D roomsTexture)
         {
             this.game = game;
@@ -45,8 +43,6 @@ namespace cse3902.HUD
 
             this.roomFrames = SpriteUtilities.distributeFrames(16, 1, 8, 8);
             this.rooms = new Dictionary<Vector3, int>();
-
-            this.alreadyChanged = false;
         }
 
         public int Update(GameTime gameTime)

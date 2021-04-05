@@ -1,4 +1,5 @@
-﻿using cse3902.Collision;
+﻿using System;
+using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.Constants;
 using cse3902.Entities.DamageMasks;
@@ -19,6 +20,7 @@ namespace cse3902.Entities
         private Game1 game;
 
         private ICollidable collidable;
+        private Boolean isGrabbed;
 
         private float remainingDamageDelay;
 
@@ -29,16 +31,18 @@ namespace cse3902.Entities
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
             Texture2D linkDamageSequenceTexture = game.Content.Load<Texture2D>("LinkDamageSequence");
             Texture2D linkDeathTexture = game.Content.Load<Texture2D>("LinkDeath");
+            Texture2D rectangleTexture = new Texture2D(game.GraphicsDevice, 1, 1);
             DamageMaskHandler linkDamageMaskHandler = new DamageMaskHandler(linkTexture, linkDamageSequenceTexture, 1, 4, 0);
             SingleMaskHandler linkDeathMaskHandler = new SingleMaskHandler(linkTexture, linkDeathTexture);
 
             Vector2 centerPosition = new Vector2(50, 200);
-            linkSprite = new LinkSprite(game.SpriteBatch, linkTexture, 6, 4, linkDamageMaskHandler, linkDeathMaskHandler, centerPosition);
+            linkSprite = new LinkSprite(game.SpriteBatch, linkTexture, rectangleTexture, 6, 4, linkDamageMaskHandler, linkDeathMaskHandler, centerPosition);
             linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition);
             linkInventory = linkStateMachine.Inventory;
 
             //Link's body does no damage itself
             this.collidable = new PlayerCollidable(this, 0, game);
+            isGrabbed = false;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
         }
 
@@ -68,6 +72,12 @@ namespace cse3902.Entities
         {
             collidable.DamageDisabled = true;
             linkStateMachine.TakeDamage(damage);
+        }
+
+        public void BeGrabbed(IEntity enemy, float speed)
+        {
+            this.linkStateMachine.BeGrabbed(enemy, speed);
+            isGrabbed = true;
         }
 
         private void UpdateDamage(GameTime gameTime)
@@ -186,6 +196,17 @@ namespace cse3902.Entities
             get => linkSprite.PreviousCenter;
             set => this.linkSprite.PreviousCenter = value;
         }
+
+        public Boolean IsGrabbed
+        {
+            get => this.isGrabbed;
+            set
+            {
+                this.isGrabbed = value;
+                this.linkStateMachine.speed = LinkConstants.defaultSpeed;
+            }
+        }
+      
 
     }
 }

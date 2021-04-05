@@ -16,8 +16,6 @@ namespace cse3902.Sprites
         private Vector2 origin;
         private Vector2 center;
 
-        private int width;
-        private int height;
         private Rectangle destination;
 
         private int rows;
@@ -113,7 +111,7 @@ namespace cse3902.Sprites
         {
             get
             {
-                Rectangle Destination = new Rectangle((int)origin.X, (int)origin.Y, width, height);
+                Rectangle Destination = new Rectangle((int)origin.X, (int)origin.Y, frameWidth, frameHeight);
                 this.destination = Destination;
                 return ref destination;
             }
