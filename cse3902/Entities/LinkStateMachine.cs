@@ -13,6 +13,8 @@ namespace cse3902.Entities
 
         private LinkMode mode;
 
+        private Game1 game;
+
         private LinkSprite linkSprite;
         private LinkInventory linkInventory;
         private Vector2 centerPosition;
@@ -32,6 +34,7 @@ namespace cse3902.Entities
         
 	    public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
         {
+            this.game = game;
             this.centerPosition = centerPosition;
             mode = LinkMode.Still;
             linkInventory = new LinkInventory(game, this);
@@ -209,6 +212,7 @@ namespace cse3902.Entities
             //The basic logic to use item. needs to add Pause Game during the duration and such..
             mode = LinkMode.GameWon;
             linkSprite.setFrameSet(LinkSprite.AnimationState.GameWon);
+            linkSprite.SetGameWon();
             return getItemLocation(new Vector2(0,-1));
         }
 

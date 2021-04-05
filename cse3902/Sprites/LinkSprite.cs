@@ -32,6 +32,7 @@ namespace cse3902.Sprites
 
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
+        private Texture2D rectangleTexture;
 
         private (Vector2 current, Vector2 previous) positions;
         private Vector2 size;
@@ -50,10 +51,15 @@ namespace cse3902.Sprites
 
         private bool pauseMovement;
 
-        public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, DamageMaskHandler maskHandler, SingleMaskHandler singleMaskHandler, Vector2 startingPosition)
+        private int gameWinFlashDelay;
+        private int gameWinRectangleWidth;
+
+        public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, Texture2D rectangle, int rows, int columns, DamageMaskHandler maskHandler, SingleMaskHandler singleMaskHandler, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
+            rectangleTexture = rectangle;
+            rectangleTexture.SetData(new Color[] { Color.White });
 
             this.maskHandler = maskHandler;
             deathMaskHandler = singleMaskHandler;
@@ -71,6 +77,9 @@ namespace cse3902.Sprites
             positions.previous = positions.current;
             
             pauseMovement = false;
+
+            gameWinFlashDelay = 0;
+            gameWinRectangleWidth = 0;
         }
 
         public void Draw()
@@ -78,9 +87,16 @@ namespace cse3902.Sprites
             Vector2 origin = new Vector2(size.X / 2f, size.Y / 2f);
             Rectangle Destination = new Rectangle((int)positions.current.X, (int)positions.current.Y, (int)(size.X), (int)(size.Y));
             spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.LinkLayer);
-        }
-       
 
+            // if (gameWinFlashDelay > 0 && ((gameWinFlashDelay / 10) % 2 == 0)) DrawRectangle(Color.White, new Rectangle(0, 0, 1000, 1000), 0);
+            DrawRectangle(Color.White * 0.75f, new Rectangle(0, 0, 1000, 1000), 0);
+        }
+
+        private void DrawRectangle(Color color, Rectangle destination, float layer)
+        {
+            spriteBatch.Draw(rectangleTexture, destination, null, color, 0, new Vector2(), SpriteEffects.None, layer);
+        }
+     
         public int Update(GameTime gameTime)
         {
             int returnCode = 0;
@@ -128,6 +144,11 @@ namespace cse3902.Sprites
             currentFrameIndex = 0;
             remainingDelay.frame = currentFrameSet[currentFrameIndex].delay;
 	    }
+
+        public void SetGameWon()
+        {
+            gameWinFlashDelay = 120;
+        }
 
         public void Erase()
         {
