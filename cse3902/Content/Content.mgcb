@@ -1059,6 +1059,30 @@
 /processorParam:TextureFormat=Color
 /build:triforce.png
 
+#begin UI/collectablenumbers.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI/collectablenumbers.png
+
+#begin UI/collectablesAndCurrentItemsUI.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI/collectablesAndCurrentItemsUI.png
+
 #begin UI/HealthUI.png
 /importer:TextureImporter
 /processor:TextureProcessor
