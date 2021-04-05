@@ -14,9 +14,7 @@ namespace cse3902.HUD.HUDItems
         private Vector2 origin;
         private Vector2 center;
         private Texture2D uiSpriteTexture;
-        private Texture2D rupeeTexture;
-        private Texture2D keyTexture;
-        private Texture2D bombTexture;
+        private Texture2D numbersTexture;
 
         private Rectangle box;
         private Vector2 size;
@@ -24,15 +22,13 @@ namespace cse3902.HUD.HUDItems
         private IPlayer player;
 
 
-        public CurrentItemsHUDItem(Game1 game, Texture2D UITexture, Texture2D rupeeTexture, Texture2D keyTexture, Texture2D bombTexture, Vector2 origin)
+        public CurrentItemsHUDItem(Game1 game, Texture2D UITexture, Texture2D numbersTexture, Vector2 origin)
         {
             this.origin = origin;
             center = new Vector2(origin.X / 2f, origin.Y / 2f);
 
             uiSpriteTexture = UITexture;
-            this.rupeeTexture = rupeeTexture;
-            this.keyTexture = keyTexture;
-            this.bombTexture = bombTexture;
+            this.numbersTexture = numbersTexture;
 
             size = new Vector2(uiSpriteTexture.Bounds.Width, uiSpriteTexture.Bounds.Height);
             box = new Rectangle((int)size.X, (int)size.Y, (int)size.X, (int)size.Y);
