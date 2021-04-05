@@ -82,7 +82,14 @@ namespace cse3902.Collision.Collidables
                 if (((ProjectileCollidable)collidableObject).IsEnemy && !isDamageDisabled)
                 {
                     player.TakeDamage(((ProjectileCollidable)collidableObject).DamageValue);
-                    player.BeShoved();
+                    if (player.Health <= 0)
+                    {
+                        this.player.Die();
+                    }
+                    else
+                    {
+                        player.BeShoved();
+                    }
                 }
             } 
 	        else if (collidableObject is DoorCollidable)
