@@ -73,27 +73,21 @@ namespace cse3902.HUD.HUDItems
             get => ref box;
         }
 
-        // Use similarly to ChangeDirection from IEntity
+        // Use similarly to ChangeDirection from IEntity but ONLY left and right
+        // Call this to move the cursor arround
         public void MoveCursor(Vector2 direction)
         {
-            if (direction.X > 0)
+            if (direction.X > 0 && cursorBox.X < furthestWeaponX)
             {
-                cursorBox.X += 20;
+                cursorBox.X += HUDPositionConstants.InventoryGap;
             }
-            else if (direction.Y > 0)
+            else if (direction.X < 0 && cursorBox.X > 132)
             {
-                cursorBox.Y += 16;
-            }
-            else if (direction.X < 0)
-            {
-                cursorBox.X -= 20;
-            }
-            else if (direction.Y < 0)
-            {
-                cursorBox.Y -= 16;
+                cursorBox.X -= HUDPositionConstants.InventoryGap;
             }
         }
 
+        // Call this when pressed B
         public void SelectCursorItem()
         {
             foreach (var item in drawList)
