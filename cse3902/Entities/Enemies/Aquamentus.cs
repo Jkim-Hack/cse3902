@@ -182,7 +182,7 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => 3;
+            get => 2;
         }
 
         public int Health

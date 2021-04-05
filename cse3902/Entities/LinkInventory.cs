@@ -39,11 +39,16 @@ namespace cse3902.Entities
 
         public void AddItemToInventory(IItem item)
         {
-            if (item.ItemType == InventoryManager.ItemType.Heart || item.ItemType == InventoryManager.ItemType.Key)
+            if (item.Equals(AnimationItem)) return;
+            InventoryManager.ItemType type = item.ItemType;
+            InventoryManager.Instance.AddToInventory(type);
+
+            //play certain sound
+            if (type == InventoryManager.ItemType.Heart || type == InventoryManager.ItemType.Key)
             {
                 SoundFactory.PlaySound(SoundFactory.Instance.getHeart);
             }
-            else if (item.ItemType == InventoryManager.ItemType.Rupee)
+            else if (type == InventoryManager.ItemType.Rupee)
             {
                 SoundFactory.PlaySound(SoundFactory.Instance.getRupee);
             }
@@ -52,25 +57,37 @@ namespace cse3902.Entities
                 SoundFactory.PlaySound(SoundFactory.Instance.getItem);
             }
 
-            if (item.ItemType == InventoryManager.ItemType.Key || item.ItemType == InventoryManager.ItemType.HeartContainer || item.ItemType == InventoryManager.ItemType.Boomerang) RoomConditions.Instance.SendSignals();
-
-            if (item.ItemType == InventoryManager.ItemType.Triforce) InventoryManager.Instance.inventory[InventoryManager.ItemType.Compass]--;
-
-            if (item.Equals(AnimationItem)) return;
-            InventoryManager.ItemType type = item.ItemType;
-            InventoryManager.Instance.AddToInventory(type);
-            if (type == InventoryManager.ItemType.Triforce || type == InventoryManager.ItemType.Bow)
+            //update health if certain item
+            if (type == InventoryManager.ItemType.Heart)
             {
-                //The basic logic to use item. needs to add Pause Game during the duration and such..
+                linkState.Health += 2;
+                if (linkState.Health > linkState.TotalHealth) linkState.Health = linkState.TotalHealth;
+            } else if (type == InventoryManager.ItemType.HeartContainer)
+            {
+                linkState.TotalHealth += 2;
+                linkState.Health += 2;
+            }
+
+            //pickup animation if certain item
+            if (type == InventoryManager.ItemType.Bow)
+            {
                 Vector2 startingPos = linkState.CollectItemAnimation();
                 item.Center = startingPos;
                 AnimationItem = item;
                 GameStateManager.Instance.LinkPickupItem(36);
+            } else if (type == InventoryManager.ItemType.Triforce)
+            {
+                InventoryManager.Instance.inventory[InventoryManager.ItemType.Compass]--;
+                GameStateManager.Instance.LinkPickupItem(Int32.MaxValue);
+                //call method to start animation here
             }
             else
             {
                 RoomItems.Instance.RemoveItem(item);
             }
+
+            //update room condition if certain item
+            if (type == InventoryManager.ItemType.Key || type == InventoryManager.ItemType.HeartContainer || type == InventoryManager.ItemType.Boomerang) RoomConditions.Instance.SendSignals();
         }
 
         public bool CreateItem(Vector2 startingPos)
