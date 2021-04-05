@@ -26,11 +26,13 @@ namespace cse3902.Sprites
             UpAttack,
             DownAttack,
             Item,
+            GameWon,
             Death
         };
 
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
+        private Texture2D rectangleTexture;
 
         private (Vector2 current, Vector2 previous) positions;
         private Vector2 size;
@@ -49,10 +51,16 @@ namespace cse3902.Sprites
 
         private bool pauseMovement;
 
-        public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, DamageMaskHandler maskHandler, SingleMaskHandler singleMaskHandler, Vector2 startingPosition)
+        private bool gameWon;
+        private int gameWinFlashDelay;
+        private int gameWinRectangleWidth;
+
+        public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, Texture2D rectangle, int rows, int columns, DamageMaskHandler maskHandler, SingleMaskHandler singleMaskHandler, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
+            rectangleTexture = rectangle;
+            rectangleTexture.SetData(new Color[] { Color.White });
 
             this.maskHandler = maskHandler;
             deathMaskHandler = singleMaskHandler;
@@ -70,16 +78,38 @@ namespace cse3902.Sprites
             positions.previous = positions.current;
             
             pauseMovement = false;
+
+            gameWon = false;
+            gameWinFlashDelay = -50;
+            gameWinRectangleWidth = 0;
         }
 
         public void Draw()
         {
             Vector2 origin = new Vector2(size.X / 2f, size.Y / 2f);
             Rectangle Destination = new Rectangle((int)positions.current.X, (int)positions.current.Y, (int)(size.X), (int)(size.Y));
-            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.LinkLayer);
-        }
-       
+            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, (gameWon) ? 0 : SpriteUtilities.LinkLayer);
 
+            int width = DimensionConstants.OriginalWindowWidth;
+            int height = DimensionConstants.GameplayHeight / 3;
+
+            if (gameWinFlashDelay > 0 && gameWinFlashDelay <= 60 && ((gameWinFlashDelay / 5) % 2 == 0))
+            {
+                DrawRectangle(Color.White * 0.75f, new Rectangle(width * 5, height * 1, width, height), SpriteUtilities.GameWonLayer);
+            }
+
+            if (gameWon)
+            {
+                DrawRectangle(Color.Black, new Rectangle(width * 5, height * 1, gameWinRectangleWidth, height), SpriteUtilities.GameWonLayer);
+                DrawRectangle(Color.Black, new Rectangle((width * 6) - gameWinRectangleWidth, height * 1, gameWinRectangleWidth, height), SpriteUtilities.GameWonLayer);
+            }
+        }
+
+        private void DrawRectangle(Color color, Rectangle destination, float layer)
+        {
+            spriteBatch.Draw(rectangleTexture, destination, null, color, 0, new Vector2(), SpriteEffects.None, layer);
+        }
+     
         public int Update(GameTime gameTime)
         {
             int returnCode = 0;
@@ -96,6 +126,9 @@ namespace cse3902.Sprites
                     maskHandler.LoadNextMask();
                 }
             }
+
+            if (gameWinFlashDelay > -50) gameWinFlashDelay--;
+            if (gameWon && gameWinFlashDelay == -50) gameWinRectangleWidth++;
             
             return returnCode;
         }
@@ -127,6 +160,12 @@ namespace cse3902.Sprites
             currentFrameIndex = 0;
             remainingDelay.frame = currentFrameSet[currentFrameIndex].delay;
 	    }
+
+        public void SetGameWon()
+        {
+            gameWon = true;
+            gameWinFlashDelay = 100;
+        }
 
         public void Erase()
         {

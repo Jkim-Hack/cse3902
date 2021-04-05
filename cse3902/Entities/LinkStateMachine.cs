@@ -1,7 +1,7 @@
 ﻿using cse3902.Sounds;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using cse3902.Interfaces;
 using System;
 using cse3902.Constants;
 
@@ -9,7 +9,7 @@ namespace cse3902.Entities
 {
     public class LinkStateMachine : IEntityStateMachine
     {
-        private enum LinkMode { Still, Moving, Attack, Item, Death };
+        private enum LinkMode { Still, Moving, Attack, Item, GameWon, Death };
 
         private LinkMode mode;
 
@@ -18,7 +18,8 @@ namespace cse3902.Entities
         private Vector2 centerPosition;
         private Vector2 currDirection;
 
-        private float speed;
+        //todo: for testing only
+        public float speed;
 
         private int totalHealth;
         private int health;
@@ -29,8 +30,10 @@ namespace cse3902.Entities
         private Vector2 shoveDirection;
         private int shoveDistance;
         private Boolean pauseMovement;
-        
-	    public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
+        private Boolean isGrabbed;
+
+
+        public LinkStateMachine(Game1 game, LinkSprite linkSprite, Vector2 centerPosition)
         {
             this.centerPosition = centerPosition;
             mode = LinkMode.Still;
@@ -49,12 +52,13 @@ namespace cse3902.Entities
 
             shoveDistance = LinkConstants.defaultShoveDistance;
             PauseMovement = false;
+            isGrabbed = false;
         }
 
         public void ChangeDirection(Vector2 newDirection)
         {
             /* No need to update sprite if currently attacking or knocked back */
-            if (mode == LinkMode.Attack || mode == LinkMode.Item || pauseMovement) return;
+            if (mode == LinkMode.Attack || mode == LinkMode.Item || mode == LinkMode.GameWon || pauseMovement) return;
 
             if (newDirection.Equals(currDirection) && mode == LinkMode.Moving) return;
 
@@ -120,6 +124,21 @@ namespace cse3902.Entities
 
         public void Update(GameTime gameTime)
         {
+            if (this.isGrabbed)
+            {
+                if (this.shoveDistance < 0)
+                {
+                    isGrabbed = false;
+                    this.speed = LinkConstants.defaultSpeed;
+                } else
+                {
+                    CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    this.shoveDistance--;
+                }
+                return;
+                
+            }
+
             UpdateDamageDelay(gameTime);
             if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
@@ -204,6 +223,15 @@ namespace cse3902.Entities
             return getItemLocation(new Vector2(0,-1));
         }
 
+        public Vector2 GameWonAnimation()
+        {
+            //The basic logic to use item. needs to add Pause Game during the duration and such..
+            mode = LinkMode.GameWon;
+            linkSprite.setFrameSet(LinkSprite.AnimationState.GameWon);
+            linkSprite.SetGameWon();
+            return getItemLocation(new Vector2(0,-1));
+        }
+
         public void UseItem()
         {
             if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
@@ -254,6 +282,16 @@ namespace cse3902.Entities
             }
 
             SoundFactory.PlaySound(SoundFactory.Instance.linkHit);
+        }
+
+        public void BeGrabbed(IEntity enemy, float speed)
+        {
+            this.isGrabbed = true;
+            this.CenterPosition = enemy.Center;
+            this.currDirection = enemy.Direction;
+            this.speed = speed;
+            //todo: magic number
+            this.shoveDistance = 100;
         }
 
         public void Die()

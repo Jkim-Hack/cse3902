@@ -8,6 +8,8 @@ namespace cse3902.Interfaces
     {
         public int TotalHealthCount { get; }
 
+        public Boolean IsGrabbed { get; set; }
+
         public void UseItem();
 
         public void AddItem(IItem item);
@@ -15,6 +17,8 @@ namespace cse3902.Interfaces
         public void ChangeItem(int index);
 
         public void ChangeWeapon(int index);
+
+        public void BeGrabbed(IEntity enemy, float speed);
 
         public void Reset();
     }

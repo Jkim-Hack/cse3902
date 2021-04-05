@@ -32,21 +32,30 @@ namespace cse3902.Collision.Collidables
 
             if (collidableObject is EnemyCollidable && !isDamageDisabled)
             {
-                //take damage and get shoved back by enemy
-                player.TakeDamage(collidableObject.DamageValue);
+		        if (((EnemyCollidable)collidableObject).Enemy is WallMaster)
+                {
+                    if (((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered) 
+                    {
+                        player.TakeDamage(collidableObject.DamageValue);
+                        //todo: magic number
+                        //player.BeGrabbed((WallMaster)((EnemyCollidable)collidableObject).Enemy, 30.0f);
+                        GameStateManager.Instance.LinkGrabbedByWallMaster(1);
 
-                if (player.Health <= 0)
-                {
-                    this.player.Die();
-                } 
-		        else if (((EnemyCollidable)collidableObject).Enemy is WallMaster)
-                {
-                    //commented for now for easier testing
-                    //GameStateManager.Instance.LinkGrabbedByWallMaster(somenumber);
-                    //call wall master reset sequence starter
+                    } else
+                    {
+                        ((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered = true;
+                    }
+
                 }
                 else 
                 {
+                    //take damage and get shoved back by enemy
+                    player.TakeDamage(collidableObject.DamageValue);
+
+                    if (player.Health <= 0)
+                    {
+                        this.player.Die();
+                    }
                     player.BeShoved();
                 }
                 
@@ -68,8 +77,16 @@ namespace cse3902.Collision.Collidables
                 } 
 		        else
                 {
-                    player.Center = player.PreviousCenter;
-                    collisionOccurrences[0] = true;
+                    if (!player.IsGrabbed)
+                    {
+                        player.Center = player.PreviousCenter;
+                        collisionOccurrences[0] = true;
+                    } else
+                    {
+                        GameStateManager.Instance.LinkGrabbedByWallMaster(1);
+                        player.IsGrabbed = false;
+                    }
+                    
                 } 
             } 
 	        else if (collidableObject is ItemCollidable)

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Rooms;
 using cse3902.Sounds;
+using cse3902.Items;
 using System;
 
 namespace cse3902.Entities
@@ -82,7 +83,11 @@ namespace cse3902.Entities
             {
                 InventoryManager.Instance.RemoveFromInventory(InventoryManager.ItemType.Compass);
                 GameStateManager.Instance.LinkPickupItem(Int32.MaxValue);
-                //call method to start animation here
+                Vector2 startingPos = linkState.GameWonAnimation();
+                item.Center = startingPos;
+                AnimationItem = item;
+                ((TriforceItem)item).GameWon = true;
+                SoundFactory.PlaySound(SoundFactory.Instance.triforce, 0.25f);
             }
             else
             {
@@ -114,7 +119,7 @@ namespace cse3902.Entities
                     break;
 
                 default:
-                    throw new NotImplementedException();
+                    // throw new NotImplementedException();
                     break;
             }
             return true;
