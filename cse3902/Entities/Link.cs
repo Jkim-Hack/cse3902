@@ -1,4 +1,5 @@
-﻿using cse3902.Collision;
+﻿using System;
+using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.Constants;
 using cse3902.Entities.DamageMasks;
@@ -19,6 +20,7 @@ namespace cse3902.Entities
         private Game1 game;
 
         private ICollidable collidable;
+        private Boolean isGrabbed;
 
         private float remainingDamageDelay;
 
@@ -39,6 +41,7 @@ namespace cse3902.Entities
 
             //Link's body does no damage itself
             this.collidable = new PlayerCollidable(this, 0, game);
+            isGrabbed = false;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
         }
 
@@ -68,6 +71,12 @@ namespace cse3902.Entities
         {
             collidable.DamageDisabled = true;
             linkStateMachine.TakeDamage(damage);
+        }
+
+        public void BeGrabbed(IEntity enemy, float speed)
+        {
+            this.linkStateMachine.BeGrabbed(enemy, speed);
+            isGrabbed = true;
         }
 
         private void UpdateDamage(GameTime gameTime)
@@ -186,6 +195,17 @@ namespace cse3902.Entities
             get => linkSprite.PreviousCenter;
             set => this.linkSprite.PreviousCenter = value;
         }
+
+        public Boolean IsGrabbed
+        {
+            get => this.isGrabbed;
+            set
+            {
+                this.isGrabbed = value;
+                this.linkStateMachine.speed = LinkConstants.defaultSpeed;
+            }
+        }
+      
 
     }
 }

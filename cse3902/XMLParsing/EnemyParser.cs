@@ -36,12 +36,12 @@ namespace cse3902.XMLParsing
 
                 Vector2 truePos = RoomUtilities.CalculateBlockCenter(roomobj.RoomPos, new Vector2(x, y));
 
-                IEntity enemyAdd = CreateEnemy(typeName.Value, truePos);
+                IEntity enemyAdd = CreateEnemy(typeName.Value, truePos, new Vector2(x,y));
                 roomobj.AddEnemy(enemyAdd);
             }
         }
 
-        private IEntity CreateEnemy(String type, Vector2 startingPos)
+        private IEntity CreateEnemy(String type, Vector2 startingPos, Vector2 abstractPos)
         {
             IEntity newEnemy = new Keese(game, startingPos, IEntity.EnemyType.X);
             switch (type)
@@ -62,7 +62,7 @@ namespace cse3902.XMLParsing
                     newEnemy = new Stalfos(game, startingPos, IEntity.EnemyType.C);
                     break;
                 case "Wallmaster":
-                    newEnemy = new WallMaster(game, startingPos, IEntity.EnemyType.C);
+                    newEnemy = new WallMaster(game, startingPos, abstractPos, IEntity.EnemyType.C);
                     break;
                 default:
                     break;

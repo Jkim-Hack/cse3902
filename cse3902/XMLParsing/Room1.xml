@@ -1371,38 +1371,18 @@
 			</enemy>
 			<enemy>
 				<type>Wallmaster</type>
-				<xloc>8</xloc>
-				<yloc>7</yloc>
+				<xloc>12</xloc>
+				<yloc>2</yloc>
 			</enemy>
 			<enemy>
 				<type>Wallmaster</type>
-				<xloc>7</xloc>
-				<yloc>7</yloc>
-			</enemy>
-			<enemy>
-				<type>Wallmaster</type>
-				<xloc>5</xloc>
-				<yloc>7</yloc>
-			</enemy>
-			<enemy>
-				<type>Wallmaster</type>
-				<xloc>4</xloc>
-				<yloc>7</yloc>
-			</enemy>
-			<enemy>
-				<type>Wallmaster</type>
-				<xloc>7</xloc>
-				<yloc>-1</yloc>
-			</enemy>
-			<enemy>
-				<type>Wallmaster</type>
-				<xloc>8</xloc>
+				<xloc>2</xloc>
 				<yloc>-1</yloc>
 			</enemy>
 			<enemy>
 				<type>Wallmaster</type>
 				<xloc>9</xloc>
-				<yloc>-1</yloc>
+				<yloc>7</yloc>
 			</enemy>
 		</enemies>
 		<blocks>
@@ -1539,14 +1519,6 @@
 		<traps>
 		</traps>
 		<conditions>
-			<condition>
-				<id>0</id>
-				<variables>
-					<variable>3</variable>
-					<variable>4</variable>
-					<variable>0</variable>
-				</variables>
-			</condition>
 		</conditions>
 		<sprite>2</sprite>
 		<doors>
