@@ -152,6 +152,9 @@ namespace cse3902.HUD.HUDItems
         {
             if (itemType is ItemType.Bow)
             {
+                // Adjust for absolute position for bow and arrow = 44
+                // Adjust for Bow being on the right block = 8
+                // Adjust for centers = 4 and 8
                 ISprite spriteBow = ItemSpriteFactory.Instance.CreateItemWithType(itemType, new Vector2(weaponStartOrigin.X + 44 + 8 + 4, weaponStartOrigin.Y + 8));
                 ISprite spriteArrow = ItemSpriteFactory.Instance.CreateItemWithType(ItemType.Arrow, new Vector2(weaponStartOrigin.X + 44 + 4, weaponStartOrigin.Y + 8));
                 drawList.Add(ItemType.Arrow, spriteArrow);
