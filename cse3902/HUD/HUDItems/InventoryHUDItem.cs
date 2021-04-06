@@ -137,6 +137,14 @@ namespace cse3902.HUD.HUDItems
                         AddToDrawList(item.Key);
                     }
                 }
+                else if (drawList.ContainsKey(item.Key))
+                {
+                    drawList.Remove(item.Key);
+                    if (InventoryManager.Instance.ItemSlot == item.Key)
+                    {
+                        InventoryManager.Instance.ItemSlot = ItemType.None;
+                    }
+                }
             }
             CheckSelectedItem();
             return 0;
@@ -145,7 +153,12 @@ namespace cse3902.HUD.HUDItems
         private void CheckSelectedItem()
         {
             ItemType itemType = InventoryManager.Instance.ItemSlot;
-            if (currentBItem.Item1 != itemType)
+            if (itemType == ItemType.None)
+            {
+                currentBItem.Item1 = itemType;
+                currentBItem.Item2 = null;
+            }
+            else if (currentBItem.Item1 != itemType)
             {
                 currentBItem.Item1 = itemType;
                 currentBItem.Item2 = ItemSpriteFactory.Instance.CreateItemWithType(itemType, BItemOrigin);
