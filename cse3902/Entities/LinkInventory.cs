@@ -103,9 +103,15 @@ namespace cse3902.Entities
         public bool CreateItem(Vector2 startingPos)
         {
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            //TODO: Remove comment below once implemented inventory system
-            //if (InventoryManager.Instance.inventory[InventoryManager.Instance.ItemSlot] == 0) return false;
-            //InventoryManager.Instance.inventory[InventoryManager.Instance.ItemSlot]--;
+            InventoryManager.ItemType type = InventoryManager.Instance.ItemSlot;
+            if (type == InventoryManager.ItemType.None) return false;
+            InventoryManager.ItemType decType = type;
+            if (type == InventoryManager.ItemType.Bow)
+            {
+                decType = InventoryManager.ItemType.Rupee;
+            }
+            if (InventoryManager.Instance.inventory[decType] == 0) return false;
+            InventoryManager.Instance.RemoveFromInventory(decType);
             switch (InventoryManager.Instance.ItemSlot)
             {
                 case InventoryManager.ItemType.Bow:
