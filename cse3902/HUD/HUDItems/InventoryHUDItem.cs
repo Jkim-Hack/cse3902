@@ -76,8 +76,6 @@ namespace cse3902.HUD.HUDItems
         {
             int originalRight = fromRight;
             int originalX = cursorBox.X;
-            ItemType t = InventoryManager.Instance.ItemSlot;
-            ItemType a = t;
 
             if (direction.X > 0 && fromRight < 2)
             {
@@ -88,10 +86,8 @@ namespace cse3902.HUD.HUDItems
                     {
                         cursorBox.X += 8;
                     }
-                    a = InventoryManager.Instance.ItemSlot;
                     SelectCursorItem();
                     fromRight++;
-                    a = InventoryManager.Instance.ItemSlot;
                 } while (fromRight < 2 && InventoryManager.Instance.ItemSlot == ItemType.None);
 
                 if (InventoryManager.Instance.ItemSlot == ItemType.None)
