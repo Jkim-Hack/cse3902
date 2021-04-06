@@ -54,7 +54,7 @@ namespace cse3902.SpriteFactory
             dropRate.Add(IEntity.EnemyType.B, 41);
             dropRate.Add(IEntity.EnemyType.C, 59);
             dropRate.Add(IEntity.EnemyType.D, 41);
-            dropRate.Add(IEntity.EnemyType.X, 100);
+            dropRate.Add(IEntity.EnemyType.X, 9);
 
             LoadA();
             LoadB();
