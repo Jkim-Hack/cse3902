@@ -228,7 +228,7 @@ namespace cse3902.Entities
             //The basic logic to use item. needs to add Pause Game during the duration and such..
             mode = LinkMode.GameWon;
             linkSprite.setFrameSet(LinkSprite.AnimationState.GameWon);
-            linkSprite.SetGameWon();
+            linkSprite.SetGameWon(true);
             return getItemLocation(new Vector2(0,-1));
         }
 
