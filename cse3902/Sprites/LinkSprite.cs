@@ -189,11 +189,14 @@ namespace cse3902.Sprites
             remainingDelay.frame = currentFrameSet[currentFrameIndex].delay;
 	    }
 
-        public void SetGameWon()
+        public void SetGameWon(bool state)
         {
-            gameWon = true;
-            gameWinFlashDelay = 100;
-            gameWinRectangleWidth = 0;
+            gameWon = state;
+            if (state)
+            {
+                gameWinFlashDelay = 100;
+                gameWinRectangleWidth = 0;
+            }
         }
 
         public void SetDeath()
