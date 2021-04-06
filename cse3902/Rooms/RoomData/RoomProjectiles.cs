@@ -38,9 +38,11 @@ namespace cse3902.Rooms
 
         public void Update(GameTime gameTime)
         {
+            
             for(int i =0; i < projectiles.Count; i++)
             {
                 IProjectile projectile = projectiles[i] as IProjectile;
+                projectile.Collidable.ResetCollisions();
                 if (projectile.Update(gameTime) < 0)
                 {
                     projectiles.Remove(projectile);

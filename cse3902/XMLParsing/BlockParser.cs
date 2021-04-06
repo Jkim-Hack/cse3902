@@ -42,7 +42,10 @@ namespace cse3902.XMLParsing
                 Vector2 truePos = RoomUtilities.CalculateBlockCenter(roomobj.RoomPos, new Vector2(x, y));
 
                 IBlock blockAdd = CreateBlock(typeName.Value, truePos, numBlocks);
-                roomobj.AddBlock(blockAdd);
+                if (blockAdd != null)
+                {
+                    roomobj.AddBlock(blockAdd);
+                }
             }
         }
 
@@ -64,6 +67,10 @@ namespace cse3902.XMLParsing
                     break;
                 case "Invisible":
                     newBlock = new NormalBlock(game, 0, BlockSpriteFactory.Instance.CreateInvisibleBlockSprite(game.SpriteBatch, startingPos), startingPos);
+                    break;
+                case "Wall":
+                    Background.Instance.generateRoomWall(startingPos);
+                    newBlock = null;
                     break;
                 default:
                     break;
