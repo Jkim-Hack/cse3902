@@ -14,6 +14,7 @@ namespace cse3902.SpriteFactory
     {
         private SpriteBatch spriteBatch;
 
+        private Texture2D sword;
         private Texture2D arrow;
         private Texture2D bomb;
         private Texture2D boomerang;
@@ -154,6 +155,7 @@ namespace cse3902.SpriteFactory
         {
             this.spriteBatch = spriteBatch;
 
+            sword = content.Load<Texture2D>("SwordItem");
             arrow = content.Load<Texture2D>("arrow");
             bomb = content.Load<Texture2D>("bomb");
             boomerang = content.Load<Texture2D>("boomerang");
@@ -171,6 +173,12 @@ namespace cse3902.SpriteFactory
         }
 
         // Only used for HUD
+        public IItem CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            //don't want to add this to the roomitems list
+            return new SwordItem(spriteBatch, sword, startingPos, new Vector2(0, 1));
+        }
+
         public ISprite CreateArrowItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
             IItem add = new ArrowItem(spriteBatch, arrow, startingPos, new Vector2(0, 1));

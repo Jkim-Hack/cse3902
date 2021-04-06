@@ -12,6 +12,7 @@ namespace cse3902.HUD
         public enum HUDItemKey
         {
             INVENTORY,
+            CURRENTITEMS,
             MAP_COMPASS_ITEM,
             ORANGE_MAP,
             MINIMAP,
@@ -43,6 +44,9 @@ namespace cse3902.HUD
                 case HUDItemKey.INVENTORY:
                     HUDItems.Add(key, CreateInventoryHUDItem());
                     break;
+                case HUDItemKey.CURRENTITEMS:
+                    HUDItems.Add(key, CreateCurrentItemsHUDItem());
+                    break;
                 case HUDItemKey.HEALTH:
                     HUDItems.Add(key, CreateHealthHUDItem());
                     break;
@@ -62,6 +66,11 @@ namespace cse3902.HUD
         private IHUDItem CreateInventoryHUDItem()
         {
             return HUDSpriteFactory.Instance.CreateInventoryHUDItem(game, HUDPositionConstants.InventoryHUDPosition);
+        }
+
+        private IHUDItem CreateCurrentItemsHUDItem()
+        {
+            return HUDSpriteFactory.Instance.CreateCurrentItemsHUDItem(game, HUDPositionConstants.InventoryHUDPosition);
         }
         
 	    private IHUDItem CreateHealthHUDItem()
