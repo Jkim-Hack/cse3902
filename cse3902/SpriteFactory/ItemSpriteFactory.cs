@@ -14,6 +14,7 @@ namespace cse3902.SpriteFactory
     {
         private SpriteBatch spriteBatch;
 
+        private Texture2D sword;
         private Texture2D arrow;
         private Texture2D bomb;
         private Texture2D boomerang;
@@ -154,6 +155,7 @@ namespace cse3902.SpriteFactory
         {
             this.spriteBatch = spriteBatch;
 
+            sword = content.Load<Texture2D>("SwordItem");
             arrow = content.Load<Texture2D>("arrow");
             bomb = content.Load<Texture2D>("bomb");
             boomerang = content.Load<Texture2D>("boomerang");
@@ -177,8 +179,15 @@ namespace cse3902.SpriteFactory
             RoomItems.Instance.AddItem(add);
             return add;
         }
-        
-	    public ISprite CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
+
+        public IItem CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            IItem add = new SwordItem(this.spriteBatch, sword, startingPos, new Vector2(0, 1));
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+
+        public ISprite CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new BombItem(spriteBatch, bomb, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);

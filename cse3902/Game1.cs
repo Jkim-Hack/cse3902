@@ -128,6 +128,7 @@ namespace cse3902
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.MAP_COMPASS_ITEM);
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.ORANGE_MAP);
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.INVENTORY);
+            hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.CURRENTITEMS);
         }
 
         /// <summary>
