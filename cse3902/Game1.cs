@@ -111,7 +111,6 @@ namespace cse3902
             collisionManager = new CollisionManager(this);
 
             hudManager = new HUDManager(this);
-            hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.HEALTH);
 
             allCollidablesList.Insert((int)CollisionManager.CollisionPriority.PLAYER, player);
             allCollidablesList.InsertNewList((int)CollisionManager.CollisionPriority.ENEMIES, ref RoomEnemies.Instance.ListRef);
@@ -124,7 +123,7 @@ namespace cse3902
 
             roomHandler.LoadNewRoom(roomHandler.startingRoomTranslation,0);
 
-            // hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.HEALTH); <- has a null reference error
+            hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.HEALTH);
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.MINIMAP);
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.MAP_COMPASS_ITEM);
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.ORANGE_MAP);
