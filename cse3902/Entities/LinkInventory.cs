@@ -77,6 +77,7 @@ namespace cse3902.Entities
                 Vector2 startingPos = linkState.CollectItemAnimation();
                 item.Center = startingPos;
                 AnimationItem = item;
+              
                 GameStateManager.Instance.LinkPickupItem(96, false);
                 SoundFactory.Instance.fanfare.Play();
             } 
