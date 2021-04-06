@@ -68,7 +68,7 @@ namespace cse3902.HUD.HUDItems
         {
             //todo: change layering on this
 
-            spriteBatch.Draw(uiSpriteTexture, position, null, Color.White, 0, center, 1f, SpriteEffects.None, HUDUtilities.InventoryHUDLayer);
+            spriteBatch.Draw(uiSpriteTexture, position, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryHUDLayer);
 
             //todo: change location of these counts using hud constants
             DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee], position);
