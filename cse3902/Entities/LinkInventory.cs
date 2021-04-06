@@ -74,7 +74,7 @@ namespace cse3902.Entities
                 Vector2 startingPos = linkState.CollectItemAnimation();
                 item.Center = startingPos;
                 AnimationItem = item;
-                GameStateManager.Instance.LinkPickupItem(36);
+                GameStateManager.Instance.LinkPickupItem(120);
             } else if (type == InventoryManager.ItemType.Triforce)
             {
                 InventoryManager.Instance.RemoveFromInventory(InventoryManager.ItemType.Compass);
