@@ -13,5 +13,7 @@ namespace cse3902.Constants
         public static Vector2 BItemHUDPosition = new Vector2(72, 56);
         public static Vector2 WeaponStartHUDPosition = new Vector2(132, 48);
         public const int InventoryGap = 20;
+
+        public static Vector2 CurrentItemsHUDPosition = new Vector2(HealthHUDPosition.X - 70, HealthHUDPosition.Y);
     }
 }
