@@ -71,6 +71,11 @@ namespace cse3902.Rooms
             background.Add(new ExteriorSprite(batch, itemRoom, roomCenter, SpriteUtilities.BackgroundLayer));
         }
 
+        public void generateRoomWall(Vector2 blockLoc)
+        {
+            walls.Add(new Wall(RoomUtilities.calculateRoomBlockWall(blockLoc)));
+        }
+
 
         public void Update(GameTime gameTime)
         {

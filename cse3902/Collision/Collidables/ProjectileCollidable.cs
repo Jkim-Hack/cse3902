@@ -10,7 +10,7 @@ namespace cse3902.Collision.Collidables
     public class ProjectileCollidable : ICollidable
     {
         private IProjectile projectile;
-        private Boolean[] collisionOccurrences;
+        private Boolean collisionOccurrence;
 
         public bool DamageDisabled { get; set; }
         
@@ -18,6 +18,7 @@ namespace cse3902.Collision.Collidables
         {
             this.projectile = projectile;
             DamageDisabled = true;
+            collisionOccurrence = false;
         }
 
 
@@ -25,11 +26,21 @@ namespace cse3902.Collision.Collidables
         {
             if (collidableObject is DoorCollidable || collidableObject is WallCollidable || collidableObject is EnemyCollidable)
             {
+                if (collisionOccurrence)
+                {
+                    return;
+                }
+                collisionOccurrence = true;
                 RoomProjectiles.Instance.RemoveProjectile(this.projectile);
             }
 
             if (collidableObject is PlayerCollidable && this.IsEnemy)
             {
+                if (collisionOccurrence)
+                {
+                    return;
+                }
+                collisionOccurrence = true;
                 RoomProjectiles.Instance.RemoveProjectile(this.projectile);
             }
         }
@@ -60,10 +71,8 @@ namespace cse3902.Collision.Collidables
 
         public void ResetCollisions()
         {
-            for (int i = 0; i < collisionOccurrences.Length; i++)
-            {
-                collisionOccurrences[i] = false;
-            }
+            collisionOccurrence = false;
+            
         }
 
         public IProjectile Projectile

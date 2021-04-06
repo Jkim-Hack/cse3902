@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using cse3902.Interfaces;
 using System.Linq;
 
 namespace cse3902.HUD
@@ -65,11 +64,47 @@ namespace cse3902.HUD
         public void AddToInventory(ItemType type)
         {
             inventory[type]++;
+            if (ItemSlot == ItemType.None)
+            {
+                if (type == ItemType.Boomerang || type == ItemType.Bomb || (inventory[ItemType.Bow] > 0 && inventory[ItemType.Rupee] > 0))
+                {
+                    if (ItemType.Rupee == type)
+                    {
+                        ItemSlot = ItemType.Bow;
+                    }
+                    else
+                    {
+                        ItemSlot = type;
+                    }
+                }
+            }
         }
 
         public void RemoveFromInventory(ItemType type)
         {
-            inventory[type]--;
+            if (inventory[type] > 0)
+            {
+                inventory[type]--;
+                if (inventory[type] == 0 && ItemSlot == type)
+                {
+                    if (inventory[ItemType.Boomerang] > 0)
+                    {
+                        ItemSlot = ItemType.Boomerang;
+                    }
+                    else if (inventory[ItemType.Bow] > 0 && inventory[ItemType.Rupee] > 0)
+                    {
+                        ItemSlot = ItemType.Boomerang;
+                    }
+                    else if (inventory[ItemType.Bomb] > 0)
+                    {
+                        ItemSlot = ItemType.Bomb;
+                    }
+                    else
+                    {
+                        ItemSlot = ItemType.None;
+                    }
+                }
+            }
         }
 
         public void Reset()
