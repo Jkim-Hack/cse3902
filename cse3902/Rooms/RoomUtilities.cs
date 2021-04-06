@@ -123,5 +123,13 @@ namespace cse3902.Rooms
             }
             return pos;
         }
+
+        public static Rectangle calculateRoomBlockWall(Vector2 blockLoc)
+        {
+            if(blockLoc.X > ConvertVector(new Vector3(0, 0, 1)).X){
+                return new Rectangle((int)blockLoc.X - ROOM_WIDTH / ITEM_ROOM_COLS / 2, (int)blockLoc.Y - ROOM_HEIGHT / ITEM_ROOM_ROWS / 2, ROOM_WIDTH / ITEM_ROOM_COLS, ROOM_HEIGHT / ITEM_ROOM_ROWS);
+            }
+            return new Rectangle((int)blockLoc.X - BLOCK_SIDE / 2, (int)blockLoc.Y - BLOCK_SIDE / 2, BLOCK_SIDE, BLOCK_SIDE);
+        }
     }
 }

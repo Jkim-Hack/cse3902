@@ -10,8 +10,6 @@ namespace cse3902.Items
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
 
-        private int rows;
-        private int columns;
         private int currentFrame;
         private int totalFrames;
         private Rectangle[] frames;
@@ -21,8 +19,7 @@ namespace cse3902.Items
         private const float delay = 0.05f;
         private float remainingDelay;
 
-        private int currentX;
-        private int currentY;
+        private (int currentX, int currentY) location;
 
         private Rectangle destination;
 
@@ -34,33 +31,22 @@ namespace cse3902.Items
             spriteTexture = texture;
 
             remainingDelay = delay;
-            this.rows = 4;
-            this.columns = 3;
+            int rows = 4;
+            int columns = 3;
             currentFrame = 0;
             totalFrames = rows * columns;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
-            frames = new Rectangle[totalFrames];
-            distributeFrames();
+            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
 
-            currentX = (int)startingPos.X;
-            currentY = (int)startingPos.Y;
-        }
-
-        private void distributeFrames()
-        {
-            for (int i = 0; i < totalFrames; i++)
-            {
-                int Row = (int)((float)i / (float)columns);
-                int Column = i % columns;
-                frames[i] = new Rectangle(frameWidth * Column, frameHeight * Row, frameWidth, frameHeight);
-            }
+            location.currentX = (int)startingPos.X;
+            location.currentY = (int)startingPos.Y;
         }
 
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            Rectangle Destination = new Rectangle(location.currentX, location.currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
             spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ItemLayer);
         }
 
@@ -87,7 +73,7 @@ namespace cse3902.Items
             {
                 int width = (int)(sizeIncrease * frameWidth);
                 int height = (int)(sizeIncrease * frameHeight);
-                Rectangle Destination = new Rectangle(currentX, currentY, width, height);
+                Rectangle Destination = new Rectangle(location.currentX, location.currentY, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
                 return ref destination;
@@ -98,12 +84,12 @@ namespace cse3902.Items
         {
             get
             {
-                return new Vector2(currentX, currentY);
+                return new Vector2(location.currentX, location.currentY);
             }
             set
             {
-                currentX = (int)value.X;
-                currentY = (int)value.Y;
+                location.currentX = (int)value.X;
+                location.currentY = (int)value.Y;
             }
         }
 
