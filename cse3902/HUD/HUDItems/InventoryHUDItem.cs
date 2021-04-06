@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using cse3902.Constants;
 using cse3902.Interfaces;
 using cse3902.SpriteFactory;
-using cse3902.Sprites;
+using cse3902.Sounds;
 using cse3902.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,6 +30,7 @@ namespace cse3902.HUD.HUDItems
 
         private Rectangle cursorBox;
         private ItemType cursorBoxItem;
+        private int fromRight;
 
         public InventoryHUDItem(Game1 game, Texture2D inventoryTexture, Texture2D cursorTexture, Vector2 origin)
         {
@@ -51,6 +51,7 @@ namespace cse3902.HUD.HUDItems
             currentBItem.Item1 = ItemType.None;
 	        currentBItem.Item2 = null;
 
+            fromRight = 0;
         }
 
         public Vector2 Center
@@ -73,43 +74,52 @@ namespace cse3902.HUD.HUDItems
         // Call this to move the cursor arround
         public void MoveCursor(Vector2 direction)
         {
-            if (direction.X > 0 && cursorBox.X < furthestWeaponX)
+            if (direction.X > 0 && fromRight < 2)
             {
                 cursorBox.X += HUDPositionConstants.InventoryGap;
+                if (fromRight == 1)
+                {
+                    cursorBox.X += 8;
+                }
+                fromRight++;
             }
-            else if (direction.X < 0 && cursorBox.X > 132)
+            else if (direction.X < 0 && fromRight > 0)
             {
                 cursorBox.X -= HUDPositionConstants.InventoryGap;
+                if (fromRight == 2)
+                {
+                    cursorBox.X -= 8;
+                }
+                fromRight--;
             }
 
+            SoundFactory.PlaySound(SoundFactory.Instance.getRupee, 0.25f);
             SelectCursorItem();
         }
 
-        private void SelectCursorItem()
+        // Call this when pressed B
+        public void SelectCursorItem()
         {
             foreach (var item in drawList)
             {
                 if (cursorBox.Contains(item.Value.Box))
                 {
                     cursorBoxItem = item.Key;
+                    InventoryManager.Instance.ItemSlot = cursorBoxItem;
                     break;
                 }
             }
-            InventoryManager.Instance.ItemSlot = cursorBoxItem;
         }
 
         public void Draw()
         {
             spriteBatch.Draw(inventoryTexture, origin, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryHUDLayer);
-            if (GameStateManager.Instance.InMenu(false))
+            spriteBatch.Draw(cursorTexture, new Vector2(cursorBox.X, cursorBox.Y), null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryItemLayer);
+	        foreach (var sprite in drawList)
             {
-                spriteBatch.Draw(cursorTexture, new Vector2(cursorBox.X, cursorBox.Y), null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryItemLayer);
-                foreach (var sprite in drawList)
-                {
-                    sprite.Value.Draw();
-                }
-                if (currentBItem.Item2 != null) currentBItem.Item2.Draw();
-            }
+                sprite.Value.Draw();
+	        }
+            if (currentBItem.Item2 != null) currentBItem.Item2.Draw();
 	    }
 
         public void Erase()
@@ -127,6 +137,14 @@ namespace cse3902.HUD.HUDItems
                         AddToDrawList(item.Key);
                     }
                 }
+                else if (drawList.ContainsKey(item.Key))
+                {
+                    drawList.Remove(item.Key);
+                    if (InventoryManager.Instance.ItemSlot == item.Key)
+                    {
+                        InventoryManager.Instance.ItemSlot = ItemType.None;
+                    }
+                }
             }
             CheckSelectedItem();
             return 0;
@@ -135,7 +153,12 @@ namespace cse3902.HUD.HUDItems
         private void CheckSelectedItem()
         {
             ItemType itemType = InventoryManager.Instance.ItemSlot;
-            if (currentBItem.Item1 != itemType)
+            if (itemType == ItemType.None)
+            {
+                currentBItem.Item1 = itemType;
+                currentBItem.Item2 = null;
+            }
+            else if (currentBItem.Item1 != itemType)
             {
                 currentBItem.Item1 = itemType;
                 currentBItem.Item2 = ItemSpriteFactory.Instance.CreateItemWithType(itemType, BItemOrigin);
