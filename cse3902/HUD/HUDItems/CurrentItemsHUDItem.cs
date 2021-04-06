@@ -68,13 +68,14 @@ namespace cse3902.HUD.HUDItems
         {
             //todo: change layering on this
 
-            spriteBatch.Draw(uiSpriteTexture, position, null, Color.White, 0, center, 1f, SpriteEffects.None, HUDUtilities.InventoryHUDLayer);
-
+            spriteBatch.Draw(uiSpriteTexture, position, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryHUDLayer);
+            
             //todo: change location of these counts using hud constants
             DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee], position);
             DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Key], position);
             DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Bomb], position);
-            DrawItems();
+            
+	        DrawItems();
 
         }
 
@@ -111,7 +112,7 @@ namespace cse3902.HUD.HUDItems
             Vector2 origin = new Vector2((numbersTexture.Width/11) / 2f, numbersTexture.Height / 2f);
             Rectangle Destination = new Rectangle((int)location.X, (int)location.Y, (int)(numbersTexture.Width/11), (int)(numbersTexture.Height));
             Rectangle source = new Rectangle(((numbersTexture.Width / 11) * digit) + numbersTexture.Width / 11, 0, numbersTexture.Width / 11, numbersTexture.Height);
-            spriteBatch.Draw(numbersTexture, Destination, source, Color.White, 0, origin, SpriteEffects.None, HUDUtilities.InventoryItemLayer);
+            spriteBatch.Draw(numbersTexture, Destination, source, Color.White, 0, new Vector2(0,0), SpriteEffects.None, HUDUtilities.InventoryItemLayer);
             
         }
 
