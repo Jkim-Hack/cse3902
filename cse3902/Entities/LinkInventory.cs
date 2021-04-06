@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Rooms;
 using cse3902.Sounds;
-using System;
+using cse3902.Items;
 
 namespace cse3902.Entities
 {
@@ -57,7 +57,7 @@ namespace cse3902.Entities
                 SoundFactory.PlaySound(SoundFactory.Instance.getItem);
             }
 
-            //update health if certain item
+            //special effect
             if (type == InventoryManager.ItemType.Heart)
             {
                 linkState.Health += 2;
@@ -66,6 +66,9 @@ namespace cse3902.Entities
             {
                 linkState.TotalHealth += 2;
                 linkState.Health += 2;
+            } else if (type == InventoryManager.ItemType.Fairy)
+            {
+                linkState.Health = linkState.TotalHealth;
             }
 
             //pickup animation if certain item
@@ -74,12 +77,20 @@ namespace cse3902.Entities
                 Vector2 startingPos = linkState.CollectItemAnimation();
                 item.Center = startingPos;
                 AnimationItem = item;
-                GameStateManager.Instance.LinkPickupItem(120);
-            } else if (type == InventoryManager.ItemType.Triforce)
+              
+                GameStateManager.Instance.LinkPickupItem(96, false);
+                SoundFactory.Instance.fanfare.Play();
+            } 
+            else if (type == InventoryManager.ItemType.Triforce)
             {
                 InventoryManager.Instance.RemoveFromInventory(InventoryManager.ItemType.Compass);
-                GameStateManager.Instance.LinkPickupItem(Int32.MaxValue);
-                //call method to start animation here
+                GameStateManager.Instance.LinkPickupItem(600, true);
+                Vector2 startingPos = linkState.GameWonAnimation();
+                item.Center = startingPos;
+                AnimationItem = item;
+                ((TriforceItem)item).GameWon = true;
+                SoundFactory.PlaySound(SoundFactory.Instance.getItem, 0.25f);
+                SoundFactory.PlaySound(SoundFactory.Instance.triforce, 0.25f);
             }
             else
             {
@@ -111,7 +122,7 @@ namespace cse3902.Entities
                     break;
 
                 default:
-                    throw new NotImplementedException();
+                    // throw new NotImplementedException();
                     break;
             }
             return true;

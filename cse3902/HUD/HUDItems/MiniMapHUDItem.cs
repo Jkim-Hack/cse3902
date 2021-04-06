@@ -21,8 +21,6 @@ namespace cse3902.HUD
         private bool colorRed;
         private int delay;
 
-        private bool alreadyChanged;
-
         public MiniMapHUDItem(Game1 game, Texture2D level)
         {
             this.game = game;
@@ -34,7 +32,6 @@ namespace cse3902.HUD
 
             this.levelPos = new Rectangle(0, (-level.Bounds.Height / 3) - 7, level.Bounds.Width / 3, level.Bounds.Height / 3 + 1);
 
-            this.alreadyChanged = false;
             colorRed = false;
             delay = MiniMapConstants.COLOR_DELAY;
         }
