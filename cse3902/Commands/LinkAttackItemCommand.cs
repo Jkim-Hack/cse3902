@@ -24,7 +24,6 @@ namespace cse3902.Commands
                         game.Player.Attack();
                         break;
                     case 1:
-                        game.Player.ChangeItem((int)InventoryManager.ItemType.Bow);
                         game.Player.UseItem();
                         break;
                     default: //this should never happen
