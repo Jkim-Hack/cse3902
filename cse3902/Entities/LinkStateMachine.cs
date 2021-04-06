@@ -145,9 +145,9 @@ namespace cse3902.Entities
 
             if (linkSprite.Update(gameTime) != 0)
             {
-                if (mode == LinkMode.Attack || mode == LinkMode.Item)
+                if (mode == LinkMode.Attack || mode == LinkMode.Item || mode == LinkMode.GameWon)
                 {
-                    if (mode == LinkMode.Item) Inventory.RemoveItemAnimation();
+                    if (mode == LinkMode.Item || mode == LinkMode.GameWon) Inventory.RemoveItemAnimation();
                     mode = LinkMode.Still;
                     ChangeDirection(new Vector2(0, 0));
                 }
