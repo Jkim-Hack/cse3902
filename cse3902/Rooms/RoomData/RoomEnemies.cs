@@ -83,6 +83,15 @@ namespace cse3902.Rooms
             CloudAnimation.Instance.LoadNewRoom(newList, game.SpriteBatch);
         }
 
+        public void KillAll()
+        {
+            foreach (IEntity enemy in enemies)
+            {
+                enemy.Die();
+            }
+            enemies.Clear();
+        }
+
         public ref IList ListRef
         {
             get => ref enemies;

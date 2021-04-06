@@ -208,7 +208,7 @@ namespace cse3902.Entities
 
             Vector2 startingPosition = getItemLocation(currDirection);
             linkInventory.CreateWeapon(startingPosition, currDirection);
-            if(HeartConstants.swordProjectileMinHealth <= health)
+            if(totalHealth == health)
             {
                 linkInventory.CreateSwordProjectile(startingPosition, currDirection);
             }
@@ -327,13 +327,22 @@ namespace cse3902.Entities
         public int TotalHealth
         {
             get => this.totalHealth;
-            set => this.totalHealth = value;
+            set
+            {
+                totalHealth = value;
+                if (totalHealth < 1) totalHealth = 1;
+            }
         }
         
 	    public int Health
         {
             get => this.health;
-            set => this.health = value;
+            set 
+            {
+                this.health = value;
+                if (health > totalHealth) health = totalHealth;
+                if (health < 1) health = 1;
+            }
         }
 
         private Boolean PauseMovement

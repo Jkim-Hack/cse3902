@@ -47,6 +47,7 @@ namespace cse3902.HUD
         private InventoryManager()
         {
             inventory = new Dictionary<ItemType, int>();
+            inventory.Add(ItemType.Arrow, 10);
             inventory.Add(ItemType.Heart, 0);
             inventory.Add(ItemType.HeartContainer, 0);
             inventory.Add(ItemType.Bomb, 0);
@@ -66,9 +67,9 @@ namespace cse3902.HUD
             inventory[type]++;
             if (ItemSlot == ItemType.None)
             {
-                if (type == ItemType.Boomerang || type == ItemType.Bomb || (inventory[ItemType.Bow] > 0 && inventory[ItemType.Rupee] > 0))
+                if (type == ItemType.Boomerang || type == ItemType.Bomb || (inventory[ItemType.Bow] > 0 && inventory[ItemType.Arrow] > 0))
                 {
-                    if (ItemType.Rupee == type)
+                    if (ItemType.Arrow == type)
                     {
                         ItemSlot = ItemType.Bow;
                     }
@@ -91,9 +92,9 @@ namespace cse3902.HUD
                     {
                         ItemSlot = ItemType.Boomerang;
                     }
-                    else if (inventory[ItemType.Bow] > 0 && inventory[ItemType.Rupee] > 0)
+                    else if (inventory[ItemType.Bow] > 0 && inventory[ItemType.Arrow] > 0)
                     {
-                        ItemSlot = ItemType.Boomerang;
+                        ItemSlot = ItemType.Boomerang; //should this be bow or arrow?
                     }
                     else if (inventory[ItemType.Bomb] > 0)
                     {

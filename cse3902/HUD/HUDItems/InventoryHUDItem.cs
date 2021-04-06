@@ -74,31 +74,58 @@ namespace cse3902.HUD.HUDItems
         // Call this to move the cursor arround
         public void MoveCursor(Vector2 direction)
         {
+            int originalRight = fromRight;
+            int originalX = cursorBox.X;
+            ItemType t = InventoryManager.Instance.ItemSlot;
+            ItemType a = t;
+
             if (direction.X > 0 && fromRight < 2)
             {
-                cursorBox.X += HUDPositionConstants.InventoryGap;
-                if (fromRight == 1)
+                do
                 {
-                    cursorBox.X += 8;
+                    cursorBox.X += HUDPositionConstants.InventoryGap;
+                    if (fromRight == 1)
+                    {
+                        cursorBox.X += 8;
+                    }
+                    a = InventoryManager.Instance.ItemSlot;
+                    SelectCursorItem();
+                    fromRight++;
+                    a = InventoryManager.Instance.ItemSlot;
+                } while (fromRight < 2 && InventoryManager.Instance.ItemSlot == ItemType.None);
+
+                if (InventoryManager.Instance.ItemSlot == ItemType.None)
+                {
+                    cursorBox.X = originalX;
+                    fromRight = originalRight;
+                    SelectCursorItem();
                 }
-                fromRight++;
+                else SoundFactory.PlaySound(SoundFactory.Instance.getRupee, 0.25f);
             }
             else if (direction.X < 0 && fromRight > 0)
             {
-                cursorBox.X -= HUDPositionConstants.InventoryGap;
-                if (fromRight == 2)
+                do
                 {
-                    cursorBox.X -= 8;
-                }
-                fromRight--;
-            }
+                    cursorBox.X -= HUDPositionConstants.InventoryGap;
+                    if (fromRight == 2)
+                    {
+                        cursorBox.X -= 8;
+                    }
+                    SelectCursorItem();
+                    fromRight--;
+                } while (fromRight > 0 && InventoryManager.Instance.ItemSlot == ItemType.None);
 
-            SoundFactory.PlaySound(SoundFactory.Instance.getRupee, 0.25f);
-            SelectCursorItem();
+                if (InventoryManager.Instance.ItemSlot == ItemType.None)
+                {
+                    cursorBox.X = originalX;
+                    fromRight = originalRight;
+                    SelectCursorItem();
+                } else SoundFactory.PlaySound(SoundFactory.Instance.getRupee, 0.25f);
+            }
         }
 
         // Call this when pressed B
-        public void SelectCursorItem()
+        private void SelectCursorItem()
         {
             foreach (var item in drawList)
             {
@@ -118,12 +145,15 @@ namespace cse3902.HUD.HUDItems
         public void Draw()
         {
             spriteBatch.Draw(inventoryTexture, origin, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryHUDLayer);
-            spriteBatch.Draw(cursorTexture, new Vector2(cursorBox.X, cursorBox.Y), null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryItemLayer);
-	        foreach (var sprite in drawList)
+            if (GameStateManager.Instance.InMenu(false))
             {
-                sprite.Value.Draw();
-	        }
-            if (currentBItem.Item2 != null) currentBItem.Item2.Draw();
+                spriteBatch.Draw(cursorTexture, new Vector2(cursorBox.X, cursorBox.Y), null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryItemLayer);
+                foreach (var sprite in drawList)
+                {
+                    sprite.Value.Draw();
+                }
+                if (currentBItem.Item2 != null) currentBItem.Item2.Draw();
+            }
 	    }
 
         public void Erase()

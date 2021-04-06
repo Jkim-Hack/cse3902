@@ -54,7 +54,7 @@ namespace cse3902.SpriteFactory
             dropRate.Add(IEntity.EnemyType.B, 41);
             dropRate.Add(IEntity.EnemyType.C, 59);
             dropRate.Add(IEntity.EnemyType.D, 41);
-            dropRate.Add(IEntity.EnemyType.X, 9);
+            dropRate.Add(IEntity.EnemyType.X, 100);
 
             LoadA();
             LoadB();
@@ -99,7 +99,7 @@ namespace cse3902.SpriteFactory
 
             dropList.Add(IEntity.EnemyType.B, items);
         }
-        private void LoadC()
+        private void LoadC() //stalfos, wallmaster
         {
             List<InventoryManager.ItemType> items = new List<InventoryManager.ItemType>();
 
@@ -116,7 +116,7 @@ namespace cse3902.SpriteFactory
 
             dropList.Add(IEntity.EnemyType.C, items);
         }
-        private void LoadD()
+        private void LoadD() //aquamentus, goriya
         {
             List<InventoryManager.ItemType> items = new List<InventoryManager.ItemType>();
 
@@ -133,7 +133,7 @@ namespace cse3902.SpriteFactory
 
             dropList.Add(IEntity.EnemyType.D, items);
         }
-        private void LoadX()
+        private void LoadX() //keese, gel
         {
             List<InventoryManager.ItemType> items = new List<InventoryManager.ItemType>();
 

@@ -1519,6 +1519,14 @@
 		<traps>
 		</traps>
 		<conditions>
+			<condition>
+				<id>0</id>
+				<variables>
+					<variable>3</variable>
+					<variable>4</variable>
+					<variable>0</variable>
+				</variables>
+			</condition>
 		</conditions>
 		<sprite>2</sprite>
 		<doors>
