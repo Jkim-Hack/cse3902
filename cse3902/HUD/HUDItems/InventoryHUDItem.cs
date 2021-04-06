@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using cse3902.Constants;
 using cse3902.Interfaces;
 using cse3902.SpriteFactory;
-using cse3902.Sprites;
+using cse3902.Sounds;
 using cse3902.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -82,6 +81,7 @@ namespace cse3902.HUD.HUDItems
                 cursorBox.X -= HUDPositionConstants.InventoryGap;
             }
 
+            SoundFactory.PlaySound(SoundFactory.Instance.getRupee, 0.25f);
             SelectCursorItem();
         }
 
