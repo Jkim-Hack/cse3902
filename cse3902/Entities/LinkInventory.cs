@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics;
 using cse3902.Rooms;
 using cse3902.Sounds;
 using cse3902.Items;
-using System;
 
 namespace cse3902.Entities
 {
