@@ -70,7 +70,7 @@ namespace cse3902.HUD
 
         private IHUDItem CreateCurrentItemsHUDItem()
         {
-            return HUDSpriteFactory.Instance.CreateCurrentItemsHUDItem(game, HUDPositionConstants.InventoryHUDPosition);
+            return HUDSpriteFactory.Instance.CreateCurrentItemsHUDItem(game, HUDPositionConstants.CurrentItemsHUDPosition);
         }
         
 	    private IHUDItem CreateHealthHUDItem()

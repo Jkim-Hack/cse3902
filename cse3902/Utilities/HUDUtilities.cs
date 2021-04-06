@@ -32,6 +32,7 @@ namespace cse3902.Utilities
         public const float InventoryHUDLayer = 0.8f;
         public const float InventoryItemLayer = 0.7f;
 
+
 	    public static void DrawRectangle(Game1 game, Rectangle rec, Color color, int offsetX, int offsetY, float layer)
         {
             Texture2D texture = new Texture2D(game.GraphicsDevice, 1, 1);

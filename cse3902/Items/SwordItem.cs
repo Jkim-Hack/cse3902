@@ -23,7 +23,7 @@ namespace cse3902.Items
 
         private bool collided;
         private Rectangle destination;
-        private const float sizeIncrease = 1f;
+        private const float sizeIncrease = .5f;
 
         private Vector2 direction;
         private ICollidable collidable;
@@ -48,7 +48,8 @@ namespace cse3902.Items
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
+            Rectangle source = new Rectangle(0, 0, spriteTexture.Width / 2, spriteTexture.Height / 2);
+            spriteBatch.Draw(spriteTexture, Destination, source, Color.White, angle, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
         }
 
         public void Erase()

@@ -173,20 +173,21 @@ namespace cse3902.SpriteFactory
         }
 
         // Only used for HUD
-        public IItem CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos)
-        {
-            //don't want to add this to the roomitems list
-            return new SwordItem(spriteBatch, sword, startingPos, new Vector2(0, 1));
-        }
-
         public ISprite CreateArrowItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
             IItem add = new ArrowItem(spriteBatch, arrow, startingPos, new Vector2(0, 1));
             RoomItems.Instance.AddItem(add);
             return add;
         }
-        
-	    public ISprite CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
+
+        public IItem CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            IItem add = new SwordItem(this.spriteBatch, sword, startingPos, new Vector2(0, 1));
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+
+        public ISprite CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new BombItem(spriteBatch, bomb, startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);

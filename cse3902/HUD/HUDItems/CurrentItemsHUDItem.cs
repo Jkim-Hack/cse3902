@@ -12,7 +12,7 @@ namespace cse3902.HUD.HUDItems
 {
     public class CurrentItemsHUDItem : IHUDItem
     {
-        private Vector2 origin;
+        private Vector2 position;
         private Vector2 center;
         private Texture2D uiSpriteTexture;
         private Texture2D numbersTexture;
@@ -30,16 +30,16 @@ namespace cse3902.HUD.HUDItems
         private IPlayer player;
 
 
-        public CurrentItemsHUDItem(Game1 game, Texture2D UITexture, Texture2D numbersTexture, Vector2 origin)
+        public CurrentItemsHUDItem(Game1 game, Texture2D UITexture, Texture2D numbersTexture, Vector2 position)
         {
-            this.origin = origin;
-            center = new Vector2(origin.X / 2f, origin.Y / 2f);
+            this.position = position;
+            center = new Vector2(position.X / 2f, position.Y / 2f);
 
             uiSpriteTexture = UITexture;
             this.numbersTexture = numbersTexture;
 
             //always has sword in slot a
-            slotA = ItemSpriteFactory.Instance.CreateSwordItem(spriteBatch, origin);
+            slotA = ItemSpriteFactory.Instance.CreateSwordItem(spriteBatch, HUDPositionConstants.SlotA);
 
             size = new Vector2(uiSpriteTexture.Bounds.Width, uiSpriteTexture.Bounds.Height);
             box = new Rectangle((int)size.X, (int)size.Y, (int)size.X, (int)size.Y);
@@ -67,12 +67,13 @@ namespace cse3902.HUD.HUDItems
         public void Draw()
         {
             //todo: change layering on this
-            spriteBatch.Draw(uiSpriteTexture, origin, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.HealthHUDLayer);
+
+            spriteBatch.Draw(uiSpriteTexture, position, null, Color.White, 0, center, 1f, SpriteEffects.None, HUDUtilities.InventoryHUDLayer);
 
             //todo: change location of these counts using hud constants
-            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee], origin);
-            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Key], origin);
-            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Bomb], origin);
+            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee], position);
+            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Key], position);
+            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Bomb], position);
             DrawItems();
 
         }
@@ -109,22 +110,19 @@ namespace cse3902.HUD.HUDItems
         {
             Vector2 origin = new Vector2((numbersTexture.Width/11) / 2f, numbersTexture.Height / 2f);
             Rectangle Destination = new Rectangle((int)location.X, (int)location.Y, (int)(numbersTexture.Width/11), (int)(numbersTexture.Height));
-            switch (digit)
-            {
-                case 0:
-                    Rectangle source = new Rectangle(0, 0, numbersTexture.Width / 11, numbersTexture.Height);
-                    spriteBatch.Draw(numbersTexture, Destination, source, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
-                    break;
-                default:
-                    break;
-            }
+            Rectangle source = new Rectangle(((numbersTexture.Width / 11) * digit) + numbersTexture.Width / 11, 0, numbersTexture.Width / 11, numbersTexture.Height);
+            spriteBatch.Draw(numbersTexture, Destination, source, Color.White, 0, origin, SpriteEffects.None, HUDUtilities.InventoryItemLayer);
+            
         }
 
         private void DrawItems()
         {
             //get proper constant for where b items should go in relation to ui
-            slotB = ItemSpriteFactory.Instance.CreateItemWithType(InventoryManager.Instance.ItemSlot, origin);
-            slotB.Draw();
+            slotB = ItemSpriteFactory.Instance.CreateItemWithType(InventoryManager.Instance.ItemSlot, HUDPositionConstants.SlotB);
+            if (slotB != null)
+            {
+                slotB.Draw();
+            }
             slotA.Draw();
         }
     }
