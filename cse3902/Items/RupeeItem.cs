@@ -13,23 +13,13 @@ namespace cse3902.Items
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
 
-        private int rows;
-        private int columns;
-        private int currentFrame;
-        private int totalFrames;
-        private Rectangle[] frames;
-        private int frameWidth;
-        private int frameHeight;
+        private (int rows, int columns) dimensions;
+        private (int frameWidth, int frameHeight, int currentFrame, Rectangle[] frames) frameSize;
 
-        private const float delay = 0.2f;
-        private float remainingDelay;
-
-        private int currentX;
-        private int currentY;
-
-        private Rectangle destination;
-
+        private (float delay, float remainingDelay) delays;
         private const float sizeIncrease = 1f;
+        private Rectangle destination;
+        private (int currentX, int currentY) currentPos;
 
         private ICollidable collidable;
         private InventoryManager.ItemType itemType;
@@ -41,17 +31,18 @@ namespace cse3902.Items
             spriteBatch = batch;
             spriteTexture = texture;
 
-            remainingDelay = delay;
-            this.rows = 2;
-            this.columns = 1;
-            currentFrame = 0;
-            totalFrames = rows * columns;
-            frameWidth = spriteTexture.Width / columns;
-            frameHeight = spriteTexture.Height / rows;
-            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
+            delays.delay = 0.2f;
 
-            currentX = (int)startingPos.X;
-            currentY = (int)startingPos.Y;
+            delays.remainingDelay = delays.delay;
+            this.dimensions.rows = 2;
+            this.dimensions.columns = 1;
+            frameSize.currentFrame = 0;
+            frameSize.frameWidth = spriteTexture.Width / dimensions.columns;
+            frameSize.frameHeight = spriteTexture.Height / dimensions.rows;
+            frameSize.frames = SpriteUtilities.distributeFrames(dimensions.columns, dimensions.rows, frameSize.frameWidth, frameSize.frameHeight);
+
+            currentPos.currentX = (int)startingPos.X;
+            currentPos.currentY = (int)startingPos.Y;
 
             this.collidable = new ItemCollidable(this);
             itemType = InventoryManager.ItemType.Rupee;
@@ -61,24 +52,24 @@ namespace cse3902.Items
 
         public void Draw()
         {
-            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ItemLayer);
+            Vector2 origin = new Vector2(frameSize.frameWidth / 2f, frameSize.frameHeight / 2f);
+            Rectangle Destination = new Rectangle(currentPos.currentX, currentPos.currentY, (int)(sizeIncrease * frameSize.frameWidth), (int)(sizeIncrease * frameSize.frameHeight));
+            spriteBatch.Draw(spriteTexture, Destination, frameSize.frames[frameSize.currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ItemLayer);
         }
 
         public int Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            remainingDelay -= timer;
+            delays.remainingDelay -= timer;
 
-            if (remainingDelay <= 0)
+            if (delays.remainingDelay <= 0)
             {
-                currentFrame++;
-                if (currentFrame == totalFrames)
+                frameSize.currentFrame++;
+                if (frameSize.currentFrame == (dimensions.rows * dimensions.columns))
                 {
-                    currentFrame = 0;
+                    frameSize.currentFrame = 0;
                 }
-                remainingDelay = delay;
+                delays.remainingDelay = delays.delay;
             }
             return 0;
         }
@@ -87,9 +78,9 @@ namespace cse3902.Items
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth);
-                int height = (int)(sizeIncrease * frameHeight);
-                Rectangle Destination = new Rectangle(currentX, currentY, width, height);
+                int width = (int)(sizeIncrease * frameSize.frameWidth);
+                int height = (int)(sizeIncrease * frameSize.frameHeight);
+                Rectangle Destination = new Rectangle(currentPos.currentX, currentPos.currentY, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
                 return ref destination;
@@ -100,12 +91,12 @@ namespace cse3902.Items
         {
             get
             {
-                return new Vector2(currentX, currentY);
+                return new Vector2(currentPos.currentX, currentPos.currentY);
             }
             set
             {
-                currentX = (int)value.X;
-                currentY = (int)value.Y;
+                currentPos.currentX = (int)value.X;
+                currentPos.currentY = (int)value.Y;
             }
         }
 

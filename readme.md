@@ -18,7 +18,6 @@
 - 'r' to reset the game
 - 'q' to quit the game
 
-
 ### Mouse Controls
 - Click on the door in each room, and if there is a room on the other side of the door, the camera will move to the other room.
 
