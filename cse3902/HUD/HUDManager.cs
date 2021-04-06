@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using cse3902.Constants;
-using cse3902.Interfaces;
 using cse3902.SpriteFactory;
 using cse3902.Utilities;
 using Microsoft.Xna.Framework;
+using cse3902.HUD.HUDItems;
 
 namespace cse3902.HUD
 {
@@ -100,6 +99,11 @@ namespace cse3902.HUD
             {
                 hudItem.Draw();
             }
+        }
+
+        public InventoryHUDItem HudInventory
+        {
+            get => HUDItems[HUDItemKey.INVENTORY] as InventoryHUDItem;
         }
     }
 }

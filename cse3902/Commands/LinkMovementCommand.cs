@@ -6,14 +6,17 @@ namespace cse3902.Commands
     public class LinkMovementCommand : ICommand
     {
         private Game1 game;
+        private int cooldown;
 
         public LinkMovementCommand(Game1 game)
         {
             this.game = game;
+            cooldown = 0;
         }
 
         public void Execute(int id)
         {
+            cooldown--;
             id = id % 4;
             Vector2 direction;
             switch (id)
@@ -36,6 +39,11 @@ namespace cse3902.Commands
             }
 
             if (GameStateManager.Instance.IsUnpaused() && !game.RoomHandler.roomTransitionManager.IsTransitioning()) game.Player.ChangeDirection(direction);
+            else if (GameStateManager.Instance.InMenu(false) && cooldown <= 0)
+            {
+                game.HudManager.HudInventory.MoveCursor(direction);
+                cooldown = 15;
+            }
         }
 
         public void Unexecute()
@@ -44,6 +52,7 @@ namespace cse3902.Commands
             {
                 game.Player.ChangeDirection(new Vector2(0, 0));
             }
+            cooldown = 0;
         }
     }
 }

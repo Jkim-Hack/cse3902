@@ -81,10 +81,11 @@ namespace cse3902.HUD.HUDItems
             {
                 cursorBox.X -= HUDPositionConstants.InventoryGap;
             }
+
+            SelectCursorItem();
         }
 
-        // Call this when pressed B
-        public void SelectCursorItem()
+        private void SelectCursorItem()
         {
             foreach (var item in drawList)
             {
