@@ -180,6 +180,7 @@ namespace cse3902.Entities
         {
             linkSprite.DamageMaskHandler.Reset();
             linkStateMachine.Health = linkStateMachine.TotalHealth;
+            linkSprite.SetGameWon(false);
         }
 
         public Vector2 Center
