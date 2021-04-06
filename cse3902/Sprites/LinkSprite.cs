@@ -55,6 +55,11 @@ namespace cse3902.Sprites
         private int gameWinFlashDelay;
         private int gameWinRectangleWidth;
 
+        private bool death;
+        private int deathColorChangeDelay;
+        private Color deathColor;
+        private float deathOpacity;
+
         public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, Texture2D rectangle, int rows, int columns, DamageMaskHandler maskHandler, SingleMaskHandler singleMaskHandler, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
@@ -82,17 +87,26 @@ namespace cse3902.Sprites
             gameWon = false;
             gameWinFlashDelay = -50;
             gameWinRectangleWidth = 0;
+
+            deathColorChangeDelay = 0;
+            deathColor = Color.Black;
+            deathOpacity = 0;
         }
 
         public void Draw()
         {
             Vector2 origin = new Vector2(size.X / 2f, size.Y / 2f);
             Rectangle Destination = new Rectangle((int)positions.current.X, (int)positions.current.Y, (int)(size.X), (int)(size.Y));
-            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, (gameWon) ? 0 : SpriteUtilities.LinkLayer);
+            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, (gameWon || death) ? 0 : SpriteUtilities.LinkLayer);
 
-            int width = DimensionConstants.OriginalWindowWidth;
-            int height = DimensionConstants.GameplayHeight / 3;
+            int roomWidth = DimensionConstants.OriginalWindowWidth;
+            int roomHeight = DimensionConstants.GameplayHeight / 3;
+            DrawGameWinAnim(roomWidth, roomHeight);
+            DrawDeathAnim(roomWidth, roomHeight);
+        }
 
+        private void DrawGameWinAnim(int width, int height)
+        {
             if (gameWinFlashDelay > 0 && gameWinFlashDelay <= 60 && ((gameWinFlashDelay / 5) % 2 == 0))
             {
                 DrawRectangle(Color.White * 0.75f, new Rectangle(width * 5, height * 1, width, height), SpriteUtilities.GameWonLayer);
@@ -102,6 +116,17 @@ namespace cse3902.Sprites
             {
                 DrawRectangle(Color.Black, new Rectangle(width * 5, height * 1, gameWinRectangleWidth, height), SpriteUtilities.GameWonLayer);
                 DrawRectangle(Color.Black, new Rectangle((width * 6) - gameWinRectangleWidth, height * 1, gameWinRectangleWidth, height), SpriteUtilities.GameWonLayer);
+            }
+        }
+
+        private void DrawDeathAnim(int width, int height)
+        {
+            if (deathColorChangeDelay > 0)
+            {
+                if (deathColorChangeDelay == 30) deathOpacity = 1.0f;
+                if ((deathColorChangeDelay - 1) % 27 == 0) deathColor.R -= 255 / 4;
+
+                DrawRectangle(deathColor * deathOpacity, new Rectangle(0, 0, width * 6, height * 6), SpriteUtilities.DeathEffectLayer);
             }
         }
 
@@ -128,7 +153,10 @@ namespace cse3902.Sprites
             }
 
             if (gameWinFlashDelay > -50) gameWinFlashDelay--;
-            if (gameWon && gameWinFlashDelay == -50) gameWinRectangleWidth++;
+            if (gameWon && gameWinFlashDelay == -50 && gameWinRectangleWidth < DimensionConstants.OriginalWindowWidth) gameWinRectangleWidth++;
+
+            if (deathColorChangeDelay > 0) deathColorChangeDelay--;
+            else death = false;
             
             return returnCode;
         }
@@ -165,6 +193,15 @@ namespace cse3902.Sprites
         {
             gameWon = true;
             gameWinFlashDelay = 100;
+            gameWinRectangleWidth = 0;
+        }
+
+        public void SetDeath()
+        {
+            death = true;
+            deathColorChangeDelay = 135;
+            deathColor = Color.Red;
+            deathOpacity = 0.75f;
         }
 
         public void Erase()
