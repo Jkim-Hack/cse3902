@@ -105,6 +105,10 @@ namespace cse3902.HUD.HUDItems
                 if (cursorBox.Contains(item.Value.Box))
                 {
                     cursorBoxItem = item.Key;
+                    if (item.Key == ItemType.Arrow)
+                    {
+                        cursorBoxItem = ItemType.Bow;
+                    }
                     InventoryManager.Instance.ItemSlot = cursorBoxItem;
                     break;
                 }
