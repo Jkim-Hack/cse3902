@@ -134,6 +134,16 @@
 		<npcs>
 		</npcs>
 		<items>
+			<item>
+				<type>Bomb</type>
+				<xloc>8</xloc>
+				<yloc>6</yloc>
+			</item>
+			<item>
+				<type>Boomerang</type>
+				<xloc>8</xloc>
+				<yloc>5</yloc>
+			</item>
 		</items>
 		<enemies>
 		</enemies>
