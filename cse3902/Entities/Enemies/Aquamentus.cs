@@ -29,12 +29,9 @@ namespace cse3902.Entities.Enemies
         private int health;
         private float remainingDamageDelay;
 
-        private IEntity.EnemyType type;
-
-        public Aquamentus(Game1 game, Vector2 start, IEntity.EnemyType type)
+        public Aquamentus(Game1 game, Vector2 start)
         {
             this.game = game;
-            this.type = type;
             center = start;
             previousCenter = center;
             aquamentusSprite = (AquamentusSprite)EnemySpriteFactory.Instance.CreateAquamentusSprite(game.SpriteBatch, center);
@@ -72,7 +69,7 @@ namespace cse3902.Entities.Enemies
             this.Health -= damage;
             if (this.Health > 0)
             {
-                SoundFactory.PlaySound(SoundFactory.Instance.bossHurt);
+                SoundFactory.PlaySound(SoundFactory.Instance.bossHurt, 0.2f);
             }
             this.aquamentusSprite.Damaged = true;
             this.collidable.DamageDisabled = true;
@@ -80,8 +77,9 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
+            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, 0.2f);
             this.aquamentusStateMachine.Die();
-            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, type);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.D);
         }
 
         public void BeShoved()
@@ -152,12 +150,12 @@ namespace cse3902.Entities.Enemies
 
         public IEntity Duplicate()
         {
-            return new Aquamentus(game, center, type);
+            return new Aquamentus(game, center);
         }
 
         public IEntity.EnemyType Type
         {
-            get => type;
+            get => IEntity.EnemyType.D;
         }
 
         public Vector2 Center

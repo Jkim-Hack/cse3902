@@ -25,6 +25,8 @@ namespace cse3902
         private const int cameraCycles = 60;
         private int updateCycles;
 
+        private bool triforce;
+
         private static GameStateManager gameStateManagerInstance = new GameStateManager();
         public static GameStateManager Instance
         {
@@ -35,6 +37,7 @@ namespace cse3902
             pausedState = PauseState.Unpaused;
             remainingToggleCooldown = 0;
             updateCycles = 0;
+            triforce = false;
         }
 
         public void ToggleMenuDisplayed()
@@ -81,12 +84,12 @@ namespace cse3902
             }
         }
 
-        public void LinkPickupItem(int numberUpdateCyclesToComplete)
+        public void LinkPickupItem(int numberUpdateCyclesToComplete, bool isTriforce)
         {
             pausedState = PauseState.ItemPickup;
             updateCycles = numberUpdateCyclesToComplete;
             SoundFactory.Instance.backgroundMusic.Stop();
-            SoundFactory.Instance.fanfare.Play();
+            triforce = isTriforce;
         }
 
         public void LinkDies(int numberUpdateCyclesToComplete)
@@ -150,8 +153,9 @@ namespace cse3902
                     SoundFactory.Instance.backgroundMusic.Stop();
                     SoundFactory.Instance.backgroundMusic.Play();
                     game.CollisionManager.Disabled = false;
-                    if (IsDying() || IsGrabbedByWallMaster()) game.RoomHandler.Reset();
+                    if (IsDying() || IsGrabbedByWallMaster() || triforce) game.RoomHandler.Reset();
                     pausedState = PauseState.Unpaused;
+                    triforce = false;
                 }
             }
         }

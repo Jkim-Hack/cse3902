@@ -10,10 +10,11 @@ namespace cse3902.SpriteFactory
 {
     public class HUDSpriteFactory
     { 
+        private Texture2D InventoryTexture;
+        private Texture2D CursorTexture;
         private Texture2D HealthUITexture;
         private Texture2D HeartUITexture;
         private Texture2D LevelLabel;
-        private Texture2D NumberLabel;
         private Texture2D MapCompassLabel;
         private Texture2D Compass;
         private Texture2D OrangeMap;
@@ -35,6 +36,8 @@ namespace cse3902.SpriteFactory
 
         public void LoadAllTextures(ContentManager content)
         {
+            InventoryTexture = content.Load<Texture2D>("UI/Inventory");
+            CursorTexture = content.Load<Texture2D>("UI/Cursor");
             HealthUITexture = content.Load<Texture2D>("UI/HealthUI");
             HeartUITexture = content.Load<Texture2D>("UI/HeartsUI");
             LevelLabel = content.Load<Texture2D>("UI/level1");
@@ -44,7 +47,12 @@ namespace cse3902.SpriteFactory
             OrangeMapRooms = content.Load<Texture2D>("UI/orange_map_rooms");
         }
 
-        public IHUDItem CreateHealthHUDItem(Game1 game, Vector2 startingPos)
+        public IHUDItem CreateInventoryHUDItem(Game1 game, Vector2 startingPos)
+        {
+            return new InventoryHUDItem(game, InventoryTexture, CursorTexture, startingPos);
+        }
+        
+	    public IHUDItem CreateHealthHUDItem(Game1 game, Vector2 startingPos)
         {
             return new HealthHUDItem(game, HealthUITexture, HeartUITexture, startingPos);
         }

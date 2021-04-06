@@ -27,6 +27,8 @@ namespace cse3902.Items
         private int currentX;
         private int currentY;
 
+        private bool gameWon;
+
         private Rectangle destination;
 
         private const float sizeIncrease = 1f;
@@ -57,13 +59,15 @@ namespace cse3902.Items
             itemType = InventoryManager.ItemType.Triforce;
             isKept = kept;
             isResetKept = resetKept;
+
+            gameWon = false;
         }
 
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ItemLayer);
+            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, (gameWon) ? SpriteUtilities.GameWonLayer - .05f : SpriteUtilities.ItemLayer);
         }
 
         public int Update(GameTime gameTime)
@@ -137,6 +141,12 @@ namespace cse3902.Items
         public bool IsResetKept
         {
             get => isResetKept;
+        }
+
+        public bool GameWon
+        {
+            get => gameWon;
+            set => gameWon = value;
         }
     }
 }

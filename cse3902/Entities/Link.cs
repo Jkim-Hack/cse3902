@@ -31,13 +31,15 @@ namespace cse3902.Entities
             Texture2D linkTexture = game.Content.Load<Texture2D>("Link");
             Texture2D linkDamageSequenceTexture = game.Content.Load<Texture2D>("LinkDamageSequence");
             Texture2D linkDeathTexture = game.Content.Load<Texture2D>("LinkDeath");
+            Texture2D rectangleTexture = new Texture2D(game.GraphicsDevice, 1, 1);
             DamageMaskHandler linkDamageMaskHandler = new DamageMaskHandler(linkTexture, linkDamageSequenceTexture, 1, 4, 0);
             SingleMaskHandler linkDeathMaskHandler = new SingleMaskHandler(linkTexture, linkDeathTexture);
 
             Vector2 centerPosition = new Vector2(50, 200);
-            linkSprite = new LinkSprite(game.SpriteBatch, linkTexture, 6, 4, linkDamageMaskHandler, linkDeathMaskHandler, centerPosition);
+            linkSprite = new LinkSprite(game.SpriteBatch, linkTexture, rectangleTexture, 6, 4, linkDamageMaskHandler, linkDeathMaskHandler, centerPosition);
             linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition);
             linkInventory = linkStateMachine.Inventory;
+            linkInventory.ChangeItem(InventoryManager.ItemType.None);
 
             //Link's body does no damage itself
             this.collidable = new PlayerCollidable(this, 0, game);

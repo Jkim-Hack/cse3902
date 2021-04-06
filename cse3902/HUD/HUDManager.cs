@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using cse3902.Constants;
-using cse3902.Interfaces;
 using cse3902.SpriteFactory;
 using cse3902.Utilities;
 using Microsoft.Xna.Framework;
+using cse3902.HUD.HUDItems;
 
 namespace cse3902.HUD
 {
@@ -42,6 +41,7 @@ namespace cse3902.HUD
             switch (key)
             {
                 case HUDItemKey.INVENTORY:
+                    HUDItems.Add(key, CreateInventoryHUDItem());
                     break;
                 case HUDItemKey.HEALTH:
                     HUDItems.Add(key, CreateHealthHUDItem());
@@ -59,7 +59,12 @@ namespace cse3902.HUD
             }
         }
 
-        private IHUDItem CreateHealthHUDItem()
+        private IHUDItem CreateInventoryHUDItem()
+        {
+            return HUDSpriteFactory.Instance.CreateInventoryHUDItem(game, HUDPositionConstants.InventoryHUDPosition);
+        }
+        
+	    private IHUDItem CreateHealthHUDItem()
         {
             return HUDSpriteFactory.Instance.CreateHealthHUDItem(game, HUDPositionConstants.HealthHUDPosition);
         }
@@ -94,6 +99,11 @@ namespace cse3902.HUD
             {
                 hudItem.Draw();
             }
+        }
+
+        public InventoryHUDItem HudInventory
+        {
+            get => HUDItems[HUDItemKey.INVENTORY] as InventoryHUDItem;
         }
     }
 }
