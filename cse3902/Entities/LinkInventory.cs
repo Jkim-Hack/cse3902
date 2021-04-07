@@ -61,7 +61,6 @@ namespace cse3902.Entities
             if (type == InventoryManager.ItemType.Heart)
             {
                 linkState.Health += 2;
-                if (linkState.Health > linkState.TotalHealth) linkState.Health = linkState.TotalHealth;
             } else if (type == InventoryManager.ItemType.HeartContainer)
             {
                 linkState.TotalHealth += 2;
@@ -109,7 +108,7 @@ namespace cse3902.Entities
             InventoryManager.ItemType decType = type;
             if (type == InventoryManager.ItemType.Bow)
             {
-                decType = InventoryManager.ItemType.Rupee;
+                decType = InventoryManager.ItemType.Arrow;
             }
             if (InventoryManager.Instance.inventory[decType] == 0) return false;
             InventoryManager.Instance.RemoveFromInventory(decType);

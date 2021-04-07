@@ -134,6 +134,16 @@
 		<npcs>
 		</npcs>
 		<items>
+			<item>
+				<type>Bomb</type>
+				<xloc>8</xloc>
+				<yloc>6</yloc>
+			</item>
+			<item>
+				<type>Boomerang</type>
+				<xloc>8</xloc>
+				<yloc>5</yloc>
+			</item>
 		</items>
 		<enemies>
 		</enemies>
@@ -1519,6 +1529,14 @@
 		<traps>
 		</traps>
 		<conditions>
+			<condition>
+				<id>0</id>
+				<variables>
+					<variable>3</variable>
+					<variable>4</variable>
+					<variable>0</variable>
+				</variables>
+			</condition>
 		</conditions>
 		<sprite>2</sprite>
 		<doors>
