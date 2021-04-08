@@ -20,9 +20,9 @@ namespace cse3902.HUD.HUDItems
         private ISprite slotA;
         private ISprite slotB;
 
-        private ISprite rupeeCount;
-        private ISprite keyCount;
-        private ISprite bombCount;
+        private Vector2 rupeeCountPosition;
+        private Vector2 keyCountPosition;
+        private Vector2 bombCountPosition;
 
         private Rectangle box;
         private Vector2 size;
@@ -44,6 +44,10 @@ namespace cse3902.HUD.HUDItems
             size = new Vector2(uiSpriteTexture.Bounds.Width, uiSpriteTexture.Bounds.Height);
             box = new Rectangle((int)size.X, (int)size.Y, (int)size.X, (int)size.Y);
             spriteBatch = game.SpriteBatch;
+
+            rupeeCountPosition = new Vector2(HUDPositionConstants.CountsXPos, position.Y);
+            keyCountPosition = new Vector2(HUDPositionConstants.CountsXPos, position.Y+numbersTexture.Height*2);
+            bombCountPosition = new Vector2(HUDPositionConstants.CountsXPos, position.Y+numbersTexture.Height*3);
 
             player = game.Player;
         }
@@ -70,9 +74,9 @@ namespace cse3902.HUD.HUDItems
 
             spriteBatch.Draw(uiSpriteTexture, position, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryHUDLayer);
             //todo: change location of these counts using hud constants
-            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee], position);
-            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Key], position);
-            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Bomb], position);
+            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee], rupeeCountPosition);
+            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Key], keyCountPosition);
+            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Bomb], bombCountPosition);
             
 	        DrawItems();
 
@@ -100,8 +104,10 @@ namespace cse3902.HUD.HUDItems
                 leftDigit = rightDigit;
             }
 
-            DrawDigit(leftDigit, location);
-            Vector2 rightLocation = new Vector2(location.X + (numbersTexture.Width / 11), location.Y);
+            DrawDigit(-1, location);
+
+            DrawDigit(leftDigit, new Vector2(location.X + (numbersTexture.Width / 11), location.Y));
+            Vector2 rightLocation = new Vector2(location.X + 2*(numbersTexture.Width / 11), location.Y);
             DrawDigit(rightDigit, rightLocation);
 
         }

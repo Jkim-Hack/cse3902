@@ -17,5 +17,6 @@ namespace cse3902.Constants
         public static Vector2 CurrentItemsHUDPosition = new Vector2(HealthHUDPosition.X - 70, HealthHUDPosition.Y);
         public static Vector2 SlotB = new Vector2(CurrentItemsHUDPosition.X + 30, CurrentItemsHUDPosition.Y+12);
         public static Vector2 SlotA = new Vector2(CurrentItemsHUDPosition.X + 50, CurrentItemsHUDPosition.Y+20);
+        public static float CountsXPos = CurrentItemsHUDPosition.X + (98/11);
     }
 }
