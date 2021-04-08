@@ -102,13 +102,17 @@ namespace cse3902.HUD.HUDItems
             {
                 //todo: don't draw the right digit in this case
                 leftDigit = rightDigit;
+                DrawDigit(-1, location);
+                DrawDigit(leftDigit, new Vector2(location.X + (numbersTexture.Width / 11), location.Y));
+            } else
+            {
+                DrawDigit(-1, location);
+
+                DrawDigit(leftDigit, new Vector2(location.X + (numbersTexture.Width / 11), location.Y));
+                Vector2 rightLocation = new Vector2(location.X + 2 * (numbersTexture.Width / 11), location.Y);
+                DrawDigit(rightDigit, rightLocation);
             }
 
-            DrawDigit(-1, location);
-
-            DrawDigit(leftDigit, new Vector2(location.X + (numbersTexture.Width / 11), location.Y));
-            Vector2 rightLocation = new Vector2(location.X + 2*(numbersTexture.Width / 11), location.Y);
-            DrawDigit(rightDigit, rightLocation);
 
         }
 

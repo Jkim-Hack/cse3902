@@ -14,9 +14,9 @@ namespace cse3902.Constants
         public static Vector2 WeaponStartHUDPosition = new Vector2(132, 48);
         public const int InventoryGap = 20;
 
-        public static Vector2 CurrentItemsHUDPosition = new Vector2(HealthHUDPosition.X - 70, HealthHUDPosition.Y);
-        public static Vector2 SlotB = new Vector2(CurrentItemsHUDPosition.X + 30, CurrentItemsHUDPosition.Y+12);
-        public static Vector2 SlotA = new Vector2(CurrentItemsHUDPosition.X + 50, CurrentItemsHUDPosition.Y+20);
+        public static Vector2 CurrentItemsHUDPosition = new Vector2(HealthHUDPosition.X - 80, HealthHUDPosition.Y);
+        public static Vector2 SlotB = new Vector2(CurrentItemsHUDPosition.X + 65, CurrentItemsHUDPosition.Y+22);
+        public static Vector2 SlotA = new Vector2(CurrentItemsHUDPosition.X + 48.5f, CurrentItemsHUDPosition.Y+24);
         public static float CountsXPos = CurrentItemsHUDPosition.X + (98/11);
     }
 }
