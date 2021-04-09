@@ -30,8 +30,14 @@ namespace cse3902.ParticleSystem
 
             for (int i = 0; i < ParticleConstants.ArrowParticleDensity; i++)
             {
-                Vector2 center = new Vector2((DimensionConstants.OriginalWindowWidth) * 2 + 100, (DimensionConstants.GameplayHeight / 3) * 5 + 100);
-                particles.Add(new StraightMovingParticle(texture, center, GetRandomVelocity(rand), ParticleConstants.ArrowParticleLifetime, ParticleConstants.ArrowParticleSize));
+                Vector2 center = new Vector2((DimensionConstants.OriginalWindowWidth) * 2 + 100, (DimensionConstants.GameplayHeight / 3) * 5 + 100); // testing
+
+                int lifeTime = rand.Next(ParticleConstants.ArrowParticleLifetimeMin, ParticleConstants.ArrowParticleLifetimeMax);
+
+                int colorVal = rand.Next(ParticleConstants.ArrowParticleColorMin, ParticleConstants.ArrowParticleColorMax);
+                Color color = new Color(colorVal, colorVal, colorVal);
+
+                particles.Add(new StraightMovingParticle(texture, color, center, GetRandomVelocity(rand), lifeTime, ParticleConstants.ArrowParticleSize));
             }
         }
 

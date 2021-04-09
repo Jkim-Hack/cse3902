@@ -39,12 +39,12 @@ namespace cse3902.ParticleSystem
             ring = content.Load<Texture2D>("particles/ring");
         }
 
-        public void CreateNewEmitter(ParticleEmitter emitter, Vector2 location)
+        public void CreateNewEmitter(ParticleEmitter emitter, Vector2 origin)
         {
             switch (emitter)
             {
                 case ParticleEmitter.ArrowHit:
-                    emitters.Add(new ArrowEmitter(circle, location));
+                    emitters.Add(new ArrowEmitter(circle, origin));
                     break;
 
                 default:
