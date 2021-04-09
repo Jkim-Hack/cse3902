@@ -1,3 +1,4 @@
+using cse3902.Interfaces;
 using System;
 
 namespace cse3902.ParticleEngine
@@ -7,9 +8,7 @@ namespace cse3902.ParticleEngine
         private static ParticleEngine instance = new ParticleEngine();
         public static ParticleEngine Instance { get => instance; }
 
-        private ParticleEngine()
-        {
-        }
+        private ParticleEngine() {}
 
         public void LoadAllTextures()
         {
