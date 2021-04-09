@@ -18,7 +18,7 @@ namespace cse3902.ParticleSystem
 
         private int size;
 
-        public StraightMovingParticle(Texture2D texture, Vector2 origin, Vector2 velocity, int lifeTime)
+        public StraightMovingParticle(Texture2D texture, Vector2 origin, Vector2 velocity, int lifeTime, int size)
         {
             this.texture = texture;
 
@@ -27,7 +27,7 @@ namespace cse3902.ParticleSystem
 
             this.lifeTime = lifeTime;
 
-            size = 5;
+            this.size = size;
         }
 
         public void Update(GameTime gameTime)
@@ -43,8 +43,7 @@ namespace cse3902.ParticleSystem
 
         public bool Dead
         {
-            // get => lifeTime == 0;
-            get => false;
+            get => lifeTime == 0;
         }
     }
 }

@@ -10,14 +10,14 @@ namespace cse3902.ParticleSystem
     public class ArrowEmitter : IParticleEmmiter
     {
         private Texture2D texture;
-        private Vector2 location;
+        private Vector2 origin;
 
         private List<IParticle> particles;
 
-        public ArrowEmitter(Texture2D texture, Vector2 location)
+        public ArrowEmitter(Texture2D texture, Vector2 origin)
         {
             this.texture = texture;
-            this.location = location;
+            this.origin = origin;
 
             this.particles = new List<IParticle>();
 
@@ -26,10 +26,28 @@ namespace cse3902.ParticleSystem
 
         private void GenerateParticles()
         {
-            for (int i = 0; i < 10; i++)
+            Random rand = new Random();
+
+            for (int i = 0; i < ParticleConstants.ArrowParticleDensity; i++)
             {
-                particles.Add(new StraightMovingParticle(texture, new Vector2((DimensionConstants.OriginalWindowWidth) * 2, (DimensionConstants.GameplayHeight / 3) * 5), new Vector2(1, 1), 100));
+                Vector2 center = new Vector2((DimensionConstants.OriginalWindowWidth) * 2 + 100, (DimensionConstants.GameplayHeight / 3) * 5 + 100);
+                particles.Add(new StraightMovingParticle(texture, center, GetRandomVelocity(rand), ParticleConstants.ArrowParticleLifetime, ParticleConstants.ArrowParticleSize));
             }
+        }
+
+        private Vector2 GetRandomVelocity(Random rand)
+        {
+            Vector2 velocity = new Vector2((float)rand.NextDouble(), (float)rand.NextDouble());
+
+            if (rand.NextDouble() >= 0.5) velocity.X *= -1;
+            if (rand.NextDouble() >= 0.5) velocity.Y *= -1;
+
+            /* Gives effect an overall circular shape */
+            if (rand.NextDouble() >= 0.75) velocity.Normalize();
+
+            velocity *= ParticleConstants.ArrowParticleVelocityScale;
+
+            return velocity;
         }
 
         public void Update(GameTime gameTime)
