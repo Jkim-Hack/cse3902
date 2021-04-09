@@ -20,9 +20,11 @@ namespace cse3902.HUD.HUDItems
         private ISprite slotA;
         private ISprite slotB;
 
-        private ISprite rupeeCount;
-        private ISprite keyCount;
-        private ISprite bombCount;
+        private Vector2 rupeeCountPosition;
+        private Vector2 keyCountPosition;
+        private Vector2 bombCountPosition;
+
+        private const int digitWidth = 8;
 
         private Rectangle box;
         private Vector2 size;
@@ -45,6 +47,10 @@ namespace cse3902.HUD.HUDItems
             box = new Rectangle((int)size.X, (int)size.Y, (int)size.X, (int)size.Y);
             spriteBatch = game.SpriteBatch;
 
+            rupeeCountPosition = new Vector2(HUDPositionConstants.CountsXPos, position.Y);
+            keyCountPosition = new Vector2(HUDPositionConstants.CountsXPos, position.Y+numbersTexture.Height*2);
+            bombCountPosition = new Vector2(HUDPositionConstants.CountsXPos, position.Y+numbersTexture.Height*3);
+
             player = game.Player;
         }
 
@@ -66,15 +72,18 @@ namespace cse3902.HUD.HUDItems
 
         public void Draw()
         {
-            //todo: change layering on this
+
 
             spriteBatch.Draw(uiSpriteTexture, position, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryHUDLayer);
-            //todo: change location of these counts using hud constants
-            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee], position);
-            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Key], position);
-            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Bomb], position);
-            
-	        DrawItems();
+
+            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee], rupeeCountPosition);
+            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Key], keyCountPosition);
+            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Bomb], bombCountPosition);
+
+            if (!GameStateManager.Instance.InMenu(false))
+            {
+                DrawItems();
+            }
 
         }
 
@@ -91,18 +100,24 @@ namespace cse3902.HUD.HUDItems
 
         private void DrawCount(int count, Vector2 location)
         {
-            int rightDigit = InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee] % 10;
-            int leftDigit = (int)(InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee] / 10);
+            int rightDigit = count % 10;
+            int leftDigit = (int)(count / 10);
 
             if (leftDigit == 0 && count < 10)
             {
                 //todo: don't draw the right digit in this case
                 leftDigit = rightDigit;
+                DrawDigit(-1, location);
+                DrawDigit(leftDigit, new Vector2(location.X + (numbersTexture.Width / 11), location.Y));
+            } else
+            {
+                DrawDigit(-1, location);
+
+                DrawDigit(leftDigit, new Vector2(location.X + (numbersTexture.Width / 11), location.Y));
+                Vector2 rightLocation = new Vector2(location.X + 2 * (numbersTexture.Width / 11), location.Y);
+                DrawDigit(rightDigit, rightLocation);
             }
 
-            DrawDigit(leftDigit, location);
-            Vector2 rightLocation = new Vector2(location.X + (numbersTexture.Width / 11), location.Y);
-            DrawDigit(rightDigit, rightLocation);
 
         }
 
@@ -110,7 +125,11 @@ namespace cse3902.HUD.HUDItems
         {
             Vector2 origin = new Vector2((numbersTexture.Width/11) / 2f, numbersTexture.Height / 2f);
             Rectangle Destination = new Rectangle((int)location.X, (int)location.Y, (int)(numbersTexture.Width/11), (int)(numbersTexture.Height));
-            Rectangle source = new Rectangle(((numbersTexture.Width / 11) * digit) + numbersTexture.Width / 11, 0, numbersTexture.Width / 11, numbersTexture.Height);
+            Rectangle source = new Rectangle((digitWidth * (digit+1)) + ((digit+1)*1), 0, digitWidth, numbersTexture.Height);
+            if (digit == -1)
+            {
+                source = new Rectangle(0, 0, digitWidth, numbersTexture.Height);
+            }
             spriteBatch.Draw(numbersTexture, Destination, source, Color.White, 0, new Vector2(0,0), SpriteEffects.None, HUDUtilities.InventoryItemLayer);
             
         }

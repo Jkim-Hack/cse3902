@@ -23,6 +23,7 @@ namespace cse3902.Items
 
         private bool collided;
         private Rectangle destination;
+        private Rectangle source;
         private const float sizeIncrease = .5f;
 
         private Vector2 direction;
@@ -41,6 +42,9 @@ namespace cse3902.Items
             currentX = (int)startingPos.X;
             currentY = (int)startingPos.Y;
 
+            this.source = new Rectangle(0, 0, this.spriteTexture.Width / 2, this.spriteTexture.Height / 2);
+
+
             this.collidable = new ItemCollidable(this);
         }
 
@@ -48,8 +52,7 @@ namespace cse3902.Items
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            Rectangle source = new Rectangle(0, 0, spriteTexture.Width / 2, spriteTexture.Height / 2);
-            spriteBatch.Draw(spriteTexture, Destination, source, Color.White, angle, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
+            spriteBatch.Draw(spriteTexture, Destination, source, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ItemLayer);
         }
 
         public void Erase()
