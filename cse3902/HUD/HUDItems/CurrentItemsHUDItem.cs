@@ -70,15 +70,18 @@ namespace cse3902.HUD.HUDItems
 
         public void Draw()
         {
-            //todo: change layering on this
+
 
             spriteBatch.Draw(uiSpriteTexture, position, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryHUDLayer);
-            //todo: change location of these counts using hud constants
-            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee], rupeeCountPosition);
+
+            DrawCount(78, rupeeCountPosition);
             DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Key], keyCountPosition);
             DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Bomb], bombCountPosition);
-            
-	        DrawItems();
+
+            if (!GameStateManager.Instance.InMenu(false))
+            {
+                DrawItems();
+            }
 
         }
 
@@ -95,8 +98,8 @@ namespace cse3902.HUD.HUDItems
 
         private void DrawCount(int count, Vector2 location)
         {
-            int rightDigit = InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee] % 10;
-            int leftDigit = (int)(InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee] / 10);
+            int rightDigit = count % 10;
+            int leftDigit = (int)(count / 10);
 
             if (leftDigit == 0 && count < 10)
             {
@@ -120,7 +123,7 @@ namespace cse3902.HUD.HUDItems
         {
             Vector2 origin = new Vector2((numbersTexture.Width/11) / 2f, numbersTexture.Height / 2f);
             Rectangle Destination = new Rectangle((int)location.X, (int)location.Y, (int)(numbersTexture.Width/11), (int)(numbersTexture.Height));
-            Rectangle source = new Rectangle(((numbersTexture.Width / 11) * digit) + numbersTexture.Width / 11, 0, numbersTexture.Width / 11, numbersTexture.Height);
+            Rectangle source = new Rectangle(((numbersTexture.Width / 11) * digit) + 2*(numbersTexture.Width / 11), 0, numbersTexture.Width / 11, numbersTexture.Height);
             spriteBatch.Draw(numbersTexture, Destination, source, Color.White, 0, new Vector2(0,0), SpriteEffects.None, HUDUtilities.InventoryItemLayer);
             
         }
