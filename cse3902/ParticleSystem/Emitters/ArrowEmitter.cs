@@ -11,10 +11,14 @@ namespace cse3902.ParticleSystem
         private Texture2D particle;
         private Vector2 location;
 
+        private bool animationDone;
+
         public ArrowEmitter(Texture2D particle, Vector2 location)
         {
             this.particle = particle;
             this.location = location;
+
+            animationDone = false;
         }
 
         public void Update(GameTime gameTime)
@@ -29,7 +33,7 @@ namespace cse3902.ParticleSystem
 
         public bool AnimationDone
         {
-            get => false;
+            get => animationDone;
         }
     }
 }
