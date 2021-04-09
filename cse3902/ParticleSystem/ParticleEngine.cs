@@ -33,7 +33,9 @@ namespace cse3902.ParticleSystem
             switch (emitter)
             {
                 case ParticleEmitter.ArrowHit:
+                    emitters.Add(new ArrowEmitter(null, new Vector2()));
                     break;
+
                 default:
                     break;
             }
