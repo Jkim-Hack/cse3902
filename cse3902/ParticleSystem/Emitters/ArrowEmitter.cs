@@ -26,9 +26,9 @@ namespace cse3902.ParticleSystem
 
         }
 
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch)
         {
-
+            
         }
 
         public bool AnimationDone

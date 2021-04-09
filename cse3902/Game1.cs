@@ -184,7 +184,7 @@ namespace cse3902
 
             if (!GameStateManager.Instance.InMenu(true)) player.Draw();
             roomHandler.Draw();
-            ParticleEngine.Instance.Draw();
+            ParticleEngine.Instance.Draw(spriteBatch);
             //collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
             spriteBatch.End();
 

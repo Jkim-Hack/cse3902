@@ -60,9 +60,9 @@ namespace cse3902.ParticleSystem
             emitters.RemoveAll(emitter => emitter.AnimationDone);
         }
 
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (IParticleEmmiter emitter in emitters) emitter.Draw();
+            foreach (IParticleEmmiter emitter in emitters) emitter.Draw(spriteBatch);
         }
     }
 }
