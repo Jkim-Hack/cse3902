@@ -48,8 +48,7 @@ namespace cse3902.Items
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = this.Box;
-            // new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
             spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ItemLayer);
         }
 
