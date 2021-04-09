@@ -6,14 +6,14 @@ using System;
 
 namespace cse3902.ParticleSystem
 {
-    public class Particle : IParticle
+    public class StraightMovingParticle : IParticle
     {
         private Texture2D particle;
         private Texture2D startingLocation;
 
         private bool deadParticle;
 
-        public Particle()
+        public StraightMovingParticle()
         {
             deadParticle = false;
         }
