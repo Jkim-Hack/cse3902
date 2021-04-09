@@ -8,32 +8,36 @@ namespace cse3902.ParticleSystem
 {
     public class ArrowEmitter : IParticleEmmiter
     {
-        private Texture2D particle;
+        private Texture2D texture;
         private Vector2 location;
 
-        private bool animationDone;
+        private List<IParticle> particles;
 
-        public ArrowEmitter(Texture2D particle, Vector2 location)
+        public ArrowEmitter(Texture2D texture, Vector2 location)
         {
-            this.particle = particle;
+            this.texture = texture;
             this.location = location;
 
-            animationDone = false;
+            this.particles = new List<IParticle>();
+            particles.Add(new StraightMovingParticle(texture, new Vector2(), new Vector2(), 100));
         }
 
         public void Update(GameTime gameTime)
         {
+            foreach (IParticle particle in particles) particle.Update(gameTime);
 
+            /* Remove all emitters that have completed their animation */
+            particles.RemoveAll(particle => particle.Dead);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            
+            foreach (IParticle particle in particles) particle.Draw(spriteBatch);
         }
 
         public bool AnimationDone
         {
-            get => animationDone;
+            get => false;
         }
     }
 }
