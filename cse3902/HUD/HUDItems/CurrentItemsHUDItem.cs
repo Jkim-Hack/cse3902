@@ -24,6 +24,8 @@ namespace cse3902.HUD.HUDItems
         private Vector2 keyCountPosition;
         private Vector2 bombCountPosition;
 
+        private const int digitWidth = 8;
+
         private Rectangle box;
         private Vector2 size;
         private SpriteBatch spriteBatch;
@@ -74,7 +76,7 @@ namespace cse3902.HUD.HUDItems
 
             spriteBatch.Draw(uiSpriteTexture, position, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryHUDLayer);
 
-            DrawCount(78, rupeeCountPosition);
+            DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee], rupeeCountPosition);
             DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Key], keyCountPosition);
             DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Bomb], bombCountPosition);
 
@@ -123,7 +125,11 @@ namespace cse3902.HUD.HUDItems
         {
             Vector2 origin = new Vector2((numbersTexture.Width/11) / 2f, numbersTexture.Height / 2f);
             Rectangle Destination = new Rectangle((int)location.X, (int)location.Y, (int)(numbersTexture.Width/11), (int)(numbersTexture.Height));
-            Rectangle source = new Rectangle(((numbersTexture.Width / 11) * digit) + 2*(numbersTexture.Width / 11), 0, numbersTexture.Width / 11, numbersTexture.Height);
+            Rectangle source = new Rectangle((digitWidth * (digit+1)) + ((digit+1)*1), 0, digitWidth, numbersTexture.Height);
+            if (digit == -1)
+            {
+                source = new Rectangle(0, 0, digitWidth, numbersTexture.Height);
+            }
             spriteBatch.Draw(numbersTexture, Destination, source, Color.White, 0, new Vector2(0,0), SpriteEffects.None, HUDUtilities.InventoryItemLayer);
             
         }
