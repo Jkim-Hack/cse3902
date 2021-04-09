@@ -39,7 +39,7 @@ namespace cse3902.SpriteFactory
         public void LoadAllTextures(ContentManager content)
         {
             InventoryTexture = content.Load<Texture2D>("UI/Inventory");
-            CurrentItemsTexture = content.Load<Texture2D>("UI/collectablesAndCurrentItemsUI");
+            CurrentItemsTexture = content.Load<Texture2D>("UI/collectablesUI");
             NumbersTexture = content.Load<Texture2D>("UI/collectablenumbers");
             CursorTexture = content.Load<Texture2D>("UI/Cursor");
             HealthUITexture = content.Load<Texture2D>("UI/HealthUI");
