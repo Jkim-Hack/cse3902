@@ -1,9 +1,10 @@
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using System;
 
-namespace cse3902.ParticleEngine
+namespace cse3902.ParticleSystem
 {
     public class ParticleEngine
     {
@@ -15,14 +16,14 @@ namespace cse3902.ParticleEngine
         private static ParticleEngine instance = new ParticleEngine();
         public static ParticleEngine Instance { get => instance; }
 
-        List<IParticleEmmiter> emitters;
+        private List<IParticleEmmiter> emitters;
 
         private ParticleEngine()
         {
-            emitters = new List<IParticleEmmiter>();
+            // emitters = new List<IParticleEmmiter>();
         }
 
-        public void LoadAllTextures()
+        public void LoadAllTextures(ContentManager content)
         {
 
         }

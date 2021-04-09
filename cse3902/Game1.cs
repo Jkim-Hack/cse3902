@@ -10,6 +10,7 @@ using cse3902.Collision;
 using cse3902.Constants;
 using cse3902.HUD;
 using cse3902.Sounds;
+using cse3902.ParticleSystem;
 
 namespace cse3902
 {
@@ -101,6 +102,7 @@ namespace cse3902
             ProjectileHandler.Instance.LoadAllTextures(Content);
             SoundFactory.Instance.LoadAllTextures(Content);
             HUDSpriteFactory.Instance.LoadAllTextures(Content);
+            ParticleEngine.Instance.LoadAllTextures(Content);
 
             // For hitbox drawing
 	        lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
@@ -157,6 +159,7 @@ namespace cse3902
                 player.Update(gameTime);
                 roomHandler.Update(gameTime);
                 collisionManager.Update();
+                ParticleEngine.Instance.Update(gameTime);
             }
             else if (GameStateManager.Instance.IsPickingUpItem() || GameStateManager.Instance.IsDying())
             {
@@ -181,8 +184,8 @@ namespace cse3902
 
             if (!GameStateManager.Instance.InMenu(true)) player.Draw();
             roomHandler.Draw();
+            ParticleEngine.Instance.Draw();
             //collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
-
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetHudTransformationMatrix());
