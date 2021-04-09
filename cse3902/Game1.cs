@@ -103,6 +103,7 @@ namespace cse3902
             SoundFactory.Instance.LoadAllTextures(Content);
             HUDSpriteFactory.Instance.LoadAllTextures(Content);
             ParticleEngine.Instance.LoadAllTextures(Content);
+            ParticleEngine.Instance.CreateNewEmitter(ParticleEngine.ParticleEmitter.ArrowHit, new Vector2());
 
             // For hitbox drawing
 	        lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);

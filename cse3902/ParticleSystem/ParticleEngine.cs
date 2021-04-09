@@ -44,7 +44,7 @@ namespace cse3902.ParticleSystem
             switch (emitter)
             {
                 case ParticleEmitter.ArrowHit:
-                    emitters.Add(new ArrowEmitter(cloud, location));
+                    emitters.Add(new ArrowEmitter(circle, location));
                     break;
 
                 default:

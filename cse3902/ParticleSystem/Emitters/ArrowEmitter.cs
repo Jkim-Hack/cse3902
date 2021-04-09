@@ -1,4 +1,5 @@
 using cse3902.Interfaces;
+using cse3902.Constants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -19,14 +20,23 @@ namespace cse3902.ParticleSystem
             this.location = location;
 
             this.particles = new List<IParticle>();
-            particles.Add(new StraightMovingParticle(texture, new Vector2(), new Vector2(), 100));
+
+            GenerateParticles();
+        }
+
+        private void GenerateParticles()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                particles.Add(new StraightMovingParticle(texture, new Vector2((DimensionConstants.OriginalWindowWidth) * 2, (DimensionConstants.GameplayHeight / 3) * 5), new Vector2(1, 1), 100));
+            }
         }
 
         public void Update(GameTime gameTime)
         {
             foreach (IParticle particle in particles) particle.Update(gameTime);
 
-            /* Remove all emitters that have completed their animation */
+            /* Remove all dead particles */
             particles.RemoveAll(particle => particle.Dead);
         }
 
