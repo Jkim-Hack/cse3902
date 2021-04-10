@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using System;
 
+using Microsoft.Xna.Framework.Input; // testing
+
 namespace cse3902.ParticleSystem
 {
     public class ParticleEngine
@@ -25,9 +27,12 @@ namespace cse3902.ParticleSystem
         private Texture2D star;
         private Texture2D ring;
 
+        private bool pressed;
+
         private ParticleEngine()
         {
             emitters = new List<IParticleEmmiter>();
+            pressed = false;
         }
 
         public void LoadAllTextures(ContentManager content)
@@ -44,7 +49,6 @@ namespace cse3902.ParticleSystem
             switch (emitter)
             {
                 case ParticleEmitter.ArrowHit:
-                    emitters.Add(new ArrowEmitter(circle, origin));
                     break;
 
                 default:
@@ -52,8 +56,20 @@ namespace cse3902.ParticleSystem
             }
         }
 
+        private void AddArrowEmitter()
+        {
+            emitters.Add(new ArrowEmitter(circle, new Vector2(Mouse.GetState().X, Mouse.GetState().Y)));
+        }
+
         public void Update(GameTime gameTime)
         {
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && !pressed)
+            {
+                pressed = true;
+                AddArrowEmitter();
+            }
+            if (Mouse.GetState().LeftButton == ButtonState.Released) pressed = false;
+
             foreach (IParticleEmmiter emitter in emitters) emitter.Update(gameTime);
 
             /* Remove all emitters that have completed their animation */

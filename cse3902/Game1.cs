@@ -103,7 +103,6 @@ namespace cse3902
             SoundFactory.Instance.LoadAllTextures(Content);
             HUDSpriteFactory.Instance.LoadAllTextures(Content);
             ParticleEngine.Instance.LoadAllTextures(Content);
-            ParticleEngine.Instance.CreateNewEmitter(ParticleEngine.ParticleEmitter.ArrowHit, new Vector2());
 
             // For hitbox drawing
 	        lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
@@ -185,8 +184,11 @@ namespace cse3902
 
             if (!GameStateManager.Instance.InMenu(true)) player.Draw();
             roomHandler.Draw();
-            ParticleEngine.Instance.Draw(spriteBatch);
             //collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
+            spriteBatch.End();
+
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetGameplayTransformationMatrix());
+            ParticleEngine.Instance.Draw(spriteBatch);
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetHudTransformationMatrix());
