@@ -45,7 +45,7 @@ namespace cse3902.ParticleSystem
 
         public void CreateNewEmitter(ParticleEmitter emitter, Vector2 origin)
         {
-            if (emitter == ParticleEmitter.ArrowHit) emitters.Add(new ArrowEmitter(circle, origin));
+            if (emitter == ParticleEmitter.ArrowHit) emitters.Add(new ArrowEmitter(cloud, origin));
         }
 
         public void Update(GameTime gameTime)

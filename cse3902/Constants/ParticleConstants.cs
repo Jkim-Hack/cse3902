@@ -8,15 +8,15 @@ namespace cse3902.Constants
         public const bool UseParticleEffects = true;
 
         /* Arrow emitter */
-	    public const int ArrowParticleDensity = 1000;
-        public const int ArrowParticleSize = 2;
+	    public const int ArrowParticleDensity = 200;
+        public const int ArrowParticleSize = 5;
 
-        public const int ArrowParticleLifetimeMin = 10;
-        public const int ArrowParticleLifetimeMax = 75;
+        public const int ArrowParticleLifetimeMin = 5;
+        public const int ArrowParticleLifetimeMax = 35;
 
-        public const float ArrowParticleVelocityScale = 0.2f;
+        public const float ArrowParticleVelocityScale = 0.3f;
 
-        public const int ArrowParticleColorMin = 60;
+        public const int ArrowParticleColorMin = 100;
         public const int ArrowParticleColorMax = 230;
     }
 }
