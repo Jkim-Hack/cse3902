@@ -88,7 +88,6 @@ namespace cse3902.Projectiles
             }
             else
             {
-
                 if (ParticleEngine.Instance.UseParticleEffects)
                 {
                     ParticleEngine.Instance.CreateNewEmitter(ParticleEngine.ParticleEmitter.ArrowHit, new Vector2(currentX, currentY) + direction * 5);

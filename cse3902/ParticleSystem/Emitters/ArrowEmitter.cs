@@ -23,7 +23,7 @@ namespace cse3902.ParticleSystem
 
             this.particles = new List<IParticle>();
 
-            this.particleAddAmount = ParticleConstants.ArrowParticleAddAmmount;
+            this.particleAddAmount = ParticleConstants.ArrowParticleAddAmount;
 
             GenerateParticles(ParticleConstants.ArrowParticleInitialAmount);
         }

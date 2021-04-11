@@ -23,9 +23,9 @@ namespace cse3902.ParticleSystem
 
             this.particles = new List<IParticle>();
 
-            this.particleAddAmount = ParticleConstants.ArrowParticleAddAmmount;
+            this.particleAddAmount = ParticleConstants.SwordParticleAddAmount;
 
-            GenerateParticles(ParticleConstants.ArrowParticleInitialAmount);
+            GenerateParticles(ParticleConstants.SwordParticleCircleAmount);
         }
 
         private void GenerateParticles(int num)
@@ -34,13 +34,12 @@ namespace cse3902.ParticleSystem
 
             for (int i = 0; i < num; i++)
             {
-                int lifeTime = rand.Next(ParticleConstants.ArrowParticleLifetimeMin, ParticleConstants.ArrowParticleLifetimeMax);
+                int lifeTime = rand.Next(ParticleConstants.SwordParticleLifetimeMin, ParticleConstants.SwordParticleLifetimeMax);
 
-                int colorVal = rand.Next(ParticleConstants.ArrowParticleColorMin, ParticleConstants.ArrowParticleColorMax);
-                float colorOpacity = (float)rand.NextDouble();
-                Color color = new Color(colorVal, colorVal, colorVal) * colorOpacity;
+                float colorOpacity = (float)rand.NextDouble() * 0.5f;
+                Color color = new Color(255, 255, 255) * colorOpacity;
 
-                particles.Add(new StraightMovingParticle(texture, color, origin, GetRandomVelocity(rand), lifeTime, ParticleConstants.ArrowParticleSize));
+                particles.Add(new StraightMovingParticle(texture, color, origin, GetRandomVelocity(rand), lifeTime, ParticleConstants.SwordParticleSize));
             }
         }
 
@@ -51,10 +50,10 @@ namespace cse3902.ParticleSystem
             if (rand.NextDouble() >= 0.5) velocity.X *= -1;
             if (rand.NextDouble() >= 0.5) velocity.Y *= -1;
 
-            /* Gives effect an overall circular shape */
-            if (rand.NextDouble() >= 0.75) velocity.Normalize();
+            /* Gives effect a circular shape */
+            velocity.Normalize();
 
-            velocity *= ParticleConstants.ArrowParticleVelocityScale;
+            velocity *= ParticleConstants.SwordParticleVelocityScale;
 
             return velocity;
         }
