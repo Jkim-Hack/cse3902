@@ -1,6 +1,5 @@
 ﻿using System;
 using cse3902.Interfaces;
-using cse3902.Rooms;
 using Microsoft.Xna.Framework;
 using cse3902.Entities.Enemies;
 
@@ -32,32 +31,7 @@ namespace cse3902.Collision.Collidables
 
             if (collidableObject is EnemyCollidable && !isDamageDisabled)
             {
-		        if (((EnemyCollidable)collidableObject).Enemy is WallMaster)
-                {
-                    if (((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered) 
-                    {
-                        player.TakeDamage(collidableObject.DamageValue);
-                        //todo: magic number
-                        //player.BeGrabbed((WallMaster)((EnemyCollidable)collidableObject).Enemy, 30.0f);
-                        GameStateManager.Instance.LinkGrabbedByWallMaster(1);
-
-                    } else
-                    {
-                        ((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered = true;
-                    }
-
-                }
-                else 
-                {
-                    //take damage and get shoved back by enemy
-                    player.TakeDamage(collidableObject.DamageValue);
-
-                    if (player.Health <= 0)
-                    {
-                        this.player.Die();
-                    }
-                    player.BeShoved();
-                }
+                EnemyCollision(collidableObject);
                 
             } 
 	        else if (collidableObject is BlockCollidable || collidableObject is WallCollidable)
@@ -123,29 +97,7 @@ namespace cse3902.Collision.Collidables
             }
             else if (collidableObject is TrapCollidable)
             {
-                if (((TrapCollidable)collidableObject).Trap.IsTriggered)
-                {
-                    //take damage and get shoved back by enemy
-                    if (!isDamageDisabled) {
-                        player.TakeDamage(collidableObject.DamageValue);
-
-                        if (player.Health <= 0)
-                        {
-                            this.player.Die();
-			            }
-                        else
-                        {
-                            player.BeShoved();
-                        }
-
-                    }
-                    
-                    
-
-                } else
-                {
-                    ((TrapCollidable)collidableObject).Trap.Trigger();
-                }
+                TrapCollision(collidableObject);
             }
         }
 
@@ -170,6 +122,64 @@ namespace cse3902.Collision.Collidables
         public int DamageValue
         {
             get => damage;
+        }
+
+        private void EnemyCollision(ICollidable collidableObject)
+        {
+            if (((EnemyCollidable)collidableObject).Enemy is WallMaster)
+            {
+                if (((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered)
+                {
+                    player.TakeDamage(collidableObject.DamageValue);
+                    //todo: magic number
+                    //player.BeGrabbed((WallMaster)((EnemyCollidable)collidableObject).Enemy, 30.0f);
+                    GameStateManager.Instance.LinkGrabbedByWallMaster(1);
+
+                }
+                else
+                {
+                    ((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered = true;
+                }
+
+            }
+            else
+            {
+                //take damage and get shoved back by enemy
+                player.TakeDamage(collidableObject.DamageValue);
+
+                if (player.Health <= 0)
+                {
+                    this.player.Die();
+                }
+                player.BeShoved();
+            }
+        }
+
+        private void TrapCollision(ICollidable collidableObject)
+        {
+            if (((TrapCollidable)collidableObject).Trap.IsTriggered)
+                {
+                    //take damage and get shoved back by enemy
+                    if (!isDamageDisabled) {
+                        player.TakeDamage(collidableObject.DamageValue);
+
+                        if (player.Health <= 0)
+                        {
+                            this.player.Die();
+			            }
+                        else
+                        {
+                            player.BeShoved();
+                        }
+
+                    }
+                    
+                    
+
+                } else
+                {
+                    ((TrapCollidable)collidableObject).Trap.Trigger();
+                }
         }
     }
 }
