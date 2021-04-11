@@ -32,24 +32,24 @@ namespace cse3902.Collision.Collidables
             if (collidableObject is EnemyCollidable && !isDamageDisabled)
             {
                 EnemyCollision(collidableObject);
-                
-            } 
-	        else if (collidableObject is BlockCollidable || collidableObject is WallCollidable)
+
+            }
+            else if (collidableObject is BlockCollidable || collidableObject is WallCollidable)
             {
-		WallBlockCollision(collidableObject);
-            } 
-	        else if (collidableObject is ItemCollidable)
+                WallBlockCollision(collidableObject);
+            }
+            else if (collidableObject is ItemCollidable)
             {
                 this.player.AddItem(((ItemCollidable)collidableObject).Item);
 
-            } 
-	        else if (collidableObject is ProjectileCollidable)
+            }
+            else if (collidableObject is ProjectileCollidable)
             {
-		ProjectileCollision(collidableObject);
-            } 
-	        else if (collidableObject is DoorCollidable)
+                ProjectileCollision(collidableObject);
+            }
+            else if (collidableObject is DoorCollidable)
             {
-		DoorCollision(collidableObject);
+                DoorCollision(collidableObject);
             }
             else if (collidableObject is TrapCollidable)
             {
@@ -110,43 +110,79 @@ namespace cse3902.Collision.Collidables
                 player.BeShoved();
             }
         }
-	
-	private void WallBlockCollision(ICollidable collidableObject)
-	{
-                if (collisionOccurrences[0])
+
+        private void WallBlockCollision(ICollidable collidableObject)
+        {
+            if (collisionOccurrences[0])
+            {
+                return;
+            }
+
+            if (collidableObject is BlockCollidable)
+            {
+                if (!((BlockCollidable)collidableObject).IsWalkable)
                 {
-                    return;
+                    player.Center = player.PreviousCenter;
+                    collisionOccurrences[0] = true;
+                }
+            }
+            else
+            {
+                if (!player.IsGrabbed)
+                {
+                    player.Center = player.PreviousCenter;
+                    collisionOccurrences[0] = true;
+                }
+                else
+                {
+                    GameStateManager.Instance.LinkGrabbedByWallMaster(1);
+                    player.IsGrabbed = false;
                 }
 
-                if (collidableObject is BlockCollidable)
+            }
+        }
+
+        private void ProjectileCollision(ICollidable collidableObject)
+        {
+
+            if (((ProjectileCollidable)collidableObject).IsEnemy && !isDamageDisabled)
+            {
+                player.TakeDamage(((ProjectileCollidable)collidableObject).DamageValue);
+                if (player.Health <= 0)
                 {
-                    if (!((BlockCollidable)collidableObject).IsWalkable)
-                    {
-                        player.Center = player.PreviousCenter;
-                        collisionOccurrences[0] = true;
-                    }
-                } 
-		        else
+                    this.player.Die();
+                }
+                else
                 {
-                    if (!player.IsGrabbed)
-                    {
-                        player.Center = player.PreviousCenter;
-                        collisionOccurrences[0] = true;
-                    } else
-                    {
-                        GameStateManager.Instance.LinkGrabbedByWallMaster(1);
-                        player.IsGrabbed = false;
-                    }
-                    
-                } 
-	}
-	
-	private void ProjectileCollision(ICollidable collidableObject)
-	{
-                
-		if (((ProjectileCollidable)collidableObject).IsEnemy && !isDamageDisabled)
+                    player.BeShoved();
+                }
+            }
+
+        }
+
+        private void DoorCollision(ICollidable collidableObject)
+        {
+            if (collisionOccurrences[0])
+            {
+                return;
+            }
+            if (((DoorCollidable)collidableObject).State == IDoor.DoorState.Closed || ((DoorCollidable)collidableObject).State == IDoor.DoorState.Locked || ((DoorCollidable)collidableObject).State == IDoor.DoorState.Wall)
+            {
+                player.Center = player.PreviousCenter;
+                collisionOccurrences[0] = true;
+            }
+
+        }
+
+        private void TrapCollision(ICollidable collidableObject)
+        {
+            if (((TrapCollidable)collidableObject).Trap.IsTriggered)
+            {
+                //take damage and get shoved back by enemy
+                if (!isDamageDisabled)
                 {
-                    player.TakeDamage(((ProjectileCollidable)collidableObject).DamageValue);
+                    player.TakeDamage(collidableObject.DamageValue);
+
                     if (player.Health <= 0)
                     {
                         this.player.Die();
@@ -155,49 +191,18 @@ namespace cse3902.Collision.Collidables
                     {
                         player.BeShoved();
                     }
+
                 }
 
-	}
 
-	private void DoorCollision(ICollidable collidableObject)
-	{
-                if (collisionOccurrences[0])
-                {
-                    return;
-                }
-                if (((DoorCollidable)collidableObject).State == IDoor.DoorState.Closed || ((DoorCollidable)collidableObject).State == IDoor.DoorState.Locked || ((DoorCollidable)collidableObject).State == IDoor.DoorState.Wall)
-                {
-                    player.Center = player.PreviousCenter;
-                    collisionOccurrences[0] = true;
-                }
 
-	}
-
-        private void TrapCollision(ICollidable collidableObject)
-        {
-            if (((TrapCollidable)collidableObject).Trap.IsTriggered)
-                {
-                    //take damage and get shoved back by enemy
-                    if (!isDamageDisabled) {
-                        player.TakeDamage(collidableObject.DamageValue);
-
-                        if (player.Health <= 0)
-                        {
-                            this.player.Die();
-			            }
-                        else
-                        {
-                            player.BeShoved();
-                        }
-
-                    }
-                    
-                    
-
-                } else
-                {
-                    ((TrapCollidable)collidableObject).Trap.Trigger();
-                }
+            }
+            else
+            {
+                ((TrapCollidable)collidableObject).Trap.Trigger();
+            }
         }
+
+
     }
 }
