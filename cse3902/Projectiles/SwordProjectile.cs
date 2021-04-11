@@ -1,6 +1,7 @@
 using cse3902.Interfaces;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.ParticleSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -87,8 +88,18 @@ namespace cse3902.Projectiles
             }
             else
             {
-                collisionTexture.Center = new Vector2(currentX, currentY);
-                collisionTexture.Draw();
+                if (ParticleEngine.Instance.UseParticleEffects)
+                {
+                    origin = new Vector2(currentX, currentY) - new Vector2(frameWidth, frameHeight) / 10 +  direction * 5;
+                    ParticleEngine.Instance.CreateNewEmitter(ParticleEngine.ParticleEmitter.SwordHit, origin);
+                    animationComplete = true;
+                }
+                else
+                {
+                    collisionTexture.Center = new Vector2(currentX, currentY);
+                    collisionTexture.Draw();
+                }
+                
             }
         }
 

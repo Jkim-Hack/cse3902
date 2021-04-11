@@ -3,6 +3,7 @@ using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
 using cse3902.Sounds;
+using cse3902.ParticleSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -87,16 +88,30 @@ namespace cse3902.Projectiles
             }
             else
             {
-                if (collTime >= 0)
+                if (ParticleEngine.Instance.UseParticleEffects)
                 {
-                    Rectangle Destination = new Rectangle(currentX, currentY, (int)(2 * collisionTexture.Width), (int)(2 * collisionTexture.Width));
-                    spriteBatch.Draw(collisionTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, SpriteUtilities.EffectsLayer);
-                    collTime--;
+                    origin = new Vector2(currentX, currentY) - new Vector2(frameWidth, frameHeight) / 5 +  direction * 5;
+                    ParticleEngine.Instance.CreateNewEmitter(ParticleEngine.ParticleEmitter.ArrowHit, origin);
+                    animationComplete = true;
                 }
                 else
                 {
-                    animationComplete = true;
+                    DrawCollisionTexture(origin);
                 }
+            }
+        }
+
+        private void DrawCollisionTexture(Vector2 origin)
+        {
+            if (collTime >= 0)
+            {
+                Rectangle Destination = new Rectangle(currentX, currentY, (int)(2 * collisionTexture.Width), (int)(2 * collisionTexture.Width));
+                spriteBatch.Draw(collisionTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, SpriteUtilities.EffectsLayer);
+                collTime--;
+            }
+            else
+            {
+                animationComplete = true;
             }
         }
 
