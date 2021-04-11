@@ -8,7 +8,9 @@ namespace cse3902.Constants
         public const bool UseParticleEffects = true;
 
         /* Arrow emitter */
-	    public const int ArrowParticleDensity = 200;
+        public const int ArrowParticleInitialAmount = 100;
+        public const int ArrowParticleAddAmmount = 25;
+
         public const int ArrowParticleSize = 5;
 
         public const int ArrowParticleLifetimeMin = 5;
@@ -16,7 +18,7 @@ namespace cse3902.Constants
 
         public const float ArrowParticleVelocityScale = 0.3f;
 
-        public const int ArrowParticleColorMin = 100;
-        public const int ArrowParticleColorMax = 230;
+        public const int ArrowParticleColorMin = 150;
+        public const int ArrowParticleColorMax = 255;
     }
 }

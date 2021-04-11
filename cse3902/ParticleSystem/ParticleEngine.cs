@@ -12,7 +12,8 @@ namespace cse3902.ParticleSystem
     {
         public enum ParticleEmitter
         {
-            ArrowHit
+            ArrowHit,
+            SwordHit
         }
 
         private static ParticleEngine instance = new ParticleEngine();
@@ -45,7 +46,22 @@ namespace cse3902.ParticleSystem
 
         public void CreateNewEmitter(ParticleEmitter emitter, Vector2 origin)
         {
-            if (emitter == ParticleEmitter.ArrowHit) emitters.Add(new ArrowEmitter(cloud, origin));
+            IParticleEmmiter newEmitter = null;
+
+            if (emitter == ParticleEmitter.ArrowHit) newEmitter = GetArrowEmitter(origin);
+            if (emitter == ParticleEmitter.SwordHit) newEmitter = GetSwordEmitter(origin);
+
+            emitters.Add(newEmitter);
+        }
+
+        private IParticleEmmiter GetArrowEmitter(Vector2 origin)
+        {
+            return new ArrowEmitter(cloud, origin);
+        }
+
+        private IParticleEmmiter GetSwordEmitter(Vector2 origin)
+        {
+            return null;
         }
 
         public void Update(GameTime gameTime)

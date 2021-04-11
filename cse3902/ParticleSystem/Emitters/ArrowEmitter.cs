@@ -14,6 +14,8 @@ namespace cse3902.ParticleSystem
 
         private List<IParticle> particles;
 
+        private int particleAddAmount;
+
         public ArrowEmitter(Texture2D texture, Vector2 origin)
         {
             this.texture = texture;
@@ -21,15 +23,17 @@ namespace cse3902.ParticleSystem
 
             this.particles = new List<IParticle>();
 
-            GenerateParticles();
+            this.particleAddAmount = ParticleConstants.ArrowParticleAddAmmount;
+
+            GenerateParticles(ParticleConstants.ArrowParticleInitialAmount);
         }
 
-        private void GenerateParticles()
+        private void GenerateParticles(int num)
         {
-            for (int i = 0; i < ParticleConstants.ArrowParticleDensity; i++)
-            {
-                Random rand = ParticleConstants.rand;
+            Random rand = ParticleConstants.rand;
 
+            for (int i = 0; i < num; i++)
+            {
                 int lifeTime = rand.Next(ParticleConstants.ArrowParticleLifetimeMin, ParticleConstants.ArrowParticleLifetimeMax);
 
                 int colorVal = rand.Next(ParticleConstants.ArrowParticleColorMin, ParticleConstants.ArrowParticleColorMax);
@@ -57,6 +61,12 @@ namespace cse3902.ParticleSystem
 
         public void Update(GameTime gameTime)
         {
+            if (particleAddAmount > 0)
+            {
+                GenerateParticles(particleAddAmount);
+                particleAddAmount--;
+            }
+
             foreach (IParticle particle in particles) particle.Update(gameTime);
 
             /* Remove all dead particles */
@@ -70,7 +80,7 @@ namespace cse3902.ParticleSystem
 
         public bool AnimationDone
         {
-            get => particles.Count == 0;
+            get => particles.Count == 0 && particleAddAmount == 0;
         }
     }
 }
