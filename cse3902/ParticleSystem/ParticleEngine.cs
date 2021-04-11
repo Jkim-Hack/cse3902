@@ -27,12 +27,9 @@ namespace cse3902.ParticleSystem
         private Texture2D star;
         private Texture2D ring;
 
-        private bool pressed;
-
         private ParticleEngine()
         {
             emitters = new List<IParticleEmmiter>();
-            pressed = false;
         }
 
         public void LoadAllTextures(ContentManager content)
