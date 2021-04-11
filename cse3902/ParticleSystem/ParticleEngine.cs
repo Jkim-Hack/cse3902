@@ -61,7 +61,7 @@ namespace cse3902.ParticleSystem
 
         private IParticleEmmiter GetSwordEmitter(Vector2 origin)
         {
-            return null;
+            return new SwordEmitter(star, origin);
         }
 
         public void Update(GameTime gameTime)
