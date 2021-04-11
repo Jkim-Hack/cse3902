@@ -1,11 +1,10 @@
 using cse3902.Interfaces;
+using cse3902.Constants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using System;
-
-using Microsoft.Xna.Framework.Input; // testing
 
 namespace cse3902.ParticleSystem
 {
@@ -46,30 +45,11 @@ namespace cse3902.ParticleSystem
 
         public void CreateNewEmitter(ParticleEmitter emitter, Vector2 origin)
         {
-            switch (emitter)
-            {
-                case ParticleEmitter.ArrowHit:
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        private void AddArrowEmitter()
-        {
-            emitters.Add(new ArrowEmitter(circle, new Vector2(Mouse.GetState().X, Mouse.GetState().Y)));
+            if (emitter == ParticleEmitter.ArrowHit) emitters.Add(new ArrowEmitter(circle, origin));
         }
 
         public void Update(GameTime gameTime)
         {
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed && !pressed)
-            {
-                pressed = true;
-                AddArrowEmitter();
-            }
-            if (Mouse.GetState().LeftButton == ButtonState.Released) pressed = false;
-
             foreach (IParticleEmmiter emitter in emitters) emitter.Update(gameTime);
 
             /* Remove all emitters that have completed their animation */
@@ -79,6 +59,11 @@ namespace cse3902.ParticleSystem
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (IParticleEmmiter emitter in emitters) emitter.Draw(spriteBatch);
+        }
+
+        public bool UseParticleEffects
+        {
+            get => ParticleConstants.UseParticleEffects;
         }
     }
 }

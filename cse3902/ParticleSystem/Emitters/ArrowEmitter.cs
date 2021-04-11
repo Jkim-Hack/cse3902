@@ -16,7 +16,6 @@ namespace cse3902.ParticleSystem
 
         public ArrowEmitter(Texture2D texture, Vector2 origin)
         {
-            Console.WriteLine(origin);
             this.texture = texture;
             this.origin = origin;
 
@@ -31,15 +30,13 @@ namespace cse3902.ParticleSystem
             {
                 Random rand = ParticleConstants.rand;
 
-                Vector2 center = new Vector2((DimensionConstants.OriginalWindowWidth) * 2 + 100, (DimensionConstants.GameplayHeight / 3) * 5 + 100); // testing
-
                 int lifeTime = rand.Next(ParticleConstants.ArrowParticleLifetimeMin, ParticleConstants.ArrowParticleLifetimeMax);
 
                 int colorVal = rand.Next(ParticleConstants.ArrowParticleColorMin, ParticleConstants.ArrowParticleColorMax);
                 float colorOpacity = (float)rand.NextDouble();
                 Color color = new Color(colorVal, colorVal, colorVal) * colorOpacity;
 
-                particles.Add(new StraightMovingParticle(texture, color, center, GetRandomVelocity(rand), lifeTime, ParticleConstants.ArrowParticleSize));
+                particles.Add(new StraightMovingParticle(texture, color, origin, GetRandomVelocity(rand), lifeTime, ParticleConstants.ArrowParticleSize));
             }
         }
 
