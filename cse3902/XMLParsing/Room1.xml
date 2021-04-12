@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <rooms>
 	<room>
 		<number>1,5,0</number>
@@ -142,6 +142,11 @@
 			<item>
 				<type>Boomerang</type>
 				<xloc>8</xloc>
+				<yloc>5</yloc>
+			</item>
+			<item>
+				<type>Bow</type>
+				<xloc>6</xloc>
 				<yloc>5</yloc>
 			</item>
 		</items>
