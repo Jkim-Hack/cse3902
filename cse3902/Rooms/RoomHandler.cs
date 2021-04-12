@@ -29,8 +29,6 @@ namespace cse3902.Rooms
         public Vector3 startingRoomTranslation { get; }
         private bool startComplete;
 
-        private String url;
-
         public RoomHandler(Game1 gm)
         {
             this.game = gm;
@@ -46,8 +44,13 @@ namespace cse3902.Rooms
 
         public void Initialize()
         {
-            url = "XMLParsing/Room1.xml";
-            xmlParser.ParseXML(url);
+            String level1 = "XMLParsing/Level1.xml";
+            String level2 = "XMLParsing/Level2.xml";
+            String level3 = "XMLParsing/Level3.xml";
+
+            xmlParser.ParseXML(level1);
+            xmlParser.ParseXML(level2);
+            xmlParser.ParseXML(level3);
         }
 
         public void LoadNewRoom(Vector3 newPos, IDoor entranceDoor)
