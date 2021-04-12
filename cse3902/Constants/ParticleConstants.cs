@@ -32,5 +32,7 @@ namespace cse3902.Constants
         public const int SwordParticleLifetimeMax = 50;
 
         public const float SwordParticleVelocityScale = 0.4f;
+
+        public const float SwordParticleOpacity = 0.5f;
     }
 }
