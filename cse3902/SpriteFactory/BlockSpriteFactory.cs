@@ -30,6 +30,11 @@ namespace cse3902.SpriteFactory
             blockTextures.Add("brick", content.Load<Texture2D>("brick"));
             blockTextures.Add("ladder", content.Load<Texture2D>("ladder"));
             blockTextures.Add("invis", content.Load<Texture2D>("invisibleblock"));
+            blockTextures.Add("normalgrey", content.Load<Texture2D>("normalgrey"));
+            blockTextures.Add("normalred", content.Load<Texture2D>("normalred"));
+            blockTextures.Add("normalgreen", content.Load<Texture2D>("normalgreen"));
+            blockTextures.Add("redwater", content.Load<Texture2D>("redwater"));
+            blockTextures.Add("lava", content.Load<Texture2D>("lava"));
         }
 
         public ISprite CreateNormalBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
@@ -55,6 +60,58 @@ namespace cse3902.SpriteFactory
         public ISprite CreateInvisibleBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
             return new BlockSprite(spriteBatch, blockTextures["invis"], startingPos);
+        }
+
+        //public ISprite CreateNormalGreyBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        //{
+        //    return new BlockSprite(spriteBatch, blockTextures["normalgrey"], startingPos);
+        //}
+
+        //public ISprite CreateNormalRedBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        //{
+        //    return new BlockSprite(spriteBatch, blockTextures["normalred"], startingPos);
+        //}
+
+        //public ISprite CreateNormalGreenBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        //{
+        //    return new BlockSprite(spriteBatch, blockTextures["normalgreen"], startingPos);
+        //}
+
+        //public ISprite CreateRedWaterBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        //{
+        //    return new BlockSprite(spriteBatch, blockTextures["redwater"], startingPos);
+        //}
+
+        //public ISprite CreateLavaBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        //{
+        //    return new BlockSprite(spriteBatch, blockTextures["lava"], startingPos);
+        //}
+
+        //TODO: once the textures are loaded in, delete the below code and uncomment the above code
+        
+        public ISprite CreateNormalGreyBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new BlockSprite(spriteBatch, blockTextures["normalblock"], startingPos);
+        }
+
+        public ISprite CreateNormalRedBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new BlockSprite(spriteBatch, blockTextures["normalblock"], startingPos);
+        }
+
+        public ISprite CreateNormalGreenBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new BlockSprite(spriteBatch, blockTextures["normalblock"], startingPos);
+        }
+
+        public ISprite CreateRedWaterBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new BlockSprite(spriteBatch, blockTextures["normalblock"], startingPos);
+        }
+
+        public ISprite CreateLavaBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new BlockSprite(spriteBatch, blockTextures["normalblock"], startingPos);
         }
     }
 }
