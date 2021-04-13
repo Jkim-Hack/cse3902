@@ -7,7 +7,7 @@ using System;
 
 namespace cse3902.ParticleSystem
 {
-    public class StraightMovingParticle : IParticle
+    public class SinusoidalMovingParticle : IParticle
     {
         private Texture2D texture;
         private Color color;
@@ -15,17 +15,28 @@ namespace cse3902.ParticleSystem
         private Vector2 origin;
         private Vector2 velocity;
 
+        private Vector2 amplitudeDirection;
+        private int amplitude;
+        private int amplitudeTravelled;
+
         private int lifeTime;
 
         private int size;
 
-        public StraightMovingParticle(Texture2D texture, Color color, Vector2 origin, Vector2 velocity, int lifeTime, int size)
+        public SinusoidalMovingParticle(Texture2D texture, Color color, Vector2 origin, Vector2 velocity, int amplitude, int lifeTime, int size)
         {
             this.texture = texture;
             this.color = color;
 
             this.origin = origin;
             this.velocity = velocity;
+
+            /* Amplitude direction should be perpendicular to particle velocity */
+            this.amplitudeDirection = new Vector2(velocity.Y, -velocity.X);
+            this.amplitudeDirection.Normalize();
+            
+            this.amplitude = amplitude;
+            this.amplitudeTravelled = 0;
 
             this.lifeTime = lifeTime;
 
