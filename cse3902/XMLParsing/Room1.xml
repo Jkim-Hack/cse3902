@@ -243,7 +243,7 @@
 				<id>0</id>
 				<variables>
 					<variable>3</variable>
-					<variable>6</variable>
+					<variable>5</variable>
 					<variable>0</variable>
 				</variables>
 			</condition>
@@ -1533,7 +1533,7 @@
 				<id>0</id>
 				<variables>
 					<variable>3</variable>
-					<variable>4</variable>
+					<variable>5</variable>
 					<variable>0</variable>
 				</variables>
 			</condition>
