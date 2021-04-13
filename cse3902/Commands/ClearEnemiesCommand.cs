@@ -15,7 +15,7 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            RoomEnemies.Instance.KillAll();
+            if (GameStateManager.Instance.IsUnpaused() && !game.RoomHandler.roomTransitionManager.IsTransitioning()) RoomEnemies.Instance.KillAll();
         }
 
         public void Unexecute()

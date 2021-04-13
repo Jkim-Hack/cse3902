@@ -152,10 +152,10 @@ namespace cse3902.Rooms
             rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Wall;
         }
 
-        public void Reset()
+        public void Reset(bool healthReset)
         {
             game.Camera.Reset();
-            game.Player.Reset();
+            game.Player.Reset(healthReset);
             startComplete = false;
             rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Open;
             LoadNewRoom(startingRoom + startingRoomTranslation, rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0]);

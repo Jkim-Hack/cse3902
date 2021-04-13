@@ -83,7 +83,7 @@ namespace cse3902.Entities
             else if (type == InventoryManager.ItemType.Triforce)
             {
                 InventoryManager.Instance.RemoveFromInventory(InventoryManager.ItemType.Compass);
-                GameStateManager.Instance.LinkPickupItem(600, true);
+                GameStateManager.Instance.LinkPickupItem(601, true);
                 Vector2 startingPos = linkState.GameWonAnimation();
                 item.Center = startingPos;
                 AnimationItem = item;

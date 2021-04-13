@@ -20,6 +20,6 @@ namespace cse3902.Interfaces
 
         public void BeGrabbed(IEntity enemy, float speed);
 
-        public void Reset();
+        public void Reset(bool healthReset);
     }
 }

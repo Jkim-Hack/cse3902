@@ -153,7 +153,7 @@ namespace cse3902
                     SoundFactory.Instance.backgroundMusic.Stop();
                     SoundFactory.Instance.backgroundMusic.Play();
                     game.CollisionManager.Disabled = false;
-                    if (IsDying() || IsGrabbedByWallMaster() || triforce) game.RoomHandler.Reset();
+                    if (IsDying() || IsGrabbedByWallMaster() || triforce) game.RoomHandler.Reset(!IsGrabbedByWallMaster());
                     pausedState = PauseState.Unpaused;
                     triforce = false;
                 }

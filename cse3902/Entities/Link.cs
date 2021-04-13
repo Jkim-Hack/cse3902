@@ -176,10 +176,10 @@ namespace cse3902.Entities
             get => this.collidable;
         }
 
-        public void Reset()
+        public void Reset(bool healthReset)
         {
             linkSprite.DamageMaskHandler.Reset();
-            linkStateMachine.Health = linkStateMachine.TotalHealth;
+            if (healthReset) linkStateMachine.Health = linkStateMachine.TotalHealth;
             linkSprite.SetGameWon(false);
         }
 

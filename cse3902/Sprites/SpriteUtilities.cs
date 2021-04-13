@@ -4,6 +4,7 @@ namespace cse3902.Sprites
 {
     internal class SpriteUtilities
     {
+        public static float TriforceLayer { get => .05f; }
         public static float GameWonLayer { get => .1f; }
         public static float DeathEffectLayer { get => .1f; }
         public static float EffectsLayer { get => .2f; }

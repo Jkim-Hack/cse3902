@@ -15,11 +15,11 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            if (!pressed)
+            if (!pressed && !GameStateManager.Instance.IsPickingUpItem())
             {
                 pressed = true;
                 GameStateManager.Instance.Reset();
-                game.RoomHandler.Reset();
+                game.RoomHandler.Reset(true);
             }
         }
 
