@@ -186,7 +186,7 @@ namespace cse3902
 
             if (!GameStateManager.Instance.InMenu(true) && !GameStateManager.Instance.IsGrabbedByWallMaster()) player.Draw();
             roomHandler.Draw();
-            VisionBlocker.Instance.Drawb();
+            VisionBlocker.Instance.Draw();
             //collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
             spriteBatch.End();
 

@@ -41,7 +41,7 @@ namespace cse3902
         {
             linkPos = game.Player.Center;
         }
-        public void Drawb()
+        public void Draw()
         {
             if (visionBlocked)
             {
