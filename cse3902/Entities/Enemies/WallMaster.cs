@@ -4,6 +4,7 @@ using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.Rooms;
 using cse3902.SpriteFactory;
+using cse3902.Sprites;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
 using cse3902.Constants;
@@ -14,6 +15,7 @@ namespace cse3902.Entities.Enemies
     public class WallMaster : IEntity
     {
         private WallMasterSprite wallMasterSprite;
+        private ISprite grabbedLink;
         private WallMasterStateMachine wallMasterStateMachine;
         private readonly Game1 game;
 
@@ -27,6 +29,7 @@ namespace cse3902.Entities.Enemies
         private int shoveDistance;
 
         private Boolean isTriggered;
+        private Boolean grabbed;
         private Rectangle detectionBox;
 
         private ICollidable collidable;
@@ -42,8 +45,8 @@ namespace cse3902.Entities.Enemies
             center = start;
             previousCenter = center;
 
-            //wallmaster sprite sheet is 4 rows, 2 columns
             wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.SpriteBatch, center);
+            grabbedLink = NPCSpriteFactory.Instance.CreateGrabbedLinkSprite(game.SpriteBatch, center);
             wallMasterStateMachine = new WallMasterStateMachine(wallMasterSprite);
             speed = 30.0f;
             this.direction = new Vector2(0, 0);
@@ -52,6 +55,7 @@ namespace cse3902.Entities.Enemies
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             isTriggered = false;
+            grabbed = false;
             ConstructDetectionBox(abstractStart);
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = 10;
@@ -121,6 +125,7 @@ namespace cse3902.Entities.Enemies
             {
                 if (this.shoveDistance > 0) ShoveMovement();
                 else RegularMovement(gameTime);
+                this.grabbedLink.Center = this.Center;
             }
             
         }
@@ -178,11 +183,21 @@ namespace cse3902.Entities.Enemies
         public void Draw()
         {
             wallMasterSprite.Draw();
+            if (this.grabbed)
+            {
+                this.grabbedLink.Draw();
+            }
         }
 
         public IEntity Duplicate()
         {
             return new WallMaster(game, center, abstractStart);
+        }
+
+        public void GrabLink()
+        {
+            grabbed = true;
+
         }
 
         public IEntity.EnemyType Type
