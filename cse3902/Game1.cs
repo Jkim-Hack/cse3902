@@ -92,6 +92,7 @@ namespace cse3902
             hudManager = new HUDManager(this);
 
             GameStateManager.Instance.Game = this;
+            VisionBlocker.Instance.Game = this;
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
@@ -170,6 +171,7 @@ namespace cse3902
             //player.Update(gameTime);
             camera.Update();
             GameStateManager.Instance.Update();
+            VisionBlocker.Instance.Update();
             base.Update(gameTime);
         }
 
@@ -182,8 +184,9 @@ namespace cse3902
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetGameplayTransformationMatrix());
 
-            if (!GameStateManager.Instance.InMenu(true)) player.Draw();
+            if (!GameStateManager.Instance.InMenu(true) && !GameStateManager.Instance.IsGrabbedByWallMaster()) player.Draw();
             roomHandler.Draw();
+            VisionBlocker.Instance.Draw();
             //collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
             spriteBatch.End();
 

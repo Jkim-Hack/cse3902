@@ -47,7 +47,7 @@ namespace cse3902.HUD
         private InventoryManager()
         {
             inventory = new Dictionary<ItemType, int>();
-            inventory.Add(ItemType.Arrow, 10);
+            inventory.Add(ItemType.Arrow, 0);
             inventory.Add(ItemType.Heart, 0);
             inventory.Add(ItemType.HeartContainer, 0);
             inventory.Add(ItemType.Bomb, 0);
@@ -106,6 +106,11 @@ namespace cse3902.HUD
                     }
                 }
             }
+        }
+
+        public int ItemCount(ItemType type)
+        {
+            return inventory[type];
         }
 
         public void Reset()
