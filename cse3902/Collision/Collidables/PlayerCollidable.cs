@@ -87,9 +87,9 @@ namespace cse3902.Collision.Collidables
                 if (((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered)
                 {
                     player.TakeDamage(collidableObject.DamageValue);
-                    //todo: magic number
-                    //player.BeGrabbed((WallMaster)((EnemyCollidable)collidableObject).Enemy, 30.0f);
-                    GameStateManager.Instance.LinkGrabbedByWallMaster(1);
+                    ((WallMaster)((EnemyCollidable)collidableObject).Enemy).GrabLink();
+                    GameStateManager.Instance.LinkGrabbedByWallMaster(120);
+                    
 
                 }
                 else
