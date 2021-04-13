@@ -40,7 +40,9 @@ namespace cse3902.ParticleSystem
                 float colorOpacity = (float)rand.NextDouble();
                 Color color = new Color(colorVal, colorVal, colorVal) * colorOpacity;
 
-                particles.Add(new StraightMovingParticle(texture, color, origin, GetRandomVelocity(rand), lifeTime, ParticleConstants.ArrowParticleSize));
+                Vector2 velocity = GetRandomVelocity(rand);
+
+                particles.Add(new StraightMovingParticle(texture, color, origin, velocity, lifeTime, ParticleConstants.ArrowParticleSize));
             }
         }
 
