@@ -22,6 +22,7 @@ namespace cse3902.ParticleSystem
         private List<IParticleEmmiter> emitters;
 
         private Texture2D circle;
+        private Texture2D glow;
         private Texture2D cloud;
         private Texture2D diamond;
         private Texture2D star;
@@ -35,6 +36,7 @@ namespace cse3902.ParticleSystem
         public void LoadAllTextures(ContentManager content)
         {
             circle = content.Load<Texture2D>("particles/circle");
+            glow = content.Load<Texture2D>("particles/glow");
             cloud = content.Load<Texture2D>("particles/cloud");
             diamond = content.Load<Texture2D>("particles/diamond");
             star = content.Load<Texture2D>("particles/star");
