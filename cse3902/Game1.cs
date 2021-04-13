@@ -182,7 +182,7 @@ namespace cse3902
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetGameplayTransformationMatrix());
 
-            if (!GameStateManager.Instance.InMenu(true)) player.Draw();
+            if (!GameStateManager.Instance.InMenu(true) && !GameStateManager.Instance.IsGrabbedByWallMaster()) player.Draw();
             roomHandler.Draw();
             //collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
             spriteBatch.End();
