@@ -34,7 +34,7 @@ namespace cse3902.ParticleSystem
             /* Amplitude direction should be perpendicular to particle velocity */
             this.amplitudeDirection = new Vector2(velocity.Y, -velocity.X);
             this.amplitudeDirection.Normalize();
-            
+
             this.amplitude = amplitude;
             this.amplitudeTravelled = 0;
 
@@ -46,7 +46,16 @@ namespace cse3902.ParticleSystem
         public void Update(GameTime gameTime)
         {
             lifeTime--;
+
             origin += velocity;
+            origin += amplitudeDirection;
+            
+            amplitudeTravelled++;
+            if (amplitudeTravelled == amplitude)
+            {
+                amplitudeDirection *= -1;
+                amplitudeTravelled = 0;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
