@@ -208,6 +208,10 @@ namespace cse3902.Entities
                 this.linkStateMachine.speed = LinkConstants.defaultSpeed;
             }
         }
+        public Vector2 Size
+        {
+            get => linkSprite.Size;
+        }
       
 
     }
