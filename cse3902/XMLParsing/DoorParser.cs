@@ -76,6 +76,12 @@ namespace cse3902.XMLParsing
                 case "OffscreenUp":
                     newDoor = new OffscreenUpDoor(game, startingPos);
                     break;
+                case "PortalUp":
+                    newDoor = new PortalUp(game, startingPos);
+                    break;
+                case "PortalDown":
+                    newDoor = new PortalDown(game, startingPos);
+                    break;
                 default:
                     break;
             }
@@ -99,6 +105,10 @@ namespace cse3902.XMLParsing
                     return new Vector3(0, 0, -1);
                 case "OffscreenUp":
                     return new Vector3(0, 0, 1);
+                case "PortalUp":
+                    return new Vector3(0, 0, 2);
+                case "PortalDown":
+                    return new Vector3(0, 0, -2);
                 default: //this should never happen
                     return new Vector3(0, -1, 0);
             }
