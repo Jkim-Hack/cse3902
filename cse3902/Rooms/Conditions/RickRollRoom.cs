@@ -1,16 +1,16 @@
 ﻿using cse3902.Interfaces;
+using cse3902.Sounds;
 
 namespace cse3902.Rooms.Conditions
 {
-    public class AllEnemiesKilledBlocksPushable : ICondition
+    public class RickRollRoom : ICondition
     {
-        public AllEnemiesKilledBlocksPushable()
+        public RickRollRoom()
         {
         }
 
         public void CheckCondition()
         {
-            if (RoomEnemies.Instance.ListRef.Count != 0) RoomBlocks.Instance.Reset();
         }
 
         public void SendSignal()
@@ -25,12 +25,12 @@ namespace cse3902.Rooms.Conditions
 
         public void EnterRoom()
         {
-
+            //sound.play
         }
 
         public void LeaveRoom()
         {
-
+            //sound.stop
         }
     }
 }

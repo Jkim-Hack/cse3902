@@ -55,5 +55,15 @@ namespace cse3902.Rooms.Conditions
         {
             if (conditionVariables[4] == 0) conditionVariables[3] = 0;
         }
+
+        public void EnterRoom()
+        {
+
+        }
+
+        public void LeaveRoom()
+        {
+
+        }
     }
 }

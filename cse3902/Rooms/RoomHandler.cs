@@ -82,9 +82,11 @@ namespace cse3902.Rooms
             RoomDoors.Instance.LoadNewRoom(ref oldDoors, newRoom.Doors);
             rooms.GetValueOrDefault(currentRoom).Doors = oldDoors;
 
+            RoomConditions.Instance.LeaveRoom();
             List<ICondition> oldConditions = rooms.GetValueOrDefault(currentRoom).Conditions;
             RoomConditions.Instance.LoadNewRoom(ref oldConditions, newRoom.Conditions);
             rooms.GetValueOrDefault(currentRoom).Conditions = oldConditions;
+            RoomConditions.Instance.EnterRoom();
 
             previousRoom = currentRoom;
             currentRoom = newPos;
