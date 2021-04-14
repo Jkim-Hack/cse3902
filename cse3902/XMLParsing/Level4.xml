@@ -239,7 +239,7 @@
 			<block>
 				<type>Normal</type>
 				<dir>Left</dir>
-				<xloc>5</xloc>
+				<xloc>4</xloc>
 				<yloc>3</yloc>
 				<push>1</push>
 			</block>
