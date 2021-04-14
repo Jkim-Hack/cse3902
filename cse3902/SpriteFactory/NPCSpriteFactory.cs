@@ -36,22 +36,22 @@ namespace cse3902.SpriteFactory
 
         public ISprite CreateOldManSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            return new NPCSprite(spriteBatch, npcTextures["oldman"], startingPos);
+            return new NPCSprite(spriteBatch, npcTextures["oldman"], startingPos, false);
         }
 
         public ISprite CreateMedicineWomanSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            return new NPCSprite(spriteBatch, npcTextures["medicinewoman"], startingPos);
+            return new NPCSprite(spriteBatch, npcTextures["medicinewoman"], startingPos, false);
         }
         
         public ISprite CreateMerchantSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            return new NPCSprite(spriteBatch, npcTextures["merchant"], startingPos);
+            return new NPCSprite(spriteBatch, npcTextures["merchant"], startingPos, false);
         }
 
         public ISprite CreateGrabbedLinkSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            return new NPCSprite(spriteBatch, npcTextures["grabbedlink"], startingPos);
+            return new NPCSprite(spriteBatch, npcTextures["grabbedlink"], startingPos, true);
         }
 
         public ISprite CreateFlameSprite(SpriteBatch spriteBatch, Vector2 startingPos)
