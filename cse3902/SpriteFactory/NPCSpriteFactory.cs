@@ -30,8 +30,11 @@ namespace cse3902.SpriteFactory
             npcTextures.Add("medicinewoman", content.Load<Texture2D>("medicinewoman"));
             npcTextures.Add("merchant", content.Load<Texture2D>("merchant"));
             npcTextures.Add("grabbedlink", content.Load<Texture2D>("GrabbedLink"));
-            flame = content.Load<Texture2D>("fire");
 
+            //npcTextures.Add("easy", content.Load<Texture2D>("easy"));
+            //npcTextures.Add("hard", content.Load<Texture2D>("hard"));
+
+            flame = content.Load<Texture2D>("fire");
         }
 
         public ISprite CreateOldManSprite(SpriteBatch spriteBatch, Vector2 startingPos)
@@ -52,6 +55,16 @@ namespace cse3902.SpriteFactory
         public ISprite CreateGrabbedLinkSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
             return new NPCSprite(spriteBatch, npcTextures["grabbedlink"], startingPos, true);
+        }
+
+        public ISprite CreateEasySprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new SettingsSprite(spriteBatch, npcTextures["easy"], startingPos);
+        }
+
+        public ISprite CreateHardSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new SettingsSprite(spriteBatch, npcTextures["hard"], startingPos);
         }
 
         public ISprite CreateFlameSprite(SpriteBatch spriteBatch, Vector2 startingPos)

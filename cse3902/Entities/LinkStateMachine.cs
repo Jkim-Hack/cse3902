@@ -330,7 +330,9 @@ namespace cse3902.Entities
             set
             {
                 totalHealth = value;
-                if (totalHealth < 1) totalHealth = 1;
+                if (totalHealth < 2) totalHealth = 2;
+                else if (totalHealth > 36) totalHealth = 36;
+                if (health > totalHealth) health = totalHealth;
             }
         }
         

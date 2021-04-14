@@ -33,11 +33,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Sprites\" />
+    <Folder Include="Settings\" />
     <Folder Include="States\" />
     <Folder Include="Entities\Enemies\" />
     <Folder Include="Sprites\EnemySprites\" />
-    <Folder Include="SpriteFactory\" />
     <Folder Include="Collision\" />
     <Folder Include="Collision\Collidables\" />
     <Folder Include="Entities\DamageMasks\" />
