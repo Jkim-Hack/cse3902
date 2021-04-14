@@ -54,6 +54,12 @@ namespace cse3902.XMLParsing
                 case "4":
                     condition = new AllBlocksPushedPlaySound();
                     break;
+                case "5":
+                    condition = new RickRollRoom();
+                    break;
+                case "6":
+                    condition = new VisionBlockCondition();
+                    break;
                 default: //this should never happen
                     break;
             }
