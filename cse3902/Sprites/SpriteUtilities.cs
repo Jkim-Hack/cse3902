@@ -13,6 +13,7 @@ namespace cse3902.Sprites
         public static float LinkLayer { get => .4f; }
         public static float ProjectileLayer { get => .5f; }
         public static float EnemyLayer { get => .65f; }
+        public static float GrabbedLinkLayer { get => .66f; }
         public static float ItemLayer { get => .7f; }
         public static float BlockLayer { get => .8f; }
         public static float BombedDoorBackgroundLayer { get => .9f; }
