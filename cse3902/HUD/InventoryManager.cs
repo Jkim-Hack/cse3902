@@ -28,6 +28,7 @@ namespace cse3902.HUD
             Key,
             Rupee,
             Triforce,
+            Candle,
             None
         }
 
@@ -60,6 +61,7 @@ namespace cse3902.HUD
             inventory.Add(ItemType.Clock, 0);
             inventory.Add(ItemType.Fairy, 0);
             inventory.Add(ItemType.Triforce, 0);
+            inventory.Add(ItemType.Candle, 0);
         }
 
         public void AddToInventory(ItemType type)
