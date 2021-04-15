@@ -23,6 +23,11 @@ namespace cse3902.Constants
         public const int WindowWidth = OriginalWindowWidth * scale;
         public const int WindowHeight = OriginalWindowHeight * scale;
 
+        private static Vector2 originalSettingOffset = new Vector2(0, OriginalWindowHeight);
+        private static Vector2 settingOffset = originalSettingOffset * scale;
+        public static Vector2 OriginalSettingOffset { get => originalSettingOffset; }
+        public static Vector2 SettingOffset { get => settingOffset; }
+
         private static Vector2 originalWindowDimensions = new Vector2(OriginalWindowWidth, OriginalWindowHeight);
         private static Vector2 windowDimensions = new Vector2(WindowWidth, WindowHeight);
         public static Vector2 OriginalWindowDimensions { get => originalWindowDimensions; }

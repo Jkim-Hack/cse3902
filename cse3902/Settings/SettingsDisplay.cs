@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using cse3902.Constants;
 using cse3902.SpriteFactory;
 using cse3902.Interfaces;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902
 {
@@ -25,7 +24,7 @@ namespace cse3902
         }
         public void LoadSettingsPositions()
         {
-            Vector2 offset = new Vector2(0, DimensionConstants.OriginalWindowHeight);
+            Vector2 offset = DimensionConstants.OriginalSettingOffset;
             Point labelSize = new Point(64, 32);
             Point picSize = new Point(32, 32);
 
@@ -73,6 +72,11 @@ namespace cse3902
                 settingsSprites[setting].Draw();
                 modeSprites[setting].Draw();
             }
+        }
+
+        public Dictionary<SettingsManager.Setting, Rectangle> ModeRectangles
+        {
+            get => modePos;
         }
     }
 }

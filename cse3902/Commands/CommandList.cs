@@ -48,6 +48,19 @@ namespace cse3902.Commands
             {
                 {new Rectangle[] {new Rectangle(windowWidth/2- doorSide/2, hudHeight, doorSide, doorSide),new Rectangle(windowWidth- doorSide, (windowHeight+hudHeight)/2- doorSide/2, doorSide, doorSide),new Rectangle(windowWidth/2- doorSide/2, windowHeight- doorSide, doorSide, doorSide),new Rectangle(0,(windowHeight+hudHeight)/2- doorSide/2, doorSide, doorSide) }, new ChangeRoomXYCommand(game)}
             };
+            List<SettingsManager.Setting> sList = new List<SettingsManager.Setting>();
+            Rectangle[] rList = new Rectangle[SettingsDisplay.Instance.ModeRectangles.Count];
+            int i = 0;
+            foreach (SettingsManager.Setting setting in SettingsDisplay.Instance.ModeRectangles.Keys)
+            {
+                sList.Add(setting);
+                Rectangle r = SettingsDisplay.Instance.ModeRectangles[setting];
+                r.X += (int)DimensionConstants.SettingOffset.X;
+                r.Y += DimensionConstants.HudHeight - (int)DimensionConstants.SettingOffset.Y;
+                rList[i] = r;
+                i++;
+            }
+            leftMouseClickCommandMap.Add(rList, new UpdateSettingCommand(sList));
 
             rightMouseClickCommandMap = new Dictionary<Rectangle[], ICommand>()
             {

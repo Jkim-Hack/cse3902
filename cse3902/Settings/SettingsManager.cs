@@ -47,7 +47,7 @@ namespace cse3902
         {
             if (GameStateManager.Instance.IsPaused()) SettingsDisplay.Instance.Draw();
         }
-        public void UpdateMode(Setting setting)
+        public void UpdateSetting(Setting setting)
         {
             Mode mode = Settings[setting];
             Mode newMode;

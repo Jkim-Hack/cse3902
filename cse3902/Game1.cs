@@ -66,8 +66,6 @@ namespace cse3902
 
             // Setup input controllers    
             controllerList = new List<IController>();
-            controllerList.Add(new KeyboardController(this));
-            controllerList.Add(new MouseController(this));
 
             allCollidablesList = new AllCollidablesList();
 
@@ -133,6 +131,9 @@ namespace cse3902
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.ORANGE_MAP);
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.INVENTORY);
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.CURRENTITEMS);
+
+            controllerList.Add(new KeyboardController(this));
+            controllerList.Add(new MouseController(this));
         }
 
         /// <summary>
