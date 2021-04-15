@@ -7,7 +7,7 @@ using System;
 
 namespace cse3902.ParticleSystem
 {
-    public class FireballEmitter : IParticleEmmiter
+    public class FireballEmitter : IDependentParticleEmmiter
     {
         private Texture2D texture;
         private IProjectile fireball;
@@ -15,6 +15,7 @@ namespace cse3902.ParticleSystem
         private float timeSinceLastSpawn;
 
         private List<IParticle> particles;
+        private bool kill;
 
         public FireballEmitter(Texture2D texture, IProjectile fireball)
         {
@@ -24,6 +25,7 @@ namespace cse3902.ParticleSystem
             this.timeSinceLastSpawn = 0;
 
             this.particles = new List<IParticle>();
+            this.kill = false;
         }
 
         private void GenerateParticles(int num)
@@ -71,7 +73,15 @@ namespace cse3902.ParticleSystem
 
         public bool AnimationDone
         {
-            get => particles.Count == 0;
+            get => particles.Count == 0 && kill;
+        }
+
+        public bool Kill
+        {
+            set
+            {
+                kill = value;
+            }
         }
     }
 }

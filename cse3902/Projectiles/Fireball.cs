@@ -28,6 +28,7 @@ namespace cse3902.Projectiles
         private const float sizeIncrease = 1f;
 
         private ICollidable collidable;
+        private IDependentParticleEmmiter fireballEmitter;
 
         public Fireball(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction)
         {
@@ -38,7 +39,7 @@ namespace cse3902.Projectiles
             animationComplete = false;
             fireballCounter = fireballDelay;
 
-            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateFireballEffect(this);
+            if (ParticleEngine.Instance.UseParticleEffects) fireballEmitter = ParticleEngine.Instance.CreateFireballEffect(this);
 
             this.collidable = new ProjectileCollidable(this);
         }
@@ -61,6 +62,7 @@ namespace cse3902.Projectiles
         {
             if(fireballCounter < 0)
             {
+                if (ParticleEngine.Instance.UseParticleEffects) fireballEmitter.Kill = true;
                 animationComplete = true;
                 return -1;
             }
