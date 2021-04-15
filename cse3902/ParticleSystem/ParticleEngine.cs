@@ -69,12 +69,12 @@ namespace cse3902.ParticleSystem
 
         public void Draw(SpriteBatch spriteBatch, Matrix transformationMatrix)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && !pressed)
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && !pressed)
             {
                 ProjectileHandler.Instance.CreateBombItem(spriteBatch, new Vector2(650, 970));
                 pressed = true;
             }
-            if (!Keyboard.GetState().IsKeyDown(Keys.Space)) pressed = false;
+            if (!Keyboard.GetState().IsKeyDown(Keys.LeftShift)) pressed = false;
 
             foreach (IParticleEmmiter emitter in emitters) emitter.Draw(spriteBatch, transformationMatrix);
         }
