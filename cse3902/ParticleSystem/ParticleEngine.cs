@@ -71,7 +71,7 @@ namespace cse3902.ParticleSystem
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && !pressed)
             {
-                ProjectileHandler.Instance.CreateFireballObject(spriteBatch, new Vector2(730, 970), new Vector2(-1f, 0));
+                ProjectileHandler.Instance.CreateBombItem(spriteBatch, new Vector2(650, 970));
                 pressed = true;
             }
             if (!Keyboard.GetState().IsKeyDown(Keys.Space)) pressed = false;
