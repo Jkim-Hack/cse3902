@@ -52,6 +52,11 @@ namespace cse3902.ParticleSystem
             emitters.Add(new SwordEmitter(star, origin));
         }
 
+        public void CreateBombEffect(Vector2 origin)
+        {
+            emitters.Add(new BombEmitter(glow, origin));
+        }
+
         public IDependentParticleEmmiter CreateFireballEffect(IProjectile fireball)
         {
             IDependentParticleEmmiter fireballEmitter = new FireballEmitter(glow, fireball);
