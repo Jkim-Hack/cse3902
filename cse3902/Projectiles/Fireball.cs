@@ -1,6 +1,7 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.ParticleSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Sprites;
@@ -37,6 +38,8 @@ namespace cse3902.Projectiles
             animationComplete = false;
             fireballCounter = fireballDelay;
 
+            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateFireballEffect(center);
+
             this.collidable = new ProjectileCollidable(this);
         }
 
@@ -72,9 +75,12 @@ namespace cse3902.Projectiles
 
         public void Draw()
         {
-            Vector2 origin = new Vector2(Texture.Width / 2f, Texture.Height / 2f);
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * Texture.Width), (int)(sizeIncrease * Texture.Height));
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
+            if (!ParticleEngine.Instance.UseParticleEffects)
+            {
+                Vector2 origin = new Vector2(Texture.Width / 2f, Texture.Height / 2f);
+                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * Texture.Width), (int)(sizeIncrease * Texture.Height));
+                spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
+            }
         }
 
         public ref Rectangle Box

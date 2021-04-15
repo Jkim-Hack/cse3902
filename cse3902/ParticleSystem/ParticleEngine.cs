@@ -47,6 +47,11 @@ namespace cse3902.ParticleSystem
             emitters.Add(new SwordEmitter(star, origin));
         }
 
+        public void CreateFireballEffect(Vector2 origin)
+        {
+            emitters.Add(new FireballEmitter(glow, origin));
+        }
+
         public void Update(GameTime gameTime)
         {
             foreach (IParticleEmmiter emitter in emitters) emitter.Update(gameTime);
