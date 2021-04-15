@@ -98,12 +98,13 @@ namespace cse3902
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
             Background.Instance.LoadTextures(Content, spriteBatch);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
-            NPCSpriteFactory.Instance.LoadAllTextures(Content);
+            NPCSpriteFactory.Instance.LoadAllTextures(Content, spriteBatch);
             ItemSpriteFactory.Instance.LoadAllTextures(Content, spriteBatch);
             ProjectileHandler.Instance.LoadAllTextures(Content);
             SoundFactory.Instance.LoadAllTextures(Content);
             HUDSpriteFactory.Instance.LoadAllTextures(Content);
             ParticleEngine.Instance.LoadAllTextures(Content);
+            SettingsManager.Instance.LoadManager();
 
             // For hitbox drawing
 	        lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
@@ -196,6 +197,7 @@ namespace cse3902
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetHudTransformationMatrix());
             hudManager.Draw();
+            SettingsManager.Instance.Draw();
             spriteBatch.End();
 
             base.Draw(gameTime);

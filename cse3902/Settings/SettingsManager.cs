@@ -37,18 +37,41 @@ namespace cse3902
             settings.Add(Setting.MinProjectileSwordHealth, Mode.Hard);
             settings.Add(Setting.HealthChange, Mode.Normal);
         }
+        public void LoadManager()
+        {
+            SettingsDisplay.Instance.LoadSettingsPositions();
+            SettingsDisplay.Instance.LoadSettingsSprites();
+        }
+
         public void Draw()
         {
             if (GameStateManager.Instance.IsPaused()) SettingsDisplay.Instance.Draw();
         }
+        public void UpdateMode(Setting setting)
+        {
+            Mode mode = Settings[setting];
+            Mode newMode;
+            switch (mode)
+            {
+                case Mode.Easy:
+                    newMode = Mode.Normal;
+                    break;
+                case Mode.Normal:
+                    newMode = Mode.Hard;
+                    break;
+                case Mode.Hard:
+                    newMode = Mode.Easy;
+                    break;
+                default: //this should never happen
+                    newMode = Mode.Normal;
+                    break;
+            }
+            Settings[setting] = newMode;
+        }
+
         public Dictionary<Setting,Mode> Settings
         {
             get => settings;
-        }
-
-        public Game1 game
-        {
-            set => SettingsDisplay.Instance.Game = value;
         }
     }
 }

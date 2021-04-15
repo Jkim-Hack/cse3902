@@ -9,15 +9,11 @@ namespace cse3902
 {
     public class SettingsDisplay
     {
-        private Game1 game;
+        private Dictionary<SettingsManager.Setting, Rectangle> settingsPos;
+        private Dictionary<SettingsManager.Setting, Rectangle> modePos;
 
-        private Dictionary<SettingsManager.Setting, Rectangle> settingsLabelPos;
-        private Dictionary<SettingsManager.Setting, Rectangle> settingsPicPos;
-
-        private Dictionary<SettingsManager.Setting, ISprite> settingSprites;
-        private Dictionary<SettingsManager.Mode, ISprite> modeSprites;
-
-        private Dictionary<SettingsManager.Mode, Texture2D> modePics;
+        private Dictionary<SettingsManager.Setting, ISprite> settingsSprites;
+        private Dictionary<SettingsManager.Setting, ISprite> modeSprites;
 
         private static SettingsDisplay settingsDisplayInstance = new SettingsDisplay();
         public static SettingsDisplay Instance
@@ -26,16 +22,14 @@ namespace cse3902
         }
         private SettingsDisplay()
         {
-            LoadSettingsPositions();
-            LoadSettingsSprites();
         }
-        private void LoadSettingsPositions()
+        public void LoadSettingsPositions()
         {
             Vector2 offset = new Vector2(0, DimensionConstants.OriginalWindowHeight);
             Point labelSize = new Point(64, 32);
             Point picSize = new Point(32, 32);
 
-            settingsLabelPos = new Dictionary<SettingsManager.Setting, Rectangle>()
+            settingsPos = new Dictionary<SettingsManager.Setting, Rectangle>()
             {
                 {SettingsManager.Setting.Utilities, new Rectangle((offset+new Vector2(16,20)).ToPoint(), labelSize)},
                 {SettingsManager.Setting.HealthChange, new Rectangle((offset+new Vector2(176,20)).ToPoint(), labelSize)},
@@ -45,7 +39,7 @@ namespace cse3902
                 {SettingsManager.Setting.EnemyStrength, new Rectangle((offset+new Vector2(176,124)).ToPoint(), labelSize)}
             };
 
-            settingsPicPos = new Dictionary<SettingsManager.Setting, Rectangle>()
+            modePos = new Dictionary<SettingsManager.Setting, Rectangle>()
             {
                 {SettingsManager.Setting.Utilities, new Rectangle((offset+new Vector2(88,20)).ToPoint(), picSize)},
                 {SettingsManager.Setting.HealthChange, new Rectangle((offset+new Vector2(136,20)).ToPoint(), picSize)},
@@ -55,17 +49,30 @@ namespace cse3902
                 {SettingsManager.Setting.EnemyStrength, new Rectangle((offset+new Vector2(136,124)).ToPoint(), picSize)}
             };
         }
-        private void LoadSettingsSprites()
+        public void LoadSettingsSprites()
         {
+            settingsSprites = new Dictionary<SettingsManager.Setting, ISprite>();
+            foreach (SettingsManager.Setting setting in settingsPos.Keys)
+            {
+                Rectangle r = settingsPos[setting];
+                settingsSprites.Add(setting, NPCSpriteFactory.Instance.CreateSettingSprite(new Vector2(r.X, r.Y), setting));
+            }
 
+            modeSprites = new Dictionary<SettingsManager.Setting, ISprite>();
+            foreach (SettingsManager.Setting setting in modePos.Keys)
+            {
+                Rectangle r = modePos[setting];
+                modeSprites.Add(setting, NPCSpriteFactory.Instance.CreateModeSprite(new Vector2(r.X, r.Y), SettingsManager.Instance.Settings[setting]));
+            }
         }
 
         public void Draw()
         {
-        }
-        public Game1 Game
-        {
-            set => game = value;
+            foreach(SettingsManager.Setting setting in settingsSprites.Keys)
+            {
+                settingsSprites[setting].Draw();
+                modeSprites[setting].Draw();
+            }
         }
     }
 }

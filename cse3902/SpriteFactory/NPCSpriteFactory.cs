@@ -7,11 +7,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace cse3902.SpriteFactory
 {
-    public class NPCSpriteFactory : ISpriteFactory
+    public class NPCSpriteFactory
     {
         private Dictionary<string, Texture2D> npcTextures;
-        private Dictionary<SettingsManager>
+        private Dictionary<SettingsManager.Setting, Texture2D> settingTextures;
+        private Dictionary<SettingsManager.Mode, Texture2D> modeTextures;
         private Texture2D flame;
+
+        private SpriteBatch spriteBatch;
 
         private static NPCSpriteFactory npcSpriteFactoryInstance = new NPCSpriteFactory();
 
@@ -23,24 +26,29 @@ namespace cse3902.SpriteFactory
         private NPCSpriteFactory()
         {
             npcTextures = new Dictionary<string, Texture2D>();
+            settingTextures = new Dictionary<SettingsManager.Setting, Texture2D>();
+            modeTextures = new Dictionary<SettingsManager.Mode, Texture2D>();
         }
 
-        public void LoadAllTextures(ContentManager content)
+        public void LoadAllTextures(ContentManager content, SpriteBatch spriteBatch)
         {
+            this.spriteBatch = spriteBatch;
+
             npcTextures.Add("oldman", content.Load<Texture2D>("oldman"));
             npcTextures.Add("medicinewoman", content.Load<Texture2D>("medicinewoman"));
             npcTextures.Add("merchant", content.Load<Texture2D>("merchant"));
             npcTextures.Add("grabbedlink", content.Load<Texture2D>("GrabbedLink"));
 
-            npcTextures.Add("easy", content.Load<Texture2D>("easy"));
-            npcTextures.Add("normal", content.Load<Texture2D>("normal"));
-            npcTextures.Add("hard", content.Load<Texture2D>("hard"));
-            npcTextures.Add("utilities", content.Load<Texture2D>("utilities"));
-            npcTextures.Add("vision", content.Load<Texture2D>("vision"));
-            npcTextures.Add("item", content.Load<Texture2D>("itemdroprate"));
-            npcTextures.Add("enemy", content.Load<Texture2D>("enemystrength"));
-            npcTextures.Add("sword", content.Load<Texture2D>("minprojhealth"));
-            npcTextures.Add("health", content.Load<Texture2D>("health"));
+            modeTextures.Add(SettingsManager.Mode.Easy, content.Load<Texture2D>("easy"));
+            modeTextures.Add(SettingsManager.Mode.Normal, content.Load<Texture2D>("normal"));
+            modeTextures.Add(SettingsManager.Mode.Hard, content.Load<Texture2D>("hard"));
+
+            settingTextures.Add(SettingsManager.Setting.Utilities, content.Load<Texture2D>("utilities"));
+            settingTextures.Add(SettingsManager.Setting.Vision, content.Load<Texture2D>("vision"));
+            settingTextures.Add(SettingsManager.Setting.ItemDropRate, content.Load<Texture2D>("itemdroprate"));
+            settingTextures.Add(SettingsManager.Setting.EnemyStrength, content.Load<Texture2D>("enemystrength"));
+            settingTextures.Add(SettingsManager.Setting.MinProjectileSwordHealth, content.Load<Texture2D>("minprojhealth"));
+            settingTextures.Add(SettingsManager.Setting.HealthChange, content.Load<Texture2D>("health"));
 
             flame = content.Load<Texture2D>("fire");
         }
@@ -65,49 +73,14 @@ namespace cse3902.SpriteFactory
             return new NPCSprite(spriteBatch, npcTextures["grabbedlink"], startingPos, true);
         }
 
-        public ISprite CreateEasySprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        public ISprite CreateSettingSprite(Vector2 startingPos, SettingsManager.Setting setting)
         {
-            return new SettingsSprite(spriteBatch, npcTextures["easy"], startingPos);
+            return new SettingsSprite(spriteBatch, settingTextures[setting], startingPos);
         }
 
-        public ISprite CreateNormalSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        public ISprite CreateModeSprite(Vector2 startingPos, SettingsManager.Mode mode)
         {
-            return new SettingsSprite(spriteBatch, npcTextures["normal"], startingPos);
-        }
-
-        public ISprite CreateHardSprite(SpriteBatch spriteBatch, Vector2 startingPos)
-        {
-            return new SettingsSprite(spriteBatch, npcTextures["hard"], startingPos);
-        }
-
-        public ISprite CreateUtilitiesSprite(SpriteBatch spriteBatch, Vector2 startingPos)
-        {
-            return new SettingsSprite(spriteBatch, npcTextures["utilities"], startingPos);
-        }
-
-        public ISprite CreateVisionSprite(SpriteBatch spriteBatch, Vector2 startingPos)
-        {
-            return new SettingsSprite(spriteBatch, npcTextures["vision"], startingPos);
-        }
-
-        public ISprite CreateItemSprite(SpriteBatch spriteBatch, Vector2 startingPos)
-        {
-            return new SettingsSprite(spriteBatch, npcTextures["item"], startingPos);
-        }
-
-        public ISprite CreateEnemySprite(SpriteBatch spriteBatch, Vector2 startingPos)
-        {
-            return new SettingsSprite(spriteBatch, npcTextures["enemy"], startingPos);
-        }
-
-        public ISprite CreateSwordSprite(SpriteBatch spriteBatch, Vector2 startingPos)
-        {
-            return new SettingsSprite(spriteBatch, npcTextures["sword"], startingPos);
-        }
-
-        public ISprite CreateHealthSprite(SpriteBatch spriteBatch, Vector2 startingPos)
-        {
-            return new SettingsSprite(spriteBatch, npcTextures["health"], startingPos);
+            return new SettingsSprite(spriteBatch, modeTextures[mode], startingPos);
         }
 
         public ISprite CreateFlameSprite(SpriteBatch spriteBatch, Vector2 startingPos)
