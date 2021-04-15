@@ -49,7 +49,11 @@ namespace cse3902.ParticleSystem
 
         private Vector2 GetRandomVelocity(Random rand)
         {
-            Vector2 velocity = new Vector2((float)rand.NextDouble(), (float)rand.NextDouble());
+            float angle = (float)(Math.Atan2(fireball.Direction.Y, fireball.Direction.X) + Math.PI) % (float)(2 * Math.PI);
+            angle += (float)rand.NextDouble() * ParticleConstants.FireballParticleAngleRange - ParticleConstants.FireballParticleAngleRange / 2.0f;
+
+            Vector2 velocity = new Vector2((float)(rand.NextDouble() * Math.Cos(angle)), (float)(rand.NextDouble() * Math.Sin(angle)));
+
             return velocity;
         }
 
