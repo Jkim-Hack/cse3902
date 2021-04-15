@@ -34,5 +34,17 @@ namespace cse3902.Constants
         public const float SwordParticleVelocityScale = 0.4f;
 
         public const float SwordParticleOpacity = 0.5f;
+
+        /* Fireball emitter */
+        public const int FireballParticleSpawnAmount = 10;
+
+        public const int FireballParticleSize = 5;
+
+        public const int FireballParticleLifetimeMin = 25;
+        public const int FireballParticleLifetimeMax = 50;
+
+        public const float FireballParticleVelocityScale = 1;
+
+        public const float FireballParticleOpacity = 1;
     }
 }

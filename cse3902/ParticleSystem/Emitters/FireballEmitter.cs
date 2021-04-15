@@ -14,16 +14,12 @@ namespace cse3902.ParticleSystem
 
         private List<IParticle> particles;
 
-        private int particleAddAmount;
-
         public FireballEmitter(Texture2D texture, Vector2 origin)
         {
             this.texture = texture;
             this.origin = origin;
 
             this.particles = new List<IParticle>();
-
-            this.particleAddAmount = ParticleConstants.ArrowParticleAddAmount;
         }
 
         private void GenerateParticles(int num)
@@ -65,7 +61,7 @@ namespace cse3902.ParticleSystem
 
         public bool AnimationDone
         {
-            get => particles.Count == 0 && particleAddAmount == 0;
+            get => particles.Count == 0;
         }
     }
 }
