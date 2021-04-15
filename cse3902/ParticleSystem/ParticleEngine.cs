@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using System;
 
+using Microsoft.Xna.Framework.Input;
+using cse3902.Projectiles;
+
 namespace cse3902.ParticleSystem
 {
     public class ParticleEngine
@@ -21,6 +24,8 @@ namespace cse3902.ParticleSystem
         private Texture2D diamond;
         private Texture2D star;
         private Texture2D ring;
+
+        private bool pressed = false;
 
         private ParticleEngine()
         {
@@ -64,6 +69,13 @@ namespace cse3902.ParticleSystem
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && !pressed)
+            {
+                ProjectileHandler.Instance.CreateFireballObject(spriteBatch, new Vector2(730, 970), new Vector2(-0.5f, 0));
+                pressed = true;
+            }
+            if (!Keyboard.GetState().IsKeyDown(Keys.Space)) pressed = false;
+
             foreach (IParticleEmmiter emitter in emitters) emitter.Draw(spriteBatch);
         }
 

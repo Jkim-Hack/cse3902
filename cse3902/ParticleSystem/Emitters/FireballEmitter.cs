@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
 
+using Microsoft.Xna.Framework.Input;
+
 namespace cse3902.ParticleSystem
 {
     public class FireballEmitter : IDependentParticleEmmiter
@@ -73,15 +75,12 @@ namespace cse3902.ParticleSystem
 
         public bool AnimationDone
         {
-            get => particles.Count == 0 && kill;
+            get => particles.Count == 0 || kill;
         }
 
         public bool Kill
         {
-            set
-            {
-                kill = value;
-            }
+            set => kill = value;
         }
     }
 }
