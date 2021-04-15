@@ -67,6 +67,7 @@ namespace cse3902
                     break;
             }
             Settings[setting] = newMode;
+            SettingsDisplay.Instance.UpdateSettingSprite(setting, newMode);
         }
 
         public Dictionary<Setting,Mode> Settings

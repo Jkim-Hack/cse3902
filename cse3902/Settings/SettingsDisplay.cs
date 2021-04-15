@@ -73,6 +73,11 @@ namespace cse3902
                 modeSprites[setting].Draw();
             }
         }
+        public void UpdateSettingSprite(SettingsManager.Setting setting, SettingsManager.Mode newMode)
+        {
+            Rectangle r = modePos[setting];
+            modeSprites[setting] = NPCSpriteFactory.Instance.CreateModeSprite(new Vector2(r.X, r.Y), newMode);
+        }
 
         public Dictionary<SettingsManager.Setting, Rectangle> ModeRectangles
         {

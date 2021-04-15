@@ -6,7 +6,7 @@ namespace cse3902.Constants
     public class DimensionConstants
     {
         //changeable constants
-        private const int scale = 3;
+        public const int scale = 3;
 
         public const int OriginalHudHeight = 56;
         private const int originalMouseClickSide = 32;
@@ -23,14 +23,15 @@ namespace cse3902.Constants
         public const int WindowWidth = OriginalWindowWidth * scale;
         public const int WindowHeight = OriginalWindowHeight * scale;
 
-        private static Vector2 originalSettingOffset = new Vector2(0, OriginalWindowHeight);
-        private static Vector2 settingOffset = originalSettingOffset * scale;
-        public static Vector2 OriginalSettingOffset { get => originalSettingOffset; }
-        public static Vector2 SettingOffset { get => settingOffset; }
-
         private static Vector2 originalWindowDimensions = new Vector2(OriginalWindowWidth, OriginalWindowHeight);
         private static Vector2 windowDimensions = new Vector2(WindowWidth, WindowHeight);
         public static Vector2 OriginalWindowDimensions { get => originalWindowDimensions; }
         public static Vector2 WindowDimensions { get => windowDimensions; }
+
+        //setting constants
+        private static Vector2 originalSettingOffset = new Vector2(0, OriginalWindowHeight);
+        private static Vector2 settingOffset = originalSettingOffset * scale;
+        public static Vector2 OriginalSettingOffset { get => originalSettingOffset; }
+        public static Vector2 SettingOffset { get => settingOffset; }
     }
 }

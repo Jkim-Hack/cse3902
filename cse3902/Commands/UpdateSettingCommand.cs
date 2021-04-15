@@ -5,19 +5,23 @@ namespace cse3902.Commands
 {
     public class UpdateSettingCommand : ICommand
     {
-        private bool pressed;
+        private int pressed;
         private List<SettingsManager.Setting> settings;
 
         public UpdateSettingCommand(List<SettingsManager.Setting> settingsList)
         {
-            pressed = false;
+            pressed = 0;
             settings = settingsList;
         }
 
         public void Execute(int id)
         {
-            if (pressed) return;
-            pressed = true;
+            if (pressed > 0)
+            {
+                pressed--;
+                return;
+            }
+            pressed = 7;
 
             id = id % 6;
             SettingsManager.Instance.UpdateSetting(settings[id]);
@@ -25,7 +29,6 @@ namespace cse3902.Commands
 
         public void Unexecute()
         {
-            pressed = false;
         }
     }
 }

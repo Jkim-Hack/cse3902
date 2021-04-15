@@ -2,8 +2,6 @@
 using System;
 using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
-using cse3902.HUD;
-using cse3902.Doors;
 
 namespace cse3902.Rooms
 {

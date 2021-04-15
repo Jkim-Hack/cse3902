@@ -55,8 +55,10 @@ namespace cse3902.Commands
             {
                 sList.Add(setting);
                 Rectangle r = SettingsDisplay.Instance.ModeRectangles[setting];
-                r.X += (int)DimensionConstants.SettingOffset.X;
-                r.Y += DimensionConstants.HudHeight - (int)DimensionConstants.SettingOffset.Y;
+                r.X = r.X * DimensionConstants.scale - (int)DimensionConstants.SettingOffset.X;
+                r.Y = r.Y * DimensionConstants.scale + DimensionConstants.HudHeight - (int)DimensionConstants.SettingOffset.Y;
+                r.Width *= DimensionConstants.scale;
+                r.Height *= DimensionConstants.scale;
                 rList[i] = r;
                 i++;
             }
