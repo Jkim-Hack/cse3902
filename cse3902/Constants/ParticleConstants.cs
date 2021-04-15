@@ -39,13 +39,13 @@ namespace cse3902.Constants
         public const int FireballParticleAddAmount = 10;
         public const int FireballParticleAddDelay = 10; /* milliseconds */
 
-        public const int FireballParticleSize = 5;
+        public const int FireballParticleSize = 10;
 
         public const int FireballParticleLifetimeMin = 25;
         public const int FireballParticleLifetimeMax = 50;
 
         public const float FireballParticleVelocityScale = 1;
-        public const float FireballParticleAngleRange = (float)Math.PI / 2.0f;
+        public const float FireballParticleAngleRange = (float)Math.PI / 4.0f;
 
         public const float FireballParticleOpacity = 1;
     }

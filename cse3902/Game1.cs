@@ -187,9 +187,7 @@ namespace cse3902
             collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
             spriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetGameplayTransformationMatrix());
-            ParticleEngine.Instance.Draw(spriteBatch);
-            spriteBatch.End();
+            ParticleEngine.Instance.Draw(spriteBatch, camera.GetGameplayTransformationMatrix());
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetHudTransformationMatrix());
             hudManager.Draw();

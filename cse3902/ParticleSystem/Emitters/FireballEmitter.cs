@@ -39,11 +39,11 @@ namespace cse3902.ParticleSystem
                 int lifeTime = rand.Next(ParticleConstants.FireballParticleLifetimeMin, ParticleConstants.FireballParticleLifetimeMax);
 
                 float colorOpacity = (float)rand.NextDouble();
-                Color color = Color.White * colorOpacity;
+                Color color = new Color(255, rand.Next(128), 0) * colorOpacity;
 
                 Vector2 velocity = GetRandomVelocity(rand);
 
-                particles.Add(new StraightMovingParticle(texture, color, fireball.Center, velocity, lifeTime, ParticleConstants.ArrowParticleSize));
+                particles.Add(new StraightMovingParticle(texture, color, fireball.Center, velocity, lifeTime, ParticleConstants.FireballParticleSize));
             }
         }
 
@@ -72,9 +72,11 @@ namespace cse3902.ParticleSystem
             particles.RemoveAll(particle => particle.Dead);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Matrix transformationMatrix)
         {
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.Additive, SamplerState.PointClamp, null, null, null, transformationMatrix);
             foreach (IParticle particle in particles) particle.Draw(spriteBatch);
+            spriteBatch.End();
         }
 
         public bool AnimationDone

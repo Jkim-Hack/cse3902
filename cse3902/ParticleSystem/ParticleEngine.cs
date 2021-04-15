@@ -67,7 +67,7 @@ namespace cse3902.ParticleSystem
             emitters.RemoveAll(emitter => emitter.AnimationDone);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Matrix transformationMatrix)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && !pressed)
             {
@@ -76,7 +76,7 @@ namespace cse3902.ParticleSystem
             }
             if (!Keyboard.GetState().IsKeyDown(Keys.Space)) pressed = false;
 
-            foreach (IParticleEmmiter emitter in emitters) emitter.Draw(spriteBatch);
+            foreach (IParticleEmmiter emitter in emitters) emitter.Draw(spriteBatch, transformationMatrix);
         }
 
         public bool UseParticleEffects

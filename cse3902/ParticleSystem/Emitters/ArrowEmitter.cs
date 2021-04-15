@@ -75,9 +75,11 @@ namespace cse3902.ParticleSystem
             particles.RemoveAll(particle => particle.Dead);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Matrix transformationMatrix)
         {
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, transformationMatrix);
             foreach (IParticle particle in particles) particle.Draw(spriteBatch);
+            spriteBatch.End();
         }
 
         public bool AnimationDone
