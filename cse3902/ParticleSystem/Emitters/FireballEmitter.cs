@@ -30,7 +30,23 @@ namespace cse3902.ParticleSystem
             this.kill = false;
         }
 
-        private void GenerateParticles(int num)
+        private void GenerateCenterParticles(int num)
+        {
+            Random rand = ParticleConstants.rand;
+
+            for (int i = 0; i < num; i++)
+            {
+                int lifeTime = rand.Next(ParticleConstants.FireballParticleLifetimeMin, ParticleConstants.FireballParticleLifetimeMax);
+
+                Color color = new Color(255, rand.Next(128), 0);
+
+                Vector2 velocity = GetRandomCenterVelocity(rand);
+
+                particles.Add(new StraightMovingParticle(texture, color, fireball.Center, velocity, lifeTime, ParticleConstants.FireballParticleCenterSize));
+            }
+        }
+
+        private void GenerateTrailParticles(int num)
         {
             Random rand = ParticleConstants.rand;
 
@@ -41,13 +57,28 @@ namespace cse3902.ParticleSystem
                 float colorOpacity = (float)rand.NextDouble();
                 Color color = new Color(255, rand.Next(128), 0) * colorOpacity;
 
-                Vector2 velocity = GetRandomVelocity(rand);
+                Vector2 velocity = GetRandomTrailVelocity(rand);
 
-                particles.Add(new StraightMovingParticle(texture, color, fireball.Center, velocity, lifeTime, ParticleConstants.FireballParticleSize));
+                particles.Add(new StraightMovingParticle(texture, color, fireball.Center, velocity, lifeTime, ParticleConstants.FireballParticleTrailSize));
             }
         }
 
-        private Vector2 GetRandomVelocity(Random rand)
+        private Vector2 GetRandomCenterVelocity(Random rand)
+        {
+            Vector2 velocity = new Vector2((float)rand.NextDouble(), (float)rand.NextDouble());
+
+            if (rand.NextDouble() >= 0.5) velocity.X *= -1;
+            if (rand.NextDouble() >= 0.5) velocity.Y *= -1;
+
+            /* Gives effect a circular shape */
+            velocity.Normalize();
+
+            velocity *= ParticleConstants.ArrowParticleVelocityScale;
+
+            return velocity;
+        }
+
+        private Vector2 GetRandomTrailVelocity(Random rand)
         {
             float angle = (float)(Math.Atan2(fireball.Direction.Y, fireball.Direction.X) + Math.PI) % (float)(2 * Math.PI);
             angle += (float)rand.NextDouble() * ParticleConstants.FireballParticleAngleRange - ParticleConstants.FireballParticleAngleRange / 2.0f;
@@ -62,7 +93,8 @@ namespace cse3902.ParticleSystem
             timeSinceLastSpawn += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (timeSinceLastSpawn > ParticleConstants.FireballParticleAddDelay)
             {
-                GenerateParticles(ParticleConstants.FireballParticleAddAmount);
+                GenerateCenterParticles(ParticleConstants.FireballParticleCenterAmount);
+                GenerateTrailParticles(ParticleConstants.FireballParticleTrailAmount);
                 timeSinceLastSpawn = 0;
             }
 
