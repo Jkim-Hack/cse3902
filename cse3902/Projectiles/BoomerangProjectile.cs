@@ -129,7 +129,7 @@ namespace cse3902.Projectiles
 
         public int Damage
         {
-            get => 0; //stuns instead
+            get => 0; //stuns if Link throws, does damage is goriya throws. prolly need 2 different boomerang projectiles
         }
 
         public Vector2 Direction
