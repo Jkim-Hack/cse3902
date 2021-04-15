@@ -4,7 +4,7 @@ using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using cse3902.Rooms;
+using cse3902.Constants;
 using cse3902.Sprites;
 
 namespace cse3902.Projectiles
@@ -151,7 +151,7 @@ namespace cse3902.Projectiles
 
         public int Damage
         {
-            get => 6;
+            get => DamageConstants.SwordDamage;
         }
 
         public Vector2 Direction

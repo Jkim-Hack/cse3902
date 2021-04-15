@@ -129,7 +129,7 @@ namespace cse3902.Projectiles
 
         public int Damage
         {
-            get => 2;
+            get => 0; //stuns instead
         }
 
         public Vector2 Direction

@@ -41,7 +41,7 @@ namespace cse3902.Entities.Enemies
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 2;
+            health = 1;
         }
 
         public ref Rectangle Bounds

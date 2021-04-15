@@ -40,7 +40,7 @@ namespace cse3902.Commands
                 {new Keys[] {Keys.D7, Keys.D8, Keys.D9, Keys.D0}, new LinkChangeWeaponCommand(game) },
                 {new Keys[] {Keys.G, Keys.C, Keys.V, Keys.B}, new MoveCameraCommand(game) },
                 {new Keys[] {Keys.E, Keys.P}, new PauseCommand(game)},
-                {new Keys[] {Keys.K, Keys.L}, new ChangeHealthCommand(game)},
+                {new Keys[] {Keys.K, Keys.L, Keys.H, Keys.J}, new ChangeHealthCommand(game)},
                 {new Keys[] {Keys.Space}, new ClearEnemiesCommand(game)},
             };
 

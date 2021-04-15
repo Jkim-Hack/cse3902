@@ -17,11 +17,21 @@ namespace cse3902.Commands
         public void Execute(int id)
         {
             cooldown--;
-            id = (id % 2) * 2 - 1;
+            id = (id % 4);
             
             if (GameStateManager.Instance.IsUnpaused() && cooldown <= 0)
             {
-                (game.Player as Link).Health += id;
+                if (id <= 1)
+                {
+                    id = id * 2 - 1;
+                    (game.Player as Link).Health += id;
+                }
+                else
+                {
+                    id = id * 4 - 10;
+                    (game.Player as Link).TotalHealthCount += id;
+                }
+
                 cooldown = 15;
             }
         }

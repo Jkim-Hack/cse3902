@@ -1,7 +1,7 @@
 ﻿using System;
 using cse3902.Interfaces;
 using System.Collections;
-using System.Collections.Generic;
+using cse3902.HUD;
 using cse3902.Rooms;
 using cse3902.Entities.Enemies;
 using Microsoft.Xna.Framework;
@@ -50,30 +50,19 @@ namespace cse3902.Collision.Collidables
 
             } else if (collidableObject is ProjectileCollidable && !isDamageDisabled)
             {
-                if (this.enemy is Gel || this.enemy is Keese)
+                this.enemy.TakeDamage(collidableObject.DamageValue);
+                if (this.enemy.Health <= 0)
                 {
-                    //only gels and keese take damage from projectiles it seems
-                    this.enemy.TakeDamage(collidableObject.DamageValue);
-                    if (this.enemy.Health <= 0)
-                    {
-                        RoomEnemies.Instance.RemoveEnemy(this.enemy);
-                    }
-                } else
-                {
-
-                    if (((ProjectileCollidable)collidableObject).DamageValue > 5)
-                    {
-                        this.enemy.TakeDamage(collidableObject.DamageValue);
-                        this.enemy.BeShoved();
-                        if (this.enemy.Health <= 0)
-                        {
-                            RoomEnemies.Instance.RemoveEnemy(this.enemy);
-                        }
-                    }
-                    //other enemies are simply stunned in place for a bit
-                    //need some kind of method to be able to 'stun' the enemies
-                    //they will still animate, just not move
+                    RoomEnemies.Instance.RemoveEnemy(this.enemy);
+                    return;
                 }
+                if (((ProjectileCollidable)collidableObject).DamageValue > 2 || InventoryManager.Instance.SwordSlot == InventoryManager.SwordType.MagicalRod)
+                {
+                    this.enemy.BeShoved();
+                }
+                //other enemies are simply stunned in place for a bit
+                //need some kind of method to be able to 'stun' the enemies
+                //they will still animate, just not move
             } else if (collidableObject is DoorCollidable || collidableObject is WallCollidable)
             {
                 if (collisionOccurrences[0])

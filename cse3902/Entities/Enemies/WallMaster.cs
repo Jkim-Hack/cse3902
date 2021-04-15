@@ -58,7 +58,7 @@ namespace cse3902.Entities.Enemies
             grabbed = false;
             ConstructDetectionBox(abstractStart);
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 10;
+            health = 2;
         }
 
         public void Attack()
