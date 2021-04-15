@@ -10,6 +10,7 @@ namespace cse3902.SpriteFactory
     public class NPCSpriteFactory : ISpriteFactory
     {
         private Dictionary<string, Texture2D> npcTextures;
+        private Dictionary<SettingsManager>
         private Texture2D flame;
 
         private static NPCSpriteFactory npcSpriteFactoryInstance = new NPCSpriteFactory();

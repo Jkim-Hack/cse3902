@@ -133,6 +133,10 @@ namespace cse3902
         {
             return pausedState == PauseState.WallMasterGrabbed;
         }
+        public bool IsPaused()
+        {
+            return pausedState == PauseState.Paused;
+        }
 
         public void Update()
         {
@@ -156,6 +160,7 @@ namespace cse3902
                     if (IsDying() || IsGrabbedByWallMaster() || triforce) game.RoomHandler.Reset(!IsGrabbedByWallMaster());
                     pausedState = PauseState.Unpaused;
                     triforce = false;
+                    VisionBlocker.Instance.Triforce = false;
                 }
             }
         }

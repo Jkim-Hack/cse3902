@@ -10,6 +10,7 @@ namespace cse3902
     {
         private const int blockedVisionRadius = 16;
         private bool visionBlocked;
+        private bool triforce;
 
         /*
          * sideOffset[0] = bottom
@@ -43,7 +44,7 @@ namespace cse3902
         }
         public void Draw()
         {
-            if (visionBlocked)
+            if (visionBlocked && !triforce)
             {
                 foreach (Vector2 offset in sideOffset)
                 {
@@ -56,6 +57,10 @@ namespace cse3902
         public bool VisionIsBlocked
         {
             set => visionBlocked = value;
+        }
+        public bool Triforce
+        {
+            set => triforce = value;
         }
         public Game1 Game
         {

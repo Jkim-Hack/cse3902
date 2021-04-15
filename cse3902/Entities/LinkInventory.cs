@@ -84,6 +84,7 @@ namespace cse3902.Entities
             {
                 InventoryManager.Instance.RemoveFromInventory(InventoryManager.ItemType.Compass);
                 GameStateManager.Instance.LinkPickupItem(601, true);
+                VisionBlocker.Instance.Triforce = true;
                 Vector2 startingPos = linkState.GameWonAnimation();
                 item.Center = startingPos;
                 AnimationItem = item;
