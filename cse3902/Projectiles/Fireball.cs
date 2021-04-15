@@ -116,7 +116,7 @@ namespace cse3902.Projectiles
 
         public Vector2 Direction
         {
-            get => this.direction;
+            get => this.direction * speed;
             set => this.direction = value;
 
         }

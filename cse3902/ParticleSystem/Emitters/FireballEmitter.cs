@@ -12,6 +12,7 @@ namespace cse3902.ParticleSystem
     public class FireballEmitter : IDependentParticleEmmiter
     {
         private Texture2D texture;
+        private Vector2 origin;
         private IProjectile fireball;
 
         private float timeSinceLastSpawn;
@@ -34,15 +35,13 @@ namespace cse3902.ParticleSystem
         {
             Random rand = ParticleConstants.rand;
 
-            for (int i = 0; i < num; i++)
+            for (int i = 0; i < 1; i++)
             {
-                int lifeTime = rand.Next(ParticleConstants.FireballParticleLifetimeMin, ParticleConstants.FireballParticleLifetimeMax);
-
-                Color color = new Color(255, rand.Next(128), 0);
+                Color color = new Color(255, rand.Next(ParticleConstants.FireballParticleCenterColorMax), 0);
 
                 Vector2 velocity = GetRandomCenterVelocity(rand);
 
-                particles.Add(new StraightMovingParticle(texture, color, fireball.Center, velocity, lifeTime, ParticleConstants.FireballParticleCenterSize));
+                particles.Add(new StraightMovingParticle(texture, color, origin, velocity, ParticleConstants.FireballParticleCenterLifetime, ParticleConstants.FireballParticleCenterSize));
             }
         }
 
@@ -52,14 +51,16 @@ namespace cse3902.ParticleSystem
 
             for (int i = 0; i < num; i++)
             {
-                int lifeTime = rand.Next(ParticleConstants.FireballParticleLifetimeMin, ParticleConstants.FireballParticleLifetimeMax);
+                int lifeTime = rand.Next(ParticleConstants.FireballParticleTrailLifetimeMin, ParticleConstants.FireballParticleTrailLifetimeMax);
 
                 float colorOpacity = (float)rand.NextDouble();
-                Color color = new Color(255, rand.Next(128), 0) * colorOpacity;
+                Color color = new Color(255, rand.Next(ParticleConstants.FireballParticleTrailColorMax), 0) * colorOpacity;
 
                 Vector2 velocity = GetRandomTrailVelocity(rand);
 
-                particles.Add(new StraightMovingParticle(texture, color, fireball.Center, velocity, lifeTime, ParticleConstants.FireballParticleTrailSize));
+                Vector2 spawn = new Vector2((float)(rand.NextDouble() * fireball.Box.Height - fireball.Box.Height / 2.0f) + origin.X, origin.Y);
+
+                particles.Add(new StraightMovingParticle(texture, color, spawn, velocity, lifeTime, ParticleConstants.FireballParticleTrailSize));
             }
         }
 
@@ -73,7 +74,9 @@ namespace cse3902.ParticleSystem
             /* Gives effect a circular shape */
             velocity.Normalize();
 
-            velocity *= ParticleConstants.ArrowParticleVelocityScale;
+            velocity *= ParticleConstants.FireballParticleCenterVelocityScale;
+
+            velocity += fireball.Direction;
 
             return velocity;
         }
@@ -84,12 +87,15 @@ namespace cse3902.ParticleSystem
             angle += (float)rand.NextDouble() * ParticleConstants.FireballParticleAngleRange - ParticleConstants.FireballParticleAngleRange / 2.0f;
 
             Vector2 velocity = new Vector2((float)(rand.NextDouble() * Math.Cos(angle)), (float)(rand.NextDouble() * Math.Sin(angle)));
+            velocity *= ParticleConstants.FireballParticleTrailVelocityScale;
 
             return velocity;
         }
 
         public void Update(GameTime gameTime)
         {
+            origin = fireball.Center - new Vector2(fireball.Box.Width / 2, fireball.Box.Height / 3);
+
             timeSinceLastSpawn += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (timeSinceLastSpawn > ParticleConstants.FireballParticleAddDelay)
             {
