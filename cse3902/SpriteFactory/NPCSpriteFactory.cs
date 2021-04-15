@@ -32,6 +32,7 @@ namespace cse3902.SpriteFactory
             npcTextures.Add("grabbedlink", content.Load<Texture2D>("GrabbedLink"));
 
             //npcTextures.Add("easy", content.Load<Texture2D>("easy"));
+            //npcTextures.Add("normal", content.Load<Texture2D>("normal"));
             //npcTextures.Add("hard", content.Load<Texture2D>("hard"));
 
             flame = content.Load<Texture2D>("fire");
@@ -60,6 +61,11 @@ namespace cse3902.SpriteFactory
         public ISprite CreateEasySprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
             return new SettingsSprite(spriteBatch, npcTextures["easy"], startingPos);
+        }
+
+        public ISprite CreateNormalSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new SettingsSprite(spriteBatch, npcTextures["normal"], startingPos);
         }
 
         public ISprite CreateHardSprite(SpriteBatch spriteBatch, Vector2 startingPos)
