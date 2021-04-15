@@ -10,12 +10,6 @@ namespace cse3902.ParticleSystem
 {
     public class ParticleEngine
     {
-        public enum ParticleEmitter
-        {
-            ArrowHit,
-            SwordHit
-        }
-
         private static ParticleEngine instance = new ParticleEngine();
         public static ParticleEngine Instance { get => instance; }
 
@@ -43,24 +37,14 @@ namespace cse3902.ParticleSystem
             ring = content.Load<Texture2D>("particles/ring");
         }
 
-        public void CreateNewEmitter(ParticleEmitter emitter, Vector2 origin)
+        public void CreateArrowEffect(Vector2 origin)
         {
-            IParticleEmmiter newEmitter = null;
-
-            if (emitter == ParticleEmitter.ArrowHit) newEmitter = GetArrowEmitter(origin);
-            if (emitter == ParticleEmitter.SwordHit) newEmitter = GetSwordEmitter(origin);
-
-            emitters.Add(newEmitter);
+            emitters.Add(new ArrowEmitter(cloud, origin));
         }
 
-        private IParticleEmmiter GetArrowEmitter(Vector2 origin)
+        public void CreateSwordEffect(Vector2 origin)
         {
-            return new ArrowEmitter(cloud, origin);
-        }
-
-        private IParticleEmmiter GetSwordEmitter(Vector2 origin)
-        {
-            return new SwordEmitter(star, origin);
+            emitters.Add(new SwordEmitter(star, origin));
         }
 
         public void Update(GameTime gameTime)

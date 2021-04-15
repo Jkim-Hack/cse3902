@@ -91,7 +91,7 @@ namespace cse3902.Projectiles
                 if (ParticleEngine.Instance.UseParticleEffects)
                 {
                     origin = new Vector2(currentX, currentY) - new Vector2(frameWidth, frameHeight) / 5 +  direction * 5;
-                    ParticleEngine.Instance.CreateNewEmitter(ParticleEngine.ParticleEmitter.ArrowHit, origin);
+                    ParticleEngine.Instance.CreateArrowEffect(origin);
                     animationComplete = true;
                 }
                 else
