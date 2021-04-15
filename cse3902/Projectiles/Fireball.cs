@@ -38,7 +38,7 @@ namespace cse3902.Projectiles
             animationComplete = false;
             fireballCounter = fireballDelay;
 
-            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateFireballEffect(center);
+            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateFireballEffect(this);
 
             this.collidable = new ProjectileCollidable(this);
         }

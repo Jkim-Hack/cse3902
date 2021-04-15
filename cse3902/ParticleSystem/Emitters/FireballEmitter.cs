@@ -10,14 +10,18 @@ namespace cse3902.ParticleSystem
     public class FireballEmitter : IParticleEmmiter
     {
         private Texture2D texture;
-        private Vector2 origin;
+        private IProjectile fireball;
+
+        private float timeSinceLastSpawn;
 
         private List<IParticle> particles;
 
-        public FireballEmitter(Texture2D texture, Vector2 origin)
+        public FireballEmitter(Texture2D texture, IProjectile fireball)
         {
             this.texture = texture;
-            this.origin = origin;
+            this.fireball = fireball;
+
+            this.timeSinceLastSpawn = 0;
 
             this.particles = new List<IParticle>();
         }
@@ -28,15 +32,14 @@ namespace cse3902.ParticleSystem
 
             for (int i = 0; i < num; i++)
             {
-                int lifeTime = rand.Next(ParticleConstants.ArrowParticleLifetimeMin, ParticleConstants.ArrowParticleLifetimeMax);
+                int lifeTime = rand.Next(ParticleConstants.FireballParticleLifetimeMin, ParticleConstants.FireballParticleLifetimeMax);
 
-                int colorVal = rand.Next(ParticleConstants.ArrowParticleColorMin, ParticleConstants.ArrowParticleColorMax);
                 float colorOpacity = (float)rand.NextDouble();
-                Color color = new Color(colorVal, colorVal, colorVal) * colorOpacity;
+                Color color = Color.White * colorOpacity;
 
                 Vector2 velocity = GetRandomVelocity(rand);
 
-                particles.Add(new StraightMovingParticle(texture, color, origin, velocity, lifeTime, ParticleConstants.ArrowParticleSize));
+                particles.Add(new StraightMovingParticle(texture, color, fireball.Center, velocity, lifeTime, ParticleConstants.ArrowParticleSize));
             }
         }
 
@@ -48,6 +51,13 @@ namespace cse3902.ParticleSystem
 
         public void Update(GameTime gameTime)
         {
+            timeSinceLastSpawn += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (timeSinceLastSpawn > ParticleConstants.FireballParticleAddDelay)
+            {
+                GenerateParticles(ParticleConstants.FireballParticleAddAmount);
+                timeSinceLastSpawn = 0;
+            }
+
             foreach (IParticle particle in particles) particle.Update(gameTime);
 
             /* Remove all dead particles */
