@@ -41,14 +41,8 @@ namespace cse3902.ParticleSystem
 
                 Vector2 velocity = GetRandomVelocity(rand);
 
-                particles.Add(GetRandomParticleType(rand, lifeTime, color, velocity));
+                particles.Add(new StraightMovingParticle(texture, color, origin, velocity, lifeTime, ParticleConstants.SwordParticleSize));
             }
-        }
-
-        private IParticle GetRandomParticleType(Random rand, int lifeTime, Color color, Vector2 velocity)
-        {
-            if (rand.NextDouble() < 0.75) return new StraightMovingParticle(texture, color, origin, velocity, lifeTime, ParticleConstants.SwordParticleSize);
-            else return new SinusoidalMovingParticle(texture, color, origin, velocity, ParticleConstants.SwordParticleAmplitude, lifeTime, ParticleConstants.SwordParticleSize);
         }
 
         private Vector2 GetRandomVelocity(Random rand)
