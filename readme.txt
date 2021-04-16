@@ -30,6 +30,7 @@
 ### Mouse Controls
 - Left click on the door in each room, and if there is a room on the other side of the door, the camera will move to the other room.
 - Right click at the top of the item room to leave the item room or at the bottom of the room with the traps to enter the item room.
+- Left click the picture icon for a setting in the pause menu to change the mode (easy/normal/hard).
 
 ### Settings
 - Utilities
