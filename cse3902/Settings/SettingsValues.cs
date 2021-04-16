@@ -9,7 +9,7 @@ namespace cse3902
         private Dictionary<Variable, List<int>> varToListInt;
         public enum Variable
         {
-            //enemy strength (enemy health changes will only apply after a reset)
+            //enemy strength (enemy health and damage changes will only apply after a reset, projectiles apply immediately) (0-14)
             AquamentusHealth,
             AquamentusDamage,
             AquamentusFireball,
@@ -25,21 +25,21 @@ namespace cse3902
             TrapDamage,
             WallMasterHealth,
             WallMasterDamage,
-            //health change (over time)
+            //health change (over time) (15-16)
             HealthChange,
             HealthChangeDelay,
-            //vision
+            //vision (17-18)
             VisionRange,
             VisionRangeNoCandle,
-            //min sword health
+            //min sword health (19-19)
             MinProjectileSwordHealth, //negative means (maxhealth+value+1)
-            //item drop rate
+            //item drop rate (20-24)
             ItemDropA,
             ItemDropB,
             ItemDropC,
             ItemDropD,
             ItemDropX,
-            //Utilities
+            //Utilities (25-29)
             HealthIncrease,
             HealthDecrease,
             MaxHealthIncrease,
@@ -97,7 +97,7 @@ namespace cse3902
             varToListInt.Add((Variable)14, new List<int>() { 1, 1, 3 });
             varToListInt.Add((Variable)15, new List<int>() { 1, 0, -1 });
             varToListInt.Add((Variable)16, new List<int>() { 900, 3600, 3600 });
-            varToListInt.Add((Variable)17, new List<int>() { 256, 72, 48 });
+            varToListInt.Add((Variable)17, new List<int>() { 512, 72, 48 });
             varToListInt.Add((Variable)18, new List<int>() { 48, 32, 16 });
             varToListInt.Add((Variable)19, new List<int>() { 0, -5, -1 });
             varToListInt.Add((Variable)20, new List<int>() { 41, 31, 16 });

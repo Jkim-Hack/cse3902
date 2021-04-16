@@ -157,7 +157,11 @@ namespace cse3902
                     SoundFactory.Instance.backgroundMusic.Stop();
                     SoundFactory.Instance.backgroundMusic.Play();
                     game.CollisionManager.Disabled = false;
-                    if (IsDying() || IsGrabbedByWallMaster() || triforce) game.RoomHandler.Reset(!IsGrabbedByWallMaster());
+                    if (IsDying() || IsGrabbedByWallMaster() || triforce)
+                    {
+                        game.RoomHandler.Reset(!IsGrabbedByWallMaster());
+                        GameConditionManager.Instance.Reset();
+                    }
                     pausedState = PauseState.Unpaused;
                     triforce = false;
                     VisionBlocker.Instance.Triforce = false;

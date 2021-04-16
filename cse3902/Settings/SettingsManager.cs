@@ -22,6 +22,9 @@ namespace cse3902
 
         private Dictionary<Setting, Mode> settings;
 
+        private bool justClicked;
+        private bool isClicked;
+
         private static SettingsManager settingsManagerInstance = new SettingsManager();
         public static SettingsManager Instance
         {
@@ -29,6 +32,9 @@ namespace cse3902
         }
         private SettingsManager()
         {
+            justClicked = false;
+            isClicked = false;
+
             settings = new Dictionary<Setting, Mode>();
             settings.Add(Setting.Utilities, Mode.Normal);
             settings.Add(Setting.Vision, Mode.Easy);
@@ -43,13 +49,20 @@ namespace cse3902
             SettingsDisplay.Instance.LoadSettingsSprites();
         }
 
+        public void Update()
+        {
+            if (!isClicked) justClicked = false;
+            isClicked = false;
+        }
         public void Draw()
         {
             if (GameStateManager.Instance.IsPaused()) SettingsDisplay.Instance.Draw();
         }
         public void UpdateSetting(Setting setting)
         {
-            if (!GameStateManager.Instance.IsPaused()) return;
+            isClicked = true;
+            if (!GameStateManager.Instance.IsPaused() || justClicked) return;
+            justClicked = true;
             Mode mode = Settings[setting];
             Mode newMode;
             switch (mode)

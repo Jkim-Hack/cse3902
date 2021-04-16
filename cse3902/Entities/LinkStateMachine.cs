@@ -208,10 +208,14 @@ namespace cse3902.Entities
 
             Vector2 startingPosition = getItemLocation(currDirection);
             linkInventory.CreateWeapon(startingPosition, currDirection);
-            if(totalHealth == health)
+
+            int minHealth = SettingsValues.Instance.GetValue(SettingsValues.Variable.MinProjectileSwordHealth);
+            if (minHealth < 0) minHealth += totalHealth + 1;
+            if (minHealth <= health)
             {
                 linkInventory.CreateSwordProjectile(startingPosition, currDirection);
             }
+
             SetAttackAnimation();
         }
 

@@ -91,6 +91,7 @@ namespace cse3902
 
             GameStateManager.Instance.Game = this;
             VisionBlocker.Instance.Game = this;
+            GameConditionManager.Instance.Game = this;
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
@@ -163,6 +164,11 @@ namespace cse3902
                 roomHandler.Update(gameTime);
                 collisionManager.Update();
                 ParticleEngine.Instance.Update(gameTime);
+                GameConditionManager.Instance.Update();
+            }
+            else if (GameStateManager.Instance.IsPaused())
+            {
+                SettingsManager.Instance.Update();
             }
             else if (GameStateManager.Instance.IsPickingUpItem() || GameStateManager.Instance.IsDying())
             {

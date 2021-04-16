@@ -21,15 +21,23 @@ namespace cse3902.Commands
             
             if (GameStateManager.Instance.IsUnpaused() && cooldown <= 0)
             {
-                if (id <= 1)
+                switch (id)
                 {
-                    id = id * 2 - 1;
-                    (game.Player as Link).Health += id;
-                }
-                else
-                {
-                    id = id * 4 - 10;
-                    (game.Player as Link).TotalHealthCount += id;
+                    case 0:
+                        (game.Player as Link).Health -= SettingsValues.Instance.GetValue(SettingsValues.Variable.HealthDecrease);
+                        break;
+                    case 1:
+                        (game.Player as Link).Health += SettingsValues.Instance.GetValue(SettingsValues.Variable.HealthIncrease);
+                        break;
+                    case 2:
+                        (game.Player as Link).TotalHealthCount -= SettingsValues.Instance.GetValue(SettingsValues.Variable.MaxHealthDecrease);
+                        break;
+                    case 3:
+                        (game.Player as Link).TotalHealthCount += SettingsValues.Instance.GetValue(SettingsValues.Variable.MaxHealthIncrease);
+                        break;
+                    default: //this should never happen
+                        (game.Player as Link).Health -= SettingsValues.Instance.GetValue(SettingsValues.Variable.HealthDecrease);
+                        break;
                 }
 
                 cooldown = 15;

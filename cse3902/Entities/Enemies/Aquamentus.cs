@@ -45,7 +45,7 @@ namespace cse3902.Entities.Enemies
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 6;
+            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.AquamentusHealth);
         }
 
         public ref Rectangle Bounds
@@ -180,7 +180,7 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => 2;
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.AquamentusDamage);
         }
 
         public int Health
