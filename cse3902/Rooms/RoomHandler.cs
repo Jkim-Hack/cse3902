@@ -49,8 +49,8 @@ namespace cse3902.Rooms
             String level3 = "XMLParsing/Level3.xml";
 
             xmlParser.ParseXML(level1);
-            xmlParser.ParseXML(level2);
-            xmlParser.ParseXML(level3);
+            //xmlParser.ParseXML(level2);
+            //xmlParser.ParseXML(level3);
         }
 
         public void LoadNewRoom(Vector3 newPos, IDoor entranceDoor)

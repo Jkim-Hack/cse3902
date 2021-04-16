@@ -30,11 +30,11 @@ namespace cse3902.SpriteFactory
             blockTextures.Add("brick", content.Load<Texture2D>("brick"));
             blockTextures.Add("ladder", content.Load<Texture2D>("ladder"));
             blockTextures.Add("invis", content.Load<Texture2D>("invisibleblock"));
-            blockTextures.Add("normalgrey", content.Load<Texture2D>("normalgrey"));
-            blockTextures.Add("normalred", content.Load<Texture2D>("normalred"));
-            blockTextures.Add("normalgreen", content.Load<Texture2D>("normalgreen"));
-            blockTextures.Add("redwater", content.Load<Texture2D>("redwater"));
-            blockTextures.Add("lava", content.Load<Texture2D>("lava"));
+            //blockTextures.Add("normalgrey", content.Load<Texture2D>("normalgrey"));
+            //blockTextures.Add("normalred", content.Load<Texture2D>("normalred"));
+            //blockTextures.Add("normalgreen", content.Load<Texture2D>("normalgreen"));
+            //blockTextures.Add("redwater", content.Load<Texture2D>("redwater"));
+            //blockTextures.Add("lava", content.Load<Texture2D>("lava"));
         }
 
         public ISprite CreateNormalBlockSprite(SpriteBatch spriteBatch, Vector2 startingPos)

@@ -245,4 +245,58 @@
 			</block>
 		</blocks>
 	</room>
+	<!--horde room below-->
+	<room>
+		<number>1,1,8</number>
+		<traps>
+		</traps>
+		<conditions>
+			<!--do we wanna add a condition here?-->
+		</conditions>
+		<sprite>12</sprite>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
+		<npcs>
+		</npcs>
+		<items>
+		</items>
+		<enemies>
+			<enemy>
+				<type>Gel</type>
+				<xloc>1</xloc>
+				<yloc>1</yloc>
+			</enemy>
+			<!--need way more-->
+		</enemies>
+		<blocks>
+		</blocks>
+	</room>
 </rooms>
