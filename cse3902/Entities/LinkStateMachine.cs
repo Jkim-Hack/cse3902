@@ -161,7 +161,7 @@ namespace cse3902.Entities
                 }
             }
 
-            if (health <= 2)
+            if (health <= 2 && health != totalHealth)
             {
                 lowHealthSoundDelay--;
                 if (lowHealthSoundDelay == 0)
@@ -335,7 +335,7 @@ namespace cse3902.Entities
             {
                 totalHealth = value;
                 if (totalHealth < 2) totalHealth = 2;
-                else if (totalHealth > 36) totalHealth = 36;
+                else if (totalHealth > HeartConstants.MaxHeartCount) totalHealth = HeartConstants.MaxHeartCount;
                 if (health > totalHealth) health = totalHealth;
             }
         }
