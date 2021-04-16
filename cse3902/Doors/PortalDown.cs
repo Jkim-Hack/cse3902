@@ -14,7 +14,7 @@ namespace cse3902.Doors
         private IDoor connectedPortal;
         private ICollidable collidable;
 
-        public PortalDown(Game1 game, Vector2 center)
+        public PortalDown(Game1 game, Vector2 center, Vector2 xyChange)
         {
             this.game = game;
             doorSprite = DoorSpriteFactory.Instance.CreatePortalSprite(game.SpriteBatch, center);

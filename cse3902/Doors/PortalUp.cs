@@ -14,11 +14,11 @@ namespace cse3902.Doors
         private IDoor connectedPortal;
         private ICollidable collidable;
 
-        public PortalUp(Game1 game, Vector2 center)
+        public PortalUp(Game1 game, Vector2 center, Vector2 xyChange)
         {
             this.game = game;
             doorSprite = DoorSpriteFactory.Instance.CreatePortalSprite(game.SpriteBatch, center);
-            roomTranslationVector = new Vector3(0, 0, 2);
+            roomTranslationVector = new Vector3(xyChange, 2);
 
             this.collidable = new DoorCollidable(this);
         }
