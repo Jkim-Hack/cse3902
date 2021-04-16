@@ -161,7 +161,7 @@ namespace cse3902.Entities
                 }
             }
 
-            if (health <= 2)
+            if (health <= 2 && health != totalHealth)
             {
                 lowHealthSoundDelay--;
                 if (lowHealthSoundDelay == 0)
@@ -208,10 +208,14 @@ namespace cse3902.Entities
 
             Vector2 startingPosition = getItemLocation(currDirection);
             linkInventory.CreateWeapon(startingPosition, currDirection);
-            if(totalHealth == health)
+
+            int minHealth = SettingsValues.Instance.GetValue(SettingsValues.Variable.MinProjectileSwordHealth);
+            if (minHealth < 0) minHealth += totalHealth + 1;
+            if (minHealth <= health)
             {
                 linkInventory.CreateSwordProjectile(startingPosition, currDirection);
             }
+
             SetAttackAnimation();
         }
 
@@ -330,7 +334,9 @@ namespace cse3902.Entities
             set
             {
                 totalHealth = value;
-                if (totalHealth < 1) totalHealth = 1;
+                if (totalHealth < 2) totalHealth = 2;
+                else if (totalHealth > HeartConstants.MaxHeartCount) totalHealth = HeartConstants.MaxHeartCount;
+                if (health > totalHealth) health = totalHealth;
             }
         }
         

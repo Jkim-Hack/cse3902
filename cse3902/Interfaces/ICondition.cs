@@ -7,5 +7,8 @@ namespace cse3902.Interfaces
         public void CheckCondition();
         public void SendSignal();
         public void Reset();
+        public void EnterRoom();
+        public void LeaveRoom();
+
     }
 }

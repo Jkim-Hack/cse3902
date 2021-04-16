@@ -80,7 +80,7 @@ namespace cse3902.HUD.HUDItems
             DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Key], keyCountPosition);
             DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Bomb], bombCountPosition);
 
-            if (!GameStateManager.Instance.InMenu(false))
+            if (!GameStateManager.Instance.InMenu(true))
             {
                 DrawItems();
             }

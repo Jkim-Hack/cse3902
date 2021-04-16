@@ -66,8 +66,6 @@ namespace cse3902
 
             // Setup input controllers    
             controllerList = new List<IController>();
-            controllerList.Add(new KeyboardController(this));
-            controllerList.Add(new MouseController(this));
 
             allCollidablesList = new AllCollidablesList();
 
@@ -92,17 +90,20 @@ namespace cse3902
             hudManager = new HUDManager(this);
 
             GameStateManager.Instance.Game = this;
+            VisionBlocker.Instance.Game = this;
+            GameConditionManager.Instance.Game = this;
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);
             Background.Instance.LoadTextures(Content, spriteBatch);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
-            NPCSpriteFactory.Instance.LoadAllTextures(Content);
+            NPCSpriteFactory.Instance.LoadAllTextures(Content, spriteBatch);
             ItemSpriteFactory.Instance.LoadAllTextures(Content, spriteBatch);
             ProjectileHandler.Instance.LoadAllTextures(Content);
             SoundFactory.Instance.LoadAllTextures(Content);
             HUDSpriteFactory.Instance.LoadAllTextures(Content);
             ParticleEngine.Instance.LoadAllTextures(Content);
+            SettingsManager.Instance.LoadManager();
 
             // For hitbox drawing
 	        lineTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
@@ -131,6 +132,9 @@ namespace cse3902
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.ORANGE_MAP);
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.INVENTORY);
             hudManager.CreateHUDItemWithKey(HUDManager.HUDItemKey.CURRENTITEMS);
+
+            controllerList.Add(new KeyboardController(this));
+            controllerList.Add(new MouseController(this));
         }
 
         /// <summary>
@@ -160,6 +164,11 @@ namespace cse3902
                 roomHandler.Update(gameTime);
                 collisionManager.Update();
                 ParticleEngine.Instance.Update(gameTime);
+                GameConditionManager.Instance.Update();
+            }
+            else if (GameStateManager.Instance.IsPaused())
+            {
+                SettingsManager.Instance.Update();
             }
             else if (GameStateManager.Instance.IsPickingUpItem() || GameStateManager.Instance.IsDying())
             {
@@ -170,6 +179,7 @@ namespace cse3902
             //player.Update(gameTime);
             camera.Update();
             GameStateManager.Instance.Update();
+            VisionBlocker.Instance.Update();
             base.Update(gameTime);
         }
 
@@ -182,17 +192,19 @@ namespace cse3902
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetGameplayTransformationMatrix());
 
-            if (!GameStateManager.Instance.InMenu(true)) player.Draw();
+            if (!GameStateManager.Instance.InMenu(true) && !GameStateManager.Instance.IsGrabbedByWallMaster()) player.Draw();
             roomHandler.Draw();
             //collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetGameplayTransformationMatrix());
             ParticleEngine.Instance.Draw(spriteBatch);
+            VisionBlocker.Instance.Draw();
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetHudTransformationMatrix());
             hudManager.Draw();
+            SettingsManager.Instance.Draw();
             spriteBatch.End();
 
             base.Draw(gameTime);

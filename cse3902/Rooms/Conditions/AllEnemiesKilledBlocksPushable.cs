@@ -22,5 +22,15 @@ namespace cse3902.Rooms.Conditions
         {
 
         }
+
+        public void EnterRoom()
+        {
+
+        }
+
+        public void LeaveRoom()
+        {
+
+        }
     }
 }

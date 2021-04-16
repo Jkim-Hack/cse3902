@@ -31,7 +31,7 @@ namespace cse3902.SpriteFactory
         private Texture2D cloud;
 
         private Dictionary<IEntity.EnemyType, List<InventoryManager.ItemType>> dropList;
-        private Dictionary<IEntity.EnemyType, int> dropRate;
+        private Dictionary<IEntity.EnemyType, SettingsValues.Variable> dropRate;
         private int killCounter;
 
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
@@ -47,14 +47,14 @@ namespace cse3902.SpriteFactory
         // https://www.zeldadungeon.net/zelda-runners-examining-random-and-forced-drops-and-chatting-with-zant/
         private ItemSpriteFactory()
         {
-            dropRate = new Dictionary<IEntity.EnemyType, int>();
+            dropRate = new Dictionary<IEntity.EnemyType, SettingsValues.Variable>();
             dropList = new Dictionary<IEntity.EnemyType, List<InventoryManager.ItemType>>();
 
-            dropRate.Add(IEntity.EnemyType.A, 31);
-            dropRate.Add(IEntity.EnemyType.B, 41);
-            dropRate.Add(IEntity.EnemyType.C, 59);
-            dropRate.Add(IEntity.EnemyType.D, 41);
-            dropRate.Add(IEntity.EnemyType.X, 9);
+            dropRate.Add(IEntity.EnemyType.A, SettingsValues.Variable.ItemDropA);
+            dropRate.Add(IEntity.EnemyType.B, SettingsValues.Variable.ItemDropB);
+            dropRate.Add(IEntity.EnemyType.C, SettingsValues.Variable.ItemDropC);
+            dropRate.Add(IEntity.EnemyType.D, SettingsValues.Variable.ItemDropD);
+            dropRate.Add(IEntity.EnemyType.X, SettingsValues.Variable.ItemDropX);
 
             LoadA();
             LoadB();
@@ -299,7 +299,7 @@ namespace cse3902.SpriteFactory
             Random rd = new Random();
             int num = rd.Next(0, 100);
 
-            if (num < dropRate[type])
+            if (num < SettingsValues.Instance.GetValue(dropRate[type]))
             {
                 switch (dropList[type][killCounter % 10])
                 {

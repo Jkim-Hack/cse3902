@@ -19,7 +19,9 @@ namespace cse3902.Sprites
 
         private const float sizeIncrease = 1f;
 
-        public NPCSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition)
+        private bool grabbedLink;
+
+        public NPCSprite(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, bool isGrabbedLink)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
@@ -29,13 +31,15 @@ namespace cse3902.Sprites
 
             center = startingPosition;
             this.startingPosition = startingPosition;
+
+            grabbedLink = isGrabbedLink;
         }
 
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
+            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, grabbedLink ? SpriteUtilities.GrabbedLinkLayer : SpriteUtilities.EnemyLayer);
         }
 
         public int Update(GameTime gameTime)
