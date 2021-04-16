@@ -163,6 +163,7 @@ namespace cse3902.Entities
         public int TotalHealthCount
         {
             get => linkStateMachine.TotalHealth;
+            set => linkStateMachine.TotalHealth = value;
         }
 
         public int Health
@@ -176,10 +177,10 @@ namespace cse3902.Entities
             get => this.collidable;
         }
 
-        public void Reset()
+        public void Reset(bool healthReset)
         {
             linkSprite.DamageMaskHandler.Reset();
-            linkStateMachine.Health = linkStateMachine.TotalHealth;
+            if (healthReset) linkStateMachine.Health = linkStateMachine.TotalHealth;
             linkSprite.SetGameWon(false);
         }
 
@@ -207,6 +208,10 @@ namespace cse3902.Entities
                 this.isGrabbed = value;
                 this.linkStateMachine.speed = LinkConstants.defaultSpeed;
             }
+        }
+        public Vector2 Size
+        {
+            get => linkSprite.Size;
         }
       
 

@@ -37,7 +37,7 @@ namespace cse3902.ParticleSystem
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, new Rectangle((int)origin.X, (int)origin.Y, size, size), null, color, 0, new Vector2(), SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, new Rectangle((int)origin.X, (int)origin.Y, size, size), null, color, 0, new Vector2(), SpriteEffects.None, 0.5f);
         }
 
         public bool Dead

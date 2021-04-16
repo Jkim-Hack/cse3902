@@ -81,15 +81,20 @@ namespace cse3902.Collision.Collidables
         }
 
         private void EnemyCollision(ICollidable collidableObject)
-        {
+        {           
             if (((EnemyCollidable)collidableObject).Enemy is WallMaster)
             {
                 if (((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered)
                 {
                     player.TakeDamage(collidableObject.DamageValue);
-                    //todo: magic number
-                    //player.BeGrabbed((WallMaster)((EnemyCollidable)collidableObject).Enemy, 30.0f);
-                    GameStateManager.Instance.LinkGrabbedByWallMaster(1);
+                    if (player.Health <= 0)
+                    {
+                        this.player.Die();
+                        return;
+                    }
+                    ((WallMaster)((EnemyCollidable)collidableObject).Enemy).GrabLink();
+                    GameStateManager.Instance.LinkGrabbedByWallMaster(120);
+                    
 
                 }
                 else
@@ -107,7 +112,10 @@ namespace cse3902.Collision.Collidables
                 {
                     this.player.Die();
                 }
-                player.BeShoved();
+                else
+                {
+                    player.BeShoved();
+                }
             }
         }
 

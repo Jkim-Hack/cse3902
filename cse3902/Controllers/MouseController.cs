@@ -19,37 +19,40 @@ namespace cse3902
             MouseState currentMouseState = Mouse.GetState();
 			Point pos = currentMouseState.Position;
 
-			if (currentMouseState.LeftButton == ButtonState.Pressed)
-			{
-				foreach (Rectangle[] rectangleSet in this.commandList.LeftMouseClickCommands.Keys)
-                {
-                    for (int i = 0; i < rectangleSet.Length; i++)
-                    {
-                        Rectangle rectangle = rectangleSet[i];
-                        if (rectangle.Contains(pos))
-                        {
-                            this.commandList.LeftMouseClickCommands[rectangleSet].Execute(i);
-                            break;
-                        }
-                    }
-                }
-			}
+            if (currentMouseState.LeftButton == ButtonState.Pressed) LeftClick(pos);
+            if (currentMouseState.RightButton == ButtonState.Pressed) RightClick(pos);
+		}
 
-            if (currentMouseState.RightButton == ButtonState.Pressed)
+        private void LeftClick(Point pos)
+        {
+            foreach (Rectangle[] rectangleSet in this.commandList.LeftMouseClickCommands.Keys)
             {
-                foreach (Rectangle[] rectangleSet in this.commandList.RightMouseClickCommands.Keys)
+                for (int i = 0; i < rectangleSet.Length; i++)
                 {
-                    for (int i = 0; i < rectangleSet.Length; i++)
+                    Rectangle rectangle = rectangleSet[i];
+                    if (rectangle.Contains(pos))
                     {
-                        Rectangle rectangle = rectangleSet[i];
-                        if (rectangle.Contains(pos))
-                        {
-                            this.commandList.RightMouseClickCommands[rectangleSet].Execute(i);
-                            break;
-                        }
+                        this.commandList.LeftMouseClickCommands[rectangleSet].Execute(i);
+                        break;
                     }
                 }
             }
-		}
+        }
+
+        private void RightClick(Point pos)
+        {
+            foreach (Rectangle[] rectangleSet in this.commandList.RightMouseClickCommands.Keys)
+            {
+                for (int i = 0; i < rectangleSet.Length; i++)
+                {
+                    Rectangle rectangle = rectangleSet[i];
+                    if (rectangle.Contains(pos))
+                    {
+                        this.commandList.RightMouseClickCommands[rectangleSet].Execute(i);
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

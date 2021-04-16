@@ -50,7 +50,7 @@ namespace cse3902.HUD
         public void Draw()
         {
             DrawLabel();
-            if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Map] == 0 || !GameStateManager.Instance.InMenu(false)) DrawMapCover();
+            if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Map] <= 0 || !GameStateManager.Instance.InMenu(false)) DrawMapCover();
             if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Compass] > 0 && GameStateManager.Instance.InMenu(false)) DrawCompass();
         }
 

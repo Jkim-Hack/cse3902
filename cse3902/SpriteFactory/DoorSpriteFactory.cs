@@ -92,5 +92,10 @@ namespace cse3902.SpriteFactory
         {
             return new StaircaseDoorSprite(spriteBatch, doorTextures["staircase"], startingPos);
         }
+
+        public IDoorSprite CreatePortalSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new StaircaseDoorSprite(spriteBatch, doorTextures["staircase"], startingPos);
+        }
     }
 }

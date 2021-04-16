@@ -2,8 +2,6 @@
 using System;
 using Microsoft.Xna.Framework;
 using cse3902.Interfaces;
-using cse3902.HUD;
-using cse3902.Doors;
 
 namespace cse3902.Rooms
 {
@@ -82,9 +80,11 @@ namespace cse3902.Rooms
             RoomDoors.Instance.LoadNewRoom(ref oldDoors, newRoom.Doors);
             rooms.GetValueOrDefault(currentRoom).Doors = oldDoors;
 
+            RoomConditions.Instance.LeaveRoom();
             List<ICondition> oldConditions = rooms.GetValueOrDefault(currentRoom).Conditions;
             RoomConditions.Instance.LoadNewRoom(ref oldConditions, newRoom.Conditions);
             rooms.GetValueOrDefault(currentRoom).Conditions = oldConditions;
+            RoomConditions.Instance.EnterRoom();
 
             previousRoom = currentRoom;
             currentRoom = newPos;
@@ -152,10 +152,10 @@ namespace cse3902.Rooms
             rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Wall;
         }
 
-        public void Reset()
+        public void Reset(bool healthReset)
         {
             game.Camera.Reset();
-            game.Player.Reset();
+            game.Player.Reset(healthReset);
             startComplete = false;
             rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Open;
             LoadNewRoom(startingRoom + startingRoomTranslation, rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0]);

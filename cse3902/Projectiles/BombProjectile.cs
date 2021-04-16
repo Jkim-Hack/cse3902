@@ -150,7 +150,7 @@ namespace cse3902.Projectiles
 
         public int Damage
         {
-            get => 3;
+            get => 4;
         }
 
         public Vector2 Direction

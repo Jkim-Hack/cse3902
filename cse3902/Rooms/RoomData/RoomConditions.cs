@@ -58,5 +58,20 @@ namespace cse3902.Rooms
                 condition.SendSignal();
             }
         }
+
+        public void EnterRoom()
+        {
+            foreach (ICondition condition in conditions)
+            {
+                condition.EnterRoom();
+            }
+        }
+        public void LeaveRoom()
+        {
+            foreach (ICondition condition in conditions)
+            {
+                condition.LeaveRoom();
+            }
+        }
     }
 }
