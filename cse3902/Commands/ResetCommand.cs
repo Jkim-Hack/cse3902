@@ -15,7 +15,7 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            if (!pressed && !GameStateManager.Instance.IsPickingUpItem())
+            if (GameStateManager.Instance.IsUnpaused() && !game.RoomHandler.roomTransitionManager.IsTransitioning() && !pressed)
             {
                 pressed = true;
                 GameStateManager.Instance.Reset();
