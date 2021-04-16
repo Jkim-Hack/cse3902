@@ -41,7 +41,7 @@ namespace cse3902.Entities.Enemies
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 2;
+            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.GelHealth);
         }
 
         public ref Rectangle Bounds
@@ -207,7 +207,7 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => 1;
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.GelDamage);
         }
 
         public int Health

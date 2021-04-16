@@ -34,7 +34,7 @@ namespace cse3902.SpriteFactory
         {
             aquamentus = content.Load<Texture2D>("aquamentus");
             gel = content.Load<Texture2D>("enemies/gel");
-            goriya = content.Load<Texture2D>("enemies/goriya_blue");
+            goriya = content.Load<Texture2D>("enemies/goriya_red");
             keese = content.Load<Texture2D>("enemies/keese");
             stalfos = content.Load<Texture2D>("enemies/stalfos");
             wallmaster = content.Load<Texture2D>("enemies/wall_master");

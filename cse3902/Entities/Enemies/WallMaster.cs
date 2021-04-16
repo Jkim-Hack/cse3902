@@ -4,7 +4,6 @@ using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.Rooms;
 using cse3902.SpriteFactory;
-using cse3902.Sprites;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
 using cse3902.Constants;
@@ -58,7 +57,7 @@ namespace cse3902.Entities.Enemies
             grabbed = false;
             ConstructDetectionBox(abstractStart);
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 10;
+            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.WallMasterHealth);
         }
 
         public void Attack()
@@ -242,7 +241,7 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => 1;
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.WallMasterDamage);
         }
 
         public int Health

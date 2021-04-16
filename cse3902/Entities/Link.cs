@@ -163,6 +163,7 @@ namespace cse3902.Entities
         public int TotalHealthCount
         {
             get => linkStateMachine.TotalHealth;
+            set => linkStateMachine.TotalHealth = value;
         }
 
         public int Health

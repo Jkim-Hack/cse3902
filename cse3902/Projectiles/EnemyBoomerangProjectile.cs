@@ -9,7 +9,7 @@ using System;
 
 namespace cse3902.Projectiles
 {
-    public class BoomerangProjectile : IProjectile
+    public class EnemyBoomerangProjectile : IProjectile
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -33,7 +33,7 @@ namespace cse3902.Projectiles
         private ICollidable collidable;
         private LinkSprite link;
 
-        public BoomerangProjectile(SpriteBatch batch, Texture2D texture, LinkSprite link, Vector2 dir)
+        public EnemyBoomerangProjectile(SpriteBatch batch, Texture2D texture, LinkSprite link, Vector2 dir)
         {
             spriteBatch = batch;
             spriteTexture = texture;
@@ -129,7 +129,7 @@ namespace cse3902.Projectiles
 
         public int Damage
         {
-            get => 0; //stuns if Link throws
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.GoriyaBoomerang);
         }
 
         public Vector2 Direction
