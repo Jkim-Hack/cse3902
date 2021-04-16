@@ -69,16 +69,14 @@ namespace cse3902.ParticleSystem
                 particleAddAmount--;
             }
 
-            foreach (IParticle particle in particles) particle.Update(gameTime);
-
-            /* Remove all dead particles */
+            particles.ForEach(particle => particle.Update(gameTime));
             particles.RemoveAll(particle => particle.Dead);
         }
 
         public void Draw(SpriteBatch spriteBatch, Matrix transformationMatrix)
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, transformationMatrix);
-            foreach (IParticle particle in particles) particle.Draw(spriteBatch);
+            particles.ForEach(particle => particle.Draw(spriteBatch));
             spriteBatch.End();
         }
 

@@ -35,6 +35,16 @@ namespace cse3902.Constants
 
         public const float SwordParticleOpacity = 0.5f;
 
+        /* Bomb emitter */
+        public const int BombParticleFirstAmount = 200;
+
+        public const int BombParticleSize = 3;
+
+        public const int BombParticleLifetimeMin = 25;
+        public const int BombParticleLifetimeMax = 50;
+
+        public const float BombParticleVelocityScale = 1f;
+
         /* Fireball emitter */
         public const int FireballParticleCenterAmount = 20;
         public const int FireballParticleTrailAmount = 10;

@@ -23,9 +23,9 @@ namespace cse3902.ParticleSystem
 
             this.particles = new List<IParticle>();
 
-            this.particleAddAmount = ParticleConstants.SwordParticleAddAmount;
+            this.particleAddAmount = 50;
 
-            GenerateParticles(ParticleConstants.SwordParticleCircleAmount);
+            GenerateParticles(200);
         }
 
         private void GenerateParticles(int num)
@@ -34,14 +34,14 @@ namespace cse3902.ParticleSystem
 
             for (int i = 0; i < num; i++)
             {
-                int lifeTime = rand.Next(ParticleConstants.SwordParticleLifetimeMin, ParticleConstants.SwordParticleLifetimeMax);
+                int lifeTime = 50;
 
-                float colorOpacity = (float)rand.NextDouble() * ParticleConstants.SwordParticleOpacity;
-                Color color = new Color(255, 255, 255) * colorOpacity;
+                float colorOpacity = (float)rand.NextDouble();
+                Color color = Color.Orange * colorOpacity;
 
                 Vector2 velocity = GetRandomVelocity(rand);
 
-                particles.Add(new StraightMovingParticle(texture, color, origin, velocity, lifeTime, ParticleConstants.SwordParticleSize));
+                particles.Add(new StraightMovingParticle(texture, color, origin, velocity, lifeTime, 10));
             }
         }
 
@@ -55,8 +55,6 @@ namespace cse3902.ParticleSystem
             /* Gives effect a circular shape */
             velocity.Normalize();
 
-            velocity *= ParticleConstants.SwordParticleVelocityScale;
-
             return velocity;
         }
 
@@ -68,16 +66,14 @@ namespace cse3902.ParticleSystem
                 particleAddAmount--;
             }
 
-            foreach (IParticle particle in particles) particle.Update(gameTime);
-
-            /* Remove all dead particles */
+            particles.ForEach(particle => particle.Update(gameTime));
             particles.RemoveAll(particle => particle.Dead);
         }
 
         public void Draw(SpriteBatch spriteBatch, Matrix transformationMatrix)
         {
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, transformationMatrix);
-            foreach (IParticle particle in particles) particle.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.Additive, SamplerState.PointClamp, null, null, null, transformationMatrix);
+            particles.ForEach(particle => particle.Draw(spriteBatch));
             spriteBatch.End();
         }
 

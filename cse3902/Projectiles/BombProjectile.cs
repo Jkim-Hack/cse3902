@@ -121,7 +121,7 @@ namespace cse3902.Projectiles
 
                 if (ParticleEngine.Instance.UseParticleEffects && !particlesGenerated)
                 {
-                    ParticleEngine.Instance.CreateBombEffect(Center);
+                    ParticleEngine.Instance.CreateBombEffect(Center - new Vector2(5, 5));
                     particlesGenerated = true;
                 }
 

@@ -66,9 +66,7 @@ namespace cse3902.ParticleSystem
 
         public void Update(GameTime gameTime)
         {
-            foreach (IParticleEmmiter emitter in emitters) emitter.Update(gameTime);
-
-            /* Remove all emitters that have completed their animation */
+            emitters.ForEach(emitter => emitter.Update(gameTime));
             emitters.RemoveAll(emitter => emitter.AnimationDone);
         }
 
@@ -81,7 +79,7 @@ namespace cse3902.ParticleSystem
             }
             if (!Keyboard.GetState().IsKeyDown(Keys.LeftShift)) pressed = false;
 
-            foreach (IParticleEmmiter emitter in emitters) emitter.Draw(spriteBatch, transformationMatrix);
+            emitters.ForEach(emitter => emitter.Draw(spriteBatch, transformationMatrix));
         }
 
         public bool UseParticleEffects
