@@ -59,7 +59,7 @@ namespace cse3902.ParticleSystem
 
         public void CreateEnemyDeathEffect(Vector2 origin)
         {
-            emitters.Add(new ArrowEmitter(cloud, origin));
+            emitters.Add(new EnemyDeathEmitter(cloud, origin));
         }
 
         public IDependentParticleEmmiter CreateFireballEffect(IProjectile fireball)
