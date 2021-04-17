@@ -83,7 +83,7 @@ namespace cse3902.Entities.Enemies
         {
             SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.X);
-            ParticleEngine.Instance.CreateEnemyDeathEffect(center);
+            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
         public void BeShoved()

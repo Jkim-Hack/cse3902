@@ -81,7 +81,7 @@ namespace cse3902.Entities.Enemies
             SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, 0.2f);
             this.aquamentusStateMachine.Die();
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.D);
-            ParticleEngine.Instance.CreateEnemyDeathEffect(center);
+            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
         public void BeShoved()
