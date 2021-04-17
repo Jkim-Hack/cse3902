@@ -72,14 +72,25 @@ namespace cse3902.ParticleSystem
 
         public void Draw(SpriteBatch spriteBatch, Matrix transformationMatrix)
         {
+            TestItem(spriteBatch);
+
+            emitters.ForEach(emitter => emitter.Draw(spriteBatch, transformationMatrix));
+        }
+
+        /* just for testing */
+        private void TestItem(SpriteBatch spriteBatch)
+        {
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && !pressed)
             {
-                ProjectileHandler.Instance.CreateBombItem(spriteBatch, new Vector2(650, 970));
+                /* Uncomment the one being tested and press left shift to spawn in starting room */
+                ProjectileHandler.Instance.CreateSwordItem(spriteBatch, new Vector2(700, 1000), new Vector2(1, 0));
+                // ProjectileHandler.Instance.CreateArrowItem(spriteBatch, new Vector2(700, 1000), new Vector2(1, 0));
+                // ProjectileHandler.Instance.CreateBombItem(spriteBatch, new Vector2(650, 970));
+                // ProjectileHandler.Instance.CreateFireballObject(spriteBatch, new Vector2(730, 970), new Vector2(-1, 0));
+
                 pressed = true;
             }
             if (!Keyboard.GetState().IsKeyDown(Keys.LeftShift)) pressed = false;
-
-            emitters.ForEach(emitter => emitter.Draw(spriteBatch, transformationMatrix));
         }
 
         public bool UseParticleEffects

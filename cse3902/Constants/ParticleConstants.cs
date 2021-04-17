@@ -23,15 +23,15 @@ namespace cse3902.Constants
         public const int ArrowParticleColorMax = 256;
 
         /* Sword emitter */
-        public const int SwordParticleCircleAmount = 200;
+        public const int SwordParticleCircleAmount = 100;
         public const int SwordParticleAddAmount = 50;
 
         public const int SwordParticleSize = 3;
 
-        public const int SwordParticleLifetimeMin = 25;
-        public const int SwordParticleLifetimeMax = 50;
+        public const int SwordParticleLifetimeMin = 20;
+        public const int SwordParticleLifetimeMax = 35;
 
-        public const float SwordParticleVelocityScale = 0.4f;
+        public const float SwordParticleVelocityScale = 0.6f;
 
         public const float SwordParticleOpacity = 0.5f;
 
