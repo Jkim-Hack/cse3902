@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace cse3902.Rooms
 {
@@ -38,6 +36,8 @@ namespace cse3902.Rooms
         public const int WALL_WIDTH = 120;
         public const int WALL_HEIGHT = 80;
 
+        public static readonly Point TriforceRoomPoint = ConvertVector(new Vector3(5, 1, 0)).ToPoint();
+
         public enum DoorPos
         {
             TOP,
@@ -45,7 +45,6 @@ namespace cse3902.Rooms
             BOTTOM,
             LEFT,
             NONE
-
         }
 
         public static Vector2 ConvertVector(Vector3 vector)

@@ -1,9 +1,7 @@
-using System;
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static cse3902.Interfaces.ISprite;
-using System.Collections.Generic;
+using cse3902.Rooms;
 using cse3902.Entities.DamageMasks;
 using cse3902.Constants;
 
@@ -100,22 +98,22 @@ namespace cse3902.Sprites
             spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, (gameWon || death) ? 0 : SpriteUtilities.LinkLayer);
 
             int roomWidth = DimensionConstants.OriginalWindowWidth;
-            int roomHeight = DimensionConstants.GameplayHeight / 3;
+            int roomHeight = DimensionConstants.OriginalGameplayHeight;
             DrawGameWinAnim(roomWidth, roomHeight);
             DrawDeathAnim(roomWidth, roomHeight);
         }
 
-        private void DrawGameWinAnim(int width, int height)
+        private void DrawGameWinAnim(int width, int height) /* position will need to be changed when triforce is moved */
         {
             if (gameWinFlashDelay > 0 && gameWinFlashDelay <= 60 && ((gameWinFlashDelay / 5) % 2 == 0))
             {
-                DrawRectangle(Color.White * 0.75f, new Rectangle(width * 5, height * 1, width, height), SpriteUtilities.GameWonLayer);
+                DrawRectangle(Color.White * 0.75f, new Rectangle(RoomUtilities.TriforceRoomPoint, new Point(width, height)), SpriteUtilities.GameWonLayer);
             }
 
             if (gameWon)
             {
-                DrawRectangle(Color.Black, new Rectangle(width * 5, height * 1, gameWinRectangleWidth, height), SpriteUtilities.GameWonLayer);
-                DrawRectangle(Color.Black, new Rectangle((width * 6) - gameWinRectangleWidth, height * 1, gameWinRectangleWidth, height), SpriteUtilities.GameWonLayer);
+                DrawRectangle(Color.Black, new Rectangle(RoomUtilities.TriforceRoomPoint, new Point(gameWinRectangleWidth, height)), SpriteUtilities.GameWonLayer);
+                DrawRectangle(Color.Black, new Rectangle(RoomUtilities.TriforceRoomPoint.X + width - gameWinRectangleWidth, RoomUtilities.TriforceRoomPoint.Y, gameWinRectangleWidth, height), SpriteUtilities.GameWonLayer);
             }
         }
 
@@ -126,7 +124,7 @@ namespace cse3902.Sprites
                 if (deathColorChangeDelay == 30) deathOpacity = 1.0f;
                 if ((deathColorChangeDelay - 1) % 27 == 0) deathColor.R -= 255 / 4;
 
-                DrawRectangle(deathColor * deathOpacity, new Rectangle(0, 0, width * 6, height * 6), SpriteUtilities.DeathEffectLayer);
+                DrawRectangle(deathColor * deathOpacity, new Rectangle(-1500, 0, width * 60, height * 6), SpriteUtilities.DeathEffectLayer);
             }
         }
 

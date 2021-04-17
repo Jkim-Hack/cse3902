@@ -159,7 +159,7 @@ namespace cse3902
                     game.CollisionManager.Disabled = false;
                     if (IsDying() || IsGrabbedByWallMaster() || triforce)
                     {
-                        game.RoomHandler.Reset(!IsGrabbedByWallMaster());
+                        game.RoomHandler.Reset(!IsGrabbedByWallMaster(), IsDying());
                         GameConditionManager.Instance.Reset();
                     }
                     pausedState = PauseState.Unpaused;

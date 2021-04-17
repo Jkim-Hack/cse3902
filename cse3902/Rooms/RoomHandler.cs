@@ -22,8 +22,7 @@ namespace cse3902.Rooms
         public RoomTransitionManager roomTransitionManager;
 
         public Vector3 currentRoom { get; set; }
-        private Vector3 previousRoom;
-        private Vector3 startingRoom;
+        private Dictionary<int,Vector3> startingRooms;
         public Vector3 startingRoomTranslation { get; }
         private bool startComplete;
 
@@ -36,8 +35,12 @@ namespace cse3902.Rooms
             xmlParser = new XMLParser(this, game);
             roomTransitionManager = new RoomTransitionManager(game);
             camera = game.Camera;
-            startingRoom = new Vector3(2, 6, 0);
-            currentRoom = startingRoom;
+            startingRooms = new Dictionary<int, Vector3>()
+            {
+                {0, new Vector3(2,6,0) },
+                {2, new Vector3(-6,1,2) },
+            };
+            currentRoom = startingRooms[0];
             startingRoomTranslation = new Vector3(0, -1, 0);
             startComplete = false;
         }
@@ -86,7 +89,8 @@ namespace cse3902.Rooms
             rooms.GetValueOrDefault(currentRoom).Conditions = oldConditions;
             RoomConditions.Instance.EnterRoom();
 
-            previousRoom = currentRoom;
+            RoomProjectiles.Instance.Reset();
+
             currentRoom = newPos;
             rooms.GetValueOrDefault(newPos).SetToVisited();
 
@@ -99,7 +103,7 @@ namespace cse3902.Rooms
             {
                 roomChange += currentRoom;
                 //if (rooms.ContainsKey(roomChange) && !roomChange.Equals(startingRoom) && rooms.GetValueOrDefault(roomChange).Doors[i].State != IDoor.DoorState.Wall) LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[i]);
-                if (rooms.ContainsKey(roomChange) && !roomChange.Equals(startingRoom)) LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[i]);
+                if (rooms.ContainsKey(roomChange) && !roomChange.Equals(startingRooms[0])) LoadNewRoom(roomChange, rooms.GetValueOrDefault(roomChange).Doors[i]);
             }
         }
 
@@ -148,17 +152,25 @@ namespace cse3902.Rooms
         public void CompleteStart()
         {
             startComplete = true;
-            rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].ConnectedDoor = null;
-            rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Wall;
+            rooms.GetValueOrDefault(startingRooms[0] + startingRoomTranslation).Doors[0].ConnectedDoor = null;
+            rooms.GetValueOrDefault(startingRooms[0] + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Wall;
         }
 
-        public void Reset(bool healthReset)
+        public void Reset(bool healthReset, bool deathReset)
         {
             game.Camera.Reset();
             game.Player.Reset(healthReset);
             startComplete = false;
-            rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Open;
-            LoadNewRoom(startingRoom + startingRoomTranslation, rooms.GetValueOrDefault(startingRoom + startingRoomTranslation).Doors[0]);
+
+            if (currentRoom.Z == 0 || currentRoom.Z == -1 || !deathReset)
+            {
+                rooms.GetValueOrDefault(startingRooms[0] + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Open;
+                LoadNewRoom(startingRooms[0] + startingRoomTranslation, rooms.GetValueOrDefault(startingRooms[0] + startingRoomTranslation).Doors[0]);
+            }
+            else
+            {
+                LoadNewRoom(startingRooms[(int)currentRoom.Z], rooms.GetValueOrDefault(startingRooms[(int)currentRoom.Z]).Doors[0]);
+            }
 
             foreach (Room room in rooms.Values)
             {

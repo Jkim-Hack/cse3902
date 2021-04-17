@@ -18,7 +18,7 @@ namespace cse3902.Doors
         {
             this.game = game;
             doorSprite = DoorSpriteFactory.Instance.CreatePortalSprite(game.SpriteBatch, center);
-            roomTranslationVector = new Vector3(0, 0, -2);
+            roomTranslationVector = new Vector3(xyChange, -2);
 
             this.collidable = new DoorCollidable(this);
         }

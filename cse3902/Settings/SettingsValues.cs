@@ -96,7 +96,7 @@ namespace cse3902
             varToListInt.Add((Variable)13, new List<int>() { 1, 2, 3 });
             varToListInt.Add((Variable)14, new List<int>() { 1, 1, 3 });
             varToListInt.Add((Variable)15, new List<int>() { 1, 0, -1 });
-            varToListInt.Add((Variable)16, new List<int>() { 900, 0, 3600 });
+            varToListInt.Add((Variable)16, new List<int>() { 900, 3600, 3600 });
             varToListInt.Add((Variable)17, new List<int>() { 512, 72, 48 });
             varToListInt.Add((Variable)18, new List<int>() { 48, 32, 16 });
             varToListInt.Add((Variable)19, new List<int>() { 0, -5, -1 });
