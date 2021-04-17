@@ -82,7 +82,7 @@ namespace cse3902.HUD.HUDItems
 
         private void InstantiateHearts()
         {
-            for (int i = 0; i < HeartConstants.MaxHeartCount; i++)
+            for (int i = 0; i < HeartConstants.MaxHeartCount / 2; i++)
             {
                 Vector2 origin = heartContainerOrigin;
                 if (i > 7)

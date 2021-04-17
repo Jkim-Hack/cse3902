@@ -1,6 +1,7 @@
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.Sprites;
 
 namespace cse3902.ParticleSystem
 {
@@ -37,7 +38,7 @@ namespace cse3902.ParticleSystem
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, new Rectangle((int)origin.X, (int)origin.Y, size, size), null, color, 0, new Vector2(), SpriteEffects.None, 0.5f);
+            spriteBatch.Draw(texture, new Rectangle((int)origin.X, (int)origin.Y, size, size), null, color, 0, new Vector2(), SpriteEffects.None, SpriteUtilities.ParticleLayer);
         }
 
         public bool Dead

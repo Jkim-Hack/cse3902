@@ -75,7 +75,7 @@ namespace cse3902.Sounds
             SoundEffect backgroundMusic = content.Load<SoundEffect>("LOZ_Background_Music");
             backgroundMusicInstance = backgroundMusic.CreateInstance();
             backgroundMusicInstance.IsLooped = true;
-            backgroundMusicInstance.Volume *= 0.25f;
+            backgroundMusicInstance.Volume *= 0.1f;
             backgroundMusicInstance.Play();
         }
 
