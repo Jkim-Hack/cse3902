@@ -35,14 +35,17 @@ namespace cse3902.XMLParsing
                 XElement xLoc = door.Element("xloc"); //not used for normal doors
                 XElement yLoc = door.Element("yloc"); //not used for normal doors
 
+                Vector2 xyChange = new Vector2();
+                if (typeName.Value.Equals("PortalUp") || typeName.Value.Equals("PortalDown")) xyChange = GetXYChange(door);
+
                 RoomUtilities.DoorPos dPos = FindDoorPos(typeName.Value);
                 Vector2 center;
                 if (dPos == RoomUtilities.DoorPos.NONE) center = RoomUtilities.CalculateBlockCenter(roomobj.RoomPos, new Vector2(Int32.Parse(xLoc.Value), Int32.Parse(yLoc.Value)));
                 else center = RoomUtilities.CalculateDoorCenter(roomobj.RoomPos, dPos);
 
                 IDoor.DoorState initialDoorState = GetInitialDoorState(initState.Value);
-                IDoor doorAdd = CreateDoor(typeName.Value, center, initialDoorState);
-                Vector3 connectingRoom = roomobj.RoomPos + GetConnectingRoom(typeName.Value);
+                IDoor doorAdd = CreateDoor(typeName.Value, center, initialDoorState, xyChange);
+                Vector3 connectingRoom = roomobj.RoomPos + GetConnectingRoom(typeName.Value, xyChange);
 
                 if (roomHandler.rooms.ContainsKey(connectingRoom))
                 {
@@ -53,7 +56,7 @@ namespace cse3902.XMLParsing
             }
         }
 
-        private IDoor CreateDoor(String type, Vector2 startingPos, IDoor.DoorState initialDoorState)
+        private IDoor CreateDoor(String type, Vector2 startingPos, IDoor.DoorState initialDoorState, Vector2 xyChange)
         {
             IDoor newDoor = null;
             switch (type)
@@ -77,10 +80,10 @@ namespace cse3902.XMLParsing
                     newDoor = new OffscreenUpDoor(game, startingPos);
                     break;
                 case "PortalUp":
-                    newDoor = new PortalUp(game, startingPos);
+                    newDoor = new PortalUp(game, startingPos, xyChange);
                     break;
                 case "PortalDown":
-                    newDoor = new PortalDown(game, startingPos);
+                    newDoor = new PortalDown(game, startingPos, xyChange);
                     break;
                 default:
                     break;
@@ -89,7 +92,15 @@ namespace cse3902.XMLParsing
             return newDoor;
         }
 
-        private Vector3 GetConnectingRoom(String type)
+        private Vector2 GetXYChange(XElement door)
+        {
+            XElement xChange = door.Element("xchange");
+            XElement yChange = door.Element("ychange");
+
+            return new Vector2(Int32.Parse(xChange.Value), Int32.Parse(yChange.Value));
+        }
+
+        private Vector3 GetConnectingRoom(String type, Vector2 xyChange)
         {
             switch (type)
             {
@@ -106,9 +117,9 @@ namespace cse3902.XMLParsing
                 case "OffscreenUp":
                     return new Vector3(0, 0, 1);
                 case "PortalUp":
-                    return new Vector3(0, 0, 2);
+                    return new Vector3(xyChange, 2);
                 case "PortalDown":
-                    return new Vector3(0, 0, -2);
+                    return new Vector3(xyChange, -2);
                 default: //this should never happen
                     return new Vector3(0, -1, 0);
             }
