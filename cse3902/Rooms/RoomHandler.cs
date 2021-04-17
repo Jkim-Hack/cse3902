@@ -38,7 +38,6 @@ namespace cse3902.Rooms
             startingRooms = new Dictionary<int, Vector3>()
             {
                 {0, new Vector3(2,6,0) },
-                {2, new Vector3(-6,1,2) },
             };
             currentRoom = startingRooms[0];
             startingRoomTranslation = new Vector3(0, -1, 0);
