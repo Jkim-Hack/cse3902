@@ -53,6 +53,20 @@ namespace cse3902.Constants
 
         public const int BombParticleCenterColorMax = 128;
 
+        /* Enemy death emitter */
+        public const int EnemyDeathParticleInitialAmount = 25;
+        public const int EnemyDeathParticleAddAmount = 25;
+
+        public const int EnemyDeathParticleSize = 5;
+
+        public const int EnemyDeathParticleLifetimeMin = 20;
+        public const int EnemyDeathParticleLifetimeMax = 40;
+
+        public const float EnemyDeathParticleVelocityScale = 0.4f;
+
+        public const int EnemyDeathParticleColorMin = 150;
+        public const int EnemyDeathParticleColorMax = 256;
+
         /* Fireball emitter */
         public const int FireballParticleCenterAmount = 20;
         public const int FireballParticleTrailAmount = 10;

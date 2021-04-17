@@ -23,9 +23,9 @@ namespace cse3902.ParticleSystem
 
             this.particles = new List<IParticle>();
 
-            this.particleAddAmount = 50;
+            this.particleAddAmount = ParticleConstants.EnemyDeathParticleAddAmount;
 
-            GenerateParticles(50);
+            GenerateParticles(ParticleConstants.EnemyDeathParticleAddAmount);
         }
 
         private void GenerateParticles(int num)
@@ -34,15 +34,15 @@ namespace cse3902.ParticleSystem
 
             for (int i = 0; i < num; i++)
             {
-                int lifeTime = rand.Next(20, 40);
+                int lifeTime = rand.Next(ParticleConstants.EnemyDeathParticleLifetimeMin, ParticleConstants.EnemyDeathParticleLifetimeMax);
 
-                int colorVal = rand.Next(150, 256);
+                int colorVal = rand.Next(ParticleConstants.EnemyDeathParticleColorMin, ParticleConstants.EnemyDeathParticleColorMax);
                 float colorOpacity = (float)rand.NextDouble();
                 Color color = new Color(colorVal, colorVal, colorVal) * colorOpacity;
 
                 Vector2 velocity = GetRandomVelocity(rand);
 
-                particles.Add(new StraightMovingParticle(texture, color, origin, velocity, lifeTime, 10));
+                particles.Add(new StraightMovingParticle(texture, color, origin, velocity, lifeTime, ParticleConstants.EnemyDeathParticleSize));
             }
         }
 
@@ -56,7 +56,7 @@ namespace cse3902.ParticleSystem
             /* Gives effect an overall circular shape */
             if (rand.NextDouble() >= 0.75) velocity.Normalize();
 
-            velocity *= 0.4f;
+            velocity *= ParticleConstants.EnemyDeathParticleVelocityScale;
 
             return velocity;
         }
