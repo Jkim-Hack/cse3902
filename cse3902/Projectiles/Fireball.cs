@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 using cse3902.Sprites;
 
 namespace cse3902.Projectiles
-
 {
     public class Fireball : IProjectile
     {
@@ -62,7 +61,7 @@ namespace cse3902.Projectiles
         {
             if(fireballCounter < 0)
             {
-                if (ParticleEngine.Instance.UseParticleEffects) fireballEmitter.Kill = true;
+                KillParticles();
                 animationComplete = true;
                 return -1;
             }
@@ -83,6 +82,11 @@ namespace cse3902.Projectiles
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * Texture.Width), (int)(sizeIncrease * Texture.Height));
                 spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
             }
+        }
+
+        public void KillParticles()
+        {
+            if (ParticleEngine.Instance.UseParticleEffects) fireballEmitter.Kill = true;
         }
 
         public ref Rectangle Box

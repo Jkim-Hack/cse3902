@@ -92,7 +92,7 @@ namespace cse3902.ParticleSystem
                 // ProjectileHandler.Instance.CreateArrowItem(spriteBatch, new Vector2(700, 1000), new Vector2(1, 0));
                 // ProjectileHandler.Instance.CreateBombItem(spriteBatch, new Vector2(650, 970));
                 // ProjectileHandler.Instance.CreateFireballObject(spriteBatch, new Vector2(730, 970), new Vector2(-1, 0));
-                CreateEnemyDeathEffect(new Vector2(650, 970));
+                // CreateEnemyDeathEffect(new Vector2(650, 970));
 
                 pressed = true;
             }
