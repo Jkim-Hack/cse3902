@@ -127,13 +127,11 @@ namespace cse3902.Entities.Enemies
         private void RegularMovement(GameTime gameTime)
         {
             this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
             if (travelDistance <= 0)
             {
                 Random rand = new System.Random();
                 int choice = rand.Next(0, 8);
                 travelDistance = 100;
-
                 switch (choice)
                 {
                     case 0:
@@ -176,7 +174,6 @@ namespace cse3902.Entities.Enemies
             {
                 travelDistance--;
             }
-
             keeseSprite.Update(gameTime);
         }
 
