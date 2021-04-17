@@ -58,7 +58,7 @@ namespace cse3902.ParticleSystem
 
                 Vector2 velocity = GetRandomTrailVelocity(rand);
 
-                Vector2 spawn = new Vector2((float)(rand.NextDouble() * fireball.Box.Height - fireball.Box.Height / 2.0f) + origin.X, origin.Y);
+                Vector2 spawn = new Vector2(origin.X, (float)(rand.NextDouble() * fireball.Box.Height - fireball.Box.Height / 2.0f) + origin.Y);
 
                 particles.Add(new StraightMovingParticle(texture, color, spawn, velocity, lifeTime, ParticleConstants.FireballParticleTrailSize));
             }
