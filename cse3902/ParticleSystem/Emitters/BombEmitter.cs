@@ -14,7 +14,7 @@ namespace cse3902.ParticleSystem
 
         private List<IParticle> particles;
 
-        private int particleAddAmount;
+        private int particleAddAmountCenter;
 
         public BombEmitter(Texture2D texture, Vector2 origin)
         {
@@ -23,25 +23,43 @@ namespace cse3902.ParticleSystem
 
             this.particles = new List<IParticle>();
 
-            this.particleAddAmount = 50;
+            this.particleAddAmountCenter = ParticleConstants.BombParticleCenterAddAmount;
 
-            GenerateParticles(200);
+            GenerateCenterParticles(ParticleConstants.BombParticleCenterAmount);
+            GenerateRingParticles(ParticleConstants.BombParticleRingAmount);
         }
 
-        private void GenerateParticles(int num)
+        private void GenerateCenterParticles(int num)
         {
             Random rand = ParticleConstants.rand;
 
             for (int i = 0; i < num; i++)
             {
-                int lifeTime = 50;
+                int lifeTime = rand.Next(ParticleConstants.BombParticleCenterLifetimeMin, ParticleConstants.BombParticleCenterLifetimeMax);
 
                 float colorOpacity = (float)rand.NextDouble();
-                Color color = Color.Orange * colorOpacity;
+                Color color = new Color(255, rand.Next(ParticleConstants.BombParticleCenterColorMax), 0) * colorOpacity;
 
                 Vector2 velocity = GetRandomVelocity(rand);
 
-                particles.Add(new StraightMovingParticle(texture, color, origin, velocity, lifeTime, 10));
+                particles.Add(new StraightMovingParticle(texture, color, origin, velocity, lifeTime, ParticleConstants.BombParticleCenterSize));
+            }
+        }
+
+        private void GenerateRingParticles(int num)
+        {
+            Random rand = ParticleConstants.rand;
+
+            for (int i = 0; i < num; i++)
+            {
+                int lifeTime = rand.Next(ParticleConstants.BombParticleRingLifetimeMin, ParticleConstants.BombParticleRingLifetimeMax);
+
+                float colorOpacity = (float)rand.NextDouble();
+                Color color = Color.White * colorOpacity;
+
+                Vector2 velocity = GetRandomVelocity(rand);
+
+                particles.Add(new StraightMovingParticle(texture, color, origin, velocity, lifeTime, ParticleConstants.BombParticleRingSize));
             }
         }
 
@@ -55,15 +73,17 @@ namespace cse3902.ParticleSystem
             /* Gives effect a circular shape */
             velocity.Normalize();
 
+            velocity *= ParticleConstants.BombParticleCenterVelocityScale;
+
             return velocity;
         }
 
         public void Update(GameTime gameTime)
         {
-            if (particleAddAmount > 0)
+            if (particleAddAmountCenter > 0)
             {
-                GenerateParticles(particleAddAmount);
-                particleAddAmount--;
+                GenerateCenterParticles(particleAddAmountCenter);
+                particleAddAmountCenter--;
             }
 
             particles.ForEach(particle => particle.Update(gameTime));
@@ -79,7 +99,7 @@ namespace cse3902.ParticleSystem
 
         public bool AnimationDone
         {
-            get => particles.Count == 0 && particleAddAmount == 0;
+            get => particles.Count == 0 && particleAddAmountCenter == 0;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace cse3902.ParticleSystem
                 int lifeTime = rand.Next(ParticleConstants.SwordParticleLifetimeMin, ParticleConstants.SwordParticleLifetimeMax);
 
                 float colorOpacity = (float)rand.NextDouble() * ParticleConstants.SwordParticleOpacity;
-                Color color = new Color(255, 255, 255) * colorOpacity;
+                Color color = Color.White * colorOpacity;
 
                 Vector2 velocity = GetRandomVelocity(rand);
 
