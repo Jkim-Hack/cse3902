@@ -8,6 +8,7 @@ using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
 using cse3902.Constants;
 using cse3902.Sounds;
+using cse3902.ParticleSystem;
 
 namespace cse3902.Entities.Enemies
 {
@@ -88,6 +89,7 @@ namespace cse3902.Entities.Enemies
             this.wallMasterStateMachine.Die();
             SoundFactory.PlaySound(SoundFactory.Instance.enemyHit);
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.C);
+            ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
         public void BeShoved()

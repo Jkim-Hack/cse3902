@@ -57,6 +57,11 @@ namespace cse3902.ParticleSystem
             emitters.Add(new BombEmitter(glow, origin));
         }
 
+        public void CreateEnemyDeathEffect(Vector2 origin)
+        {
+            emitters.Add(new ArrowEmitter(cloud, origin));
+        }
+
         public IDependentParticleEmmiter CreateFireballEffect(IProjectile fireball)
         {
             IDependentParticleEmmiter fireballEmitter = new FireballEmitter(glow, fireball);
@@ -83,7 +88,7 @@ namespace cse3902.ParticleSystem
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && !pressed)
             {
                 /* Uncomment the one being tested and press left shift to spawn in starting room */
-                ProjectileHandler.Instance.CreateSwordItem(spriteBatch, new Vector2(700, 1000), new Vector2(1, 0));
+                // ProjectileHandler.Instance.CreateSwordItem(spriteBatch, new Vector2(700, 1000), new Vector2(1, 0));
                 // ProjectileHandler.Instance.CreateArrowItem(spriteBatch, new Vector2(700, 1000), new Vector2(1, 0));
                 // ProjectileHandler.Instance.CreateBombItem(spriteBatch, new Vector2(650, 970));
                 // ProjectileHandler.Instance.CreateFireballObject(spriteBatch, new Vector2(730, 970), new Vector2(-1, 0));
