@@ -8,7 +8,7 @@ namespace cse3902.ParticleSystem
     public class StraightMovingParticle : IParticle
     {
         private Texture2D texture;
-        Color color;
+        private Color color;
 
         private Vector2 origin;
         private Vector2 velocity;

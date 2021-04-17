@@ -92,7 +92,7 @@ namespace cse3902.Projectiles
                 if (ParticleEngine.Instance.UseParticleEffects)
                 {
                     origin = new Vector2(currentX, currentY) - new Vector2(frameWidth, frameHeight) / 10 +  direction * 5;
-                    ParticleEngine.Instance.CreateNewEmitter(ParticleEngine.ParticleEmitter.SwordHit, origin);
+                    ParticleEngine.Instance.CreateSwordEffect(origin);
                     animationComplete = true;
                 }
                 else

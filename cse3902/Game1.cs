@@ -194,8 +194,12 @@ namespace cse3902
 
             if (!GameStateManager.Instance.InMenu(true) && !GameStateManager.Instance.IsGrabbedByWallMaster()) player.Draw();
             roomHandler.Draw();
-            //collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
-            ParticleEngine.Instance.Draw(spriteBatch);
+            // collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
+            spriteBatch.End();
+
+            ParticleEngine.Instance.Draw(spriteBatch, camera.GetGameplayTransformationMatrix());
+            
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, camera.GetGameplayTransformationMatrix());
             VisionBlocker.Instance.Draw();
             spriteBatch.End();
 
