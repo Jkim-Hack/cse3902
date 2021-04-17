@@ -345,7 +345,8 @@ namespace cse3902.Entities
             get => this.health;
             set 
             {
-                this.health = value;
+                if (health <= 0 && value != totalHealth) return;
+                health = value;
                 if (health > totalHealth) health = totalHealth;
                 if (health < 1) health = 1;
             }

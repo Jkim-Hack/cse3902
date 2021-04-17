@@ -83,6 +83,11 @@ namespace cse3902.Rooms
             }
         }
 
+        public void Reset()
+        {
+            while (projectiles.Count > 0) projectiles.RemoveAt(0);
+        }
+
         public ref IList ListRef
         {
             get => ref projectiles;
