@@ -55,7 +55,7 @@ namespace cse3902.Sprites.EnemySprites
             remainingDamageDelay = DamageConstants.DamageMaskDelay;
 
             totalFrames = rows * columns;
-            currentFrame = 2;
+            currentFrame = 0;
             startingFrameIndex = (int)FrameIndex.LeftFacing;
             endingFrameIndex = startingFrameIndex + 2;
             frameWidth = spriteTexture.Width / columns;
