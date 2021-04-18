@@ -752,6 +752,12 @@
 /processorParam:TextureFormat=Color
 /build:heartcont.png
 
+#begin highercoupling.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:highercoupling.wav
+
 #begin interior.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -859,6 +865,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:LinkDeath.png
+
+#begin lowcohesion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:lowcohesion.wav
 
 #begin LOZ_Arrow_Boomerang.wav
 /importer:WavImporter
