@@ -9,6 +9,7 @@ namespace cse3902.SpriteFactory
     public class EnemySpriteFactory : ISpriteFactory
     {
         private Texture2D aquamentus;
+        private Texture2D boggusBoss;
         private Texture2D gel;
         private Texture2D goriya;
         private Texture2D keese;
@@ -33,6 +34,7 @@ namespace cse3902.SpriteFactory
         public void LoadAllTextures(ContentManager content)
         {
             aquamentus = content.Load<Texture2D>("aquamentus");
+            boggusBoss = content.Load<Texture2D>("enemies/boggusboss");
             gel = content.Load<Texture2D>("enemies/gel");
             goriya = content.Load<Texture2D>("enemies/goriya_red");
             keese = content.Load<Texture2D>("enemies/keese");
@@ -46,6 +48,11 @@ namespace cse3902.SpriteFactory
         public ISprite CreateAquamentusSprite(SpriteBatch spriteBatch, Vector2 center)
         {
             return new AquamentusSprite(spriteBatch, aquamentus, 2, 2, bossDamageSequence, center);
+        }
+
+        public ISprite CreateBoggusBossSprite(SpriteBatch spritebatch, Vector2 center)
+        {
+            return new BoggusBossSprite(spritebatch, boggusBoss, 2, 2, bossDamageSequence, center);
         }
 
         public ISprite CreateGelSprite(SpriteBatch spriteBatch, Vector2 center)

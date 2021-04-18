@@ -13,6 +13,8 @@ namespace cse3902
             AquamentusHealth,
             AquamentusDamage,
             AquamentusFireball,
+            BoggusBossHealth,
+            BoggusBossDamage,
             GoriyaHealth,
             GoriyaDamage,
             GoriyaBoomerang,
