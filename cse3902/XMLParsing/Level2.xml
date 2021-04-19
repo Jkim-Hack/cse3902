@@ -261,7 +261,7 @@
 			<door>
 				<type>Left</type>
 				<pos>3</pos>
-				<state>Wall</state>
+				<state>Open</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
