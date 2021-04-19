@@ -171,28 +171,28 @@
 			<door>
 				<type>Down</type>
 				<pos>2</pos>
-				<state>Wall</state>
+				<state>Open</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
 			<door>
 				<type>Left</type>
 				<pos>3</pos>
-				<state>Open</state>
+				<state>Wall</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
 			<door>
 				<type>Up</type>
 				<pos>0</pos>
-				<state>Wall</state>
+				<state>Open</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
 			<door>
 				<type>Right</type>
 				<pos>1</pos>
-				<state>Open</state>
+				<state>Wall</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
@@ -255,8 +255,8 @@
 			<block>
 				<type>Red</type>
 				<dir>Still</dir>
-				<xloc>5</xloc>
-				<yloc>5</yloc>
+				<xloc>6</xloc>
+				<yloc>4</yloc>
 				<push>0</push>
 			</block>
 			<block>

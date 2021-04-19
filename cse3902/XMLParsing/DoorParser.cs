@@ -171,7 +171,6 @@ namespace cse3902.XMLParsing
 
         private void HandleDoorConnection(Vector3 connectingRoom, ref IDoor door, int pos)
         {
-            //Console.WriteLine(pos);
             roomHandler.rooms.GetValueOrDefault(connectingRoom).Doors[pos].ConnectedDoor = door;
             door.ConnectedDoor = roomHandler.rooms.GetValueOrDefault(connectingRoom).Doors[pos];
         }
