@@ -36,9 +36,9 @@ namespace cse3902.Entities.Enemies
 
             //stalfos sprite sheet is 1 row, 2 columns
             stalfosSprite = (StalfosSprite)EnemySpriteFactory.Instance.CreateStalfosSprite(game.SpriteBatch, center);
-            speed = 30.0f;
+            speed = MovementConstants.StalfosSpeed;
             travelDistance = 0;
-            shoveDistance = -10;
+            shoveDistance = MovementConstants.DefaultShoveDistance;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
@@ -86,7 +86,7 @@ namespace cse3902.Entities.Enemies
 
         public void BeShoved()
         {
-            this.shoveDistance = 20;
+            this.shoveDistance = MovementConstants.StalfosShoveDistance;
             this.shoveDirection = -this.direction;
         }
 
@@ -135,7 +135,7 @@ namespace cse3902.Entities.Enemies
 
             if (travelDistance <= 0)
             {
-                travelDistance = 80;
+                travelDistance = MovementConstants.StalfosMaxTravel;
                 RandomDirection();
             }
             else

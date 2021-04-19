@@ -61,11 +61,11 @@ namespace cse3902.Entities
             //special effect
             if (type == InventoryManager.ItemType.Heart)
             {
-                linkState.Health += 2;
+                linkState.Health += HeartConstants.HeartItemAddition;
             } else if (type == InventoryManager.ItemType.HeartContainer)
             {
-                linkState.TotalHealth += 2;
-                linkState.Health += 2;
+                linkState.TotalHealth += HeartConstants.HeartContainerItemAddition;
+                linkState.Health += HeartConstants.HeartContainerItemAddition;
             } else if (type == InventoryManager.ItemType.Fairy)
             {
                 linkState.Health = linkState.TotalHealth;
@@ -142,22 +142,20 @@ namespace cse3902.Entities
             //if((int) InventoryManager.Instance.SwordSlot < index)
             InventoryManager.Instance.SwordSlot = (InventoryManager.SwordType)index;
 
-            int newdmg = 1;
+            int newdmg = LinkConstants.WoodenSwordDamage;
             switch (index)
             {
-                case 0:
-                    newdmg = 1;
-                    break;
                 case 1:
-                    newdmg = 2;
+                    newdmg = LinkConstants.WhiteSwordDamage;
                     break;
                 case 2:
-                    newdmg = 4;
+                    newdmg = LinkConstants.MagicSwordDamage;
                     break;
                 case 3:
                     newdmg = 2;
                     break;
             }
+            //TODO DO NOT USE DAMAGECONSTANTS THIS WAY
             DamageConstants.SwordDamage = newdmg;
         }
 
