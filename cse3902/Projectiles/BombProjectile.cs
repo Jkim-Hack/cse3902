@@ -2,6 +2,7 @@
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.Sounds;
+using cse3902.ParticleSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Rooms;
@@ -33,6 +34,7 @@ namespace cse3902.Projectiles
         private float remainingDelay;
 
         private bool animationComplete;
+        private bool particlesGenerated;
 
         private ICollidable collidable;
 
@@ -56,6 +58,7 @@ namespace cse3902.Projectiles
             currentY = (int)startingPos.Y;
 
             this.animationComplete = false;
+            this.particlesGenerated = false;
 
             this.collidable = new ProjectileCollidable(this);
 
@@ -97,9 +100,12 @@ namespace cse3902.Projectiles
 
         public void Draw()
         {
-            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0f, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
+            if (!ParticleEngine.Instance.UseParticleEffects || !particlesGenerated)
+            {
+                Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
+                Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+                spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0f, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
+            }
         }
 
         public int Update(GameTime gameTime)
@@ -112,6 +118,12 @@ namespace cse3902.Projectiles
             if (remainingDelay <= 0)
             {
                 if (currentFrame == 0) SoundFactory.PlaySound(SoundFactory.Instance.bombBlow);
+
+                if (ParticleEngine.Instance.UseParticleEffects && !particlesGenerated)
+                {
+                    ParticleEngine.Instance.CreateBombEffect(Center - new Vector2(5, 5));
+                    particlesGenerated = true;
+                }
 
                 currentFrame++;
                 if (currentFrame == totalFrames)

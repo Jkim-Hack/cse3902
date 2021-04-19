@@ -7,7 +7,7 @@ using System;
 
 namespace cse3902.ParticleSystem
 {
-    public class ArrowEmitter : IParticleEmmiter
+    public class EnemyDeathEmitter : IParticleEmmiter
     {
         private Texture2D texture;
         private Vector2 origin;
@@ -16,16 +16,16 @@ namespace cse3902.ParticleSystem
 
         private int particleAddAmount;
 
-        public ArrowEmitter(Texture2D texture, Vector2 origin)
+        public EnemyDeathEmitter(Texture2D texture, Vector2 origin)
         {
             this.texture = texture;
             this.origin = origin;
 
             this.particles = new List<IParticle>();
 
-            this.particleAddAmount = ParticleConstants.ArrowParticleAddAmount;
+            this.particleAddAmount = ParticleConstants.EnemyDeathParticleAddAmount;
 
-            GenerateParticles(ParticleConstants.ArrowParticleInitialAmount);
+            GenerateParticles(ParticleConstants.EnemyDeathParticleAddAmount);
         }
 
         private void GenerateParticles(int num)
@@ -34,15 +34,15 @@ namespace cse3902.ParticleSystem
 
             for (int i = 0; i < num; i++)
             {
-                int lifeTime = rand.Next(ParticleConstants.ArrowParticleLifetimeMin, ParticleConstants.ArrowParticleLifetimeMax);
+                int lifeTime = rand.Next(ParticleConstants.EnemyDeathParticleLifetimeMin, ParticleConstants.EnemyDeathParticleLifetimeMax);
 
-                int colorVal = rand.Next(ParticleConstants.ArrowParticleColorMin, ParticleConstants.ArrowParticleColorMax);
+                int colorVal = rand.Next(ParticleConstants.EnemyDeathParticleColorMin, ParticleConstants.EnemyDeathParticleColorMax);
                 float colorOpacity = (float)rand.NextDouble();
                 Color color = new Color(colorVal, colorVal, colorVal) * colorOpacity;
 
                 Vector2 velocity = GetRandomVelocity(rand);
 
-                particles.Add(new StraightMovingParticle(texture, color, origin, velocity, lifeTime, ParticleConstants.ArrowParticleSize));
+                particles.Add(new StraightMovingParticle(texture, color, origin, velocity, lifeTime, ParticleConstants.EnemyDeathParticleSize));
             }
         }
 
@@ -56,7 +56,7 @@ namespace cse3902.ParticleSystem
             /* Gives effect an overall circular shape */
             if (rand.NextDouble() >= 0.75) velocity.Normalize();
 
-            velocity *= ParticleConstants.ArrowParticleVelocityScale;
+            velocity *= ParticleConstants.EnemyDeathParticleVelocityScale;
 
             return velocity;
         }

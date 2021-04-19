@@ -23,14 +23,69 @@ namespace cse3902.Constants
         public const int ArrowParticleColorMax = 256;
 
         /* Sword emitter */
-        public const int SwordParticleCircleAmount = 250;
+        public const int SwordParticleCircleAmount = 100;
         public const int SwordParticleAddAmount = 50;
 
         public const int SwordParticleSize = 3;
 
-        public const int SwordParticleLifetimeMin = 25;
-        public const int SwordParticleLifetimeMax = 50;
+        public const int SwordParticleLifetimeMin = 20;
+        public const int SwordParticleLifetimeMax = 35;
 
-        public const float SwordParticleVelocityScale = 0.4f;
+        public const float SwordParticleVelocityScale = 0.6f;
+
+        public const float SwordParticleOpacity = 0.5f;
+
+        /* Bomb emitter */
+        public const int BombParticleCenterAmount = 200;
+        public const int BombParticleCenterAddAmount = 50;
+        public const int BombParticleRingAmount = 100;
+
+        public const int BombParticleCenterSize = 15;
+        public const int BombParticleRingSize = 15;
+
+        public const int BombParticleCenterLifetimeMin = 10;
+        public const int BombParticleCenterLifetimeMax = 20;
+        public const int BombParticleRingLifetimeMin = 30;
+        public const int BombParticleRingLifetimeMax = 40;
+
+        public const float BombParticleCenterVelocityScale = 1.5f;
+        public const float BombParticleRingVelocityScale = 1f;
+
+        public const int BombParticleCenterColorMax = 128;
+
+        /* Enemy death emitter */
+        public const int EnemyDeathParticleInitialAmount = 25;
+        public const int EnemyDeathParticleAddAmount = 25;
+
+        public const int EnemyDeathParticleSize = 5;
+
+        public const int EnemyDeathParticleLifetimeMin = 20;
+        public const int EnemyDeathParticleLifetimeMax = 40;
+
+        public const float EnemyDeathParticleVelocityScale = 0.4f;
+
+        public const int EnemyDeathParticleColorMin = 150;
+        public const int EnemyDeathParticleColorMax = 256;
+
+        /* Fireball emitter */
+        public const int FireballParticleCenterAmount = 20;
+        public const int FireballParticleTrailAmount = 10;
+
+        public const int FireballParticleAddDelay = 10; /* milliseconds */
+
+        public const int FireballParticleCenterSize = 10;
+        public const int FireballParticleTrailSize = 10;
+
+        public const int FireballParticleCenterLifetime = 50;
+        public const int FireballParticleTrailLifetimeMin = 10;
+        public const int FireballParticleTrailLifetimeMax = 15;
+
+        public const float FireballParticleCenterVelocityScale = 0.1f;
+        public const float FireballParticleTrailVelocityScale = 1;
+
+        public const float FireballParticleAngleRange = (float)Math.PI / 2.0f;
+
+        public const int FireballParticleCenterColorMax = 64;
+        public const int FireballParticleTrailColorMax = 128;
     }
 }

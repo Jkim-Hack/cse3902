@@ -49,6 +49,9 @@ namespace cse3902.XMLParsing
                 case "Aquamentus":
                     newEnemy = new Aquamentus(game, startingPos);
                     break;
+                case "BoggusBoss":
+                    newEnemy = new BoggusBoss(game, startingPos);
+                    break;
                 case "Gel":
                     newEnemy = new Gel(game, startingPos);
                     break;

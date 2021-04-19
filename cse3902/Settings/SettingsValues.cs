@@ -44,7 +44,7 @@ namespace cse3902
             HealthDecrease,
             MaxHealthIncrease,
             MaxHealthDecrease,
-            SpaceKillEnemies //this acts as a boolean
+            SpaceKillEnemies, //this acts as a boolean
         }
 
         private static SettingsValues settingValuesInstance = new SettingsValues();

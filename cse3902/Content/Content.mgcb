@@ -284,6 +284,18 @@
 /processorParam:TextureFormat=Color
 /build:enemies/armos.png
 
+#begin enemies/boggusboss.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:enemies/boggusboss.png
+
 #begin enemies/BossesHurt.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -295,6 +307,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:enemies/BossesHurt.png;enemies/bosses_hurt.png
+
+#begin enemies/dodongo.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:enemies/dodongo.png
 
 #begin enemies/gel.png
 /importer:TextureImporter
@@ -740,6 +764,12 @@
 /processorParam:TextureFormat=Color
 /build:heartcont.png
 
+#begin highercoupling.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:highercoupling.wav
+
 #begin interior.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -847,6 +877,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:LinkDeath.png
+
+#begin lowcohesion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:lowcohesion.wav
 
 #begin LOZ_Arrow_Boomerang.wav
 /importer:WavImporter
@@ -1124,6 +1160,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:particles/diamond.png
+
+#begin particles/glow.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:particles/glow.png
 
 #begin particles/ring.png
 /importer:TextureImporter
