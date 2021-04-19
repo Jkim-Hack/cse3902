@@ -634,6 +634,15 @@
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
+			<door>
+				<type>PortalDown</type>
+				<pos>4</pos>
+				<state>Locked</state>
+				<xloc>6</xloc>
+				<yloc>6</yloc>
+				<xchange>2</xchange>
+				<ychange>0</ychange>
+			</door>
 		</doors>
 	</room>
 	<room>
