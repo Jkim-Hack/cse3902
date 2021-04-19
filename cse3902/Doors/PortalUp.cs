@@ -33,7 +33,7 @@ namespace cse3902.Doors
         }
         public Vector2 PlayerReleaseDirection()
         {
-            return new Vector2(0, -20);
+            return new Vector2(-20, 0);
         }
         public void Draw()
         {

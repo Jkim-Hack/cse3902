@@ -32,7 +32,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="States\" />
     <Folder Include="Entities\Enemies\" />
     <Folder Include="Sprites\EnemySprites\" />
     <Folder Include="Collision\" />
