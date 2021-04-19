@@ -17,6 +17,7 @@ namespace cse3902.Rooms
         private BlockParser blockParser;
         private DoorParser doorParser;
         private ConditionParser conditionParser;
+        private SpawnerParser spawnerParser;
 
         public XMLParser(RoomHandler roomHand, Game1 gm)
         {
@@ -28,6 +29,7 @@ namespace cse3902.Rooms
             blockParser = new BlockParser(gm);
             doorParser = new DoorParser(gm, roomHandler);
             conditionParser = new ConditionParser();
+            spawnerParser = new SpawnerParser(gm);
         }
 
         public void ParseXML(String filename)
@@ -58,6 +60,7 @@ namespace cse3902.Rooms
                 blockParser.ParseBlocks(currentRoom, room, doc);
                 doorParser.ParseDoors(currentRoom, room, doc);
                 conditionParser.ParseCondtions(currentRoom, room, doc);
+                spawnerParser.ParseSpawners(currentRoom, room, doc);
 
                 roomHandler.rooms.Add(roomTup, currentRoom);
             }

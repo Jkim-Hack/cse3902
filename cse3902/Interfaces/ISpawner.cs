@@ -6,10 +6,11 @@ namespace cse3902.Interfaces
     public interface ISpawner
     {
         public ref Rectangle Bounds { get; }
-        public int Count { get; }
+        public int MaxCount { get; }
+        public int CurrentCount { get; }
         public Vector2 Center { get; }
-        public void Update();
-        public void Draw();
+        public void Update(GameTime gameTime);
         public void Reset();
+        public void SpawnEnemy();
     }
 }

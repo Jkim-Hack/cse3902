@@ -6,6 +6,7 @@ using cse3902.SpriteFactory;
 using cse3902.Interfaces;
 using cse3902.Rooms;
 using System.Linq;
+using cse3902.Spawners;
 
 namespace cse3902.XMLParsing
 {
@@ -47,7 +48,23 @@ namespace cse3902.XMLParsing
 
         private ISpawner CreateSpawner(String type, int count, Vector2 startPos)
         {
-            return null;
+            ISpawner spawner = null;
+            switch (type)
+            {
+                case "keese":
+                    spawner = new KeeseSpawner(game, startPos, count);
+                    break;
+                case "stalfos":
+                    spawner = new StalfosSpawner(game, startPos, count);
+                    break;
+                case "goryia":
+                    spawner = new GoriyaSpawner(game, startPos, count);
+                    break;
+                case "gel":
+                    spawner = new GelSpawner(game, startPos, count);
+                    break;
+            }
+            return spawner;
         }
     }
 }
