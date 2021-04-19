@@ -36,7 +36,7 @@ namespace cse3902.Rooms
         public const int WALL_WIDTH = 120;
         public const int WALL_HEIGHT = 80;
 
-        public static readonly Point TriforceRoomPoint = ConvertVector(new Vector3(5, 1, 0)).ToPoint();
+        public static readonly Point TriforceRoomPoint = ConvertVector(new Vector3(4, 1, 6)).ToPoint();
 
         public enum DoorPos
         {
