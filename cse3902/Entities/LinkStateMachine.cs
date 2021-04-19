@@ -161,7 +161,7 @@ namespace cse3902.Entities
                 }
             }
 
-            if (health <= 2 && health != totalHealth)
+            if (health <= HeartConstants.HeartLowCount && health != totalHealth)
             {
                 lowHealthSoundDelay--;
                 if (lowHealthSoundDelay == 0)

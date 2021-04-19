@@ -182,7 +182,7 @@ namespace cse3902.SpriteFactory
 
         public IItem CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            IItem add = new SwordItem(this.spriteBatch, sword, startingPos, new Vector2(0, 1));
+            IItem add = new SwordItem(this.spriteBatch, sword, startingPos, 1);
             RoomItems.Instance.AddItem(add);
             return add;
         }

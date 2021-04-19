@@ -38,9 +38,9 @@ namespace cse3902.Entities.Enemies
             aquamentusSprite = (AquamentusSprite)EnemySpriteFactory.Instance.CreateAquamentusSprite(game.SpriteBatch, center);
             aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.SpriteBatch, this.center);
             direction = new Vector2(1, 0);
-            speed = 10.0f;
-            travelDistance = 20;
-            shoveDistance = -10;
+            speed = MovementConstants.AquamentusSpeed;
+            travelDistance = MovementConstants.StartingTravelDistance;
+            shoveDistance = MovementConstants.StartingShoveDistance;
             shoveDirection = new Vector2(1, 0);
             pauseAnim = false;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
@@ -70,7 +70,7 @@ namespace cse3902.Entities.Enemies
             this.Health -= damage;
             if (this.Health > 0)
             {
-                SoundFactory.PlaySound(SoundFactory.Instance.bossHurt, 0.2f);
+                SoundFactory.PlaySound(SoundFactory.Instance.bossHurt, SoundConstants.BossHurtTime);
             }
             this.aquamentusSprite.Damaged = true;
             this.collidable.DamageDisabled = true;
@@ -78,15 +78,14 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, 0.2f);
-            this.aquamentusStateMachine.Die();
+            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, SoundConstants.BossDefeatTime);
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.D);
             if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
         public void BeShoved()
         {
-            this.shoveDistance = 20;
+            this.shoveDistance = MovementConstants.AquamentusShoveDistance;
             this.pauseAnim = true;
         }
 
@@ -136,7 +135,7 @@ namespace cse3902.Entities.Enemies
             if (travelDistance <= 0)
             {
                 direction.X *= -1;
-                travelDistance = 150;
+                travelDistance = MovementConstants.AquamentusMaxTravel;
             }
             else
             {

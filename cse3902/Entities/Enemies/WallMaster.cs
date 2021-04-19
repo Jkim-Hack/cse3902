@@ -1,14 +1,14 @@
-﻿using System;
-using cse3902.Interfaces;
-using cse3902.Collision;
+﻿using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.Constants;
+using cse3902.Interfaces;
+using cse3902.ParticleSystem;
 using cse3902.Rooms;
+using cse3902.Sounds;
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
-using cse3902.Constants;
-using cse3902.Sounds;
-using cse3902.ParticleSystem;
+using System;
 
 namespace cse3902.Entities.Enemies
 {
@@ -48,10 +48,10 @@ namespace cse3902.Entities.Enemies
             wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.SpriteBatch, center);
             grabbedLink = NPCSpriteFactory.Instance.CreateGrabbedLinkSprite(game.SpriteBatch, center);
             wallMasterStateMachine = new WallMasterStateMachine(wallMasterSprite);
-            speed = 30.0f;
+            speed = MovementConstants.WallMasterSpeed;
             this.direction = new Vector2(0, 0);
             travelDistance = 0;
-            shoveDistance = -10;
+            shoveDistance = MovementConstants.DefaultShoveDistance;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             isTriggered = false;
@@ -94,7 +94,7 @@ namespace cse3902.Entities.Enemies
 
         public void BeShoved()
         {
-            this.shoveDistance = 20;
+            this.shoveDistance = MovementConstants.WallMasterShoveDistance;
             this.shoveDirection = -this.direction;
         }
 
@@ -106,7 +106,7 @@ namespace cse3902.Entities.Enemies
         private void UpdateDamage(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            
+
             if (collidable.DamageDisabled)
             {
                 remainingDamageDelay -= timer;
@@ -128,7 +128,6 @@ namespace cse3902.Entities.Enemies
                 else RegularMovement(gameTime);
                 this.grabbedLink.Center = this.Center;
             }
-            
         }
 
         private void ShoveMovement()
@@ -143,21 +142,24 @@ namespace cse3902.Entities.Enemies
 
             if (travelDistance <= 0)
             {
-
                 switch (this.wallType)
                 {
                     case WallType.LEFTWALL:
                         LeftWallMovement();
                         break;
+
                     case WallType.RIGHTWALL:
                         RightWallMovement();
                         break;
+
                     case WallType.BOTTOMWALL:
                         BottomWallMovement();
                         break;
+
                     case WallType.TOPWALL:
                         TopWallMovement();
                         break;
+
                     default:
                         break;
                 }
@@ -198,7 +200,6 @@ namespace cse3902.Entities.Enemies
         public void GrabLink()
         {
             grabbed = true;
-
         }
 
         public IEntity.EnemyType Type
@@ -213,11 +214,11 @@ namespace cse3902.Entities.Enemies
                 if (this.IsTriggered)
                 {
                     return ref this.wallMasterSprite.Box;
-                } else
+                }
+                else
                 {
                     return ref this.detectionBox;
                 }
-
             }
         }
 
@@ -280,17 +281,20 @@ namespace cse3902.Entities.Enemies
                 this.wallType = WallType.LEFTWALL;
                 this.detectionBox.Inflate(0, RoomUtilities.BLOCK_SIDE);
                 this.detectionBox.Offset(0, -RoomUtilities.BLOCK_SIDE);
-            } else if (startingPosition.X > 11)
+            }
+            else if (startingPosition.X > 11)
             {
                 this.wallType = WallType.RIGHTWALL;
                 this.detectionBox.Inflate(0, RoomUtilities.BLOCK_SIDE);
                 this.detectionBox.Offset(-RoomUtilities.BLOCK_SIDE, -RoomUtilities.BLOCK_SIDE);
-            } else if (startingPosition.Y < 0)
+            }
+            else if (startingPosition.Y < 0)
             {
                 this.wallType = WallType.TOPWALL;
                 this.detectionBox.Inflate(RoomUtilities.BLOCK_SIDE, 0);
                 this.detectionBox.Offset(-RoomUtilities.BLOCK_SIDE, 0);
-            } else
+            }
+            else
             {
                 this.wallType = WallType.BOTTOMWALL;
                 this.detectionBox.Inflate(RoomUtilities.BLOCK_SIDE, 0);
@@ -307,29 +311,34 @@ namespace cse3902.Entities.Enemies
                     direction.Y = -1;
                     travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     break;
+
                 case -1:
                     direction.X = 0;
                     direction.Y = 1;
                     travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     break;
+
                 case 0:
                     if (direction.Y == -1)
                     {
                         direction.X = -1;
                         direction.Y = 0;
                         travelDistance = RoomUtilities.BLOCK_SIDE * 2;
-                    } else if (direction.Y == 1)
+                    }
+                    else if (direction.Y == 1)
                     {
                         direction.X = 0;
                         direction.Y = 0;
                         this.IsTriggered = false;
-                    } else
+                    }
+                    else
                     {
                         direction.X = 1;
                         direction.Y = 0;
                         travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
                     break;
+
                 default:
                     break;
             }
@@ -344,11 +353,13 @@ namespace cse3902.Entities.Enemies
                     direction.Y = 1;
                     travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     break;
+
                 case -1:
                     direction.X = 0;
                     direction.Y = -1;
                     travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     break;
+
                 case 0:
                     if (direction.Y == -1)
                     {
@@ -369,6 +380,7 @@ namespace cse3902.Entities.Enemies
                         travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
                     break;
+
                 default:
                     break;
             }
@@ -383,11 +395,13 @@ namespace cse3902.Entities.Enemies
                     direction.Y = 0;
                     this.IsTriggered = false;
                     break;
+
                 case -1:
                     direction.X = 0;
                     direction.Y = 1;
                     travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     break;
+
                 case 0:
                     if (direction.Y == -1)
                     {
@@ -408,6 +422,7 @@ namespace cse3902.Entities.Enemies
                         travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
                     break;
+
                 default:
                     break;
             }
@@ -422,11 +437,13 @@ namespace cse3902.Entities.Enemies
                     direction.Y = 0;
                     this.IsTriggered = false;
                     break;
+
                 case -1:
                     direction.X = 0;
                     direction.Y = -1;
                     travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     break;
+
                 case 0:
                     if (direction.Y == -1)
                     {
@@ -439,13 +456,15 @@ namespace cse3902.Entities.Enemies
                         direction.X = -1;
                         direction.Y = 0;
                         travelDistance = RoomUtilities.BLOCK_SIDE * 4;
-                    } else
+                    }
+                    else
                     {
                         direction.X = 0;
                         direction.Y = 1;
                         travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
                     break;
+
                 default:
                     break;
             }
