@@ -44,9 +44,12 @@ namespace cse3902.Entities.Enemies
             shoveDirection = new Vector2(1, 0);
             pauseAnim = false;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
+            SoundFactory.PlaySound(SoundFactory.Instance.mariogreeting, 0.2f);
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.MarioBossHealth);
+            health = 100;
+            //todo: use this statement when it's available
+            //health = SettingsValues.Instance.GetValue(SettingsValues.Variable.MarioBossHealth);
         }
 
         public ref Rectangle Bounds
