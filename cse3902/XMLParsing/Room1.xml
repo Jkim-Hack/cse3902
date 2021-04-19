@@ -145,9 +145,29 @@
 				<yloc>5</yloc>
 			</item>
 			<item>
-				<type>Bow</type>
+				<type>Boomerang</type>
 				<xloc>8</xloc>
-				<yloc>4</yloc>
+				<yloc>6</yloc>
+			</item>
+			<item>
+				<type>Heart</type>
+				<xloc>8</xloc>
+				<yloc>6</yloc>
+			</item>
+			<item>
+				<type>Bow</type>
+				<xloc>0</xloc>
+				<yloc>6</yloc>
+			</item>
+			<item>
+				<type>Arrow</type>
+				<xloc>1</xloc>
+				<yloc>6</yloc>
+			</item>
+			<item>
+				<type>Arrow</type>
+				<xloc>1</xloc>
+				<yloc>6</yloc>
 			</item>
 		</items>
 		<enemies>
