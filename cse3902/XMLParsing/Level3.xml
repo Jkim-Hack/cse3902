@@ -1286,6 +1286,34 @@
 		<npcs>
 		</npcs>
 		<blocks>
+			<block>
+				<type>Normal</type>
+				<dir>Still</dir>
+				<xloc>4</xloc>
+				<yloc>0</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Normal</type>
+				<dir>Still</dir>
+				<xloc>4</xloc>
+				<yloc>1</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Normal</type>
+				<dir>Still</dir>
+				<xloc>4</xloc>
+				<yloc>5</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Normal</type>
+				<dir>Still</dir>
+				<xloc>4</xloc>
+				<yloc>6</yloc>
+				<push>0</push>
+			</block>
 		</blocks>
 		<doors>
 			<door>
