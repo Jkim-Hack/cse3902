@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using cse3902.Sprites;
+using cse3902.Constants;
 
 namespace cse3902.Projectiles
 {
@@ -91,7 +92,7 @@ namespace cse3902.Projectiles
                 if (ParticleEngine.Instance.UseParticleEffects)
                 {
                     origin = new Vector2(currentX, currentY) - new Vector2(frameWidth, frameHeight) / 10 +  direction * 5;
-                    ParticleEngine.Instance.CreateNewEmitter(ParticleEngine.ParticleEmitter.SwordHit, origin);
+                    ParticleEngine.Instance.CreateSwordEffect(origin);
                     animationComplete = true;
                 }
                 else
@@ -192,7 +193,7 @@ namespace cse3902.Projectiles
 
         public int Damage
         {
-            get => 6;
+            get => DamageConstants.SwordDamage;
         }
 
         public Vector2 Direction

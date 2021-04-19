@@ -8,8 +8,8 @@ namespace cse3902
 {
     public class VisionBlocker
     {
-        private const int blockedVisionRadius = 16;
         private bool visionBlocked;
+        private bool triforce;
 
         /*
          * sideOffset[0] = bottom
@@ -18,6 +18,7 @@ namespace cse3902
          * sideOffset[3] = right
          */
         private List<Vector2> sideOffset;
+        private List<Vector2> visionRange;
 
         private Vector2 linkPos;
         private Vector2 windowDimensions;
@@ -35,6 +36,13 @@ namespace cse3902
             visionBlocked = false;
             linkPos = new Vector2();
             windowDimensions = new Vector2(DimensionConstants.OriginalWindowWidth, DimensionConstants.OriginalGameplayHeight);
+            visionRange = new List<Vector2>()
+            {
+                new Vector2(0, 1),
+                new Vector2(-1, 0),
+                new Vector2(0, -1),
+                new Vector2(1, 0)
+            };
         }
 
         public void Update()
@@ -43,11 +51,13 @@ namespace cse3902
         }
         public void Draw()
         {
-            if (visionBlocked)
+            if (!triforce)
             {
-                foreach (Vector2 offset in sideOffset)
+                int visionRadius = SettingsValues.Instance.GetValue(SettingsValues.Variable.VisionRange);
+                if (visionBlocked) visionRadius = SettingsValues.Instance.GetValue(SettingsValues.Variable.VisionRangeNoCandle);
+                for (int i=0; i<sideOffset.Count; i++)
                 {
-                    Rectangle r = new Rectangle((linkPos + offset).ToPoint(), (2*windowDimensions).ToPoint());
+                    Rectangle r = new Rectangle((linkPos + sideOffset[i] + visionRadius * visionRange[i]).ToPoint(), (2*windowDimensions).ToPoint());
                     game.SpriteBatch.Draw(rectangleTexture, r, null, Color.Black, 0, new Vector2(), SpriteEffects.None, SpriteUtilities.VisionBlockLayer);
                 }            
             }
@@ -56,6 +66,10 @@ namespace cse3902
         public bool VisionIsBlocked
         {
             set => visionBlocked = value;
+        }
+        public bool Triforce
+        {
+            set => triforce = value;
         }
         public Game1 Game
         {
@@ -67,10 +81,10 @@ namespace cse3902
                 rectangleTexture.SetData(new Color[] { Color.White });
 
                 sideOffset = new List<Vector2>();
-                sideOffset.Add(new Vector2(-windowDimensions.X, blockedVisionRadius + linkSize.Y));
-                sideOffset.Add(new Vector2(- (blockedVisionRadius + 2 * windowDimensions.X + linkSize.X), - (linkSize.Y + windowDimensions.Y)));
-                sideOffset.Add(new Vector2(- (linkSize.X + windowDimensions.X), - (blockedVisionRadius + 2 * windowDimensions.Y + linkSize.Y)));
-                sideOffset.Add(new Vector2(blockedVisionRadius + linkSize.X, -windowDimensions.Y));
+                sideOffset.Add(new Vector2(-windowDimensions.X, linkSize.Y));
+                sideOffset.Add(new Vector2(- (2 * windowDimensions.X + linkSize.X), - (linkSize.Y + windowDimensions.Y)));
+                sideOffset.Add(new Vector2(- (linkSize.X + windowDimensions.X), - (2 * windowDimensions.Y + linkSize.Y)));
+                sideOffset.Add(new Vector2(linkSize.X, -windowDimensions.Y));
             }
         }
     }

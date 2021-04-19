@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using cse3902.Rooms;
 using cse3902.Sounds;
 using cse3902.Items;
+using cse3902.Constants;
 
 namespace cse3902.Entities
 {
@@ -82,8 +83,10 @@ namespace cse3902.Entities
             } 
             else if (type == InventoryManager.ItemType.Triforce)
             {
+                linkState.Health = linkState.TotalHealth;
                 InventoryManager.Instance.RemoveFromInventory(InventoryManager.ItemType.Compass);
                 GameStateManager.Instance.LinkPickupItem(601, true);
+                VisionBlocker.Instance.Triforce = true;
                 Vector2 startingPos = linkState.GameWonAnimation();
                 item.Center = startingPos;
                 AnimationItem = item;
@@ -138,6 +141,24 @@ namespace cse3902.Entities
             //TODO: Remove comment below once implemented inventory system
             //if((int) InventoryManager.Instance.SwordSlot < index)
             InventoryManager.Instance.SwordSlot = (InventoryManager.SwordType)index;
+
+            int newdmg = 1;
+            switch (index)
+            {
+                case 0:
+                    newdmg = 1;
+                    break;
+                case 1:
+                    newdmg = 2;
+                    break;
+                case 2:
+                    newdmg = 4;
+                    break;
+                case 3:
+                    newdmg = 2;
+                    break;
+            }
+            DamageConstants.SwordDamage = newdmg;
         }
 
         public void ChangeItem(InventoryManager.ItemType type)

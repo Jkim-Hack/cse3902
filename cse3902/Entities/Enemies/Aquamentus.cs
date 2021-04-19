@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using System;
 using cse3902.Constants;
 using cse3902.Sounds;
+using cse3902.ParticleSystem;
 
 namespace cse3902.Entities.Enemies
 {
@@ -45,7 +46,7 @@ namespace cse3902.Entities.Enemies
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 20;
+            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.AquamentusHealth);
         }
 
         public ref Rectangle Bounds
@@ -80,6 +81,7 @@ namespace cse3902.Entities.Enemies
             SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, 0.2f);
             this.aquamentusStateMachine.Die();
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.D);
+            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
         public void BeShoved()
@@ -180,7 +182,7 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => 2;
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.AquamentusDamage);
         }
 
         public int Health

@@ -1,7 +1,7 @@
 ﻿using System;
 using cse3902.Interfaces;
 using System.Collections;
-using System.Collections.Generic;
+using cse3902.HUD;
 using cse3902.Rooms;
 using cse3902.Entities.Enemies;
 using Microsoft.Xna.Framework;
@@ -35,80 +35,20 @@ namespace cse3902.Collision.Collidables
         {
             if (collidableObject is SwordCollidable && !isDamageDisabled)
             {
-                this.enemy.TakeDamage(collidableObject.DamageValue);
-                if (this.enemy.Health <= 0)
-                {
-                    RoomEnemies.Instance.RemoveEnemy(this.enemy);
-                } else
-                {
-                    //enemies are not shoved if attack perpdincular to their movement
-                    if (((SwordCollidable)collidableObject).Direction == this.enemy.Direction || ((SwordCollidable)collidableObject).Direction == -this.enemy.Direction)
-                    {
-                        this.enemy.BeShoved();
-                    }
-                }
+                SwordCollision(collidableObject);
 
             } else if (collidableObject is ProjectileCollidable && !isDamageDisabled)
             {
-                if (this.enemy is Gel || this.enemy is Keese)
-                {
-                    //only gels and keese take damage from projectiles it seems
-                    this.enemy.TakeDamage(collidableObject.DamageValue);
-                    if (this.enemy.Health <= 0)
-                    {
-                        RoomEnemies.Instance.RemoveEnemy(this.enemy);
-                    }
-                } else
-                {
+                ProjectileCollision(collidableObject);
 
-                    if (((ProjectileCollidable)collidableObject).DamageValue > 5)
-                    {
-                        this.enemy.TakeDamage(collidableObject.DamageValue);
-                        this.enemy.BeShoved();
-                        if (this.enemy.Health <= 0)
-                        {
-                            RoomEnemies.Instance.RemoveEnemy(this.enemy);
-                        }
-                    }
-                    //other enemies are simply stunned in place for a bit
-                    //need some kind of method to be able to 'stun' the enemies
-                    //they will still animate, just not move
-                }
             } else if (collidableObject is DoorCollidable || collidableObject is WallCollidable)
             {
-                if (collisionOccurrences[0])
-                {
-                    return;
-                }
-
-                if (!(this.enemy is WallMaster))
-                {
-                    this.enemy.StopShove();
-                    this.enemy.Center = this.enemy.PreviousCenter;
-
-                    DirectionLogic();
-
-                    this.collisionOccurrences[0] = true;
-
-                }
+                DoorWallCollision(collidableObject);
 
 
             } else if (collidableObject is BlockCollidable)
             {
-                if (collisionOccurrences[0])
-                {
-                    return;
-                }
-
-                if (!(this.enemy is Keese || this.enemy is WallMaster))
-                {
-                    this.enemy.StopShove();
-                    this.enemy.Center = this.enemy.PreviousCenter;
-
-                    DirectionLogic();
-
-                    this.collisionOccurrences[0] = true;
-                }
+                BlockkCollision(collidableObject);
             }
 
             else
@@ -158,6 +98,74 @@ namespace cse3902.Collision.Collidables
             } else
             {
                 this.enemy.ChangeDirection(new Vector2(0, 0));
+            }
+        }
+
+        private void SwordCollision(ICollidable collidableObject)
+        {
+            this.enemy.TakeDamage(collidableObject.DamageValue);
+            if (this.enemy.Health <= 0)
+            {
+                RoomEnemies.Instance.RemoveEnemy(this.enemy);
+            }
+            else
+            {
+                //enemies are not shoved if attack perpdincular to their movement
+                if (((SwordCollidable)collidableObject).Direction == this.enemy.Direction || ((SwordCollidable)collidableObject).Direction == -this.enemy.Direction)
+                {
+                    this.enemy.BeShoved();
+                }
+            }
+        }
+
+        private void ProjectileCollision(ICollidable collidableObject)
+        {
+            this.enemy.TakeDamage(collidableObject.DamageValue);
+            if (this.enemy.Health <= 0)
+            {
+                RoomEnemies.Instance.RemoveEnemy(this.enemy);
+                return;
+            }
+            if (((ProjectileCollidable)collidableObject).DamageValue > 2 || InventoryManager.Instance.SwordSlot == InventoryManager.SwordType.MagicalRod)
+            {
+                this.enemy.BeShoved();
+            }
+        }
+
+        private void DoorWallCollision(ICollidable collidableObject)
+        {
+            if (collisionOccurrences[0])
+            {
+                return;
+            }
+
+            if (!(this.enemy is WallMaster))
+            {
+                this.enemy.StopShove();
+                this.enemy.Center = this.enemy.PreviousCenter;
+
+                DirectionLogic();
+
+                this.collisionOccurrences[0] = true;
+
+            }
+        }
+
+        private void BlockkCollision(ICollidable collidableObject)
+        {
+            if (collisionOccurrences[0])
+            {
+                return;
+            }
+
+            if (!(this.enemy is Keese || this.enemy is WallMaster))
+            {
+                this.enemy.StopShove();
+                this.enemy.Center = this.enemy.PreviousCenter;
+
+                DirectionLogic();
+
+                this.collisionOccurrences[0] = true;
             }
         }
 

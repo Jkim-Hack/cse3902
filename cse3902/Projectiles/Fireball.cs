@@ -1,12 +1,12 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.ParticleSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Sprites;
 
 namespace cse3902.Projectiles
-
 {
     public class Fireball : IProjectile
     {
@@ -27,6 +27,7 @@ namespace cse3902.Projectiles
         private const float sizeIncrease = 1f;
 
         private ICollidable collidable;
+        private IDependentParticleEmmiter fireballEmitter;
 
         public Fireball(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction)
         {
@@ -36,6 +37,8 @@ namespace cse3902.Projectiles
             this.center = startingPosition;
             animationComplete = false;
             fireballCounter = fireballDelay;
+
+            if (ParticleEngine.Instance.UseParticleEffects) fireballEmitter = ParticleEngine.Instance.CreateFireballEffect(this);
 
             this.collidable = new ProjectileCollidable(this);
         }
@@ -58,6 +61,7 @@ namespace cse3902.Projectiles
         {
             if(fireballCounter < 0)
             {
+                KillParticles();
                 animationComplete = true;
                 return -1;
             }
@@ -72,9 +76,17 @@ namespace cse3902.Projectiles
 
         public void Draw()
         {
-            Vector2 origin = new Vector2(Texture.Width / 2f, Texture.Height / 2f);
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * Texture.Width), (int)(sizeIncrease * Texture.Height));
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
+            if (!ParticleEngine.Instance.UseParticleEffects)
+            {
+                Vector2 origin = new Vector2(Texture.Width / 2f, Texture.Height / 2f);
+                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * Texture.Width), (int)(sizeIncrease * Texture.Height));
+                spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
+            }
+        }
+
+        public void KillParticles()
+        {
+            if (ParticleEngine.Instance.UseParticleEffects) fireballEmitter.Kill = true;
         }
 
         public ref Rectangle Box
@@ -103,12 +115,12 @@ namespace cse3902.Projectiles
 
         public int Damage
         {
-            get => 1;
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.AquamentusFireball);
         }
 
         public Vector2 Direction
         {
-            get => this.direction;
+            get => this.direction * speed;
             set => this.direction = value;
 
         }
