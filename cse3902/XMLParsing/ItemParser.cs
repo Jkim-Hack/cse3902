@@ -46,6 +46,9 @@ namespace cse3902.XMLParsing
             IItem newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartItem(game.SpriteBatch, startPos, true, true);
             switch (type)
             {
+                case "Arrow":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateArrowItem(game.SpriteBatch, startPos);
+                    break;
                 case "Bomb":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateBombItem(game.SpriteBatch, startPos, true, true);
                     break;
@@ -75,6 +78,9 @@ namespace cse3902.XMLParsing
                     break;
                 case "Map":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateMapItem(game.SpriteBatch, startPos, true, true);
+                    break;
+                case "Rupee":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateRupeeItem(game.SpriteBatch, startPos, true, true);
                     break;
                 case "Triforce":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateTriforceItem(game.SpriteBatch, startPos, true, true);
