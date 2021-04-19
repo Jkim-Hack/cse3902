@@ -88,7 +88,11 @@ namespace cse3902.Rooms
             RoomDoors.Instance.LoadNewRoom(ref oldDoors, newRoom.Doors);
             rooms.GetValueOrDefault(currentRoom).Doors = oldDoors;
 
-            RoomConditions.Instance.LeaveRoom();
+            List<ISpawner> oldSpawners = rooms.GetValueOrDefault(currentRoom).Spawners;
+            RoomSpawners.Instance.LoadNewRoom(ref oldSpawners, newRoom.Spawners);
+            rooms.GetValueOrDefault(currentRoom).Spawners = oldSpawners;
+            
+	        RoomConditions.Instance.LeaveRoom();
             List<ICondition> oldConditions = rooms.GetValueOrDefault(currentRoom).Conditions;
             RoomConditions.Instance.LoadNewRoom(ref oldConditions, newRoom.Conditions);
             rooms.GetValueOrDefault(currentRoom).Conditions = oldConditions;
