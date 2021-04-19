@@ -2162,15 +2162,19 @@
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
+			<door>
+				<type>PortalUp</type>
+				<pos>4</pos>
+				<state>Locked</state>
+				<xloc>5</xloc>
+				<yloc>4</yloc>
+				<xchange>-5</xchange>
+				<ychange>-1</ychange>
+			</door>
 		</doors>
 		<npcs>
 		</npcs>
 		<items>
-			<item>
-				<type>Triforce</type>
-				<xloc>5.5</xloc>
-				<yloc>3.25</yloc>
-			</item>
 		</items>
 		<enemies>
 		</enemies>

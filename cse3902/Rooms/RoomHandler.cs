@@ -50,9 +50,9 @@ namespace cse3902.Rooms
             String level4 = "XMLParsing/Level4.xml";
 
             xmlParser.ParseXML(level1);
-            //xmlParser.ParseXML(level2);
-            //xmlParser.ParseXML(level3);
-            //xmlParser.ParseXML(level4);
+            xmlParser.ParseXML(level2);
+            xmlParser.ParseXML(level3);
+            xmlParser.ParseXML(level4);
         }
 
         public void LoadNewRoom(Vector3 newPos, IDoor entranceDoor)
@@ -168,7 +168,7 @@ namespace cse3902.Rooms
 
             if (currentRoom.Z == 0 || currentRoom.Z == -1 || !deathReset)
             {
-                rooms.GetValueOrDefault(startingRooms[0] + startingRoomTranslation).Doors[0].State = IDoor.DoorState.Open;
+                rooms.GetValueOrDefault(startingRooms[0] + startingRoomTranslation).Doors[4].State = IDoor.DoorState.Open;
                 LoadNewRoom(startingRooms[0] + startingRoomTranslation, rooms.GetValueOrDefault(startingRooms[0] + startingRoomTranslation).Doors[0]);
             }
             else

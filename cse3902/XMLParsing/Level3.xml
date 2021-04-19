@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <rooms>
 	<room>
-		<number>0,0,6</number>
+		<number>0,0,4</number>
 		<sprite>12</sprite>
 		<traps>
 		</traps>
@@ -139,7 +139,7 @@
 			<door>
 				<type>Down</type>
 				<pos>2</pos>
-				<state>Door</state>
+				<state>Open</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
@@ -168,8 +168,36 @@
 	</room>
 	<room>
 		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Open</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
 		</doors>
-		<number>0,1,6</number>
+		<number>0,1,4</number>
 		<traps>
 		</traps>
 		<conditions>
@@ -382,7 +410,7 @@
 		</blocks>
 	</room>
 	<room>
-		<number>0,2,6</number>
+		<number>0,2,4</number>
 		<sprite>12</sprite>
 		<traps>
 		</traps>
@@ -609,7 +637,7 @@
 		</doors>
 	</room>
 	<room>
-		<number>1,0,6</number>
+		<number>1,0,4</number>
 		<sprite>12</sprite>
 		<traps>
 		</traps>
@@ -788,7 +816,7 @@
 	</room>
 	<room>
 		<!--OH-->
-		<number>2,0,6</number>
+		<number>2,0,4</number>
 		<sprite>12</sprite>
 		<traps>
 		</traps>
@@ -1018,7 +1046,7 @@
 	</room>
 	<room>
 		<!--IO-->
-		<number>3,0,6</number>
+		<number>3,0,4</number>
 		<sprite>12</sprite>
 		<traps>
 		</traps>
@@ -1226,7 +1254,7 @@
 		</doors>
 	</room>
 	<room>
-		<number>4,0,6</number>
+		<number>4,0,4</number>
 		<sprite>12</sprite>
 		<traps>
 		</traps>
