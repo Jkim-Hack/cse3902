@@ -49,6 +49,7 @@
     <Folder Include="Content\sounds\" />
     <Folder Include="Sounds\" />
     <Folder Include="Utilities\" />
+    <Folder Include="Spawners\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Blocks\WaterBlock.cs" />
