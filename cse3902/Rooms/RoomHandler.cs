@@ -57,6 +57,11 @@ namespace cse3902.Rooms
 
         public void LoadNewRoom(Vector3 newPos, IDoor entranceDoor)
         {
+            if(this.currentRoom.Z != newPos.Z && newPos.Z >= 0)
+            {
+                DungeonMask.Instance.LoadNextMask(((int)newPos.Z) / 2);
+            }
+
             Room newRoom = rooms.GetValueOrDefault(newPos);
             Vector2 convertedRoom = RoomUtilities.ConvertVector(newPos);
 

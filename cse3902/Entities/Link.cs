@@ -32,7 +32,7 @@ namespace cse3902.Entities
             Texture2D linkDamageSequenceTexture = game.Content.Load<Texture2D>("LinkDamageSequence");
             Texture2D linkDeathTexture = game.Content.Load<Texture2D>("LinkDeath");
             Texture2D rectangleTexture = new Texture2D(game.GraphicsDevice, 1, 1);
-            DamageMaskHandler linkDamageMaskHandler = new DamageMaskHandler(linkTexture, linkDamageSequenceTexture, LinkConstants.DamageMaskRows, LinkConstants.DamageMaskCols, 0);
+            GenericTextureMask linkDamageMaskHandler = new GenericTextureMask(linkTexture, linkDamageSequenceTexture, LinkConstants.DamageMaskRows, LinkConstants.DamageMaskCols, 0);
             SingleMaskHandler linkDeathMaskHandler = new SingleMaskHandler(linkTexture, linkDeathTexture);
 
             Vector2 centerPosition = new Vector2(0, 0);

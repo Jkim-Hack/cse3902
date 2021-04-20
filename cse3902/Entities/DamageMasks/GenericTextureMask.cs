@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using cse3902.Sprites;
+﻿using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace cse3902.Entities.DamageMasks
 {
-    public class DamageMaskHandler
+    public class GenericTextureMask
     {
         private Texture2D spriteTexture;
 
@@ -17,7 +16,7 @@ namespace cse3902.Entities.DamageMasks
 
         private Color[] originalData;
 
-	    private List<Color[]> allMaskColors;
+        private List<Color[]> allMaskColors;
         private int totalColors;
         private int totalMasks;
         private int startingColorIndex;
@@ -26,12 +25,11 @@ namespace cse3902.Entities.DamageMasks
 
         private bool isDisabled;
 
-        public DamageMaskHandler(Texture2D spriteTexture, Texture2D damageSequenceTexture, int sequenceRows, int sequenceColumns, int startingColorIndex)
+        public GenericTextureMask(Texture2D spriteTexture, Texture2D damageSequenceTexture, int sequenceRows, int sequenceColumns, int startingColorIndex)
         {
             this.spriteTexture = spriteTexture;
-	        this.damageSequenceTexture = damageSequenceTexture;
+            this.damageSequenceTexture = damageSequenceTexture;
 
-            int totalFrames = sequenceRows * sequenceColumns; 
             int frameWidth = damageSequenceTexture.Width / sequenceColumns;
             int frameHeight = damageSequenceTexture.Height / sequenceRows;
             damageFrames = SpriteUtilities.distributeFrames(sequenceColumns, sequenceRows, frameWidth, frameHeight);
@@ -55,9 +53,9 @@ namespace cse3902.Entities.DamageMasks
             allMaskColors.Add(maskColors);
             textureColorSequence.Add(new Color[originalData.Length]);
             totalMasks++;
-        } 
-       
-	     // Textures go from top down
+        }
+
+        // Textures go from top down
         private void AddAllColorMasks()
         {
             foreach (var frame in damageFrames)
@@ -67,15 +65,15 @@ namespace cse3902.Entities.DamageMasks
 
                 damageSequenceTexture.GetData(0, frame, frameColors, 0, frameSize);
 
-			    List<Color> colors = new List<Color>();
-			    foreach (var color in frameColors)
-			    {
+                List<Color> colors = new List<Color>();
+                foreach (var color in frameColors)
+                {
                     if (!colors.Contains(color) && !color.Equals(Color.Transparent))
                     {
-					    colors.Add(color);
+                        colors.Add(color);
                     }
-			    }
-				totalColors = colors.Count;
+                }
+                totalColors = colors.Count;
 
                 AddColorMask(colors.ToArray());
             }
@@ -86,9 +84,10 @@ namespace cse3902.Entities.DamageMasks
             textureColorSequence[0] = originalData;
             for (int j = 0; j < originalData.Length; j++)
             {
-                for (int k = 0; k < totalColors; k++)
+                for (int i = 1; i < totalMasks; i++)
                 {
-                    for (int i = 1; i < totalMasks; i++)
+                    textureColorSequence[i][j] = originalData[j];
+                    for (int k = 0; k < totalColors; k++)
                     {
                         if (originalData[j] == allMaskColors[startingColorIndex][k])
                         {
@@ -111,6 +110,16 @@ namespace cse3902.Entities.DamageMasks
             spriteTexture.SetData(textureColorSequence[currentMaskIndex]);
         }
 
+        public void changeMask(int maskIndex)
+        {
+            if (isDisabled) return;
+            currentMaskIndex = maskIndex;
+            if (currentMaskIndex >= totalMasks)
+                currentMaskIndex = 0;
+
+            spriteTexture.SetData(textureColorSequence[currentMaskIndex]);
+        }
+
         public void Reset()
         {
             currentMaskIndex = 0;
@@ -121,6 +130,11 @@ namespace cse3902.Entities.DamageMasks
         {
             get => isDisabled;
             set => isDisabled = value;
+        }
+
+        public int MaskCount
+        {
+            get => totalMasks;
         }
     }
 }

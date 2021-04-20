@@ -35,7 +35,7 @@ namespace cse3902.Sprites.EnemySprites
         private float remainingDelay;
 
         private bool isDamage;
-        private DamageMaskHandler damageMaskHandler;
+        private GenericTextureMask damageMaskHandler;
 
         private Rectangle destination;
 
@@ -66,7 +66,7 @@ namespace cse3902.Sprites.EnemySprites
 
             center = startingPosition;
 
-            damageMaskHandler = new DamageMaskHandler(texture, damageSequence, 1, 4, 3);
+            damageMaskHandler = new GenericTextureMask(texture, damageSequence, 1, 4, 3);
 
         }
 

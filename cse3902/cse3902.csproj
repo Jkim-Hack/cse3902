@@ -36,7 +36,6 @@
     <Folder Include="Sprites\EnemySprites\" />
     <Folder Include="Collision\" />
     <Folder Include="Collision\Collidables\" />
-    <Folder Include="Entities\DamageMasks\" />
     <Folder Include="NPCs\" />
     <Folder Include="HUD\" />
     <Folder Include="HUD\HUDItems\" />
