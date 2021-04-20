@@ -13,11 +13,6 @@ namespace cse3902.Entities
             this.wallMasterSprite = wallMasterSprite;
         }
 
-        public void CycleWeapon(int dir)
-        {
-            //Enemies don't change weapons
-            throw new NotImplementedException();
-        }
 
         public void ChangeDirection(Vector2 newDirection)
         {
@@ -44,12 +39,6 @@ namespace cse3902.Entities
                 }
             }
         }
-
-        public void TakeDamage()
-        {
-
-        }
-
         public void Attack()
         {
             wallMasterSprite.IsAttacking = true;

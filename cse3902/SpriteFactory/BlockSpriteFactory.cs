@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using cse3902.Interfaces;
+using cse3902.Rooms;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -26,9 +27,13 @@ namespace cse3902.SpriteFactory
         public void LoadAllTextures(ContentManager content)
         {
             blockTextures.Add("normalblock", content.Load<Texture2D>("normalblock"));
+            DungeonMask.Instance.addTexture(blockTextures["normalblock"]);
             blockTextures.Add("waterblock", content.Load<Texture2D>("newwaterblock"));
+            DungeonMask.Instance.addTexture(blockTextures["waterblock"]);
             blockTextures.Add("brick", content.Load<Texture2D>("brick"));
+            DungeonMask.Instance.addTexture(blockTextures["brick"]);
             blockTextures.Add("ladder", content.Load<Texture2D>("ladder"));
+            DungeonMask.Instance.addTexture(blockTextures["ladder"]);
             blockTextures.Add("invis", content.Load<Texture2D>("invisibleblock"));
             //blockTextures.Add("normalgrey", content.Load<Texture2D>("normalgrey"));
             //blockTextures.Add("normalred", content.Load<Texture2D>("normalred"));

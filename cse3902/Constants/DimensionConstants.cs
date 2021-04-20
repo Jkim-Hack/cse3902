@@ -29,5 +29,8 @@ namespace cse3902.Constants
         //setting constants
         public static readonly Vector2 OriginalSettingOffset = new Vector2(0, OriginalWindowHeight);
         public static readonly Vector2 SettingOffset = OriginalSettingOffset * scale;
+
+        public static int TextOffsetX = 75;
+        public static int TextOffsetY = 30;
     }
 }

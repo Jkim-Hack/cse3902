@@ -1,5 +1,4 @@
-﻿using System;
-using cse3902.Collision;
+﻿using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.Constants;
 using cse3902.Entities.DamageMasks;
@@ -9,6 +8,7 @@ using cse3902.Sounds;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace cse3902.Entities
 {
@@ -32,11 +32,11 @@ namespace cse3902.Entities
             Texture2D linkDamageSequenceTexture = game.Content.Load<Texture2D>("LinkDamageSequence");
             Texture2D linkDeathTexture = game.Content.Load<Texture2D>("LinkDeath");
             Texture2D rectangleTexture = new Texture2D(game.GraphicsDevice, 1, 1);
-            DamageMaskHandler linkDamageMaskHandler = new DamageMaskHandler(linkTexture, linkDamageSequenceTexture, 1, 4, 0);
+            GenericTextureMask linkDamageMaskHandler = new GenericTextureMask(linkTexture, linkDamageSequenceTexture, LinkConstants.DamageMaskRows, LinkConstants.DamageMaskCols, 0);
             SingleMaskHandler linkDeathMaskHandler = new SingleMaskHandler(linkTexture, linkDeathTexture);
 
-            Vector2 centerPosition = new Vector2(50, 200);
-            linkSprite = new LinkSprite(game.SpriteBatch, linkTexture, rectangleTexture, 6, 4, linkDamageMaskHandler, linkDeathMaskHandler, centerPosition);
+            Vector2 centerPosition = new Vector2(0, 0);
+            linkSprite = new LinkSprite(game.SpriteBatch, linkTexture, rectangleTexture, LinkConstants.LinkTextureRows, LinkConstants.LinkTextureCols, linkDamageMaskHandler, linkDeathMaskHandler, centerPosition);
             linkStateMachine = new LinkStateMachine(game, linkSprite, centerPosition);
             linkInventory = linkStateMachine.Inventory;
             linkInventory.ChangeItem(InventoryManager.ItemType.None);
@@ -64,7 +64,7 @@ namespace cse3902.Entities
 
         public void Die()
         {
-	        SoundFactory.PlaySound(SoundFactory.Instance.linkDie);
+            SoundFactory.PlaySound(SoundFactory.Instance.linkDie);
             GameStateManager.Instance.LinkDies(128);
             linkStateMachine.Die();
         }
@@ -137,7 +137,7 @@ namespace cse3902.Entities
 
         public void ChangeItem(int itemNum)
         {
-            linkInventory.ChangeItem((InventoryManager.ItemType) itemNum);
+            linkInventory.ChangeItem((InventoryManager.ItemType)itemNum);
         }
 
         public void ChangeWeapon(int index)
@@ -209,11 +209,10 @@ namespace cse3902.Entities
                 this.linkStateMachine.speed = LinkConstants.defaultSpeed;
             }
         }
+
         public Vector2 Size
         {
             get => linkSprite.Size;
         }
-      
-
     }
 }

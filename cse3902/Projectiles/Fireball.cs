@@ -1,10 +1,11 @@
-﻿using cse3902.Interfaces;
-using cse3902.Collision;
+﻿using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.Constants;
+using cse3902.Interfaces;
 using cse3902.ParticleSystem;
+using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using cse3902.Sprites;
 
 namespace cse3902.Projectiles
 {
@@ -15,16 +16,14 @@ namespace cse3902.Projectiles
         private Vector2 center;
         private Vector2 direction;
 
-        private const float speed = 1.3f;
+        private const float speed = ItemConstants.FireballSpeed;
         private bool animationComplete;
         private bool collided;
 
         private float fireballCounter;
-        private const float fireballDelay = 3f;
+        private const float fireballDelay = ItemConstants.FireballDelay;
 
         private Rectangle destination;
-
-        private const float sizeIncrease = 1f;
 
         private ICollidable collidable;
         private IDependentParticleEmmiter fireballEmitter;
@@ -59,7 +58,7 @@ namespace cse3902.Projectiles
 
         public int Update(GameTime gameTime)
         {
-            if(fireballCounter < 0)
+            if (fireballCounter < 0)
             {
                 KillParticles();
                 animationComplete = true;
@@ -79,7 +78,7 @@ namespace cse3902.Projectiles
             if (!ParticleEngine.Instance.UseParticleEffects)
             {
                 Vector2 origin = new Vector2(Texture.Width / 2f, Texture.Height / 2f);
-                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * Texture.Width), (int)(sizeIncrease * Texture.Height));
+                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, Texture.Width, Texture.Height);
                 spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
             }
         }
@@ -93,8 +92,8 @@ namespace cse3902.Projectiles
         {
             get
             {
-                int width = (int)(sizeIncrease * Texture.Width);
-                int height = (int)(sizeIncrease * Texture.Height);
+                int width = Texture.Width;
+                int height = Texture.Height;
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
@@ -122,7 +121,6 @@ namespace cse3902.Projectiles
         {
             get => this.direction * speed;
             set => this.direction = value;
-
         }
 
         public ICollidable Collidable

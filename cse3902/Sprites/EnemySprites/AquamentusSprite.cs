@@ -24,7 +24,6 @@ namespace cse3902.Sprites.EnemySprites
         private Vector2 center;
 
         private int currentFrame;
-        private int totalFrames;
         private Rectangle[] frames;
         private int frameWidth;
         private int frameHeight;
@@ -32,11 +31,11 @@ namespace cse3902.Sprites.EnemySprites
         private int startingFrameIndex;
         private int endingFrameIndex;
 
-        private const float delay = 0.2f;
+        private const float delay = MovementConstants.AquamentusDelay;
         private float remainingDelay;
 
         private bool isDamage;
-        private DamageMaskHandler damageMaskHandler;
+        private GenericTextureMask damageMaskHandler;
 
         private Rectangle destination;
 
@@ -54,7 +53,6 @@ namespace cse3902.Sprites.EnemySprites
             isDamage = false;
             remainingDamageDelay = DamageConstants.DamageMaskDelay;
 
-            totalFrames = rows * columns;
             currentFrame = 2;
             startingFrameIndex = (int)FrameIndex.LeftFacing;
             endingFrameIndex = startingFrameIndex + 2;
@@ -62,7 +60,7 @@ namespace cse3902.Sprites.EnemySprites
             frameHeight = spriteTexture.Height / rows;
             center = startingPosition;
 
-            damageMaskHandler = new DamageMaskHandler(texture, damageSequence, 1, 4, 1);
+            damageMaskHandler = new GenericTextureMask(texture, damageSequence, 1, 4, 1);
 
             frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
 

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Sprites;
 using System;
+using cse3902.Constants;
 
 namespace cse3902.Items
 {
@@ -14,12 +15,11 @@ namespace cse3902.Items
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
 
-        private int currentX;
-        private int currentY;
+        private (int x, int y) current;
         private int frameWidth;
         private int frameHeight;
 
-        private float angle = 0;
+        int swordType;
 
         private bool collided;
         private Rectangle destination;
@@ -29,20 +29,20 @@ namespace cse3902.Items
         private Vector2 direction;
         private ICollidable collidable;
 
-        public SwordItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
+        public SwordItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, int type)
         {
             spriteBatch = batch;
             spriteTexture = texture;
 
-            direction = dir;
-
             frameWidth = spriteTexture.Width;
             frameHeight = spriteTexture.Height;
 
-            currentX = (int)startingPos.X;
-            currentY = (int)startingPos.Y;
+            current.x = (int)startingPos.X;
+            current.y = (int)startingPos.Y;
+            Rectangle[] rectangles = SpriteUtilities.distributeFrames(ItemConstants.SWORDROWS, ItemConstants.SWORDCOLS, texture.Width, texture.Height);
 
-            this.source = new Rectangle(0, 0, this.spriteTexture.Width / 2, this.spriteTexture.Height / 2);
+            this.source = rectangles[type];
+            this.swordType = type;
 
 
             this.collidable = new ItemCollidable(this);
@@ -51,7 +51,7 @@ namespace cse3902.Items
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            Rectangle Destination = new Rectangle(current.x, current.y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
             spriteBatch.Draw(spriteTexture, Destination, source, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ItemLayer);
         }
 
@@ -69,12 +69,12 @@ namespace cse3902.Items
         {
             get
             {
-                return new Vector2(currentX, currentY);
+                return new Vector2(current.x, current.y);
             }
             set
             {
-                currentX = (int)value.X;
-                currentY = (int)value.Y;
+                current.x = (int)value.X;
+                current.y = (int)value.Y;
             }
         }
 
@@ -84,9 +84,7 @@ namespace cse3902.Items
             {
                 int width = (int)(sizeIncrease * frameWidth);
                 int height = (int)(sizeIncrease * frameHeight);
-                double cos = Math.Abs(Math.Cos(angle));
-                double sin = Math.Abs(Math.Sin(angle));
-                Rectangle Destination = new Rectangle(currentX, currentY, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
+                Rectangle Destination = new Rectangle(current.x, current.y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
                 return ref destination;
@@ -118,7 +116,7 @@ namespace cse3902.Items
 
         public InventoryManager.ItemType ItemType
         {
-            get => InventoryManager.ItemType.Arrow;
+            get => InventoryManager.ItemType.Sword;
         }
 
         public bool IsKept
@@ -129,6 +127,11 @@ namespace cse3902.Items
         public bool IsResetKept
         {
             get => false;
+        }
+
+        public int SwordType
+        {
+            get => swordType;
         }
     }
 }

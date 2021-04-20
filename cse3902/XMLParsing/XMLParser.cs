@@ -60,7 +60,8 @@ namespace cse3902.Rooms
                 blockParser.ParseBlocks(currentRoom, room, doc);
                 doorParser.ParseDoors(currentRoom, room, doc);
                 conditionParser.ParseCondtions(currentRoom, room, doc);
-                spawnerParser.ParseSpawners(currentRoom, room, doc);
+                //TODO: remove once parser is finished
+                //spawnerParser.ParseSpawners(currentRoom, room, doc);
 
                 roomHandler.rooms.Add(roomTup, currentRoom);
             }
