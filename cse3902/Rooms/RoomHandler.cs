@@ -26,8 +26,6 @@ namespace cse3902.Rooms
         public Vector3 startingRoomTranslation { get; }
         private bool startComplete;
 
-        private String url;
-
         public RoomHandler(Game1 gm)
         {
             this.game = gm;
@@ -38,6 +36,9 @@ namespace cse3902.Rooms
             startingRooms = new Dictionary<int, Vector3>()
             {
                 {0, new Vector3(2,6,0) },
+                {2, new Vector3(0,1,2) },
+                {4, new Vector3(0,2,4) },
+                {6, new Vector3(0,0,6) }
             };
             currentRoom = startingRooms[0];
             startingRoomTranslation = new Vector3(0, -1, 0);
@@ -46,8 +47,15 @@ namespace cse3902.Rooms
 
         public void Initialize()
         {
-            url = "XMLParsing/Room1.xml";
-            xmlParser.ParseXML(url);
+            String level1 = "XMLParsing/Level1.xml";
+            String level2 = "XMLParsing/Level2.xml";
+            String level3 = "XMLParsing/Level3.xml";
+            String level4 = "XMLParsing/Level4.xml";
+
+            xmlParser.ParseXML(level1);
+            xmlParser.ParseXML(level2);
+            xmlParser.ParseXML(level3);
+            xmlParser.ParseXML(level4);
         }
 
         public void LoadNewRoom(Vector3 newPos, IDoor entranceDoor)
@@ -81,6 +89,10 @@ namespace cse3902.Rooms
             List<IDoor> oldDoors = rooms.GetValueOrDefault(currentRoom).Doors;
             RoomDoors.Instance.LoadNewRoom(ref oldDoors, newRoom.Doors);
             rooms.GetValueOrDefault(currentRoom).Doors = oldDoors;
+
+            List<ISpawner> oldSpawners = rooms.GetValueOrDefault(currentRoom).Spawners;
+            RoomSpawners.Instance.LoadNewRoom(ref oldSpawners, newRoom.Spawners);
+            rooms.GetValueOrDefault(currentRoom).Spawners = oldSpawners;
 
             RoomConditions.Instance.LeaveRoom();
             List<ICondition> oldConditions = rooms.GetValueOrDefault(currentRoom).Conditions;
@@ -168,7 +180,7 @@ namespace cse3902.Rooms
             }
             else
             {
-                LoadNewRoom(startingRooms[(int)currentRoom.Z], rooms.GetValueOrDefault(startingRooms[(int)currentRoom.Z]).Doors[0]);
+                LoadNewRoom(startingRooms[(int)currentRoom.Z], rooms.GetValueOrDefault(startingRooms[(int)currentRoom.Z]).Doors[4]);
             }
 
             foreach (Room room in rooms.Values)

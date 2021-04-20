@@ -73,6 +73,10 @@ namespace cse3902.XMLParsing
                 case "Wallmaster":
                     newEnemy = new WallMaster(game, startingPos, abstractPos);
                     break;
+                //TODO: change after Boggus enemy is implemented
+                case "Boggus":
+                    newEnemy = new Aquamentus(game, startingPos);
+                    break;
                 default:
                     break;
             }
