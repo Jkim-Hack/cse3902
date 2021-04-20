@@ -46,7 +46,7 @@ namespace cse3902.Entities.Enemies
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 100;
+            health = 10;
             //todo: use settings value once its available to use
             //health = SettingsValues.Instance.GetValue(SettingsValues.Variable.BoggusBossHealth);
         }

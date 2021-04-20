@@ -48,25 +48,13 @@ namespace cse3902.Entities
             location.X = this.center.X;
             location.Y = this.center.Y - 10;
 
-            if (boggusBossSprite.StartingFrameIndex == (int)BoggusBossSprite.FrameIndex.RightFacing)
-            {
-                direction1 = new Vector2(1, 0);
-                direction2 = new Vector2(3, 1);
-                direction2.Normalize();
-                direction3 = new Vector2(3, -1);
-                direction3.Normalize();
-                location.X += 15;
-            }
-            else
-            {
-                direction1 = new Vector2(-1, 0);
-                direction2 = new Vector2(-3, 1);
-                direction2.Normalize();
-                direction3 = new Vector2(-3, -1);
-                direction3.Normalize();
+            direction1 = new Vector2(-1, 0);
+            direction2 = new Vector2(-3, 1);
+            direction2.Normalize();
+            direction3 = new Vector2(-3, -1);
+            direction3.Normalize();
 
-                location.X += -15; //originate fireballs at mouth if facing left
-            }
+            location.X += -15; //originate fireballs at mouth if facing left
 
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
             fireball1 = projectileHandler.CreateFireballObject(spriteBatch, location, direction1);

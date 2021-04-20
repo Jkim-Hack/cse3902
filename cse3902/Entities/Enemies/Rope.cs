@@ -36,13 +36,13 @@ namespace cse3902.Entities.Enemies
 
             //rope sprite sheet is 1 row, 2 columns
             ropeSprite = (RopeSprite)EnemySpriteFactory.Instance.CreateRopeSprite(game.SpriteBatch, center);
-            speed = MovementConstants.RopeSpeed;
+            speed = MovementConstants.StalfosSpeed;
             travelDistance = 0;
             shoveDistance = MovementConstants.DefaultShoveDistance;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.RopeHealth);
+            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.StalfosHealth);
         }
 
         public ref Rectangle Bounds
@@ -87,7 +87,7 @@ namespace cse3902.Entities.Enemies
 
         public void BeShoved()
         {
-            this.shoveDistance = MovementConstants.RopeShoveDistance;
+            this.shoveDistance = MovementConstants.StalfosShoveDistance;
             this.shoveDirection = -this.direction;
         }
 
@@ -136,7 +136,7 @@ namespace cse3902.Entities.Enemies
 
             if (travelDistance <= 0)
             {
-                travelDistance = MovementConstants.RopeMaxTravel;
+                travelDistance = MovementConstants.StalfosMaxTravel;
                 RandomDirection();
             }
             else
@@ -203,7 +203,7 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.RopeDamage);
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.StalfosDamage);
         }
 
         public int Health
