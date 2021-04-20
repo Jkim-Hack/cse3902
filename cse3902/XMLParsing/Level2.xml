@@ -380,6 +380,11 @@
 		<items>
 		</items>
 		<enemies>
+			<item>
+				<type>Dodongo</type>
+				<xloc>5</xloc>
+				<yloc>3</yloc>
+			</item>
 		</enemies>
 		<npcs>
 		</npcs>
@@ -424,20 +429,6 @@
 				<dir>Still</dir>
 				<xloc>2</xloc>
 				<yloc>5</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Normal</type>
-				<dir>Still</dir>
-				<xloc>5</xloc>
-				<yloc>3</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Normal</type>
-				<dir>Still</dir>
-				<xloc>6</xloc>
-				<yloc>3</yloc>
 				<push>0</push>
 			</block>
 			<block>
