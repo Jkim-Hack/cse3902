@@ -10,7 +10,6 @@ namespace cse3902.Rooms
         private bool visited;
 
         private Vector3 roomPos;
-        public Vector3 RoomPos { get => roomPos; }
 
         private List<IItem> items;
         private List<IEntity> enemies;
@@ -26,7 +25,7 @@ namespace cse3902.Rooms
         public Room(Vector3 position, int spriteNum)
         {
             roomPos = position;
-           
+
             visited = false;
 
             if (spriteNum < 0)
@@ -49,6 +48,7 @@ namespace cse3902.Rooms
             doors = new List<IDoor>();
             conditions = new List<ICondition>();
         }
+        public Vector3 RoomPos { get => roomPos; }
 
         public void AddItem (IItem item)
         {

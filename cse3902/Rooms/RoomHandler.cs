@@ -7,11 +7,8 @@ namespace cse3902.Rooms
 {
     public class RoomHandler
     {
-        public const int ROOM_WIDTH = RoomUtilities.ROOM_WIDTH;
-        public const int ROOM_HEIGHT = RoomUtilities.ROOM_HEIGHT;
-        public const int NUM_ROOMS_X = RoomUtilities.NUM_ROOMS_X;
-        public const int NUM_ROOMS_Y = RoomUtilities.NUM_ROOMS_Y;
-        public const int CAMERA_CYCLES = RoomUtilities.CAMERA_CYCLES;
+        private const int ROOM_WIDTH = RoomUtilities.ROOM_WIDTH;
+        private const int ROOM_HEIGHT = RoomUtilities.ROOM_HEIGHT;
 
         private Game1 game;
         public Dictionary<Vector3, Room> rooms;
@@ -55,7 +52,7 @@ namespace cse3902.Rooms
             Room newRoom = rooms.GetValueOrDefault(newPos);
             Vector2 convertedRoom = RoomUtilities.ConvertVector(newPos);
 
-            if (currentRoom.Z == newPos.Z && startComplete) camera.SmoothMoveCamera(convertedRoom, CAMERA_CYCLES);
+            if (currentRoom.Z == newPos.Z && startComplete) camera.SmoothMoveCamera(convertedRoom, RoomUtilities.CAMERA_CYCLES);
             else camera.MoveCamera(convertedRoom, new Vector2(ROOM_WIDTH, ROOM_HEIGHT));
 
             List<IItem> oldItems = rooms.GetValueOrDefault(currentRoom).Items;

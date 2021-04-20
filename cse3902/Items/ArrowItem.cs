@@ -14,8 +14,7 @@ namespace cse3902.Items
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
 
-        private int currentX;
-        private int currentY;
+        private (int X, int Y) current;
         private int frameWidth;
         private int frameHeight;
 
@@ -38,8 +37,8 @@ namespace cse3902.Items
             frameWidth = spriteTexture.Width;
             frameHeight = spriteTexture.Height;
 
-            currentX = (int)startingPos.X;
-            currentY = (int)startingPos.Y;
+            current.X = (int)startingPos.X;
+            current.Y = (int)startingPos.Y;
 
             this.collidable = new ItemCollidable(this);
         }
@@ -47,7 +46,7 @@ namespace cse3902.Items
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            Rectangle Destination = new Rectangle(current.X, current.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
             spriteBatch.Draw(spriteTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
         }
 
@@ -65,12 +64,12 @@ namespace cse3902.Items
         {
             get
             {
-                return new Vector2(currentX, currentY);
+                return new Vector2(current.X, current.Y);
             }
             set
             {
-                currentX = (int)value.X;
-                currentY = (int)value.Y;
+                current.X = (int)value.X;
+                current.Y = (int)value.Y;
             }
         }
 
@@ -82,7 +81,7 @@ namespace cse3902.Items
                 int height = (int)(sizeIncrease * frameHeight);
                 double cos = Math.Abs(Math.Cos(angle));
                 double sin = Math.Abs(Math.Sin(angle));
-                Rectangle Destination = new Rectangle(currentX, currentY, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
+                Rectangle Destination = new Rectangle(current.X, current.Y, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
                 return ref destination;

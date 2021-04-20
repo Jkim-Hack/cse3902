@@ -25,6 +25,12 @@ namespace cse3902.Constants
         public const int WhiteSwordDamage = 2 * WoodenSwordDamage;
         public const int MagicSwordDamage = 2 * WhiteSwordDamage;
 
+        public const int LinkShoveDistance = 20;
+        public const int LinkShoveDistanceGrabbed = 100;
+
+        public const float ItemDistance = 1.5f;
+
+
         public static Dictionary<AnimationState, (int[] frame, float[] delay)> generateFrameSets()
         {
             var frameSetIndicies = new Dictionary<AnimationState, (int[] frame, float[] delay)>()

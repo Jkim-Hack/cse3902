@@ -24,7 +24,6 @@ namespace cse3902.Sprites.EnemySprites
         private Vector2 center;
 
         private int currentFrame;
-        private int totalFrames;
         private Rectangle[] frames;
         private int frameWidth;
         private int frameHeight;
@@ -32,7 +31,7 @@ namespace cse3902.Sprites.EnemySprites
         private int startingFrameIndex;
         private int endingFrameIndex;
 
-        private const float delay = 0.2f;
+        private const float delay = MovementConstants.AquamentusDelay;
         private float remainingDelay;
 
         private bool isDamage;
@@ -54,7 +53,6 @@ namespace cse3902.Sprites.EnemySprites
             isDamage = false;
             remainingDamageDelay = DamageConstants.DamageMaskDelay;
 
-            totalFrames = rows * columns;
             currentFrame = 2;
             startingFrameIndex = (int)FrameIndex.LeftFacing;
             endingFrameIndex = startingFrameIndex + 2;
