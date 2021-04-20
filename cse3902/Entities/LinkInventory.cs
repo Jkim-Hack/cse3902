@@ -38,6 +38,7 @@ namespace cse3902.Entities
             }
         }
 
+        //TODO break apart
         public void AddItemToInventory(IItem item)
         {
             if (item.Equals(AnimationItem)) return;
@@ -141,22 +142,6 @@ namespace cse3902.Entities
             //TODO: Remove comment below once implemented inventory system
             //if((int) InventoryManager.Instance.SwordSlot < index)
             InventoryManager.Instance.SwordSlot = (InventoryManager.SwordType)index;
-
-            int newdmg = LinkConstants.WoodenSwordDamage;
-            switch (index)
-            {
-                case 1:
-                    newdmg = LinkConstants.WhiteSwordDamage;
-                    break;
-                case 2:
-                    newdmg = LinkConstants.MagicSwordDamage;
-                    break;
-                case 3:
-                    newdmg = 2;
-                    break;
-            }
-            //TODO DO NOT USE DAMAGECONSTANTS THIS WAY
-            DamageConstants.SwordDamage = newdmg;
         }
 
         public void ChangeItem(InventoryManager.ItemType type)

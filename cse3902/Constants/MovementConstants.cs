@@ -11,6 +11,7 @@ namespace cse3902.Constants
         public const int DefaultShoveDistance = 20;
 
         public const float AquamentusSpeed = 10.0f;
+        public const float AquamentusDelay = .2f;
         public const int AquamentusMaxTravel = 150;
         public const int AquamentusShoveDistance = DefaultShoveDistance;
         public const int AquamentusFireballChangeX = 15;
@@ -42,9 +43,14 @@ namespace cse3902.Constants
         public const int WallMasterMaxTravel = 125;
         public const int WallMasterShoveDistance = DefaultShoveDistance;
 
+        public const int BlockPushThreshold = 20;
+        public const float BlockPushSpeed = .5f;
+
+        /*
         public const float Speed = 25.0f;
         public const int MaxTravel = 125;
         public const int ShoveDistance = DefaultShoveDistance;
+        */
 
     }
 }

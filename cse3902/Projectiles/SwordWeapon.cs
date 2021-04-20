@@ -20,11 +20,9 @@ namespace cse3902.Projectiles
         private int rows;
         private int columns;
         private int currentFrame;
-        private int totalFrames;
         private Rectangle[] frames;
         private int frameWidth;
         private int frameHeight;
-        private int collTime;
 
         private float remainingDelay;
         private readonly float[] delaySequence = { 0.1f, 0.15f, 0.05f, 0.05f };
@@ -50,12 +48,10 @@ namespace cse3902.Projectiles
             this.columns = 4;
             currentFrame = swordType * rows;
             this.swordType = swordType;
-            totalFrames = rows * columns;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
             frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
             animationComplete = false;
-            collTime = 5;
 
             this.direction = dir;
 
