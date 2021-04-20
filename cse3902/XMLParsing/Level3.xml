@@ -1278,7 +1278,7 @@
 		</items>
 		<enemies>
 			<enemy>
-				<type>Boggus</type>
+				<type>MarioBoss</type>
 				<xloc>5</xloc>
 				<yloc>3</yloc>
 			</enemy>
