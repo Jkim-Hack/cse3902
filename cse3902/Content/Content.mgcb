@@ -1100,6 +1100,12 @@
 /processorParam:TextureFormat=Color
 /build:minprojhealth.png
 
+#begin Never Gonna Give You Up Original.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Never Gonna Give You Up Original.wav
+
 #begin newwaterblock.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1238,6 +1244,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:poof.png
+
+#begin rickrollsprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rickrollsprite.png
 
 #begin rupee.png
 /importer:TextureImporter

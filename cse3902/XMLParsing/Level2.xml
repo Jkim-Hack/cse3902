@@ -166,6 +166,95 @@
 		</doors>
 	</room>
 	<room>
+		<number>1,0,2</number>
+		<sprite>12</sprite>
+		<traps>
+		</traps>
+		<conditions>
+		</conditions>
+		<items>
+			<item>
+				<type>Key</type>
+				<xloc>0</xloc>
+				<yloc>3</yloc>
+			</item>
+			<item>
+				<type>Key</type>
+				<xloc>11</xloc>
+				<yloc>1</yloc>
+			</item>
+		</items>
+		<enemies>
+			<enemy>
+				<type>BoggusBoss</type>
+				<xloc>6</xloc>
+				<yloc>3</yloc>
+			</enemy>
+		</enemies>
+		<npcs>
+		</npcs>
+		<blocks>
+			<block>
+				<type>Normal</type>
+				<dir>Still</dir>
+				<xloc>1</xloc>
+				<yloc>1</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Normal</type>
+				<dir>Still</dir>
+				<xloc>10</xloc>
+				<yloc>1</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Normal</type>
+				<dir>Still</dir>
+				<xloc>1</xloc>
+				<yloc>5</yloc>
+				<push>0</push>
+			</block>
+			<block>
+				<type>Normal</type>
+				<dir>Still</dir>
+				<xloc>10</xloc>
+				<yloc>5</yloc>
+				<push>0</push>
+			</block>
+		</blocks>
+		<doors>
+			<door>
+				<type>Down</type>
+				<pos>2</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Left</type>
+				<pos>3</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Up</type>
+				<pos>0</pos>
+				<state>Wall</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+			<door>
+				<type>Right</type>
+				<pos>1</pos>
+				<state>Locked</state>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</door>
+		</doors>
+	</room>
+	<room>
 		<number>1,1,2</number>
 		<sprite>12</sprite>
 		<traps>
@@ -291,6 +380,11 @@
 		<items>
 		</items>
 		<enemies>
+			<item>
+				<type>Dodongo</type>
+				<xloc>5</xloc>
+				<yloc>3</yloc>
+			</item>
 		</enemies>
 		<npcs>
 		</npcs>
@@ -340,20 +434,6 @@
 			<block>
 				<type>Normal</type>
 				<dir>Still</dir>
-				<xloc>5</xloc>
-				<yloc>3</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Normal</type>
-				<dir>Still</dir>
-				<xloc>6</xloc>
-				<yloc>3</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Normal</type>
-				<dir>Still</dir>
 				<xloc>9</xloc>
 				<yloc>5</yloc>
 				<push>0</push>
@@ -370,7 +450,7 @@
 			<door>
 				<type>Down</type>
 				<pos>2</pos>
-				<state>Open</state>
+				<state>Locked</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
@@ -405,6 +485,11 @@
 		<conditions>
 		</conditions>
 		<items>
+			<item>
+				<type>Key</type>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</item>
 		</items>
 		<enemies>
 		</enemies>
@@ -493,7 +578,7 @@
 			<door>
 				<type>Left</type>
 				<pos>3</pos>
-				<state>Wall</state>
+				<state>Locked</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
@@ -616,7 +701,7 @@
 			<door>
 				<type>Up</type>
 				<pos>0</pos>
-				<state>Open</state>
+				<state>Locked</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
