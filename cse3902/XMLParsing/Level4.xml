@@ -167,7 +167,7 @@
 			<condition>
 				<id>2</id>
 				<variables>
-					<variable>1</variable>
+					<variable>0</variable>
 					<variable>0</variable>
 				</variables>
 			</condition>

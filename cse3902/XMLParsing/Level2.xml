@@ -180,7 +180,7 @@
 			</item>
 			<item>
 				<type>Key</type>
-				<xloc>10</xloc>
+				<xloc>11</xloc>
 				<yloc>1</yloc>
 			</item>
 		</items>
@@ -204,20 +204,6 @@
 			<block>
 				<type>Normal</type>
 				<dir>Still</dir>
-				<xloc>2</xloc>
-				<yloc>1</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Normal</type>
-				<dir>Still</dir>
-				<xloc>9</xloc>
-				<yloc>1</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Normal</type>
-				<dir>Still</dir>
 				<xloc>10</xloc>
 				<yloc>1</yloc>
 				<push>0</push>
@@ -226,20 +212,6 @@
 				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>1</xloc>
-				<yloc>5</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Normal</type>
-				<dir>Still</dir>
-				<xloc>2</xloc>
-				<yloc>5</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Normal</type>
-				<dir>Still</dir>
-				<xloc>9</xloc>
 				<yloc>5</yloc>
 				<push>0</push>
 			</block>
@@ -276,7 +248,7 @@
 			<door>
 				<type>Right</type>
 				<pos>1</pos>
-				<state>Open</state>
+				<state>Locked</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
@@ -522,6 +494,11 @@
 		<conditions>
 		</conditions>
 		<items>
+			<item>
+				<type>Key</type>
+				<xloc>0</xloc>
+				<yloc>0</yloc>
+			</item>
 		</items>
 		<enemies>
 		</enemies>
@@ -610,7 +587,7 @@
 			<door>
 				<type>Left</type>
 				<pos>3</pos>
-				<state>Open</state>
+				<state>Locked</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
