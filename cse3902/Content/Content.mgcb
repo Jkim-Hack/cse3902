@@ -1100,6 +1100,12 @@
 /processorParam:TextureFormat=Color
 /build:minprojhealth.png
 
+#begin Never Gonna Give You Up Original.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Never Gonna Give You Up Original.wav
+
 #begin newwaterblock.png
 /importer:TextureImporter
 /processor:TextureProcessor
