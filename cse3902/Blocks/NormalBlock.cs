@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.Constants;
 
 namespace cse3902.Blocks
 {
@@ -13,13 +14,13 @@ namespace cse3902.Blocks
 
         private Vector2 initialPosition;
         private float pixelsToPush;
-        private const int pushThreshold = 20;
+        private const int pushThreshold = MovementConstants.BlockPushThreshold;
 
         private Vector2 pushingDirection;
 
         private float remainingPixelsToPush;
         private int remainingPush;
-        private const float pushSpeed = 0.5f;
+        private const float pushSpeed = MovementConstants.BlockPushSpeed;
 
         private bool justPushed;
         private bool isMoving;

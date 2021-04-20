@@ -29,7 +29,8 @@ namespace cse3902.HUD
             Rupee,
             Triforce,
             Candle,
-            None
+            Sword,
+            None,
         }
 
         public Dictionary<ItemType, int> inventory;

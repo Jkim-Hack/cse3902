@@ -35,7 +35,7 @@ namespace cse3902.Sprites.EnemySprites
         private float remainingDelay;
 
         private bool isDamage;
-        private DamageMaskHandler damageMaskHandler;
+        private GenericTextureMask damageMaskHandler;
 
         private Rectangle destination;
 
@@ -60,7 +60,7 @@ namespace cse3902.Sprites.EnemySprites
             frameHeight = spriteTexture.Height / rows;
             center = startingPosition;
 
-            damageMaskHandler = new DamageMaskHandler(texture, damageSequence, 1, 4, 1);
+            damageMaskHandler = new GenericTextureMask(texture, damageSequence, 1, 4, 1);
 
             frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
 

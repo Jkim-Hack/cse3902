@@ -36,9 +36,9 @@ namespace cse3902.Entities.Enemies
 
             //gel sprite sheet is 1 row, 2 columns
             gelSprite = (GelSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.SpriteBatch, this.center);
-            speed = 25.0f;
+            speed = MovementConstants.GelSpeed;
             travelDistance = 0;
-            shoveDistance = -10;
+            shoveDistance = MovementConstants.StartingShoveDistance;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
@@ -89,7 +89,7 @@ namespace cse3902.Entities.Enemies
 
         public void BeShoved()
         {
-            this.shoveDistance = 20;
+            this.shoveDistance = MovementConstants.GelShoveDistance;
             this.shoveDirection = -this.direction;
         }
 
@@ -135,7 +135,7 @@ namespace cse3902.Entities.Enemies
             {
                 Random rand = new System.Random();
                 int choice = rand.Next(0, 4);
-                travelDistance = 100;
+                travelDistance = MovementConstants.GelMaxTravel;
 
                 switch (choice)
                 {
@@ -165,11 +165,6 @@ namespace cse3902.Entities.Enemies
             }
 
             gelSprite.Update(gameTime);
-        }
-
-        private void onSpriteAnimationComplete()
-        {
-            //nothing to callback
         }
 
         public void Draw()

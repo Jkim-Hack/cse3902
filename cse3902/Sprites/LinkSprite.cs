@@ -39,7 +39,7 @@ namespace cse3902.Sprites
         private int currentFrameIndex;
         private LinkSpriteAnimationHandler animationHandler;
 
-        private DamageMaskHandler maskHandler;
+        private GenericTextureMask maskHandler;
         private SingleMaskHandler deathMaskHandler;
 
         private bool isDamaged;
@@ -58,7 +58,7 @@ namespace cse3902.Sprites
         private Color deathColor;
         private float deathOpacity;
 
-        public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, Texture2D rectangle, int rows, int columns, DamageMaskHandler maskHandler, SingleMaskHandler singleMaskHandler, Vector2 startingPosition)
+        public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, Texture2D rectangle, int rows, int columns, GenericTextureMask maskHandler, SingleMaskHandler singleMaskHandler, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
@@ -261,7 +261,7 @@ namespace cse3902.Sprites
             set => this.pauseMovement = value;
         }
 
-        public DamageMaskHandler DamageMaskHandler
+        public GenericTextureMask DamageMaskHandler
         {
             get => this.maskHandler;
         }
