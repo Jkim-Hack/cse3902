@@ -178,6 +178,11 @@
 				<xloc>0</xloc>
 				<yloc>3</yloc>
 			</item>
+			<item>
+				<type>Key</type>
+				<xloc>10</xloc>
+				<yloc>1</yloc>
+			</item>
 		</items>
 		<enemies>
 			<enemy>
@@ -728,7 +733,7 @@
 			<door>
 				<type>Up</type>
 				<pos>0</pos>
-				<state>Open</state>
+				<state>Locked</state>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</door>
