@@ -27,6 +27,9 @@ namespace cse3902.Sounds
         public SoundEffect bossDefeat { get; set; }
         public SoundEffect secret { get; set; }
         public SoundEffect triforce { get; set; }
+        public SoundEffect highercoupling { get; set; }
+        public SoundEffect lowcohesion { get; set; }
+        public SoundEffect mariogreeting { get; set; }
 
         private SoundEffectInstance backgroundMusicInstance;
         private SoundEffectInstance fanfareInstance;
@@ -71,6 +74,10 @@ namespace cse3902.Sounds
             bossDefeat = content.Load<SoundEffect>("LOZ_Boss_Defeat");
             secret = content.Load<SoundEffect>("LOZ_Secret");
             triforce = content.Load<SoundEffect>("LOZ_Triforce");
+            highercoupling = content.Load<SoundEffect>("highercoupling");
+            lowcohesion = content.Load<SoundEffect>("lowcohesion");
+            mariogreeting = content.Load<SoundEffect>("ItsMeMario");
+
 
             SoundEffect backgroundMusic = content.Load<SoundEffect>("LOZ_Background_Music");
             backgroundMusicInstance = backgroundMusic.CreateInstance();

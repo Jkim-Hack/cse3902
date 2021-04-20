@@ -308,7 +308,7 @@
 /processorParam:TextureFormat=Color
 /build:enemies/BossesHurt.png;enemies/bosses_hurt.png
 
-#begin enemies/dodongo.png
+#begin enemies/dodongoboss.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -318,7 +318,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:enemies/dodongo.png
+/build:enemies/dodongoboss.png
 
 #begin enemies/gel.png
 /importer:TextureImporter
@@ -439,6 +439,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:enemies/lynel_red.png
+
+#begin enemies/marioboss.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:enemies/marioboss.png
 
 #begin enemies/molblin_blue.png
 /importer:TextureImporter
@@ -817,6 +829,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ItemRoom.png
+
+#begin ItsMeMario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ItsMeMario.wav
 
 #begin key.png
 /importer:TextureImporter

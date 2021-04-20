@@ -20,6 +20,7 @@ namespace cse3902.Entities
         private bool isAttacking;
         private float fireballCounter;
         private const float fireballDelay = 2.5f;
+        private bool isCoupling;
 
         private Vector2 center;
 
@@ -30,6 +31,7 @@ namespace cse3902.Entities
 
             this.isAttacking = true;
             fireballCounter = 0;
+            this.isCoupling = true;
 
             this.center = center;
         }
@@ -71,8 +73,6 @@ namespace cse3902.Entities
             fireball2 = projectileHandler.CreateFireballObject(spriteBatch, location, direction2);
             fireball3 = projectileHandler.CreateFireballObject(spriteBatch, location, direction3);
 
-            // correct location for this?
-            SoundFactory.PlaySound(SoundFactory.Instance.bossScream);
         }
 
         public void CycleWeapon(int dir)
@@ -128,17 +128,22 @@ namespace cse3902.Entities
         public void Update(GameTime gameTime, Vector2 center, Boolean pauseAnim)
         {
             this.center = center;
-            if (this.IsAttacking)
+            if (fireballCounter > fireballDelay)
             {
-                if (fireballCounter > fireballDelay)
+                LoadFireballs();
+                if (this.isAttacking)
                 {
-                    LoadFireballs();
-                    fireballCounter = 0;
-                }
-                else
+                    PlaySound();
+                    this.isAttacking = false;
+                } else
                 {
-                    fireballCounter += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    this.isAttacking = true;
                 }
+                fireballCounter = 0;
+            }
+            else
+            {
+                fireballCounter += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             if (!pauseAnim) boggusBossSprite.Update(gameTime);
@@ -151,6 +156,20 @@ namespace cse3902.Entities
             {
                 isAttacking = value;
             }
+        }
+
+        private void PlaySound()
+        {
+            if (this.isCoupling)
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.highercoupling);
+                this.isCoupling = false;
+            } else
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.lowcohesion);
+                this.isCoupling = true;
+            }
+            
         }
     }
 }

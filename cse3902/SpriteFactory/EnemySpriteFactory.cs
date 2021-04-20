@@ -10,6 +10,8 @@ namespace cse3902.SpriteFactory
     {
         private Texture2D aquamentus;
         private Texture2D boggusBoss;
+        private Texture2D marioBoss;
+        private Texture2D dodongo;
         private Texture2D gel;
         private Texture2D goriya;
         private Texture2D keese;
@@ -35,6 +37,8 @@ namespace cse3902.SpriteFactory
         {
             aquamentus = content.Load<Texture2D>("aquamentus");
             boggusBoss = content.Load<Texture2D>("enemies/boggusboss");
+            marioBoss = content.Load<Texture2D>("enemies/marioboss");
+            dodongo = content.Load<Texture2D>("enemies/dodongoboss");
             gel = content.Load<Texture2D>("enemies/gel");
             goriya = content.Load<Texture2D>("enemies/goriya_red");
             keese = content.Load<Texture2D>("enemies/keese");
@@ -53,6 +57,16 @@ namespace cse3902.SpriteFactory
         public ISprite CreateBoggusBossSprite(SpriteBatch spritebatch, Vector2 center)
         {
             return new BoggusBossSprite(spritebatch, boggusBoss, 2, 2, bossDamageSequence, center);
+        }
+
+        public ISprite CreateMarioBossSprite(SpriteBatch spriteBatch, Vector2 center)
+        {
+            return new MarioBossSprite(spriteBatch, marioBoss, 2, 2, bossDamageSequence, center);
+        }
+
+        public ISprite CreateDodongoSprite(SpriteBatch spriteBatch, Vector2 center)
+        {
+            return new DodongoSprite(spriteBatch, dodongo, 5, 2, bossDamageSequence, center);
         }
 
         public ISprite CreateGelSprite(SpriteBatch spriteBatch, Vector2 center)

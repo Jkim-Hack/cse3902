@@ -52,6 +52,12 @@ namespace cse3902.XMLParsing
                 case "BoggusBoss":
                     newEnemy = new BoggusBoss(game, startingPos);
                     break;
+                case "MarioBoss":
+                    newEnemy = new MarioBoss(game, startingPos);
+                    break;
+                case "Dodongo":
+                    newEnemy = new Dodongo(game, startingPos);
+                    break;
                 case "Gel":
                     newEnemy = new Gel(game, startingPos);
                     break;
