@@ -1978,7 +1978,7 @@
 		</items>
 		<enemies>
 			<enemy>
-				<type>MarioBoss</type>
+				<type>Aquamentus</type>
 				<xloc>8.75</xloc>
 				<yloc>2.5</yloc>
 			</enemy>
