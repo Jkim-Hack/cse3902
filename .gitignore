@@ -403,3 +403,6 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+
+#monogame content files that are specific to user's system
+*.mgcontent
