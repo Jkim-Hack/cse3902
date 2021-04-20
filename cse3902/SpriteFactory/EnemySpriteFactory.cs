@@ -61,7 +61,7 @@ namespace cse3902.SpriteFactory
 
         public ISprite CreateMarioBossSprite(SpriteBatch spriteBatch, Vector2 center)
         {
-            return new MarioBossSprite(spriteBatch, marioBoss, 1, 7, bossDamageSequence, center);
+            return new MarioBossSprite(spriteBatch, marioBoss, 2, 2, bossDamageSequence, center);
         }
 
         public ISprite CreateDodongoSprite(SpriteBatch spriteBatch, Vector2 center)

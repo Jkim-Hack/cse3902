@@ -38,13 +38,13 @@ namespace cse3902.Entities.Enemies
             marioBossSprite = (MarioBossSprite)EnemySpriteFactory.Instance.CreateMarioBossSprite(game.SpriteBatch, center);
             marioBossStateMachine = new MarioBossStateMachine(marioBossSprite, game.SpriteBatch, this.center);
             direction = new Vector2(1, 0);
-            speed = 10.0f;
+            speed = 20.0f;
             travelDistance = 20;
             shoveDistance = -10;
             shoveDirection = new Vector2(1, 0);
             pauseAnim = false;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
-            SoundFactory.PlaySound(SoundFactory.Instance.mariogreeting, 0.2f);
+            
 
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = 100;

@@ -13,8 +13,10 @@ namespace cse3902.Sprites.EnemySprites
 
         public enum FrameIndex
         {
-            RightFacing = 0,
-            LeftFacing = 2
+            LeftStart = 0,
+            LeftMidWay = 1,
+            LeftComplete = 2,
+            LeftFireball = 3
 
         };
 
@@ -55,9 +57,9 @@ namespace cse3902.Sprites.EnemySprites
             remainingDamageDelay = DamageConstants.DamageMaskDelay;
 
             totalFrames = rows * columns;
-            currentFrame = 2;
-            startingFrameIndex = (int)FrameIndex.LeftFacing;
-            endingFrameIndex = startingFrameIndex + 2;
+            currentFrame = (int)FrameIndex.LeftStart;
+            startingFrameIndex = (int)FrameIndex.LeftStart;
+            endingFrameIndex = (int)FrameIndex.LeftFireball+1;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
             center = startingPosition;
@@ -139,9 +141,9 @@ namespace cse3902.Sprites.EnemySprites
             set
             {
                 startingFrameIndex = value;
-                endingFrameIndex = value + 2;
+                endingFrameIndex = value - 3;
 
-                if (currentFrame >= endingFrameIndex || currentFrame < startingFrameIndex)
+                if (currentFrame < endingFrameIndex || currentFrame >= startingFrameIndex)
                 {
 
                     currentFrame = value;
