@@ -59,6 +59,9 @@ namespace cse3902.XMLParsing
                 case "Flame":
                     newEnemy = new FlameNPC(game, startingPos);
                     break;
+                case "RickRoll":
+                    newEnemy = new RickRollNPC(game, startingPos);
+                    break;
                 default:
                     break;
             }

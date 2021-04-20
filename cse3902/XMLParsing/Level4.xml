@@ -167,7 +167,7 @@
 			<condition>
 				<id>2</id>
 				<variables>
-					<variable>1</variable>
+					<variable>0</variable>
 					<variable>0</variable>
 				</variables>
 			</condition>
@@ -260,7 +260,13 @@
 		<traps>
 		</traps>
 		<conditions>
-			<!--do we wanna add a condition here?-->
+			<condition>
+				<id>1</id>
+				<variables>
+					<variable>3</variable>
+					<variable>0</variable>
+				</variables>
+			</condition>
 		</conditions>
 		<sprite>12</sprite>
 		<doors>
@@ -697,7 +703,11 @@
 		<traps>
 		</traps>
 		<conditions>
-			<!--do we wanna add a condition here?-->
+			<condition>
+				<id>5</id>
+				<variables>
+				</variables>
+			</condition>
 		</conditions>
 		<sprite>12</sprite>
 		<doors>
@@ -731,6 +741,12 @@
 			</door>
 		</doors>
 		<npcs>
+			<npc>
+				<type>RickRoll</type>
+				<xloc>5.5</xloc>
+				<yloc>3</yloc>
+				<text></text>
+			</npc>
 		</npcs>
 		<items>
 		</items>

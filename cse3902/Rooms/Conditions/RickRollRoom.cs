@@ -26,13 +26,13 @@ namespace cse3902.Rooms.Conditions
         public void EnterRoom()
         {
             SoundFactory.Instance.backgroundMusic.Stop();
-            //rickrollsound.play
+            SoundFactory.Instance.rickRollSong.Play();
         }
 
         public void LeaveRoom()
         {
             SoundFactory.Instance.backgroundMusic.Play();
-            //rickrollsound.stop
+            SoundFactory.Instance.rickRollSong.Stop();
         }
     }
 }
