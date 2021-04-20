@@ -406,3 +406,4 @@ ASALocalRun/
 
 #monogame content files that are specific to user's system
 *.mgcontent
+cse3902/Content/obj/DesktopGL/Content/particles/diamond.mgcontent
