@@ -24,7 +24,7 @@ namespace cse3902.XMLParsing
             XName spawnersName = XName.Get("spawners", doc.Root.Name.NamespaceName);
 
             XElement spawners = roomxml.Element(spawnersName);
-            //List<XElement> spawnerList = spawners.Elements("spawner").ToList();
+            List<XElement> spawnerList = spawners.Elements("spawner").ToList();
 
             foreach (XElement spawner in spawnerList)
             {
