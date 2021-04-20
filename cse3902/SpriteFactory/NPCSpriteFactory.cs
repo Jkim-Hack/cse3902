@@ -13,6 +13,7 @@ namespace cse3902.SpriteFactory
         private Dictionary<SettingsManager.Setting, Texture2D> settingTextures;
         private Dictionary<SettingsManager.Mode, Texture2D> modeTextures;
         private Texture2D flame;
+        private Texture2D rickroll;
 
         private SpriteBatch spriteBatch;
 
@@ -51,6 +52,7 @@ namespace cse3902.SpriteFactory
             settingTextures.Add(SettingsManager.Setting.HealthChange, content.Load<Texture2D>("health"));
 
             flame = content.Load<Texture2D>("fire");
+            rickroll = content.Load<Texture2D>("rickrollsprite");
         }
 
         public ISprite CreateOldManSprite(SpriteBatch spriteBatch, Vector2 startingPos)
@@ -86,6 +88,11 @@ namespace cse3902.SpriteFactory
         public ISprite CreateFlameSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
             return new FlameSprite(spriteBatch, flame, startingPos);
+        }
+
+        public ISprite CreateRickRollSprite(SpriteBatch spriteBatch, Vector2 startingPos)
+        {
+            return new RickRollSprite(spriteBatch, flame, startingPos);
         }
     }
 }

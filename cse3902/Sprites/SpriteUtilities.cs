@@ -25,7 +25,7 @@ namespace cse3902.Sprites
             Rectangle[] frames = new Rectangle[columns * rows];
             for (int i = 0; i < columns * rows; i++)
             {
-                int row = i / columns;
+                int row = (int)((float)i / (float)columns);
                 int column = i % columns;
                 frames[i] = new Rectangle(frameWidth * column, frameHeight * row, frameWidth, frameHeight);
             }
