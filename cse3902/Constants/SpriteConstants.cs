@@ -6,7 +6,7 @@
         public const int FlameRows = 1;
         public const int FlameCols = 2;
 
-        public const float RickDelay = .05f;
+        public const float RickDelay = .04f;
         public const int RickRows = 10;
         public const int RickCols = 5;
 
