@@ -92,7 +92,7 @@ namespace cse3902.SpriteFactory
 
         public ISprite CreateRickRollSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            return new RickRollSprite(spriteBatch, flame, startingPos);
+            return new RickRollSprite(spriteBatch, rickroll, startingPos);
         }
     }
 }

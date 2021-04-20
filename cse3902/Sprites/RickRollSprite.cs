@@ -1,7 +1,118 @@
-﻿using cse3902.Constants;
+﻿//using cse3902.Constants;
+//using cse3902.Interfaces;
+//using Microsoft.Xna.Framework;
+//using Microsoft.Xna.Framework.Graphics;
+
+//namespace cse3902.Sprites
+//{
+//    public class RickRollSprite : ISprite
+//    {
+//        private SpriteBatch spriteBatch;
+//        private Texture2D spriteTexture;
+
+//        private int currentFrame;
+//        private Rectangle[] frames;
+//        private int frameWidth;
+//        private int frameHeight;
+
+//        private const float delay = SpriteConstants.RickDelay;
+//        private float remainingDelay;
+
+//        private const float sizeIncrease = 1f;
+
+//        private Rectangle destination;
+
+//        private (int X, int Y) current;
+
+//        public RickRollSprite(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
+//        {
+//            spriteBatch = batch;
+//            spriteTexture = texture;
+
+//            remainingDelay = delay;
+//            int rows = SpriteConstants.RickRows;
+//            int columns = SpriteConstants.RickCols;
+//            currentFrame = 0;
+//            frameWidth = spriteTexture.Width / columns;
+//            frameHeight = spriteTexture.Height / rows;
+//            frames = SpriteUtilities.distributeFrames(rows, columns, frameWidth, frameHeight);
+
+//            current.X = (int)startingPos.X;
+//            current.Y = (int)startingPos.Y;
+//        }
+
+
+//        public void Draw()
+//        {
+//            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
+//            Rectangle Destination = new Rectangle(current.X, current.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+//            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, 0.8f);
+//        }
+
+//        public int Update(GameTime gameTime)
+//        {
+//            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+//            remainingDelay -= timer;
+
+//            if (remainingDelay <= 0)
+//            {
+//                currentFrame++;
+//                if (currentFrame == frames.Length)
+//                {
+//                    currentFrame = 0;
+//                }
+//                remainingDelay = delay;
+//            }
+//            return 0;
+//        }
+
+//        public Texture2D Texture
+//        {
+//            get => spriteTexture;
+//        }
+
+//        public void Erase()
+//        {
+//            spriteTexture.Dispose();
+//        }
+
+//        public ref Rectangle Box
+//        {
+//            get
+//            {
+//                int width = (int)(sizeIncrease * frameWidth);
+//                int height = (int)(sizeIncrease * frameHeight);
+//                Rectangle Destination = new Rectangle(current.X, current.Y, width, height);
+//                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+//                this.destination = Destination;
+//                return ref destination;
+//            }
+//        }
+
+//        public Vector2 Center
+//        {
+//            get
+//            {
+//                return new Vector2(current.X, current.Y);
+//            }
+//            set
+//            {
+//                current.X = (int)value.X;
+//                current.Y = (int)value.Y;
+//            }
+//        }
+//    }
+//}
+
+
 using cse3902.Interfaces;
+using cse3902.Collision;
+using cse3902.Collision.Collidables;
+using cse3902.HUD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.Sprites;
+using cse3902.Constants;
 
 namespace cse3902.Sprites
 {
@@ -10,79 +121,64 @@ namespace cse3902.Sprites
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
 
-        private int currentFrame;
-        private Rectangle[] frames;
-        private int frameWidth;
-        private int frameHeight;
+        private (int rows, int columns) dimensions;
+        private (int frameWidth, int frameHeight, int currentFrame, Rectangle[] frames) frameSize;
 
-        private const float delay = SpriteConstants.RickDelay;
-        private float remainingDelay;
-
+        private (float delay, float remainingDelay) delays;
         private const float sizeIncrease = 1f;
-
         private Rectangle destination;
-
-        private (int X, int Y) current;
+        private (int currentX, int currentY) currentPos;
 
         public RickRollSprite(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
         {
             spriteBatch = batch;
             spriteTexture = texture;
 
-            remainingDelay = delay;
-            int rows = SpriteConstants.RickRows;
-            int columns = SpriteConstants.RickCols;
-            currentFrame = 0;
-            frameWidth = spriteTexture.Width / columns;
-            frameHeight = spriteTexture.Height / rows;
-            frames = SpriteUtilities.distributeFrames(rows, columns, frameWidth, frameHeight);
+            delays.delay = SpriteConstants.RickDelay;
 
-            current.X = (int)startingPos.X;
-            current.Y = (int)startingPos.Y;
+            delays.remainingDelay = delays.delay;
+            this.dimensions.rows = SpriteConstants.RickRows;
+            this.dimensions.columns = SpriteConstants.RickCols;
+            frameSize.currentFrame = 0;
+            frameSize.frameWidth = spriteTexture.Width / dimensions.columns;
+            frameSize.frameHeight = spriteTexture.Height / dimensions.rows;
+            frameSize.frames = SpriteUtilities.distributeFrames(dimensions.columns, dimensions.rows, frameSize.frameWidth, frameSize.frameHeight);
+
+            currentPos.currentX = (int)startingPos.X;
+            currentPos.currentY = (int)startingPos.Y;
         }
-
 
         public void Draw()
         {
-            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle(current.X, current.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, 0.8f);
+            Vector2 origin = new Vector2(frameSize.frameWidth / 2f, frameSize.frameHeight / 2f);
+            Rectangle Destination = new Rectangle(currentPos.currentX, currentPos.currentY, (int)(sizeIncrease * frameSize.frameWidth), (int)(sizeIncrease * frameSize.frameHeight));
+            spriteBatch.Draw(spriteTexture, Destination, frameSize.frames[frameSize.currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.TriforceLayer);
         }
 
         public int Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            remainingDelay -= timer;
+            delays.remainingDelay -= timer;
 
-            if (remainingDelay <= 0)
+            if (delays.remainingDelay <= 0)
             {
-                currentFrame++;
-                if (currentFrame == frames.Length)
+                frameSize.currentFrame++;
+                if (frameSize.currentFrame == (dimensions.rows * dimensions.columns))
                 {
-                    currentFrame = 0;
+                    frameSize.currentFrame = 0;
                 }
-                remainingDelay = delay;
+                delays.remainingDelay = delays.delay;
             }
             return 0;
-        }
-
-        public Texture2D Texture
-        {
-            get => spriteTexture;
-        }
-
-        public void Erase()
-        {
-            spriteTexture.Dispose();
         }
 
         public ref Rectangle Box
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth);
-                int height = (int)(sizeIncrease * frameHeight);
-                Rectangle Destination = new Rectangle(current.X, current.Y, width, height);
+                int width = (int)(sizeIncrease * frameSize.frameWidth);
+                int height = (int)(sizeIncrease * frameSize.frameHeight);
+                Rectangle Destination = new Rectangle(currentPos.currentX, currentPos.currentY, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
                 return ref destination;
@@ -93,13 +189,23 @@ namespace cse3902.Sprites
         {
             get
             {
-                return new Vector2(current.X, current.Y);
+                return new Vector2(currentPos.currentX, currentPos.currentY);
             }
             set
             {
-                current.X = (int)value.X;
-                current.Y = (int)value.Y;
+                currentPos.currentX = (int)value.X;
+                currentPos.currentY = (int)value.Y;
             }
+        }
+
+        public Texture2D Texture
+        {
+            get => spriteTexture;
+        }
+
+        public void Erase()
+        {
+            spriteTexture.Dispose();
         }
     }
 }

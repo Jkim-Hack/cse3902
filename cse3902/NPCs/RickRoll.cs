@@ -18,7 +18,7 @@ namespace cse3902.NPCs
         {
             this.game = game;
             center = start;
-            rickRollSprite = NPCSpriteFactory.Instance.CreateFlameSprite(game.SpriteBatch, center);
+            rickRollSprite = NPCSpriteFactory.Instance.CreateRickRollSprite(game.SpriteBatch, center);
         }
 
         public void Update(GameTime gameTime)
