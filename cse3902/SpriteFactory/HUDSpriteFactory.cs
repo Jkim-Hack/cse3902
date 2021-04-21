@@ -12,6 +12,7 @@ namespace cse3902.SpriteFactory
     public class HUDSpriteFactory
     {
         private Dictionary<String, Texture2D> textures;
+        private Texture2D [] labels;
 
         private static HUDSpriteFactory instance = new HUDSpriteFactory();
 
@@ -26,6 +27,7 @@ namespace cse3902.SpriteFactory
         private HUDSpriteFactory()
         {
             textures = new Dictionary<string, Texture2D>();
+            labels = new Texture2D[4];
         }
 
         public void LoadAllTextures(ContentManager content)
@@ -38,11 +40,14 @@ namespace cse3902.SpriteFactory
             textures.Add("CursorTexture", content.Load<Texture2D>("UI/Cursor"));
             textures.Add("HealthUITexture", content.Load<Texture2D>("UI/HealthUI"));
             textures.Add("HeartUITexture", content.Load<Texture2D>("UI/HeartsUI"));
-            textures.Add("LevelLabel", content.Load<Texture2D>("UI/level1"));
             textures.Add("MapCompassLabel", content.Load<Texture2D>("UI/map_compass_item"));
             textures.Add("Compass", content.Load<Texture2D>("compass"));
             textures.Add("OrangeMap", content.Load<Texture2D>("UI/orange_map"));
             textures.Add("OrangeMapRooms", content.Load<Texture2D>("UI/orange_map_rooms"));
+            labels[0] = content.Load<Texture2D>("UI/level1");
+            labels[1] = content.Load<Texture2D>("UI/level2");
+            labels[2] = content.Load<Texture2D>("UI/level3");
+            labels[3] = content.Load<Texture2D>("UI/level4");
         }
 
         public IHUDItem CreateInventoryHUDItem(Game1 game, Vector2 startingPos)
@@ -66,7 +71,7 @@ namespace cse3902.SpriteFactory
 
         public IHUDItem CreateMinimapHUDItem(Game1 game)
         {
-            return new MiniMapHUDItem(game, textures["LevelLabel"]);
+            return new MiniMapHUDItem(game, labels);
         }
 
         public IHUDItem CreateMapCompassHUDItem(Game1 game)

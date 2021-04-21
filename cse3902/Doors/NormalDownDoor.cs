@@ -59,22 +59,27 @@ namespace cse3902.Doors
                     break;
             }
         }
+
         public Vector2 PlayerReleasePosition()
         {
             return doorSprite.Center + new Vector2(0, RoomUtilities.BLOCK_SIDE);
         }
+
         public Vector2 PlayerReleaseDirection()
         {
             return new Vector2(0, -MovementConstants.NormalDoorRelease);
         }
+
         public void Draw()
         {
             doorSprite.Draw();
         }
+
         public void Reset()
         {
             if (initialDoorState == IDoor.DoorState.Closed) State = IDoor.DoorState.Closed;
         }
+
         public IDoor.DoorState State
         {
             get
@@ -87,6 +92,7 @@ namespace cse3902.Doors
                 doorSprite = DoorSpriteFactory.Instance.CreateDownDoorSprite(game.SpriteBatch, doorSprite.Center,value);
             }
         }
+
         public ref Rectangle Bounds
         {
             get
@@ -94,10 +100,16 @@ namespace cse3902.Doors
                 return ref doorSprite.Box;
             }
         }
+
         public IDoor ConnectedDoor
         {
             set => connectedDoor = value;
             get => connectedDoor;
+        }
+
+        public IDoorSprite DoorSprite
+        {
+            get => doorSprite;
         }
 
         public ICollidable Collidable
