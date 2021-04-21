@@ -757,7 +757,7 @@
 			</enemy>
 			<enemy>
 				<type>Rope</type>
-				<xloc>16</xloc>
+				<xloc>6</xloc>
 				<yloc>6</yloc>
 			</enemy>
 			<enemy>
