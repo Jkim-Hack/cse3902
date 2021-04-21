@@ -8,6 +8,7 @@ using cse3902.Sounds;
 using cse3902.Items;
 using cse3902.Constants;
 using cse3902.Utilities;
+using System;
 
 namespace cse3902.Entities
 {
@@ -29,6 +30,12 @@ namespace cse3902.Entities
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
             projectileHandler.CreateSwordWeapon(batch, startingPosition, direction, InventoryUtilities.convertSwordToInt(InventoryManager.Instance.SwordSlot));
         }
+        public void CreateMagicBeam(Vector2 startingPosition, Vector2 direction)
+        {
+            ProjectileHandler projectileHandler = ProjectileHandler.Instance;
+            projectileHandler.CreateSwordWeapon(batch, startingPosition, direction, InventoryUtilities.convertSwordToInt(InventoryManager.ItemType.MagicalRod));
+            projectileHandler.CreateMagicBeam(batch, startingPosition, direction);
+        }
 
         public void CreateSwordProjectile(Vector2 startingPosition, Vector2 direction)
         {
@@ -45,21 +52,7 @@ namespace cse3902.Entities
             if (item.Equals(AnimationItem)) return;
             InventoryManager.ItemType type = item.ItemType;
             InventoryManager.Instance.AddToInventory(type);
-
-            //play certain sound
-            if (type == InventoryManager.ItemType.Heart || type == InventoryManager.ItemType.Key)
-            {
-                SoundFactory.PlaySound(SoundFactory.Instance.getHeart);
-            }
-            else if (type == InventoryManager.ItemType.Rupee)
-            {
-                SoundFactory.PlaySound(SoundFactory.Instance.getRupee);
-            }
-            else
-            {
-                SoundFactory.PlaySound(SoundFactory.Instance.getItem);
-            }
-
+            
             //special effect
             if (type == InventoryManager.ItemType.Heart)
             {
@@ -74,7 +67,7 @@ namespace cse3902.Entities
             }
 
             //pickup animation if certain item
-            if (type == InventoryManager.ItemType.Bow)
+            if (type == InventoryManager.ItemType.Bow || InventoryUtilities.SwordsList.Contains(type))
             {
                 Vector2 startingPos = linkState.CollectItemAnimation();
                 item.Center = startingPos;
@@ -105,7 +98,7 @@ namespace cse3902.Entities
             if (type == InventoryManager.ItemType.Key || type == InventoryManager.ItemType.HeartContainer || type == InventoryManager.ItemType.Boomerang) RoomConditions.Instance.SendSignals();
         }
 
-        public bool CreateItem(Vector2 startingPos)
+        public bool CreateItem(Vector2 startingPos, Vector2 direction)
         {
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
             InventoryManager.ItemType type = InventoryManager.Instance.ItemSlot;
@@ -115,22 +108,29 @@ namespace cse3902.Entities
             {
                 decType = InventoryManager.ItemType.Rupee;
             }
-            if (InventoryManager.Instance.inventory[decType] == 0) return false;
+            if (InventoryManager.Instance.ItemCount(decType) == 0) return false;
             InventoryManager.Instance.RemoveFromInventory(decType);
             switch (type)
             {
                 case InventoryManager.ItemType.Arrow:
-                    projectileHandler.CreateArrowItem(batch, startingPos, linkState.Direction);
+                    projectileHandler.CreateArrowItem(batch, startingPos, direction);
                     break;
 
                 case InventoryManager.ItemType.Boomerang:
-                    projectileHandler.CreateBoomerangItem(batch, linkState.Sprite, linkState.Direction);
+                    projectileHandler.CreateBoomerangItem(batch, linkState.Sprite, direction);
                     break;
 
                 case InventoryManager.ItemType.Bomb:
                     projectileHandler.CreateBombItem(batch, startingPos);
                     break;
 
+                case InventoryManager.ItemType.MagicalRod:
+                    CreateMagicBeam(startingPos, direction);
+                    break;
+
+                case InventoryManager.ItemType.BluePotion:
+                    linkState.Health = linkState.TotalHealth;
+                    break;
                 default:
                     // throw new NotImplementedException();
                     break;
@@ -140,9 +140,18 @@ namespace cse3902.Entities
 
         public void ChangeWeapon(int index)
         {
-            //TODO: Remove comment below once implemented inventory system
-            //if((int) InventoryManager.Instance.SwordSlot < index)
+            InventoryManager.ItemType type = InventoryUtilities.convertIntToSword(index);
+            if (!InventoryUtilities.SwordsList.Contains(type)) return;
+            if (InventoryUtilities.convertSwordToInt(InventoryManager.Instance.SwordSlot) < index)
             InventoryManager.Instance.SwordSlot = InventoryUtilities.convertIntToSword(index);
+        }
+        public int updateDamage(int damage)
+        {
+            if(InventoryManager.Instance.ItemCount(InventoryManager.ItemType.BlueRing) > 0)
+            {
+                return damage / 2;
+            }
+            return damage;
         }
 
         public void ChangeItem(InventoryManager.ItemType type)
@@ -155,5 +164,7 @@ namespace cse3902.Entities
             RoomItems.Instance.RemoveItem(AnimationItem);
             AnimationItem = null;
         }
+
+
     }
 }

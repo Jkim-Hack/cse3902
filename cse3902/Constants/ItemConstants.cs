@@ -61,5 +61,10 @@ namespace cse3902.Constants
         public const int SwordBeamSpeed = 2;
         public const float SwordBeamDelay= .2f;
 
+        public const int MagicBeamRows = 2;
+        public const int MagicBeamCols = 2;
+        public const int MagicBeamSpeed = 2;
+        public const float MagicBeamDelay = .2f;
+
     }
 }

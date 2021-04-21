@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using cse3902.Constants;
+using cse3902.HUD;
 
 namespace cse3902.Projectiles
 {
@@ -80,8 +81,10 @@ namespace cse3902.Projectiles
             if (Math.Abs(angle - ItemConstants.AnglePiOver8) <= ItemConstants.epsilon) SoundFactory.PlaySound(SoundFactory.Instance.arrowBoomerang);
 
             /* Animation is done if boomerang is travelling back to Link and collides with him */
-            if (travelDistance < 0 && link.Box.Intersects(this.Box)) animationComplete = true;
-
+            if (travelDistance < 0 && link.Box.Intersects(this.Box))
+            {
+                return -1;
+            }
             return 0;
         }
 

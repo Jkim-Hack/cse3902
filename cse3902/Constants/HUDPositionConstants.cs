@@ -23,10 +23,12 @@ namespace cse3902.Constants
 
         public static Vector2 CurrentItemsHUDPosition = new Vector2(HealthHUDPosition.X - 80, HealthHUDPosition.Y);
         public static Vector2 SlotB = new Vector2(CurrentItemsHUDPosition.X + 44.5f, CurrentItemsHUDPosition.Y+16);
-        public static Vector2 SlotA = new Vector2(CurrentItemsHUDPosition.X + 73f, CurrentItemsHUDPosition.Y+24);
+        public static Vector2 SlotA = new Vector2(CurrentItemsHUDPosition.X + 69f, CurrentItemsHUDPosition.Y+16);
         public static float CountsXPos = CurrentItemsHUDPosition.X + (98/11);
 
         public const int backgroundOffsetX = 40;
         public const int backgroundOffsetY = 40;
+
+        public const int digitWidth = 8;
     }
 }
