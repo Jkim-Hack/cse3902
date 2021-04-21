@@ -126,7 +126,7 @@ namespace cse3902.Collision.Collidables
                 RoomEnemies.Instance.RemoveEnemy(this.enemy);
                 return;
             }
-            if (((ProjectileCollidable)collidableObject).DamageValue > 2 || InventoryManager.Instance.SwordSlot == InventoryManager.SwordType.MagicalRod)
+            if (((ProjectileCollidable)collidableObject).DamageValue > 2)
             {
                 this.enemy.BeShoved();
             }
