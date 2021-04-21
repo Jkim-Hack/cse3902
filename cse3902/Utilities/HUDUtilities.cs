@@ -1,6 +1,7 @@
-﻿using System;
+﻿using cse3902.HUD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace cse3902.Utilities
 {
@@ -32,8 +33,17 @@ namespace cse3902.Utilities
         public const float InventoryHUDLayer = 0.8f;
         public const float InventoryItemLayer = 0.7f;
 
+        private static readonly Dictionary<InventoryManager.ItemType, int> HUDItemTexturePositions = new Dictionary<InventoryManager.ItemType, int>() { { InventoryManager.ItemType.None, 12 },
+            { InventoryManager.ItemType.WoodSword, 0 }, { InventoryManager.ItemType.WhiteSword, 1 }, { InventoryManager.ItemType.MagicalSword, 2 }, { InventoryManager.ItemType.Boomerang, 3 },
+            { InventoryManager.ItemType.Bomb, 4 }, { InventoryManager.ItemType.Arrow, 5 }, { InventoryManager.ItemType.Bow, 6 },{ InventoryManager.ItemType.BlueCandle, 7 },
+            { InventoryManager.ItemType.BluePotion, 8 }, { InventoryManager.ItemType.MagicalRod, 9 }, { InventoryManager.ItemType.BlueRing, 10 }};
 
-	    public static void DrawRectangle(Game1 game, Rectangle rec, Color color, int offsetX, int offsetY, float layer)
+        public static Dictionary<InventoryManager.ItemType, int> HUDItemIndexDict
+        {
+            get => HUDItemTexturePositions;
+        }
+
+        public static void DrawRectangle(Game1 game, Rectangle rec, Color color, int offsetX, int offsetY, float layer)
         {
             Texture2D texture = new Texture2D(game.GraphicsDevice, 1, 1);
             texture.SetData(new Color[] { Color.White });

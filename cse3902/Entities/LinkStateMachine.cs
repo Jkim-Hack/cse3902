@@ -240,7 +240,7 @@ namespace cse3902.Entities
         {
             if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
             Vector2 startingPosition = getItemLocation(currDirection);
-            if (linkInventory.CreateItem(startingPosition))
+            if (linkInventory.CreateItem(startingPosition, currDirection))
             {
                 mode = LinkMode.Attack;
                 SetAttackAnimation();
@@ -279,6 +279,7 @@ namespace cse3902.Entities
         {
             if (damage > 0)
             {
+                damage = Inventory.updateDamage(damage);
                 if (remainingDamageDelay > 0 && linkSprite.Damaged) return;
                 linkSprite.Damaged = true;
                 health -= damage;

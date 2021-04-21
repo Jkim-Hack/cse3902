@@ -11,7 +11,7 @@ namespace cse3902.Rooms.Conditions
 
         public void CheckCondition()
         {
-            VisionBlocker.Instance.VisionIsBlocked = InventoryManager.Instance.ItemSlot != InventoryManager.ItemType.Candle;
+            VisionBlocker.Instance.VisionIsBlocked = InventoryManager.Instance.ItemSlot != InventoryManager.ItemType.BlueCandle;
         }
 
         public void SendSignal()

@@ -31,7 +31,7 @@ namespace cse3902.Rooms
 
         public void RemoveItem(IItem item)
         {
-            (items as List<IItem>).RemoveAll(x => x.Center == item.Center);
+            (items as List<IItem>).RemoveAll(x => x.Equals(item));
         }
 
         public void Update(GameTime gameTime)
