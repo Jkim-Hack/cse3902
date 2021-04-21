@@ -7,10 +7,11 @@ using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
 using cse3902.Constants;
 using cse3902.Sounds;
+using cse3902.Rooms;
 
 namespace cse3902.Entities.Enemies
 {
-    public class Goriya : IEntity
+    public class Goriya : IEntity, ITrap
     {
         private GoriyaSprite goriyaSprite;
         private readonly Game1 game;
@@ -26,6 +27,11 @@ namespace cse3902.Entities.Enemies
         private ICollidable collidable;
         private int health;
         private float remainingDamageDelay;
+
+        private Rectangle detectionBoxX;
+        private Rectangle detectionBoxY;
+        private Rectangle currentDetectionBox;
+        private bool isTriggered;
 
         public Goriya(Game1 game, Vector2 start)
         {
@@ -64,6 +70,7 @@ namespace cse3902.Entities.Enemies
             {
                 this.direction = direction;
             }
+            ConstructDetectionBoxes(direction);
             ChangeSpriteDirection(direction);
 
         }
@@ -216,6 +223,49 @@ namespace cse3902.Entities.Enemies
         {
             return new Goriya(game, center);
         }
+        
+	    private void ConstructDetectionBoxes(Vector2 direction)
+        { 
+            if (direction.X == 1)
+            {
+                detectionBoxX = new Rectangle(this.goriyaSprite.Box.X, this.goriyaSprite.Box.Y, (RoomUtilities.NUM_BLOCKS_X * RoomUtilities.BLOCK_SIDE), RoomUtilities.BLOCK_SIDE);
+            }
+            else
+            {
+                detectionBoxX = new Rectangle(this.goriyaSprite.Box.X, this.goriyaSprite.Box.Y, (RoomUtilities.NUM_BLOCKS_X * RoomUtilities.BLOCK_SIDE), RoomUtilities.BLOCK_SIDE);
+                detectionBoxX.Offset(-((RoomUtilities.NUM_BLOCKS_X-1) * RoomUtilities.BLOCK_SIDE), 0);
+            }
+
+            if (direction.Y == 1)
+            {
+                detectionBoxY  = new Rectangle(this.goriyaSprite.Box.X, this.goriyaSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_Y * RoomUtilities.BLOCK_SIDE));
+            } else
+            {
+                detectionBoxY = new Rectangle(this.goriyaSprite.Box.X, this.goriyaSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_Y * RoomUtilities.BLOCK_SIDE));
+                detectionBoxY.Offset(0, -((RoomUtilities.NUM_BLOCKS_Y - 1) * RoomUtilities.BLOCK_SIDE));
+            }
+
+        }
+
+        public void Trigger()
+        { 
+            this.IsTriggered = true;
+
+            if (currentDetectionBox == detectionBoxX)
+            {
+                this.Direction = new Vector2(this.triggerDirection.X, 0);
+                this.triggerDistance = 100;
+            } else
+            {
+                this.Direction = new Vector2(0, this.triggerDirection.Y);
+                this.triggerDistance = 50;
+            }
+        }
+
+        ITrap ITrap.Duplicate()
+        {
+            return Duplicate() as ITrap;
+        }
 
         public IEntity.EnemyType Type
         {
@@ -259,11 +309,22 @@ namespace cse3902.Entities.Enemies
         public Vector2 Direction
         {
             get => this.direction;
+            set => direction = value;
         }
 
         public ICollidable Collidable
         {
             get => this.collidable;
         }
+
+        public bool IsTriggered {
+            get => isTriggered;
+            set => isTriggered = value; 
+	    }
+
+        Vector2 ITrap.Direction { 
+	        get => direction;
+            set => direction = value; 
+	    }
     }
 }

@@ -11,6 +11,7 @@ namespace cse3902.Collision.Collidables
     {
         private IProjectile projectile;
         private Boolean collisionOccurrence;
+        private bool isEnemy;
 
         public bool DamageDisabled { get; set; }
         
@@ -19,6 +20,8 @@ namespace cse3902.Collision.Collidables
             this.projectile = projectile;
             DamageDisabled = true;
             collisionOccurrence = false;
+
+            isEnemy = this.projectile is Fireball;
         }
 
 
@@ -52,16 +55,8 @@ namespace cse3902.Collision.Collidables
 
         public Boolean IsEnemy
         {
-            get
-            {
-                if (this.projectile is Fireball)
-                {
-                    return true;
-                } else
-                {
-                    return false;
-                }
-            }
+            get => isEnemy;
+            set => isEnemy = value;
         }
 
         public int DamageValue

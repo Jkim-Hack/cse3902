@@ -170,8 +170,6 @@ namespace cse3902.Entities.Enemies
         public void Trigger()
         {
             this.IsTriggered = true;
-            
-
 
             if (currentDetectionBox == detectionBoxX)
             {
