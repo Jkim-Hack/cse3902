@@ -1,6 +1,4 @@
 ﻿using System;
-using cse3902.Constants;
-using cse3902.Entities.DamageMasks;
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,22 +6,14 @@ using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Sprites.EnemySprites
 {
-    public class BoggusBossSprite : ISprite
+    public class ZolSprite : ISprite
     {
-
-        public enum FrameIndex
-        {
-            MouthClosed = 0,
-            MouthOpen = 2
-
-        };
-
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
 
         private Vector2 center;
-
         private int currentFrame;
+        private int totalFrames;
         private Rectangle[] frames;
         private int frameWidth;
         private int frameHeight;
@@ -34,45 +24,60 @@ namespace cse3902.Sprites.EnemySprites
         private const float delay = 0.2f;
         private float remainingDelay;
 
-        private bool isDamage;
-        private GenericTextureMask damageMaskHandler;
+        private bool isAttacking;
 
         private Rectangle destination;
 
-        private float remainingDamageDelay;
-
         private const float sizeIncrease = 1f;
 
-
-        public BoggusBossSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Texture2D damageSequence, Vector2 startingPosition)
+        public ZolSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
             remainingDelay = delay;
 
-            isDamage = false;
-            remainingDamageDelay = DamageConstants.DamageMaskDelay;
-
+            totalFrames = rows * columns;
             currentFrame = 0;
-            startingFrameIndex = (int)FrameIndex.MouthClosed;
-            endingFrameIndex = startingFrameIndex + 2;
+
+            startingFrameIndex = 0;
+            endingFrameIndex = 2;
+
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
-            center = startingPosition;
-
-            damageMaskHandler = new GenericTextureMask(texture, damageSequence, 1, 4, 1);
-
             frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
 
+            center = startingPosition;
+
+            isAttacking = false;
         }
 
         public void Draw()
         {
-
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
             spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
+        }
 
+        public void Erase()
+        {
+            spriteTexture.Dispose();
+        }
+
+        public int Update(GameTime gameTime)
+        {
+            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            remainingDelay -= timer;
+
+            if (remainingDelay <= 0)
+            {
+                currentFrame++;
+                if (currentFrame == endingFrameIndex)
+                {
+                    currentFrame = startingFrameIndex;
+                }
+                remainingDelay = delay;
+            }
+            return 0;
         }
 
         public ref Rectangle Box
@@ -86,38 +91,6 @@ namespace cse3902.Sprites.EnemySprites
                 this.destination = Destination;
                 return ref destination;
             }
-        }
-
-        public void Erase()
-        {
-            spriteTexture.Dispose();
-        }
-
-        public int Update(GameTime gameTime)
-        {
-            var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            remainingDelay -= timer;
-
-            if (isDamage)
-            {
-                remainingDamageDelay -= timer;
-                if (remainingDamageDelay < 0)
-                {
-                    remainingDamageDelay = DamageConstants.DamageMaskDelay;
-                    damageMaskHandler.LoadNextMask();
-                }
-            }
-
-            if (remainingDelay <= 0)
-            {
-                currentFrame++;
-                if (currentFrame == endingFrameIndex)
-                {
-                    currentFrame = startingFrameIndex;
-                }
-                remainingDelay = delay;
-            }
-            return 0;
         }
 
         public Vector2 Center
@@ -138,23 +111,15 @@ namespace cse3902.Sprites.EnemySprites
             {
                 startingFrameIndex = value;
                 endingFrameIndex = value + 2;
-
-                if (currentFrame >= endingFrameIndex || currentFrame < startingFrameIndex)
-                {
-
-                    currentFrame = value;
-                }
             }
         }
 
-        public bool Damaged
+        public bool IsAttacking
         {
-            get => isDamage;
+            get => isAttacking;
             set
             {
-                remainingDamageDelay = DamageConstants.DamageMaskDelay;
-                isDamage = value;
-                damageMaskHandler.Reset();
+                isAttacking = value;
             }
         }
     }

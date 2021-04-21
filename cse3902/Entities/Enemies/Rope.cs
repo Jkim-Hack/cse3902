@@ -1,20 +1,19 @@
-﻿using cse3902.Interfaces;
+﻿using System;
+using cse3902.Interfaces;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
-using System;
 using cse3902.Constants;
 using cse3902.Sounds;
 using cse3902.ParticleSystem;
 
 namespace cse3902.Entities.Enemies
 {
-    public class BoggusBoss : IEntity
+    public class Rope : IEntity
     {
-        private BoggusBossSprite boggusBossSprite;
-        private BoggusBossStateMachine boggusBossStateMachine;
+        private RopeSprite ropeSprite;
         private readonly Game1 game;
 
         private Vector2 direction;
@@ -24,47 +23,59 @@ namespace cse3902.Entities.Enemies
         private int travelDistance;
         private Vector2 shoveDirection;
         private int shoveDistance;
-        private Boolean pauseAnim;
 
         private ICollidable collidable;
         private int health;
         private float remainingDamageDelay;
 
-        public BoggusBoss(Game1 game, Vector2 start)
+        public Rope(Game1 game, Vector2 start)
         {
             this.game = game;
             center = start;
             previousCenter = center;
-            boggusBossSprite = (BoggusBossSprite)EnemySpriteFactory.Instance.CreateBoggusBossSprite(game.SpriteBatch, center);
-            boggusBossStateMachine = new BoggusBossStateMachine(boggusBossSprite, game.SpriteBatch, this.center);
-            direction = new Vector2(1, 0);
-            speed = 10.0f;
-            travelDistance = 20;
-            shoveDistance = -10;
-            shoveDirection = new Vector2(1, 0);
-            pauseAnim = false;
+
+            //rope sprite sheet is 1 row, 2 columns
+            ropeSprite = (RopeSprite)EnemySpriteFactory.Instance.CreateRopeSprite(game.SpriteBatch, center);
+            speed = MovementConstants.StalfosSpeed;
+            travelDistance = 0;
+            shoveDistance = MovementConstants.DefaultShoveDistance;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 10;
-            //todo: use settings value once its available to use
-            //health = SettingsValues.Instance.GetValue(SettingsValues.Variable.BoggusBossHealth);
+            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.StalfosHealth);
         }
 
         public ref Rectangle Bounds
         {
-            get => ref boggusBossSprite.Box;
+            get => ref ropeSprite.Box;
         }
 
         public void Attack()
         {
-            this.boggusBossStateMachine.Attack();
+
         }
 
         public void ChangeDirection(Vector2 direction)
         {
-            //todo: make a more fleshed out implementation for this
-            this.direction = -this.direction;
+            //direction vector of (0,0) indicates just reverse the current direction
+            if (direction == new Vector2(0, 0))
+            {
+                this.direction = -this.direction;
+
+            }
+            else
+            {
+
+                this.direction = direction;
+            }
+
+            if (direction.X == 1)
+            {
+                this.ropeSprite.StartingFrameIndex = (int)RopeSprite.FrameIndex.RightFacing;
+            } else if (direction.X == -1)
+            {
+                this.ropeSprite.StartingFrameIndex = (int)RopeSprite.FrameIndex.LeftFacing;
+            }
         }
 
         public void TakeDamage(int damage)
@@ -72,24 +83,22 @@ namespace cse3902.Entities.Enemies
             this.Health -= damage;
             if (this.Health > 0)
             {
-                SoundFactory.PlaySound(SoundFactory.Instance.bossHurt, 0.2f);
+                SoundFactory.PlaySound(SoundFactory.Instance.enemyHit);
             }
-            this.boggusBossSprite.Damaged = true;
             this.collidable.DamageDisabled = true;
         }
 
         public void Die()
         {
-            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, 0.2f);
-            this.boggusBossStateMachine.Die();
-            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.D);
+            SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.C);
             if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
         public void BeShoved()
         {
-            this.shoveDistance = 20;
-            this.pauseAnim = true;
+            this.shoveDistance = MovementConstants.StalfosShoveDistance;
+            this.shoveDirection = -this.direction;
         }
 
         public void StopShove()
@@ -108,7 +117,6 @@ namespace cse3902.Entities.Enemies
                 {
                     remainingDamageDelay = DamageConstants.DamageDisableDelay;
                     collidable.DamageDisabled = false;
-                    boggusBossSprite.Damaged = false;
                 }
             }
         }
@@ -116,11 +124,14 @@ namespace cse3902.Entities.Enemies
         public void Update(GameTime gameTime)
         {
             UpdateDamage(gameTime);
+            this.collidable.ResetCollisions();
             if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
-            this.collidable.ResetCollisions();
+        }
 
-            boggusBossStateMachine.Update(gameTime, this.Center, this.pauseAnim);
+        public void Draw()
+        {
+            ropeSprite.Draw();
         }
 
         private void ShoveMovement()
@@ -131,35 +142,53 @@ namespace cse3902.Entities.Enemies
 
         private void RegularMovement(GameTime gameTime)
         {
-            pauseAnim = false;
-
             this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (travelDistance <= 0)
             {
-                direction.X *= -1;
-                travelDistance = 150;
+                travelDistance = MovementConstants.StalfosMaxTravel;
+                RandomDirection();
             }
             else
             {
                 travelDistance--;
             }
 
+            ropeSprite.Update(gameTime);
         }
 
-        public void Draw()
+        private void RandomDirection()
         {
-            boggusBossStateMachine.Draw();
+            Random rand = new System.Random();
+            int choice = rand.Next(0, 4);
+
+            switch (choice)
+            {
+                case 0:
+                    ChangeDirection(new Vector2(1, 0));
+                    break;
+                case 1:
+                    ChangeDirection(new Vector2(-1, 0));
+                    break;
+                case 2:
+                    ChangeDirection(new Vector2(0, 1));
+                    break;
+                case 3:
+                    ChangeDirection(new Vector2(0, -1));
+                    break;
+                default:
+                    break;
+            }
         }
 
         public IEntity Duplicate()
         {
-            return new BoggusBoss(game, center);
+            return new Rope(game, center);
         }
 
         public IEntity.EnemyType Type
         {
-            get => IEntity.EnemyType.D;
+            get => IEntity.EnemyType.C;
         }
 
         public Vector2 Center
@@ -169,7 +198,7 @@ namespace cse3902.Entities.Enemies
             {
                 this.PreviousCenter = this.center;
                 this.center = value;
-                boggusBossSprite.Center = value;
+                ropeSprite.Center = value;
             }
         }
 
@@ -184,12 +213,10 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => 20;
-            //todo: use settings value once it's available
-            //get => SettingsValues.Instance.GetValue(SettingsValues.Variable.BoggusBossDamage);
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.StalfosDamage);
         }
 
-    public int Health
+        public int Health
         {
             get => this.health;
             set
