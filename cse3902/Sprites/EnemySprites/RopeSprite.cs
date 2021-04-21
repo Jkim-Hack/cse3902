@@ -113,6 +113,12 @@ namespace cse3902.Sprites.EnemySprites
             {
                 startingFrameIndex = value;
                 endingFrameIndex = value + 2;
+                if (startingFrameIndex > 2)
+                {
+                    startingFrameIndex = 0;
+                    endingFrameIndex = 2;
+                }
+                currentFrame = startingFrameIndex;
             }
         }
 
@@ -124,6 +130,13 @@ namespace cse3902.Sprites.EnemySprites
                 isAttacking = value;
             }
         }
+
+        public enum FrameIndex
+        {
+            LeftFacing = 0,
+            RightFacing = 2
+
+        };
     }
 }
 

@@ -61,10 +61,20 @@ namespace cse3902.Entities.Enemies
             if (direction == new Vector2(0, 0))
             {
                 this.direction = -this.direction;
+
             }
             else
             {
+
                 this.direction = direction;
+            }
+
+            if (direction.X == 1)
+            {
+                this.ropeSprite.StartingFrameIndex = (int)RopeSprite.FrameIndex.RightFacing;
+            } else if (direction.X == -1)
+            {
+                this.ropeSprite.StartingFrameIndex = (int)RopeSprite.FrameIndex.LeftFacing;
             }
         }
 
