@@ -13,8 +13,8 @@ namespace cse3902.Sprites.EnemySprites
         {
             UpFacing = 2,
             DownFacing = 0,
-            RightFacing = 6,
-            LeftFacing = 4
+            RightFacing = 4,
+            LeftFacing = 7
 
         };
 
@@ -23,7 +23,6 @@ namespace cse3902.Sprites.EnemySprites
         private Vector2 center;
 
         private int currentFrame;
-        private int totalFrames;
         private Rectangle[] frames;
         private int frameWidth;
         private int frameHeight;
@@ -54,7 +53,6 @@ namespace cse3902.Sprites.EnemySprites
             isDamage = false;
             remainingDamageDelay = damageDelay;
 
-            totalFrames = rows * columns;
             currentFrame = 4;
 
             startingFrameIndex = 0;
@@ -62,7 +60,7 @@ namespace cse3902.Sprites.EnemySprites
 
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
-            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight); ;
+            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
 
             center = startingPosition;
 
@@ -74,7 +72,14 @@ namespace cse3902.Sprites.EnemySprites
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
             Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
+            if (this.IsReversible && currentFrame > startingFrameIndex)
+            {
+                spriteBatch.Draw(spriteTexture, Destination, frames[startingFrameIndex], Color.White, 0, origin, SpriteEffects.FlipHorizontally, SpriteUtilities.EnemyLayer);
+            } else
+            {
+                spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
+            }
+            
         }
 
         public void Erase()
@@ -159,6 +164,20 @@ namespace cse3902.Sprites.EnemySprites
                 remainingDamageDelay = damageDelay;
                 isDamage = value;
                 damageMaskHandler.Reset();
+            }
+        }
+
+        private bool IsReversible
+        {
+            get
+            {
+                if (this.StartingFrameIndex == (int)DodongoSprite.FrameIndex.DownFacing || this.StartingFrameIndex == (int)DodongoSprite.FrameIndex.UpFacing)
+                {
+                    return true;
+                } else
+                {
+                    return false;
+                }
             }
         }
     }
