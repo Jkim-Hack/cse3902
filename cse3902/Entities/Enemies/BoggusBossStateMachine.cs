@@ -1,4 +1,5 @@
-﻿using cse3902.Interfaces;
+﻿using cse3902.Constants;
+using cse3902.Interfaces;
 using cse3902.Projectiles;
 using cse3902.Sounds;
 using cse3902.Sprites.EnemySprites;
@@ -29,7 +30,7 @@ namespace cse3902.Entities
             this.boggusBossSprite = boggusBossSprite;
             this.spriteBatch = spriteBatch;
 
-            this.isAttacking = true;
+            this.isAttacking = false;
             fireballCounter = 0;
             this.isCoupling = true;
 
@@ -48,25 +49,12 @@ namespace cse3902.Entities
             location.X = this.center.X;
             location.Y = this.center.Y - 10;
 
-            if (boggusBossSprite.StartingFrameIndex == (int)BoggusBossSprite.FrameIndex.RightFacing)
-            {
-                direction1 = new Vector2(1, 0);
-                direction2 = new Vector2(3, 1);
-                direction2.Normalize();
-                direction3 = new Vector2(3, -1);
-                direction3.Normalize();
-                location.X += 15;
-            }
-            else
-            {
-                direction1 = new Vector2(-1, 0);
-                direction2 = new Vector2(-3, 1);
-                direction2.Normalize();
-                direction3 = new Vector2(-3, -1);
-                direction3.Normalize();
-
-                location.X += -15; //originate fireballs at mouth if facing left
-            }
+            direction1 = new Vector2(1, 0);
+            direction2 = new Vector2(MovementConstants.AquamentusFireballSpread, 1);
+            direction2.Normalize();
+            direction3 = new Vector2(MovementConstants.AquamentusFireballSpread, -1);
+            direction3.Normalize();
+            location.X += 3*MovementConstants.AquamentusFireballChangeX;
 
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
             fireball1 = projectileHandler.CreateFireballObject(spriteBatch, location, direction1);
@@ -83,28 +71,7 @@ namespace cse3902.Entities
 
         public void ChangeDirection(Vector2 newDirection)
         {
-            if (newDirection == new Vector2(0, 0))
-            {
-                //direction vector of (0,0) indicates just reverse the current direction
-                if (boggusBossSprite.StartingFrameIndex == (int)BoggusBossSprite.FrameIndex.RightFacing)
-                {
-                    boggusBossSprite.StartingFrameIndex = (int)BoggusBossSprite.FrameIndex.LeftFacing;
-                }
-                else
-                {
-                    boggusBossSprite.StartingFrameIndex = (int)BoggusBossSprite.FrameIndex.RightFacing;
-                }
-                return;
-            }
 
-            if (newDirection.X > 0)
-            {
-                boggusBossSprite.StartingFrameIndex = (int)BoggusBossSprite.FrameIndex.RightFacing;
-            }
-            else
-            {
-                boggusBossSprite.StartingFrameIndex = (int)BoggusBossSprite.FrameIndex.LeftFacing;
-            }
         }
 
         public void TakeDamage()
@@ -128,16 +95,21 @@ namespace cse3902.Entities
         public void Update(GameTime gameTime, Vector2 center, Boolean pauseAnim)
         {
             this.center = center;
+            if (fireballCounter >= fireballDelay / 2)
+            {
+                this.boggusBossSprite.StartingFrameIndex = (int)BoggusBossSprite.FrameIndex.MouthClosed;
+            }
             if (fireballCounter > fireballDelay)
             {
                 LoadFireballs();
-                if (this.isAttacking)
+                this.boggusBossSprite.StartingFrameIndex = (int)BoggusBossSprite.FrameIndex.MouthOpen;
+                if (!this.isAttacking)
                 {
                     PlaySound();
-                    this.isAttacking = false;
+                    this.isAttacking = true;
                 } else
                 {
-                    this.isAttacking = true;
+                    this.isAttacking = false;
                 }
                 fireballCounter = 0;
             }

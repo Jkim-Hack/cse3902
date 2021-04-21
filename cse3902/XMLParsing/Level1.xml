@@ -1089,7 +1089,7 @@
 				<yloc>1</yloc>
 			</enemy>
 			<enemy>
-				<type>Gel</type>
+				<type>Zol</type>
 				<xloc>10</xloc>
 				<yloc>1</yloc>
 			</enemy>
@@ -1998,7 +1998,7 @@
 		</items>
 		<enemies>
 			<enemy>
-				<type>Aquamentus</type>
+				<type>Aquam entus</type>
 				<xloc>8.75</xloc>
 				<yloc>2.5</yloc>
 			</enemy>
