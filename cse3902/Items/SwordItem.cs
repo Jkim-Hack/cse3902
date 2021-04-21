@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using cse3902.Sprites;
 using System;
 using cse3902.Constants;
+using cse3902.Utilities;
 
 namespace cse3902.Items
 {
@@ -29,7 +30,7 @@ namespace cse3902.Items
         private Vector2 direction;
         private ICollidable collidable;
 
-        public SwordItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, int type)
+        public SwordItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, int swordType)
         {
             spriteBatch = batch;
             spriteTexture = texture;
@@ -41,8 +42,8 @@ namespace cse3902.Items
             current.y = (int)startingPos.Y;
             Rectangle[] rectangles = SpriteUtilities.distributeFrames(ItemConstants.SWORDROWS, ItemConstants.SWORDCOLS, texture.Width, texture.Height);
 
-            this.source = rectangles[type];
-            this.swordType = type;
+            this.source = rectangles[swordType];
+            this.swordType = swordType;
 
 
             this.collidable = new ItemCollidable(this);
@@ -116,7 +117,7 @@ namespace cse3902.Items
 
         public InventoryManager.ItemType ItemType
         {
-            get => InventoryManager.ItemType.Sword;
+            get => InventoryUtilities.convertIntToSword(SwordType);
         }
 
         public bool IsKept

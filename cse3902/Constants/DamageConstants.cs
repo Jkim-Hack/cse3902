@@ -18,17 +18,17 @@ namespace cse3902.Constants
         {
             get
             {
-                InventoryManager.SwordType type = InventoryManager.Instance.SwordSlot;
+                InventoryManager.ItemType type = InventoryManager.Instance.SwordSlot;
                 int damage = 0;
                 switch (type)
                 {
-                    case InventoryManager.SwordType.Wood:
+                    case InventoryManager.ItemType.WoodSword:
                         damage = WoodSwordDamage;
                         break;
-                    case InventoryManager.SwordType.White:
+                    case InventoryManager.ItemType.WhiteSword:
                         damage = WhiteSwordDamage;
                         break;
-                    case InventoryManager.SwordType.Magical:
+                    case InventoryManager.ItemType.MagicalSword:
                         damage = MagicalSwordDamage;
                         break;
                 }
