@@ -18,18 +18,10 @@
 - 'r' to reset the game (dying or being grabbed by a wall master also resets the game)
 - 'q' to quit the game
 
-### Bonus Controls
-- '3' to purchase 1 arrow for 1 rupee
-- '4' to purchase 5 arrows for 4 rupees
-- '5' to purchase 10 arrows for 7 rupees
-- '7' to select the wooden sword (low damage)
-- '8' to select the white sword (medium damage)
-- '9' to select the magical sword (high damage)
-- '0' to select the magical rod (medium damage, always does knockback)
-
 ### Mouse Controls
 - Left click on the door in each room, and if there is a room on the other side of the door, the camera will move to the other room.
 - Right click at the top of the item room to leave the item room or at the bottom of the room with the traps to enter the item room.
+- Right click at the top or bottom of a room with a portal to go through it
 - Left click the picture icon for a setting in the pause menu to change the mode (easy/normal/hard).
 
 ### Settings
