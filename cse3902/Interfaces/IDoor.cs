@@ -23,5 +23,6 @@ namespace cse3902.Interfaces
         public void Draw();
         public DoorState State { get; set; }
         public void Reset();
+        public IDoorSprite DoorSprite { get; }
     }
 }

@@ -27,18 +27,22 @@ namespace cse3902.Doors
         {
             game.RoomHandler.LoadNewRoom(game.RoomHandler.currentRoom + roomTranslationVector, connectedDoor);
         }
+
         public Vector2 PlayerReleasePosition()
         {
             return doorSprite.Center + new Vector2(-32, 31);
         }
+
         public Vector2 PlayerReleaseDirection()
         {
             return new Vector2(0, 1);
         }
+
         public void Draw()
         {
             doorSprite.Draw();
         }
+
         public void Reset()
         {
             //doesn't reset
@@ -63,10 +67,16 @@ namespace cse3902.Doors
                 return ref doorSprite.Box;
             }
         }
+
         public IDoor ConnectedDoor
         {
             set => connectedDoor = value;
             get => connectedDoor;
+        }
+
+        public IDoorSprite DoorSprite
+        {
+            get => doorSprite;
         }
 
         public ICollidable Collidable

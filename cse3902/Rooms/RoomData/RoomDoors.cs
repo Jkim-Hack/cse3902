@@ -2,6 +2,7 @@
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using System.Collections;
+using cse3902.Doors;
 
 namespace cse3902.Rooms
 {
@@ -36,6 +37,17 @@ namespace cse3902.Rooms
             foreach (IDoor door in doors)
             {
                 door.Draw();
+            }
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            foreach (IDoor door in doors)
+            {
+                if (door is PortalUp || door is PortalDown)
+                {
+                    door.DoorSprite.Update();
+                }
             }
         }
 
