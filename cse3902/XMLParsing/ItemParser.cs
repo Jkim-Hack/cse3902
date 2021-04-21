@@ -82,6 +82,9 @@ namespace cse3902.XMLParsing
                 case "Key":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateKeyItem(game.SpriteBatch, startPos, true, true);
                     break;
+                case "MagicBook":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateMagicBookItem(game.SpriteBatch, startPos, true, true);
+                    break;
                 case "Map":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateMapItem(game.SpriteBatch, startPos, true, true);
                     break;

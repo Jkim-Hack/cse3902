@@ -156,6 +156,7 @@ namespace cse3902.SpriteFactory
             textures.Add("heartcont", content.Load<Texture2D>("heartcont"));
             textures.Add("triforce", content.Load<Texture2D>("triforce"));
             textures.Add("key", content.Load<Texture2D>("key"));
+            textures.Add("magicBook", content.Load<Texture2D>("MagicBook"));
             textures.Add("map", content.Load<Texture2D>("map"));
             textures.Add("rupee", content.Load<Texture2D>("rupee"));
             textures.Add("cloud", content.Load<Texture2D>("cloud"));
@@ -264,6 +265,12 @@ namespace cse3902.SpriteFactory
         public ISprite CreateKeyItem(Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new KeyItem(spriteBatch, textures["key"], startingPos, kept, resetKept);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+        public IItem CreateMagicBookItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
+        {
+            IItem add = new MagicBookItem(this.spriteBatch, textures["magicBook"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }

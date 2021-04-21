@@ -37,6 +37,7 @@ namespace cse3902.Rooms
             //(projectiles as List<IItem>).RemoveAll(x => x.Center == projectile.Center);
 
             if (projectile is Fireball) ((Fireball) projectile).KillParticles();
+            if (projectile is MagicFireballProjectile) ((MagicFireballProjectile)projectile).KillParticles();
         }
 
         public void Update(GameTime gameTime)
