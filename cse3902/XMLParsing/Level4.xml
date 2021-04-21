@@ -260,6 +260,30 @@
 		<traps>
 		</traps>
 		<spawners>
+			<spawner>
+				<type>keese</type>
+				<count>5</count>
+				<xloc>1</xloc>
+				<yloc>1</yloc>
+            </spawner>
+			<spawner>
+				<type>stalfos</type>
+				<count>5</count>
+				<xloc>5</xloc>
+				<yloc>5</yloc>
+            </spawner>
+			<spawner>
+				<type>keese</type>
+				<count>5</count>
+				<xloc>7</xloc>
+				<yloc>4</yloc>
+            </spawner>
+			<spawner>
+				<type>goriya</type>
+				<count>5</count>
+				<xloc>9</xloc>
+				<yloc>2</yloc>
+            </spawner>
 		</spawners>
 		<conditions>
 			<condition>
