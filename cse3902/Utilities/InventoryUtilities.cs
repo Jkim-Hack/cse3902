@@ -14,8 +14,8 @@ namespace cse3902.Utilities
 
         private readonly static List<ItemType> collectables = new List<ItemType> { ItemType.BlueRing };
 
-        private readonly static Dictionary<ItemType, int> maxItems = new Dictionary<ItemType, int> { { ItemType.Rupee, 255 }, { ItemType.Bomb, 6 }, { ItemType.Key, 9 } };
-        private readonly static Dictionary<ItemType, int> countPerItem = new Dictionary<ItemType, int> { { ItemType.Rupee, 3 }, { ItemType.Bomb, 3 } };
+        private readonly static Dictionary<ItemType, int> maxItems = new Dictionary<ItemType, int> { { ItemType.Rupee, 255 }, { ItemType.Bomb, 8 }, { ItemType.Key, 9 } };
+        private readonly static Dictionary<ItemType, int> countPerItem = new Dictionary<ItemType, int> { { ItemType.Rupee, 3 }, { ItemType.Bomb, 4 } };
 
         private readonly static List<ItemType> removableItems = new List<ItemType> { ItemType.Bomb, ItemType.BluePotion, ItemType.Rupee, ItemType.Key };
 
