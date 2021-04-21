@@ -36,7 +36,7 @@ namespace cse3902.SpriteFactory
             doorTextures.Add("staircase", content.Load<Texture2D>("staircase"));
             DungeonMask.Instance.addTexture(doorTextures["staircase"]);
             doorTextures.Add("black", content.Load<Texture2D>("black"));
-            doorTextures.Add("portal", content.Load<Texture2D>("portalswirl"));
+            doorTextures.Add("portal", content.Load<Texture2D>("portalsquare"));
 
             doorStateRectangleMap.Add(IDoor.DoorState.Wall, 0);
             doorStateRectangleMap.Add(IDoor.DoorState.Open, 1);

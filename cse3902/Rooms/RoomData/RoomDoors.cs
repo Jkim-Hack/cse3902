@@ -44,9 +44,9 @@ namespace cse3902.Rooms
         {
             foreach (IDoor door in doors)
             {
-                if (door is PortalUp || door is PortalDown)
+                if (door.GetType() == typeof(PortalUp) || door.GetType() == typeof(PortalDown))
                 {
-                    door.DoorSprite.Update();
+                    door.DoorSprite.Update(gameTime);
                 }
             }
         }

@@ -80,7 +80,8 @@ namespace cse3902.Doors
 
         public IDoorSprite DoorSprite
         {
-            get => doorSprite;
+            // should never happen
+            get => null;
         }
 
         public ICollidable Collidable

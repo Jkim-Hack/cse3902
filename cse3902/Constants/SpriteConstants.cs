@@ -11,8 +11,8 @@
         public const int RickCols = 5;
 
         public const float PortalDelay = .1f;
-        public const int PortalRows = 6;
-        public const int PortalCols = 5;
+        public const int PortalRows = 3;
+        public const int PortalCols = 3;
 
         public const int DungeonMaskRows = 2;
         public const int DungeonMaskCols = 2;
