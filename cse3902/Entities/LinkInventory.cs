@@ -7,6 +7,7 @@ using cse3902.Rooms;
 using cse3902.Sounds;
 using cse3902.Items;
 using cse3902.Constants;
+using cse3902.Utilities;
 
 namespace cse3902.Entities
 {
@@ -26,7 +27,7 @@ namespace cse3902.Entities
         public void CreateWeapon(Vector2 startingPosition, Vector2 direction)
         {
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            projectileHandler.CreateSwordWeapon(batch, startingPosition, direction, (int)InventoryManager.Instance.SwordSlot);
+            projectileHandler.CreateSwordWeapon(batch, startingPosition, direction, InventoryUtilities.convertSwordToInt(InventoryManager.Instance.SwordSlot));
         }
 
         public void CreateSwordProjectile(Vector2 startingPosition, Vector2 direction)
@@ -110,15 +111,15 @@ namespace cse3902.Entities
             InventoryManager.ItemType type = InventoryManager.Instance.ItemSlot;
             if (type == InventoryManager.ItemType.None) return false;
             InventoryManager.ItemType decType = type;
-            if (type == InventoryManager.ItemType.Bow)
+            if (type == InventoryManager.ItemType.Arrow)
             {
-                decType = InventoryManager.ItemType.Arrow;
+                decType = InventoryManager.ItemType.Rupee;
             }
             if (InventoryManager.Instance.inventory[decType] == 0) return false;
             InventoryManager.Instance.RemoveFromInventory(decType);
-            switch (InventoryManager.Instance.ItemSlot)
+            switch (type)
             {
-                case InventoryManager.ItemType.Bow:
+                case InventoryManager.ItemType.Arrow:
                     projectileHandler.CreateArrowItem(batch, startingPos, linkState.Direction);
                     break;
 
@@ -141,7 +142,7 @@ namespace cse3902.Entities
         {
             //TODO: Remove comment below once implemented inventory system
             //if((int) InventoryManager.Instance.SwordSlot < index)
-            InventoryManager.Instance.SwordSlot = (InventoryManager.SwordType)index;
+            InventoryManager.Instance.SwordSlot = InventoryUtilities.convertIntToSword(index);
         }
 
         public void ChangeItem(InventoryManager.ItemType type)
