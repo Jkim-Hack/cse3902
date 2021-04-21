@@ -19,7 +19,7 @@ namespace cse3902.Constants
         public const int InventoryItemsRows = 2;
         public const int InventoryItemsCols = 4;
         public static readonly Dictionary<InventoryManager.ItemType, Vector2> InventoryIndicatorPos = new Dictionary<InventoryManager.ItemType, Vector2> { { InventoryManager.ItemType.Arrow, new Vector2(180, 56) },
-            { InventoryManager.ItemType.Bow, new Vector2(188, 56) }, { InventoryManager.ItemType.BlueRing, new Vector2(200, 32) } };
+            { InventoryManager.ItemType.Bow, new Vector2(188, 56) }, { InventoryManager.ItemType.MagicBook, new Vector2(156, 32) }, { InventoryManager.ItemType.BlueRing, new Vector2(168, 32) } };
 
         public static Vector2 CurrentItemsHUDPosition = new Vector2(HealthHUDPosition.X - 80, HealthHUDPosition.Y);
         public static Vector2 SlotB = new Vector2(CurrentItemsHUDPosition.X + 44.5f, CurrentItemsHUDPosition.Y+16);

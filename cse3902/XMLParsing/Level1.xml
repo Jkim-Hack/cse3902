@@ -150,6 +150,11 @@
 				<yloc>0</yloc>
 			</item>
 			<item>
+				<type>MagicBook</type>
+				<xloc>9</xloc>
+				<yloc>0</yloc>
+			</item>
+			<item>
 				<type>WoodSword</type>
 				<xloc>8</xloc>
 				<yloc>1</yloc>
