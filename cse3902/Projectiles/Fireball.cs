@@ -114,7 +114,7 @@ namespace cse3902.Projectiles
 
         public int Damage
         {
-            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.AquamentusFireball);
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.FireballDamage);
         }
 
         public Vector2 Direction

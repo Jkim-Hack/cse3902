@@ -58,7 +58,7 @@ namespace cse3902.XMLParsing
                 case "stalfos":
                     spawner = new StalfosSpawner(game, startPos, count);
                     break;
-                case "goryia":
+                case "goriya":
                     spawner = new GoriyaSpawner(game, startPos, count);
                     break;
                 case "gel":

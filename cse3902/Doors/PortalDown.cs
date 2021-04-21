@@ -74,5 +74,10 @@ namespace cse3902.Doors
         {
             get => this.collidable;
         }
+
+        public Vector3 RoomTranslationVector
+        {
+            get => roomTranslationVector;
+        }
     }
 }

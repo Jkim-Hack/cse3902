@@ -149,8 +149,9 @@ namespace cse3902.Entities
         {
             if(InventoryManager.Instance.ItemCount(InventoryManager.ItemType.BlueRing) > 0)
             {
-                return damage / 2;
+                damage /= 2;
             }
+            if (damage < SettingsValues.Instance.GetValue(SettingsValues.Variable.MinLinkDamage)) damage = SettingsValues.Instance.GetValue(SettingsValues.Variable.MinLinkDamage);
             return damage;
         }
 

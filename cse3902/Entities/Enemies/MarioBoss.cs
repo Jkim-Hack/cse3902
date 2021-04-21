@@ -47,9 +47,7 @@ namespace cse3902.Entities.Enemies
             
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 100;
-            //todo: use this statement when it's available
-            //health = SettingsValues.Instance.GetValue(SettingsValues.Variable.MarioBossHealth);
+            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.MarioHealth);
         }
 
         public ref Rectangle Bounds
@@ -185,9 +183,7 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => 20;
-            //todo: use this value once it's available
-            //get => SettingsValues.Instance.GetValue(SettingsValues.Variable.MarioBossDamage);
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.MarioDamage);
         }
 
         public int Health

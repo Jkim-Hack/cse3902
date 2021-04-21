@@ -166,13 +166,13 @@
 			</item>
 			<item>
 				<type>BlueRing</type>
-				<xloc>5</xloc>
-				<yloc>5</yloc>
+				<xloc>4</xloc>
+				<yloc>4</yloc>
 			</item>
 			<item>
 				<type>BluePotion</type>
-				<xloc>6</xloc>
-				<yloc>5</yloc>
+				<xloc>7</xloc>
+				<yloc>4</yloc>
 			</item>
 			<item>
 				<type>Boomerang</type>

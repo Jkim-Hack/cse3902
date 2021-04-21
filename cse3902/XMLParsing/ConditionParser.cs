@@ -60,6 +60,9 @@ namespace cse3902.XMLParsing
                 case "6":
                     condition = new VisionBlockCondition();
                     break;
+                case "7":
+                    condition = new HordeRoomOpenDoor(conditionVariables);
+                    break;
                 default: //this should never happen
                     break;
             }

@@ -46,9 +46,7 @@ namespace cse3902.Entities.Enemies
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 10;
-            //todo: use settings value once its available to use
-            //health = SettingsValues.Instance.GetValue(SettingsValues.Variable.BoggusBossHealth);
+            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.BoggusHealth);
         }
 
         public ref Rectangle Bounds
@@ -184,9 +182,7 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => 20;
-            //todo: use settings value once it's available
-            //get => SettingsValues.Instance.GetValue(SettingsValues.Variable.BoggusBossDamage);
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.BoggusDamage);
         }
 
     public int Health

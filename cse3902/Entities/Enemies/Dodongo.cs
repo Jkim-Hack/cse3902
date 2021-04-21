@@ -41,9 +41,7 @@ namespace cse3902.Entities.Enemies
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 100;
-            //todo: use this statement once it's available
-            //health = SettingsValues.Instance.GetValue(SettingsValues.Variable.DodongoHealth);
+            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.DodongoHealth);
         }
 
         public ref Rectangle Bounds
@@ -85,7 +83,7 @@ namespace cse3902.Entities.Enemies
         public void Die()
         {
             SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
-            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.B);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.D);
             if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
@@ -223,7 +221,7 @@ namespace cse3902.Entities.Enemies
 
         public IEntity.EnemyType Type
         {
-            get => IEntity.EnemyType.B;
+            get => IEntity.EnemyType.D;
         }
 
         public Vector2 Center
@@ -248,9 +246,7 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => 20;
-            //todo: use this statement once it's available
-            //get => SettingsValues.Instance.GetValue(SettingsValues.Variable.DodongoDamage);
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.DodongoDamage);
         }
 
         public int Health

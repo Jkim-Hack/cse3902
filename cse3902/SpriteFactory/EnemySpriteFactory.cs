@@ -15,6 +15,7 @@ namespace cse3902.SpriteFactory
         private Texture2D gel;
         private Texture2D zol;
         private Texture2D goriya;
+        private Texture2D goriyaBlue;
         private Texture2D keese;
         private Texture2D stalfos;
         private Texture2D rope;
@@ -44,6 +45,7 @@ namespace cse3902.SpriteFactory
             gel = content.Load<Texture2D>("enemies/gel");
             zol = content.Load<Texture2D>("enemies/zol");
             goriya = content.Load<Texture2D>("enemies/goriya_red");
+            goriyaBlue = content.Load<Texture2D>("enemies/goriya_blue");
             keese = content.Load<Texture2D>("enemies/keese");
             stalfos = content.Load<Texture2D>("enemies/stalfos");
             rope = content.Load<Texture2D>("enemies/rope");
@@ -85,7 +87,9 @@ namespace cse3902.SpriteFactory
 
         public ISprite CreateGoriyaSprite(SpriteBatch spriteBatch, Vector2 center)
         {
-            return new GoriyaSprite(spriteBatch, goriya, 4, 2, goriyaDamageSequence, center);
+            Texture2D goriyaTexture = goriya;
+            if (SettingsValues.Instance.GetValue(SettingsValues.Variable.GoriyaHardTexture) != 0) goriyaTexture = goriyaBlue;
+            return new GoriyaSprite(spriteBatch, goriyaTexture, 4, 2, goriyaDamageSequence, center);
         }
 
         public ISprite CreateKeeseSprite(SpriteBatch spriteBatch, Vector2 center)
