@@ -121,9 +121,18 @@ namespace cse3902.Collision.Collidables
 
         private void ProjectileCollision(ICollidable collidableObject)
         {
-            if (((ProjectileCollidable)collidableObject).Projectile is BombProjectile && this.enemy is Dodongo)
+            if (((ProjectileCollidable)collidableObject).IsEnemy)
             {
-                
+                return;
+            }
+
+            if (this.enemy is Dodongo)
+            {
+                if (((ProjectileCollidable)collidableObject).Projectile is BombProjectile)
+                {
+                    this.enemy.TakeDamage(collidableObject.DamageValue);
+                }
+                return;
             }
 
             this.enemy.TakeDamage(collidableObject.DamageValue);

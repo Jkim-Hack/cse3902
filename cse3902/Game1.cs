@@ -195,7 +195,7 @@ namespace cse3902
             if (!GameStateManager.Instance.InMenu(true) && !GameStateManager.Instance.IsGrabbedByWallMaster()) player.Draw();
             roomHandler.Draw();
             //Draw Hitboxes
-            //collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
+            collisionManager.DrawAllRectangles(lineTexture, Color.Red, 1);
             spriteBatch.End();
 
             ParticleEngine.Instance.Draw(spriteBatch, camera.GetGameplayTransformationMatrix());

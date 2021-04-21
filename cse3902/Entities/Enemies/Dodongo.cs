@@ -71,12 +71,21 @@ namespace cse3902.Entities.Enemies
 
         public void TakeDamage(int damage)
         {
+            this.dodongoSprite.StartingFrameIndex++;
+            if (this.dodongoSprite.StartingFrameIndex == (int)DodongoSprite.FrameIndex.LeftFacing || this.dodongoSprite.StartingFrameIndex == (int)DodongoSprite.FrameIndex.RightFacing)
+            {
+                this.dodongoSprite.StartingFrameIndex++;
+            }
+            this.shoveDirection = new Vector2(0, 0);
+            this.shoveDistance = 20;
+            this.travelDistance = 0;
+
             this.Health -= damage;
             if (this.Health > 0)
             {
                 SoundFactory.PlaySound(SoundFactory.Instance.enemyHit);
             }
-            //this.dodongoSprite.Damaged = true;
+
             this.collidable.DamageDisabled = true;
         }
 
@@ -96,11 +105,6 @@ namespace cse3902.Entities.Enemies
         public void StopShove()
         {
             this.shoveDistance = 0;
-        }
-
-        public void SwallowBomb()
-        {
-
         }
 
         private void UpdateDamage(GameTime gameTime)
