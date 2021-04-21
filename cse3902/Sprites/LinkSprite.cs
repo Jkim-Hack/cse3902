@@ -30,7 +30,6 @@ namespace cse3902.Sprites
 
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
-        private Texture2D rectangleTexture;
 
         private (Vector2 current, Vector2 previous) positions;
         private Vector2 size;
@@ -38,101 +37,42 @@ namespace cse3902.Sprites
         private (Rectangle frame, float delay)[] currentFrameSet;
         private int currentFrameIndex;
         private LinkSpriteAnimationHandler animationHandler;
-
-        private GenericTextureMask maskHandler;
-        private SingleMaskHandler deathMaskHandler;
-
-        private bool isDamaged;
-        private (float frame, float damage) remainingDelay;
+        private float remainingFrameDelay;
 
         private Rectangle destination;
 
         private bool pauseMovement;
 
-        private bool gameWon;
-        private int gameWinFlashDelay;
-        private int gameWinRectangleWidth;
-
-        private bool death;
-        private int deathColorChangeDelay;
-        private Color deathColor;
-        private float deathOpacity;
+        private LinkEffectsManager linkEffectsManager;
 
         public LinkSprite(SpriteBatch spriteBatch, Texture2D texture, Texture2D rectangle, int rows, int columns, GenericTextureMask maskHandler, SingleMaskHandler singleMaskHandler, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
-            rectangleTexture = rectangle;
-            rectangleTexture.SetData(new Color[] { Color.White });
-
-            this.maskHandler = maskHandler;
-            deathMaskHandler = singleMaskHandler;
 
 	        animationHandler = new LinkSpriteAnimationHandler(texture, rows, columns);
             size = animationHandler.FrameSize;
             currentFrameSet = animationHandler.getFrameSet(AnimationState.RightFacing);
             currentFrameIndex = 0;
 
-            remainingDelay.frame = currentFrameSet[currentFrameIndex].delay;
-            remainingDelay.damage = -1;
-            isDamaged = false;
+            remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
 
             positions.current = startingPosition;
             positions.previous = positions.current;
             
             pauseMovement = false;
 
-            gameWon = false;
-            gameWinFlashDelay = -50;
-            gameWinRectangleWidth = 0;
-
-            deathColorChangeDelay = 0;
-            deathColor = Color.Black;
-            deathOpacity = 0;
+            linkEffectsManager = new LinkEffectsManager(spriteBatch, rectangle, maskHandler, singleMaskHandler);
         }
 
         public void Draw()
         {
             Vector2 origin = new Vector2(size.X / 2f, size.Y / 2f);
             Rectangle Destination = new Rectangle((int)positions.current.X, (int)positions.current.Y, (int)(size.X), (int)(size.Y));
-            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, (gameWon || death) ? 0 : SpriteUtilities.LinkLayer);
-
-            int roomWidth = DimensionConstants.OriginalWindowWidth;
-            int roomHeight = DimensionConstants.OriginalGameplayHeight;
-            DrawGameWinAnim(roomWidth, roomHeight);
-            DrawDeathAnim(roomWidth, roomHeight);
-        }
-
-        private void DrawGameWinAnim(int width, int height) /* position will need to be changed when triforce is moved */
-        {
-            if (gameWinFlashDelay > 0 && gameWinFlashDelay <= 60 && ((gameWinFlashDelay / 5) % 2 == 0))
-            {
-                DrawRectangle(Color.White * 0.75f, new Rectangle(RoomUtilities.TriforceRoomPoint, new Point(width, height)), SpriteUtilities.GameWonLayer);
-            }
-
-            if (gameWon)
-            {
-                DrawRectangle(Color.Black, new Rectangle(RoomUtilities.TriforceRoomPoint, new Point(gameWinRectangleWidth, height)), SpriteUtilities.GameWonLayer);
-                DrawRectangle(Color.Black, new Rectangle(RoomUtilities.TriforceRoomPoint.X + width - gameWinRectangleWidth, RoomUtilities.TriforceRoomPoint.Y, gameWinRectangleWidth, height), SpriteUtilities.GameWonLayer);
-            }
-        }
-
-        private void DrawDeathAnim(int width, int height)
-        {
-            if (deathColorChangeDelay > 0)
-            {
-                if (deathColorChangeDelay == 30) deathOpacity = 1.0f;
-                if ((deathColorChangeDelay - 1) % 27 == 0) deathColor.R -= 255 / 4;
-
-                DrawRectangle(deathColor * deathOpacity, new Rectangle(-1500, 0, width * 60, height * 6), SpriteUtilities.DeathEffectLayer);
-            }
-        }
-
-        private void DrawRectangle(Color color, Rectangle destination, float layer)
-        {
-            spriteBatch.Draw(rectangleTexture, destination, null, color, 0, new Vector2(), SpriteEffects.None, layer);
-        }
-     
+            spriteBatch.Draw(spriteTexture, Destination, currentFrameSet[currentFrameIndex].frame, Color.White, 0, origin, SpriteEffects.None, linkEffectsManager.IsTopLayer ? 0 : SpriteUtilities.LinkLayer);
+            linkEffectsManager.Draw();
+	    }
+ 
         public int Update(GameTime gameTime)
         {
             int returnCode = 0;
@@ -140,21 +80,7 @@ namespace cse3902.Sprites
             
             if (!this.pauseMovement) returnCode = UpdateFrame(timer);
 
-            if (isDamaged && !maskHandler.Disabled)
-            {
-                remainingDelay.damage -= timer;
-                if (remainingDelay.damage < 0)
-                {
-                    remainingDelay.damage = DamageConstants.DamageMaskDelay;
-                    maskHandler.LoadNextMask();
-                }
-            }
-
-            if (gameWinFlashDelay > -50) gameWinFlashDelay--;
-            if (gameWon && gameWinFlashDelay == -50 && gameWinRectangleWidth < DimensionConstants.OriginalWindowWidth) gameWinRectangleWidth++;
-
-            if (deathColorChangeDelay > 0) deathColorChangeDelay--;
-            else death = false;
+            linkEffectsManager.Update(gameTime);
             
             return returnCode;
         }
@@ -163,9 +89,9 @@ namespace cse3902.Sprites
         {
             int returnCode = 0;
 
-            remainingDelay.frame -= timer;
+            remainingFrameDelay -= timer;
 
-            if (remainingDelay.frame <= 0)
+            if (remainingFrameDelay <= 0)
             {
                 currentFrameIndex++;
                 if (currentFrameIndex >= currentFrameSet.Length)
@@ -174,7 +100,7 @@ namespace cse3902.Sprites
                     returnCode = -1;
                 }
 
-                remainingDelay.frame = currentFrameSet[currentFrameIndex].delay;
+                remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
             }
 
             return returnCode;
@@ -184,26 +110,18 @@ namespace cse3902.Sprites
         {
             currentFrameSet = animationHandler.getFrameSet(animState);
             currentFrameIndex = 0;
-            remainingDelay.frame = currentFrameSet[currentFrameIndex].delay;
+            remainingFrameDelay = currentFrameSet[currentFrameIndex].delay;
 	    }
 
         public void SetGameWon(bool state)
         {
-            gameWon = state;
-            if (state)
-            {
-                gameWinFlashDelay = 100;
-                gameWinRectangleWidth = 0;
-            }
+            linkEffectsManager.SetGameWon(state);
         }
 
         public void SetDeath()
         {
-            death = true;
-            deathColorChangeDelay = 135;
-            deathColor = Color.Red;
-            deathOpacity = 0.75f;
-        }
+            linkEffectsManager.SetDeath();
+	    }
 
         public void Erase()
         {
@@ -247,12 +165,10 @@ namespace cse3902.Sprites
 
         public bool Damaged
         {
-            get => isDamaged;
+            get => linkEffectsManager.Damaged;
             set 
 	        {
-                isDamaged = value;
-                remainingDelay.damage = DamageConstants.DamageMaskDelay;
-                maskHandler.Reset();
+                linkEffectsManager.Damaged = value;
             }
         }
 
@@ -260,15 +176,15 @@ namespace cse3902.Sprites
         {
             set => this.pauseMovement = value;
         }
-
-        public GenericTextureMask DamageMaskHandler
+	    
+	    public GenericTextureMask DamageMaskHandler
         {
-            get => this.maskHandler;
+            get => linkEffectsManager.DamageMaskHandler;
         }
 
         public SingleMaskHandler DeathMaskHandler
         {
-            get => this.deathMaskHandler;
+            get => linkEffectsManager.DeathMaskHandler;
         }
     }
 }
