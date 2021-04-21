@@ -38,7 +38,7 @@ namespace cse3902.SpriteFactory
             textures.Add("CursorTexture", content.Load<Texture2D>("UI/Cursor"));
             textures.Add("HealthUITexture", content.Load<Texture2D>("UI/HealthUI"));
             textures.Add("HeartUITexture", content.Load<Texture2D>("UI/HeartsUI"));
-            textures.Add("LevelLabel", content.Load<Texture2D>("UI/level1"));
+            textures.Add("Level1Label", content.Load<Texture2D>("UI/level1"));
             textures.Add("MapCompassLabel", content.Load<Texture2D>("UI/map_compass_item"));
             textures.Add("Compass", content.Load<Texture2D>("compass"));
             textures.Add("OrangeMap", content.Load<Texture2D>("UI/orange_map"));
@@ -66,7 +66,7 @@ namespace cse3902.SpriteFactory
 
         public IHUDItem CreateMinimapHUDItem(Game1 game)
         {
-            return new MiniMapHUDItem(game, textures["LevelLabel"]);
+            return new MiniMapHUDItem(game, textures["Level1Label"]);
         }
 
         public IHUDItem CreateMapCompassHUDItem(Game1 game)

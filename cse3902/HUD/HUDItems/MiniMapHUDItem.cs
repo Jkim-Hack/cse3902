@@ -3,6 +3,7 @@ using cse3902.Constants;
 using cse3902.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.Rooms;
 using System;
 
 namespace cse3902.HUD
@@ -11,7 +12,7 @@ namespace cse3902.HUD
     {
         private Game1 game;
 
-        private Texture2D level;
+        private Texture2D [] level;
 
         private Rectangle levelPos;
         
@@ -21,7 +22,7 @@ namespace cse3902.HUD
         private bool colorRed;
         private int delay;
 
-        public MiniMapHUDItem(Game1 game, Texture2D level)
+        public MiniMapHUDItem(Game1 game, Texture2D [] level)
         {
             this.game = game;
 
@@ -30,7 +31,7 @@ namespace cse3902.HUD
             this.offsetX = 25;
             this.offsetY = DimensionConstants.OriginalWindowHeight - 32;
 
-            this.levelPos = new Rectangle(0, (-level.Bounds.Height / 3) - 7, level.Bounds.Width / 3, level.Bounds.Height / 3 + 1);
+            this.levelPos = new Rectangle(0, (-level[0].Bounds.Height / 3) - 7, level[0].Bounds.Width / 3, level[0].Bounds.Height / 3 + 1);
 
             colorRed = false;
             delay = MiniMapConstants.COLOR_DELAY;
@@ -58,7 +59,8 @@ namespace cse3902.HUD
 
         private void DrawLevelLabel()
         {
-            HUDUtilities.DrawTexture(game, level, levelPos, offsetX, offsetY, HUDUtilities.MinimapLabelLayer);
+            
+            HUDUtilities.DrawTexture(game, level[(int)game.RoomHandler.currentRoom.Z], levelPos, offsetX, offsetY, HUDUtilities.MinimapLabelLayer);
         }
 
         private void DrawMap()
@@ -97,7 +99,7 @@ namespace cse3902.HUD
 
         public Texture2D Texture {
 
-            get => level;
+            get => level[(int)game.RoomHandler.currentRoom.Z];
         }
 
         public ref Rectangle Box {
