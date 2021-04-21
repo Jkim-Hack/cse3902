@@ -98,6 +98,11 @@ namespace cse3902.Entities.Enemies
             this.shoveDistance = 0;
         }
 
+        public void SwallowBomb()
+        {
+
+        }
+
         private void UpdateDamage(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
