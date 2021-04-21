@@ -6,6 +6,8 @@ using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using cse3902.Constants;
+using cse3902.HUD;
 
 namespace cse3902.Projectiles
 {
@@ -15,12 +17,9 @@ namespace cse3902.Projectiles
         private Texture2D spriteTexture;
 
         private float angle;
-        private const float sizeIncrease = 1f;
-
         private int travelDistance;
 
-        private int frameWidth;
-        private int frameHeight;
+        private (int Width, int Height) frame;
 
         private Rectangle destination;
 
@@ -31,9 +30,9 @@ namespace cse3902.Projectiles
         private bool collided;
 
         private ICollidable collidable;
-        private LinkSprite link;
+        private ISprite link;
 
-        public BoomerangProjectile(SpriteBatch batch, Texture2D texture, LinkSprite link, Vector2 dir)
+        public BoomerangProjectile(SpriteBatch batch, Texture2D texture, ISprite link, Vector2 dir)
         {
             spriteBatch = batch;
             spriteTexture = texture;
@@ -41,12 +40,12 @@ namespace cse3902.Projectiles
             this.link = link;
             center = link.Center;
 
-            frameWidth = spriteTexture.Width;
-            frameHeight = spriteTexture.Height;
+            frame.Width = spriteTexture.Width;
+            frame.Height = spriteTexture.Height;
 
             direction = dir;
             angle = 0;
-            travelDistance = 35;
+            travelDistance = ItemConstants.BoomerangTravelDistance;
 
             animationComplete = false;
 
@@ -55,8 +54,8 @@ namespace cse3902.Projectiles
 
         public void Draw()
         {
-            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            Vector2 origin = new Vector2(frame.Width / 2f, frame.Height / 2f);
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frame.Width, frame.Height);
             spriteBatch.Draw(spriteTexture, Destination, null, Color.White, angle, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
         }
 
@@ -70,20 +69,22 @@ namespace cse3902.Projectiles
 
             if (animationComplete) return -1;
 
-            center += 1.25f * direction;
+            center += ItemConstants.BoomerangSpeed * direction;
             if (direction.Y == 0) center.Y = link.Center.Y;
             else center.X = link.Center.X;
 
             travelDistance--;
             if (travelDistance == 0) direction = -direction;
 
-            angle += (float)(Math.PI / 8);
-            if (angle >= 2 * Math.PI) angle = 0;
-            if (Math.Abs(angle - Math.PI / 4) <= 0.1) SoundFactory.PlaySound(SoundFactory.Instance.arrowBoomerang);
+            angle += ItemConstants.AnglePiOver8;
+            if (angle >= 2 * ItemConstants.Angle180Rad) angle = 0;
+            if (Math.Abs(angle - ItemConstants.AnglePiOver8) <= ItemConstants.epsilon) SoundFactory.PlaySound(SoundFactory.Instance.arrowBoomerang);
 
             /* Animation is done if boomerang is travelling back to Link and collides with him */
-            if (travelDistance < 0 && link.Box.Intersects(this.Box)) animationComplete = true;
-
+            if (travelDistance < 0 && link.Box.Intersects(this.Box))
+            {
+                return -1;
+            }
             return 0;
         }
 
@@ -91,8 +92,8 @@ namespace cse3902.Projectiles
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth);
-                int height = (int)(sizeIncrease * frameHeight);
+                int width = frame.Width;
+                int height = frame.Height;
                 double cos = Math.Abs(Math.Cos(angle));
                 double sin = Math.Abs(Math.Sin(angle));
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(width * cos + height * sin), (int)(height * cos + width * sin));

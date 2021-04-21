@@ -1,4 +1,5 @@
-﻿using cse3902.Interfaces;
+﻿using cse3902.Constants;
+using cse3902.Interfaces;
 using cse3902.Projectiles;
 using cse3902.Sounds;
 using cse3902.Sprites.EnemySprites;
@@ -20,6 +21,7 @@ namespace cse3902.Entities
         private bool isAttacking;
         private float fireballCounter;
         private const float fireballDelay = 2.5f;
+        private bool isCoupling;
 
         private Vector2 center;
 
@@ -28,8 +30,9 @@ namespace cse3902.Entities
             this.boggusBossSprite = boggusBossSprite;
             this.spriteBatch = spriteBatch;
 
-            this.isAttacking = true;
+            this.isAttacking = false;
             fireballCounter = 0;
+            this.isCoupling = true;
 
             this.center = center;
         }
@@ -46,33 +49,18 @@ namespace cse3902.Entities
             location.X = this.center.X;
             location.Y = this.center.Y - 10;
 
-            if (boggusBossSprite.StartingFrameIndex == (int)BoggusBossSprite.FrameIndex.RightFacing)
-            {
-                direction1 = new Vector2(1, 0);
-                direction2 = new Vector2(3, 1);
-                direction2.Normalize();
-                direction3 = new Vector2(3, -1);
-                direction3.Normalize();
-                location.X += 15;
-            }
-            else
-            {
-                direction1 = new Vector2(-1, 0);
-                direction2 = new Vector2(-3, 1);
-                direction2.Normalize();
-                direction3 = new Vector2(-3, -1);
-                direction3.Normalize();
-
-                location.X += -15; //originate fireballs at mouth if facing left
-            }
+            direction1 = new Vector2(1, 0);
+            direction2 = new Vector2(MovementConstants.AquamentusFireballSpread, 1);
+            direction2.Normalize();
+            direction3 = new Vector2(MovementConstants.AquamentusFireballSpread, -1);
+            direction3.Normalize();
+            location.X += 3*MovementConstants.AquamentusFireballChangeX;
 
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
             fireball1 = projectileHandler.CreateFireballObject(spriteBatch, location, direction1);
             fireball2 = projectileHandler.CreateFireballObject(spriteBatch, location, direction2);
             fireball3 = projectileHandler.CreateFireballObject(spriteBatch, location, direction3);
 
-            // correct location for this?
-            SoundFactory.PlaySound(SoundFactory.Instance.bossScream);
         }
 
         public void CycleWeapon(int dir)
@@ -83,28 +71,7 @@ namespace cse3902.Entities
 
         public void ChangeDirection(Vector2 newDirection)
         {
-            if (newDirection == new Vector2(0, 0))
-            {
-                //direction vector of (0,0) indicates just reverse the current direction
-                if (boggusBossSprite.StartingFrameIndex == (int)BoggusBossSprite.FrameIndex.RightFacing)
-                {
-                    boggusBossSprite.StartingFrameIndex = (int)BoggusBossSprite.FrameIndex.LeftFacing;
-                }
-                else
-                {
-                    boggusBossSprite.StartingFrameIndex = (int)BoggusBossSprite.FrameIndex.RightFacing;
-                }
-                return;
-            }
 
-            if (newDirection.X > 0)
-            {
-                boggusBossSprite.StartingFrameIndex = (int)BoggusBossSprite.FrameIndex.RightFacing;
-            }
-            else
-            {
-                boggusBossSprite.StartingFrameIndex = (int)BoggusBossSprite.FrameIndex.LeftFacing;
-            }
         }
 
         public void TakeDamage()
@@ -128,17 +95,27 @@ namespace cse3902.Entities
         public void Update(GameTime gameTime, Vector2 center, Boolean pauseAnim)
         {
             this.center = center;
-            if (this.IsAttacking)
+            if (fireballCounter >= fireballDelay / 2)
             {
-                if (fireballCounter > fireballDelay)
+                this.boggusBossSprite.StartingFrameIndex = (int)BoggusBossSprite.FrameIndex.MouthClosed;
+            }
+            if (fireballCounter > fireballDelay)
+            {
+                LoadFireballs();
+                this.boggusBossSprite.StartingFrameIndex = (int)BoggusBossSprite.FrameIndex.MouthOpen;
+                if (!this.isAttacking)
                 {
-                    LoadFireballs();
-                    fireballCounter = 0;
-                }
-                else
+                    PlaySound();
+                    this.isAttacking = true;
+                } else
                 {
-                    fireballCounter += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    this.isAttacking = false;
                 }
+                fireballCounter = 0;
+            }
+            else
+            {
+                fireballCounter += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             if (!pauseAnim) boggusBossSprite.Update(gameTime);
@@ -151,6 +128,20 @@ namespace cse3902.Entities
             {
                 isAttacking = value;
             }
+        }
+
+        private void PlaySound()
+        {
+            if (this.isCoupling)
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.highercoupling);
+                this.isCoupling = false;
+            } else
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.lowcohesion);
+                this.isCoupling = true;
+            }
+            
         }
     }
 }

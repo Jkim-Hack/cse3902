@@ -27,11 +27,18 @@ namespace cse3902.Sounds
         public SoundEffect bossDefeat { get; set; }
         public SoundEffect secret { get; set; }
         public SoundEffect triforce { get; set; }
+        public SoundEffect highercoupling { get; set; }
+        public SoundEffect lowcohesion { get; set; }
+        public SoundEffect mariogreeting { get; set; }
+        public SoundEffect rickroll { get; set; }
 
         private SoundEffectInstance backgroundMusicInstance;
         private SoundEffectInstance fanfareInstance;
         public SoundEffectInstance backgroundMusic { get => backgroundMusicInstance; }
         public SoundEffectInstance fanfare { get => fanfareInstance; }
+
+        private SoundEffectInstance rickRollInstance;
+        public SoundEffectInstance rickRollSong { get => rickRollInstance; }
 
         private static SoundFactory instance = new SoundFactory();
 
@@ -71,6 +78,14 @@ namespace cse3902.Sounds
             bossDefeat = content.Load<SoundEffect>("LOZ_Boss_Defeat");
             secret = content.Load<SoundEffect>("LOZ_Secret");
             triforce = content.Load<SoundEffect>("LOZ_Triforce");
+            highercoupling = content.Load<SoundEffect>("highercoupling");
+            lowcohesion = content.Load<SoundEffect>("lowcohesion");
+            mariogreeting = content.Load<SoundEffect>("ItsMeMario");
+
+            rickroll = content.Load<SoundEffect>("Never Gonna Give You Up Original");
+            rickRollInstance = rickroll.CreateInstance();
+            rickRollInstance.IsLooped = true;
+            rickRollInstance.Volume *= 0.1f;
 
             SoundEffect backgroundMusic = content.Load<SoundEffect>("LOZ_Background_Music");
             backgroundMusicInstance = backgroundMusic.CreateInstance();

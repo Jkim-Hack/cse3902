@@ -24,6 +24,7 @@ namespace cse3902.XMLParsing
             XName spawnersName = XName.Get("spawners", doc.Root.Name.NamespaceName);
 
             XElement spawners = roomxml.Element(spawnersName);
+            if (spawners == null) return;
             List<XElement> spawnerList = spawners.Elements("spawner").ToList();
 
             foreach (XElement spawner in spawnerList)
@@ -57,7 +58,7 @@ namespace cse3902.XMLParsing
                 case "stalfos":
                     spawner = new StalfosSpawner(game, startPos, count);
                     break;
-                case "goryia":
+                case "goriya":
                     spawner = new GoriyaSpawner(game, startPos, count);
                     break;
                 case "gel":

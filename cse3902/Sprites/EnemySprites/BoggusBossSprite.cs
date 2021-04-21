@@ -13,8 +13,8 @@ namespace cse3902.Sprites.EnemySprites
 
         public enum FrameIndex
         {
-            RightFacing = 0,
-            LeftFacing = 2
+            MouthClosed = 0,
+            MouthOpen = 2
 
         };
 
@@ -35,7 +35,7 @@ namespace cse3902.Sprites.EnemySprites
         private float remainingDelay;
 
         private bool isDamage;
-        private DamageMaskHandler damageMaskHandler;
+        private GenericTextureMask damageMaskHandler;
 
         private Rectangle destination;
 
@@ -54,13 +54,13 @@ namespace cse3902.Sprites.EnemySprites
             remainingDamageDelay = DamageConstants.DamageMaskDelay;
 
             currentFrame = 0;
-            startingFrameIndex = (int)FrameIndex.LeftFacing;
+            startingFrameIndex = (int)FrameIndex.MouthClosed;
             endingFrameIndex = startingFrameIndex + 2;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
             center = startingPosition;
 
-            damageMaskHandler = new DamageMaskHandler(texture, damageSequence, 1, 4, 1);
+            damageMaskHandler = new GenericTextureMask(texture, damageSequence, 1, 4, 1);
 
             frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
 

@@ -1,5 +1,6 @@
 ﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
+using cse3902.Constants;
 
 namespace cse3902.Commands
 {
@@ -17,7 +18,7 @@ namespace cse3902.Commands
         public void Execute(int id)
         {
             cooldown--;
-            id = id % 4;
+            id = id % CommandConstants.LinkMovementCommandCount;
             Vector2 direction;
             switch (id)
             {
@@ -42,7 +43,7 @@ namespace cse3902.Commands
             else if (GameStateManager.Instance.InMenu(false) && cooldown <= 0)
             {
                 game.HudManager.HudInventory.MoveCursor(direction);
-                cooldown = 15;
+                cooldown = CommandConstants.Cooldown;
             }
         }
 

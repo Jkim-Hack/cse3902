@@ -109,6 +109,30 @@
 /processorParam:TextureFormat=Color
 /build:block5.png
 
+#begin BluePotion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:BluePotion.png
+
+#begin BlueRing.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:BlueRing.png
+
 #begin bomb.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -260,6 +284,18 @@
 /processorParam:TextureFormat=Color
 /build:doors.png
 
+#begin dungeonMask.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:dungeonMask.png
+
 #begin easy.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -308,7 +344,7 @@
 /processorParam:TextureFormat=Color
 /build:enemies/BossesHurt.png;enemies/bosses_hurt.png
 
-#begin enemies/dodongo.png
+#begin enemies/dodongoboss.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -318,7 +354,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:enemies/dodongo.png
+/build:enemies/dodongoboss.png
 
 #begin enemies/gel.png
 /importer:TextureImporter
@@ -439,6 +475,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:enemies/lynel_red.png
+
+#begin enemies/marioboss.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:enemies/marioboss.png
 
 #begin enemies/molblin_blue.png
 /importer:TextureImporter
@@ -595,6 +643,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:enemies/wall_master.png
+
+#begin enemies/zol.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:enemies/zol.png
 
 #begin enemies/zola.png
 /importer:TextureImporter
@@ -818,6 +878,12 @@
 /processorParam:TextureFormat=Color
 /build:ItemRoom.png
 
+#begin ItsMeMario.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ItsMeMario.wav
+
 #begin key.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1022,6 +1088,18 @@
 /processorParam:Quality=Best
 /build:LOZ_Triforce.wav
 
+#begin MagicRodProjectile.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MagicRodProjectile.png
+
 #begin map.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1069,6 +1147,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:minprojhealth.png
+
+#begin Never Gonna Give You Up Original.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Never Gonna Give You Up Original.wav
 
 #begin newwaterblock.png
 /importer:TextureImporter
@@ -1209,6 +1293,18 @@
 /processorParam:TextureFormat=Color
 /build:poof.png
 
+#begin rickrollsprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rickrollsprite.png
+
 #begin rupee.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1256,6 +1352,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SwordItem.png
+
+#begin SwordItems.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SwordItems.png
 
 #begin trap.png
 /importer:TextureImporter
@@ -1340,6 +1448,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:UI/HeartsUI.png
+
+#begin UI/HUDInventoryItems.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI/HUDInventoryItems.png
 
 #begin UI/Inventory.png
 /importer:TextureImporter

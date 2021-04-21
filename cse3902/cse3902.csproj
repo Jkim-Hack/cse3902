@@ -32,20 +32,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="States\" />
     <Folder Include="Entities\Enemies\" />
     <Folder Include="Sprites\EnemySprites\" />
     <Folder Include="Collision\" />
     <Folder Include="Collision\Collidables\" />
-    <Folder Include="Entities\DamageMasks\" />
     <Folder Include="NPCs\" />
     <Folder Include="HUD\" />
     <Folder Include="HUD\HUDItems\" />
-    <Folder Include="Content\UI\" />
-    <Folder Include="Sprites\HUD\" />
     <Folder Include="Content\sounds\" />
     <Folder Include="Sounds\" />
-    <Folder Include="Utilities\" />
     <Folder Include="Spawners\" />
   </ItemGroup>
   <ItemGroup>

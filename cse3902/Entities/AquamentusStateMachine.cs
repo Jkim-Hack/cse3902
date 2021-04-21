@@ -1,4 +1,5 @@
-﻿using cse3902.Interfaces;
+﻿using cse3902.Constants;
+using cse3902.Interfaces;
 using cse3902.Projectiles;
 using cse3902.Sounds;
 using cse3902.Sprites.EnemySprites;
@@ -12,10 +13,6 @@ namespace cse3902.Entities
     {
         private AquamentusSprite aquamentusSprite;
         private SpriteBatch spriteBatch;
-
-        private ISprite fireball1;
-        private ISprite fireball2;
-        private ISprite fireball3;
 
         private bool isAttacking;
         private float fireballCounter;  
@@ -49,36 +46,30 @@ namespace cse3902.Entities
             if (aquamentusSprite.StartingFrameIndex == (int)AquamentusSprite.FrameIndex.RightFacing)
             {
                 direction1 = new Vector2(1, 0);
-                direction2 = new Vector2(3, 1);
+                direction2 = new Vector2(MovementConstants.AquamentusFireballSpread, 1);
                 direction2.Normalize();
-                direction3 = new Vector2(3, -1);
+                direction3 = new Vector2(MovementConstants.AquamentusFireballSpread, -1);
                 direction3.Normalize();
-                location.X += 15;
+                location.X += MovementConstants.AquamentusFireballChangeX;
             }
             else
             {
                 direction1 = new Vector2(-1, 0);
-                direction2 = new Vector2(-3, 1);
+                direction2 = new Vector2(-MovementConstants.AquamentusFireballSpread, 1);
                 direction2.Normalize();
-                direction3 = new Vector2(-3, -1);
+                direction3 = new Vector2(-MovementConstants.AquamentusFireballSpread, -1);
                 direction3.Normalize();
 
-                location.X += -15; //originate fireballs at mouth if facing left
+                location.X += -MovementConstants.AquamentusFireballChangeX; //originate fireballs at mouth if facing left
             }
 
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            fireball1 = projectileHandler.CreateFireballObject(spriteBatch, location, direction1);
-            fireball2 = projectileHandler.CreateFireballObject(spriteBatch, location, direction2);
-            fireball3 = projectileHandler.CreateFireballObject(spriteBatch, location, direction3);
+            projectileHandler.CreateFireballObject(spriteBatch, location, direction1);
+            projectileHandler.CreateFireballObject(spriteBatch, location, direction2);
+            projectileHandler.CreateFireballObject(spriteBatch, location, direction3);
 
             // correct location for this?
             SoundFactory.PlaySound(SoundFactory.Instance.bossScream);
-        }
-
-        public void CycleWeapon(int dir)
-        {
-            //Enemies don't change weapons
-            throw new NotImplementedException();
         }
 
         public void ChangeDirection(Vector2 newDirection)
@@ -106,10 +97,6 @@ namespace cse3902.Entities
             }
         }
 
-        public void TakeDamage()
-        {
-        }
-
         public void Attack()
         {
             this.IsAttacking = true;
@@ -120,9 +107,6 @@ namespace cse3902.Entities
             aquamentusSprite.Draw();
         }
 
-        public void Die()
-        {
-        }
 
         public void Update(GameTime gameTime, Vector2 center, Boolean pauseAnim)
         {

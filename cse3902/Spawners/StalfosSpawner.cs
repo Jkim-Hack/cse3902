@@ -13,7 +13,7 @@ namespace cse3902.Spawners
         private int currCount;
         private Rectangle destination;
 
-        private const float spawnDelay = 0.5f;
+        private float spawnDelay;
         private float remainingSpawnDelay;
 
         private Game1 game;
@@ -24,6 +24,7 @@ namespace cse3902.Spawners
             this.maxCount = count;
             this.currCount = maxCount;
             this.game = game;
+            spawnDelay = SettingsValues.Instance.GetValue(SettingsValues.Variable.StalfosSpawnDelay);
         }
 
         public ref Rectangle Bounds
@@ -56,6 +57,8 @@ namespace cse3902.Spawners
         public void Reset()
         {
             this.currCount = this.maxCount;
+            spawnDelay = SettingsValues.Instance.GetValue(SettingsValues.Variable.StalfosSpawnDelay);
+            remainingSpawnDelay = 0;
         }
 
         public void Update(GameTime gameTime)
@@ -63,7 +66,7 @@ namespace cse3902.Spawners
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
 	     
             remainingSpawnDelay -= timer;
-            if (remainingSpawnDelay <= 0 && currCount != maxCount)
+            if (remainingSpawnDelay <= 0 && currCount > 0)
             {
                 remainingSpawnDelay = spawnDelay;
                 SpawnEnemy();

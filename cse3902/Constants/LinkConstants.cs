@@ -14,6 +14,19 @@ namespace cse3902.Constants
         public const int defaultSoundDelay = 20;
 
         private const float defaultDelay = 0.2f;
+
+
+        public const int LinkTextureRows = 6;
+        public const int LinkTextureCols = 4;
+        public const int DamageMaskRows = 1;
+        public const int DamageMaskCols = 4;
+
+        public const int LinkShoveDistance = 20;
+        public const int LinkShoveDistanceGrabbed = 100;
+
+        public const float ItemDistance = 1.5f;
+
+
         public static Dictionary<AnimationState, (int[] frame, float[] delay)> generateFrameSets()
         {
             var frameSetIndicies = new Dictionary<AnimationState, (int[] frame, float[] delay)>()

@@ -35,9 +35,9 @@ namespace cse3902.Entities.Enemies
             previousCenter = center;
 
             goriyaSprite = (GoriyaSprite)EnemySpriteFactory.Instance.CreateGoriyaSprite(game.SpriteBatch, center);
-            speed = 25.0f;
+            speed = MovementConstants.GoriyaSpeed;
             travelDistance = 0;
-            shoveDistance = -10;
+            shoveDistance = MovementConstants.GoriyaShoveDistance;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
@@ -51,7 +51,7 @@ namespace cse3902.Entities.Enemies
 
         public void Attack()
         {
-            
+            //TODO add boomerang
         }
 
         public void ChangeDirection(Vector2 direction)
@@ -65,7 +65,7 @@ namespace cse3902.Entities.Enemies
             {
                 this.direction = direction;
             }
-            ChangeSpriteDirection(direction);
+            ChangeSpriteDirection(this.direction);
 
         }
 
@@ -83,13 +83,13 @@ namespace cse3902.Entities.Enemies
         public void Die()
         {
             SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
-            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.D);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, (IEntity.EnemyType)SettingsValues.Instance.GetValue(SettingsValues.Variable.GoriyaEnemyType));
             if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
         public void BeShoved()
         {
-            this.shoveDistance = 20;
+            this.shoveDistance = MovementConstants.GoriyaShoveDistance;
             this.shoveDirection = -this.direction;
         }
 
@@ -117,7 +117,7 @@ namespace cse3902.Entities.Enemies
         {  
             UpdateDamage(gameTime); 
 	        this.collidable.ResetCollisions();
-            if (this.shoveDistance > -10) ShoveMovement();
+            if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
         }
 
@@ -133,7 +133,7 @@ namespace cse3902.Entities.Enemies
 
             if (travelDistance <= 0)
             {
-                travelDistance = 125;
+                travelDistance = MovementConstants.GoriyaMaxTravel;
 
                 RandomDirection();
             }
@@ -168,29 +168,6 @@ namespace cse3902.Entities.Enemies
 
         private void ChangeSpriteDirection(Vector2 direction)
         {
-            if (direction == new Vector2(0, 0))
-            {
-                //direction vector of (0,0) indicates just reverse the current direction
-                if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.RightFacing)
-                {
-                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.LeftFacing;
-                }
-                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.LeftFacing)
-                {
-                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.RightFacing;
-                }
-                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.UpFacing)
-                {
-                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.DownFacing;
-                }
-                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.DownFacing)
-                {
-                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.UpFacing;
-                }
-
-                return;
-            }
-
             if (direction.X > 0)
             {
                 goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.RightFacing;
@@ -221,7 +198,7 @@ namespace cse3902.Entities.Enemies
 
         public IEntity.EnemyType Type
         {
-            get => IEntity.EnemyType.D;
+            get => (IEntity.EnemyType) SettingsValues.Instance.GetValue(SettingsValues.Variable.GoriyaEnemyType);
         }
 
         public Vector2 Center

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using cse3902.Interfaces;
-using Microsoft.Xna.Framework;
 using System.Collections;
+using Microsoft.Xna.Framework;
 
 namespace cse3902.Rooms
 {
@@ -47,6 +47,14 @@ namespace cse3902.Rooms
                 spawners.Add(newList[i]);
             }
 
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            foreach (ISpawner spawner in spawners)
+            {
+                spawner.Update(gameTime);
+            }
         }
 
         public void Reset()

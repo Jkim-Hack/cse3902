@@ -5,6 +5,8 @@ using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.HUD;
 using cse3902.Sounds;
+using cse3902.Rooms;
+using cse3902.Constants;
 
 namespace cse3902.Doors
 {
@@ -59,11 +61,11 @@ namespace cse3902.Doors
         }
         public Vector2 PlayerReleasePosition()
         {
-            return doorSprite.Center + new Vector2(0, -16);
+            return doorSprite.Center + new Vector2(0, -RoomUtilities.BLOCK_SIDE);
         }
         public Vector2 PlayerReleaseDirection()
         {
-            return new Vector2(0, 50);
+            return new Vector2(0, MovementConstants.NormalDoorRelease);
         }
         public void Draw()
         {

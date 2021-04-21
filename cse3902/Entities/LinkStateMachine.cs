@@ -83,7 +83,7 @@ namespace cse3902.Entities
 
         public void BeShoved()
         {
-            this.shoveDistance = 20;
+            this.shoveDistance = LinkConstants.LinkShoveDistance;
             this.shoveDirection = -this.currDirection;
             this.PauseMovement  = true;
         }
@@ -126,7 +126,7 @@ namespace cse3902.Entities
                 }
             }
 
-            if (health <= 2 && health != totalHealth)
+            if (health <= HeartConstants.HeartLowCount && health != totalHealth)
             {
                 lowHealthSoundDelay--;
                 if (lowHealthSoundDelay == 0)
@@ -208,7 +208,7 @@ namespace cse3902.Entities
         {
             if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
             Vector2 startingPosition = getItemLocation(currDirection);
-            if (linkInventory.CreateItem(startingPosition))
+            if (linkInventory.CreateItem(startingPosition, currDirection))
             {
                 mode = LinkMode.Attack;
                 SetAttackAnimation();
@@ -219,7 +219,7 @@ namespace cse3902.Entities
         private Vector2 getItemLocation(Vector2 direction)
         {
             Vector2 spriteSize = linkSprite.Size;
-            Vector2 offset = (spriteSize * direction) / 1.5f;
+            Vector2 offset = (spriteSize * direction) / LinkConstants.ItemDistance;
             return centerPosition + offset;
         }
 
@@ -247,6 +247,7 @@ namespace cse3902.Entities
         {
             if (damage > 0)
             {
+                damage = Inventory.updateDamage(damage);
                 if (remainingDamageDelay > 0 && linkSprite.Damaged) return;
                 linkSprite.Damaged = true;
                 health -= damage;
@@ -263,7 +264,7 @@ namespace cse3902.Entities
             this.currDirection = enemy.Direction;
             this.speed = speed;
             //todo: magic number
-            this.shoveDistance = 100;
+            this.shoveDistance = LinkConstants.LinkShoveDistanceGrabbed;
         }
 
         public void Die()
@@ -302,7 +303,7 @@ namespace cse3902.Entities
             set
             {
                 totalHealth = value;
-                if (totalHealth < 2) totalHealth = 2;
+                if (totalHealth < HeartConstants.HeartLowCount) totalHealth = HeartConstants.HeartLowCount;
                 else if (totalHealth > HeartConstants.MaxHeartCount) totalHealth = HeartConstants.MaxHeartCount;
                 if (health > totalHealth) health = totalHealth;
             }
