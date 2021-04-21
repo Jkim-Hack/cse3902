@@ -16,7 +16,12 @@ namespace cse3902.Constants
         public static Color TriforceRed = new Color(220, 20, 60);
         public static Color TriforceGreen = new Color(0, 100, 0);
 
-        public static Vector2 TriforcePos = new Vector2(5, 1);
+        public static Vector2 TriforcePos1 = new Vector2(5, 1);
+        public static Vector2 TriforcePos2 = new Vector2(2, 3);
+        public static Vector2 TriforcePos3 = new Vector2(4, 0);
+        public static Vector2 TriforcePos4 = new Vector2(4, 1);
+
+        public static Vector2[] TriforcePos = { TriforcePos1, TriforcePos2, TriforcePos3, TriforcePos4 };
 
         /* "Coordinate system", with the starting room at (2, 5) */
         private static List<Vector2> roomCoordinates = new List<Vector2>();
