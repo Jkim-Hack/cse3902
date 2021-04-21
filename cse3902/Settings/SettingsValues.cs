@@ -59,6 +59,7 @@ namespace cse3902
             ItemDropC,
             ItemDropD,
             ItemDropX,
+            RupeePickup,
             //Utilities
             HealthIncrease,
             HealthDecrease,
@@ -75,7 +76,7 @@ namespace cse3902
         private SettingsValues()
         {
             variableSeparator = new List<int>();
-            List<int> settingCount = new List<int>() { 32, 2, 2, 1, 5, 5 }; //update this whenever adding/removing a variable {#EnemyStrength, #HealthChange, #Vision, #MinSwordHealth, #ItemDropRate, #Utilities}
+            List<int> settingCount = new List<int>() { 32, 2, 2, 1, 6, 5 }; //update this whenever adding/removing a variable {#EnemyStrength, #HealthChange, #Vision, #MinSwordHealth, #ItemDropRate, #Utilities}
             numVariables = 0;
             foreach (int val in settingCount)
             {
@@ -156,6 +157,7 @@ namespace cse3902
             varToListInt.Add(Variable.KeeseSpawnDelay, new List<int>() { 2, 1, 1 });
             varToListInt.Add(Variable.GelSpawnDelay, new List<int>() { 2, 1, 1 });
             varToListInt.Add(Variable.GoriyaSpawnDelay, new List<int>() { 6, 4, 3 });
+            varToListInt.Add(Variable.RupeePickup, new List<int>() { 3, 1, 1 });
         }
 
         public int GetValue(Variable variable)

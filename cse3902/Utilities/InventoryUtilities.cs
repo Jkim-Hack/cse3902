@@ -14,8 +14,8 @@ namespace cse3902.Utilities
 
         private readonly static List<ItemType> collectables = new List<ItemType> { ItemType.BlueRing };
 
-        private readonly static Dictionary<ItemType, int> maxItems = new Dictionary<ItemType, int> { { ItemType.Rupee, 99 }, { ItemType.Bomb, 8 }, { ItemType.Key, 99 } };
-        private readonly static Dictionary<ItemType, int> countPerItem = new Dictionary<ItemType, int> { { ItemType.Rupee, 3 }, { ItemType.Bomb, 4 } };
+        private readonly static Dictionary<ItemType, int> maxItems = new Dictionary<ItemType, int> { { ItemType.Rupee, 99 }, { ItemType.Bomb, 9 }, { ItemType.Key, 99 } };
+        private readonly static Dictionary<ItemType, int> countPerItem = new Dictionary<ItemType, int> { { ItemType.Bomb, 4 } };
 
         private readonly static List<ItemType> removableItems = new List<ItemType> { ItemType.Bomb, ItemType.BluePotion, ItemType.Rupee, ItemType.Key };
 
@@ -52,7 +52,11 @@ namespace cse3902.Utilities
         }
         public static int itemsCollectedPerItem(ItemType item)
         {
-            if (!countPerItem.ContainsKey(item))
+            if (item == ItemType.Rupee)
+            {
+                return SettingsValues.Instance.GetValue(SettingsValues.Variable.RupeePickup);
+            }
+            else if (!countPerItem.ContainsKey(item))
             {
                 return 1;
             }

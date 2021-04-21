@@ -86,7 +86,6 @@ namespace cse3902.Entities
             else if (type == InventoryManager.ItemType.Triforce)
             {
                 linkState.Health = linkState.TotalHealth;
-                InventoryManager.Instance.RemoveFromInventory(InventoryManager.ItemType.Compass);
                 GameStateManager.Instance.LinkPickupItem(601, true);
                 VisionBlocker.Instance.Triforce = true;
                 Vector2 startingPos = linkState.GameWonAnimation();
