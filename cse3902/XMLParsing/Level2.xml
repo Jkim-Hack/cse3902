@@ -362,14 +362,6 @@
 		<traps>
 		</traps>
 		<conditions>
-			<condition>
-				<id>0</id>
-				<variables>
-					<variable>11</variable>
-					<variable>1</variable>
-					<variable>0</variable>
-				</variables>
-			</condition>
 		</conditions>
 		<items>
 		</items>
@@ -492,6 +484,14 @@
 		<traps>
 		</traps>
 		<conditions>
+			<condition>
+				<id>0</id>
+				<variables>
+					<variable>0</variable>
+					<variable>0</variable>
+					<variable>0</variable>
+				</variables>
+			</condition>
 		</conditions>
 		<items>
 		</items>
