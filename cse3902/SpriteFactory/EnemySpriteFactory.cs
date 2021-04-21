@@ -78,6 +78,11 @@ namespace cse3902.SpriteFactory
             return new GelSprite(spriteBatch, gel, 1, 2, center);
         }
 
+        public ISprite CreateZolSprite(SpriteBatch spriteBatch, Vector2 center)
+        {
+            return new ZolSprite(spriteBatch, zol, 1, 2, center);
+        }
+
         public ISprite CreateGoriyaSprite(SpriteBatch spriteBatch, Vector2 center)
         {
             return new GoriyaSprite(spriteBatch, goriya, 4, 2, goriyaDamageSequence, center);

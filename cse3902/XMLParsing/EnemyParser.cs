@@ -61,6 +61,9 @@ namespace cse3902.XMLParsing
                 case "Gel":
                     newEnemy = new Gel(game, startingPos);
                     break;
+                case "Zol":
+                    newEnemy = new Zol(game, startingPos);
+                    break;
                 case "Goriya":
                     newEnemy = new Goriya(game, startingPos);
                     break;
