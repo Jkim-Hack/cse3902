@@ -1,5 +1,4 @@
-﻿using cse3902.HUD;
-using static cse3902.HUD.InventoryManager;
+﻿using static cse3902.HUD.InventoryManager;
 using System.Collections.Generic;
 
 namespace cse3902.Utilities
