@@ -85,7 +85,7 @@ namespace cse3902.Entities.Enemies
         public void Die()
         {
             SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
-            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.D);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.B);
             if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
@@ -223,7 +223,7 @@ namespace cse3902.Entities.Enemies
 
         public IEntity.EnemyType Type
         {
-            get => IEntity.EnemyType.D;
+            get => IEntity.EnemyType.B;
         }
 
         public Vector2 Center

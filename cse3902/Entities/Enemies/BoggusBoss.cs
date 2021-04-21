@@ -82,7 +82,7 @@ namespace cse3902.Entities.Enemies
         {
             SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, 0.2f);
             this.boggusBossStateMachine.Die();
-            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.D);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.A);
             if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
@@ -159,7 +159,7 @@ namespace cse3902.Entities.Enemies
 
         public IEntity.EnemyType Type
         {
-            get => IEntity.EnemyType.D;
+            get => IEntity.EnemyType.A;
         }
 
         public Vector2 Center

@@ -3,6 +3,7 @@ using cse3902.Interfaces;
 using cse3902.SpriteFactory;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.Rooms;
 
 namespace cse3902.Doors
 {
@@ -29,7 +30,7 @@ namespace cse3902.Doors
         }
         public Vector2 PlayerReleasePosition()
         {
-            return doorSprite.Center + new Vector2(-32, 31);
+            return doorSprite.Center + new Vector2(RoomUtilities.BLOCK_SIDE * -2, RoomUtilities.BLOCK_SIDE * 2 - 1);
         }
         public Vector2 PlayerReleaseDirection()
         {

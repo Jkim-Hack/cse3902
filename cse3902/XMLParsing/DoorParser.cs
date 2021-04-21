@@ -40,7 +40,7 @@ namespace cse3902.XMLParsing
 
                 RoomUtilities.DoorPos dPos = FindDoorPos(typeName.Value);
                 Vector2 center;
-                if (dPos == RoomUtilities.DoorPos.NONE) center = RoomUtilities.CalculateBlockCenter(roomobj.RoomPos, new Vector2(Int32.Parse(xLoc.Value), Int32.Parse(yLoc.Value)));
+                if (dPos == RoomUtilities.DoorPos.NONE) center = RoomUtilities.CalculateBlockCenter(roomobj.RoomPos, new Vector2(float.Parse(xLoc.Value), float.Parse(yLoc.Value)));
                 else center = RoomUtilities.CalculateDoorCenter(roomobj.RoomPos, dPos);
 
                 IDoor.DoorState initialDoorState = GetInitialDoorState(initState.Value);

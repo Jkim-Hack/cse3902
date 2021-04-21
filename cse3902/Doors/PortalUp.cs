@@ -3,6 +3,7 @@ using cse3902.Interfaces;
 using cse3902.SpriteFactory;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.Constants;
 
 namespace cse3902.Doors
 {
@@ -33,7 +34,7 @@ namespace cse3902.Doors
         }
         public Vector2 PlayerReleaseDirection()
         {
-            return new Vector2(-20, 0);
+            return new Vector2(-MovementConstants.PortalRelease, 0);
         }
         public void Draw()
         {

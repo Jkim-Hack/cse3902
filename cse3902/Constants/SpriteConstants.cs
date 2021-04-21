@@ -14,5 +14,8 @@
         public const int DungeonMaskCols = 2;
         public const int DungeonMaskStartingIndex = 0;
 
+        public static int TextOffsetX = 75;
+        public static int TextOffsetY = 30;
+
     }
 }

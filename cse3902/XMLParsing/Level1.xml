@@ -151,7 +151,7 @@
 			</item>
 			<item>
 				<type>Heart</type>
-				<xloc>8</xloc>
+				<xloc>9</xloc>
 				<yloc>6</yloc>
 			</item>
 			<item>
@@ -2186,8 +2186,8 @@
 				<type>PortalUp</type>
 				<pos>4</pos>
 				<state>Locked</state>
-				<xloc>5</xloc>
-				<yloc>4</yloc>
+				<xloc>5.5</xloc>
+				<yloc>3.5</yloc>
 				<xchange>-5</xchange>
 				<ychange>0</ychange>
 			</door>
