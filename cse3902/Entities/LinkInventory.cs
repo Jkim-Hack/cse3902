@@ -37,6 +37,13 @@ namespace cse3902.Entities
             projectileHandler.CreateMagicBeam(batch, startingPosition, direction);
         }
 
+        public void CreateMagicFireball(Vector2 startingPosition, Vector2 direction)
+        {
+            ProjectileHandler projectileHandler = ProjectileHandler.Instance;
+            projectileHandler.CreateSwordWeapon(batch, startingPosition, direction, InventoryUtilities.convertSwordToInt(InventoryManager.ItemType.MagicalRod));
+            projectileHandler.CreateMagicFireball(batch, startingPosition, direction);
+        }
+
         public void CreateSwordProjectile(Vector2 startingPosition, Vector2 direction)
         {
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
@@ -125,7 +132,14 @@ namespace cse3902.Entities
                     break;
 
                 case InventoryManager.ItemType.MagicalRod:
-                    CreateMagicBeam(startingPos, direction);
+                    if (InventoryManager.Instance.ItemCount(InventoryManager.ItemType.MagicBook) > 0)
+                    {
+                        CreateMagicFireball(startingPos, direction);
+                    }
+                    else
+                    {
+                        CreateMagicBeam(startingPos, direction);
+                    }
                     break;
 
                 case InventoryManager.ItemType.BluePotion:

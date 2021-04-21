@@ -36,7 +36,7 @@ namespace cse3902.Utilities
         private static readonly Dictionary<InventoryManager.ItemType, int> HUDItemTexturePositions = new Dictionary<InventoryManager.ItemType, int>() { { InventoryManager.ItemType.None, 12 },
             { InventoryManager.ItemType.WoodSword, 0 }, { InventoryManager.ItemType.WhiteSword, 1 }, { InventoryManager.ItemType.MagicalSword, 2 }, { InventoryManager.ItemType.Boomerang, 3 },
             { InventoryManager.ItemType.Bomb, 4 }, { InventoryManager.ItemType.Arrow, 5 }, { InventoryManager.ItemType.Bow, 6 },{ InventoryManager.ItemType.BlueCandle, 7 },
-            { InventoryManager.ItemType.BluePotion, 8 }, { InventoryManager.ItemType.MagicalRod, 9 }, { InventoryManager.ItemType.BlueRing, 10 }};
+            { InventoryManager.ItemType.BluePotion, 8 }, { InventoryManager.ItemType.MagicalRod, 9 }, { InventoryManager.ItemType.BlueRing, 10 }, { InventoryManager.ItemType.MagicBook, 11 }};
 
         public static Dictionary<InventoryManager.ItemType, int> HUDItemIndexDict
         {
