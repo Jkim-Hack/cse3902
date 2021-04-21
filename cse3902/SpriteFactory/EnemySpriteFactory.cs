@@ -13,6 +13,7 @@ namespace cse3902.SpriteFactory
         private Texture2D marioBoss;
         private Texture2D dodongo;
         private Texture2D gel;
+        private Texture2D zol;
         private Texture2D goriya;
         private Texture2D keese;
         private Texture2D stalfos;
@@ -41,6 +42,7 @@ namespace cse3902.SpriteFactory
             marioBoss = content.Load<Texture2D>("enemies/marioboss");
             dodongo = content.Load<Texture2D>("enemies/dodongoboss");
             gel = content.Load<Texture2D>("enemies/gel");
+            zol = content.Load<Texture2D>("enemies/zol");
             goriya = content.Load<Texture2D>("enemies/goriya_red");
             keese = content.Load<Texture2D>("enemies/keese");
             stalfos = content.Load<Texture2D>("enemies/stalfos");

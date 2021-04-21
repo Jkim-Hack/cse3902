@@ -620,6 +620,18 @@
 /processorParam:TextureFormat=Color
 /build:enemies/wall_master.png
 
+#begin enemies/zol.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:enemies/zol.png
+
 #begin enemies/zola.png
 /importer:TextureImporter
 /processor:TextureProcessor

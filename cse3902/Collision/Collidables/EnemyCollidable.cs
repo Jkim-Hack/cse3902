@@ -39,6 +39,11 @@ namespace cse3902.Collision.Collidables
 
             } else if (collidableObject is ProjectileCollidable && !isDamageDisabled)
             {
+                collidableObject = (ProjectileCollidable)collidableObject;
+                if (collidableObject.IsEnemy)
+                {
+                    return;
+                }
                 ProjectileCollision(collidableObject);
 
             } else if (collidableObject is DoorCollidable || collidableObject is WallCollidable)
@@ -120,6 +125,10 @@ namespace cse3902.Collision.Collidables
 
         private void ProjectileCollision(ICollidable collidableObject)
         {
+            if ((ProjectileCollidable)collidableObject.IsEnemy)
+            {
+                return;
+            }
             this.enemy.TakeDamage(collidableObject.DamageValue);
             if (this.enemy.Health <= 0)
             {
