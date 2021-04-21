@@ -56,7 +56,7 @@ namespace cse3902.Projectiles
             get
             {
                 box = fireball.Box;
-                box.Inflate(-box.Width/ ItemConstants.MagicFireballCollision, -box.Height / ItemConstants.MagicFireballCollision);
+                box.Inflate(box.Width/ ItemConstants.MagicFireballCollision, box.Height / ItemConstants.MagicFireballCollision);
                 return ref box;
             }
         }

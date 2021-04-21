@@ -66,7 +66,7 @@ namespace cse3902.Constants
         public const int MagicBeamCols = 2;
         public const int MagicBeamSpeed = 2;
         public const float MagicBeamDelay = .2f;
-        public const int MagicFireballCollision = 6;
+        public const int MagicFireballCollision = 3;
 
     }
 }

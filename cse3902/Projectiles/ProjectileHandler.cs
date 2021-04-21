@@ -118,7 +118,7 @@ namespace cse3902.Projectiles
         }
         public IProjectile CreateMagicFireball(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            IProjectile newProj = new MagicFireballProjectile(spriteBatch, magicBeam, startingPos, dir);
+            IProjectile newProj = new MagicFireballProjectile(spriteBatch, fireball, startingPos, dir);
             projectiles.Add(newProj);
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
