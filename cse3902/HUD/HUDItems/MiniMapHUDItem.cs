@@ -65,7 +65,8 @@ namespace cse3902.HUD
 
         private void DrawMap()
         {
-            foreach (Rectangle rec in MiniMapConstants.GetRoomLayout()) HUDUtilities.DrawRectangle(game, rec, MiniMapConstants.RoomColor, offsetX, offsetY, HUDUtilities.MinimapLayer);
+            int level = (int)game.RoomHandler.currentRoom.Z / 2;
+            foreach (Rectangle rec in MiniMapConstants.GetRoomLayout(level)) HUDUtilities.DrawRectangle(game, rec, MiniMapConstants.RoomColor, offsetX, offsetY, HUDUtilities.MinimapLayer);
         }
 
         private void DrawTriforce()

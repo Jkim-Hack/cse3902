@@ -49,7 +49,7 @@ namespace cse3902.Rooms
                 int spriteNum = Int32.Parse(room.Element(sprite).Value);
 
                 Vector3 roomTup = RoomUtilities.ConvertToVector3(room.Element(num).Value);
-                if (roomTup.Z == 0) MiniMapConstants.RoomListZ0.Add(new Vector2(roomTup.X, roomTup.Y));
+                if (roomTup.Z % 2 == 0) MiniMapConstants.RoomListZ0.Add(roomTup);
 
                 currentRoom = new Room(roomTup, spriteNum);
 
@@ -65,7 +65,7 @@ namespace cse3902.Rooms
                 roomHandler.rooms.Add(roomTup, currentRoom);
             }
 
-            MiniMapConstants.RoomListZ0.Remove(new Vector2(roomHandler.currentRoom.X, roomHandler.currentRoom.Y));
+            MiniMapConstants.RoomListZ0.Remove(new Vector3(roomHandler.currentRoom.X, roomHandler.currentRoom.Y, roomHandler.currentRoom.Z));
         }
     }
 }
