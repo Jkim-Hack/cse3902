@@ -24,7 +24,7 @@ namespace cse3902.NPCs
             message = text;
             if (message.Length > 0)
             {
-                textSprite = new TextSprite(game, text, new Vector2(center.X - DimensionConstants.TextOffsetX, center.Y - DimensionConstants.TextOffsetY));
+                textSprite = new TextSprite(game, text, new Vector2(center.X - SpriteConstants.TextOffsetX, center.Y - SpriteConstants.TextOffsetY));
             }
             oldManSprite = NPCSpriteFactory.Instance.CreateOldManSprite(game.SpriteBatch, center);
         }

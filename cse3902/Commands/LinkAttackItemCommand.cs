@@ -1,4 +1,4 @@
-﻿using cse3902.HUD;
+﻿using cse3902.Constants;
 using cse3902.Interfaces;
 
 namespace cse3902.Commands
@@ -14,7 +14,7 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            id = id % 2;
+            id = id % CommandConstants.LinkAttackItemCommandCount;
 
             if (GameStateManager.Instance.IsUnpaused() && !game.RoomHandler.roomTransitionManager.IsTransitioning()) 
             {

@@ -1,5 +1,6 @@
 ﻿using cse3902.HUD;
 using cse3902.Interfaces;
+using cse3902.Constants;
 
 namespace cse3902.Commands
 {
@@ -16,7 +17,7 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            id = id % 3;
+            id = id % CommandConstants.ArrowCommandCount;
 
             if (GameStateManager.Instance.IsUnpaused() && !game.RoomHandler.roomTransitionManager.IsTransitioning() && !pressed)
             {
@@ -25,10 +26,10 @@ namespace cse3902.Commands
                 int removeRupees = 0;
                 int addArrows = 0;
 
-                if (rupees >= 3 * id + 1)
+                if (rupees >= CommandConstants.RemoveRupeeMultiplier * id + 1)
                 {
-                    removeRupees = 3 * id + 1;
-                    addArrows = 5 * id;
+                    removeRupees = CommandConstants.RemoveRupeeMultiplier * id + 1;
+                    addArrows = CommandConstants.AddRupeeMultiplpier * id;
                     if (id == 0) addArrows++;
                 }
 

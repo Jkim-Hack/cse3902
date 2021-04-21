@@ -21,10 +21,6 @@ namespace cse3902.Constants
         public const int DamageMaskRows = 1;
         public const int DamageMaskCols = 4;
 
-        public const int WoodenSwordDamage = 1;
-        public const int WhiteSwordDamage = 2 * WoodenSwordDamage;
-        public const int MagicSwordDamage = 2 * WhiteSwordDamage;
-
         public const int LinkShoveDistance = 20;
         public const int LinkShoveDistanceGrabbed = 100;
 

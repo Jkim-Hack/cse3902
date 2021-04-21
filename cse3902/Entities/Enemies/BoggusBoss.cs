@@ -46,9 +46,7 @@ namespace cse3902.Entities.Enemies
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 10;
-            //todo: use settings value once its available to use
-            //health = SettingsValues.Instance.GetValue(SettingsValues.Variable.BoggusBossHealth);
+            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.BoggusHealth);
         }
 
         public ref Rectangle Bounds
@@ -82,7 +80,7 @@ namespace cse3902.Entities.Enemies
         {
             SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, 0.2f);
             this.boggusBossStateMachine.Die();
-            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.D);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.A);
             if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
@@ -159,7 +157,7 @@ namespace cse3902.Entities.Enemies
 
         public IEntity.EnemyType Type
         {
-            get => IEntity.EnemyType.D;
+            get => IEntity.EnemyType.A;
         }
 
         public Vector2 Center
@@ -184,9 +182,7 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => 20;
-            //todo: use settings value once it's available
-            //get => SettingsValues.Instance.GetValue(SettingsValues.Variable.BoggusBossDamage);
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.BoggusDamage);
         }
 
     public int Health
