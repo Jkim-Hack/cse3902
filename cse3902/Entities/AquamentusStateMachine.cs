@@ -50,7 +50,7 @@ namespace cse3902.Entities
                 direction2.Normalize();
                 direction3 = new Vector2(MovementConstants.AquamentusFireballSpread, -1);
                 direction3.Normalize();
-                location.X += 15;
+                location.X += MovementConstants.AquamentusFireballChangeX;
             }
             else
             {

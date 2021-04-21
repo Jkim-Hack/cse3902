@@ -1,4 +1,5 @@
-﻿using cse3902.Interfaces;
+﻿using cse3902.Constants;
+using cse3902.Interfaces;
 using cse3902.Projectiles;
 using cse3902.Sounds;
 using cse3902.Sprites.EnemySprites;
@@ -48,13 +49,12 @@ namespace cse3902.Entities
             location.X = this.center.X;
             location.Y = this.center.Y - 10;
 
-            direction1 = new Vector2(-1, 0);
-            direction2 = new Vector2(-3, 1);
+            direction1 = new Vector2(1, 0);
+            direction2 = new Vector2(MovementConstants.AquamentusFireballSpread, 1);
             direction2.Normalize();
-            direction3 = new Vector2(-3, -1);
+            direction3 = new Vector2(MovementConstants.AquamentusFireballSpread, -1);
             direction3.Normalize();
-
-            location.X += -15; //originate fireballs at mouth if facing left
+            location.X += 2*MovementConstants.AquamentusFireballChangeX;
 
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
             fireball1 = projectileHandler.CreateFireballObject(spriteBatch, location, direction1);
