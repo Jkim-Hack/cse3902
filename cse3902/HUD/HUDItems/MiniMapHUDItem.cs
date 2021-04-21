@@ -60,7 +60,7 @@ namespace cse3902.HUD
         private void DrawLevelLabel()
         {
             
-            HUDUtilities.DrawTexture(game, level[(int)game.RoomHandler.currentRoom.Z], levelPos, offsetX, offsetY, HUDUtilities.MinimapLabelLayer);
+            HUDUtilities.DrawTexture(game, level[(int)game.RoomHandler.currentRoom.Z / 2], levelPos, offsetX, offsetY, HUDUtilities.MinimapLabelLayer);
         }
 
         private void DrawMap()
@@ -99,7 +99,7 @@ namespace cse3902.HUD
 
         public Texture2D Texture {
 
-            get => level[(int)game.RoomHandler.currentRoom.Z];
+            get => level[(int)game.RoomHandler.currentRoom.Z / 2];
         }
 
         public ref Rectangle Box {
