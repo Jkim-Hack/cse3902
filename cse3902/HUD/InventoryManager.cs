@@ -1,4 +1,5 @@
-﻿using cse3902.Utilities;
+﻿using cse3902.Sounds;
+using cse3902.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace cse3902.HUD
         public Dictionary<ItemType, int> inventory;
         private static InventoryManager instance = new InventoryManager();
         private ItemType slotA = ItemType.WoodSword;
-        private ItemType slotB;
+        private ItemType slotB = ItemType.None;
 
         public static InventoryManager Instance
         {
@@ -74,7 +75,9 @@ namespace cse3902.HUD
 
         public void AddToInventory(ItemType type)
         {
-            inventory[type]++;
+            inventory[type] += InventoryUtilities.itemsCollectedPerItem(type);
+            if (inventory[type] > InventoryUtilities.maxItemCount(type)) inventory[type] = InventoryUtilities.maxItemCount(type);
+            playItemSounds(type);
             if (ItemSlot == ItemType.None)
             {
                 slotB = ItemType.None;
@@ -87,11 +90,15 @@ namespace cse3902.HUD
                     }
                 }
             }
+            if (InventoryUtilities.SwordsList.Contains(type) && InventoryUtilities.convertSwordToInt(type) > InventoryUtilities.convertSwordToInt(slotA))
+            {
+                slotA = type;
+            }
         }
 
         public void RemoveFromInventory(ItemType type)
         {
-            if (inventory[type] > 0)
+            if (inventory[type] > 0 && InventoryUtilities.decrementableItems.Contains(type))
             {
                 inventory[type]--;
                 if (inventory[type] == 0 && ItemSlot == type || (ItemSlot == ItemType.Arrow) && inventory[ItemType.Rupee] <= 0)
@@ -112,6 +119,22 @@ namespace cse3902.HUD
         public int ItemCount(ItemType type)
         {
             return inventory[type];
+        }
+
+        private void playItemSounds(ItemType type)
+        {
+            if (type == InventoryManager.ItemType.Heart || type == InventoryManager.ItemType.Key)
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.getHeart);
+            }
+            else if (type == InventoryManager.ItemType.Rupee)
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.getRupee);
+            }
+            else
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.getItem);
+            }
         }
 
         public void Reset()

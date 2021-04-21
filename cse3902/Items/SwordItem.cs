@@ -17,42 +17,46 @@ namespace cse3902.Items
         private Texture2D spriteTexture;
 
         private (int x, int y) current;
-        private int frameWidth;
-        private int frameHeight;
 
         int swordType;
 
         private bool collided;
         private Rectangle destination;
         private Rectangle source;
-        private const float sizeIncrease = .5f;
 
         private Vector2 direction;
         private ICollidable collidable;
 
-        public SwordItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, int swordType)
+        private bool isKept;
+        private bool isResetKept;
+
+        public SwordItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, bool kept, bool resetKept, int swordType)
         {
             spriteBatch = batch;
             spriteTexture = texture;
 
-            frameWidth = spriteTexture.Width;
-            frameHeight = spriteTexture.Height;
+            int cols = ItemConstants.SWORDCOLS;
+            int rows = ItemConstants.SWORDROWS;
+            int frameWidth = spriteTexture.Width/ cols;
+            int frameHeight = spriteTexture.Height/ rows;
 
             current.x = (int)startingPos.X;
             current.y = (int)startingPos.Y;
-            Rectangle[] rectangles = SpriteUtilities.distributeFrames(ItemConstants.SWORDROWS, ItemConstants.SWORDCOLS, texture.Width, texture.Height);
+            Rectangle[] rectangles = SpriteUtilities.distributeFrames(cols, rows, frameWidth, frameHeight);
 
             this.source = rectangles[swordType];
             this.swordType = swordType;
 
+            isKept = kept;
+            isResetKept = resetKept;
 
             this.collidable = new ItemCollidable(this);
         }
 
         public void Draw()
         {
-            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle(current.x, current.y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            Vector2 origin = new Vector2(source.Width / 2f, source.Height / 2f);
+            Rectangle Destination = new Rectangle(current.x, current.y, source.Width, source.Height);
             spriteBatch.Draw(spriteTexture, Destination, source, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ItemLayer);
         }
 
@@ -83,8 +87,8 @@ namespace cse3902.Items
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth);
-                int height = (int)(sizeIncrease * frameHeight);
+                int width = source.Width;
+                int height = source.Height;
                 Rectangle Destination = new Rectangle(current.x, current.y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
@@ -122,12 +126,12 @@ namespace cse3902.Items
 
         public bool IsKept
         {
-            get => false;
+            get => isKept;
         }
 
         public bool IsResetKept
         {
-            get => false;
+            get => isResetKept;
         }
 
         public int SwordType

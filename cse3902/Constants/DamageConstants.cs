@@ -9,6 +9,8 @@ namespace cse3902.Constants
 
         public const int ArrowDamage = 2;
         public const int BombDamage = 4;
+        public const int BoomerangDamage = 0;
+        public const int MagicBeamDamage = WhiteSwordDamage;
         public const int WoodSwordDamage = 2;
         public const int WhiteSwordDamage = 2 * WoodSwordDamage;
         public const int MagicalSwordDamage = 2* WhiteSwordDamage;
