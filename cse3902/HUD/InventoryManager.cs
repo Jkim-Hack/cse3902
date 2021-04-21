@@ -31,6 +31,7 @@ namespace cse3902.HUD
             MagicalSword,
             MagicalRod,
             None,
+            MagicBook,
         }
 
         public Dictionary<ItemType, int> inventory;

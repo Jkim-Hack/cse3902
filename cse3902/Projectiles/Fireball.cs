@@ -16,7 +16,7 @@ namespace cse3902.Projectiles
         private Vector2 center;
         private Vector2 direction;
 
-        private const float speed = ItemConstants.FireballSpeed;
+        private float speed;
         private bool animationComplete;
         private bool collided;
 
@@ -36,6 +36,7 @@ namespace cse3902.Projectiles
             this.center = startingPosition;
             animationComplete = false;
             fireballCounter = fireballDelay;
+            speed = ItemConstants.FireballSpeed;
 
             if (ParticleEngine.Instance.UseParticleEffects) fireballEmitter = ParticleEngine.Instance.CreateFireballEffect(this);
 
@@ -58,6 +59,7 @@ namespace cse3902.Projectiles
 
         public int Update(GameTime gameTime)
         {
+            if (collided) return -1;
             if (fireballCounter < 0)
             {
                 KillParticles();
@@ -105,6 +107,11 @@ namespace cse3902.Projectiles
         {
             get => animationComplete;
             set => animationComplete = value;
+        }
+        public float Speed
+        {
+            get => this.speed;
+            set => this.speed = value;
         }
 
         public void Erase()

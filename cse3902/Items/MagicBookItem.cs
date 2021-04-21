@@ -8,7 +8,7 @@ using cse3902.Sprites;
 
 namespace cse3902.Items
 {
-    public class MagicBookItem : ISprite, IItem
+    public class BlueRingItem : ISprite, IItem
     {
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
@@ -26,7 +26,7 @@ namespace cse3902.Items
         private bool isKept;
         private bool isResetKept;
 
-        public MagicBookItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, bool kept, bool resetKept)
+        public BlueRingItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, bool kept, bool resetKept)
         {
             spriteBatch = batch;
             spriteTexture = texture;
@@ -97,7 +97,7 @@ namespace cse3902.Items
 
         public InventoryManager.ItemType ItemType
         {
-            get => InventoryManager.ItemType.MagicBook;
+            get => InventoryManager.ItemType.BlueRing;
         }
 
         public bool IsKept

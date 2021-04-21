@@ -48,6 +48,7 @@ namespace cse3902.Constants
         public const float BoomerangSpeed = 1.25f;
 
         public const float FireballSpeed = 1.3f;
+        public const float MagicFireballSpeed = 1.5f;
         public const float FireballDelay = 3f;
 
         public const float PoofDelay = .05f;
@@ -65,6 +66,7 @@ namespace cse3902.Constants
         public const int MagicBeamCols = 2;
         public const int MagicBeamSpeed = 2;
         public const float MagicBeamDelay = .2f;
+        public const int MagicFireballCollision = 6;
 
     }
 }

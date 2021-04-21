@@ -94,7 +94,7 @@ namespace cse3902.ParticleSystem
 
         public void Update(GameTime gameTime)
         {
-            origin = fireball.Center - new Vector2(fireball.Box.Width / 2, fireball.Box.Height / 3);
+            origin = fireball.Center;
 
             timeSinceLastSpawn += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (timeSinceLastSpawn > ParticleConstants.FireballParticleAddDelay)
