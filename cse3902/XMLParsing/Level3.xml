@@ -1261,6 +1261,16 @@
 				<xloc>6</xloc>
 				<yloc>6</yloc>
 			</enemy>
+			<enemy>
+				<type>Keese</type>
+				<xloc>0</xloc>
+				<yloc>5</yloc>
+			</enemy>
+			<enemy>
+				<type>Keese</type>
+				<xloc>10</xloc>
+				<yloc>1</yloc>
+			</enemy>
 		</enemies>
 		<npcs>
 		</npcs>
