@@ -64,54 +64,20 @@ namespace cse3902.Entities
 
             if (newDirection.X == 0 && newDirection.Y == 0)
             {
-                StillChangeDirection();
+                mode = LinkMode.Still;
+                if (currDirection.X > 0) linkSprite.setFrameSet(LinkSprite.AnimationState.RightFacing);
+                if (currDirection.X < 0) linkSprite.setFrameSet(LinkSprite.AnimationState.LeftFacing);
+                if (currDirection.Y > 0) linkSprite.setFrameSet(LinkSprite.AnimationState.DownFacing);
+                if (currDirection.Y < 0) linkSprite.setFrameSet(LinkSprite.AnimationState.UpFacing);
             }
             else
             {
-                MovingChangeDirection(newDirection);
-            }
-        }
-
-        private void StillChangeDirection()
-        {
-            mode = LinkMode.Still;
-            if (currDirection.X > 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.RightFacing);
-            }
-            if (currDirection.X < 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.LeftFacing);
-            }
-            if (currDirection.Y > 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.DownFacing);
-            }
-            if (currDirection.Y < 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.UpFacing);
-            }
-        }
-
-        private void MovingChangeDirection(Vector2 newDirection)
-        {
-            currDirection = newDirection;
-            mode = LinkMode.Moving;
-            if (newDirection.X > 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.RightRunning);
-            }
-            if (newDirection.X < 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.LeftRunning);
-            }
-            if (newDirection.Y > 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.DownRunning);
-            }
-            if (newDirection.Y < 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.UpRunning);
+                currDirection = newDirection;
+                mode = LinkMode.Moving;
+                if (newDirection.X > 0) linkSprite.setFrameSet(LinkSprite.AnimationState.RightRunning);
+                if (newDirection.X < 0) linkSprite.setFrameSet(LinkSprite.AnimationState.LeftRunning);
+                if (newDirection.Y > 0) linkSprite.setFrameSet(LinkSprite.AnimationState.DownRunning);
+                if (newDirection.Y < 0) linkSprite.setFrameSet(LinkSprite.AnimationState.UpRunning);
             }
         }
 
@@ -140,8 +106,7 @@ namespace cse3902.Entities
             }
 
             UpdateDamageDelay(gameTime);
-            if (this.shoveDistance > 0) ShoveMovement();
-            else RegularMovement(gameTime);
+            Movement(gameTime);
 
             if (linkSprite.Update(gameTime) != 0)
             {
@@ -185,18 +150,21 @@ namespace cse3902.Entities
             }
         }
 
-        private void ShoveMovement()
+        private void Movement(GameTime gameTime)
         {
-            this.CenterPosition += shoveDirection;
-            shoveDistance--;
-        }
-
-        private void RegularMovement(GameTime gameTime)
-        {
-            PauseMovement = false;
-            if (mode == LinkMode.Moving)
+            if (this.shoveDistance > 0)
             {
-                CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                this.CenterPosition += shoveDirection;
+                shoveDistance--;
+            }
+            else
+            {
+
+                PauseMovement = false;
+                if (mode == LinkMode.Moving)
+                {
+                    CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
             }
         }
 
