@@ -43,7 +43,7 @@ namespace cse3902.Sprites.DoorSprites
         {
             Vector2 origin = new Vector2(frameSize.frameWidth / 2f, frameSize.frameHeight / 2f);
             Rectangle Destination = new Rectangle(currentPos.currentX, currentPos.currentY, (int)(sizeIncrease * frameSize.frameWidth), (int)(sizeIncrease * frameSize.frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.BlockLayer);
+            spriteBatch.Draw(spriteTexture, Destination, frameSize.frames[frameSize.currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.BlockLayer);
         }
 
         public int Update(GameTime gameTime)
