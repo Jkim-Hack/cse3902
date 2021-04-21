@@ -259,12 +259,15 @@
 		<number>1,1,6</number>
 		<traps>
 		</traps>
+		<spawners>
+		</spawners>
 		<conditions>
 			<condition>
-				<id>1</id>
+				<id>7</id>
 				<variables>
+					<variable>2</variable>
 					<variable>3</variable>
-					<variable>0</variable>
+					<variable>1</variable>
 				</variables>
 			</condition>
 		</conditions>
@@ -304,12 +307,6 @@
 		<items>
 		</items>
 		<enemies>
-			<enemy>
-				<type>Gel</type>
-				<xloc>1</xloc>
-				<yloc>1</yloc>
-			</enemy>
-			<!--need way more-->
 		</enemies>
 		<blocks>
 		</blocks>

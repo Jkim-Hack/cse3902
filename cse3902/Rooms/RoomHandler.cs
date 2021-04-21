@@ -135,6 +135,7 @@ namespace cse3902.Rooms
                 RoomNPCs.Instance.Update(gameTime);
                 RoomProjectiles.Instance.Update(gameTime);
                 RoomConditions.Instance.Update(gameTime);
+                RoomSpawners.Instance.Update(gameTime);
             }
 
             RoomDoors.Instance.Update(gameTime);

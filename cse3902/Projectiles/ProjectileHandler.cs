@@ -15,6 +15,7 @@ namespace cse3902.Projectiles
         private Texture2D boomerang;
         private Texture2D fireball;
         private Texture2D swordItems;
+        private Texture2D magicBeam;
         private Texture2D swordWeapons;
         private Texture2D starAnim;
         private Texture2D poofAnim;
@@ -42,6 +43,7 @@ namespace cse3902.Projectiles
             boomerang = content.Load<Texture2D>("boomerang");
             fireball = content.Load<Texture2D>("fireball");
             swordItems = content.Load<Texture2D>("SwordItem");
+            magicBeam = content.Load<Texture2D>("MagicRodProjectile");
             swordWeapons = content.Load<Texture2D>("SwordAnimation");
             starAnim = content.Load<Texture2D>("poof");
             poofAnim = content.Load<Texture2D>("colorpoof");
@@ -110,6 +112,13 @@ namespace cse3902.Projectiles
         public IProjectile CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
             IProjectile newProj = new SwordProjectile(spriteBatch, swordItems, startingPos, dir);
+            projectiles.Add(newProj);
+            RoomProjectiles.Instance.projectiles.Add(newProj);
+            return newProj;
+        }
+        public IProjectile CreateMagicBeam(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
+        {
+            IProjectile newProj = new MagicBeamProjectile(spriteBatch, magicBeam, startingPos, dir);
             projectiles.Add(newProj);
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;

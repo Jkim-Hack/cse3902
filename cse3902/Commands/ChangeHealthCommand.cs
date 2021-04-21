@@ -1,5 +1,6 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Entities;
+using cse3902.Constants;
 
 namespace cse3902.Commands
 {
@@ -17,7 +18,7 @@ namespace cse3902.Commands
         public void Execute(int id)
         {
             cooldown--;
-            id = (id % 4);
+            id = id % CommandConstants.ChangeHealthCommandCount;
             
             if (GameStateManager.Instance.IsUnpaused() && cooldown <= 0)
             {
@@ -40,7 +41,7 @@ namespace cse3902.Commands
                         break;
                 }
 
-                cooldown = 15;
+                cooldown = CommandConstants.Cooldown;
             }
         }
 

@@ -171,23 +171,21 @@
 		<traps>
 		</traps>
 		<conditions>
+			<condition>
+				<id>0</id>
+				<variables>
+					<variable>0</variable>
+					<variable>3</variable>
+					<variable>0</variable>
+				</variables>
+			</condition>
 		</conditions>
 		<items>
-			<item>
-				<type>Key</type>
-				<xloc>0</xloc>
-				<yloc>3</yloc>
-			</item>
-			<item>
-				<type>Key</type>
-				<xloc>11</xloc>
-				<yloc>1</yloc>
-			</item>
 		</items>
 		<enemies>
 			<enemy>
 				<type>BoggusBoss</type>
-				<xloc>6</xloc>
+				<xloc>2</xloc>
 				<yloc>3</yloc>
 			</enemy>
 		</enemies>
@@ -197,22 +195,8 @@
 			<block>
 				<type>Normal</type>
 				<dir>Still</dir>
-				<xloc>1</xloc>
-				<yloc>1</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Normal</type>
-				<dir>Still</dir>
 				<xloc>10</xloc>
 				<yloc>1</yloc>
-				<push>0</push>
-			</block>
-			<block>
-				<type>Normal</type>
-				<dir>Still</dir>
-				<xloc>1</xloc>
-				<yloc>5</yloc>
 				<push>0</push>
 			</block>
 			<block>
@@ -387,6 +371,21 @@
 				<xloc>5</xloc>
 				<yloc>3</yloc>
 			</enemy>
+			<enemy>
+				<type>Dodongo</type>
+				<xloc>8</xloc>
+				<yloc>3</yloc>
+			</enemy>
+			<enemy>
+				<type>Dodongo</type>
+				<xloc>4</xloc>
+				<yloc>5</yloc>
+			</enemy>
+			<enemy>
+				<type>Dodongo</type>
+				<xloc>7</xloc>
+				<yloc>5</yloc>
+			</enemy>
 		</enemies>
 		<npcs>
 		</npcs>
@@ -485,13 +484,16 @@
 		<traps>
 		</traps>
 		<conditions>
+			<condition>
+				<id>0</id>
+				<variables>
+					<variable>0</variable>
+					<variable>0</variable>
+					<variable>0</variable>
+				</variables>
+			</condition>
 		</conditions>
 		<items>
-			<item>
-				<type>Key</type>
-				<xloc>0</xloc>
-				<yloc>0</yloc>
-			</item>
 		</items>
 		<enemies>
 			<enemy>

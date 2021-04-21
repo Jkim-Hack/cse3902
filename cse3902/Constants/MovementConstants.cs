@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using cse3902.Rooms;
 
 namespace cse3902.Constants
 {
@@ -45,6 +44,10 @@ namespace cse3902.Constants
 
         public const int BlockPushThreshold = 20;
         public const float BlockPushSpeed = .5f;
+
+        public const int NormalDoorRelease = 50;
+        public const int OffscreenRelease = 40;
+        public const int PortalRelease = 20;
 
         /*
         public const float Speed = 25.0f;

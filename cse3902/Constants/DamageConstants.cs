@@ -9,26 +9,27 @@ namespace cse3902.Constants
 
         public const int ArrowDamage = 2;
         public const int BombDamage = 4;
-        public const int WoodSwordDamage = 2;
+        public const int BoomerangDamage = 0;
+        public const int MagicBeamDamage = WhiteSwordDamage;
+        public const int WoodSwordDamage = 1;
         public const int WhiteSwordDamage = 2 * WoodSwordDamage;
         public const int MagicalSwordDamage = 2* WhiteSwordDamage;
-        //public static int SwordDamage = 1;
 
         public static int SwordDamage
         {
             get
             {
-                InventoryManager.SwordType type = InventoryManager.Instance.SwordSlot;
+                InventoryManager.ItemType type = InventoryManager.Instance.SwordSlot;
                 int damage = 0;
                 switch (type)
                 {
-                    case InventoryManager.SwordType.Wood:
+                    case InventoryManager.ItemType.WoodSword:
                         damage = WoodSwordDamage;
                         break;
-                    case InventoryManager.SwordType.White:
+                    case InventoryManager.ItemType.WhiteSword:
                         damage = WhiteSwordDamage;
                         break;
-                    case InventoryManager.SwordType.Magical:
+                    case InventoryManager.ItemType.MagicalSword:
                         damage = MagicalSwordDamage;
                         break;
                 }

@@ -128,12 +128,13 @@ namespace cse3902.HUD.HUDItems
                 i++;
             }
 
-            if (player.TotalHealthCount < 3) return;
+            if (player.TotalHealthCount == 2 && player.Health > 0) return;
 
             for (; i < totalHeartCount; i++)
             {
                 hearts[i].Empty = true;
                 hearts[i].Draw();
+                if (player.TotalHealthCount == 2) break;
             }
         }
     }

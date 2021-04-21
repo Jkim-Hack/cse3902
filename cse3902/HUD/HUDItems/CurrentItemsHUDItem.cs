@@ -17,19 +17,16 @@ namespace cse3902.HUD.HUDItems
         private Texture2D uiSpriteTexture;
         private Texture2D numbersTexture;
 
-        private ISprite slotA;
-        private ISprite slotB;
+        private InventoryItemSprite slotA;
+        private InventoryItemSprite slotB;
 
         private Vector2 rupeeCountPosition;
         private Vector2 keyCountPosition;
         private Vector2 bombCountPosition;
 
-        private const int digitWidth = 8;
-
         private Rectangle box;
         private Vector2 size;
         private SpriteBatch spriteBatch;
-        private IPlayer player;
 
 
         public CurrentItemsHUDItem(Game1 game, Texture2D UITexture, Texture2D numbersTexture, Vector2 position)
@@ -40,9 +37,6 @@ namespace cse3902.HUD.HUDItems
             uiSpriteTexture = UITexture;
             this.numbersTexture = numbersTexture;
 
-            //always has sword in slot a
-            slotA = ItemSpriteFactory.Instance.CreateSwordItem(spriteBatch, HUDPositionConstants.SlotA);
-
             size = new Vector2(uiSpriteTexture.Bounds.Width, uiSpriteTexture.Bounds.Height);
             box = new Rectangle((int)size.X, (int)size.Y, (int)size.X, (int)size.Y);
             spriteBatch = game.SpriteBatch;
@@ -51,7 +45,8 @@ namespace cse3902.HUD.HUDItems
             keyCountPosition = new Vector2(HUDPositionConstants.CountsXPos, position.Y+numbersTexture.Height*2);
             bombCountPosition = new Vector2(HUDPositionConstants.CountsXPos, position.Y+numbersTexture.Height*3);
 
-            player = game.Player;
+            slotA = HUDSpriteFactory.Instance.CreateInventoryItemSprite(game.SpriteBatch, HUDPositionConstants.SlotA, InventoryManager.ItemType.None);
+            slotB = HUDSpriteFactory.Instance.CreateInventoryItemSprite(game.SpriteBatch, HUDPositionConstants.SlotB, InventoryManager.ItemType.None);
         }
 
         public Vector2 Center
@@ -94,7 +89,10 @@ namespace cse3902.HUD.HUDItems
 
         public int Update(GameTime gameTime)
         {
-            
+            slotA.changeItem(InventoryManager.Instance.SwordSlot);
+            slotB.changeItem(InventoryManager.Instance.ItemSlot);
+            slotA.Update(gameTime);
+            slotB.Update(gameTime);
             return 0;
         }
 
@@ -123,6 +121,7 @@ namespace cse3902.HUD.HUDItems
 
         private void DrawDigit(int digit, Vector2 location)
         {
+            int digitWidth = HUDPositionConstants.digitWidth;
             Vector2 origin = new Vector2((numbersTexture.Width/11) / 2f, numbersTexture.Height / 2f);
             Rectangle Destination = new Rectangle((int)location.X, (int)location.Y, (int)(numbersTexture.Width/11), (int)(numbersTexture.Height));
             Rectangle source = new Rectangle((digitWidth * (digit+1)) + ((digit+1)*1), 0, digitWidth, numbersTexture.Height);
@@ -137,11 +136,7 @@ namespace cse3902.HUD.HUDItems
         private void DrawItems()
         {
             //get proper constant for where b items should go in relation to ui
-            slotB = ItemSpriteFactory.Instance.CreateItemWithType(InventoryManager.Instance.ItemSlot, HUDPositionConstants.SlotB);
-            if (slotB != null)
-            {
-                slotB.Draw();
-            }
+            slotB.Draw();
             slotA.Draw();
         }
     }

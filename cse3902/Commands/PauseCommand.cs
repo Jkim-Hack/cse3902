@@ -13,12 +13,15 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
+            id = id % 2;
             switch (id) {
                 case 0:
                     GameStateManager.Instance.ToggleMenuDisplayed();
                     break;
                 case 1:
                     GameStateManager.Instance.TogglePaused();
+                    break;
+                default: //this should never happen;
                     break;
             }
         }

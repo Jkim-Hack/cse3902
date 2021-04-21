@@ -13,8 +13,8 @@ namespace cse3902.Sprites.EnemySprites
 
         public enum FrameIndex
         {
-            RightFacing = 0,
-            LeftFacing = 2
+            MouthClosed = 0,
+            MouthOpen = 2
 
         };
 
@@ -54,7 +54,7 @@ namespace cse3902.Sprites.EnemySprites
             remainingDamageDelay = DamageConstants.DamageMaskDelay;
 
             currentFrame = 0;
-            startingFrameIndex = (int)FrameIndex.LeftFacing;
+            startingFrameIndex = (int)FrameIndex.MouthClosed;
             endingFrameIndex = startingFrameIndex + 2;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
