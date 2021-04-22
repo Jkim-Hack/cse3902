@@ -54,11 +54,6 @@ namespace cse3902.Projectiles
             spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EffectsLayer);            
         }
 
-        public void Erase()
-        {
-            spriteTexture.Dispose();
-        }
-
         public int Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;

@@ -165,11 +165,6 @@ namespace cse3902.Projectiles
             get => spriteTexture;
         }
 
-        public void Erase()
-        {
-            spriteTexture.Dispose();
-        }
-
         public bool AnimationComplete
         {
             get => collided && remainingDelay < 0;

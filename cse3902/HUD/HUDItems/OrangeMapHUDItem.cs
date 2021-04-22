@@ -98,8 +98,6 @@ namespace cse3902.HUD
             HUDUtilities.DrawRectangle(game, destination, OrangeMapConstants.CurrentRoomColor, offsetX, offsetY, HUDUtilities.OrangeMapCurrentRoomLayer);
         }
 
-        public void Erase() {} // needs to be deleted once isprite is updated
-
         public Vector2 Center {
 
             get => new Vector2(offsetX, offsetY);

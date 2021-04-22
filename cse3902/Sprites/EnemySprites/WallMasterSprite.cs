@@ -68,11 +68,6 @@ namespace cse3902.Sprites.EnemySprites
             spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
         }
 
-        public void Erase()
-        {
-            spriteTexture.Dispose();
-        }
-
         public int Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;
