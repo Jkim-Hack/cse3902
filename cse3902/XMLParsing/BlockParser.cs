@@ -80,9 +80,6 @@ namespace cse3902.XMLParsing
                 case "NormalGreen":
                     newBlock = new NormalBlock(game, BLOCK_SIDE * numBlocks, BlockSpriteFactory.Instance.CreateNormalBlockSprite(game.SpriteBatch, startingPos), startingPos);
                     break;
-                case "Lava":
-                    newBlock = new NormalBlock(game, 0, BlockSpriteFactory.Instance.CreateLavaBlockSprite(game.SpriteBatch, startingPos), startingPos);
-                    break;
                 case "Wall":
                     Background.Instance.generateRoomWall(startingPos);
                     newBlock = null;
