@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace cse3902.Collision
@@ -8,8 +6,8 @@ namespace cse3902.Collision
     /* Inspiration from: https://gamedevelopment.tutsplus.com/tutorials/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space--gamedev-374 */
     public class QuadTree
     {
-        private int maxObjectsPerNode = 10;
-        private int maxTreeLevel = 10;
+        private const int maxObjectsPerNode = 10;
+        private const int maxTreeLevel = 10;
 
         private int currentLevel;
         private List<Rectangle> allObjects;
