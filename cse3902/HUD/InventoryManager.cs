@@ -55,6 +55,7 @@ namespace cse3902.HUD
             {
                 inventory.Add((ItemType)i, 0);
             }
+            inventory[ItemType.Arrow] = 1;
         }
         public bool canEquip(ItemType type)
         {
