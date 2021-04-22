@@ -63,7 +63,12 @@ namespace cse3902.Projectiles
         {
             get
             {
-                if (currentFrame == 0) return ref preExplosion;
+                if (currentFrame == 0)
+                {
+                    preExplosion = new Rectangle(current.X, current.Y, RoomUtilities.BLOCK_SIDE, RoomUtilities.BLOCK_SIDE);
+                    preExplosion.Offset(-preExplosion.Width / 2, -preExplosion.Height / 2);
+                    return ref preExplosion;
+                }
 
                 int width = (int)(sizeIncrease * frame.Width / 1.5f);
                 int height = (int)(sizeIncrease * frame.Height / 1.5f);
