@@ -77,11 +77,6 @@ namespace cse3902.HUD.HUDItems
 
         }
 
-        public void Erase()
-        {
-            uiSpriteTexture.Dispose();
-        }
-
         public int Update(GameTime gameTime)
         {
             slotA.changeItem(InventoryManager.Instance.SwordSlot);

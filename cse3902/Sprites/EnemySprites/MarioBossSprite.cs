@@ -92,11 +92,6 @@ namespace cse3902.Sprites.EnemySprites
             }
         }
 
-        public void Erase()
-        {
-            spriteTexture.Dispose();
-        }
-
         public int Update(GameTime gameTime)
         {
             var timer = (float)gameTime.ElapsedGameTime.TotalSeconds;

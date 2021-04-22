@@ -76,11 +76,6 @@ namespace cse3902.Items
             return 0;
         }
 
-        public void Erase()
-        {
-            spriteTexture.Dispose();
-        }
-
         public ref Rectangle Box
         {
             get

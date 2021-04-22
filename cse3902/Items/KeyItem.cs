@@ -51,11 +51,6 @@ namespace cse3902.Items
             spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ItemLayer);
         }
 
-        public void Erase()
-        {
-            spriteTexture.Dispose();
-        }
-
         public int Update(GameTime gameTime)
         {
             return 0;

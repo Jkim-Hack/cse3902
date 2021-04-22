@@ -139,10 +139,6 @@ namespace cse3902.HUD.HUDItems
             }
 	    }
 
-        public void Erase()
-        {
-        }
-
         public int Update(GameTime gameTime)
         {
             CheckSelectedItem();

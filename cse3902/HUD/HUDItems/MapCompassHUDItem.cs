@@ -67,8 +67,6 @@ namespace cse3902.HUD
             HUDUtilities.DrawTexture(game, compass, compassPos, offsetX, offsetY, HUDUtilities.MapCompassLabelLayer);
         }
 
-        public void Erase() {} // needs to be deleted once isprite is updated
-
         public Vector2 Center {
 
             get => new Vector2(offsetX, offsetY);
