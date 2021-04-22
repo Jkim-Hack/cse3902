@@ -494,6 +494,11 @@
 			</condition>
 		</conditions>
 		<items>
+			<item>
+				<type>Key</type>
+				<xloc>11</xloc>
+				<yloc>0</yloc>
+            </item>
 		</items>
 		<enemies>
 			<enemy>
@@ -642,6 +647,14 @@
 		<traps>
 		</traps>
 		<conditions>
+			<condition>
+				<id>0</id>
+				<variables>
+					<variable>8</variable>
+					<variable>6</variable>
+					<variable>0</variable> 
+				</variables>
+			</condition>
 		</conditions>
 		<items>
 		</items>
