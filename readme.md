@@ -1,5 +1,6 @@
-# Group 1
-## Names:
+# The Legend of Zelda (NES 1986)
+# CSE 3902 SP 21
+## Names (Group 1):
 - Alex Book
 - Andrew Fecher
 - John Kim
@@ -7,8 +8,8 @@
 - Smera Palanivel
 - Dev Patel
 
-## Program Controls
-### Player controls
+## Game Controls
+### Player Controls
 - Arrow keys and 'wasd' to move Link when in game play mode
 - '1' to attack with Link's sword
 - '2' for Link's secondary item
