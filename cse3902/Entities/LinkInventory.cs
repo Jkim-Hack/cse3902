@@ -52,7 +52,6 @@ namespace cse3902.Entities
             }
         }
 
-        //TODO break apart
         public void AddItemToInventory(IItem item)
         {
             if (item.Equals(AnimationItem)) return;
