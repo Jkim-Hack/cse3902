@@ -104,6 +104,11 @@ namespace cse3902.Collision.Collidables
 
         private void SwordCollision(ICollidable collidableObject)
         {
+            if (this.enemy is Dodongo)
+            {
+                return;
+            }
+
             this.enemy.TakeDamage(collidableObject.DamageValue);
             if (this.enemy.Health <= 0)
             {
