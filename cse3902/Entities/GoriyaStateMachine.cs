@@ -1,80 +1,80 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using cse3902.Interfaces;
+using cse3902.Rooms;
 using cse3902.Sprites.EnemySprites;
 
 namespace cse3902.Entities
 {
-    public class GoriyaStateMachine: IEntityStateMachine
+    public class GoriyaStateMachine
     {
         private GoriyaSprite goriyaSprite;
+
+        private Rectangle[] detectionBoxes;
+        private Boolean isTriggered;
+        private Vector2 direction;
 
         public GoriyaStateMachine(GoriyaSprite goriyaSprite)
         {
             this.goriyaSprite = goriyaSprite;
+            detectionBoxes = new Rectangle[4];
+            isTriggered = false;
+            ConstructDetectionBoxes();
         }
 
-        public void CycleWeapon(int dir)
+
+        public void ThrowBoomerang()
         {
-            throw new NotImplementedException();
+            
         }
 
-        public void ChangeDirection(Vector2 newDirection)
+        public Boolean IsTriggered
         {
-            if (newDirection == new Vector2(0, 0))
+            get => this.isTriggered;
+            set => this.isTriggered = value;
+        }
+
+        public ref Rectangle DetectionBox
+        {
+            get
             {
-                //direction vector of (0,0) indicates just reverse the current direction
-                if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.RightFacing)
+                if (direction.X > 0)
                 {
-                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.LeftFacing;
-                }
-                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.LeftFacing)
+                    return ref detectionBoxes[0];
+                } else if (direction.X < 0)
                 {
-                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.RightFacing;
-                }
-                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.UpFacing)
+                    return ref detectionBoxes[1];
+                } else if (direction.Y > 0)
                 {
-                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.DownFacing;
-                }
-                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.DownFacing)
+                    return ref detectionBoxes[2];
+                } else
                 {
-                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.UpFacing;
+                    return ref detectionBoxes[3];
                 }
-
-                return;
-            }
-
-            if (newDirection.X > 0)
-            {
-                goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.RightFacing;
-            }
-            else if (newDirection.X < 0)
-            {
-                goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.LeftFacing;
-            }
-            else if (newDirection.Y > 0)
-            {
-                goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.DownFacing;
-            }
-            else
-            {
-                goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.UpFacing;
             }
         }
 
-        public void TakeDamage()
+        public Vector2 Direction
         {
-
+            set => direction = value;
         }
 
-        public void Attack()
+        private void ConstructDetectionBoxes()
         {
+            //left box
+            detectionBoxes[0] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
+            detectionBoxes[0].Inflate(-RoomUtilities.BLOCK_SIDE * RoomUtilities.NUM_BLOCKS_X, 0);
 
-        }
+            //right box
+            detectionBoxes[1] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
+            detectionBoxes[1].Inflate(RoomUtilities.BLOCK_SIDE * RoomUtilities.NUM_BLOCKS_X, 0);
 
-        public void Die()
-        {
-            this.goriyaSprite.Erase();
+            //top box
+            detectionBoxes[2] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
+            detectionBoxes[2].Inflate(0, -RoomUtilities.BLOCK_SIDE * RoomUtilities.NUM_BLOCKS_Y);
+
+            //bottom box
+            detectionBoxes[3] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
+            detectionBoxes[3].Inflate(0, RoomUtilities.BLOCK_SIDE * RoomUtilities.NUM_BLOCKS_Y);
         }
     }
 }

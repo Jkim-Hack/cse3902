@@ -5,6 +5,7 @@ using cse3902.Collision.Collidables;
 using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
+using cse3902.Projectiles;
 using cse3902.Constants;
 using cse3902.Sounds;
 using cse3902.ParticleSystem;
@@ -14,6 +15,7 @@ namespace cse3902.Entities.Enemies
     public class Goriya : IEntity
     {
         private GoriyaSprite goriyaSprite;
+        private GoriyaStateMachine goriyaStateMachine;
         private readonly Game1 game;
 
         private Vector2 direction;
@@ -35,6 +37,8 @@ namespace cse3902.Entities.Enemies
             previousCenter = center;
 
             goriyaSprite = (GoriyaSprite)EnemySpriteFactory.Instance.CreateGoriyaSprite(game.SpriteBatch, center);
+            goriyaStateMachine = new GoriyaStateMachine(goriyaSprite);
+
             speed = MovementConstants.GoriyaSpeed;
             travelDistance = 0;
             shoveDistance = MovementConstants.GoriyaShoveDistance;
@@ -46,7 +50,16 @@ namespace cse3902.Entities.Enemies
 
         public ref Rectangle Bounds
         {
-            get => ref goriyaSprite.Box;
+            get
+            {
+                if (goriyaStateMachine.IsTriggered)
+                {
+                    return ref goriyaSprite.Box;
+                } else
+                {
+                    return ref goriyaStateMachine.DetectionBox;
+                }
+            }
         }
 
         public void Attack()
@@ -66,6 +79,7 @@ namespace cse3902.Entities.Enemies
                 this.direction = direction;
             }
             ChangeSpriteDirection(this.direction);
+            goriyaStateMachine.Direction = this.direction;
 
         }
 
@@ -78,6 +92,12 @@ namespace cse3902.Entities.Enemies
             }
             //this.goriyaSprite.Damaged = true;
             this.collidable.DamageDisabled = true;
+        }
+
+        public void ThrowBoomerang()
+        {
+            this.goriyaStateMachine.IsTriggered = true;
+            IProjectile boomerang = ProjectileHandler.Instance.CreateEnemyBoomerangItem(game.SpriteBatch, goriyaSprite, Direction);
         }
 
         public void Die()
@@ -118,6 +138,7 @@ namespace cse3902.Entities.Enemies
             UpdateDamage(gameTime); 
 	        this.collidable.ResetCollisions();
             if (this.shoveDistance > 0) ShoveMovement();
+            else if (goriyaStateMachine.IsTriggered) return;
             else RegularMovement(gameTime);
         }
 
