@@ -21,6 +21,11 @@ namespace cse3902.Constants
         public const int DodongoMaxTravel = 100;
         public const int DodongoShoveDistance = DefaultShoveDistance;
 
+        public const float BoggusSpeed = 25.0f;
+        public const float BoggusDelay = .2f;
+        public const int BoggusMaxTravel = 150;
+        public const int BoggusShoveDistance = DefaultShoveDistance;
+
         public const float GelSpeed = 25.0f;
         public const int GelMaxTravel = 100;
         public const int GelShoveDistance = DefaultShoveDistance;

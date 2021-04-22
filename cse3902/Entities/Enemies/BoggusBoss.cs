@@ -38,9 +38,9 @@ namespace cse3902.Entities.Enemies
             boggusBossSprite = (BoggusBossSprite)EnemySpriteFactory.Instance.CreateBoggusBossSprite(game.SpriteBatch, center);
             boggusBossStateMachine = new BoggusBossStateMachine(boggusBossSprite, game.SpriteBatch, this.center);
             direction = new Vector2(1, 0);
-            speed = 10.0f;
-            travelDistance = 20;
-            shoveDistance = -10;
+            speed = MovementConstants.BoggusSpeed;
+            travelDistance = MovementConstants.BoggusMaxTravel;
+            shoveDistance = MovementConstants.BoggusShoveDistance;
             shoveDirection = new Vector2(1, 0);
             pauseAnim = false;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
@@ -61,7 +61,6 @@ namespace cse3902.Entities.Enemies
 
         public void ChangeDirection(Vector2 direction)
         {
-            //todo: make a more fleshed out implementation for this
             this.direction = -this.direction;
         }
 
@@ -86,7 +85,7 @@ namespace cse3902.Entities.Enemies
 
         public void BeShoved()
         {
-            this.shoveDistance = 20;
+            this.shoveDistance = MovementConstants.BoggusShoveDistance;
             this.pauseAnim = true;
         }
 
@@ -136,7 +135,7 @@ namespace cse3902.Entities.Enemies
             if (travelDistance <= 0)
             {
                 direction.X *= -1;
-                travelDistance = 150;
+                travelDistance = MovementConstants.BoggusMaxTravel;
             }
             else
             {
@@ -185,7 +184,7 @@ namespace cse3902.Entities.Enemies
             get => SettingsValues.Instance.GetValue(SettingsValues.Variable.BoggusDamage);
         }
 
-    public int Health
+        public int Health
         {
             get => this.health;
             set
