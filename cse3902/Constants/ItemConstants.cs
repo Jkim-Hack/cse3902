@@ -42,7 +42,7 @@ namespace cse3902.Constants
 
         public const int BombRows = 2;
         public const int BombCols = 1;
-        public const float BombDelay = 0.8f;
+        public const float BombDelay = 2f;
 
         public const int BoomerangTravelDistance = 35;
         public const float BoomerangSpeed = 1.25f;
