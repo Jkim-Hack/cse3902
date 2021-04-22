@@ -21,7 +21,6 @@ namespace cse3902.Constants
         public const int DodongoMaxTravel = 100;
         public const int DodongoShoveDistance = DefaultShoveDistance;
 
-
         public const float GelSpeed = 25.0f;
         public const int GelMaxTravel = 100;
         public const int GelShoveDistance = DefaultShoveDistance;
@@ -47,6 +46,14 @@ namespace cse3902.Constants
         public const float WallMasterSpeed = 30.0f;
         public const int WallMasterMaxTravel = 125;
         public const int WallMasterShoveDistance = DefaultShoveDistance;
+
+        public const float RopeSpeed = 30.0f;
+        public const int RopeMaxTravel = 100;
+        public const int RopeShoveDistance = DefaultShoveDistance;
+
+        public const float ZolSpeed = 40.0f;
+        public const int ZolMaxTravel = 120;
+        public const int ZolShoveDistance = DefaultShoveDistance;
 
         public const int BlockPushThreshold = 20;
         public const float BlockPushSpeed = .5f;
