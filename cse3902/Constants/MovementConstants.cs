@@ -16,6 +16,12 @@ namespace cse3902.Constants
         public const int AquamentusFireballChangeX = 15;
         public const int AquamentusFireballSpread = 3;
 
+        public const float DodongoSpeed = 25.0f;
+        public const float DodongoDelay = .2f;
+        public const int DodongoMaxTravel = 100;
+        public const int DodongoShoveDistance = DefaultShoveDistance;
+
+
         public const float GelSpeed = 25.0f;
         public const int GelMaxTravel = 100;
         public const int GelShoveDistance = DefaultShoveDistance;
