@@ -71,6 +71,9 @@ namespace cse3902.Entities
             } else if (type == InventoryManager.ItemType.Fairy)
             {
                 linkState.Health = linkState.TotalHealth;
+            } else if (type == InventoryManager.ItemType.Clock)
+            {
+                RoomEnemies.Instance.KillAll();
             }
 
             //pickup animation if certain item
