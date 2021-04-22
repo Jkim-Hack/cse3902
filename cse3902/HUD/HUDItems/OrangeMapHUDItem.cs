@@ -26,6 +26,8 @@ namespace cse3902.HUD
         private int offsetX;
         private int offsetY;
 
+        private int previousZ;
+
         public OrangeMapHUDItem(Game1 game, Texture2D map, Texture2D roomsTexture)
         {
             this.game = game;
@@ -36,18 +38,30 @@ namespace cse3902.HUD
             this.offsetX = (int)(DimensionConstants.OriginalWindowWidth / 2.25f);
             this.offsetY = (int)(DimensionConstants.OriginalWindowHeight / 2.15f);
 
+            this.previousZ = 0;
+
             this.scaledMapWidth = (int)(map.Bounds.Width / 1.3f);
             this.scaledMapHeight = (int)(map.Bounds.Height / 1.3f);
 
             this.mapPos = new Rectangle(0, 0, scaledMapWidth, scaledMapHeight);
 
             this.roomFrames = SpriteUtilities.distributeFrames(16, 1, 8, 8);
-            this.rooms = new Dictionary<Vector3, int>();
+
+            this.rooms = new Dictionary<Vector3, int>;
+            
         }
 
         public int Update(GameTime gameTime)
         {
-            if (game.RoomHandler.currentRoom.Z == 0) rooms[game.RoomHandler.currentRoom] = 0;
+            if ((int)game.RoomHandler.currentRoom.Z >= 0)
+            {
+                if ((int)game.RoomHandler.currentRoom.Z != previousZ)
+                {
+                    previousZ = (int)game.RoomHandler.currentRoom.Z;
+                    rooms.Clear();
+                }
+                rooms[game.RoomHandler.currentRoom] = 0;
+            }
 
             foreach(Vector3 coords in game.RoomHandler.rooms.Keys)
             {
@@ -61,9 +75,7 @@ namespace cse3902.HUD
         {
             /* List of doors is modeled as (bottom, left, top, right) */
             /* int represents a 4-bit integer, modeled as (left, right, top, bottom), with 0 meaning closed and 1 meaning open */
-            int doors = 0;
-            doors = IsOpen(roomDoors[1], 0) | IsOpen(roomDoors[3], 1) | IsOpen(roomDoors[2], 2) | IsOpen(roomDoors[0], 3);
-            return doors;
+            return IsOpen(roomDoors[1], 0) | IsOpen(roomDoors[3], 1) | IsOpen(roomDoors[2], 2) | IsOpen(roomDoors[0], 3);
         }
 
         private int IsOpen(IDoor door, int index)
@@ -76,7 +88,7 @@ namespace cse3902.HUD
         {
             DrawMap();
             DrawRooms();
-            if (game.RoomHandler.currentRoom.Z == 0) DrawCurrentRoom();
+            if (game.RoomHandler.currentRoom.Z >= 0) DrawCurrentRoom();
         }
 
         private void DrawMap()
