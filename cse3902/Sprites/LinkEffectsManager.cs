@@ -74,7 +74,7 @@ namespace cse3902.Sprites
             DrawDeathAnim(roomWidth, roomHeight);
         }
 
-        private void DrawGameWinAnim(int width, int height) /* position will need to be changed when triforce is moved */
+        private void DrawGameWinAnim(int width, int height)
         {
             if (gameWinFlashDelay > 0 && gameWinFlashDelay <= 60 && ((gameWinFlashDelay / 5) % 2 == 0))
             {

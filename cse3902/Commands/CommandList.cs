@@ -36,12 +36,11 @@ namespace cse3902.Commands
                 {new Keys[] {Keys.R}, new ResetCommand(game)},
                 {new Keys[] {Keys.Up, Keys.Left, Keys.Down, Keys.Right, Keys.W, Keys.A, Keys.S, Keys.D}, new LinkMovementCommand(game) },
                 {new Keys[] {Keys.D1, Keys.D2}, new LinkAttackItemCommand(game) },
-                {new Keys[] {Keys.D3, Keys.D4, Keys.D5}, new BuyArrowsCommand(game) },
-                {new Keys[] {Keys.D7, Keys.D8, Keys.D9, Keys.D0}, new LinkChangeWeaponCommand(game) },
                 {new Keys[] {Keys.G, Keys.C, Keys.V, Keys.B}, new MoveCameraCommand(game) },
                 {new Keys[] {Keys.E, Keys.P}, new PauseCommand(game)},
                 {new Keys[] {Keys.K, Keys.L, Keys.H, Keys.J}, new ChangeHealthCommand(game)},
                 {new Keys[] {Keys.Space}, new ClearEnemiesCommand(game)},
+                {new Keys[] {Keys.O}, new HitboxCommand(game)},
             };
 
             leftMouseClickCommandMap = new Dictionary<Rectangle[], ICommand>()

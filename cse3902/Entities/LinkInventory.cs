@@ -17,6 +17,7 @@ namespace cse3902.Entities
         private SpriteBatch batch;
         private IItem AnimationItem;
         private IProjectile weapon;
+        private IProjectile boomerang;
 
         public LinkInventory(Game1 game, LinkStateMachine linkState)
         {
@@ -68,6 +69,9 @@ namespace cse3902.Entities
             } else if (type == InventoryManager.ItemType.Fairy)
             {
                 linkState.Health = linkState.TotalHealth;
+            } else if (type == InventoryManager.ItemType.Clock)
+            {
+                RoomEnemies.Instance.KillAll();
             }
             //pickup animation if certain item
             if (type == InventoryManager.ItemType.Bow || InventoryUtilities.SwordsList.Contains(type))
@@ -93,7 +97,6 @@ namespace cse3902.Entities
         private void HandleTriforceItem(IItem item)
         {
             linkState.Health = linkState.TotalHealth;
-            InventoryManager.Instance.RemoveFromInventory(InventoryManager.ItemType.Compass);
             GameStateManager.Instance.LinkPickupItem(601, true);
             VisionBlocker.Instance.Triforce = true;
             Vector2 startingPos = linkState.GameWonAnimation();
@@ -119,7 +122,11 @@ namespace cse3902.Entities
                     projectileHandler.CreateArrowItem(batch, startingPos, direction);
                     break;
                 case InventoryManager.ItemType.Boomerang:
-                    projectileHandler.CreateBoomerangItem(batch, linkState.Sprite, direction);
+                    if (!RoomProjectiles.Instance.projectiles.Contains(boomerang))
+                    {
+                        boomerang = projectileHandler.CreateBoomerangItem(batch, linkState.Sprite, direction);
+                    }
+                    else return false;
                     break;
                 case InventoryManager.ItemType.Bomb:
                     projectileHandler.CreateBombItem(batch, startingPos);
