@@ -1,5 +1,4 @@
-﻿using System;
-using cse3902.Entities.Enemies;
+﻿using cse3902.Entities.Enemies;
 using cse3902.Interfaces;
 using cse3902.Rooms;
 using Microsoft.Xna.Framework;
@@ -10,6 +9,7 @@ namespace cse3902.Spawners
     {
         private Vector2 position;
         private int maxCount;
+        private int easyCount;
         private int currCount;
         private Rectangle destination;
 
@@ -21,7 +21,8 @@ namespace cse3902.Spawners
         public GoriyaSpawner(Game1 game, Vector2 startingPos, int count)
         {
             this.position = startingPos;
-            this.maxCount = count;
+            easyCount = count;
+            this.maxCount = count * SettingsValues.Instance.GetValue(SettingsValues.Variable.GoriyaSpawnerCountMultiplier);
             this.currCount = maxCount;
             this.game = game;
             spawnDelay = SettingsValues.Instance.GetValue(SettingsValues.Variable.GoriyaSpawnDelay);
@@ -56,6 +57,7 @@ namespace cse3902.Spawners
 
         public void Reset()
         {
+            this.maxCount = easyCount * SettingsValues.Instance.GetValue(SettingsValues.Variable.GoriyaSpawnerCountMultiplier);
             this.currCount = this.maxCount;
             spawnDelay = SettingsValues.Instance.GetValue(SettingsValues.Variable.GoriyaSpawnDelay);
             remainingSpawnDelay = 0;

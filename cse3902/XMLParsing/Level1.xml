@@ -199,11 +199,6 @@
 				<xloc>0</xloc>
 				<yloc>6</yloc>
 			</item>
-			<item> <!-- DO NOT REMOVE THIS ITEM (bow will be unable to shoot otherwise once it's picked up even if link has rupees) -->
-				<type>Arrow</type>
-				<xloc>5.5</xloc>
-				<yloc>6</yloc>
-			</item>
 			<item>
 				<type>Rupee</type>
 				<xloc>2</xloc>

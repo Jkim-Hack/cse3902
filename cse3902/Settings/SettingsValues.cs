@@ -12,7 +12,7 @@ namespace cse3902
         int numVariables;
         public enum Variable //TO ADD OR REMOVE A VARIABLE, MAKE A CHANGE HERE AND IN THE PRIVATE CONSTRUCTOR
         {
-            //enemy strength (enemy health and damage changes will only apply after a reset, projectiles apply immediately
+            //enemy strength (enemy health and damage changes will only apply after a reset, projectiles apply immediately)
             AquamentusHealth,
             AquamentusDamage,
             FireballDamage,
@@ -48,6 +48,10 @@ namespace cse3902
             EnemyTravelDistance,
             StandardEnemySpeed,
             Knockback,
+            StalfosSpawnerCountMultiplier,
+            GelSpawnerCountMultiplier,
+            GoriyaSpawnerCountMultiplier,
+            KeeseSpawnerCountMultiplier,
             //health change (over time)
             HealthChange,
             HealthChangeDelay,
@@ -79,7 +83,7 @@ namespace cse3902
         private SettingsValues()
         {
             variableSeparator = new List<int>();
-            List<int> settingCount = new List<int>() { 35, 2, 2, 1, 6, 5 }; //update this whenever adding/removing a variable {#EnemyStrength, #HealthChange, #Vision, #MinSwordHealth, #ItemDropRate, #Utilities}
+            List<int> settingCount = new List<int>() { 39, 2, 2, 1, 6, 5 }; //update this whenever adding/removing a variable {#EnemyStrength, #HealthChange, #Vision, #MinSwordHealth, #ItemDropRate, #Utilities}
             numVariables = 0;
             foreach (int val in settingCount)
             {
@@ -164,6 +168,10 @@ namespace cse3902
             varToListInt.Add(Variable.Knockback, new List<int>() { 30, 20, 10 });
             varToListInt.Add(Variable.EnemyTravelDistance, new List<int>() { 125, 125, 125 });
             varToListInt.Add(Variable.StandardEnemySpeed, new List<int>() { 20, 25, 40 });
+            varToListInt.Add(Variable.StalfosSpawnerCountMultiplier, new List<int>() { 1, 3, 4 });
+            varToListInt.Add(Variable.KeeseSpawnerCountMultiplier, new List<int>() { 1, 2, 4 });
+            varToListInt.Add(Variable.GoriyaSpawnerCountMultiplier, new List<int>() { 1, 2, 3 });
+            varToListInt.Add(Variable.GelSpawnerCountMultiplier, new List<int>() { 1, 2, 4 });
         }
 
         public int GetValue(Variable variable)
