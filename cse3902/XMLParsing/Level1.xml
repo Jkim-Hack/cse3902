@@ -1442,7 +1442,7 @@
 			<enemy>
 				<type>Wallmaster</type>
 				<xloc>13</xloc>
-				<yloc>1</yloc>
+				<yloc>2</yloc>
 			</enemy>
 			<enemy>
 				<type>Wallmaster</type>
