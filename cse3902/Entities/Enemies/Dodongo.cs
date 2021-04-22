@@ -82,17 +82,15 @@ namespace cse3902.Entities.Enemies
             this.travelDistance = 0;
 
             this.Health -= damage;
-            if (this.Health > 0)
-            {
-                SoundFactory.PlaySound(SoundFactory.Instance.enemyHit);
-            }
+            SoundFactory.PlaySound(SoundFactory.Instance.bossHurt);
+            
 
             this.collidable.DamageDisabled = true;
         }
 
         public void Die()
         {
-            SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
+            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat);
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.D);
             if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
