@@ -64,7 +64,7 @@ namespace cse3902.Constants
 
         public const float EnemyDeathParticleVelocityScale = 0.4f;
 
-        public const int EnemyDeathParticleColorMin = 150;
+        public const int EnemyDeathParticleColorMin = 256;
         public const int EnemyDeathParticleColorMax = 256;
 
         /* Fireball emitter */
