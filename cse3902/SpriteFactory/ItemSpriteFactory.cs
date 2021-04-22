@@ -301,6 +301,8 @@ namespace cse3902.SpriteFactory
             return new CloudAnimationSprite(spriteBatch, textures["cloud"], startingPos);
         }
 
+
+
         public void SpawnRandomItem(SpriteBatch spriteBatch, Vector2 startingPos, IEntity.EnemyType type)
         {
             Random rd = new Random();
