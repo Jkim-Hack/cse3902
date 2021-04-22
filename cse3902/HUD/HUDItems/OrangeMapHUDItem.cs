@@ -21,12 +21,12 @@ namespace cse3902.HUD
         private Texture2D roomsTexture;
         private Rectangle[] roomFrames;
 
-        private Dictionary<Vector3, int> rooms;
+        private Dictionary<Vector3, int>[] rooms;
 
         private int offsetX;
         private int offsetY;
 
-        private int previousZ;
+        private int currentZ;
 
         public OrangeMapHUDItem(Game1 game, Texture2D map, Texture2D roomsTexture)
         {
@@ -38,8 +38,6 @@ namespace cse3902.HUD
             this.offsetX = (int)(DimensionConstants.OriginalWindowWidth / 2.25f);
             this.offsetY = (int)(DimensionConstants.OriginalWindowHeight / 2.15f);
 
-            this.previousZ = 0;
-
             this.scaledMapWidth = (int)(map.Bounds.Width / 1.3f);
             this.scaledMapHeight = (int)(map.Bounds.Height / 1.3f);
 
@@ -47,25 +45,18 @@ namespace cse3902.HUD
 
             this.roomFrames = SpriteUtilities.distributeFrames(16, 1, 8, 8);
 
-            this.rooms = new Dictionary<Vector3, int>;
-            
+            this.rooms = new Dictionary<Vector3, int>[4];
+            for (int i = 0; i < this.rooms.Length; i++) this.rooms[i] = new Dictionary<Vector3, int>();
         }
 
         public int Update(GameTime gameTime)
         {
-            if ((int)game.RoomHandler.currentRoom.Z >= 0)
-            {
-                if ((int)game.RoomHandler.currentRoom.Z != previousZ)
-                {
-                    previousZ = (int)game.RoomHandler.currentRoom.Z;
-                    rooms.Clear();
-                }
-                rooms[game.RoomHandler.currentRoom] = 0;
-            }
+            currentZ = (int)game.RoomHandler.currentRoom.Z / 2;
+            if ((game.RoomHandler.currentRoom.Z) >= 0) rooms[currentZ][game.RoomHandler.currentRoom] = 0;
 
             foreach(Vector3 coords in game.RoomHandler.rooms.Keys)
             {
-                if (rooms.ContainsKey(coords)) rooms[coords] = GetRoomIndex(game.RoomHandler.rooms[coords].Doors);
+                if (rooms[currentZ].ContainsKey(coords)) rooms[currentZ][coords] = GetRoomIndex(game.RoomHandler.rooms[coords].Doors);
             }
 
             return 0;
@@ -98,10 +89,10 @@ namespace cse3902.HUD
 
         private void DrawRooms()
         {
-            foreach (Vector3 coords in rooms.Keys)
+            foreach (Vector3 coords in rooms[currentZ].Keys)
             {
                 Rectangle destination = OrangeMapConstants.CalculatePos(coords, OrangeMapConstants.RoomSize, scaledMapWidth, scaledMapHeight);
-                HUDUtilities.DrawTexture(game, roomsTexture, destination, offsetX, offsetY, HUDUtilities.OrangeMapRoomLayer, roomFrames[rooms[coords]]);
+                HUDUtilities.DrawTexture(game, roomsTexture, destination, offsetX, offsetY, HUDUtilities.OrangeMapRoomLayer, roomFrames[rooms[currentZ][coords]]);
             }
         }
 
