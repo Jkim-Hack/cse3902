@@ -35,11 +35,6 @@ namespace cse3902.Sprites
 
         public ref Rectangle Box => throw new NotImplementedException();
 
-        public void Erase()
-        {
-            spriteFont.Texture.Dispose();
-        }
-
         public int Update(GameTime gameTime)
         {
             return 0;

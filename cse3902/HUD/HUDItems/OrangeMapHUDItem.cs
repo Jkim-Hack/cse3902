@@ -5,7 +5,6 @@ using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System;
 
 namespace cse3902.HUD
 {
@@ -101,8 +100,6 @@ namespace cse3902.HUD
             Rectangle destination = OrangeMapConstants.CalculatePos(game.RoomHandler.currentRoom, OrangeMapConstants.CurrentRoomSize, scaledMapWidth, scaledMapHeight);
             HUDUtilities.DrawRectangle(game, destination, OrangeMapConstants.CurrentRoomColor, offsetX, offsetY, HUDUtilities.OrangeMapCurrentRoomLayer);
         }
-
-        public void Erase() {} // needs to be deleted once isprite is updated
 
         public Vector2 Center {
 

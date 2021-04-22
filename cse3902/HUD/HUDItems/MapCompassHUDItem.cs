@@ -1,9 +1,7 @@
-using cse3902.Interfaces;
 using cse3902.Constants;
 using cse3902.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace cse3902.HUD
 {
@@ -68,8 +66,6 @@ namespace cse3902.HUD
         {
             HUDUtilities.DrawTexture(game, compass, compassPos, offsetX, offsetY, HUDUtilities.MapCompassLabelLayer);
         }
-
-        public void Erase() {} // needs to be deleted once isprite is updated
 
         public Vector2 Center {
 

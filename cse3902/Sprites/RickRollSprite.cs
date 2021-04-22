@@ -91,10 +91,5 @@ namespace cse3902.Sprites
         {
             get => spriteTexture;
         }
-
-        public void Erase()
-        {
-            spriteTexture.Dispose();
-        }
     }
 }

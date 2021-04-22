@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using cse3902.Constants;
-using cse3902.Interfaces;
+﻿using cse3902.Constants;
 using cse3902.SpriteFactory;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -67,8 +64,6 @@ namespace cse3902.HUD.HUDItems
 
         public void Draw()
         {
-
-
             spriteBatch.Draw(uiSpriteTexture, position, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryHUDLayer);
 
             DrawCount(InventoryManager.Instance.inventory[InventoryManager.ItemType.Rupee], rupeeCountPosition);
@@ -80,11 +75,6 @@ namespace cse3902.HUD.HUDItems
                 DrawItems();
             }
 
-        }
-
-        public void Erase()
-        {
-            uiSpriteTexture.Dispose();
         }
 
         public int Update(GameTime gameTime)
@@ -115,8 +105,6 @@ namespace cse3902.HUD.HUDItems
                 Vector2 rightLocation = new Vector2(location.X + 2 * (numbersTexture.Width / 11), location.Y);
                 DrawDigit(rightDigit, rightLocation);
             }
-
-
         }
 
         private void DrawDigit(int digit, Vector2 location)
@@ -130,7 +118,6 @@ namespace cse3902.HUD.HUDItems
                 source = new Rectangle(0, 0, digitWidth, numbersTexture.Height);
             }
             spriteBatch.Draw(numbersTexture, Destination, source, Color.White, 0, new Vector2(0,0), SpriteEffects.None, HUDUtilities.InventoryItemLayer);
-            
         }
 
         private void DrawItems()

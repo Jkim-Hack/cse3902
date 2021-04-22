@@ -130,11 +130,6 @@ namespace cse3902.Projectiles
             return 0;
         }
 
-        public void Erase()
-        {
-            spriteTexture.Dispose();
-        }
-
         public bool AnimationComplete
         {
             get => animationComplete;

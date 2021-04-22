@@ -114,11 +114,6 @@ namespace cse3902.Projectiles
             set => this.speed = value;
         }
 
-        public void Erase()
-        {
-            spriteTexture.Dispose();
-        }
-
         public int Damage
         {
             get => SettingsValues.Instance.GetValue(SettingsValues.Variable.FireballDamage);

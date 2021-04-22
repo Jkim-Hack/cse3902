@@ -102,11 +102,6 @@ namespace cse3902.Projectiles
             return val;
         }
 
-        public void Erase()
-        {
-            spriteTexture.Dispose();
-        }
-
         public ref Rectangle Box
         {
             get

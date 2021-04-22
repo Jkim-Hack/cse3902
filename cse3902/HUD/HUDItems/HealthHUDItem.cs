@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using cse3902.Constants;
 using cse3902.Interfaces;
 using cse3902.Sprites;
@@ -68,11 +67,6 @@ namespace cse3902.HUD.HUDItems
             spriteBatch.Draw(uiSpriteTexture, origin, null, Color.White, 0, new Vector2(0,0), 1f, SpriteEffects.None, HUDUtilities.HealthHUDLayer);
             DrawHeartDisplay();
         }
-
-        public void Erase()
-        {
-            uiSpriteTexture.Dispose();
-	    }
 
         public int Update(GameTime gameTime)
         {
