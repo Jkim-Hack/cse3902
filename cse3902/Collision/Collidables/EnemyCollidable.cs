@@ -1,6 +1,7 @@
 ﻿using System;
 using cse3902.Interfaces;
 using System.Collections;
+using cse3902.Projectiles;
 using cse3902.Rooms;
 using cse3902.Entities.Enemies;
 using Microsoft.Xna.Framework;
@@ -102,6 +103,11 @@ namespace cse3902.Collision.Collidables
 
         private void SwordCollision(ICollidable collidableObject)
         {
+            if (this.enemy is Dodongo)
+            {
+                return;
+            }
+
             this.enemy.TakeDamage(collidableObject.DamageValue);
             if (this.enemy.Health <= 0)
             {
@@ -119,6 +125,20 @@ namespace cse3902.Collision.Collidables
 
         private void ProjectileCollision(ICollidable collidableObject)
         {
+            if (((ProjectileCollidable)collidableObject).IsEnemy)
+            {
+                return;
+            }
+
+            if (this.enemy is Dodongo)
+            {
+                if (((ProjectileCollidable)collidableObject).Projectile is BombProjectile)
+                {
+                    this.enemy.TakeDamage(collidableObject.DamageValue);
+                }
+                return;
+            }
+
             this.enemy.TakeDamage(collidableObject.DamageValue);
             if (this.enemy.Health <= 0)
             {
@@ -182,8 +202,5 @@ namespace cse3902.Collision.Collidables
         {
             get => enemy;
         }
-
-        
-        
     }
 }
