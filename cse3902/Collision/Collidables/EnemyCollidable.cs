@@ -130,14 +130,11 @@ namespace cse3902.Collision.Collidables
                 return;
             }
 
-            if (this.enemy is Dodongo)
+            if (this.enemy is Dodongo && !(((ProjectileCollidable)collidableObject).Projectile is BombProjectile))
             {
-                if (((ProjectileCollidable)collidableObject).Projectile is BombProjectile)
-                {
-                    this.enemy.TakeDamage(collidableObject.DamageValue);
-                }
                 return;
             }
+ 
 
             this.enemy.TakeDamage(collidableObject.DamageValue);
             if (this.enemy.Health <= 0)
