@@ -14,24 +14,10 @@ namespace cse3902.SpriteFactory
     {
         private SpriteBatch spriteBatch;
 
-        private Texture2D sword;
-        private Texture2D arrow;
-        private Texture2D bomb;
-        private Texture2D boomerang;
-        private Texture2D bow;
-        private Texture2D clock;
-        private Texture2D fairy;
-        private Texture2D compass;
-        private Texture2D heart;
-        private Texture2D heartcont;
-        private Texture2D triforce;
-        private Texture2D key;
-        private Texture2D map;
-        private Texture2D rupee;
-        private Texture2D cloud;
+        private Dictionary<String,Texture2D> textures;
 
         private Dictionary<IEntity.EnemyType, List<InventoryManager.ItemType>> dropList;
-        private Dictionary<IEntity.EnemyType, int> dropRate;
+        private Dictionary<IEntity.EnemyType, SettingsValues.Variable> dropRate;
         private int killCounter;
 
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
@@ -47,14 +33,15 @@ namespace cse3902.SpriteFactory
         // https://www.zeldadungeon.net/zelda-runners-examining-random-and-forced-drops-and-chatting-with-zant/
         private ItemSpriteFactory()
         {
-            dropRate = new Dictionary<IEntity.EnemyType, int>();
+            textures = new Dictionary<String, Texture2D>();
+            dropRate = new Dictionary<IEntity.EnemyType, SettingsValues.Variable>();
             dropList = new Dictionary<IEntity.EnemyType, List<InventoryManager.ItemType>>();
 
-            dropRate.Add(IEntity.EnemyType.A, 31);
-            dropRate.Add(IEntity.EnemyType.B, 41);
-            dropRate.Add(IEntity.EnemyType.C, 59);
-            dropRate.Add(IEntity.EnemyType.D, 41);
-            dropRate.Add(IEntity.EnemyType.X, 9);
+            dropRate.Add(IEntity.EnemyType.A, SettingsValues.Variable.ItemDropA);
+            dropRate.Add(IEntity.EnemyType.B, SettingsValues.Variable.ItemDropB);
+            dropRate.Add(IEntity.EnemyType.C, SettingsValues.Variable.ItemDropC);
+            dropRate.Add(IEntity.EnemyType.D, SettingsValues.Variable.ItemDropD);
+            dropRate.Add(IEntity.EnemyType.X, SettingsValues.Variable.ItemDropX);
 
             LoadA();
             LoadB();
@@ -155,143 +142,163 @@ namespace cse3902.SpriteFactory
         {
             this.spriteBatch = spriteBatch;
 
-            sword = content.Load<Texture2D>("SwordItem");
-            arrow = content.Load<Texture2D>("arrow");
-            bomb = content.Load<Texture2D>("bomb");
-            boomerang = content.Load<Texture2D>("boomerang");
-            bow = content.Load<Texture2D>("bow");
-            clock = content.Load<Texture2D>("clock");
-            fairy = content.Load<Texture2D>("fairy");
-            compass = content.Load<Texture2D>("compass");
-            heart = content.Load<Texture2D>("heart");
-            heartcont = content.Load<Texture2D>("heartcont");
-            triforce = content.Load<Texture2D>("triforce");
-            key = content.Load<Texture2D>("key");
-            map = content.Load<Texture2D>("map");
-            rupee = content.Load<Texture2D>("rupee");
-            cloud = content.Load<Texture2D>("cloud");
+            textures.Add("sword", content.Load<Texture2D>("SwordItems"));
+            textures.Add("arrow", content.Load<Texture2D>("arrow"));
+            textures.Add("bluePotion", content.Load<Texture2D>("BluePotion"));
+            textures.Add("blueRing", content.Load<Texture2D>("BlueRing"));
+            textures.Add("bomb", content.Load<Texture2D>("bomb"));
+            textures.Add("boomerang", content.Load<Texture2D>("boomerang"));
+            textures.Add("bow", content.Load<Texture2D>("bow"));
+            textures.Add("clock", content.Load<Texture2D>("clock"));
+            textures.Add("fairy", content.Load<Texture2D>("fairy"));
+            textures.Add("compass", content.Load<Texture2D>("compass"));
+            textures.Add("heart", content.Load<Texture2D>("heart"));
+            textures.Add("heartcont", content.Load<Texture2D>("heartcont"));
+            textures.Add("triforce", content.Load<Texture2D>("triforce"));
+            textures.Add("key", content.Load<Texture2D>("key"));
+            textures.Add("magicBook", content.Load<Texture2D>("MagicBook"));
+            textures.Add("map", content.Load<Texture2D>("map"));
+            textures.Add("rupee", content.Load<Texture2D>("rupee"));
+            textures.Add("cloud", content.Load<Texture2D>("cloud"));
         }
 
         // Only used for HUD
         public ISprite CreateArrowItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            IItem add = new ArrowItem(spriteBatch, arrow, startingPos, new Vector2(0, 1));
+            IItem add = new ArrowItem(spriteBatch, textures["arrow"], startingPos, new Vector2(0, 1));
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
-        public IItem CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos)
+        public IItem CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept, int type)
         {
-            IItem add = new SwordItem(this.spriteBatch, sword, startingPos, new Vector2(0, 1));
+            IItem add = new SwordItem(this.spriteBatch, textures["sword"], startingPos, kept, resetKept, type);
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
+        public ISprite CreateBluePotionItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
+        {
+            IItem add = new BluePotionItem(spriteBatch, textures["bluePotion"], startingPos, kept, resetKept);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+        public ISprite CreateBlueRingItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
+        {
+            IItem add = new BlueRingItem(spriteBatch, textures["blueRing"], startingPos, kept, resetKept);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
         public ISprite CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new BombItem(spriteBatch, bomb, startingPos, kept, resetKept);
+            IItem add = new BombItem(spriteBatch, textures["bomb"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
         public ISprite CreateBoomerangItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new BoomerangItem(spriteBatch, boomerang, startingPos, kept, resetKept);
+            IItem add = new BoomerangItem(spriteBatch, textures["boomerang"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
         public ISprite CreateBoomerangItem(Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new BoomerangItem(spriteBatch, boomerang, startingPos, kept, resetKept);
+            IItem add = new BoomerangItem(spriteBatch, textures["boomerang"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
         public ISprite CreateBowItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new BowItem(spriteBatch, bow, startingPos, kept, resetKept);
+            IItem add = new BowItem(spriteBatch, textures["bow"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
         public ISprite CreateClockItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new ClockItem(spriteBatch, clock, startingPos, kept, resetKept);
+            IItem add = new ClockItem(spriteBatch, textures["clock"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
         public ISprite CreateCompassItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new CompassItem(spriteBatch, compass, startingPos, kept, resetKept);
+            IItem add = new CompassItem(spriteBatch, textures["compass"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
         public ISprite CreateFairyItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new FairyItem(spriteBatch, fairy, startingPos, kept, resetKept);
+            IItem add = new FairyItem(spriteBatch, textures["fairy"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
         public ISprite CreateHeartContainerItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new HeartContainerItem(spriteBatch, heartcont, startingPos, kept, resetKept);
+            IItem add = new HeartContainerItem(spriteBatch, textures["heartcont"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
         public ISprite CreateHeartContainerItem(Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new HeartContainerItem(spriteBatch, heartcont, startingPos, kept, resetKept);
+            IItem add = new HeartContainerItem(spriteBatch, textures["heartcont"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
         public ISprite CreateHeartItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new HeartItem(spriteBatch, heart, startingPos, kept, resetKept);
+            IItem add = new HeartItem(spriteBatch, textures["heart"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
         public ISprite CreateKeyItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new KeyItem(spriteBatch, key, startingPos, kept, resetKept);
+            IItem add = new KeyItem(spriteBatch, textures["key"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
         public ISprite CreateKeyItem(Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new KeyItem(spriteBatch, key, startingPos, kept, resetKept);
+            IItem add = new KeyItem(spriteBatch, textures["key"], startingPos, kept, resetKept);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+        public IItem CreateMagicBookItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
+        {
+            IItem add = new MagicBookItem(this.spriteBatch, textures["magicBook"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
         public ISprite CreateMapItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new MapItem(spriteBatch, map, startingPos, kept, resetKept);
+            IItem add = new MapItem(spriteBatch, textures["map"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
         public IItem CreateRupeeItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new RupeeItem(spriteBatch, rupee, startingPos, kept, resetKept);
+            IItem add = new RupeeItem(spriteBatch, textures["rupee"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
         public ISprite CreateTriforceItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
-            IItem add = new TriforceItem(spriteBatch, triforce, startingPos, kept, resetKept);
+            IItem add = new TriforceItem(spriteBatch, textures["triforce"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
 
         public ISprite CreateCloudAnimation(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            return new CloudAnimationSprite(spriteBatch, cloud, startingPos);
+            return new CloudAnimationSprite(spriteBatch, textures["cloud"], startingPos);
         }
 
         public void SpawnRandomItem(SpriteBatch spriteBatch, Vector2 startingPos, IEntity.EnemyType type)
@@ -299,7 +306,7 @@ namespace cse3902.SpriteFactory
             Random rd = new Random();
             int num = rd.Next(0, 100);
 
-            if (num < dropRate[type])
+            if (num < SettingsValues.Instance.GetValue(dropRate[type]))
             {
                 switch (dropList[type][killCounter % 10])
                 {

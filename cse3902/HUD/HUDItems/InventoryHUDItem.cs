@@ -7,43 +7,41 @@ using cse3902.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static cse3902.HUD.InventoryManager;
+using cse3902.Sprites;
 
 namespace cse3902.HUD.HUDItems
 {
     public class InventoryHUDItem : IHUDItem
     {
         private Vector2 origin;
-        private Vector2 center;
         private Texture2D inventoryTexture;
         private Texture2D cursorTexture;
         private Rectangle box;
-        private Vector2 size;
         private SpriteBatch spriteBatch;
 
-        private int furthestWeaponX;
-        private Vector2 weaponStartOrigin;
 
         private (ItemType, ISprite) currentBItem;
         private Vector2 BItemOrigin;
 
-        private Dictionary<ItemType, ISprite> drawList;
+        private List<(Vector2 pos, ItemType type, InventoryItemSprite sprite)> inventoryItems;
 
         private Rectangle cursorBox;
         private ItemType cursorBoxItem;
+        private int cursorPos;
         private int fromRight;
 
         public InventoryHUDItem(Game1 game, Texture2D inventoryTexture, Texture2D cursorTexture, Vector2 origin)
         {
-            drawList = new Dictionary<ItemType, ISprite>();
             spriteBatch = game.SpriteBatch;
             this.inventoryTexture = inventoryTexture;
             this.cursorTexture = cursorTexture;
             this.origin = origin;
-            size = new Vector2(inventoryTexture.Width, inventoryTexture.Height);
-            box = new Rectangle(0, 0, (int)size.X, (int)size.Y);
+            Vector2 size = new Vector2(inventoryTexture.Width, inventoryTexture.Height);
+            box = new Rectangle((int)origin.X, (int) origin.Y, (int)size.X, (int)size.Y);
 
-            weaponStartOrigin = this.origin + HUDPositionConstants.WeaponStartHUDPosition;
-            furthestWeaponX = (int)weaponStartOrigin.X;
+            inventoryItems = new List<(Vector2, ItemType, InventoryItemSprite)>();
+            initiateInventoryItems();
+            Vector2 weaponStartOrigin = this.origin + HUDPositionConstants.WeaponStartHUDPosition;
 
             BItemOrigin = this.origin + HUDPositionConstants.BItemHUDPosition;
 
@@ -52,12 +50,42 @@ namespace cse3902.HUD.HUDItems
 	        currentBItem.Item2 = null;
 
             fromRight = 0;
+            cursorPos = 0;
+        }
+        
+        private void initiateInventoryItems()
+        {
+            inventoryItems.Clear();
+            int i = 0;
+            Vector2 origin = this.origin + HUDPositionConstants.WeaponStartHUDPosition;
+            foreach (ItemType type in InventoryUtilities.EquipableItemsList)
+            {
+                Vector2 current = origin + new Vector2((i % HUDPositionConstants.InventoryItemsCols) * HUDPositionConstants.InventoryGapX, (i / HUDPositionConstants.InventoryItemsCols) * HUDPositionConstants.InventoryGapY);
+                Vector2 loc = current;
+                if (HUDPositionConstants.InventoryIndicatorPos.ContainsKey(type))
+                {
+                    loc = HUDPositionConstants.InventoryIndicatorPos[type];
+                }
+                inventoryItems.Add((current, type, HUDSpriteFactory.Instance.CreateInventoryItemSprite(spriteBatch, loc, type)));
+                i++;
+            }
+            foreach (var pair in HUDPositionConstants.InventoryIndicatorPos)
+            {
+                if (!InventoryUtilities.EquipableItemsList.Contains(pair.Key))
+                {
+                    inventoryItems.Add((pair.Value, pair.Key, HUDSpriteFactory.Instance.CreateInventoryItemSprite(spriteBatch, pair.Value, pair.Key)));
+                }
+            }
+            inventoryItems.Add((HUDPositionConstants.BItemHUDPosition, ItemType.None, HUDSpriteFactory.Instance.CreateInventoryItemSprite(spriteBatch, HUDPositionConstants.BItemHUDPosition, ItemType.None)));
         }
 
         public Vector2 Center
         {
-            get => center;
-            set => center = value;
+            get => origin + new Vector2(box.Width/2, box.Height/2);
+            set
+            {
+                throw new System.Exception("Cannot set the center of InventoryHUDItem");
+            }
         }
 
         public Texture2D Texture
@@ -74,68 +102,28 @@ namespace cse3902.HUD.HUDItems
         // Call this to move the cursor arround
         public void MoveCursor(Vector2 direction)
         {
-            int originalRight = fromRight;
-            int originalX = cursorBox.X;
+            int totalSelectableItems = HUDPositionConstants.InventoryItemsRows * HUDPositionConstants.InventoryItemsCols;
+            int x = (int)direction.X;
+            int newCursorPos = (cursorPos + x + totalSelectableItems) % totalSelectableItems;
 
-            if (direction.X > 0 && fromRight < 2)
+            
+            while(newCursorPos != cursorPos)
             {
-                do
+                var item = inventoryItems[newCursorPos];
+                if (InventoryManager.Instance.canEquip(item.type))
                 {
-                    cursorBox.X += HUDPositionConstants.InventoryGap;
-                    if (fromRight == 1)
-                    {
-                        cursorBox.X += 8;
-                    }
-                    SelectCursorItem();
-                    fromRight++;
-                } while (fromRight < 2 && InventoryManager.Instance.ItemSlot == ItemType.None);
-
-                if (InventoryManager.Instance.ItemSlot == ItemType.None)
-                {
-                    cursorBox.X = originalX;
-                    fromRight = originalRight;
-                    SelectCursorItem();
-                }
-                else SoundFactory.PlaySound(SoundFactory.Instance.getRupee, 0.25f);
-            }
-            else if (direction.X < 0 && fromRight > 0)
-            {
-                do
-                {
-                    cursorBox.X -= HUDPositionConstants.InventoryGap;
-                    if (fromRight == 2)
-                    {
-                        cursorBox.X -= 8;
-                    }
-                    SelectCursorItem();
-                    fromRight--;
-                } while (fromRight > 0 && InventoryManager.Instance.ItemSlot == ItemType.None);
-
-                if (InventoryManager.Instance.ItemSlot == ItemType.None)
-                {
-                    cursorBox.X = originalX;
-                    fromRight = originalRight;
-                    SelectCursorItem();
-                } else SoundFactory.PlaySound(SoundFactory.Instance.getRupee, 0.25f);
-            }
-        }
-
-        // Call this when pressed B
-        private void SelectCursorItem()
-        {
-            foreach (var item in drawList)
-            {
-                if (cursorBox.Contains(item.Value.Box))
-                {
-                    cursorBoxItem = item.Key;
-                    if (item.Key == ItemType.Arrow)
-                    {
-                        cursorBoxItem = ItemType.Bow;
-                    }
-                    InventoryManager.Instance.ItemSlot = cursorBoxItem;
+                    InventoryManager.Instance.ItemSlot = item.type;
                     break;
                 }
+                newCursorPos = (newCursorPos + x + totalSelectableItems) % totalSelectableItems;
             }
+
+            if(newCursorPos != cursorPos)
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.getRupee, SoundConstants.InventoryItemSwitchTime);
+            }
+            cursorPos = newCursorPos;
+
         }
 
         public void Draw()
@@ -143,12 +131,12 @@ namespace cse3902.HUD.HUDItems
             spriteBatch.Draw(inventoryTexture, origin, null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryHUDLayer);
             if (GameStateManager.Instance.InMenu(false))
             {
-                spriteBatch.Draw(cursorTexture, new Vector2(cursorBox.X, cursorBox.Y), null, Color.White, 0, new Vector2(0, 0), 1f, SpriteEffects.None, HUDUtilities.InventoryItemLayer);
-                foreach (var sprite in drawList)
+                var cursorBoxItem = inventoryItems[cursorPos];
+                spriteBatch.Draw(cursorTexture, cursorBoxItem.pos, null, Color.White, 0, new Vector2(cursorTexture.Width/2, cursorTexture.Height / 2), 1f, SpriteEffects.None, HUDUtilities.InventoryItemLayer);
+                foreach (var item in inventoryItems)
                 {
-                    sprite.Value.Draw();
+                    item.sprite.Draw();
                 }
-                if (currentBItem.Item2 != null) currentBItem.Item2.Draw();
             }
 	    }
 
@@ -158,64 +146,39 @@ namespace cse3902.HUD.HUDItems
 
         public int Update(GameTime gameTime)
         {
-            foreach (var item in InventoryManager.Instance.inventory)
-            {
-                if (item.Value > 0)
-                {
-                    if (!drawList.ContainsKey(item.Key))
-                    {
-                        AddToDrawList(item.Key);
-                    }
-                }
-                else if (drawList.ContainsKey(item.Key))
-                {
-                    drawList.Remove(item.Key);
-                    if (InventoryManager.Instance.ItemSlot == item.Key)
-                    {
-                        InventoryManager.Instance.ItemSlot = ItemType.None;
-                    }
-                }
-            }
             CheckSelectedItem();
+            foreach (var item in inventoryItems)
+            {
+                if(InventoryManager.Instance.inventory[item.type] > 0)
+                {
+                    item.sprite.changeItem(item.type);
+                }
+                else
+                {
+                    item.sprite.changeItem(ItemType.None);
+                }
+                item.sprite.Update(gameTime);
+            }
             return 0;
         }
 
         private void CheckSelectedItem()
         {
             ItemType itemType = InventoryManager.Instance.ItemSlot;
-            if (itemType == ItemType.None)
+            var Bslot = inventoryItems[inventoryItems.Count - 1];
+            if (itemType != Bslot.type)
             {
-                currentBItem.Item1 = itemType;
-                currentBItem.Item2 = null;
-            }
-            else if (currentBItem.Item1 != itemType)
-            {
-                currentBItem.Item1 = itemType;
-                currentBItem.Item2 = ItemSpriteFactory.Instance.CreateItemWithType(itemType, BItemOrigin);
-            }
-        }
-
-        private void AddToDrawList(ItemType itemType)
-        {
-            if (itemType is ItemType.Bow)
-            {
-                // Adjust for absolute position for bow and arrow = 44
-                // Adjust for Bow being on the right block = 8
-                // Adjust for centers = 4 and 8
-                ISprite spriteBow = ItemSpriteFactory.Instance.CreateItemWithType(itemType, new Vector2(weaponStartOrigin.X + 44 + 8 + 4, weaponStartOrigin.Y + 8));
-                ISprite spriteArrow = ItemSpriteFactory.Instance.CreateItemWithType(ItemType.Arrow, new Vector2(weaponStartOrigin.X + 44 + 4, weaponStartOrigin.Y + 8));
-                drawList.Add(ItemType.Arrow, spriteArrow);
-                drawList.Add(ItemType.Bow, spriteBow);
-            }
-            else if (itemType is ItemType.Boomerang || itemType is ItemType.Bomb) // There's a candle but we can ignore that because its not in the dungeons
-            {
-                if ((furthestWeaponX + HUDPositionConstants.InventoryGap) == (weaponStartOrigin.X + 44))
+                Bslot.type = itemType;
+                Bslot.sprite.changeItem(itemType);
+                inventoryItems.RemoveAt(inventoryItems.Count - 1);
+                inventoryItems.Add(Bslot);
+                int totalSelectableItems = HUDPositionConstants.InventoryItemsRows * HUDPositionConstants.InventoryItemsCols;
+                for (int i = 0; i <totalSelectableItems; i++)
                 {
-                    furthestWeaponX += 16 + HUDPositionConstants.InventoryGap;
+                    if (inventoryItems[i].type == itemType) {
+                        cursorPos = i;
+                    }
                 }
-                ISprite sprite = ItemSpriteFactory.Instance.CreateItemWithType(itemType, new Vector2(furthestWeaponX + 4, weaponStartOrigin.Y + 8));
-                furthestWeaponX += HUDPositionConstants.InventoryGap;
-                drawList.Add(itemType, sprite);
             }
         }
 

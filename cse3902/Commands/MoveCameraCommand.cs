@@ -1,5 +1,6 @@
 ﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
+using cse3902.Constants;
 
 namespace cse3902.Commands
 {
@@ -14,7 +15,7 @@ namespace cse3902.Commands
 
         public void Execute(int id)
         {
-            id = id % 4;
+            id = id % CommandConstants.MoveCameraCommandCount;
             Vector2 direction;
             switch (id)
             {
@@ -35,7 +36,7 @@ namespace cse3902.Commands
                     break;
             }
 
-            game.Camera.MoveCamera(3*direction);
+            game.Camera.MoveCamera(CommandConstants.MoveCameraDistance * direction);
         }
 
         public void Unexecute()

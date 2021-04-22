@@ -1,6 +1,7 @@
 ﻿using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using cse3902.SpriteFactory;
+using cse3902.Constants;
 
 namespace cse3902.NPCs
 {
@@ -23,7 +24,7 @@ namespace cse3902.NPCs
             message = text;
             if (message.Length > 0)
             {
-                textSprite = new TextSprite(game, text, new Vector2(center.X - 75, center.Y - 30));
+                textSprite = new TextSprite(game, text, new Vector2(center.X - SpriteConstants.TextOffsetX, center.Y - SpriteConstants.TextOffsetY));
             }
             oldManSprite = NPCSpriteFactory.Instance.CreateOldManSprite(game.SpriteBatch, center);
         }

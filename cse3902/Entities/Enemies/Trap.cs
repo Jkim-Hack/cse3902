@@ -1,15 +1,16 @@
-﻿using System;
+﻿using cse3902.Collision;
+using cse3902.Collision.Collidables;
+using cse3902.Constants;
 using cse3902.Interfaces;
-using Microsoft.Xna.Framework;
-using cse3902.Sprites.EnemySprites;
 using cse3902.Rooms;
 using cse3902.SpriteFactory;
-using cse3902.Collision;
-using cse3902.Collision.Collidables;
+using cse3902.Sprites.EnemySprites;
+using Microsoft.Xna.Framework;
+using System;
 
 namespace cse3902.Entities.Enemies
 {
-    public class Trap: ITrap
+    public class Trap : ITrap
     {
         private TrapSprite trapSprite;
         private readonly Game1 game;
@@ -44,12 +45,11 @@ namespace cse3902.Entities.Enemies
             trapSprite = (TrapSprite)EnemySpriteFactory.Instance.CreateTrapSprite(game.SpriteBatch, start);
             this.direction = direction;
             this.triggerDirection = direction;
-            speed = 50.0f;
+            speed = MovementConstants.TrapSpeed;
 
             triggerDistance = 0;
             inReverse = false;
 
-            
             ConstructDetectionBoxes(direction);
             currentDetectionBox = detectionBoxX;
             counter = 0;
@@ -60,7 +60,7 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => 2;
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.TrapDamage);
         }
 
         public Boolean IsTriggered
@@ -76,7 +76,8 @@ namespace cse3902.Entities.Enemies
                 if (this.IsTriggered)
                 {
                     return ref this.trapSprite.Box;
-                } else
+                }
+                else
                 {
                     return ref currentDetectionBox;
                 }
@@ -110,11 +111,11 @@ namespace cse3902.Entities.Enemies
         {
             get => this.collidable;
         }
-        
+
         public void Update(GameTime gameTime)
         {
             counter++;
-            if (counter > 20)
+            if (counter > MovementConstants.TrapTime)
             {
                 counter = 0;
 
@@ -139,23 +140,21 @@ namespace cse3902.Entities.Enemies
                     {
                         this.IsTriggered = false;
                         inReverse = false;
-                    } else
+                    }
+                    else
                     {
                         this.Direction = -this.Direction;
                         if (this.Direction.X == 0)
                         {
-                            this.triggerDistance = 50;
-                        } else
+                            this.triggerDistance = MovementConstants.TrapTriggerDistanceY;
+                        }
+                        else
                         {
-                            this.triggerDistance = 100;
+                            this.triggerDistance = MovementConstants.TrapTriggerDistanceX;
                         }
 
                         inReverse = true;
                     }
-
-                    
-
-
                 }
             }
 
@@ -174,11 +173,12 @@ namespace cse3902.Entities.Enemies
             if (currentDetectionBox == detectionBoxX)
             {
                 this.Direction = new Vector2(this.triggerDirection.X, 0);
-                this.triggerDistance = 100;
-            } else
+                this.triggerDistance = MovementConstants.TrapTriggerDistanceX;
+            }
+            else
             {
                 this.Direction = new Vector2(0, this.triggerDirection.Y);
-                this.triggerDistance = 50;
+                this.triggerDistance = MovementConstants.TrapTriggerDistanceY;
             }
         }
 
@@ -188,7 +188,7 @@ namespace cse3902.Entities.Enemies
         }
 
         private void ConstructDetectionBoxes(Vector2 direction)
-        { 
+        {
             if (direction.X == 1)
             {
                 detectionBoxX = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, (RoomUtilities.NUM_BLOCKS_X * RoomUtilities.BLOCK_SIDE), RoomUtilities.BLOCK_SIDE);
@@ -196,19 +196,18 @@ namespace cse3902.Entities.Enemies
             else
             {
                 detectionBoxX = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, (RoomUtilities.NUM_BLOCKS_X * RoomUtilities.BLOCK_SIDE), RoomUtilities.BLOCK_SIDE);
-                detectionBoxX.Offset(-((RoomUtilities.NUM_BLOCKS_X-1) * RoomUtilities.BLOCK_SIDE), 0);
+                detectionBoxX.Offset(-((RoomUtilities.NUM_BLOCKS_X - 1) * RoomUtilities.BLOCK_SIDE), 0);
             }
 
             if (direction.Y == 1)
             {
-                detectionBoxY  = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_Y * RoomUtilities.BLOCK_SIDE));
-            } else
+                detectionBoxY = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_Y * RoomUtilities.BLOCK_SIDE));
+            }
+            else
             {
                 detectionBoxY = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_Y * RoomUtilities.BLOCK_SIDE));
                 detectionBoxY.Offset(0, -((RoomUtilities.NUM_BLOCKS_Y - 1) * RoomUtilities.BLOCK_SIDE));
             }
-
         }
-
     }
 }

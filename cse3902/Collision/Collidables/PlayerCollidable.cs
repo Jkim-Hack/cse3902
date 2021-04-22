@@ -81,12 +81,17 @@ namespace cse3902.Collision.Collidables
         }
 
         private void EnemyCollision(ICollidable collidableObject)
-        {
+        {           
             if (((EnemyCollidable)collidableObject).Enemy is WallMaster)
             {
                 if (((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered)
                 {
                     player.TakeDamage(collidableObject.DamageValue);
+                    if (player.Health <= 0)
+                    {
+                        this.player.Die();
+                        return;
+                    }
                     ((WallMaster)((EnemyCollidable)collidableObject).Enemy).GrabLink();
                     GameStateManager.Instance.LinkGrabbedByWallMaster(120);
                     
@@ -100,14 +105,17 @@ namespace cse3902.Collision.Collidables
             }
             else
             {
-                //take damage and get shoved back by enemy
+                //take damage and get shoved back by enemy  
                 player.TakeDamage(collidableObject.DamageValue);
 
                 if (player.Health <= 0)
                 {
                     this.player.Die();
                 }
-                player.BeShoved();
+                else
+                {
+                    player.BeShoved();
+                }
             }
         }
 

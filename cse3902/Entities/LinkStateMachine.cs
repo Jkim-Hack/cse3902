@@ -64,60 +64,26 @@ namespace cse3902.Entities
 
             if (newDirection.X == 0 && newDirection.Y == 0)
             {
-                StillChangeDirection();
+                mode = LinkMode.Still;
+                if (currDirection.X > 0) linkSprite.setFrameSet(LinkSprite.AnimationState.RightFacing);
+                if (currDirection.X < 0) linkSprite.setFrameSet(LinkSprite.AnimationState.LeftFacing);
+                if (currDirection.Y > 0) linkSprite.setFrameSet(LinkSprite.AnimationState.DownFacing);
+                if (currDirection.Y < 0) linkSprite.setFrameSet(LinkSprite.AnimationState.UpFacing);
             }
             else
             {
-                MovingChangeDirection(newDirection);
-            }
-        }
-
-        private void StillChangeDirection()
-        {
-            mode = LinkMode.Still;
-            if (currDirection.X > 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.RightFacing);
-            }
-            if (currDirection.X < 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.LeftFacing);
-            }
-            if (currDirection.Y > 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.DownFacing);
-            }
-            if (currDirection.Y < 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.UpFacing);
-            }
-        }
-
-        private void MovingChangeDirection(Vector2 newDirection)
-        {
-            currDirection = newDirection;
-            mode = LinkMode.Moving;
-            if (newDirection.X > 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.RightRunning);
-            }
-            if (newDirection.X < 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.LeftRunning);
-            }
-            if (newDirection.Y > 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.DownRunning);
-            }
-            if (newDirection.Y < 0)
-            {
-                linkSprite.setFrameSet(LinkSprite.AnimationState.UpRunning);
+                currDirection = newDirection;
+                mode = LinkMode.Moving;
+                if (newDirection.X > 0) linkSprite.setFrameSet(LinkSprite.AnimationState.RightRunning);
+                if (newDirection.X < 0) linkSprite.setFrameSet(LinkSprite.AnimationState.LeftRunning);
+                if (newDirection.Y > 0) linkSprite.setFrameSet(LinkSprite.AnimationState.DownRunning);
+                if (newDirection.Y < 0) linkSprite.setFrameSet(LinkSprite.AnimationState.UpRunning);
             }
         }
 
         public void BeShoved()
         {
-            this.shoveDistance = 20;
+            this.shoveDistance = LinkConstants.LinkShoveDistance;
             this.shoveDirection = -this.currDirection;
             this.PauseMovement  = true;
         }
@@ -140,8 +106,7 @@ namespace cse3902.Entities
             }
 
             UpdateDamageDelay(gameTime);
-            if (this.shoveDistance > 0) ShoveMovement();
-            else RegularMovement(gameTime);
+            Movement(gameTime);
 
             if (linkSprite.Update(gameTime) != 0)
             {
@@ -161,7 +126,7 @@ namespace cse3902.Entities
                 }
             }
 
-            if (health <= 2)
+            if (health <= HeartConstants.HeartLowCount && health != totalHealth)
             {
                 lowHealthSoundDelay--;
                 if (lowHealthSoundDelay == 0)
@@ -185,18 +150,21 @@ namespace cse3902.Entities
             }
         }
 
-        private void ShoveMovement()
+        private void Movement(GameTime gameTime)
         {
-            this.CenterPosition += shoveDirection;
-            shoveDistance--;
-        }
-
-        private void RegularMovement(GameTime gameTime)
-        {
-            PauseMovement = false;
-            if (mode == LinkMode.Moving)
+            if (this.shoveDistance > 0)
             {
-                CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                this.CenterPosition += shoveDirection;
+                shoveDistance--;
+            }
+            else
+            {
+
+                PauseMovement = false;
+                if (mode == LinkMode.Moving)
+                {
+                    CenterPosition += currDirection * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
             }
         }
 
@@ -208,10 +176,14 @@ namespace cse3902.Entities
 
             Vector2 startingPosition = getItemLocation(currDirection);
             linkInventory.CreateWeapon(startingPosition, currDirection);
-            if(totalHealth == health)
+
+            int minHealth = SettingsValues.Instance.GetValue(SettingsValues.Variable.MinProjectileSwordHealth);
+            if (minHealth < 0) minHealth += totalHealth + 1;
+            if (minHealth <= health)
             {
                 linkInventory.CreateSwordProjectile(startingPosition, currDirection);
             }
+
             SetAttackAnimation();
         }
 
@@ -236,7 +208,7 @@ namespace cse3902.Entities
         {
             if ((mode != LinkMode.Moving && mode != LinkMode.Still) || pauseMovement) return;
             Vector2 startingPosition = getItemLocation(currDirection);
-            if (linkInventory.CreateItem(startingPosition))
+            if (linkInventory.CreateItem(startingPosition, currDirection))
             {
                 mode = LinkMode.Attack;
                 SetAttackAnimation();
@@ -247,7 +219,7 @@ namespace cse3902.Entities
         private Vector2 getItemLocation(Vector2 direction)
         {
             Vector2 spriteSize = linkSprite.Size;
-            Vector2 offset = (spriteSize * direction) / 1.5f;
+            Vector2 offset = (spriteSize * direction) / LinkConstants.ItemDistance;
             return centerPosition + offset;
         }
 
@@ -275,6 +247,7 @@ namespace cse3902.Entities
         {
             if (damage > 0)
             {
+                damage = Inventory.updateDamage(damage);
                 if (remainingDamageDelay > 0 && linkSprite.Damaged) return;
                 linkSprite.Damaged = true;
                 health -= damage;
@@ -291,7 +264,7 @@ namespace cse3902.Entities
             this.currDirection = enemy.Direction;
             this.speed = speed;
             //todo: magic number
-            this.shoveDistance = 100;
+            this.shoveDistance = LinkConstants.LinkShoveDistanceGrabbed;
         }
 
         public void Die()
@@ -330,7 +303,9 @@ namespace cse3902.Entities
             set
             {
                 totalHealth = value;
-                if (totalHealth < 1) totalHealth = 1;
+                if (totalHealth < HeartConstants.HeartLowCount) totalHealth = HeartConstants.HeartLowCount;
+                else if (totalHealth > HeartConstants.MaxHeartCount) totalHealth = HeartConstants.MaxHeartCount;
+                if (health > totalHealth) health = totalHealth;
             }
         }
         
@@ -339,7 +314,8 @@ namespace cse3902.Entities
             get => this.health;
             set 
             {
-                this.health = value;
+                if (health <= 0 && value != totalHealth) return;
+                health = value;
                 if (health > totalHealth) health = totalHealth;
                 if (health < 1) health = 1;
             }

@@ -1,4 +1,5 @@
-﻿using cse3902.Interfaces;
+﻿using cse3902.Constants;
+using cse3902.Interfaces;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,7 +17,7 @@ namespace cse3902.Items
         private int frameWidth;
         private int frameHeight;
 
-        private const float delay = 0.05f;
+        private const float delay = ItemConstants.CloudDelay;
         private float remainingDelay;
 
         private (int currentX, int currentY) location;
@@ -31,8 +32,8 @@ namespace cse3902.Items
             spriteTexture = texture;
 
             remainingDelay = delay;
-            int rows = 4;
-            int columns = 3;
+            int rows = ItemConstants.CloudRows;
+            int columns = ItemConstants.CloudCols;
             currentFrame = 0;
             totalFrames = rows * columns;
             frameWidth = spriteTexture.Width / columns;

@@ -22,8 +22,8 @@ namespace cse3902.HUD
         private Game1 game;
         private Dictionary<HUDItemKey, IHUDItem> HUDItems;
 
-        private const int backgroundOffsetX = 40;
-        private const int backgroundOffsetY = 40;
+        private const int backgroundOffsetX = HUDPositionConstants.backgroundOffsetX;
+        private const int backgroundOffsetY = HUDPositionConstants.backgroundOffsetY;
 
         public HUDManager(Game1 game)
         {

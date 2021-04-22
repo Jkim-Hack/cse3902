@@ -133,6 +133,10 @@ namespace cse3902
         {
             return pausedState == PauseState.WallMasterGrabbed;
         }
+        public bool IsPaused()
+        {
+            return pausedState == PauseState.Paused;
+        }
 
         public void Update()
         {
@@ -153,9 +157,14 @@ namespace cse3902
                     SoundFactory.Instance.backgroundMusic.Stop();
                     SoundFactory.Instance.backgroundMusic.Play();
                     game.CollisionManager.Disabled = false;
-                    if (IsDying() || IsGrabbedByWallMaster() || triforce) game.RoomHandler.Reset(!IsGrabbedByWallMaster());
+                    if (IsDying() || IsGrabbedByWallMaster() || triforce)
+                    {
+                        game.RoomHandler.Reset(!IsGrabbedByWallMaster(), IsDying());
+                        GameConditionManager.Instance.Reset();
+                    }
                     pausedState = PauseState.Unpaused;
                     triforce = false;
+                    VisionBlocker.Instance.Triforce = false;
                 }
             }
         }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using cse3902.Interfaces;
+using cse3902.Rooms;
 using cse3902.Sprites;
+using cse3902.Sprites.DoorSprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -30,8 +32,11 @@ namespace cse3902.SpriteFactory
         public void LoadAllTextures(ContentManager content)
         {
             doorTextures.Add("doors", content.Load<Texture2D>("doors"));
+            DungeonMask.Instance.addTexture(doorTextures["doors"]);
             doorTextures.Add("staircase", content.Load<Texture2D>("staircase"));
+            DungeonMask.Instance.addTexture(doorTextures["staircase"]);
             doorTextures.Add("black", content.Load<Texture2D>("black"));
+            doorTextures.Add("portal", content.Load<Texture2D>("portalswirl"));
 
             doorStateRectangleMap.Add(IDoor.DoorState.Wall, 0);
             doorStateRectangleMap.Add(IDoor.DoorState.Open, 1);
@@ -95,7 +100,7 @@ namespace cse3902.SpriteFactory
 
         public IDoorSprite CreatePortalSprite(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            return new StaircaseDoorSprite(spriteBatch, doorTextures["staircase"], startingPos);
+            return new PortalSprite(spriteBatch, doorTextures["portal"], startingPos);
         }
     }
 }

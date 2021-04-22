@@ -46,6 +46,15 @@ namespace cse3902.XMLParsing
             IItem newItem = (IItem)ItemSpriteFactory.Instance.CreateHeartItem(game.SpriteBatch, startPos, true, true);
             switch (type)
             {
+                case "Arrow":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateArrowItem(game.SpriteBatch, startPos);
+                    break;
+                case "BluePotion":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBluePotionItem(game.SpriteBatch, startPos, true, true);
+                    break;
+                case "BlueRing":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBlueRingItem(game.SpriteBatch, startPos, true, true);
+                    break;
                 case "Bomb":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateBombItem(game.SpriteBatch, startPos, true, true);
                     break;
@@ -73,8 +82,26 @@ namespace cse3902.XMLParsing
                 case "Key":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateKeyItem(game.SpriteBatch, startPos, true, true);
                     break;
+                case "MagicBook":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateMagicBookItem(game.SpriteBatch, startPos, true, true);
+                    break;
                 case "Map":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateMapItem(game.SpriteBatch, startPos, true, true);
+                    break;
+                case "Rupee":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateRupeeItem(game.SpriteBatch, startPos, true, true);
+                    break;
+                case "WoodSword":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateSwordItem(game.SpriteBatch, startPos, true, true, 0);
+                    break;
+                case "WhiteSword":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateSwordItem(game.SpriteBatch, startPos, true, true, 1);
+                    break;
+                case "MagicSword":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateSwordItem(game.SpriteBatch, startPos, true, true, 2);
+                    break;
+                case "MagicRod":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateSwordItem(game.SpriteBatch, startPos, true, true, 3);
                     break;
                 case "Triforce":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateTriforceItem(game.SpriteBatch, startPos, true, true);

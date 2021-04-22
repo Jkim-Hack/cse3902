@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using cse3902.Constants;
 using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,9 +32,9 @@ namespace cse3902.Entities.DamageMasks
             maskFrame = SpriteUtilities.distributeFrames(1, 1, frameWidth, frameHeight)[0];
 
             // FOR LINK SPECIFICALLY TODO: MAKE THIS FOR ANY SPRITE
-            frameWidth = spriteTexture.Width / 6;
-            frameHeight = spriteTexture.Height / 4;
-            originalFrame = SpriteUtilities.distributeFrames(6, 4, frameWidth, frameHeight)[6];
+            frameWidth = spriteTexture.Width / LinkConstants.LinkTextureRows;
+            frameHeight = spriteTexture.Height / LinkConstants.LinkTextureCols;
+            originalFrame = SpriteUtilities.distributeFrames(LinkConstants.LinkTextureRows, LinkConstants.LinkTextureCols, frameWidth, frameHeight)[6];
 
             originalData = new Color[spriteTexture.Width * spriteTexture.Height];
             spriteTexture.GetData(originalData);
@@ -55,7 +56,7 @@ namespace cse3902.Entities.DamageMasks
 
         private void AddOriginalColorMask()
         {
-            int frameSize = (spriteTexture.Width / 6) * (spriteTexture.Height / 4);
+            int frameSize = (spriteTexture.Width / LinkConstants.LinkTextureRows) * (spriteTexture.Height / LinkConstants.LinkTextureCols);
             Color[] frameColors = new Color[frameSize];
 
             spriteTexture.GetData(0, originalFrame, frameColors, 0, frameSize);

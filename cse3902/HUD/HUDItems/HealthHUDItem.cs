@@ -82,7 +82,7 @@ namespace cse3902.HUD.HUDItems
 
         private void InstantiateHearts()
         {
-            for (int i = 0; i < heartCount; i++)
+            for (int i = 0; i < HeartConstants.MaxHeartCount / 2; i++)
             {
                 Vector2 origin = heartContainerOrigin;
                 if (i > 7)
@@ -128,10 +128,13 @@ namespace cse3902.HUD.HUDItems
                 i++;
             }
 
+            if (player.TotalHealthCount == 2 && player.Health > 0) return;
+
             for (; i < totalHeartCount; i++)
             {
                 hearts[i].Empty = true;
                 hearts[i].Draw();
+                if (player.TotalHealthCount == 2) break;
             }
         }
     }

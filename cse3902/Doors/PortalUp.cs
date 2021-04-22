@@ -3,6 +3,7 @@ using cse3902.Interfaces;
 using cse3902.SpriteFactory;
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
+using cse3902.Constants;
 
 namespace cse3902.Doors
 {
@@ -14,11 +15,11 @@ namespace cse3902.Doors
         private IDoor connectedPortal;
         private ICollidable collidable;
 
-        public PortalUp(Game1 game, Vector2 center)
+        public PortalUp(Game1 game, Vector2 center, Vector2 xyChange)
         {
             this.game = game;
             doorSprite = DoorSpriteFactory.Instance.CreatePortalSprite(game.SpriteBatch, center);
-            roomTranslationVector = new Vector3(0, 0, 2);
+            roomTranslationVector = new Vector3(xyChange, 2);
 
             this.collidable = new DoorCollidable(this);
         }
@@ -27,18 +28,22 @@ namespace cse3902.Doors
         {
             game.RoomHandler.LoadNewRoom(game.RoomHandler.currentRoom + roomTranslationVector, connectedPortal);
         }
+
         public Vector2 PlayerReleasePosition()
         {
             return doorSprite.Center;
         }
+
         public Vector2 PlayerReleaseDirection()
         {
-            return new Vector2(0, -20);
+            return new Vector2(-MovementConstants.PortalRelease, 0);
         }
+
         public void Draw()
         {
             doorSprite.Draw();
         }
+
         public void Reset()
         {
             //doesn't reset
@@ -63,15 +68,26 @@ namespace cse3902.Doors
                 return ref doorSprite.Box;
             }
         }
+
         public IDoor ConnectedDoor
         {
             set => connectedPortal = value;
             get => connectedPortal;
         }
 
+        public IDoorSprite DoorSprite
+        {
+            get => doorSprite;
+        }
+
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public Vector3 RoomTranslationVector
+        {
+            get => roomTranslationVector;
         }
     }
 }

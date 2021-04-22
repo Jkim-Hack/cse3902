@@ -5,6 +5,7 @@ using cse3902.HUD;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Sprites;
+using cse3902.Constants;
 
 namespace cse3902.Items
 {
@@ -32,11 +33,11 @@ namespace cse3902.Items
             spriteBatch = batch;
             spriteTexture = texture;
 
-            delays.delay = 0.2f;
+            delays.delay = ItemConstants.HeartDelay;
 
             delays.remainingDelay = delays.delay;
-            this.dimensions.rows = 1;
-            this.dimensions.columns = 2;
+            this.dimensions.rows = ItemConstants.HeartRows;
+            this.dimensions.columns = ItemConstants.HeartCols;
             frameSize.currentFrame = 0;
             frameSize.frameWidth = spriteTexture.Width / dimensions.columns;
             frameSize.frameHeight = spriteTexture.Height / dimensions.rows;

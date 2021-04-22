@@ -10,7 +10,6 @@ namespace cse3902.Rooms
         private bool visited;
 
         private Vector3 roomPos;
-        public Vector3 RoomPos { get => roomPos; }
 
         private List<IItem> items;
         private List<IEntity> enemies;
@@ -22,11 +21,12 @@ namespace cse3902.Rooms
         private List<IBlock> blocks;
         private List<IDoor> doors;
         private List<ICondition> conditions;
+        private List<ISpawner> spawners;
 
         public Room(Vector3 position, int spriteNum)
         {
             roomPos = position;
-           
+
             visited = false;
 
             if (spriteNum < 0)
@@ -48,7 +48,9 @@ namespace cse3902.Rooms
             blocks = new List<IBlock>();
             doors = new List<IDoor>();
             conditions = new List<ICondition>();
+            spawners = new List<ISpawner>();
         }
+        public Vector3 RoomPos { get => roomPos; }
 
         public void AddItem (IItem item)
         {
@@ -91,6 +93,11 @@ namespace cse3902.Rooms
         {
             conditions.Add(condition);
         }
+        
+	    public void AddSpawner(ISpawner spawner)
+        {
+            spawners.Add(spawner);
+        }
 
         public bool IsVisited()
         {
@@ -116,7 +123,12 @@ namespace cse3902.Rooms
                 condition.Reset();
             }
 
-            enemies = new List<IEntity>();
+            foreach (ISpawner spawner in spawners)
+            {
+                spawner.Reset();
+            }
+            
+	        enemies = new List<IEntity>();
             foreach (IEntity enemy in originalEnemies)
             {
                 enemies.Add(enemy.Duplicate());
@@ -175,6 +187,12 @@ namespace cse3902.Rooms
         {
             get => conditions;
             set => conditions = value;
+        }
+        
+	    public List<ISpawner> Spawners
+        {
+            get => spawners;
+            set => spawners = value;
         }
     }
 }

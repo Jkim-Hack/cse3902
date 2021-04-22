@@ -1,18 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using cse3902.Sounds;
+using cse3902.Utilities;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace cse3902.HUD
 {
     public class InventoryManager
     {
-        public enum SwordType
-        {
-            Wood,
-            White,
-            Magical,
-            MagicalRod,
-        }
-
         public enum ItemType
         {
             Arrow,
@@ -28,13 +23,21 @@ namespace cse3902.HUD
             Key,
             Rupee,
             Triforce,
-            None
+            BlueCandle,
+            BluePotion,
+            BlueRing,
+            WoodSword,
+            WhiteSword,
+            MagicalSword,
+            MagicalRod,
+            None,
+            MagicBook,
         }
 
         public Dictionary<ItemType, int> inventory;
         private static InventoryManager instance = new InventoryManager();
-        private SwordType slotA = SwordType.Wood;
-        private ItemType slotB;
+        private ItemType slotA = ItemType.WoodSword;
+        private ItemType slotB = ItemType.None;
 
         public static InventoryManager Instance
         {
@@ -47,62 +50,68 @@ namespace cse3902.HUD
         private InventoryManager()
         {
             inventory = new Dictionary<ItemType, int>();
-            inventory.Add(ItemType.Arrow, 0);
-            inventory.Add(ItemType.Heart, 0);
-            inventory.Add(ItemType.HeartContainer, 0);
-            inventory.Add(ItemType.Bomb, 0);
-            inventory.Add(ItemType.Key, 0);
-            inventory.Add(ItemType.Rupee, 0);
-            inventory.Add(ItemType.Map, 0);
-            inventory.Add(ItemType.Compass, 0);
-            inventory.Add(ItemType.Boomerang, 0);
-            inventory.Add(ItemType.Bow, 0);
-            inventory.Add(ItemType.Clock, 0);
-            inventory.Add(ItemType.Fairy, 0);
-            inventory.Add(ItemType.Triforce, 0);
+            foreach (int i in Enum.GetValues(typeof(ItemType)))
+            {
+                inventory.Add((ItemType)i, 0);
+            }
+        }
+        public bool canEquip(ItemType type)
+        {
+            if (type != ItemType.None && inventory[type] > 0 && InventoryUtilities.EquipableItemsList.Contains(type))
+            {
+                if (type == ItemType.Arrow)
+                {
+                    if (inventory[ItemType.Arrow] > 0 && inventory[ItemType.Bow] > 0 && inventory[ItemType.Rupee] > 0)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void AddToInventory(ItemType type)
         {
-            inventory[type]++;
+            inventory[type] += InventoryUtilities.itemsCollectedPerItem(type);
+            if (inventory[type] > InventoryUtilities.maxItemCount(type)) inventory[type] = InventoryUtilities.maxItemCount(type);
+            playItemSounds(type);
             if (ItemSlot == ItemType.None)
             {
-                if (type == ItemType.Boomerang || type == ItemType.Bomb || (inventory[ItemType.Bow] > 0 && inventory[ItemType.Arrow] > 0))
+                slotB = ItemType.None;
+                foreach (ItemType possibleNext in InventoryUtilities.EquipableItemsList)
                 {
-                    if (ItemType.Arrow == type)
+                    if (canEquip(possibleNext))
                     {
-                        ItemSlot = ItemType.Bow;
-                    }
-                    else
-                    {
-                        ItemSlot = type;
+                        slotB = possibleNext;
+                        break;
                     }
                 }
+            }
+            if (InventoryUtilities.SwordsList.Contains(type) && InventoryUtilities.convertSwordToInt(type) > InventoryUtilities.convertSwordToInt(slotA))
+            {
+                slotA = type;
             }
         }
 
         public void RemoveFromInventory(ItemType type)
         {
-            if (inventory[type] > 0)
+            if (inventory[type] > 0 && InventoryUtilities.decrementableItems.Contains(type))
             {
                 inventory[type]--;
-                if (inventory[type] == 0 && ItemSlot == type)
+                if (inventory[type] == 0 && ItemSlot == type || (ItemSlot == ItemType.Arrow) && inventory[ItemType.Rupee] <= 0)
                 {
-                    if (inventory[ItemType.Boomerang] > 0)
+                    slotB = ItemType.None;
+                    foreach (ItemType possibleNext in InventoryUtilities.EquipableItemsList)
                     {
-                        ItemSlot = ItemType.Boomerang;
-                    }
-                    else if (inventory[ItemType.Bow] > 0 && inventory[ItemType.Arrow] > 0)
-                    {
-                        ItemSlot = ItemType.Boomerang; //should this be bow or arrow?
-                    }
-                    else if (inventory[ItemType.Bomb] > 0)
-                    {
-                        ItemSlot = ItemType.Bomb;
-                    }
-                    else
-                    {
-                        ItemSlot = ItemType.None;
+                        if (canEquip(possibleNext))
+                        {
+                            slotB = possibleNext;
+                            break;
+                        }
                     }
                 }
             }
@@ -111,6 +120,22 @@ namespace cse3902.HUD
         public int ItemCount(ItemType type)
         {
             return inventory[type];
+        }
+
+        private void playItemSounds(ItemType type)
+        {
+            if (type == InventoryManager.ItemType.Heart || type == InventoryManager.ItemType.Key)
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.getHeart);
+            }
+            else if (type == InventoryManager.ItemType.Rupee)
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.getRupee);
+            }
+            else
+            {
+                SoundFactory.PlaySound(SoundFactory.Instance.getItem);
+            }
         }
 
         public void Reset()
@@ -122,7 +147,7 @@ namespace cse3902.HUD
             }
         }
 
-        public SwordType SwordSlot
+        public ItemType SwordSlot
         {
             get => slotA;
             set => slotA = value;

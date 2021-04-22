@@ -16,16 +16,27 @@ namespace cse3902.Constants
         public static Color TriforceRed = new Color(220, 20, 60);
         public static Color TriforceGreen = new Color(0, 100, 0);
 
-        public static Vector2 TriforcePos = new Vector2(5, 1);
+        public static Vector2 TriforcePos1 = new Vector2(5, 1);
+        public static Vector2 TriforcePos2 = new Vector2(2, 3);
+        public static Vector2 TriforcePos3 = new Vector2(4, 0);
+        public static Vector2 TriforcePos4 = new Vector2(4, 1);
+
+        public static Vector2[] TriforcePos = { TriforcePos1, TriforcePos2, TriforcePos3, TriforcePos4 };
 
         /* "Coordinate system", with the starting room at (2, 5) */
-        private static List<Vector2> roomCoordinates = new List<Vector2>();
+        private static List<Vector3> roomCoordinates = new List<Vector3>();
 
         /* Calculates room sizes and positions */
-        public static List<Rectangle> GetRoomLayout()
+        public static List<Rectangle> GetRoomLayout(int level)
         {
             List<Rectangle> roomLayout = new List<Rectangle>();
-            foreach (Vector2 room in roomCoordinates) roomLayout.Add(CalculatePos((int)room.X, (int)room.Y, Width, Height));
+            foreach (Vector3 room in roomCoordinates)
+            {
+                if ((int)room.Z/2 == level)
+                {
+                    roomLayout.Add(CalculatePos((int)room.X, (int)room.Y, Width, Height));
+                }
+            }
 
             return roomLayout;
         }
@@ -35,7 +46,7 @@ namespace cse3902.Constants
             return new Rectangle(x * (width + gap), y * (height + gap) , width, height);
         } 
 
-        public static List<Vector2> RoomListZ0
+        public static List<Vector3> RoomListZ0
         {
             get => roomCoordinates;
         }

@@ -7,6 +7,7 @@ using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
 using cse3902.Constants;
 using cse3902.Sounds;
+using cse3902.ParticleSystem;
 
 namespace cse3902.Entities.Enemies
 {
@@ -35,13 +36,13 @@ namespace cse3902.Entities.Enemies
 
             //gel sprite sheet is 1 row, 2 columns
             gelSprite = (GelSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.SpriteBatch, this.center);
-            speed = 25.0f;
+            speed = MovementConstants.GelSpeed;
             travelDistance = 0;
-            shoveDistance = -10;
+            shoveDistance = MovementConstants.StartingShoveDistance;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 2;
+            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.GelHealth);
         }
 
         public ref Rectangle Bounds
@@ -83,11 +84,12 @@ namespace cse3902.Entities.Enemies
         {
             SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.X);
+            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
         public void BeShoved()
         {
-            this.shoveDistance = 20;
+            this.shoveDistance = MovementConstants.GelShoveDistance;
             this.shoveDirection = -this.direction;
         }
 
@@ -133,7 +135,7 @@ namespace cse3902.Entities.Enemies
             {
                 Random rand = new System.Random();
                 int choice = rand.Next(0, 4);
-                travelDistance = 100;
+                travelDistance = MovementConstants.GelMaxTravel;
 
                 switch (choice)
                 {
@@ -163,11 +165,6 @@ namespace cse3902.Entities.Enemies
             }
 
             gelSprite.Update(gameTime);
-        }
-
-        private void onSpriteAnimationComplete()
-        {
-            //nothing to callback
         }
 
         public void Draw()
@@ -207,7 +204,7 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => 1;
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.GelDamage);
         }
 
         public int Health

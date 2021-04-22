@@ -2,6 +2,7 @@
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using System.Collections;
+using cse3902.Projectiles;
 
 namespace cse3902.Rooms
 {
@@ -34,6 +35,9 @@ namespace cse3902.Rooms
             projectile.Collided = true;
             //projectiles.Remove(projectile);
             //(projectiles as List<IItem>).RemoveAll(x => x.Center == projectile.Center);
+
+            if (projectile is Fireball) ((Fireball) projectile).KillParticles();
+            if (projectile is MagicFireballProjectile) ((MagicFireballProjectile)projectile).KillParticles();
         }
 
         public void Update(GameTime gameTime)
@@ -80,6 +84,15 @@ namespace cse3902.Rooms
             for (int i = 0; i < newList.Count; i++)
             {
                 projectiles.Add(newList[i]);
+            }
+        }
+
+        public void Reset()
+        {
+            while (projectiles.Count > 0)
+            {
+                if (projectiles[0] is Fireball) ((Fireball) projectiles[0]).KillParticles();
+                projectiles.RemoveAt(0);
             }
         }
 

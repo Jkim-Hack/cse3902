@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Sprites;
 using System;
+using cse3902.Constants;
+using cse3902.Utilities;
 
 namespace cse3902.Items
 {
@@ -14,44 +16,47 @@ namespace cse3902.Items
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
 
-        private int currentX;
-        private int currentY;
-        private int frameWidth;
-        private int frameHeight;
+        private (int x, int y) current;
 
-        private float angle = 0;
+        int swordType;
 
         private bool collided;
         private Rectangle destination;
         private Rectangle source;
-        private const float sizeIncrease = .5f;
 
         private Vector2 direction;
         private ICollidable collidable;
 
-        public SwordItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
+        private bool isKept;
+        private bool isResetKept;
+
+        public SwordItem(SpriteBatch batch, Texture2D texture, Vector2 startingPos, bool kept, bool resetKept, int swordType)
         {
             spriteBatch = batch;
             spriteTexture = texture;
 
-            direction = dir;
+            int cols = ItemConstants.SWORDCOLS;
+            int rows = ItemConstants.SWORDROWS;
+            int frameWidth = spriteTexture.Width/ cols;
+            int frameHeight = spriteTexture.Height/ rows;
 
-            frameWidth = spriteTexture.Width;
-            frameHeight = spriteTexture.Height;
+            current.x = (int)startingPos.X;
+            current.y = (int)startingPos.Y;
+            Rectangle[] rectangles = SpriteUtilities.distributeFrames(cols, rows, frameWidth, frameHeight);
 
-            currentX = (int)startingPos.X;
-            currentY = (int)startingPos.Y;
+            this.source = rectangles[swordType];
+            this.swordType = swordType;
 
-            this.source = new Rectangle(0, 0, this.spriteTexture.Width / 2, this.spriteTexture.Height / 2);
-
+            isKept = kept;
+            isResetKept = resetKept;
 
             this.collidable = new ItemCollidable(this);
         }
 
         public void Draw()
         {
-            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            Vector2 origin = new Vector2(source.Width / 2f, source.Height / 2f);
+            Rectangle Destination = new Rectangle(current.x, current.y, source.Width, source.Height);
             spriteBatch.Draw(spriteTexture, Destination, source, Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.ItemLayer);
         }
 
@@ -69,12 +74,12 @@ namespace cse3902.Items
         {
             get
             {
-                return new Vector2(currentX, currentY);
+                return new Vector2(current.x, current.y);
             }
             set
             {
-                currentX = (int)value.X;
-                currentY = (int)value.Y;
+                current.x = (int)value.X;
+                current.y = (int)value.Y;
             }
         }
 
@@ -82,11 +87,9 @@ namespace cse3902.Items
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth);
-                int height = (int)(sizeIncrease * frameHeight);
-                double cos = Math.Abs(Math.Cos(angle));
-                double sin = Math.Abs(Math.Sin(angle));
-                Rectangle Destination = new Rectangle(currentX, currentY, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
+                int width = source.Width;
+                int height = source.Height;
+                Rectangle Destination = new Rectangle(current.x, current.y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
                 return ref destination;
@@ -118,17 +121,22 @@ namespace cse3902.Items
 
         public InventoryManager.ItemType ItemType
         {
-            get => InventoryManager.ItemType.Arrow;
+            get => InventoryUtilities.convertIntToSword(SwordType);
         }
 
         public bool IsKept
         {
-            get => false;
+            get => isKept;
         }
 
         public bool IsResetKept
         {
-            get => false;
+            get => isResetKept;
+        }
+
+        public int SwordType
+        {
+            get => swordType;
         }
     }
 }

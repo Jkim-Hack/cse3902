@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using System;
 using cse3902.Constants;
 using cse3902.Sounds;
+using cse3902.ParticleSystem;
 
 namespace cse3902.Entities.Enemies
 {
@@ -34,13 +35,13 @@ namespace cse3902.Entities.Enemies
             previousCenter = center;
 
             keeseSprite = (KeeseSprite)EnemySpriteFactory.Instance.CreateKeeseSprite(game.SpriteBatch, center);
-            speed = 30.0f;
+            speed = MovementConstants.KeeseSpeedNormal;
             travelDistance = 0;
-            shoveDistance = -10;
+            shoveDistance = MovementConstants.StartingShoveDistance;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 2;
+            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.KeeseHealth);
         }
 
         public ref Rectangle Bounds
@@ -82,6 +83,7 @@ namespace cse3902.Entities.Enemies
         {
             SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.X);
+            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
         public void BeShoved()
@@ -127,12 +129,11 @@ namespace cse3902.Entities.Enemies
         private void RegularMovement(GameTime gameTime)
         {
             this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
             if (travelDistance <= 0)
             {
                 Random rand = new System.Random();
-                int choice = rand.Next(0, 8);
-                travelDistance = 100;
+                int choice = rand.Next(0, 4);
+                travelDistance = MovementConstants.KeeseMaxTravel;
 
                 switch (choice)
                 {
@@ -152,23 +153,15 @@ namespace cse3902.Entities.Enemies
                         direction.X = 0;
                         direction.Y = -1;
                         break;
-                    case 4:
-                        direction.X = 0.7f;
-                        direction.Y = 0.7f;
+                }
+                choice = rand.Next(0, 2);
+                switch (choice)
+                {
+                    case 0:
+                        speed = MovementConstants.KeeseSpeedNormal;
                         break;
-                    case 5:
-                        direction.X = 0.7f;
-                        direction.Y = -0.7f;
-                        break;
-                    case 6:
-                        direction.X = -0.7f;
-                        direction.Y = 1;
-                        break;
-                    case 7:
-                        direction.X = -0.7f;
-                        direction.Y = -0.7f;
-                        break;
-                    default:
+                    case 1:
+                        speed = MovementConstants.KeeseSpeedSlow;
                         break;
                 }
             }
@@ -176,7 +169,6 @@ namespace cse3902.Entities.Enemies
             {
                 travelDistance--;
             }
-
             keeseSprite.Update(gameTime);
         }
 
@@ -217,7 +209,7 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => 1;
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.KeeseDamage);
         }
 
         public int Health

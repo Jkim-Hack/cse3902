@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using cse3902.Sprites;
+using cse3902.Constants;
+using cse3902.HUD;
 
 namespace cse3902.Projectiles
 {
@@ -15,25 +17,14 @@ namespace cse3902.Projectiles
         private Texture2D spriteTexture;
         private ISprite collisionTexture;
 
-        private int rows;
-        private int columns;
         private int currentFrame;
-        private int totalFrames;
         private Rectangle[] frames;
-        private int frameWidth;
-        private int frameHeight;
+        private (int Width, int Height) frame;
 
-        private const float delay = 0.2f;
         private float remainingDelay;
-        private int currentX;
-        private int currentY;
         private Rectangle destination;
-        private const float sizeIncrease = 1f;
-
+        private Vector2 current;
         private Vector2 direction;
-
-        private float angle;
-        private bool animationComplete;
         private bool collided;
 
         private ICollidable collidable;
@@ -43,60 +34,40 @@ namespace cse3902.Projectiles
             spriteBatch = batch;
             spriteTexture = texture;
 
-            remainingDelay = delay;
-            this.rows = 2;
-            this.columns = 2;
+            remainingDelay = ItemConstants.SwordBeamDelay;
+            int rows = ItemConstants.SwordBeamRows;
+            int columns = ItemConstants.SwordBeamCols;
             currentFrame = 0;
-            totalFrames = rows * columns;
-            frameWidth = spriteTexture.Width / columns;
-            frameHeight = spriteTexture.Height / rows;
-            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
-            animationComplete = false;
+            frame.Width = spriteTexture.Width / columns;
+            frame.Height = spriteTexture.Height / rows;
+            frames = SpriteUtilities.distributeFrames(columns, rows, frame.Width, frame.Height);
             direction = dir;
-            
-            if (dir.X > 0)
-            {
-                angle = (float)(Math.PI * 1.0 / 2.0);
-            }
-            else if (dir.X < 0)
-            {
-                angle = (float)(Math.PI * 3.0 / 2.0);
-            }
-            else if (dir.Y > 0)
-            {
-                angle = (float)Math.PI;
-            }
-            else
-            {
-                angle = 0;
-            }
 
-            currentX = (int)startingPos.X;
-            currentY = (int)startingPos.Y;
-            collisionTexture = ProjectileHandler.Instance.CreatePoofAnim(spriteBatch, new Vector2(currentX, currentY));
+            current = new Vector2(startingPos.X, startingPos.Y);
+            collisionTexture = ProjectileHandler.Instance.CreatePoofAnim(spriteBatch, new Vector2(current.X, current.Y));
             this.collidable = new ProjectileCollidable(this);
         }
 
         public void Draw()
         {
-            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            Vector2 origin = new Vector2(frame.Width / 2f, frame.Height / 2f);
+            Rectangle Destination = new Rectangle((int)current.X, (int)current.Y, frame.Width, frame.Height);
 
             if (!collided)
             {
+                float angle = calculateAngle(direction);
                 spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, angle, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
             }
             else
             {
                 if (ParticleEngine.Instance.UseParticleEffects)
                 {
-                    origin = new Vector2(currentX, currentY) - new Vector2(frameWidth, frameHeight) / 10 +  direction * 5;
-                    ParticleEngine.Instance.CreateNewEmitter(ParticleEngine.ParticleEmitter.SwordHit, origin);
-                    animationComplete = true;
+                    origin = new Vector2(current.X, current.Y) - new Vector2(frame.Width, frame.Height) / 10 +  direction * 5;
+                    ParticleEngine.Instance.CreateSwordEffect(origin);
                 }
                 else
                 {
-                    collisionTexture.Center = new Vector2(currentX, currentY);
+                    collisionTexture.Center = new Vector2(current.X, current.Y);
                     collisionTexture.Draw();
                 }
                 
@@ -113,48 +84,63 @@ namespace cse3902.Projectiles
                 if (remainingDelay <= 0)
                 {
                     currentFrame++;
-                    if (currentFrame == totalFrames)
+                    if (currentFrame == frames.Length)
                     {
                         currentFrame = 0;
                     }
-                    remainingDelay = delay;
+                    remainingDelay = ItemConstants.SwordBeamDelay;
                 }
 
-                if (direction.X == 1)
-                {
-                    currentX += 2;
-                }
-                else if (direction.X == -1)
-                {
-                    currentX -= 2;
-                }
-                else if (direction.Y == 1)
-                {
-                    currentY += 2;
-                }
-                else //sword is traveling up
-                {
-                    currentY -= 2;
-                }
+                current += direction * ItemConstants.SwordBeamSpeed;
                 return 0;
             }
             else
             {
-                collisionTexture.Center = new Vector2(currentX, currentY);
-                return collisionTexture.Update(gameTime);
+                if (remainingDelay >= 0)
+                {
+                    collisionTexture.Center = current;
+                    return collisionTexture.Update(gameTime);
+                }
+                else
+                {
+                    return -1;
+                }
             }
             
+        }
+        
+        private float calculateAngle(Vector2 dir)
+        {
+            float angle;
+            if (dir.X > 0)
+            {
+                angle = ItemConstants.Angle90Rad;
+            }
+            else if (dir.X < 0)
+            {
+                angle = ItemConstants.Angle270Rad;
+            }
+            else if (dir.Y > 0)
+            {
+                angle = ItemConstants.Angle180Rad;
+            }
+            else
+            {
+                angle = ItemConstants.Angle0Rad;
+            }
+            return angle;
         }
 
         public ref Rectangle Box
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth);
-                int height = (int)(sizeIncrease * frameHeight);
+                int width = frame.Width;
+                int height = frame.Height;
+                float angle = calculateAngle(direction);
                 double cos = Math.Abs(Math.Cos(angle));
                 double sin = Math.Abs(Math.Sin(angle));
-                Rectangle Destination = new Rectangle(currentX, currentY, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
+                Rectangle Destination = new Rectangle((int) current.X, (int) current.Y, (int)(width * cos + height * sin), (int)(height * cos + width * sin));
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
                 return ref destination;
@@ -165,12 +151,12 @@ namespace cse3902.Projectiles
         {
             get
             {
-                return new Vector2(currentX, currentY);
+                return new Vector2(current.X, current.Y);
             }
             set
             {
-                currentX = (int)value.X;
-                currentY = (int)value.Y;
+                current.X = (int)value.X;
+                current.Y = (int)value.Y;
             }
         }
 
@@ -186,13 +172,18 @@ namespace cse3902.Projectiles
 
         public bool AnimationComplete
         {
-            get => animationComplete;
-            set => animationComplete = value;
+            get => collided && remainingDelay < 0;
+            set
+            {
+                remainingDelay = -1;
+                collided = value;
+            }
         }
 
         public int Damage
         {
-            get => 6;
+            get => DamageConstants.SwordDamage;
+            
         }
 
         public Vector2 Direction

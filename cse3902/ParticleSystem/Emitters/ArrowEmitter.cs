@@ -40,7 +40,9 @@ namespace cse3902.ParticleSystem
                 float colorOpacity = (float)rand.NextDouble();
                 Color color = new Color(colorVal, colorVal, colorVal) * colorOpacity;
 
-                particles.Add(new StraightMovingParticle(texture, color, origin, GetRandomVelocity(rand), lifeTime, ParticleConstants.ArrowParticleSize));
+                Vector2 velocity = GetRandomVelocity(rand);
+
+                particles.Add(new StraightMovingParticle(texture, color, origin, velocity, lifeTime, ParticleConstants.ArrowParticleSize));
             }
         }
 
@@ -67,15 +69,15 @@ namespace cse3902.ParticleSystem
                 particleAddAmount--;
             }
 
-            foreach (IParticle particle in particles) particle.Update(gameTime);
-
-            /* Remove all dead particles */
+            particles.ForEach(particle => particle.Update(gameTime));
             particles.RemoveAll(particle => particle.Dead);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Matrix transformationMatrix)
         {
-            foreach (IParticle particle in particles) particle.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, transformationMatrix);
+            particles.ForEach(particle => particle.Draw(spriteBatch));
+            spriteBatch.End();
         }
 
         public bool AnimationDone

@@ -1,16 +1,14 @@
 using cse3902.Interfaces;
-using cse3902.Constants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using System;
+using cse3902.Sprites;
 
 namespace cse3902.ParticleSystem
 {
     public class StraightMovingParticle : IParticle
     {
         private Texture2D texture;
-        Color color;
+        private Color color;
 
         private Vector2 origin;
         private Vector2 velocity;
@@ -40,7 +38,7 @@ namespace cse3902.ParticleSystem
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, new Rectangle((int)origin.X, (int)origin.Y, size, size), null, color, 0, new Vector2(), SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, new Rectangle((int)origin.X, (int)origin.Y, size, size), null, color, 0, new Vector2(), SpriteEffects.None, SpriteUtilities.ParticleLayer);
         }
 
         public bool Dead

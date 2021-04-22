@@ -8,6 +8,6 @@ namespace cse3902.Interfaces
         public bool AnimationDone { get; }
 
         public void Update(GameTime gameTime);
-        public void Draw(SpriteBatch spriteBatch);
+        public void Draw(SpriteBatch spriteBatch, Matrix transformationMatrix);
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using System;
 using cse3902.Constants;
 using cse3902.Sounds;
+using cse3902.ParticleSystem;
 
 namespace cse3902.Entities.Enemies
 {
@@ -37,15 +38,15 @@ namespace cse3902.Entities.Enemies
             aquamentusSprite = (AquamentusSprite)EnemySpriteFactory.Instance.CreateAquamentusSprite(game.SpriteBatch, center);
             aquamentusStateMachine = new AquamentusStateMachine(aquamentusSprite, game.SpriteBatch, this.center);
             direction = new Vector2(1, 0);
-            speed = 10.0f;
-            travelDistance = 20;
-            shoveDistance = -10;
+            speed = MovementConstants.AquamentusSpeed;
+            travelDistance = MovementConstants.StartingTravelDistance;
+            shoveDistance = MovementConstants.StartingShoveDistance;
             shoveDirection = new Vector2(1, 0);
             pauseAnim = false;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
-            health = 20;
+            health = SettingsValues.Instance.GetValue(SettingsValues.Variable.AquamentusHealth);
         }
 
         public ref Rectangle Bounds
@@ -69,7 +70,7 @@ namespace cse3902.Entities.Enemies
             this.Health -= damage;
             if (this.Health > 0)
             {
-                SoundFactory.PlaySound(SoundFactory.Instance.bossHurt, 0.2f);
+                SoundFactory.PlaySound(SoundFactory.Instance.bossHurt, SoundConstants.BossHurtTime);
             }
             this.aquamentusSprite.Damaged = true;
             this.collidable.DamageDisabled = true;
@@ -77,14 +78,14 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, 0.2f);
-            this.aquamentusStateMachine.Die();
+            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, SoundConstants.BossDefeatTime);
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.D);
+            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
         public void BeShoved()
         {
-            this.shoveDistance = 20;
+            this.shoveDistance = MovementConstants.AquamentusShoveDistance;
             this.pauseAnim = true;
         }
 
@@ -134,7 +135,7 @@ namespace cse3902.Entities.Enemies
             if (travelDistance <= 0)
             {
                 direction.X *= -1;
-                travelDistance = 150;
+                travelDistance = MovementConstants.AquamentusMaxTravel;
             }
             else
             {
@@ -180,7 +181,7 @@ namespace cse3902.Entities.Enemies
 
         public int Damage
         {
-            get => 2;
+            get => SettingsValues.Instance.GetValue(SettingsValues.Variable.AquamentusDamage);
         }
 
         public int Health

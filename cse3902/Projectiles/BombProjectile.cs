@@ -2,10 +2,12 @@
 using cse3902.Collision;
 using cse3902.Collision.Collidables;
 using cse3902.Sounds;
+using cse3902.ParticleSystem;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Rooms;
 using cse3902.Sprites;
+using cse3902.Constants;
 
 namespace cse3902.Projectiles
 {
@@ -14,25 +16,20 @@ namespace cse3902.Projectiles
         private SpriteBatch spriteBatch;
         private Texture2D spriteTexture;
 
-        private int rows;
-        private int columns;
         private int currentFrame;
-        private int totalFrames;
         private Rectangle[] frames;
-        private int frameWidth;
-        private int frameHeight;
+        private (int Width, int Height) frame;
 
-        private int currentX;
-        private int currentY;
+        private (int X, int Y) current;
         private const float sizeIncrease = 1f;
 
         private Rectangle destination;
         private Rectangle preExplosion;
 
-        private const float delay = 0.8f;
         private float remainingDelay;
 
         private bool animationComplete;
+        private bool particlesGenerated;
 
         private ICollidable collidable;
 
@@ -41,21 +38,21 @@ namespace cse3902.Projectiles
             spriteBatch = batch;
             spriteTexture = texture;
 
-            remainingDelay = delay;
-            this.rows = 2;
-            this.columns = 1;
+            remainingDelay = ItemConstants.BombDelay;
+            int rows = ItemConstants.BombRows;
+            int columns = ItemConstants.BombCols;
             currentFrame = 0;
-            totalFrames = rows * columns;
-            frameWidth = spriteTexture.Width / columns;
-            frameHeight = spriteTexture.Height / rows;
-            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
+            frame.Width = spriteTexture.Width / columns;
+            frame.Height = spriteTexture.Height / rows;
+            frames = SpriteUtilities.distributeFrames(columns, rows, frame.Width, frame.Height);
 
             preExplosion = new Rectangle();
 
-            currentX = (int)startingPos.X;
-            currentY = (int)startingPos.Y;
+            current.X = (int)startingPos.X;
+            current.Y = (int)startingPos.Y;
 
             this.animationComplete = false;
+            this.particlesGenerated = false;
 
             this.collidable = new ProjectileCollidable(this);
 
@@ -68,9 +65,9 @@ namespace cse3902.Projectiles
             {
                 if (currentFrame == 0) return ref preExplosion;
 
-                int width = (int)(sizeIncrease * frameWidth / 1.5f);
-                int height = (int)(sizeIncrease * frameHeight / 1.5f);
-                Rectangle Destination = new Rectangle(currentX, currentY, width, height);
+                int width = (int)(sizeIncrease * frame.Width / 1.5f);
+                int height = (int)(sizeIncrease * frame.Height / 1.5f);
+                Rectangle Destination = new Rectangle(current.X, current.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2 - 1);
                 this.destination = Destination;
                 return ref destination;
@@ -81,12 +78,12 @@ namespace cse3902.Projectiles
         {
             get
             {
-                return new Vector2(currentX, currentY);
+                return new Vector2(current.X, current.Y);
             }
             set
             {
-                currentX = (int)value.X;
-                currentY = (int)value.Y;
+                current.X = (int)value.X;
+                current.Y = (int)value.Y;
             }
         }
 
@@ -97,9 +94,12 @@ namespace cse3902.Projectiles
 
         public void Draw()
         {
-            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle(currentX, currentY, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0f, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
+            if (!ParticleEngine.Instance.UseParticleEffects || !particlesGenerated)
+            {
+                Vector2 origin = new Vector2(frame.Width / 2f, frame.Height / 2f);
+                Rectangle Destination = new Rectangle(current.X, current.Y, (int)(sizeIncrease * frame.Width), (int)(sizeIncrease * frame.Height));
+                spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0f, origin, SpriteEffects.None, SpriteUtilities.ProjectileLayer);
+            }
         }
 
         public int Update(GameTime gameTime)
@@ -113,13 +113,19 @@ namespace cse3902.Projectiles
             {
                 if (currentFrame == 0) SoundFactory.PlaySound(SoundFactory.Instance.bombBlow);
 
+                if (ParticleEngine.Instance.UseParticleEffects && !particlesGenerated)
+                {
+                    ParticleEngine.Instance.CreateBombEffect(Center - new Vector2(5, 5));
+                    particlesGenerated = true;
+                }
+
                 currentFrame++;
-                if (currentFrame == totalFrames)
+                if (currentFrame == frames.Length)
                 {
                     currentFrame = 0;
                     animationComplete = true;
                 }
-                remainingDelay = delay;
+                remainingDelay = ItemConstants.BombDelay;
             }
             return 0;
         }
@@ -138,7 +144,7 @@ namespace cse3902.Projectiles
 
         public int Damage
         {
-            get => 3;
+            get => DamageConstants.BombDamage;
         }
 
         public Vector2 Direction

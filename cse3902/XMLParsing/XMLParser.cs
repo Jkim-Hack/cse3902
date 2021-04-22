@@ -17,6 +17,7 @@ namespace cse3902.Rooms
         private BlockParser blockParser;
         private DoorParser doorParser;
         private ConditionParser conditionParser;
+        private SpawnerParser spawnerParser;
 
         public XMLParser(RoomHandler roomHand, Game1 gm)
         {
@@ -28,6 +29,7 @@ namespace cse3902.Rooms
             blockParser = new BlockParser(gm);
             doorParser = new DoorParser(gm, roomHandler);
             conditionParser = new ConditionParser();
+            spawnerParser = new SpawnerParser(gm);
         }
 
         public void ParseXML(String filename)
@@ -47,7 +49,7 @@ namespace cse3902.Rooms
                 int spriteNum = Int32.Parse(room.Element(sprite).Value);
 
                 Vector3 roomTup = RoomUtilities.ConvertToVector3(room.Element(num).Value);
-                if (roomTup.Z == 0) MiniMapConstants.RoomListZ0.Add(new Vector2(roomTup.X, roomTup.Y));
+                if (roomTup.Z % 2 == 0) MiniMapConstants.RoomListZ0.Add(roomTup);
 
                 currentRoom = new Room(roomTup, spriteNum);
 
@@ -58,11 +60,12 @@ namespace cse3902.Rooms
                 blockParser.ParseBlocks(currentRoom, room, doc);
                 doorParser.ParseDoors(currentRoom, room, doc);
                 conditionParser.ParseCondtions(currentRoom, room, doc);
+                spawnerParser.ParseSpawners(currentRoom, room, doc);
 
                 roomHandler.rooms.Add(roomTup, currentRoom);
             }
 
-            MiniMapConstants.RoomListZ0.Remove(new Vector2(roomHandler.currentRoom.X, roomHandler.currentRoom.Y));
+            MiniMapConstants.RoomListZ0.Remove(new Vector3(roomHandler.currentRoom.X, roomHandler.currentRoom.Y, roomHandler.currentRoom.Z));
         }
     }
 }
