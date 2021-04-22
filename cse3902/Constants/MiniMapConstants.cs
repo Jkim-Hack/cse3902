@@ -8,8 +8,13 @@ namespace cse3902.Constants
         /* Real aspect ratio of blue minimap boxes is 7:3, with a gap of 2 */
         public const int Width = 7;
         public const int Height = 3;
-        private const int gap = 1;
+        public const int gap = 1;
         public const int COLOR_DELAY = 10;
+
+        public const int XOffset = 25;
+        public const int YOffset = 32;
+
+        public const int LevelDiv = 3;
 
         public static Color RoomColor = new Color(38, 39, 227);
         public static Color CurrentRoomColor = new Color(107, 203, 44);
