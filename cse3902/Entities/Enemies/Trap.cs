@@ -131,31 +131,7 @@ namespace cse3902.Entities.Enemies
 
             if (this.IsTriggered)
             {
-                this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                triggerDistance--;
-
-                if (triggerDistance <= 0)
-                {
-                    if (inReverse)
-                    {
-                        this.IsTriggered = false;
-                        inReverse = false;
-                    }
-                    else
-                    {
-                        this.Direction = -this.Direction;
-                        if (this.Direction.X == 0)
-                        {
-                            this.triggerDistance = MovementConstants.TrapTriggerDistanceY;
-                        }
-                        else
-                        {
-                            this.triggerDistance = MovementConstants.TrapTriggerDistanceX;
-                        }
-
-                        inReverse = true;
-                    }
-                }
+                TriggerMovement(gameTime);   
             }
 
             this.trapSprite.Update(gameTime);
@@ -207,6 +183,35 @@ namespace cse3902.Entities.Enemies
             {
                 detectionBoxY = new Rectangle(this.trapSprite.Box.X, this.trapSprite.Box.Y, RoomUtilities.BLOCK_SIDE, (RoomUtilities.NUM_BLOCKS_Y * RoomUtilities.BLOCK_SIDE));
                 detectionBoxY.Offset(0, -((RoomUtilities.NUM_BLOCKS_Y - 1) * RoomUtilities.BLOCK_SIDE));
+            }
+        }
+
+        private void TriggerMovement(GameTime gameTime)
+        {
+            this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            triggerDistance--;
+
+            if (triggerDistance <= 0)
+            {
+                if (inReverse)
+                {
+                    this.IsTriggered = false;
+                    inReverse = false;
+                }
+                else
+                {
+                    this.Direction = -this.Direction;
+                    if (this.Direction.X == 0)
+                    {
+                        this.triggerDistance = MovementConstants.TrapTriggerDistanceY;
+                    }
+                    else
+                    {
+                        this.triggerDistance = MovementConstants.TrapTriggerDistanceX;
+                    }
+
+                    inReverse = true;
+                }
             }
         }
     }

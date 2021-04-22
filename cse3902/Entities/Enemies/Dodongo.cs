@@ -17,7 +17,7 @@ namespace cse3902.Entities.Enemies
         private readonly Game1 game;
 
         private Vector2 direction;
-        private int speed;
+        private float speed;
         private Vector2 center;
         private Vector2 previousCenter;
         private int travelDistance;
@@ -35,8 +35,8 @@ namespace cse3902.Entities.Enemies
             previousCenter = center;
 
             dodongoSprite = (DodongoSprite)EnemySpriteFactory.Instance.CreateDodongoSprite(game.SpriteBatch, center);
-            speed = SettingsValues.Instance.GetValue(SettingsValues.Variable.StandardEnemySpeed);
-            travelDistance = SettingsValues.Instance.GetValue(SettingsValues.Variable.EnemyTravelDistance);
+            speed = MovementConstants.DodongoSpeed;
+            travelDistance = MovementConstants.DodongoMaxTravel;
             shoveDistance = 0;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
@@ -77,7 +77,7 @@ namespace cse3902.Entities.Enemies
                 this.dodongoSprite.StartingFrameIndex++;
             }
             this.shoveDirection = new Vector2(0, 0);
-            this.shoveDistance = SettingsValues.Instance.GetValue(SettingsValues.Variable.Knockback);
+            this.shoveDistance = MovementConstants.DodongoShoveDistance;
             this.travelDistance = 0;
 
             this.Health -= damage;
@@ -98,7 +98,7 @@ namespace cse3902.Entities.Enemies
 
         public void BeShoved()
         {
-            this.shoveDistance = SettingsValues.Instance.GetValue(SettingsValues.Variable.Knockback);
+            this.shoveDistance = MovementConstants.DodongoShoveDistance;
             this.shoveDirection = -this.direction;
         }
 
@@ -142,7 +142,7 @@ namespace cse3902.Entities.Enemies
 
             if (travelDistance <= 0)
             {
-                travelDistance = SettingsValues.Instance.GetValue(SettingsValues.Variable.EnemyTravelDistance);
+                travelDistance = MovementConstants.DodongoMaxTravel;
 
                 RandomDirection();
             }

@@ -16,6 +16,21 @@ namespace cse3902.Constants
         public const int AquamentusFireballChangeX = 15;
         public const int AquamentusFireballSpread = 3;
 
+        public const float DodongoSpeed = 25.0f;
+        public const float DodongoDelay = .2f;
+        public const int DodongoMaxTravel = 100;
+        public const int DodongoShoveDistance = DefaultShoveDistance;
+
+        public const float BoggusSpeed = 25.0f;
+        public const float BoggusDelay = .2f;
+        public const int BoggusMaxTravel = 150;
+        public const int BoggusShoveDistance = DefaultShoveDistance;
+
+        public const float MarioSpeed = 45.0f;
+        public const float MarioDelay = .2f;
+        public const int MarioMaxTravel = 100;
+        public const int MarioShoveDistance = DefaultShoveDistance;
+
         public const float GelSpeed = 25.0f;
         public const int GelMaxTravel = 100;
         public const int GelShoveDistance = DefaultShoveDistance;
@@ -41,6 +56,14 @@ namespace cse3902.Constants
         public const float WallMasterSpeed = 30.0f;
         public const int WallMasterMaxTravel = 125;
         public const int WallMasterShoveDistance = DefaultShoveDistance;
+
+        public const float RopeSpeed = 30.0f;
+        public const int RopeMaxTravel = 100;
+        public const int RopeShoveDistance = DefaultShoveDistance;
+
+        public const float ZolSpeed = 40.0f;
+        public const int ZolMaxTravel = 120;
+        public const int ZolShoveDistance = DefaultShoveDistance;
 
         public const int BlockPushThreshold = 20;
         public const float BlockPushSpeed = .5f;
