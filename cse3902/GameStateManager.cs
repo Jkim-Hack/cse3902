@@ -27,6 +27,8 @@ namespace cse3902
 
         private bool triforce;
 
+        private bool hitboxShown;
+
         private static GameStateManager gameStateManagerInstance = new GameStateManager();
         public static GameStateManager Instance
         {
@@ -38,6 +40,7 @@ namespace cse3902
             remainingToggleCooldown = 0;
             updateCycles = 0;
             triforce = false;
+            hitboxShown = false;
         }
 
         public void ToggleMenuDisplayed()
@@ -167,6 +170,12 @@ namespace cse3902
                     VisionBlocker.Instance.Triforce = false;
                 }
             }
+        }
+
+        public bool HitboxVisibility
+        {
+            set => hitboxShown = value;
+            get => hitboxShown;
         }
 
         public void Reset()
