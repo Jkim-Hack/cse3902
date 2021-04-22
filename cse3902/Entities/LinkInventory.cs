@@ -8,7 +8,6 @@ using cse3902.Sounds;
 using cse3902.Items;
 using cse3902.Constants;
 using cse3902.Utilities;
-using System;
 
 namespace cse3902.Entities
 {
@@ -59,7 +58,6 @@ namespace cse3902.Entities
             if (item.Equals(AnimationItem)) return;
             InventoryManager.ItemType type = item.ItemType;
             InventoryManager.Instance.AddToInventory(type);
-            
             //special effect
             if (type == InventoryManager.ItemType.Heart)
             {
@@ -72,37 +70,39 @@ namespace cse3902.Entities
             {
                 linkState.Health = linkState.TotalHealth;
             }
-
             //pickup animation if certain item
             if (type == InventoryManager.ItemType.Bow || InventoryUtilities.SwordsList.Contains(type))
             {
                 Vector2 startingPos = linkState.CollectItemAnimation();
                 item.Center = startingPos;
                 AnimationItem = item;
-              
                 GameStateManager.Instance.LinkPickupItem(96, false);
                 SoundFactory.Instance.fanfare.Play();
             } 
             else if (type == InventoryManager.ItemType.Triforce)
             {
-                linkState.Health = linkState.TotalHealth;
-                InventoryManager.Instance.RemoveFromInventory(InventoryManager.ItemType.Compass);
-                GameStateManager.Instance.LinkPickupItem(601, true);
-                VisionBlocker.Instance.Triforce = true;
-                Vector2 startingPos = linkState.GameWonAnimation();
-                item.Center = startingPos;
-                AnimationItem = item;
-                ((TriforceItem)item).GameWon = true;
-                SoundFactory.PlaySound(SoundFactory.Instance.getItem, 0.25f);
-                SoundFactory.PlaySound(SoundFactory.Instance.triforce, 0.25f);
+                HandleTriforceItem(item);
             }
             else
             {
                 RoomItems.Instance.RemoveItem(item);
             }
-
             //update room condition if certain item
             if (type == InventoryManager.ItemType.Key || type == InventoryManager.ItemType.HeartContainer || type == InventoryManager.ItemType.Boomerang) RoomConditions.Instance.SendSignals();
+        }
+
+        private void HandleTriforceItem(IItem item)
+        {
+            linkState.Health = linkState.TotalHealth;
+            InventoryManager.Instance.RemoveFromInventory(InventoryManager.ItemType.Compass);
+            GameStateManager.Instance.LinkPickupItem(601, true);
+            VisionBlocker.Instance.Triforce = true;
+            Vector2 startingPos = linkState.GameWonAnimation();
+            item.Center = startingPos;
+            AnimationItem = item;
+            ((TriforceItem)item).GameWon = true;
+            SoundFactory.PlaySound(SoundFactory.Instance.getItem, 0.25f);
+            SoundFactory.PlaySound(SoundFactory.Instance.triforce, 0.25f);
         }
 
         public bool CreateItem(Vector2 startingPos, Vector2 direction)
@@ -111,10 +111,7 @@ namespace cse3902.Entities
             InventoryManager.ItemType type = InventoryManager.Instance.ItemSlot;
             if (type == InventoryManager.ItemType.None) return false;
             InventoryManager.ItemType decType = type;
-            if (type == InventoryManager.ItemType.Arrow)
-            {
-                decType = InventoryManager.ItemType.Rupee;
-            }
+            if (type == InventoryManager.ItemType.Arrow) decType = InventoryManager.ItemType.Rupee;
             if (InventoryManager.Instance.ItemCount(decType) == 0) return false;
             InventoryManager.Instance.RemoveFromInventory(decType);
             switch (type)
@@ -122,31 +119,20 @@ namespace cse3902.Entities
                 case InventoryManager.ItemType.Arrow:
                     projectileHandler.CreateArrowItem(batch, startingPos, direction);
                     break;
-
                 case InventoryManager.ItemType.Boomerang:
                     projectileHandler.CreateBoomerangItem(batch, linkState.Sprite, direction);
                     break;
-
                 case InventoryManager.ItemType.Bomb:
                     projectileHandler.CreateBombItem(batch, startingPos);
                     break;
-
                 case InventoryManager.ItemType.MagicalRod:
-                    if (InventoryManager.Instance.ItemCount(InventoryManager.ItemType.MagicBook) > 0)
-                    {
-                        CreateMagicFireball(startingPos, direction);
-                    }
-                    else
-                    {
-                        CreateMagicBeam(startingPos, direction);
-                    }
+                    if (InventoryManager.Instance.ItemCount(InventoryManager.ItemType.MagicBook) > 0) CreateMagicFireball(startingPos, direction);
+                    else CreateMagicBeam(startingPos, direction);
                     break;
-
                 case InventoryManager.ItemType.BluePotion:
                     linkState.Health = linkState.TotalHealth;
                     break;
                 default:
-                    // throw new NotImplementedException();
                     break;
             }
             return true;
