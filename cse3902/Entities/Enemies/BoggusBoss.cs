@@ -69,7 +69,7 @@ namespace cse3902.Entities.Enemies
             this.Health -= damage;
             if (this.Health > 0)
             {
-                SoundFactory.PlaySound(SoundFactory.Instance.bossHurt, 0.2f);
+                SoundFactory.PlaySound(SoundFactory.Instance.bossHurt, MovementConstants.BoggusDelay);
             }
             this.boggusBossSprite.Damaged = true;
             this.collidable.DamageDisabled = true;
@@ -77,7 +77,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, 0.2f);
+            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, MovementConstants.BoggusDelay);
             this.boggusBossStateMachine.Die();
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.A);
             if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
