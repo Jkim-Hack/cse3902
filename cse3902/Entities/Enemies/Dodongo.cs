@@ -71,11 +71,12 @@ namespace cse3902.Entities.Enemies
 
         public void TakeDamage(int damage)
         {
-            this.dodongoSprite.StartingFrameIndex++;
             if (this.dodongoSprite.StartingFrameIndex == (int)DodongoSprite.FrameIndex.LeftFacing || this.dodongoSprite.StartingFrameIndex == (int)DodongoSprite.FrameIndex.RightFacing)
             {
                 this.dodongoSprite.StartingFrameIndex++;
             }
+            this.dodongoSprite.StartingFrameIndex++;
+
             this.shoveDirection = new Vector2(0, 0);
             this.shoveDistance = MovementConstants.DodongoShoveDistance;
             this.travelDistance = 0;
@@ -98,8 +99,7 @@ namespace cse3902.Entities.Enemies
 
         public void BeShoved()
         {
-            this.shoveDistance = MovementConstants.DodongoShoveDistance;
-            this.shoveDirection = -this.direction;
+            
         }
 
         public void StopShove()
