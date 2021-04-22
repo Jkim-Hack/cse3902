@@ -273,42 +273,41 @@ namespace cse3902.Entities.Enemies
             {
                 this.wallType = WallType.LEFTWALL;
                 this.detectionBox.Inflate(0, RoomUtilities.BLOCK_SIDE);
-                this.detectionBox.Offset(0, -RoomUtilities.BLOCK_SIDE);
+                this.detectionBox.Offset(RoomUtilities.BLOCK_SIDE, -RoomUtilities.BLOCK_SIDE);
             }
             else if (startingPosition.X > RoomUtilities.INTERIOR_WIDTH)
             {
                 this.wallType = WallType.RIGHTWALL;
                 this.detectionBox.Inflate(0, RoomUtilities.BLOCK_SIDE);
-                this.detectionBox.Offset(-RoomUtilities.BLOCK_SIDE, -RoomUtilities.BLOCK_SIDE);
+                this.detectionBox.Offset(-2*RoomUtilities.BLOCK_SIDE, -RoomUtilities.BLOCK_SIDE);
             }
             else if (startingPosition.Y < 0)
             {
                 this.wallType = WallType.TOPWALL;
                 this.detectionBox.Inflate(RoomUtilities.BLOCK_SIDE, 0);
-                this.detectionBox.Offset(-RoomUtilities.BLOCK_SIDE, 0);
+                this.detectionBox.Offset(-RoomUtilities.BLOCK_SIDE,  RoomUtilities.BLOCK_SIDE);
             }
             else
             {
                 this.wallType = WallType.BOTTOMWALL;
                 this.detectionBox.Inflate(RoomUtilities.BLOCK_SIDE, 0);
-                this.detectionBox.Offset(0, -RoomUtilities.BLOCK_SIDE);
+                this.detectionBox.Offset(0, -2*RoomUtilities.BLOCK_SIDE);
             }
         }
 
         private void LeftWallMovement()
         {
+            travelDistance = MovementConstants.WallMasterMaxTravel;
             switch (this.direction.X)
             {
                 case 1:
                     direction.X = 0;
                     direction.Y = -1;
-                    travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     break;
 
                 case -1:
                     direction.X = 0;
                     direction.Y = 1;
-                    travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     break;
 
                 case 0:
@@ -316,7 +315,6 @@ namespace cse3902.Entities.Enemies
                     {
                         direction.X = -1;
                         direction.Y = 0;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
                     else if (direction.Y == 1)
                     {
@@ -328,7 +326,6 @@ namespace cse3902.Entities.Enemies
                     {
                         direction.X = 1;
                         direction.Y = 0;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
                     break;
 
@@ -339,18 +336,17 @@ namespace cse3902.Entities.Enemies
 
         private void RightWallMovement()
         {
+            travelDistance = MovementConstants.WallMasterMaxTravel;
             switch (this.direction.X)
             {
                 case 1:
                     direction.X = 0;
                     direction.Y = 1;
-                    travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     break;
 
                 case -1:
                     direction.X = 0;
                     direction.Y = -1;
-                    travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     break;
 
                 case 0:
@@ -358,7 +354,6 @@ namespace cse3902.Entities.Enemies
                     {
                         direction.X = 1;
                         direction.Y = 0;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
                     else if (direction.Y == 1)
                     {
@@ -370,7 +365,6 @@ namespace cse3902.Entities.Enemies
                     {
                         direction.X = -1;
                         direction.Y = 0;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
                     break;
 
@@ -381,6 +375,7 @@ namespace cse3902.Entities.Enemies
 
         private void BottomWallMovement()
         {
+            travelDistance = MovementConstants.WallMasterMaxTravel;
             switch (this.direction.X)
             {
                 case 1:
@@ -392,7 +387,6 @@ namespace cse3902.Entities.Enemies
                 case -1:
                     direction.X = 0;
                     direction.Y = 1;
-                    travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     break;
 
                 case 0:
@@ -400,19 +394,16 @@ namespace cse3902.Entities.Enemies
                     {
                         direction.X = -1;
                         direction.Y = 0;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     }
                     else if (direction.Y == 1)
                     {
                         direction.X = 1;
                         direction.Y = 0;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     }
                     else
                     {
                         direction.X = 0;
                         direction.Y = -1;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
                     break;
 
@@ -423,6 +414,7 @@ namespace cse3902.Entities.Enemies
 
         private void TopWallMovement()
         {
+            travelDistance = MovementConstants.WallMasterMaxTravel;
             switch (this.direction.X)
             {
                 case 1:
@@ -434,7 +426,6 @@ namespace cse3902.Entities.Enemies
                 case -1:
                     direction.X = 0;
                     direction.Y = -1;
-                    travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     break;
 
                 case 0:
@@ -442,19 +433,16 @@ namespace cse3902.Entities.Enemies
                     {
                         direction.X = 1;
                         direction.Y = 0;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     }
                     else if (direction.Y == 1)
                     {
                         direction.X = -1;
                         direction.Y = 0;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 4;
                     }
                     else
                     {
                         direction.X = 0;
                         direction.Y = 1;
-                        travelDistance = RoomUtilities.BLOCK_SIDE * 2;
                     }
                     break;
 

@@ -11,7 +11,7 @@
 				<variables>
 					<variable>8</variable>
 					<variable>6</variable>
-					<variable>0</variable>
+					<variable>0</variable> 
 				</variables>
 			</condition>
 		</conditions>
@@ -1436,23 +1436,23 @@
 		<enemies>
 			<enemy>
 				<type>Wallmaster</type>
-				<xloc>-1</xloc>
+				<xloc>-2</xloc>
 				<yloc>6</yloc>
 			</enemy>
 			<enemy>
 				<type>Wallmaster</type>
-				<xloc>12</xloc>
-				<yloc>2</yloc>
+				<xloc>13</xloc>
+				<yloc>1</yloc>
 			</enemy>
 			<enemy>
 				<type>Wallmaster</type>
 				<xloc>2</xloc>
-				<yloc>-1</yloc>
+				<yloc>-2</yloc>
 			</enemy>
 			<enemy>
 				<type>Wallmaster</type>
 				<xloc>9</xloc>
-				<yloc>7</yloc>
+				<yloc>8</yloc>
 			</enemy>
 		</enemies>
 		<blocks>
