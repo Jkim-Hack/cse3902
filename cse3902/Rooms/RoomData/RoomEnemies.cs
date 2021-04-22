@@ -37,7 +37,6 @@ namespace cse3902.Rooms
                 enemy.Die();
             }
             (enemies as List<IEntity>).RemoveAll(x => x.Center == enemy.Center);
-            //enpcs.Remove(enemy);
         }
 
         public void Update(GameTime gameTime)
