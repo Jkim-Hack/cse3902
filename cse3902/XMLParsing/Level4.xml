@@ -21,14 +21,24 @@
 		</items>
 		<enemies>
 			<enemy>
-				<type>Stalfos</type>
-				<xloc>1</xloc>
-				<yloc>3</yloc>
+				<type>Zol</type>
+				<xloc>0</xloc>
+				<yloc>5</yloc>
 			</enemy>
 			<enemy>
-				<type>Stalfos</type>
+				<type>Zol</type>
+				<xloc>1</xloc>
+				<yloc>1</yloc>
+			</enemy>
+			<enemy>
+				<type>Zol</type>
 				<xloc>10</xloc>
-				<yloc>3</yloc>
+				<yloc>5</yloc>
+			</enemy>
+			<enemy>
+				<type>Zol</type>
+				<xloc>11</xloc>
+				<yloc>0</yloc>
 			</enemy>
 		</enemies>
 		<npcs>
@@ -219,12 +229,12 @@
 		</items>
 		<enemies>
 			<enemy>
-				<type>Gel</type>
+				<type>Rope</type>
 				<xloc>1</xloc>
 				<yloc>1</yloc>
 			</enemy>
 			<enemy>
-				<type>Gel</type>
+				<type>Rope</type>
 				<xloc>3</xloc>
 				<yloc>5</yloc>
 			</enemy>
@@ -260,6 +270,30 @@
 		<traps>
 		</traps>
 		<spawners>
+			<spawner>
+				<type>keese</type>
+				<count>5</count>
+				<xloc>1</xloc>
+				<yloc>1</yloc>
+            </spawner>
+			<spawner>
+				<type>stalfos</type>
+				<count>5</count>
+				<xloc>5</xloc>
+				<yloc>5</yloc>
+            </spawner>
+			<spawner>
+				<type>gel</type>
+				<count>5</count>
+				<xloc>7</xloc>
+				<yloc>4</yloc>
+            </spawner>
+			<spawner>
+				<type>goriya</type>
+				<count>5</count>
+				<xloc>9</xloc>
+				<yloc>2</yloc>
+            </spawner>
 		</spawners>
 		<conditions>
 			<condition>
@@ -359,7 +393,12 @@
 				<yloc>2</yloc>
 			</enemy>
 			<enemy>
-				<type>Stalfos</type>
+				<type>Zol</type>
+				<xloc>5</xloc>
+				<yloc>1</yloc>
+			</enemy>
+			<enemy>
+				<type>Zol</type>
 				<xloc>6</xloc>
 				<yloc>4</yloc>
 			</enemy>

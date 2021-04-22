@@ -138,6 +138,7 @@ namespace cse3902.Rooms
                 RoomSpawners.Instance.Update(gameTime);
             }
 
+            RoomDoors.Instance.Update(gameTime);
             Background.Instance.Update(gameTime);
             RoomBlocks.Instance.Update(gameTime);
         }

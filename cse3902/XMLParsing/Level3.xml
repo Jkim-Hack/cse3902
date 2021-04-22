@@ -11,52 +11,52 @@
 		</items>
 		<enemies>
 			<enemy>
-				<type>Keese</type>
+				<type>Zol</type>
 				<xloc>0</xloc>
 				<yloc>0</yloc>
 			</enemy>
 			<enemy>
-				<type>Keese</type>
+				<type>Zol</type>
 				<xloc>4</xloc>
 				<yloc>1</yloc>
 			</enemy>
 			<enemy>
-				<type>Keese</type>
+				<type>Zol</type>
 				<xloc>6</xloc>
 				<yloc>0</yloc>
 			</enemy>
 			<enemy>
-				<type>Keese</type>
+				<type>Zol</type>
 				<xloc>8</xloc>
 				<yloc>2</yloc>
 			</enemy>
 			<enemy>
-				<type>Keese</type>
+				<type>Zol</type>
 				<xloc>2</xloc>
 				<yloc>3</yloc>
 			</enemy>
 			<enemy>
-				<type>Keese</type>
+				<type>Zol</type>
 				<xloc>4</xloc>
 				<yloc>3</yloc>
 			</enemy>
 			<enemy>
-				<type>Keese</type>
+				<type>Zol</type>
 				<xloc>11</xloc>
 				<yloc>4</yloc>
 			</enemy>
 			<enemy>
-				<type>Keese</type>
+				<type>Zol</type>
 				<xloc>8</xloc>
 				<yloc>5</yloc>
 			</enemy>
 			<enemy>
-				<type>Keese</type>
+				<type>Zol</type>
 				<xloc>3</xloc>
 				<yloc>6</yloc>
 			</enemy>
 			<enemy>
-				<type>Keese</type>
+				<type>Zol</type>
 				<xloc>9</xloc>
 				<yloc>4</yloc>
 			</enemy>
@@ -601,161 +601,161 @@
 		</npcs>
 		<blocks>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>1</xloc>
 				<yloc>1</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>1</xloc>
 				<yloc>5</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>2</xloc>
 				<yloc>1</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>2</xloc>
 				<yloc>5</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>3</xloc>
 				<yloc>1</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>3</xloc>
 				<yloc>5</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>4</xloc>
 				<yloc>1</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>4</xloc>
 				<yloc>5</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>5</xloc>
 				<yloc>1</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>5</xloc>
 				<yloc>5</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>6</xloc>
 				<yloc>1</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>6</xloc>
 				<yloc>5</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>7</xloc>
 				<yloc>1</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>7</xloc>
 				<yloc>5</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>8</xloc>
 				<yloc>1</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>8</xloc>
 				<yloc>5</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>9</xloc>
 				<yloc>1</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>9</xloc>
 				<yloc>5</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>10</xloc>
 				<yloc>1</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>10</xloc>
 				<yloc>2</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>10</xloc>
 				<yloc>3</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>10</xloc>
 				<yloc>4</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>10</xloc>
 				<yloc>5</yloc>
@@ -837,112 +837,112 @@
 		</npcs>
 		<blocks>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>0</xloc>
 				<yloc>6</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>1</xloc>
 				<yloc>1</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>1</xloc>
 				<yloc>5</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>2</xloc>
 				<yloc>0</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>2</xloc>
 				<yloc>4</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>3</xloc>
 				<yloc>3</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>4</xloc>
 				<yloc>2</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>5</xloc>
 				<yloc>1</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>6</xloc>
 				<yloc>5</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>7</xloc>
 				<yloc>4</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>8</xloc>
 				<yloc>3</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>9</xloc>
 				<yloc>2</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>9</xloc>
 				<yloc>6</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>10</xloc>
 				<yloc>1</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>10</xloc>
 				<yloc>5</yloc>
 				<push>0</push>
 			</block>
 			<block>
-				<type>NormalGrey</type>
+				<type>Normal</type>
 				<dir>Still</dir>
 				<xloc>11</xloc>
 				<yloc>0</yloc>
@@ -991,6 +991,31 @@
 		<items>
 		</items>
 		<enemies>
+			<enemy>
+				<type>Rope</type>
+				<xloc>2</xloc>
+				<yloc>0</yloc>
+			</enemy>
+			<enemy>
+				<type>Rope</type>
+				<xloc>5</xloc>
+				<yloc>4</yloc>
+			</enemy>
+			<enemy>
+				<type>Rope</type>
+				<xloc>8</xloc>
+				<yloc>2</yloc>
+			</enemy>
+			<enemy>
+				<type>Rope</type>
+				<xloc>0</xloc>
+				<yloc>6</yloc>
+			</enemy>
+			<enemy>
+				<type>Rope</type>
+				<xloc>11</xloc>
+				<yloc>4</yloc>
+			</enemy>
 		</enemies>
 		<npcs>
 		</npcs>
@@ -1226,6 +1251,26 @@
 			</item>
 		</items>
 		<enemies>
+			<enemy>
+				<type>Stalfos</type>
+				<xloc>4</xloc>
+				<yloc>0</yloc>
+			</enemy>
+			<enemy>
+				<type>Stalfos</type>
+				<xloc>6</xloc>
+				<yloc>6</yloc>
+			</enemy>
+			<enemy>
+				<type>Keese</type>
+				<xloc>0</xloc>
+				<yloc>5</yloc>
+			</enemy>
+			<enemy>
+				<type>Keese</type>
+				<xloc>10</xloc>
+				<yloc>1</yloc>
+			</enemy>
 		</enemies>
 		<npcs>
 		</npcs>
@@ -1505,7 +1550,7 @@
 				<type>PortalUp</type>
 				<pos>4</pos>
 				<state>Locked</state>
-				<xloc>11</xloc>
+				<xloc>10</xloc>
 				<yloc>3</yloc>
 				<xchange>-4</xchange>
 				<ychange>0</ychange>
