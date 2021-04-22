@@ -40,6 +40,7 @@ namespace cse3902.Commands
                 {new Keys[] {Keys.E, Keys.P}, new PauseCommand(game)},
                 {new Keys[] {Keys.K, Keys.L, Keys.H, Keys.J}, new ChangeHealthCommand(game)},
                 {new Keys[] {Keys.Space}, new ClearEnemiesCommand(game)},
+                {new Keys[] {Keys.O}, new HitboxCommand(game)},
             };
 
             leftMouseClickCommandMap = new Dictionary<Rectangle[], ICommand>()
