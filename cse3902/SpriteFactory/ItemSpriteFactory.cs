@@ -20,6 +20,8 @@ namespace cse3902.SpriteFactory
         private Dictionary<IEntity.EnemyType, SettingsValues.Variable> dropRate;
         private int killCounter;
 
+        private ItemLoader itemLoader;
+
         private static ItemSpriteFactory instance = new ItemSpriteFactory();
 
         public static ItemSpriteFactory Instance
@@ -43,99 +45,9 @@ namespace cse3902.SpriteFactory
             dropRate.Add(IEntity.EnemyType.D, SettingsValues.Variable.ItemDropD);
             dropRate.Add(IEntity.EnemyType.X, SettingsValues.Variable.ItemDropX);
 
-            LoadA();
-            LoadB();
-            LoadC();
-            LoadD();
-            LoadX();
-
+            itemLoader = new ItemLoader();
+          
             killCounter = 0;
-        }
-
-        private void LoadA()
-        {
-            List<InventoryManager.ItemType> items = new List<InventoryManager.ItemType>();
-
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Heart);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Fairy);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Heart);
-            items.Add(InventoryManager.ItemType.Heart);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Heart);
-
-            dropList.Add(IEntity.EnemyType.A, items);
-        }
-        private void LoadB()
-        {
-            List<InventoryManager.ItemType> items = new List<InventoryManager.ItemType>();
-
-            items.Add(InventoryManager.ItemType.Bomb);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Clock);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Heart);
-            items.Add(InventoryManager.ItemType.Bomb);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Bomb);
-            items.Add(InventoryManager.ItemType.Heart);
-            items.Add(InventoryManager.ItemType.Heart);
-
-            dropList.Add(IEntity.EnemyType.B, items);
-        }
-        private void LoadC() //stalfos, wallmaster
-        {
-            List<InventoryManager.ItemType> items = new List<InventoryManager.ItemType>();
-
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Heart);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Heart);
-            items.Add(InventoryManager.ItemType.Clock);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Rupee);
-
-            dropList.Add(IEntity.EnemyType.C, items);
-        }
-        private void LoadD() //aquamentus, goriya
-        {
-            List<InventoryManager.ItemType> items = new List<InventoryManager.ItemType>();
-
-            items.Add(InventoryManager.ItemType.Heart);
-            items.Add(InventoryManager.ItemType.Fairy);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Heart);
-            items.Add(InventoryManager.ItemType.Fairy);
-            items.Add(InventoryManager.ItemType.Heart);
-            items.Add(InventoryManager.ItemType.Heart);
-            items.Add(InventoryManager.ItemType.Heart);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Heart);
-
-            dropList.Add(IEntity.EnemyType.D, items);
-        }
-        private void LoadX() //keese, gel
-        {
-            List<InventoryManager.ItemType> items = new List<InventoryManager.ItemType>();
-
-            items.Add(InventoryManager.ItemType.Bomb);
-            items.Add(InventoryManager.ItemType.Bomb);
-            items.Add(InventoryManager.ItemType.Bomb);
-            items.Add(InventoryManager.ItemType.Fairy);
-            items.Add(InventoryManager.ItemType.Heart);
-            items.Add(InventoryManager.ItemType.Clock);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Heart);
-            items.Add(InventoryManager.ItemType.Rupee);
-            items.Add(InventoryManager.ItemType.Heart);
-
-            dropList.Add(IEntity.EnemyType.X, items);
         }
 
         public void LoadAllTextures(ContentManager content, SpriteBatch spriteBatch)
@@ -160,6 +72,12 @@ namespace cse3902.SpriteFactory
             textures.Add("map", content.Load<Texture2D>("map"));
             textures.Add("rupee", content.Load<Texture2D>("rupee"));
             textures.Add("cloud", content.Load<Texture2D>("cloud"));
+
+            itemLoader.LoadA();
+            itemLoader.LoadB();
+            itemLoader.LoadC();
+            itemLoader.LoadD();
+            itemLoader.LoadX();
         }
 
         // Only used for HUD
@@ -169,7 +87,6 @@ namespace cse3902.SpriteFactory
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
         public IItem CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept, int type)
         {
             IItem add = new SwordItem(this.spriteBatch, textures["sword"], startingPos, kept, resetKept, type);
@@ -194,7 +111,6 @@ namespace cse3902.SpriteFactory
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
         public ISprite CreateBoomerangItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new BoomerangItem(spriteBatch, textures["boomerang"], startingPos, kept, resetKept);
@@ -207,35 +123,30 @@ namespace cse3902.SpriteFactory
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
         public ISprite CreateBowItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new BowItem(spriteBatch, textures["bow"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
         public ISprite CreateClockItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new ClockItem(spriteBatch, textures["clock"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
         public ISprite CreateCompassItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new CompassItem(spriteBatch, textures["compass"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
         public ISprite CreateFairyItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new FairyItem(spriteBatch, textures["fairy"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
         public ISprite CreateHeartContainerItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new HeartContainerItem(spriteBatch, textures["heartcont"], startingPos, kept, resetKept);
@@ -248,14 +159,12 @@ namespace cse3902.SpriteFactory
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
         public ISprite CreateHeartItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new HeartItem(spriteBatch, textures["heart"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
         public ISprite CreateKeyItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new KeyItem(spriteBatch, textures["key"], startingPos, kept, resetKept);
@@ -274,34 +183,33 @@ namespace cse3902.SpriteFactory
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
         public ISprite CreateMapItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new MapItem(spriteBatch, textures["map"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
         public IItem CreateRupeeItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new RupeeItem(spriteBatch, textures["rupee"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
         public ISprite CreateTriforceItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new TriforceItem(spriteBatch, textures["triforce"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }
-
         public ISprite CreateCloudAnimation(SpriteBatch spriteBatch, Vector2 startingPos)
         {
             return new CloudAnimationSprite(spriteBatch, textures["cloud"], startingPos);
         }
 
-
+        public Dictionary<IEntity.EnemyType, List<InventoryManager.ItemType>> DropList
+        {
+            get => dropList;
+        }
 
         public void SpawnRandomItem(SpriteBatch spriteBatch, Vector2 startingPos, IEntity.EnemyType type)
         {
