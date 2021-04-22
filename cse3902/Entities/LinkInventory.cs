@@ -13,6 +13,7 @@ namespace cse3902.Entities
 {
     public class LinkInventory
     {
+        private Game1 game;
         private LinkStateMachine linkState;
         private SpriteBatch batch;
         private IItem AnimationItem;
@@ -23,6 +24,7 @@ namespace cse3902.Entities
         {
             this.linkState = linkState;
             batch = game.SpriteBatch;
+            this.game = game;
         }
 
         public void CreateWeapon(Vector2 startingPosition, Vector2 direction)
@@ -71,7 +73,7 @@ namespace cse3902.Entities
                 linkState.Health = linkState.TotalHealth;
             } else if (type == InventoryManager.ItemType.Clock)
             {
-                RoomEnemies.Instance.KillAll();
+                if (game.RoomHandler.currentRoom != RoomUtilities.TRIFORCE_LOC) RoomEnemies.Instance.KillAll();
             }
             //pickup animation if certain item
             if (type == InventoryManager.ItemType.Bow || InventoryUtilities.SwordsList.Contains(type))
