@@ -45,6 +45,8 @@ namespace cse3902
             GoriyaSpawnDelay,
             KeeseSpawnDelay,
             GelSpawnDelay,
+            EnemyTravelDistance,
+            StandardEnemySpeed,
             //health change (over time)
             HealthChange,
             HealthChangeDelay,
@@ -65,6 +67,7 @@ namespace cse3902
             MaxHealthIncrease,
             MaxHealthDecrease,
             SpaceKillEnemies, //this acts as a boolean
+            Knockback,
         }
 
         private static SettingsValues settingValuesInstance = new SettingsValues();
@@ -156,6 +159,9 @@ namespace cse3902
             varToListInt.Add(Variable.KeeseSpawnDelay, new List<int>() { 2, 1, 1 });
             varToListInt.Add(Variable.GelSpawnDelay, new List<int>() { 2, 1, 1 });
             varToListInt.Add(Variable.GoriyaSpawnDelay, new List<int>() { 6, 4, 3 });
+            varToListInt.Add(Variable.Knockback, new List<int>() { 30, 20, 10 });
+            varToListInt.Add(Variable.EnemyTravelDistance, new List<int>() { 125, 125, 125 });
+            varToListInt.Add(Variable.StandardEnemySpeed, new List<int>() { 20, 25, 40 });
         }
 
         public int GetValue(Variable variable)

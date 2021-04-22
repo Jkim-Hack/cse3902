@@ -17,7 +17,7 @@ namespace cse3902.Entities.Enemies
         private readonly Game1 game;
 
         private Vector2 direction;
-        private float speed;
+        private int speed;
         private Vector2 center;
         private Vector2 previousCenter;
         private int travelDistance;
@@ -35,9 +35,9 @@ namespace cse3902.Entities.Enemies
             previousCenter = center;
 
             dodongoSprite = (DodongoSprite)EnemySpriteFactory.Instance.CreateDodongoSprite(game.SpriteBatch, center);
-            speed = 25.0f;
-            travelDistance = 0;
-            shoveDistance = -10;
+            speed = SettingsValues.Instance.GetValue(SettingsValues.Variable.StandardEnemySpeed);
+            travelDistance = SettingsValues.Instance.GetValue(SettingsValues.Variable.EnemyTravelDistance);
+            shoveDistance = 0;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);
@@ -77,7 +77,7 @@ namespace cse3902.Entities.Enemies
                 this.dodongoSprite.StartingFrameIndex++;
             }
             this.shoveDirection = new Vector2(0, 0);
-            this.shoveDistance = 20;
+            this.shoveDistance = SettingsValues.Instance.GetValue(SettingsValues.Variable.Knockback);
             this.travelDistance = 0;
 
             this.Health -= damage;
@@ -98,7 +98,7 @@ namespace cse3902.Entities.Enemies
 
         public void BeShoved()
         {
-            this.shoveDistance = 20;
+            this.shoveDistance = SettingsValues.Instance.GetValue(SettingsValues.Variable.Knockback);
             this.shoveDirection = -this.direction;
         }
 
@@ -126,7 +126,7 @@ namespace cse3902.Entities.Enemies
         {
             UpdateDamage(gameTime);
             this.collidable.ResetCollisions();
-            if (this.shoveDistance > -10) ShoveMovement();
+            if (this.shoveDistance > 0) ShoveMovement();
             else RegularMovement(gameTime);
         }
 
@@ -142,7 +142,7 @@ namespace cse3902.Entities.Enemies
 
             if (travelDistance <= 0)
             {
-                travelDistance = 125;
+                travelDistance = SettingsValues.Instance.GetValue(SettingsValues.Variable.EnemyTravelDistance);
 
                 RandomDirection();
             }
