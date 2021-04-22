@@ -54,7 +54,7 @@ namespace cse3902.Collision.Collidables
         {
             get
             {
-                if (this.projectile is Fireball)
+                if (this.projectile is Fireball || this.projectile is EnemyBoomerangProjectile)
                 {
                     return true;
                 } else

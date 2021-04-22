@@ -48,7 +48,7 @@ namespace cse3902.Collision.Collidables
 
             } else if (collidableObject is BlockCollidable)
             {
-                BlockkCollision(collidableObject);
+                BlockCollision(collidableObject);
             }
 
             else
@@ -167,7 +167,7 @@ namespace cse3902.Collision.Collidables
             }
         }
 
-        private void BlockkCollision(ICollidable collidableObject)
+        private void BlockCollision(ICollidable collidableObject)
         {
             if (collisionOccurrences[0])
             {

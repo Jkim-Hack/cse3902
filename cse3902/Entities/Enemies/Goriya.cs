@@ -46,13 +46,17 @@ namespace cse3902.Entities.Enemies
 
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = SettingsValues.Instance.GetValue(SettingsValues.Variable.GoriyaHealth);
+
+            //IProjectile boomerang = ProjectileHandler.Instance.CreateEnemyBoomerangItem(game.SpriteBatch, goriyaSprite, Direction);
+            
+            
         }
 
         public ref Rectangle Bounds
         {
             get
             {
-                if (goriyaStateMachine.IsTriggered)
+                if (!goriyaStateMachine.IsTriggered)
                 {
                     return ref goriyaSprite.Box;
                 } else
@@ -80,7 +84,7 @@ namespace cse3902.Entities.Enemies
             }
             ChangeSpriteDirection(this.direction);
             goriyaStateMachine.Direction = this.direction;
-
+            ProjectileHandler.Instance.CreateFireballObject(game.SpriteBatch, new Vector2(center.X+30, center.Y), new Vector2(1, 0));
         }
 
         public void TakeDamage(int damage)

@@ -33,6 +33,21 @@ namespace cse3902.Entities
             set => this.isTriggered = value;
         }
 
+        public ref Rectangle Bounds
+        {
+            get
+            {
+                if (IsTriggered)
+                {
+                    return ref goriyaSprite.Box;
+                }
+                else
+                {
+                    return ref DetectionBox;
+                }
+            }
+        }
+
         public ref Rectangle DetectionBox
         {
             get
@@ -62,19 +77,19 @@ namespace cse3902.Entities
         {
             //left box
             detectionBoxes[0] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
-            detectionBoxes[0].Inflate(-RoomUtilities.BLOCK_SIDE * RoomUtilities.NUM_BLOCKS_X, 0);
+            detectionBoxes[0].Inflate(-RoomUtilities.BLOCK_SIDE * 2, 0);
 
             //right box
             detectionBoxes[1] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
-            detectionBoxes[1].Inflate(RoomUtilities.BLOCK_SIDE * RoomUtilities.NUM_BLOCKS_X, 0);
+            detectionBoxes[1].Inflate(RoomUtilities.BLOCK_SIDE * 2, 0);
 
             //top box
             detectionBoxes[2] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
-            detectionBoxes[2].Inflate(0, -RoomUtilities.BLOCK_SIDE * RoomUtilities.NUM_BLOCKS_Y);
+            detectionBoxes[2].Inflate(0, -RoomUtilities.BLOCK_SIDE * 2);
 
             //bottom box
             detectionBoxes[3] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
-            detectionBoxes[3].Inflate(0, RoomUtilities.BLOCK_SIDE * RoomUtilities.NUM_BLOCKS_Y);
+            detectionBoxes[3].Inflate(0, RoomUtilities.BLOCK_SIDE * 2);
         }
     }
 }
