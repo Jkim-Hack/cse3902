@@ -179,7 +179,5 @@ namespace cse3902.Entities
             RoomItems.Instance.RemoveItem(AnimationItem);
             AnimationItem = null;
         }
-
-
     }
 }

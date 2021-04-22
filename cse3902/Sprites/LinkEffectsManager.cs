@@ -1,10 +1,8 @@
-﻿using cse3902.Interfaces;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using cse3902.Rooms;
 using cse3902.Entities.DamageMasks;
 using cse3902.Constants;
-using System;
 
 namespace cse3902.Sprites
 {

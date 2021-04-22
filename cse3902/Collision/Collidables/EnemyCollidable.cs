@@ -1,7 +1,6 @@
 ﻿using System;
 using cse3902.Interfaces;
 using System.Collections;
-using cse3902.HUD;
 using cse3902.Rooms;
 using cse3902.Entities.Enemies;
 using Microsoft.Xna.Framework;
