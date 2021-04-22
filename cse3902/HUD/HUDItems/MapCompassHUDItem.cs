@@ -26,16 +26,16 @@ namespace cse3902.HUD
             this.label = label;
             this.compass = compass;
 
-            this.offsetX = 35;
+            this.offsetX = MapCompassConstants.XOffset;
             this.offsetY = DimensionConstants.OriginalWindowHeight / 2;
 
             int scaledLabelWidth = label.Bounds.Width / 3;
             int scaledLabelHeight = label.Bounds.Height / 3;
             this.labelPos = new Rectangle(0, 0, scaledLabelWidth, scaledLabelHeight);
 
-            int scaledCompassWidth = (int)(compass.Bounds.Width / 1.3f);
-            int scaledCompassHeight = (int)(compass.Bounds.Height / 1.3f);
-            this.compassPos = new Rectangle((scaledLabelWidth / 2) - (scaledCompassWidth / 2), scaledLabelHeight + 5, scaledCompassWidth, scaledCompassHeight);
+            int scaledCompassWidth = (int)(compass.Bounds.Width / MapCompassConstants.CompassScalar);
+            int scaledCompassHeight = (int)(compass.Bounds.Height / MapCompassConstants.CompassScalar);
+            this.compassPos = new Rectangle((scaledLabelWidth / 2) - (scaledCompassWidth / 2), scaledLabelHeight + MapCompassConstants.CompassLabelHeightOffset, scaledCompassWidth, scaledCompassHeight);
 
             this.mapCover = new Rectangle(0, scaledLabelHeight / 4, scaledLabelWidth, scaledLabelHeight / 2);
         }

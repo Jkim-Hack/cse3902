@@ -25,10 +25,10 @@ namespace cse3902.HUD
 
             this.level = level;
 
-            this.offsetX = 25;
-            this.offsetY = DimensionConstants.OriginalWindowHeight - 32;
+            this.offsetX = MiniMapConstants.XOffset;
+            this.offsetY = DimensionConstants.OriginalWindowHeight - MiniMapConstants.YOffset;
 
-            this.levelPos = new Rectangle(0, (-level[0].Bounds.Height / 3) - 7, level[0].Bounds.Width / 3, level[0].Bounds.Height / 3 + 1);
+            this.levelPos = new Rectangle(0, (-level[0].Bounds.Height / MiniMapConstants.LevelDiv) - MiniMapConstants.Width, level[0].Bounds.Width / MiniMapConstants.LevelDiv, level[0].Bounds.Height / MiniMapConstants.LevelDiv + MiniMapConstants.gap);
 
             colorRed = false;
             delay = MiniMapConstants.COLOR_DELAY;
