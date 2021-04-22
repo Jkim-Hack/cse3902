@@ -88,21 +88,21 @@ namespace cse3902.HUD.HUDItems
 
         private void DrawCount(int count, Vector2 location)
         {
-            int rightDigit = count % 10;
-            int leftDigit = (int)(count / 10);
+            int rightDigit = count % HUDPositionConstants.CountDiv;
+            int leftDigit = (int)(count / HUDPositionConstants.CountDiv);
 
-            if (leftDigit == 0 && count < 10)
+            if (leftDigit == 0 && count < HUDPositionConstants.CountDiv)
             {
                 //todo: don't draw the right digit in this case
                 leftDigit = rightDigit;
                 DrawDigit(-1, location);
-                DrawDigit(leftDigit, new Vector2(location.X + (numbersTexture.Width / 11), location.Y));
+                DrawDigit(leftDigit, new Vector2(location.X + (numbersTexture.Width / HUDPositionConstants.DigitDrawDiv), location.Y));
             } else
             {
                 DrawDigit(-1, location);
 
-                DrawDigit(leftDigit, new Vector2(location.X + (numbersTexture.Width / 11), location.Y));
-                Vector2 rightLocation = new Vector2(location.X + 2 * (numbersTexture.Width / 11), location.Y);
+                DrawDigit(leftDigit, new Vector2(location.X + (numbersTexture.Width / HUDPositionConstants.DigitDrawDiv), location.Y));
+                Vector2 rightLocation = new Vector2(location.X + 2 * (numbersTexture.Width / HUDPositionConstants.DigitDrawDiv), location.Y);
                 DrawDigit(rightDigit, rightLocation);
             }
         }
