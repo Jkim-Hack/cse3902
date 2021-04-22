@@ -78,10 +78,6 @@ namespace cse3902.HUD
 
         public void AddToInventory(ItemType type)
         {
-            if (type == ItemType.Clock)
-            {
-                RoomEnemies.Instance.KillAll(); 
-            }
             inventory[type] += InventoryUtilities.itemsCollectedPerItem(type);
             if (inventory[type] > InventoryUtilities.maxItemCount(type)) inventory[type] = InventoryUtilities.maxItemCount(type);
             playItemSounds(type);
