@@ -80,7 +80,7 @@ namespace cse3902.HUD
         {
             if (type == ItemType.Clock)
             {
-                RoomEnemies.Instance.RemoveAllEnemies(); 
+                RoomEnemies.Instance.KillAll(); 
             }
             inventory[type] += InventoryUtilities.itemsCollectedPerItem(type);
             if (inventory[type] > InventoryUtilities.maxItemCount(type)) inventory[type] = InventoryUtilities.maxItemCount(type);
