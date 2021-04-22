@@ -38,9 +38,9 @@ namespace cse3902.Entities.Enemies
             marioBossSprite = (MarioBossSprite)EnemySpriteFactory.Instance.CreateMarioBossSprite(game.SpriteBatch, center);
             marioBossStateMachine = new MarioBossStateMachine(marioBossSprite, game.SpriteBatch, this.center);
             direction = new Vector2(1, 0);
-            speed = 20.0f;
-            travelDistance = 20;
-            shoveDistance = -10;
+            speed = MovementConstants.MarioSpeed;
+            travelDistance = MovementConstants.MarioMaxTravel;
+            shoveDistance = 0;
             shoveDirection = new Vector2(1, 0);
             pauseAnim = false;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
@@ -71,7 +71,7 @@ namespace cse3902.Entities.Enemies
             this.Health -= damage;
             if (this.Health > 0)
             {
-                SoundFactory.PlaySound(SoundFactory.Instance.bossHurt, 0.2f);
+                SoundFactory.PlaySound(SoundFactory.Instance.bossHurt, MovementConstants.MarioDelay);
             }
             this.marioBossSprite.Damaged = true;
             this.collidable.DamageDisabled = true;
@@ -79,7 +79,7 @@ namespace cse3902.Entities.Enemies
 
         public void Die()
         {
-            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, 0.2f);
+            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, MovementConstants.MarioDelay);
             this.marioBossStateMachine.Die();
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.A);
             if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
@@ -87,7 +87,7 @@ namespace cse3902.Entities.Enemies
 
         public void BeShoved()
         {
-            this.shoveDistance = 20;
+            shoveDistance = MovementConstants.MarioShoveDistance;
             this.pauseAnim = true;
         }
 
@@ -137,7 +137,7 @@ namespace cse3902.Entities.Enemies
             if (travelDistance <= 0)
             {
                 direction.X *= -1;
-                travelDistance = 150;
+                travelDistance = MovementConstants.MarioMaxTravel;
             }
             else
             {

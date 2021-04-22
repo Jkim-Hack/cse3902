@@ -36,9 +36,9 @@ namespace cse3902.Entities.Enemies
 
             //rope sprite sheet is 1 row, 2 columns
             ropeSprite = (RopeSprite)EnemySpriteFactory.Instance.CreateRopeSprite(game.SpriteBatch, center);
-            speed = MovementConstants.StalfosSpeed;
+            speed = MovementConstants.RopeSpeed;
             travelDistance = 0;
-            shoveDistance = MovementConstants.DefaultShoveDistance;
+            shoveDistance = MovementConstants.RopeShoveDistance;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);

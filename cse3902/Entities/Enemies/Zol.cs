@@ -36,9 +36,9 @@ namespace cse3902.Entities.Enemies
 
             //gel sprite sheet is 1 row, 2 columns
             gelSprite = (ZolSprite)EnemySpriteFactory.Instance.CreateZolSprite(game.SpriteBatch, this.center);
-            speed = MovementConstants.GelSpeed;
+            speed = MovementConstants.ZolSpeed;
             travelDistance = 0;
-            shoveDistance = MovementConstants.StartingShoveDistance;
+            shoveDistance = MovementConstants.ZolShoveDistance;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
 
             this.collidable = new EnemyCollidable(this, this.Damage);

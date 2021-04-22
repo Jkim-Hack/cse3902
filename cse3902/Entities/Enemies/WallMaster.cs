@@ -169,17 +169,10 @@ namespace cse3902.Entities.Enemies
                 travelDistance--;
             }
 
-            if (direction.X == 0 && direction.Y == 0)
-            {
-                int x = 0;
-            }
 
             ChangeDirection(direction);
 
-            if (direction.X == -0 && direction.Y == 1)
-            {
-                int x = 0;
-            }
+
             wallMasterSprite.Update(gameTime);
         }
 
