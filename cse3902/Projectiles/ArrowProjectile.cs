@@ -110,11 +110,6 @@ namespace cse3902.Projectiles
             }
         }
 
-        public void Erase()
-        {
-            spriteTexture.Dispose();
-        }
-
         public int Update(GameTime gameTime)
         {
             if (collTime >= 0)
