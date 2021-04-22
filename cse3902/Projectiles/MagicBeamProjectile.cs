@@ -26,6 +26,7 @@ namespace cse3902.Projectiles
         private Vector2 current;
         private Vector2 direction;
         private bool collided;
+        private bool particlesGenerated;
 
         private ICollidable collidable;
 
@@ -62,8 +63,12 @@ namespace cse3902.Projectiles
             {
                 if (ParticleEngine.Instance.UseParticleEffects)
                 {
-                    origin = new Vector2(current.X, current.Y) - new Vector2(frame.Width, frame.Height) / 10 +  direction * 5;
-                    ParticleEngine.Instance.CreateArrowEffect(origin);
+                    if (!particlesGenerated)
+                    {
+                        origin = new Vector2(current.X, current.Y) - new Vector2(frame.Width, frame.Height) / 10 + direction * 5;
+                        ParticleEngine.Instance.CreateArrowEffect(origin);
+                        particlesGenerated = true;
+                    }
                 }
                 else
                 {
