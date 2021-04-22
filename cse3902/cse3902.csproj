@@ -51,5 +51,6 @@
     <Compile Remove="Entities\GoriyaStateMachine.cs" />
     <Compile Remove="Entities\KeeseStateMachine.cs" />
     <Compile Remove="Entities\StalfosStateMachine.cs" />
+    <Compile Remove="Collision\Collidables\DetectionCollidable.cs" />
   </ItemGroup>
 </Project>
