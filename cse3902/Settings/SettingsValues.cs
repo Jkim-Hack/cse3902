@@ -22,7 +22,7 @@ namespace cse3902
             MarioDamage,
             RopeHealth,
             RopeDamage,
-            ZolHealth,
+/*10*/      ZolHealth,
             ZolDamage,
             DodongoHealth,
             DodongoDamage,
@@ -32,7 +32,7 @@ namespace cse3902
             GelHealth,
             GelDamage,
             KeeseHealth,
-            KeeseDamage,
+/*20*/      KeeseDamage,
             StalfosHealth,
             StalfosDamage,
             TrapDamage,
@@ -42,9 +42,12 @@ namespace cse3902
             GoriyaEnemyType, //needs to be casted to enemy type enum
             MinLinkDamage,
             StalfosSpawnDelay,
-            GoriyaSpawnDelay,
+/*30*/      GoriyaSpawnDelay,
             KeeseSpawnDelay,
             GelSpawnDelay,
+            EnemyTravelDistance,
+            StandardEnemySpeed,
+            Knockback,
             //health change (over time)
             HealthChange,
             HealthChangeDelay,
@@ -59,6 +62,7 @@ namespace cse3902
             ItemDropC,
             ItemDropD,
             ItemDropX,
+            RupeePickup,
             //Utilities
             HealthIncrease,
             HealthDecrease,
@@ -75,7 +79,7 @@ namespace cse3902
         private SettingsValues()
         {
             variableSeparator = new List<int>();
-            List<int> settingCount = new List<int>() { 32, 2, 2, 1, 5, 5 }; //update this whenever adding/removing a variable {#EnemyStrength, #HealthChange, #Vision, #MinSwordHealth, #ItemDropRate, #Utilities}
+            List<int> settingCount = new List<int>() { 35, 2, 2, 1, 6, 5 }; //update this whenever adding/removing a variable {#EnemyStrength, #HealthChange, #Vision, #MinSwordHealth, #ItemDropRate, #Utilities}
             numVariables = 0;
             foreach (int val in settingCount)
             {
@@ -156,6 +160,10 @@ namespace cse3902
             varToListInt.Add(Variable.KeeseSpawnDelay, new List<int>() { 2, 1, 1 });
             varToListInt.Add(Variable.GelSpawnDelay, new List<int>() { 2, 1, 1 });
             varToListInt.Add(Variable.GoriyaSpawnDelay, new List<int>() { 6, 4, 3 });
+            varToListInt.Add(Variable.RupeePickup, new List<int>() { 3, 1, 1 });
+            varToListInt.Add(Variable.Knockback, new List<int>() { 30, 20, 10 });
+            varToListInt.Add(Variable.EnemyTravelDistance, new List<int>() { 125, 125, 125 });
+            varToListInt.Add(Variable.StandardEnemySpeed, new List<int>() { 20, 25, 40 });
         }
 
         public int GetValue(Variable variable)

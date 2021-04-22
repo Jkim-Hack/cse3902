@@ -1,6 +1,7 @@
 ﻿using System;
 using cse3902.Entities.DamageMasks;
 using cse3902.Interfaces;
+using cse3902.Rooms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static cse3902.Interfaces.ISprite;
@@ -11,10 +12,14 @@ namespace cse3902.Sprites.EnemySprites
     {
         public enum FrameIndex
         {
-            UpFacing = 2,
             DownFacing = 0,
-            RightFacing = 6,
-            LeftFacing = 4
+            DownBomb = 1,
+            UpFacing = 2,
+            UpBomb = 3,
+            RightFacing = 4,
+            RightBomb = 6,
+            LeftFacing = 7,
+            LeftBomb = 9
 
         };
 
@@ -23,7 +28,6 @@ namespace cse3902.Sprites.EnemySprites
         private Vector2 center;
 
         private int currentFrame;
-        private int totalFrames;
         private Rectangle[] frames;
         private int frameWidth;
         private int frameHeight;
@@ -42,7 +46,7 @@ namespace cse3902.Sprites.EnemySprites
         private float remainingDamageDelay;
         private const float damageDelay = .05f;
 
-        private const float sizeIncrease = 1f;
+        private const float sizeIncrease = .7f;
 
 
         public DodongoSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Texture2D damageSequence, Vector2 startingPosition)
@@ -54,7 +58,6 @@ namespace cse3902.Sprites.EnemySprites
             isDamage = false;
             remainingDamageDelay = damageDelay;
 
-            totalFrames = rows * columns;
             currentFrame = 4;
 
             startingFrameIndex = 0;
@@ -62,7 +65,7 @@ namespace cse3902.Sprites.EnemySprites
 
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
-            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight); ;
+            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
 
             center = startingPosition;
 
@@ -73,8 +76,15 @@ namespace cse3902.Sprites.EnemySprites
         public void Draw()
         {
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, frameWidth, frameHeight);
+            if (this.IsReversible && currentFrame > startingFrameIndex)
+            {
+                spriteBatch.Draw(spriteTexture, Destination, frames[startingFrameIndex], Color.White, 0, origin, SpriteEffects.FlipHorizontally, SpriteUtilities.EnemyLayer);
+            } else
+            {
+                spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
+            }
+            
         }
 
         public void Erase()
@@ -99,6 +109,10 @@ namespace cse3902.Sprites.EnemySprites
 
             if (remainingDelay <= 0)
             {
+                if (this.StartingFrameIndex == (int)DodongoSprite.FrameIndex.DownBomb || this.StartingFrameIndex == (int)DodongoSprite.FrameIndex.UpBomb || this.StartingFrameIndex == (int)DodongoSprite.FrameIndex.LeftBomb || this.StartingFrameIndex == (int)DodongoSprite.FrameIndex.RightBomb)
+                {
+                    return 0;
+                }
                 currentFrame++;
                 if (currentFrame == endingFrameIndex)
                 {
@@ -113,11 +127,21 @@ namespace cse3902.Sprites.EnemySprites
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth);
-                int height = (int)(sizeIncrease * frameHeight);
-                width += Math.Abs(height - width); //make hitbox square
-                Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
-                Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+                Rectangle Destination;
+                if (StartingFrameIndex == (int)DodongoSprite.FrameIndex.DownFacing || StartingFrameIndex == (int)DodongoSprite.FrameIndex.UpFacing)
+                {
+                    Destination = new Rectangle((int)center.X, (int)center.Y, RoomUtilities.BLOCK_SIDE, RoomUtilities.BLOCK_SIDE);
+                    Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+                } else
+                {
+                    int width = (int)(sizeIncrease * frameWidth);
+                    int height = (int)(frameHeight);
+                    width += Math.Abs(height - width);
+                    Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
+                    Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
+                }
+
+                
                 this.destination = Destination;
                 return ref destination;
             }
@@ -159,6 +183,20 @@ namespace cse3902.Sprites.EnemySprites
                 remainingDamageDelay = damageDelay;
                 isDamage = value;
                 damageMaskHandler.Reset();
+            }
+        }
+
+        private bool IsReversible
+        {
+            get
+            {
+                if (this.StartingFrameIndex == (int)DodongoSprite.FrameIndex.DownFacing || this.StartingFrameIndex == (int)DodongoSprite.FrameIndex.UpFacing)
+                {
+                    return true;
+                } else
+                {
+                    return false;
+                }
             }
         }
     }

@@ -135,25 +135,8 @@ namespace cse3902.Entities.Enemies
                 int choice = rand.Next(0, 4);
                 travelDistance = MovementConstants.KeeseMaxTravel;
 
-                switch (choice)
-                {
-                    case 0:
-                        direction.X = 1;
-                        direction.Y = 0;
-                        break;
-                    case 1:
-                        direction.X = -1;
-                        direction.Y = 0;
-                        break;
-                    case 2:
-                        direction.X = 0;
-                        direction.Y = 1;
-                        break;
-                    case 3:
-                        direction.X = 0;
-                        direction.Y = -1;
-                        break;
-                }
+                SetDirection(choice);
+
                 choice = rand.Next(0, 2);
                 switch (choice)
                 {
@@ -170,6 +153,29 @@ namespace cse3902.Entities.Enemies
                 travelDistance--;
             }
             keeseSprite.Update(gameTime);
+        }
+
+        private void SetDirection(int choice)
+        {
+            switch (choice)
+            {
+                case 0:
+                    direction.X = 1;
+                    direction.Y = 0;
+                    break;
+                case 1:
+                    direction.X = -1;
+                    direction.Y = 0;
+                    break;
+                case 2:
+                    direction.X = 0;
+                    direction.Y = 1;
+                    break;
+                case 3:
+                    direction.X = 0;
+                    direction.Y = -1;
+                    break;
+            }
         }
 
         public void Draw()

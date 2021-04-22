@@ -3,6 +3,8 @@ using cse3902.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using cse3902.Rooms;
+using cse3902.Interfaces;
 
 namespace cse3902.HUD
 {
