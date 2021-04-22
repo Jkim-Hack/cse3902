@@ -9,5 +9,7 @@
         public const int HeartContainerItemAddition = 2;
         public const int HeartHUDContainerOffsetX = 3;
 	    public const int HeartHUDContainerOffsetY = 18;
+
+        public const int HeartDim = 8;
     }
 }
