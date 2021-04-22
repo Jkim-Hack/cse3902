@@ -26,6 +26,11 @@ namespace cse3902.Constants
         public const int BoggusMaxTravel = 150;
         public const int BoggusShoveDistance = DefaultShoveDistance;
 
+        public const float MarioSpeed = 45.0f;
+        public const float MarioDelay = .2f;
+        public const int MarioMaxTravel = 100;
+        public const int MarioShoveDistance = DefaultShoveDistance;
+
         public const float GelSpeed = 25.0f;
         public const int GelMaxTravel = 100;
         public const int GelShoveDistance = DefaultShoveDistance;
