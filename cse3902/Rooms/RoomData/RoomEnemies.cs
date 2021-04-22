@@ -40,6 +40,14 @@ namespace cse3902.Rooms
             //enpcs.Remove(enemy);
         }
 
+        public void RemoveAllEnemies()
+        {
+            for (int i = enemies.Count-1; i >= 0; i--)
+            {
+                enemies.RemoveAt(i);
+            }
+        }
+
         public void Update(GameTime gameTime)
         {
             if (CloudAnimation.Instance.cloudAnims.Count == 0)

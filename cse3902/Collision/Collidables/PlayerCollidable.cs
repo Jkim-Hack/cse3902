@@ -41,7 +41,6 @@ namespace cse3902.Collision.Collidables
             else if (collidableObject is ItemCollidable)
             {
                 this.player.AddItem(((ItemCollidable)collidableObject).Item);
-
             }
             else if (collidableObject is ProjectileCollidable)
             {

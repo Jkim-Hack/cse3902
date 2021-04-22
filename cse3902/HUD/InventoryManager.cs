@@ -3,6 +3,8 @@ using cse3902.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using cse3902.Rooms;
+using cse3902.Interfaces;
 
 namespace cse3902.HUD
 {
@@ -76,6 +78,10 @@ namespace cse3902.HUD
 
         public void AddToInventory(ItemType type)
         {
+            if (type == ItemType.Clock)
+            {
+                RoomEnemies.Instance.RemoveAllEnemies(); 
+            }
             inventory[type] += InventoryUtilities.itemsCollectedPerItem(type);
             if (inventory[type] > InventoryUtilities.maxItemCount(type)) inventory[type] = InventoryUtilities.maxItemCount(type);
             playItemSounds(type);
