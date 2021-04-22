@@ -19,7 +19,6 @@ namespace cse3902.HUD.HUDItems
         private Rectangle box;
         private SpriteBatch spriteBatch;
 
-
         private (ItemType, ISprite) currentBItem;
         private Vector2 BItemOrigin;
 
@@ -181,6 +180,5 @@ namespace cse3902.HUD.HUDItems
                 }
             }
         }
-
     }
 }

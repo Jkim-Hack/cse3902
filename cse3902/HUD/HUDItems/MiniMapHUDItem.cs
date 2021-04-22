@@ -1,10 +1,7 @@
-using cse3902.Interfaces;
 using cse3902.Constants;
 using cse3902.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using cse3902.Rooms;
-using System;
 
 namespace cse3902.HUD
 {
