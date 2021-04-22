@@ -17,7 +17,6 @@ namespace cse3902.Sounds
         public SoundEffect lowHealth { get; set; }
         public SoundEffect getItem { get; set; }
         public SoundEffect getRupee { get; set; }
-        //need to implement (with scrolling text in old man room)
         public SoundEffect text { get; set; }
         public SoundEffect keyAppear { get; set; }
         public SoundEffect doorUnlock { get; set; }

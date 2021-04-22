@@ -23,11 +23,6 @@ namespace cse3902.Projectiles
             boomerang.Draw();
         }
 
-        public void Erase()
-        {
-            boomerang.Erase();
-        }
-
         public int Update(GameTime gameTime)
         {
 

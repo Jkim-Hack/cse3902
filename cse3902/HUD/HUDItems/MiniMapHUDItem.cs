@@ -1,10 +1,7 @@
-using cse3902.Interfaces;
 using cse3902.Constants;
 using cse3902.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using cse3902.Rooms;
-using System;
 
 namespace cse3902.HUD
 {
@@ -86,8 +83,6 @@ namespace cse3902.HUD
             currentRoomRectangle.Width = MiniMapConstants.Height;
             HUDUtilities.DrawRectangle(game, currentRoomRectangle, MiniMapConstants.CurrentRoomColor, offsetX, offsetY, HUDUtilities.MinimapCurrentRoomLayer);
         }
-
-        public void Erase() {} // needs to be deleted once isprite is updated
 
         public Vector2 Center {
 

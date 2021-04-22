@@ -158,8 +158,8 @@
 				<type>PortalDown</type>
 				<pos>4</pos>
 				<state>Locked</state>
-				<xloc>5</xloc>
-				<yloc>2</yloc>
+				<xloc>2</xloc>
+				<yloc>6</yloc>
 				<xchange>5</xchange>
 				<ychange>0</ychange>
 			</door>

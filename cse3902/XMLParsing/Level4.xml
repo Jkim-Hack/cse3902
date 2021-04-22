@@ -283,10 +283,22 @@
 				<yloc>5</yloc>
             </spawner>
 			<spawner>
+				<type>stalfos</type>
+				<count>5</count>
+				<xloc>3</xloc>
+				<yloc>0</yloc>
+            </spawner>
+			<spawner>
 				<type>gel</type>
 				<count>4</count>
 				<xloc>7</xloc>
 				<yloc>4</yloc>
+            </spawner>
+			<spawner>
+				<type>gel</type>
+				<count>5</count>
+				<xloc>11</xloc>
+				<yloc>5</yloc>
             </spawner>
 			<spawner>
 				<type>goriya</type>

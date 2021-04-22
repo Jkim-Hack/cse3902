@@ -86,10 +86,6 @@ namespace cse3902.Sprites
             spriteBatch.Draw(texture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, HUDUtilities.InventoryItemLayer-.1f);
         }
 
-        public void Erase()
-        {
-            texture.Dispose();
-	    }
         public InventoryManager.ItemType ItemType
         {
             get => itemType;

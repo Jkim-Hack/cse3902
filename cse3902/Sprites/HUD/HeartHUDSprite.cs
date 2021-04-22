@@ -123,11 +123,6 @@ namespace cse3902.Sprites
             spriteBatch.Draw(texture, Destination, frames[(int)currentFrame], Color.White, 0, new Vector2(0, 0), SpriteEffects.None, HUDUtilities.HeartsLayer);
         }
 
-        public void Erase()
-        {
-            texture.Dispose();
-	    }
-
         public int Update(GameTime gameTime)
         {
             // Does nothing just displays

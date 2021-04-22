@@ -57,11 +57,6 @@ namespace cse3902.Rooms
             spriteBatch.Draw(spriteTexture, Destination, null, Color.White, 0, origin, SpriteEffects.None, layer);
         }
 
-        public void Erase()
-        {
-            
-        }
-
         int ISprite.Update(GameTime gameTime)
         {
             return 0;

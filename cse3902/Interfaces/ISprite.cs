@@ -9,7 +9,6 @@ namespace cse3902.Interfaces
     {  
         public delegate void onAnimCompleteCallback();
 	    public void Draw();
-        public void Erase();
         public int Update(GameTime gameTime);
         public Vector2 Center { get; set; }
         public Texture2D Texture { get; }

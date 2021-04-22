@@ -4,7 +4,6 @@ using cse3902.Interfaces;
 using cse3902.Rooms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Sprites.EnemySprites
 {
@@ -85,11 +84,6 @@ namespace cse3902.Sprites.EnemySprites
                 spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
             }
             
-        }
-
-        public void Erase()
-        {
-            spriteTexture.Dispose();
         }
 
         public int Update(GameTime gameTime)

@@ -67,11 +67,6 @@ namespace cse3902.Projectiles
             set => fireball.AnimationComplete = value;
         }
 
-        public void Erase()
-        {
-            fireball.Erase();
-        }
-
         public int Damage
         {
             get => DamageConstants.MagicFireballDamage;
