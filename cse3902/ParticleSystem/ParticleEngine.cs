@@ -6,9 +6,6 @@ using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using System;
 
-using Microsoft.Xna.Framework.Input;
-using cse3902.Projectiles;
-
 namespace cse3902.ParticleSystem
 {
     public class ParticleEngine
@@ -24,8 +21,6 @@ namespace cse3902.ParticleSystem
         private Texture2D diamond;
         private Texture2D star;
         private Texture2D ring;
-
-        private bool pressed = false;
 
         private ParticleEngine()
         {
@@ -77,26 +72,7 @@ namespace cse3902.ParticleSystem
 
         public void Draw(SpriteBatch spriteBatch, Matrix transformationMatrix)
         {
-            TestItem(spriteBatch);
-
             emitters.ForEach(emitter => emitter.Draw(spriteBatch, transformationMatrix));
-        }
-
-        /* just for testing */
-        private void TestItem(SpriteBatch spriteBatch)
-        {
-            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && !pressed)
-            {
-                /* Uncomment the one being tested and press left shift to spawn in starting room */
-                // ProjectileHandler.Instance.CreateSwordItem(spriteBatch, new Vector2(700, 1000), new Vector2(1, 0));
-                // ProjectileHandler.Instance.CreateArrowItem(spriteBatch, new Vector2(700, 1000), new Vector2(1, 0));
-                // ProjectileHandler.Instance.CreateBombItem(spriteBatch, new Vector2(650, 970));
-                // ProjectileHandler.Instance.CreateFireballObject(spriteBatch, new Vector2(730, 970), new Vector2(-1, 0));
-                // CreateEnemyDeathEffect(new Vector2(650, 970));
-
-                pressed = true;
-            }
-            if (!Keyboard.GetState().IsKeyDown(Keys.LeftShift)) pressed = false;
         }
 
         public bool UseParticleEffects
