@@ -174,15 +174,19 @@ namespace cse3902.Entities.Enemies
                 return;
             }
 
-            this.Center += direction * MovementConstants.GoriyaSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (travelDistance <= 0)
+            if (!stun.stun)
             {
+                this.Center += direction * MovementConstants.GoriyaSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+                if (travelDistance <= 0)
+                {
                     travelDistance = MovementConstants.GoriyaMaxTravel;
 
                     RandomDirection();
-            } else travelDistance--;
+                }
+                else travelDistance--;
+            }
             goriyaSprite.Update(gameTime);
         }
 

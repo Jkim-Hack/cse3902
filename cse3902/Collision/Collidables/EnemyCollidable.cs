@@ -133,6 +133,7 @@ namespace cse3902.Collision.Collidables
             {
                 return;
             }
+
             if (!(this.enemy is Aquamentus || this.enemy is BoggusBoss || this.enemy is MarioBoss || this.enemy is Dodongo)) {
                 if (((ProjectileCollidable)collidableObject).Projectile is BoomerangProjectile)
                 {
