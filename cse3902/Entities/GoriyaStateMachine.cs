@@ -13,20 +13,26 @@ namespace cse3902.Entities
         private Boolean isTriggered;
         private Vector2 direction;
 
+        private Boolean alternate;
+
         public GoriyaStateMachine(GoriyaSprite goriyaSprite)
         {
             this.goriyaSprite = goriyaSprite;
             detectionBoxes = new Rectangle[4];
             isTriggered = false;
             ConstructDetectionBoxes();
+            alternate = true;
         }
-
 
         public void ThrowBoomerang()
         {
+            if (!IsTriggered && Bounds != goriyaSprite.Box)
+            {
+                IsTriggered = true;
+            }
             
         }
-
+        
         public Boolean IsTriggered
         {
             get => this.isTriggered;
@@ -43,7 +49,16 @@ namespace cse3902.Entities
                 }
                 else
                 {
-                    return ref DetectionBox;
+                    if(alternate)
+                    {
+                        alternate = false;
+                        return ref goriyaSprite.Box;
+                    } else
+                    {
+                        alternate = true;
+                        return ref DetectionBox;
+                    }
+                    
                 }
             }
         }
