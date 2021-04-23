@@ -562,6 +562,30 @@
 		<number>2,0,2</number>
 		<sprite>12</sprite>
 		<traps>
+            <trap>
+                <xloc>0</xloc>
+                <yloc>0</yloc>
+                <xdir>1</xdir>
+                <ydir>1</ydir>
+            </trap>
+            <trap>
+                <xloc>11</xloc>
+                <yloc>0</yloc>
+                <xdir>-1</xdir>
+                <ydir>1</ydir>
+            </trap>
+            <trap>
+                <xloc>0</xloc>
+                <yloc>6</yloc>
+                <xdir>1</xdir>
+                <ydir>-1</ydir>
+            </trap>
+            <trap>
+                <xloc>11</xloc>
+                <yloc>6</yloc>
+                <xdir>-1</xdir>
+                <ydir>-1</ydir>
+            </trap>
 		</traps>
 		<conditions>
 			<condition>
