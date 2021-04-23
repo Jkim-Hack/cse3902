@@ -15,7 +15,6 @@ namespace cse3902.Sprites.EnemySprites
         private Vector2 center;
 
         private int currentFrame;
-        private int totalFrames;
         private Rectangle[] frames;
         private Vector2 size;
 
@@ -34,7 +33,6 @@ namespace cse3902.Sprites.EnemySprites
             spriteTexture = texture;
             remainingDelay = MovementConstants.StalfosDelay;
 
-            totalFrames = rows * columns;
             currentFrame = 0;
 
             startingFrameIndex = 0;

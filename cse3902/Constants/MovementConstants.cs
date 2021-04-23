@@ -57,11 +57,13 @@ namespace cse3902.Constants
         public const int StalfosShoveDistance = DefaultShoveDistance;
 
         public const float TrapSpeed = 50f;
+        public const float TrapDelay = .2f;
         public const int TrapTriggerDistanceX = 100;
         public const int TrapTriggerDistanceY = 50;
         public const int TrapTime = 20;
 
         public const float WallMasterSpeed = 45.0f;
+        public const float WallMasterDelay = .2f;
         public const int WallMasterMaxTravel = (int)((RoomUtilities.BLOCK_SIDE*4)*(30/WallMasterSpeed));
         public const int WallMasterShoveDistance = DefaultShoveDistance;
 
