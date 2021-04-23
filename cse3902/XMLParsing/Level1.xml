@@ -161,13 +161,13 @@
 			</item>
 			<item>
 				<type>Bomb</type>
-				<xloc>8</xloc>
+				<xloc>4</xloc>
 				<yloc>6</yloc>
 			</item>
 			<item>
 				<type>Fairy</type>
 				<xloc>8</xloc>
-				<yloc>5</yloc>
+				<yloc>6</yloc>
 			</item>
 			<item>
 				<type>BlueRing</type>
@@ -181,12 +181,7 @@
 			</item>
 			<item>
 				<type>Boomerang</type>
-				<xloc>8</xloc>
-				<yloc>5</yloc>
-			</item>
-			<item>
-				<type>Boomerang</type>
-				<xloc>8</xloc>
+				<xloc>7</xloc>
 				<yloc>6</yloc>
 			</item>
 			<item>

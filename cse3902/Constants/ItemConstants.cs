@@ -1,4 +1,5 @@
 ﻿using System;
+using cse3902.Rooms;
 
 namespace cse3902.Constants
 {
@@ -41,8 +42,9 @@ namespace cse3902.Constants
         public const int BombCols = 1;
         public const float BombDelay = 0.8f;
 
-        public const int BoomerangTravelDistance = 35;
-        public const float BoomerangSpeed = 1.25f;
+        public const int BoomerangTravelDistance = (int) (5 * RoomUtilities.BLOCK_SIDE / BoomerangSpeed);
+        public const int EnemyBoomerangTravelDistance = (int)(6 * RoomUtilities.BLOCK_SIDE / BoomerangSpeed);
+        public const float BoomerangSpeed = 2f;
 
         public const float FireballSpeed = 1.3f;
         public const float MagicFireballSpeed = 1.5f;

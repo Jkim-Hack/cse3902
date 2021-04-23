@@ -8,6 +8,7 @@ using System;
 using cse3902.Constants;
 using cse3902.Sounds;
 using cse3902.ParticleSystem;
+using cse3902.Rooms;
 
 namespace cse3902.Entities.Enemies
 {
@@ -235,6 +236,15 @@ namespace cse3902.Entities.Enemies
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public (bool Stun, float StunDuration) Stunned
+        {
+            get => (false, 0);
+            set
+            {
+                if (value.Stun) health = 0;
+            }
         }
     }
 }

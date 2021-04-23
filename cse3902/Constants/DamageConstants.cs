@@ -16,6 +16,9 @@ namespace cse3902.Constants
         public const int WhiteSwordDamage = 2 * WoodSwordDamage;
         public const int MagicalSwordDamage = 2 * WhiteSwordDamage;
 
+        public const float BoomerangStunDuration = 2.5f;
+        public const float ClockStunDuration = 9999;
+
         public static int SwordDamage
         {
             get

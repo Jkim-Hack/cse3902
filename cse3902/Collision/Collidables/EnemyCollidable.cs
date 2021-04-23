@@ -5,6 +5,7 @@ using cse3902.Projectiles;
 using cse3902.Rooms;
 using cse3902.Entities.Enemies;
 using Microsoft.Xna.Framework;
+using cse3902.Constants;
 
 namespace cse3902.Collision.Collidables
 {
@@ -44,7 +45,6 @@ namespace cse3902.Collision.Collidables
             } else if (collidableObject is DoorCollidable || collidableObject is WallCollidable)
             {
                 DoorWallCollision(collidableObject);
-
 
             } else if (collidableObject is BlockCollidable)
             {
@@ -129,12 +129,16 @@ namespace cse3902.Collision.Collidables
             {
                 return;
             }
-
             if (this.enemy is Dodongo && !(((ProjectileCollidable)collidableObject).Projectile is BombProjectile))
             {
                 return;
             }
- 
+            if (!(this.enemy is Aquamentus || this.enemy is BoggusBoss || this.enemy is MarioBoss || this.enemy is Dodongo)) {
+                if (((ProjectileCollidable)collidableObject).Projectile is BoomerangProjectile)
+                {
+                    if (this.enemy.Stunned.StunDuration < DamageConstants.BoomerangStunDuration) this.enemy.Stunned = (true, DamageConstants.BoomerangStunDuration);
+                }
+            }
 
             this.enemy.TakeDamage(collidableObject.DamageValue);
             if (this.enemy.Health <= 0)

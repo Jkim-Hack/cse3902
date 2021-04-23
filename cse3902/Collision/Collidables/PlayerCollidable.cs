@@ -80,7 +80,8 @@ namespace cse3902.Collision.Collidables
         }
 
         private void EnemyCollision(ICollidable collidableObject)
-        {           
+        {
+            if (((EnemyCollidable)collidableObject).Enemy.Stunned.Stun) return;
             if (((EnemyCollidable)collidableObject).Enemy is WallMaster)
             {
                 if (((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered)

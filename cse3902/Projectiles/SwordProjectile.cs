@@ -30,7 +30,7 @@ namespace cse3902.Projectiles
 
         private ICollidable collidable;
 
-        public SwordProjectile(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir)
+        public SwordProjectile(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Vector2 dir, Game1 game)
         {
             spriteBatch = batch;
             spriteTexture = texture;
@@ -46,7 +46,7 @@ namespace cse3902.Projectiles
 
             current = new Vector2(startingPos.X, startingPos.Y);
             collisionTexture = ProjectileHandler.Instance.CreatePoofAnim(spriteBatch, new Vector2(current.X, current.Y));
-            this.collidable = new ProjectileCollidable(this);
+            this.collidable = new ProjectileCollidable(this, game);
         }
 
         public void Draw()

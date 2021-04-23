@@ -73,7 +73,7 @@ namespace cse3902.Entities
                 linkState.Health = linkState.TotalHealth;
             } else if (type == InventoryManager.ItemType.Clock)
             {
-                if (game.RoomHandler.currentRoom != RoomUtilities.HORDE_ROOM) RoomEnemies.Instance.KillAll();
+                if (game.RoomHandler.currentRoom != RoomUtilities.HORDE_ROOM) RoomEnemies.Instance.ClockStun();
                 else linkState.Health += (linkState.TotalHealth - linkState.Health) / 2;
             }
             //pickup animation if certain item

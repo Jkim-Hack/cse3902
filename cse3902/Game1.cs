@@ -92,6 +92,7 @@ namespace cse3902
             GameStateManager.Instance.Game = this;
             VisionBlocker.Instance.Game = this;
             GameConditionManager.Instance.Game = this;
+            ProjectileHandler.Instance.Game = this;
 
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             DoorSpriteFactory.Instance.LoadAllTextures(Content);

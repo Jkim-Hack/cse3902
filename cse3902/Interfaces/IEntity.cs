@@ -20,6 +20,7 @@ namespace cse3902.Interfaces
         public Vector2 Center { get; set; }
         public Vector2 PreviousCenter { get; }
         public EnemyType Type { get; }
+        public (bool Stun, float StunDuration) Stunned { get; set; }
 
         public void Attack();
         public void ChangeDirection(Vector2 direction);

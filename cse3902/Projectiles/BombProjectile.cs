@@ -33,7 +33,7 @@ namespace cse3902.Projectiles
 
         private ICollidable collidable;
 
-        public BombProjectile(SpriteBatch batch, Texture2D texture, Vector2 startingPos)
+        public BombProjectile(SpriteBatch batch, Texture2D texture, Vector2 startingPos, Game1 game)
         {
             spriteBatch = batch;
             spriteTexture = texture;
@@ -54,7 +54,7 @@ namespace cse3902.Projectiles
             this.animationComplete = false;
             this.particlesGenerated = false;
 
-            this.collidable = new ProjectileCollidable(this);
+            this.collidable = new ProjectileCollidable(this, game);
 
             SoundFactory.PlaySound(SoundFactory.Instance.bombDrop);
         }
