@@ -18,9 +18,7 @@ namespace cse3902.Entities.Enemies
         private readonly Game1 game;
 
         private Vector2 direction;
-        private float speed;
-        private Vector2 center;
-        private Vector2 previousCenter;
+        private (Vector2 previous, Vector2 current) center;
         private int travelDistance;
         private Vector2 shoveDirection;
         private int shoveDistance;
@@ -32,12 +30,11 @@ namespace cse3902.Entities.Enemies
         public Gel(Game1 game, Vector2 start)
         {
             this.game = game;
-            center = start;
-            previousCenter = center;
+            center.current = start;
+            center.previous = center.current;
 
             //gel sprite sheet is 1 row, 2 columns
-            gelSprite = (GelSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.SpriteBatch, this.center);
-            speed = MovementConstants.GelSpeed;
+            gelSprite = (GelSprite)EnemySpriteFactory.Instance.CreateGelSprite(game.SpriteBatch, this.center.current);
             travelDistance = 0;
             shoveDistance = MovementConstants.StartingShoveDistance;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
@@ -84,8 +81,8 @@ namespace cse3902.Entities.Enemies
         public void Die()
         {
             SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
-            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.X);
-            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center.current, IEntity.EnemyType.X);
+            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center.current);
         }
 
         public void BeShoved()
@@ -130,7 +127,7 @@ namespace cse3902.Entities.Enemies
 
         private void RegularMovement(GameTime gameTime)
         {
-            this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.Center += direction * MovementConstants.GelSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (travelDistance <= 0)
             {
@@ -175,7 +172,7 @@ namespace cse3902.Entities.Enemies
 
         public IEntity Duplicate()
         {
-            return new Gel(game, center);
+            return new Gel(game, center.current);
         }
 
         public IEntity.EnemyType Type
@@ -185,21 +182,21 @@ namespace cse3902.Entities.Enemies
 
         public Vector2 Center
         {
-            get => this.center;
+            get => this.center.current;
             set
             {
-                this.PreviousCenter = this.center;
-                this.center = value;
+                this.PreviousCenter = this.center.current;
+                this.center.current = value;
                 gelSprite.Center = value;
             }
         }
 
         public Vector2 PreviousCenter
         {
-            get => this.previousCenter;
+            get => this.center.previous;
             set
             {
-                this.previousCenter = value;
+                this.center.previous = value;
             }
         }
 
