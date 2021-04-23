@@ -9,7 +9,7 @@ namespace cse3902.Entities
     {
         private GoriyaSprite goriyaSprite;
 
-        private Rectangle[] detectionBoxes;
+        private Rectangle detectionBox;
         private Boolean isTriggered;
         private Vector2 direction;
 
@@ -18,9 +18,7 @@ namespace cse3902.Entities
         public GoriyaStateMachine(GoriyaSprite goriyaSprite)
         {
             this.goriyaSprite = goriyaSprite;
-            detectionBoxes = new Rectangle[4];
             isTriggered = false;
-            ConstructDetectionBoxes();
             alternate = 0;
         }
 
@@ -65,16 +63,28 @@ namespace cse3902.Entities
             {
                 if (direction.X > 0)
                 {
-                    return ref detectionBoxes[0];
+                    detectionBox = goriyaSprite.Box;
+                    detectionBox.Inflate(RoomUtilities.BLOCK_SIDE * 2, 0);
+                    detectionBox.Offset(RoomUtilities.BLOCK_SIDE * 2, 0);
+                    return ref detectionBox;
                 } else if (direction.X < 0)
                 {
-                    return ref detectionBoxes[1];
+                    detectionBox = goriyaSprite.Box;
+                    detectionBox.Inflate(RoomUtilities.BLOCK_SIDE * 2, 0);
+                    detectionBox.Offset(-RoomUtilities.BLOCK_SIDE * 2, 0);
+                    return ref detectionBox;
                 } else if (direction.Y > 0)
                 {
-                    return ref detectionBoxes[2];
+                    detectionBox = goriyaSprite.Box;
+                    detectionBox.Inflate(0, RoomUtilities.BLOCK_SIDE * 2);
+                    detectionBox.Offset(0, RoomUtilities.BLOCK_SIDE * 2);
+                    return ref detectionBox;
                 } else
                 {
-                    return ref detectionBoxes[3];
+                    detectionBox = goriyaSprite.Box;
+                    detectionBox.Inflate(0, RoomUtilities.BLOCK_SIDE * 2);
+                    detectionBox.Offset(0, -RoomUtilities.BLOCK_SIDE * 2);
+                    return ref detectionBox;
                 }
             }
         }
@@ -84,23 +94,5 @@ namespace cse3902.Entities
             set => direction = value;
         }
 
-        private void ConstructDetectionBoxes()
-        {
-            //left box 
-            detectionBoxes[0] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
-            detectionBoxes[0].Inflate(RoomUtilities.BLOCK_SIDE * 2, 0);
-
-            //right box
-            detectionBoxes[1] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
-            detectionBoxes[1].Inflate(RoomUtilities.BLOCK_SIDE * 2, 0);
-
-            //top box
-            detectionBoxes[2] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
-            detectionBoxes[2].Inflate(0, RoomUtilities.BLOCK_SIDE * 2);
-
-            //bottom box
-            detectionBoxes[3] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
-            detectionBoxes[3].Inflate(0, RoomUtilities.BLOCK_SIDE * 2);
-        }
     }
 }
