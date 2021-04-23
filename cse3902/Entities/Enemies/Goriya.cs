@@ -163,6 +163,11 @@ namespace cse3902.Entities.Enemies
                 return;//don't move when detection box is active
             }
 
+            if (boomerang != null && RoomProjectiles.Instance.projectiles.Contains(boomerang))
+            {
+                return;
+            }
+
             this.Center += direction * MovementConstants.GoriyaSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (travelDistance <= 0)
