@@ -808,6 +808,11 @@
 		<traps>
 		</traps>
 		<conditions>
+			<condition>
+				<id>6</id>
+				<variables>
+				</variables>
+			</condition>
 		</conditions>
 		<items>
 		</items>
