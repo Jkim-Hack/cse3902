@@ -45,6 +45,7 @@ namespace cse3902.Entities
             //all fireballs originate in the mouth
             Vector2 location;
             location.X = this.center.X;
+            location.X -= MovementConstants.AquamentusFireballChangeX;
             if (aquamentusSprite.StartingFrameIndex == (int)AquamentusSprite.FrameIndex.RightFacing) location.X += 2 * MovementConstants.AquamentusFireballChangeX;
             location.Y = this.center.Y - 10;
 
@@ -55,7 +56,6 @@ namespace cse3902.Entities
             double angle3 = angle2 - MovementConstants.AquamentusFireballSpreadAngle;
             direction1 = new Vector2((float)Math.Cos(angle1), (float)Math.Sin(angle1));
             direction3 = new Vector2((float)Math.Cos(angle3), (float)Math.Sin(angle3));
-            location.X -= MovementConstants.AquamentusFireballChangeX;
 
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
             projectileHandler.CreateFireballObject(spriteBatch, location, direction1);
