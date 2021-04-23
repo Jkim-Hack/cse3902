@@ -103,7 +103,7 @@ namespace cse3902.Collision.Collidables
 
         private void SwordCollision(ICollidable collidableObject)
         {
-            if (this.enemy is Dodongo)
+            if (this.enemy is Dodongo || (this.enemy is Goriya && ((Goriya)this.enemy).IsDetectionMode))
             {
                 return;
             }
@@ -125,16 +125,8 @@ namespace cse3902.Collision.Collidables
 
         private void ProjectileCollision(ICollidable collidableObject)
         {
-            if (((ProjectileCollidable)collidableObject).IsEnemy)
-            {
-                if (this.enemy is Goriya)
-                {
-                    ((Goriya)this.enemy).ThrowBoomerang();
-                }
-                return;
-            }
 
-            if (this.enemy is Dodongo && !(((ProjectileCollidable)collidableObject).Projectile is BombProjectile))
+            if ((this.enemy is Dodongo && !(((ProjectileCollidable)collidableObject).Projectile is BombProjectile)) || (enemy is Goriya && ((Goriya)enemy).IsDetectionMode))
             {
                 return;
             }
@@ -159,7 +151,7 @@ namespace cse3902.Collision.Collidables
                 return;
             }
 
-            if (!(this.enemy is WallMaster))
+            if (!((this.enemy is WallMaster) || (enemy is Goriya && ((Goriya)enemy).IsDetectionMode)))
             {
                 this.enemy.StopShove();
                 this.enemy.Center = this.enemy.PreviousCenter;
@@ -178,7 +170,7 @@ namespace cse3902.Collision.Collidables
                 return;
             }
 
-            if (!(this.enemy is Keese || this.enemy is WallMaster))
+            if (!(this.enemy is Keese || this.enemy is WallMaster) || (enemy is Goriya && ((Goriya)enemy).IsDetectionMode))
             {
                 this.enemy.StopShove();
                 this.enemy.Center = this.enemy.PreviousCenter;

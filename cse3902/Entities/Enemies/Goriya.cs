@@ -57,6 +57,11 @@ namespace cse3902.Entities.Enemies
             get => ref goriyaStateMachine.Bounds;
         }
 
+        public Boolean IsDetectionMode
+        {
+            get => Bounds != goriyaSprite.Box;
+        }
+
         public void Attack()
         {
             //TODO add boomerang
