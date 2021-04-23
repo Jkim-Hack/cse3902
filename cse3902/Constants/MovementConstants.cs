@@ -73,6 +73,7 @@ namespace cse3902.Constants
         public const int RopeShoveDistance = DefaultShoveDistance;
 
         public const float ZolSpeed = 40.0f;
+        public const float ZolDelay = .2f;
         public const int ZolMaxTravel = 120;
         public const int ZolShoveDistance = DefaultShoveDistance;
 

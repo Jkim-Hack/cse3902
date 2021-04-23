@@ -70,7 +70,7 @@ namespace cse3902.Sprites.EnemySprites
                 {
                     currentFrame = startingFrameIndex;
                 }
-                remainingDelay = delay;
+                remainingDelay = MovementConstants.RopeDelay;
             }
             return 0;
         }
