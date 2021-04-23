@@ -102,7 +102,7 @@ namespace cse3902.Collision.Collidables
                 }
 
             }
-            else if (((EnemyCollidable)collidableObject).Enemy is Goriya)
+            else if (((EnemyCollidable)collidableObject).Enemy is Goriya && ((Goriya)((EnemyCollidable)collidableObject).Enemy).IsDetectionMode)
             {
                 ((Goriya)((EnemyCollidable)collidableObject).Enemy).ThrowBoomerang();
             }

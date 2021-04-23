@@ -24,17 +24,6 @@ namespace cse3902.Entities
             alternate = 0;
         }
 
-        public void ThrowBoomerang()
-        {
-            if (!IsTriggered && Bounds == goriyaSprite.Box)
-            {
-                IsTriggered = true;
-            } else
-            {
-                IsTriggered = false;
-            }
-            
-        }
         
         public Boolean IsTriggered
         {

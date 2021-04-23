@@ -95,13 +95,9 @@ namespace cse3902.Entities.Enemies
 
         public void ThrowBoomerang()
         {
-            this.goriyaStateMachine.ThrowBoomerang();
-            if (goriyaStateMachine.IsTriggered)
-            {
-               
-                boomerang = ProjectileHandler.Instance.CreateEnemyBoomerangItem(game.SpriteBatch, goriyaSprite, Direction);
-            }
-            
+            this.goriyaStateMachine.IsTriggered = true;
+            boomerang = ProjectileHandler.Instance.CreateEnemyBoomerangItem(game.SpriteBatch, goriyaSprite, Direction);
+
         }
 
         public void Die()
