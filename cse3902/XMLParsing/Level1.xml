@@ -165,6 +165,11 @@
 				<yloc>6</yloc>
 			</item>
 			<item>
+				<type>BlueCandle</type>
+				<xloc>6</xloc>
+				<yloc>4</yloc>
+			</item>
+			<item>
 				<type>Fairy</type>
 				<xloc>8</xloc>
 				<yloc>6</yloc>
@@ -1437,7 +1442,7 @@
 			<enemy>
 				<type>Wallmaster</type>
 				<xloc>13</xloc>
-				<yloc>2</yloc>
+				<yloc>1</yloc>
 			</enemy>
 			<enemy>
 				<type>Wallmaster</type>
