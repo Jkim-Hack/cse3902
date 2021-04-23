@@ -1,5 +1,6 @@
 ﻿using System;
 using cse3902.Interfaces;
+using cse3902.Entities.Enemies;
 using cse3902.Rooms;
 using cse3902.Projectiles;
 using Microsoft.Xna.Framework;
@@ -25,6 +26,18 @@ namespace cse3902.Collision.Collidables
 
         public void OnCollidedWith(ICollidable collidableObject)
         {
+            if (collidableObject is EnemyCollidable)
+            {
+                if (((EnemyCollidable)collidableObject).Enemy is Goriya)
+                {
+                    if (((Goriya)((EnemyCollidable)collidableObject).Enemy).IsDetectionMode) return;
+                }
+
+                if (((EnemyCollidable)collidableObject).Enemy is WallMaster) {
+                    if (!((WallMaster)((EnemyCollidable)collidableObject).Enemy).IsTriggered) return;
+                }
+            }
+
             if (this.projectile is BoomerangProjectile) BoomerangCollision(collidableObject);
             else if (this.projectile is EnemyBoomerangProjectile)
             {
@@ -56,6 +69,7 @@ namespace cse3902.Collision.Collidables
 
         private void BoomerangCollision(ICollidable collidableObject)
         {
+
             if (collidableObject is ItemCollidable) game.Player.AddItem(((ItemCollidable)collidableObject).Item);
             else if (collidableObject is DoorCollidable || collidableObject is WallCollidable || collidableObject is EnemyCollidable)
             {
