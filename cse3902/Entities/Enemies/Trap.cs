@@ -18,10 +18,8 @@ namespace cse3902.Entities.Enemies
         private Vector2 direction;
         private Vector2 originalDirection;
         private Vector2 triggerDirection;
-        private float speed;
 
-        private Vector2 center;
-        private Vector2 previousCenter;
+        private (Vector2 previous, Vector2 current) center;
 
         private int triggerDistance;
         private Boolean inReverse;
@@ -38,14 +36,13 @@ namespace cse3902.Entities.Enemies
         {
             this.game = game;
 
-            center = start;
-            previousCenter = center;
+            center.current = start;
+            center.previous = center.current;
             originalDirection = direction;
 
             trapSprite = (TrapSprite)EnemySpriteFactory.Instance.CreateTrapSprite(game.SpriteBatch, start);
             this.direction = direction;
             this.triggerDirection = direction;
-            speed = MovementConstants.TrapSpeed;
 
             triggerDistance = 0;
             inReverse = false;
@@ -92,19 +89,19 @@ namespace cse3902.Entities.Enemies
 
         public Vector2 Center
         {
-            get => this.center;
+            get => this.center.current;
             set
             {
-                this.PreviousCenter = this.center;
-                this.center = value;
+                this.PreviousCenter = this.center.current;
+                this.center.current = value;
                 this.trapSprite.Center = value;
             }
         }
 
         public Vector2 PreviousCenter
         {
-            get => this.previousCenter;
-            set => this.previousCenter = value;
+            get => this.center.previous;
+            set => this.center.previous = value;
         }
 
         public ICollidable Collidable
@@ -160,7 +157,7 @@ namespace cse3902.Entities.Enemies
 
         public ITrap Duplicate()
         {
-            return new Trap(game, center, originalDirection);
+            return new Trap(game, center.current, originalDirection);
         }
 
         private void ConstructDetectionBoxes(Vector2 direction)
@@ -188,7 +185,7 @@ namespace cse3902.Entities.Enemies
 
         private void TriggerMovement(GameTime gameTime)
         {
-            this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.Center += direction * MovementConstants.TrapSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             triggerDistance--;
 
             if (triggerDistance <= 0)
