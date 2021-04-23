@@ -143,7 +143,6 @@ namespace cse3902.Entities
                     break;
                 default:
                     return false;
-                    break;
             }
             return true;
         }
