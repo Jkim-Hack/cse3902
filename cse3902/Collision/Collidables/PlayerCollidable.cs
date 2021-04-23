@@ -102,6 +102,10 @@ namespace cse3902.Collision.Collidables
                 }
 
             }
+            else if (((EnemyCollidable)collidableObject).Enemy is Goriya)
+            {
+                ((Goriya)((EnemyCollidable)collidableObject).Enemy).ThrowBoomerang();
+            }
             else
             {
                 //take damage and get shoved back by enemy

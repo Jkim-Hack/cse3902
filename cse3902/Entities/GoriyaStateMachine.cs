@@ -26,7 +26,7 @@ namespace cse3902.Entities
 
         public void ThrowBoomerang()
         {
-            if (!IsTriggered && Bounds != goriyaSprite.Box)
+            if (!IsTriggered && Bounds == goriyaSprite.Box)
             {
                 IsTriggered = true;
             }
@@ -90,9 +90,9 @@ namespace cse3902.Entities
 
         private void ConstructDetectionBoxes()
         {
-            //left box
+            //left box 
             detectionBoxes[0] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
-            detectionBoxes[0].Inflate(-RoomUtilities.BLOCK_SIDE * 2, 0);
+            detectionBoxes[0].Inflate(RoomUtilities.BLOCK_SIDE * 2, 0);
 
             //right box
             detectionBoxes[1] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
@@ -100,7 +100,7 @@ namespace cse3902.Entities
 
             //top box
             detectionBoxes[2] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);
-            detectionBoxes[2].Inflate(0, -RoomUtilities.BLOCK_SIDE * 2);
+            detectionBoxes[2].Inflate(0, RoomUtilities.BLOCK_SIDE * 2);
 
             //bottom box
             detectionBoxes[3] = new Rectangle(goriyaSprite.Box.Center.X, goriyaSprite.Box.Center.Y, goriyaSprite.Box.Width, goriyaSprite.Box.Height);

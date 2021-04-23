@@ -93,8 +93,8 @@ namespace cse3902.Entities.Enemies
             this.goriyaStateMachine.ThrowBoomerang();
             if (goriyaStateMachine.IsTriggered)
             {
-                Die(); //testing only
-                //ProjectileHandler.Instance.CreateEnemyBoomerangItem(game.SpriteBatch, goriyaSprite, Direction);
+               
+                ProjectileHandler.Instance.CreateEnemyBoomerangItem(game.SpriteBatch, goriyaSprite, Direction);
             }
             
         }
