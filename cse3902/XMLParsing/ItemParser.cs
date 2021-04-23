@@ -49,6 +49,9 @@ namespace cse3902.XMLParsing
                 case "Arrow":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateArrowItem(game.SpriteBatch, startPos);
                     break;
+                case "BlueCandle":
+                    newItem = (IItem)ItemSpriteFactory.Instance.CreateBlueCandleItem(game.SpriteBatch, startPos, true, true);
+                    break;
                 case "BluePotion":
                     newItem = (IItem)ItemSpriteFactory.Instance.CreateBluePotionItem(game.SpriteBatch, startPos, true, true);
                     break;
