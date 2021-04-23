@@ -74,6 +74,7 @@ namespace cse3902.Entities
             } else if (type == InventoryManager.ItemType.Clock)
             {
                 if (game.RoomHandler.currentRoom != RoomUtilities.HORDE_ROOM) RoomEnemies.Instance.KillAll();
+                else linkState.Health += (linkState.TotalHealth - linkState.Health) / 2;
             }
             //pickup animation if certain item
             if (type == InventoryManager.ItemType.Bow || InventoryUtilities.SwordsList.Contains(type))

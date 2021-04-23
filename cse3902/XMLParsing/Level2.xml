@@ -176,7 +176,7 @@
 				<variables>
 					<variable>0</variable>
 					<variable>3</variable>
-					<variable>0</variable>
+					<variable>2</variable>
 				</variables>
 			</condition>
 		</conditions>
@@ -494,11 +494,6 @@
 			</condition>
 		</conditions>
 		<items>
-			<item>
-				<type>Key</type>
-				<xloc>11</xloc>
-				<yloc>0</yloc>
-            </item>
 		</items>
 		<enemies>
 			<enemy>
