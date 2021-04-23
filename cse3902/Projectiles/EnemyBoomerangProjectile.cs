@@ -1,5 +1,6 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Collision;
+using cse3902.Collision.Collidables;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,10 +9,12 @@ namespace cse3902.Projectiles
     public class EnemyBoomerangProjectile : IProjectile
     {
         private BoomerangProjectile boomerang;
+        private ICollidable collidable;
 
         public EnemyBoomerangProjectile(SpriteBatch batch, Texture2D texture, ISprite enemy, Vector2 dir, Game1 game, int travelDistance)
         {
             boomerang = new BoomerangProjectile(batch, texture, enemy, dir, game, travelDistance);
+            collidable = new ProjectileCollidable(this, game);
         }
 
         public void Draw()
@@ -70,7 +73,7 @@ namespace cse3902.Projectiles
 
         public ICollidable Collidable
         {
-            get => boomerang.Collidable;
+            get => this.collidable;
         }
 
         public bool Collided
