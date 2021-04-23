@@ -35,7 +35,7 @@ namespace cse3902.Sprites
             currentFrame = 0;
             frameWidth = spriteTexture.Width / columns;
             frameHeight = spriteTexture.Height / rows;
-            frames = SpriteUtilities.distributeFrames(rows, columns, frameWidth, frameHeight);
+            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
 
             current.X = (int)startingPos.X;
             current.Y = (int)startingPos.Y;
