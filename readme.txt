@@ -52,7 +52,6 @@
   - Hard: High enemy health and damage
 
 ## Known Bugs
-- Goriya sometimes spins when attacked with a sword.
 
 ## Credits
 - The portal texture was borrowed from Minecraft.
