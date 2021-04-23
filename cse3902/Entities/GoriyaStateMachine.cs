@@ -13,7 +13,7 @@ namespace cse3902.Entities
         private Boolean isTriggered;
         private Vector2 direction;
 
-        private Boolean alternate;
+        private int alternate;
 
         public GoriyaStateMachine(GoriyaSprite goriyaSprite)
         {
@@ -21,7 +21,7 @@ namespace cse3902.Entities
             detectionBoxes = new Rectangle[4];
             isTriggered = false;
             ConstructDetectionBoxes();
-            alternate = true;
+            alternate = 0;
         }
 
         public void ThrowBoomerang()
@@ -29,6 +29,9 @@ namespace cse3902.Entities
             if (!IsTriggered && Bounds == goriyaSprite.Box)
             {
                 IsTriggered = true;
+            } else
+            {
+                IsTriggered = false;
             }
             
         }
@@ -49,18 +52,22 @@ namespace cse3902.Entities
                 }
                 else
                 {
-                    if(alternate)
+                    if(alternate == 0)
                     {
-                        alternate = false;
                         return ref goriyaSprite.Box;
                     } else
                     {
-                        alternate = true;
                         return ref DetectionBox;
                     }
                     
                 }
             }
+        }
+
+        public void Update()
+        {
+            if (alternate == 0) alternate = 1;
+            else alternate = 0;
         }
 
         public ref Rectangle DetectionBox

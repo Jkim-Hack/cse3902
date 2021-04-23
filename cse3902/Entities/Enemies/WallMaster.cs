@@ -76,6 +76,10 @@ namespace cse3902.Entities.Enemies
 
         public void TakeDamage(int damage)
         {
+            if (!IsTriggered)
+            {
+                return;
+            }
             this.Health -= damage;
             if (this.Health > 0)
             {

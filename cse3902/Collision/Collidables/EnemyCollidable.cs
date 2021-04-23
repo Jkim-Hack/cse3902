@@ -127,6 +127,10 @@ namespace cse3902.Collision.Collidables
         {
             if (((ProjectileCollidable)collidableObject).IsEnemy)
             {
+                if (this.enemy is Goriya)
+                {
+                    ((Goriya)this.enemy).ThrowBoomerang();
+                }
                 return;
             }
 

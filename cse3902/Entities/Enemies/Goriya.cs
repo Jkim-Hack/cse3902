@@ -6,6 +6,7 @@ using cse3902.SpriteFactory;
 using cse3902.Sprites.EnemySprites;
 using Microsoft.Xna.Framework;
 using cse3902.Projectiles;
+using cse3902.Rooms;
 using cse3902.Constants;
 using cse3902.Sounds;
 using cse3902.ParticleSystem;
@@ -19,12 +20,12 @@ namespace cse3902.Entities.Enemies
         private readonly Game1 game;
 
         private Vector2 direction;
-        private float speed;
         private Vector2 center;
         private Vector2 previousCenter;
         private int travelDistance;
         private Vector2 shoveDirection;
         private int shoveDistance;
+        private IProjectile boomerang;
 
         private ICollidable collidable;
         private int health;
@@ -39,7 +40,6 @@ namespace cse3902.Entities.Enemies
             goriyaSprite = (GoriyaSprite)EnemySpriteFactory.Instance.CreateGoriyaSprite(game.SpriteBatch, center);
             goriyaStateMachine = new GoriyaStateMachine(goriyaSprite);
 
-            speed = MovementConstants.GoriyaSpeed;
             travelDistance = 0;
             shoveDistance = MovementConstants.GoriyaShoveDistance;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
@@ -94,7 +94,7 @@ namespace cse3902.Entities.Enemies
             if (goriyaStateMachine.IsTriggered)
             {
                
-                ProjectileHandler.Instance.CreateEnemyBoomerangItem(game.SpriteBatch, goriyaSprite, Direction);
+                boomerang = ProjectileHandler.Instance.CreateEnemyBoomerangItem(game.SpriteBatch, goriyaSprite, Direction);
             }
             
         }
@@ -134,10 +134,18 @@ namespace cse3902.Entities.Enemies
 
         public void Update(GameTime gameTime)
         {  
-            UpdateDamage(gameTime); 
+            UpdateDamage(gameTime);
+            goriyaStateMachine.Update();
 	        this.collidable.ResetCollisions();
             if (this.shoveDistance > 0) ShoveMovement();
-            else if (goriyaStateMachine.IsTriggered) return;
+            else if (goriyaStateMachine.IsTriggered)
+            {
+                if (boomerang != null && !RoomProjectiles.Instance.projectiles.Contains(boomerang))
+                {
+                    goriyaStateMachine.IsTriggered = false;
+                }
+                return;
+            }
             else RegularMovement(gameTime);
         }
 
@@ -149,7 +157,7 @@ namespace cse3902.Entities.Enemies
 
         private void RegularMovement(GameTime gameTime)
         {
-            this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.Center += direction * MovementConstants.GoriyaSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (travelDistance <= 0)
             {
