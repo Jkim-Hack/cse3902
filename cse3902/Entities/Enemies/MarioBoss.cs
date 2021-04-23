@@ -204,5 +204,11 @@ namespace cse3902.Entities.Enemies
         {
             get => this.collidable;
         }
+
+        public (bool,float) Stunned
+        {
+            get => (false, 0);
+            set { }
+        }
     }
 }

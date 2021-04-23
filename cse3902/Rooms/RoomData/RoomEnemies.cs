@@ -3,15 +3,14 @@ using cse3902.Interfaces;
 using cse3902.Entities;
 using Microsoft.Xna.Framework;
 using System.Collections;
+using cse3902.Constants;
 
 namespace cse3902.Rooms
 {
     public class RoomEnemies
     {
         public IList enemies;
-
         private static RoomEnemies instance = new RoomEnemies();
-
         public static RoomEnemies Instance
         {
             get
@@ -19,7 +18,6 @@ namespace cse3902.Rooms
                 return instance;
             }
         }
-
         private RoomEnemies()
         {
             enemies = new List<IEntity>();
@@ -49,7 +47,6 @@ namespace cse3902.Rooms
                 }
             }
         }
-
         public void Draw()
         {
             if (CloudAnimation.Instance.cloudAnims.Count == 0)
@@ -66,12 +63,11 @@ namespace cse3902.Rooms
             oldList = new List<IEntity>();
 
             List<IEntity> enemytemp = enemies as List<IEntity>;
-
             for (int i = 0; i < enemies.Count; i++)
             {
+                enemytemp[i].Stunned = (false, 0);
                 oldList.Add(enemytemp[i]);
             }
-
             enemies.Clear();
 
             for (int i = 0; i < newList.Count; i++)
@@ -90,11 +86,14 @@ namespace cse3902.Rooms
             }
             enemies.Clear();
         }
-
-        public ref IList ListRef
+        public void ClockStun()
         {
-            get => ref enemies;
+            foreach (IEntity enemy in enemies)
+            {
+                enemy.Stunned = (true, DamageConstants.ClockStunDuration);
+            }
         }
 
+        public ref IList ListRef { get => ref enemies; }
     }
 }

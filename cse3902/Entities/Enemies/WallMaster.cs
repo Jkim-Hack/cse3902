@@ -38,6 +38,8 @@ namespace cse3902.Entities.Enemies
 
         private WallType wallType;
 
+        private (bool stun, float stunDuration) stun;
+
         public WallMaster(Game1 game, Vector2 start, Vector2 abstractStart)
         {
             this.game = game;
@@ -59,6 +61,8 @@ namespace cse3902.Entities.Enemies
             ConstructDetectionBox(abstractStart);
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = SettingsValues.Instance.GetValue(SettingsValues.Variable.WallMasterHealth);
+
+            stun = (false, 0);
         }
 
         public void Attack()
@@ -122,8 +126,15 @@ namespace cse3902.Entities.Enemies
             }
         }
 
+        private void UpdateStun(GameTime gameTime)
+        {
+            stun.stunDuration -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            stun.stun = stun.stunDuration > 0;
+        }
+
         public void Update(GameTime gameTime)
         {
+            UpdateStun(gameTime);
             UpdateDamage(gameTime);
 
             if (this.IsTriggered)
@@ -142,37 +153,39 @@ namespace cse3902.Entities.Enemies
 
         private void RegularMovement(GameTime gameTime)
         {
-            this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (travelDistance <= 0)
+            if (!stun.stun)
             {
-                switch (this.wallType)
+                this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (travelDistance <= 0)
                 {
-                    case WallType.LEFTWALL:
-                        LeftWallMovement();
-                        break;
+                    switch (this.wallType)
+                    {
+                        case WallType.LEFTWALL:
+                            LeftWallMovement();
+                            break;
 
-                    case WallType.RIGHTWALL:
-                        RightWallMovement();
-                        break;
+                        case WallType.RIGHTWALL:
+                            RightWallMovement();
+                            break;
 
-                    case WallType.BOTTOMWALL:
-                        BottomWallMovement();
-                        break;
+                        case WallType.BOTTOMWALL:
+                            BottomWallMovement();
+                            break;
 
-                    case WallType.TOPWALL:
-                        TopWallMovement();
-                        break;
+                        case WallType.TOPWALL:
+                            TopWallMovement();
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    travelDistance--;
                 }
             }
-            else
-            {
-                travelDistance--;
-            }
-
 
             ChangeDirection(direction);
 
@@ -267,6 +280,12 @@ namespace cse3902.Entities.Enemies
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public (bool, float) Stunned
+        {
+            get => stun;
+            set => stun = value;
         }
 
         private void ConstructDetectionBox(Vector2 startingPosition)

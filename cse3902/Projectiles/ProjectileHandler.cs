@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using cse3902.Rooms;
+using cse3902.Constants;
 
 namespace cse3902.Projectiles
 {
@@ -19,6 +20,8 @@ namespace cse3902.Projectiles
         private Texture2D swordWeapons;
         private Texture2D starAnim;
         private Texture2D poofAnim;
+
+        private Game1 game;
 
         private List<IProjectile> projectiles { get; set; }
 
@@ -80,7 +83,7 @@ namespace cse3902.Projectiles
 
         public IProjectile CreateArrowItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            IProjectile newProj = new ArrowProjectile(spriteBatch, arrow, startingPos, dir);
+            IProjectile newProj = new ArrowProjectile(spriteBatch, arrow, startingPos, dir, game);
             projectiles.Add(newProj);
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
@@ -88,7 +91,7 @@ namespace cse3902.Projectiles
 
         public IProjectile CreateBombItem(SpriteBatch spriteBatch, Vector2 startingPos)
         {
-            IProjectile newProj = new BombProjectile(spriteBatch, bomb, startingPos);
+            IProjectile newProj = new BombProjectile(spriteBatch, bomb, startingPos, game);
             projectiles.Add(newProj);
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
@@ -96,23 +99,21 @@ namespace cse3902.Projectiles
 
         public IProjectile CreateBoomerangItem(SpriteBatch spriteBatch, LinkSprite linkState, Vector2 dir)
         {
-            IProjectile newProj = new BoomerangProjectile(spriteBatch, boomerang, linkState, dir);
+            IProjectile newProj = new BoomerangProjectile(spriteBatch, boomerang, linkState, dir, game, ItemConstants.BoomerangTravelDistance);
             projectiles.Add(newProj);
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
         }
-
-        public IProjectile CreateEnemyBoomerangItem(SpriteBatch spriteBatch, ISprite enemySprite, Vector2 dir)
+        public IProjectile CreateEnemyBoomerangItem(SpriteBatch spriteBatch, ISprite enemyState, Vector2 dir)
         {
-            IProjectile newProj = new EnemyBoomerangProjectile(spriteBatch, boomerang, enemySprite, dir);
+            IProjectile newProj = new EnemyBoomerangProjectile(spriteBatch, boomerang, enemyState, dir, game, ItemConstants.EnemyBoomerangTravelDistance);
             projectiles.Add(newProj);
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
         }
-
         public IProjectile CreateFireballObject(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            IProjectile newProj = new Fireball(spriteBatch, fireball, startingPos, dir);
+            IProjectile newProj = new Fireball(spriteBatch, fireball, startingPos, dir, game);
             projectiles.Add(newProj);
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
@@ -120,21 +121,21 @@ namespace cse3902.Projectiles
 
         public IProjectile CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            IProjectile newProj = new SwordProjectile(spriteBatch, swordItems, startingPos, dir);
+            IProjectile newProj = new SwordProjectile(spriteBatch, swordItems, startingPos, dir, game);
             projectiles.Add(newProj);
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
         }
         public IProjectile CreateMagicFireball(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            IProjectile newProj = new MagicFireballProjectile(spriteBatch, fireball, startingPos, dir);
+            IProjectile newProj = new MagicFireballProjectile(spriteBatch, fireball, startingPos, dir, game);
             projectiles.Add(newProj);
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
         }
         public IProjectile CreateMagicBeam(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
-            IProjectile newProj = new MagicBeamProjectile(spriteBatch, magicBeam, startingPos, dir);
+            IProjectile newProj = new MagicBeamProjectile(spriteBatch, magicBeam, startingPos, dir, game);
             projectiles.Add(newProj);
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
@@ -156,6 +157,11 @@ namespace cse3902.Projectiles
         public ISprite CreatePoofAnim(SpriteBatch spriteBatch, Vector2 startingPos)
         {
             return new PoofSprite(spriteBatch, poofAnim, startingPos);
+        }
+
+        public Game1 Game
+        {
+            set => game = value;
         }
     }
 }
