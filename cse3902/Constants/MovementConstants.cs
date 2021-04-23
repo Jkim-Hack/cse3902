@@ -46,6 +46,7 @@ namespace cse3902.Constants
         public const int GoriyaShoveDistance = DefaultShoveDistance;
 
         public const float KeeseSpeedNormal = 30.0f;
+        public const float KeeseDelay = .2f;
         public const float KeeseSpeedSlow = 21.0f;
         public const int KeeseMaxTravel = 100;
         public const int KeeseShoveDistance = DefaultShoveDistance;
