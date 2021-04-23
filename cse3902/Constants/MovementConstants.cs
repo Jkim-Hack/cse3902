@@ -36,10 +36,12 @@ namespace cse3902.Constants
         public const int MarioShoveDistance = DefaultShoveDistance;
 
         public const float GelSpeed = 25.0f;
+        public const float GelDelay = .2f;
         public const int GelMaxTravel = 100;
         public const int GelShoveDistance = DefaultShoveDistance;
 
         public const float GoriyaSpeed = 50.0f;
+        public const float GoriyaDelay = .2f;
         public const int GoriyaMaxTravel = 100;
         public const int GoriyaShoveDistance = DefaultShoveDistance;
 
