@@ -326,6 +326,11 @@
 		<conditions>
 		</conditions>
 		<items>
+			<item>
+				<type>BlueRing</type>
+				<xloc>7</xloc>
+				<yloc>3</yloc>
+			</item>
 		</items>
 		<enemies>
 			<enemy>

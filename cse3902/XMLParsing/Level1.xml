@@ -969,6 +969,11 @@
 			</npc>
 		</npcs>
 		<items>
+			<item>
+				<type>WhiteSword</type>
+				<xloc>5.5</xloc>
+				<yloc>4</yloc>
+			</item>
 		</items>
 		<enemies>
 		</enemies>
@@ -2030,6 +2035,11 @@
 		<npcs>
 		</npcs>
 		<items>
+			<item>
+				<type>MagicRod</type>
+				<xloc>11</xloc>
+				<yloc>3</yloc>
+			</item>
 		</items>
 		<enemies>
 			<enemy>
@@ -2230,6 +2240,11 @@
 		<npcs>
 		</npcs>
 		<items>
+			<item>
+				<type>BluePotion</type>
+				<xloc>9</xloc>
+				<yloc>6</yloc>
+			</item>
 		</items>
 		<enemies>
 		</enemies>
