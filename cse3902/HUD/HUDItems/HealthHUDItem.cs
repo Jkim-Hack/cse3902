@@ -79,14 +79,14 @@ namespace cse3902.HUD.HUDItems
             for (int i = 0; i < HeartConstants.MaxHeartCount / 2; i++)
             {
                 Vector2 origin = heartContainerOrigin;
-                if (i > 7)
+                if (i > HeartConstants.HeartDim - 1)
                 {
-                    origin.Y += 8;
-                    origin.X += (i - 8) * 8f;
+                    origin.Y += HeartConstants.HeartDim;
+                    origin.X += (i - HeartConstants.HeartDim) * (float)HeartConstants.HeartDim;
                 }
                 else
                 {
-                    origin.X += i * 8f;
+                    origin.X += i * (float)HeartConstants.HeartDim;
                 }
                 hearts.Add(new HeartHUDSprite(spriteBatch, heartTexture, origin));
             }

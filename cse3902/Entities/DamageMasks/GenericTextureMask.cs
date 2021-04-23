@@ -87,14 +87,19 @@ namespace cse3902.Entities.DamageMasks
                 for (int i = 1; i < totalMasks; i++)
                 {
                     textureColorSequence[i][j] = originalData[j];
-                    for (int k = 0; k < totalColors; k++)
-                    {
-                        if (originalData[j] == allMaskColors[startingColorIndex][k])
-                        {
-                            Color maskColor = allMaskColors[i][k];
-                            textureColorSequence[i][j] = maskColor;
-                        }
-                    }
+                    SetMaskColor(i, j);
+                }
+            }
+        }
+
+        private void SetMaskColor(int i, int j)
+        {
+            for (int k = 0; k < totalColors; k++)
+            {
+                if (originalData[j] == allMaskColors[startingColorIndex][k])
+                {
+                    Color maskColor = allMaskColors[i][k];
+                    textureColorSequence[i][j] = maskColor;
                 }
             }
         }

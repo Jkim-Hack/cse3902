@@ -30,5 +30,9 @@ namespace cse3902.Constants
         public const int backgroundOffsetY = 40;
 
         public const int digitWidth = 8;
+
+        public const int CursorBoxXOffset = 4;
+        public const int CountDiv = 10;
+        public const int DigitDrawDiv = 11;
     }
 }

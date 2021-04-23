@@ -44,7 +44,7 @@ namespace cse3902.HUD.HUDItems
 
             BItemOrigin = this.origin + HUDPositionConstants.BItemHUDPosition;
 
-            cursorBox = new Rectangle((int)weaponStartOrigin.X - 4, (int)weaponStartOrigin.Y, cursorTexture.Width, cursorTexture.Height);
+            cursorBox = new Rectangle((int)weaponStartOrigin.X - HUDPositionConstants.CursorBoxXOffset, (int)weaponStartOrigin.Y, cursorTexture.Width, cursorTexture.Height);
             currentBItem.Item1 = ItemType.None;
 	        currentBItem.Item2 = null;
 

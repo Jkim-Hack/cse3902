@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using cse3902.SpriteFactory;
 
 namespace cse3902.Sounds
 {
-    public class SoundFactory
+    public class SoundFactory : ISpriteFactory
     {
         public SoundEffect getHeart { get; set; }
         public SoundEffect enemyHit { get; set; }

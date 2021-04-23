@@ -34,15 +34,15 @@ namespace cse3902.HUD
             this.map = map;
             this.roomsTexture = roomsTexture;
 
-            this.offsetX = (int)(DimensionConstants.OriginalWindowWidth / 2.25f);
-            this.offsetY = (int)(DimensionConstants.OriginalWindowHeight / 2.15f);
+            this.offsetX = (int)(DimensionConstants.OriginalWindowWidth / OrangeMapConstants.XOffsetScalar);
+            this.offsetY = (int)(DimensionConstants.OriginalWindowHeight / OrangeMapConstants.YOffsetScalar);
 
-            this.scaledMapWidth = (int)(map.Bounds.Width / 1.3f);
-            this.scaledMapHeight = (int)(map.Bounds.Height / 1.3f);
+            this.scaledMapWidth = (int)(map.Bounds.Width / OrangeMapConstants.MapScalar);
+            this.scaledMapHeight = (int)(map.Bounds.Height / OrangeMapConstants.MapScalar);
 
             this.mapPos = new Rectangle(0, 0, scaledMapWidth, scaledMapHeight);
 
-            this.roomFrames = SpriteUtilities.distributeFrames(16, 1, 8, 8);
+            this.roomFrames = SpriteUtilities.distributeFrames(OrangeMapConstants.Columns, OrangeMapConstants.Rows, OrangeMapConstants.FrameWidth, OrangeMapConstants.FrameHeight);
 
             this.rooms = new Dictionary<Vector3, int>[4];
             for (int i = 0; i < this.rooms.Length; i++) this.rooms[i] = new Dictionary<Vector3, int>();
