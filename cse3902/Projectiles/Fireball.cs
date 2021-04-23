@@ -28,7 +28,7 @@ namespace cse3902.Projectiles
         private ICollidable collidable;
         private IDependentParticleEmmiter fireballEmitter;
 
-        public Fireball(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction)
+        public Fireball(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction, Game1 game)
         {
             this.spriteBatch = spriteBatch;
             this.spriteTexture = texture;
@@ -40,7 +40,7 @@ namespace cse3902.Projectiles
 
             if (ParticleEngine.Instance.UseParticleEffects) fireballEmitter = ParticleEngine.Instance.CreateFireballEffect(this);
 
-            this.collidable = new ProjectileCollidable(this);
+            this.collidable = new ProjectileCollidable(this, game);
         }
 
         public Vector2 Center

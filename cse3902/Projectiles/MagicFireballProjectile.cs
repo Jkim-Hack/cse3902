@@ -15,11 +15,11 @@ namespace cse3902.Projectiles
         ICollidable collidable;
         Rectangle box;
 
-        public MagicFireballProjectile(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction)
+        public MagicFireballProjectile(SpriteBatch spriteBatch, Texture2D texture, Vector2 startingPosition, Vector2 direction, Game1 game)
         {
-            fireball = new Fireball(spriteBatch, texture, startingPosition, direction);
+            fireball = new Fireball(spriteBatch, texture, startingPosition, direction, game);
             fireball.Speed = ItemConstants.MagicFireballSpeed;
-            collidable = new ProjectileCollidable(this);
+            collidable = new ProjectileCollidable(this, game);
         }
 
         public Vector2 Center

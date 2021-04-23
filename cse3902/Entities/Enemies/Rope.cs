@@ -18,8 +18,7 @@ namespace cse3902.Entities.Enemies
 
         private Vector2 direction;
         private float speed;
-        private Vector2 center;
-        private Vector2 previousCenter;
+        private (Vector2 previous, Vector2 current) center;
         private int travelDistance;
         private Vector2 shoveDirection;
         private int shoveDistance;
@@ -28,14 +27,16 @@ namespace cse3902.Entities.Enemies
         private int health;
         private float remainingDamageDelay;
 
+        private (bool stun, float stunDuration) stun;
+
         public Rope(Game1 game, Vector2 start)
         {
             this.game = game;
-            center = start;
-            previousCenter = center;
+            center.current = start;
+            center.previous = start;
 
             //rope sprite sheet is 1 row, 2 columns
-            ropeSprite = (RopeSprite)EnemySpriteFactory.Instance.CreateRopeSprite(game.SpriteBatch, center);
+            ropeSprite = (RopeSprite)EnemySpriteFactory.Instance.CreateRopeSprite(game.SpriteBatch, center.current);
             speed = MovementConstants.RopeSpeed;
             travelDistance = 0;
             shoveDistance = MovementConstants.RopeShoveDistance;
@@ -43,6 +44,8 @@ namespace cse3902.Entities.Enemies
 
             this.collidable = new EnemyCollidable(this, this.Damage);
             health = SettingsValues.Instance.GetValue(SettingsValues.Variable.RopeHealth);
+
+            stun = (false, 0);
         }
 
         public ref Rectangle Bounds
@@ -91,8 +94,8 @@ namespace cse3902.Entities.Enemies
         public void Die()
         {
             SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
-            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.C);
-            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center.current, IEntity.EnemyType.C);
+            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center.current);
         }
 
         public void BeShoved()
@@ -121,8 +124,15 @@ namespace cse3902.Entities.Enemies
             }
         }
 
+        private void UpdateStun(GameTime gameTime)
+        {
+            stun.stunDuration -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            stun.stun = stun.stunDuration > 0;
+        }
+
         public void Update(GameTime gameTime)
         {
+            UpdateStun(gameTime);
             UpdateDamage(gameTime);
             this.collidable.ResetCollisions();
             if (this.shoveDistance > 0) ShoveMovement();
@@ -142,18 +152,20 @@ namespace cse3902.Entities.Enemies
 
         private void RegularMovement(GameTime gameTime)
         {
-            this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (travelDistance <= 0)
+            if (!stun.stun)
             {
-                travelDistance = MovementConstants.StalfosMaxTravel;
-                RandomDirection();
-            }
-            else
-            {
-                travelDistance--;
-            }
+                this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+                if (travelDistance <= 0)
+                {
+                    travelDistance = MovementConstants.StalfosMaxTravel;
+                    RandomDirection();
+                }
+                else
+                {
+                    travelDistance--;
+                }
+            }
             ropeSprite.Update(gameTime);
         }
 
@@ -183,7 +195,7 @@ namespace cse3902.Entities.Enemies
 
         public IEntity Duplicate()
         {
-            return new Rope(game, center);
+            return new Rope(game, center.current);
         }
 
         public IEntity.EnemyType Type
@@ -193,21 +205,21 @@ namespace cse3902.Entities.Enemies
 
         public Vector2 Center
         {
-            get => this.center;
+            get => this.center.current;
             set
             {
-                this.PreviousCenter = this.center;
-                this.center = value;
+                this.center.previous = this.center.current;
+                this.center.current = value;
                 ropeSprite.Center = value;
             }
         }
 
         public Vector2 PreviousCenter
         {
-            get => this.previousCenter;
+            get => this.center.previous;
             set
             {
-                this.previousCenter = value;
+                this.center.previous = value;
             }
         }
 
@@ -233,6 +245,12 @@ namespace cse3902.Entities.Enemies
         public ICollidable Collidable
         {
             get => this.collidable;
+        }
+
+        public (bool, float) Stunned
+        {
+            get => stun;
+            set => stun = value;
         }
     }
 }

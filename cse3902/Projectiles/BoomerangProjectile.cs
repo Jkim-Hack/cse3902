@@ -22,7 +22,7 @@ namespace cse3902.Projectiles
 
         private Rectangle destination;
 
-        private Vector2 direction;
+        private (Vector2 direction, bool alreadyReversed) direction;
         private Vector2 center;
 
         private bool animationComplete;
@@ -31,7 +31,7 @@ namespace cse3902.Projectiles
         private ICollidable collidable;
         private ISprite link;
 
-        public BoomerangProjectile(SpriteBatch batch, Texture2D texture, ISprite link, Vector2 dir)
+        public BoomerangProjectile(SpriteBatch batch, Texture2D texture, ISprite link, Vector2 dir, Game1 game)
         {
             spriteBatch = batch;
             spriteTexture = texture;
@@ -42,13 +42,14 @@ namespace cse3902.Projectiles
             frame.Width = spriteTexture.Width;
             frame.Height = spriteTexture.Height;
 
-            direction = dir;
+            direction.direction = dir;
+            direction.alreadyReversed = false;
             angle = 0;
             travelDistance = ItemConstants.BoomerangTravelDistance;
 
             animationComplete = false;
 
-            this.collidable = new ProjectileCollidable(this);
+            this.collidable = new ProjectileCollidable(this, game);
         }
 
         public void Draw()
@@ -63,12 +64,16 @@ namespace cse3902.Projectiles
 
             if (animationComplete) return -1;
 
-            center += ItemConstants.BoomerangSpeed * direction;
-            if (direction.Y == 0) center.Y = link.Center.Y;
+            center += ItemConstants.BoomerangSpeed * direction.direction;
+            if (direction.direction.Y == 0) center.Y = link.Center.Y;
             else center.X = link.Center.X;
 
             travelDistance--;
-            if (travelDistance == 0) direction = -direction;
+            if (travelDistance == 0)
+            {
+                direction.alreadyReversed = true;
+                direction.direction = -direction.direction;
+            }
 
             angle += ItemConstants.AnglePiOver8;
             if (angle >= 2 * ItemConstants.Angle180Rad) angle = 0;
@@ -80,6 +85,16 @@ namespace cse3902.Projectiles
                 return -1;
             }
             return 0;
+        }
+
+        public void ReverseDirectionIfNecessary()
+        {
+            if (!direction.alreadyReversed)
+            {
+                direction.alreadyReversed = true;
+                direction.direction = -direction.direction;
+                travelDistance = -1;
+            }
         }
 
         public ref Rectangle Box
@@ -124,13 +139,13 @@ namespace cse3902.Projectiles
 
         public int Damage
         {
-            get => 0; //stuns if Link throws
+            get => DamageConstants.BoomerangDamage; //stuns if Link throws
         }
 
         public Vector2 Direction
         {
-            get => this.direction;
-            set => this.direction = value;
+            get => this.direction.direction;
+            set => this.direction.direction = value;
 
         }
 

@@ -214,5 +214,11 @@ namespace cse3902.Entities
         {
             get => linkSprite.Size;
         }
+
+        public (bool, float) Stunned
+        {
+            get => (false, 0);
+            set { }
+        }
     }
 }
