@@ -16,20 +16,18 @@ namespace cse3902.Sprites.EnemySprites
             RightFacing = 0,
             LeftFacing = 2
             
-        };
+   };
 
-        private SpriteBatch spriteBatch;
-        private Texture2D spriteTexture;
+        private (SpriteBatch spriteBatch, Texture2D spriteTexture) spriteInfo;
 
         private Vector2 center;
 
         private int currentFrame;
         private Rectangle[] frames;
-        private int frameWidth;
-        private int frameHeight;
+        private Vector2 size;
 
-        private int startingFrameIndex;
-        private int endingFrameIndex;
+        private (int startingFrameIndex, int endingFrameIndex) frameIndex;
+
 
         private const float delay = MovementConstants.AquamentusDelay;
         private float remainingDelay;
@@ -40,37 +38,36 @@ namespace cse3902.Sprites.EnemySprites
         private Rectangle destination;
 
         private float remainingDamageDelay;
-        
-        private const float sizeIncrease = 1f;
+
 
 
         public AquamentusSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Texture2D damageSequence, Vector2 startingPosition)
         {
-            this.spriteBatch = spriteBatch;
-            spriteTexture = texture;
+            this.spriteInfo.spriteBatch = spriteBatch;
+            spriteInfo.spriteTexture = texture;
             remainingDelay = delay;
 
             isDamage = false;
             remainingDamageDelay = DamageConstants.DamageMaskDelay;
 
             currentFrame = 2;
-            startingFrameIndex = (int)FrameIndex.LeftFacing;
-            endingFrameIndex = startingFrameIndex + 2;
-            frameWidth = spriteTexture.Width / columns;
-            frameHeight = spriteTexture.Height / rows;
+            frameIndex.startingFrameIndex = (int)FrameIndex.LeftFacing;
+            frameIndex.endingFrameIndex = frameIndex.startingFrameIndex + 2;
+            size.X = spriteInfo.spriteTexture.Width / columns;
+            size.Y = spriteInfo.spriteTexture.Height / rows;
             center = startingPosition;
 
             damageMaskHandler = new GenericTextureMask(texture, damageSequence, 1, 4, 1);
 
-            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
+            frames = SpriteUtilities.distributeFrames(columns, rows, (int)size.X, (int)size.Y);
 
         }
 
         public void Draw() {
 
-            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
-            spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
+            Vector2 origin = new Vector2(size.X / 2f, size.Y / 2f);
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(size.X), (int)(size.Y));
+            spriteInfo.spriteBatch.Draw(spriteInfo.spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
 
         }
 
@@ -78,8 +75,8 @@ namespace cse3902.Sprites.EnemySprites
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth);
-                int height = (int)(sizeIncrease * frameHeight);
+                int width = (int)(size.X);
+                int height = (int)(size.Y);
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
@@ -105,9 +102,9 @@ namespace cse3902.Sprites.EnemySprites
 	        if (remainingDelay <= 0)
             {
                 currentFrame++;
-                if (currentFrame == endingFrameIndex)
+                if (currentFrame == frameIndex.endingFrameIndex)
                 {
-                    currentFrame = startingFrameIndex;
+                    currentFrame = frameIndex.startingFrameIndex;
                 }
                 remainingDelay = delay;
             }
@@ -122,18 +119,18 @@ namespace cse3902.Sprites.EnemySprites
 
         public Texture2D Texture
         {
-            get => spriteTexture;
+            get => spriteInfo.spriteTexture;
         }
 
         public int StartingFrameIndex
         {
-            get => startingFrameIndex;
+            get => frameIndex.startingFrameIndex;
             set
             {
-                startingFrameIndex = value;
-                endingFrameIndex = value + 2;
+                frameIndex.startingFrameIndex = value;
+                frameIndex.endingFrameIndex = value + 2;
                 
-                if (currentFrame >= endingFrameIndex || currentFrame < startingFrameIndex) { 
+                if (currentFrame >= frameIndex.endingFrameIndex || currentFrame < frameIndex.startingFrameIndex) { 
 
                     currentFrame = value;
                 }

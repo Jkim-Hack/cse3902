@@ -1,5 +1,6 @@
 ﻿using System;
 using cse3902.Interfaces;
+using cse3902.Constants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using static cse3902.Interfaces.ISprite;
@@ -22,7 +23,6 @@ namespace cse3902.Sprites.EnemySprites
         private Vector2 center;
 
         private int currentFrame;
-        private int totalFrames;
         private Rectangle[] frames;
         private int frameWidth;
         private int frameHeight;
@@ -30,22 +30,19 @@ namespace cse3902.Sprites.EnemySprites
         private int startingFrameIndex;
         private int endingFrameIndex;
 
-        private const float delay = 0.2f;
         private float remainingDelay;
 
         private bool isAttacking;
 
         private Rectangle destination;
 
-        private const float sizeIncrease = 1f;
 
         public WallMasterSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
-            remainingDelay = delay;
+            remainingDelay = MovementConstants.WallMasterDelay;
 
-            totalFrames = rows * columns;
             currentFrame = 0;
 
             startingFrameIndex = (int)FrameIndex.LeftUpFacing;
@@ -64,7 +61,7 @@ namespace cse3902.Sprites.EnemySprites
         {
 
             Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(frameWidth), (int)(frameHeight));
             spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
         }
 
@@ -80,7 +77,7 @@ namespace cse3902.Sprites.EnemySprites
                 {
                     currentFrame = startingFrameIndex;
                 }
-                remainingDelay = delay;
+                remainingDelay = MovementConstants.WallMasterDelay;
             }
             return 0;
         }
@@ -89,8 +86,8 @@ namespace cse3902.Sprites.EnemySprites
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth);
-                int height = (int)(sizeIncrease * frameHeight);
+                int width = (int)(frameWidth);
+                int height = (int)(frameHeight);
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;

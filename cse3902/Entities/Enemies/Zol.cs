@@ -17,7 +17,6 @@ namespace cse3902.Entities.Enemies
         private readonly Game1 game;
 
         private Vector2 direction;
-        private float speed;
         private (Vector2 previous, Vector2 current) center;
         private int travelDistance;
         private Vector2 shoveDirection;
@@ -37,7 +36,6 @@ namespace cse3902.Entities.Enemies
 
             //gel sprite sheet is 1 row, 2 columns
             gelSprite = (ZolSprite)EnemySpriteFactory.Instance.CreateZolSprite(game.SpriteBatch, this.center.current);
-            speed = MovementConstants.ZolSpeed;
             travelDistance = 0;
             shoveDistance = MovementConstants.ZolShoveDistance;
             remainingDamageDelay = DamageConstants.DamageDisableDelay;
@@ -141,7 +139,7 @@ namespace cse3902.Entities.Enemies
         {
             if (!stun.stun)
             {
-                this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                this.Center += direction * MovementConstants.ZolSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
                 if (travelDistance <= 0)
                 {

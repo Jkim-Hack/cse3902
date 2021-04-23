@@ -21,11 +21,12 @@ namespace cse3902.Entities
                 if (newDirection.Y > 0)
                 {
                     wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.RightDownFacing;
-                } else
+                }
+                else
                 {
                     wallMasterSprite.StartingFrameIndex = (int)WallMasterSprite.FrameIndex.RightUpFacing;
                 }
-                
+
             }
             else
             {
@@ -47,5 +48,7 @@ namespace cse3902.Entities
         public void Die()
         {
         }
+
     }
+
 }

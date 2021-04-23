@@ -26,15 +26,11 @@ namespace cse3902.Sprites.EnemySprites
         private Vector2 center;
 
         private int currentFrame;
-        private int totalFrames;
         private Rectangle[] frames;
-        private int frameWidth;
-        private int frameHeight;
+        private Vector2 size;
 
-        private int startingFrameIndex;
-        private int endingFrameIndex;
+        private (int startingFrameIndex, int endingFrameIndex) frameIndex;
 
-        private const float delay = 0.2f;
         private float remainingDelay;
 
         private bool isDamage;
@@ -44,37 +40,35 @@ namespace cse3902.Sprites.EnemySprites
 
         private float remainingDamageDelay;
 
-        private const float sizeIncrease = 1f;
 
 
         public MarioBossSprite(SpriteBatch spriteBatch, Texture2D texture, int rows, int columns, Texture2D damageSequence, Vector2 startingPosition)
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
-            remainingDelay = delay;
+            remainingDelay = MovementConstants.MarioDelay;
 
             isDamage = false;
             remainingDamageDelay = DamageConstants.DamageMaskDelay;
 
-            totalFrames = rows * columns;
             currentFrame = (int)FrameIndex.LeftStart;
-            startingFrameIndex = (int)FrameIndex.LeftStart;
-            endingFrameIndex = (int)FrameIndex.LeftFireball+1;
-            frameWidth = spriteTexture.Width / columns;
-            frameHeight = spriteTexture.Height / rows;
+            frameIndex.startingFrameIndex = (int)FrameIndex.LeftStart;
+            frameIndex.endingFrameIndex = (int)FrameIndex.LeftFireball+1;
+            size.X = spriteTexture.Width / columns;
+            size.Y = spriteTexture.Height / rows;
             center = startingPosition;
 
             damageMaskHandler = new GenericTextureMask(texture, damageSequence, 1, 4, 1);
 
-            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
+            frames = SpriteUtilities.distributeFrames(columns, rows, (int)size.X, (int)size.Y);
 
         }
 
         public void Draw()
         {
 
-            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            Vector2 origin = new Vector2(size.X / 2f, size.Y / 2f);
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(size.X), (int)(size.Y));
             spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
 
         }
@@ -83,8 +77,8 @@ namespace cse3902.Sprites.EnemySprites
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth);
-                int height = (int)(sizeIncrease * frameHeight);
+                int width = (int)(size.X);
+                int height = (int)(size.Y);
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
@@ -110,11 +104,11 @@ namespace cse3902.Sprites.EnemySprites
             if (remainingDelay <= 0)
             {
                 currentFrame++;
-                if (currentFrame == endingFrameIndex)
+                if (currentFrame == frameIndex.endingFrameIndex)
                 {
-                    currentFrame = startingFrameIndex;
+                    currentFrame = frameIndex.startingFrameIndex;
                 }
-                remainingDelay = delay;
+                remainingDelay = MovementConstants.MarioDelay;
             }
             return 0;
         }
@@ -132,13 +126,13 @@ namespace cse3902.Sprites.EnemySprites
 
         public int StartingFrameIndex
         {
-            get => startingFrameIndex;
+            get => frameIndex.startingFrameIndex;
             set
             {
-                startingFrameIndex = value;
-                endingFrameIndex = value - 3;
+                frameIndex.startingFrameIndex = value;
+                frameIndex.endingFrameIndex = value - 3;
 
-                if (currentFrame < endingFrameIndex || currentFrame >= startingFrameIndex)
+                if (currentFrame < frameIndex.endingFrameIndex || currentFrame >= frameIndex.startingFrameIndex)
                 {
 
                     currentFrame = value;

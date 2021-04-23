@@ -20,10 +20,8 @@ namespace cse3902.Entities.Enemies
         private readonly Game1 game;
 
         private Vector2 direction;
-        private float speed;
         private Vector2 abstractStart;
-        private Vector2 center;
-        private Vector2 previousCenter;
+        private (Vector2 previous, Vector2 current) center;
         private int travelDistance;
         private Vector2 shoveDirection;
         private int shoveDistance;
@@ -44,13 +42,12 @@ namespace cse3902.Entities.Enemies
         {
             this.game = game;
             this.abstractStart = abstractStart;
-            center = start;
-            previousCenter = center;
+            center.current = start;
+            center.previous = center.current;
 
-            wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.SpriteBatch, center);
-            grabbedLink = NPCSpriteFactory.Instance.CreateGrabbedLinkSprite(game.SpriteBatch, center);
+            wallMasterSprite = (WallMasterSprite)EnemySpriteFactory.Instance.CreateWallMasterSprite(game.SpriteBatch, center.current);
+            grabbedLink = NPCSpriteFactory.Instance.CreateGrabbedLinkSprite(game.SpriteBatch, center.current);
             wallMasterStateMachine = new WallMasterStateMachine(wallMasterSprite);
-            speed = MovementConstants.WallMasterSpeed;
             this.direction = new Vector2(0, 0);
             travelDistance = 0;
             shoveDistance = MovementConstants.DefaultShoveDistance;
@@ -96,8 +93,8 @@ namespace cse3902.Entities.Enemies
         {
             this.wallMasterStateMachine.Die();
             SoundFactory.PlaySound(SoundFactory.Instance.enemyHit);
-            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.C);
-            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center.current, IEntity.EnemyType.C);
+            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center.current);
         }
 
         public void BeShoved()
@@ -155,7 +152,7 @@ namespace cse3902.Entities.Enemies
         {
             if (!stun.stun)
             {
-                this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                this.Center += direction * MovementConstants.WallMasterSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
                 if (travelDistance <= 0)
                 {
@@ -204,7 +201,7 @@ namespace cse3902.Entities.Enemies
 
         public IEntity Duplicate()
         {
-            return new WallMaster(game, center, abstractStart);
+            return new WallMaster(game, center.current, abstractStart);
         }
 
         public void GrabLink()
@@ -234,21 +231,21 @@ namespace cse3902.Entities.Enemies
 
         public Vector2 Center
         {
-            get => this.center;
+            get => this.center.current;
             set
             {
-                this.PreviousCenter = this.center;
-                this.center = value;
+                this.PreviousCenter = this.center.current;
+                this.center.current = value;
                 wallMasterSprite.Center = value;
             }
         }
 
         public Vector2 PreviousCenter
         {
-            get => this.previousCenter;
+            get => this.center.previous;
             set
             {
-                this.previousCenter = value;
+                this.center.previous = value;
             }
         }
 

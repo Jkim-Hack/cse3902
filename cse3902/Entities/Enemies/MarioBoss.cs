@@ -18,9 +18,7 @@ namespace cse3902.Entities.Enemies
         private readonly Game1 game;
 
         private Vector2 direction;
-        private float speed;
-        private Vector2 center;
-        private Vector2 previousCenter;
+        private (Vector2 previous, Vector2 current) center;
         private int travelDistance;
         private Vector2 shoveDirection;
         private int shoveDistance;
@@ -33,12 +31,11 @@ namespace cse3902.Entities.Enemies
         public MarioBoss(Game1 game, Vector2 start)
         {
             this.game = game;
-            center = start;
-            previousCenter = center;
-            marioBossSprite = (MarioBossSprite)EnemySpriteFactory.Instance.CreateMarioBossSprite(game.SpriteBatch, center);
-            marioBossStateMachine = new MarioBossStateMachine(marioBossSprite, game.SpriteBatch, this.center, game.Player);
+            center.current = start;
+            center.previous = center.current;
+            marioBossSprite = (MarioBossSprite)EnemySpriteFactory.Instance.CreateMarioBossSprite(game.SpriteBatch, center.current);
+            marioBossStateMachine = new MarioBossStateMachine(marioBossSprite, game.SpriteBatch, this.center.current, game.Player);
             direction = new Vector2(1, 0);
-            speed = MovementConstants.MarioSpeed;
             travelDistance = MovementConstants.MarioMaxTravel;
             shoveDistance = 0;
             shoveDirection = new Vector2(1, 0);
@@ -81,8 +78,8 @@ namespace cse3902.Entities.Enemies
         {
             SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat, MovementConstants.MarioDelay);
             this.marioBossStateMachine.Die();
-            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.A);
-            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
+            ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center.current, IEntity.EnemyType.A);
+            if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center.current);
         }
 
         public void BeShoved()
@@ -132,7 +129,7 @@ namespace cse3902.Entities.Enemies
         {
             pauseAnim = false;
 
-            this.Center += direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.Center += direction * MovementConstants.MarioSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (travelDistance <= 0)
             {
@@ -153,7 +150,7 @@ namespace cse3902.Entities.Enemies
 
         public IEntity Duplicate()
         {
-            return new MarioBoss(game, center);
+            return new MarioBoss(game, center.current);
         }
 
         public IEntity.EnemyType Type
@@ -163,21 +160,21 @@ namespace cse3902.Entities.Enemies
 
         public Vector2 Center
         {
-            get => this.center;
+            get => this.center.current;
             set
             {
-                this.PreviousCenter = this.center;
-                this.center = value;
+                this.center.previous = this.center.current;
+                this.center.current = value;
                 marioBossSprite.Center = value;
             }
         }
 
         public Vector2 PreviousCenter
         {
-            get => this.previousCenter;
+            get => this.center.previous;
             set
             {
-                this.previousCenter = value;
+                this.center.previous = value;
             }
         }
 
