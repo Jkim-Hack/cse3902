@@ -40,6 +40,9 @@ namespace cse3902.Rooms.Conditions
                     case 2:
                         ItemSpriteFactory.Instance.CreateHeartContainerItem(startPos, true, false);
                         break;
+                    case 3:
+                        ItemSpriteFactory.Instance.CreateHeartItem(startPos, true, false);
+                        break;
                     default: //this should never happen
                         break;
                 }

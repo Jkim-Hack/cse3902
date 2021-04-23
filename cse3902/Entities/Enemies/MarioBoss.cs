@@ -36,7 +36,7 @@ namespace cse3902.Entities.Enemies
             center = start;
             previousCenter = center;
             marioBossSprite = (MarioBossSprite)EnemySpriteFactory.Instance.CreateMarioBossSprite(game.SpriteBatch, center);
-            marioBossStateMachine = new MarioBossStateMachine(marioBossSprite, game.SpriteBatch, this.center);
+            marioBossStateMachine = new MarioBossStateMachine(marioBossSprite, game.SpriteBatch, this.center, game.Player);
             direction = new Vector2(1, 0);
             speed = MovementConstants.MarioSpeed;
             travelDistance = MovementConstants.MarioMaxTravel;
