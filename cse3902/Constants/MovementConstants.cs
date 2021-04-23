@@ -52,6 +52,7 @@ namespace cse3902.Constants
         public const int KeeseShoveDistance = DefaultShoveDistance;
 
         public const float StalfosSpeed = 30.0f;
+        public const float StalfosDelay = .2f;
         public const int StalfosMaxTravel = 80;
         public const int StalfosShoveDistance = DefaultShoveDistance;
 
@@ -65,7 +66,7 @@ namespace cse3902.Constants
         public const int WallMasterShoveDistance = DefaultShoveDistance;
 
         public const float RopeSpeed = 30.0f;
-        public const float KeeseDelay = .2f;
+        public const float RopeDelay = .2f;
         public const int RopeMaxTravel = 100;
         public const int RopeShoveDistance = DefaultShoveDistance;
 
