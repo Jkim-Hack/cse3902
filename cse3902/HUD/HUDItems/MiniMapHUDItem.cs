@@ -49,8 +49,8 @@ namespace cse3902.HUD
         public void Draw()
         {
             DrawLevelLabel();
-            if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Map] > 0) DrawMap();
-            if (InventoryManager.Instance.inventory[InventoryManager.ItemType.Compass] > 0) DrawTriforce();
+            if (InventoryManager.Instance.ItemCount(InventoryManager.ItemType.Map) > 0) DrawMap();
+            if (InventoryManager.Instance.ItemCount(InventoryManager.ItemType.Compass) > 0) DrawTriforce();
             if (game.RoomHandler.currentRoom.Z % 2 == 0) DrawCurrentRoom();
         }
 
