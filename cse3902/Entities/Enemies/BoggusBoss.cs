@@ -36,10 +36,10 @@ namespace cse3902.Entities.Enemies
             center = start;
             previousCenter = center;
             boggusBossSprite = (BoggusBossSprite)EnemySpriteFactory.Instance.CreateBoggusBossSprite(game.SpriteBatch, center);
-            boggusBossStateMachine = new BoggusBossStateMachine(boggusBossSprite, game.SpriteBatch, this.center);
+            boggusBossStateMachine = new BoggusBossStateMachine(boggusBossSprite, game.SpriteBatch, this.center, game.Player);
             direction = new Vector2(1, 0);
             speed = MovementConstants.BoggusSpeed;
-            travelDistance = MovementConstants.BoggusMaxTravel;
+            travelDistance = (int)(MovementConstants.BoggusMaxTravel);
             shoveDistance = MovementConstants.BoggusShoveDistance;
             shoveDirection = new Vector2(1, 0);
             pauseAnim = false;

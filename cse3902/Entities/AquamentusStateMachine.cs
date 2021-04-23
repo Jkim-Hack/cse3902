@@ -20,7 +20,9 @@ namespace cse3902.Entities
         
         private Vector2 center;
 
-        public AquamentusStateMachine(AquamentusSprite aquamentusSprite, SpriteBatch spriteBatch, Vector2 center)
+        private IPlayer player;
+
+        public AquamentusStateMachine(AquamentusSprite aquamentusSprite, SpriteBatch spriteBatch, Vector2 center, IPlayer link)
         {
             this.aquamentusSprite = aquamentusSprite;
             this.spriteBatch = spriteBatch;
@@ -29,6 +31,8 @@ namespace cse3902.Entities
             fireballCounter = 0;
 
             this.center = center;
+
+            player = link;
         }
 
         private void LoadFireballs()
@@ -41,34 +45,23 @@ namespace cse3902.Entities
             //all fireballs originate in the mouth
             Vector2 location;
             location.X = this.center.X;
+            location.X -= MovementConstants.AquamentusFireballChangeX;
+            if (aquamentusSprite.StartingFrameIndex == (int)AquamentusSprite.FrameIndex.RightFacing) location.X += 2 * MovementConstants.AquamentusFireballChangeX;
             location.Y = this.center.Y - 10;
 
-            if (aquamentusSprite.StartingFrameIndex == (int)AquamentusSprite.FrameIndex.RightFacing)
-            {
-                direction1 = new Vector2(1, 0);
-                direction2 = new Vector2(MovementConstants.AquamentusFireballSpread, 1);
-                direction2.Normalize();
-                direction3 = new Vector2(MovementConstants.AquamentusFireballSpread, -1);
-                direction3.Normalize();
-                location.X += MovementConstants.AquamentusFireballChangeX;
-            }
-            else
-            {
-                direction1 = new Vector2(-1, 0);
-                direction2 = new Vector2(-MovementConstants.AquamentusFireballSpread, 1);
-                direction2.Normalize();
-                direction3 = new Vector2(-MovementConstants.AquamentusFireballSpread, -1);
-                direction3.Normalize();
-
-                location.X += -MovementConstants.AquamentusFireballChangeX; //originate fireballs at mouth if facing left
-            }
+            direction2 = player.Center - location;
+            direction2.Normalize();
+            double angle2 = Math.Atan2(direction2.Y, direction2.X);
+            double angle1 = angle2 + MovementConstants.AquamentusFireballSpreadAngle;
+            double angle3 = angle2 - MovementConstants.AquamentusFireballSpreadAngle;
+            direction1 = new Vector2((float)Math.Cos(angle1), (float)Math.Sin(angle1));
+            direction3 = new Vector2((float)Math.Cos(angle3), (float)Math.Sin(angle3));
 
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
             projectileHandler.CreateFireballObject(spriteBatch, location, direction1);
             projectileHandler.CreateFireballObject(spriteBatch, location, direction2);
             projectileHandler.CreateFireballObject(spriteBatch, location, direction3);
 
-            // correct location for this?
             SoundFactory.PlaySound(SoundFactory.Instance.bossScream);
         }
 

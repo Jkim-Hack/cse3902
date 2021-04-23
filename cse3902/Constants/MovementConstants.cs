@@ -1,4 +1,5 @@
-﻿using cse3902.Rooms;
+﻿using System;
+using cse3902.Rooms;
 
 namespace cse3902.Constants
 {
@@ -14,7 +15,7 @@ namespace cse3902.Constants
         public const int AquamentusMaxTravel = 150;
         public const int AquamentusShoveDistance = DefaultShoveDistance;
         public const int AquamentusFireballChangeX = 15;
-        public const int AquamentusFireballSpread = 3;
+        public static readonly double AquamentusFireballSpreadAngle = Math.Atan2(1, 3);
 
         public const float DodongoSpeed = 25.0f;
         public const float DodongoDelay = .2f;
@@ -23,8 +24,10 @@ namespace cse3902.Constants
 
         public const float BoggusSpeed = 25.0f;
         public const float BoggusDelay = .2f;
-        public const int BoggusMaxTravel = 150;
+        public const int BoggusMaxTravel = 75;
         public const int BoggusShoveDistance = DefaultShoveDistance;
+        public static readonly double BoggusFireballSpreadAngle = Math.Atan2(1, 2);
+
 
         public const float MarioSpeed = 45.0f;
         public const float MarioDelay = .2f;

@@ -13,8 +13,6 @@ namespace cse3902.Entities
         private MarioBossSprite marioBossSprite;
         private SpriteBatch spriteBatch;
 
-        private ISprite fireball;
-
         private bool isAttacking;
         private float fireballCounter;
         private const float fireballDelay = 2.5f;
@@ -22,7 +20,9 @@ namespace cse3902.Entities
 
         private Vector2 center;
 
-        public MarioBossStateMachine(MarioBossSprite marioBossSprite, SpriteBatch spriteBatch, Vector2 center)
+        private IPlayer player;
+
+        public MarioBossStateMachine(MarioBossSprite marioBossSprite, SpriteBatch spriteBatch, Vector2 center, IPlayer link)
         {
             this.marioBossSprite = marioBossSprite;
             this.spriteBatch = spriteBatch;
@@ -32,6 +32,8 @@ namespace cse3902.Entities
             fireballCounter = 0;
 
             this.center = center;
+
+            player = link;
         }
 
         private void LoadFireballs()
@@ -44,13 +46,13 @@ namespace cse3902.Entities
             location.X = this.center.X;
             location.Y = this.center.Y - 10;
 
-            direction = new Vector2(-1, 0);
-
+            direction = player.Center - location;
+            direction.Normalize();
 
             location.X += -15; //originate fireballs at mouth if facing left
 
             ProjectileHandler projectileHandler = ProjectileHandler.Instance;
-            fireball = projectileHandler.CreateFireballObject(spriteBatch, location, direction);
+            projectileHandler.CreateFireballObject(spriteBatch, location, direction);
 
 
         }
