@@ -70,7 +70,16 @@ namespace cse3902.Collision.Collidables
 
         public Boolean IsEnemy
         {
-            get => this.projectile is Fireball || this.projectile is EnemyBoomerangProjectile;
+            get
+            {
+                if (this.projectile is Fireball || this.projectile is EnemyBoomerangProjectile)
+                {
+                    return true;
+                } else
+                {
+                    return false;
+                }
+            }
         }
 
         public int DamageValue

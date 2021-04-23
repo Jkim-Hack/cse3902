@@ -111,7 +111,6 @@ namespace cse3902.Projectiles
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
         }
-
         public IProjectile CreateFireballObject(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
             IProjectile newProj = new Fireball(spriteBatch, fireball, startingPos, dir, game);

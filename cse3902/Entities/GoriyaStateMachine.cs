@@ -1,80 +1,99 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using cse3902.Interfaces;
+using cse3902.Rooms;
 using cse3902.Sprites.EnemySprites;
 
 namespace cse3902.Entities
 {
-    public class GoriyaStateMachine: IEntityStateMachine
+    public class GoriyaStateMachine
     {
         private GoriyaSprite goriyaSprite;
+
+        private Rectangle detectionBox;
+        private Boolean isTriggered;
+        private Vector2 direction;
+
+        private int alternate;
 
         public GoriyaStateMachine(GoriyaSprite goriyaSprite)
         {
             this.goriyaSprite = goriyaSprite;
+            isTriggered = false;
+            alternate = 0;
         }
 
-        public void CycleWeapon(int dir)
+        
+        public Boolean IsTriggered
         {
-            throw new NotImplementedException();
+            get => this.isTriggered;
+            set => this.isTriggered = value;
         }
 
-        public void ChangeDirection(Vector2 newDirection)
+        public ref Rectangle Bounds
         {
-            if (newDirection == new Vector2(0, 0))
+            get
             {
-                //direction vector of (0,0) indicates just reverse the current direction
-                if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.RightFacing)
+                if (IsTriggered)
                 {
-                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.LeftFacing;
+                    return ref goriyaSprite.Box;
                 }
-                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.LeftFacing)
+                else
                 {
-                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.RightFacing;
+                    if (alternate == 0)
+                    {
+                        return ref goriyaSprite.Box;
+                    }
+                    else
+                    {
+                        return ref DetectionBox;
+                    }
+
                 }
-                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.UpFacing)
+            }
+        }
+
+        public void Update()
+        {
+            if (alternate == 0) alternate = 1;
+            else alternate = 0;
+        }
+
+        public ref Rectangle DetectionBox
+        {
+            get
+            {
+                if (direction.X > 0)
                 {
-                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.DownFacing;
-                }
-                else if (goriyaSprite.StartingFrameIndex == (int)GoriyaSprite.FrameIndex.DownFacing)
+                    detectionBox = goriyaSprite.Box;
+                    detectionBox.Inflate(RoomUtilities.BLOCK_SIDE * 2, 0);
+                    detectionBox.Offset(RoomUtilities.BLOCK_SIDE * 2, 0);
+                    return ref detectionBox;
+                } else if (direction.X < 0)
                 {
-                    goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.UpFacing;
+                    detectionBox = goriyaSprite.Box;
+                    detectionBox.Inflate(RoomUtilities.BLOCK_SIDE * 2, 0);
+                    detectionBox.Offset(-RoomUtilities.BLOCK_SIDE * 2, 0);
+                    return ref detectionBox;
+                } else if (direction.Y > 0)
+                {
+                    detectionBox = goriyaSprite.Box;
+                    detectionBox.Inflate(0, RoomUtilities.BLOCK_SIDE * 2);
+                    detectionBox.Offset(0, RoomUtilities.BLOCK_SIDE * 2);
+                    return ref detectionBox;
+                } else
+                {
+                    detectionBox = goriyaSprite.Box;
+                    detectionBox.Inflate(0, RoomUtilities.BLOCK_SIDE * 2);
+                    detectionBox.Offset(0, -RoomUtilities.BLOCK_SIDE * 2);
+                    return ref detectionBox;
                 }
-
-                return;
-            }
-
-            if (newDirection.X > 0)
-            {
-                goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.RightFacing;
-            }
-            else if (newDirection.X < 0)
-            {
-                goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.LeftFacing;
-            }
-            else if (newDirection.Y > 0)
-            {
-                goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.DownFacing;
-            }
-            else
-            {
-                goriyaSprite.StartingFrameIndex = (int)GoriyaSprite.FrameIndex.UpFacing;
             }
         }
 
-        public void TakeDamage()
+        public Vector2 Direction
         {
-
+            set => direction = value;
         }
 
-        public void Attack()
-        {
-
-        }
-
-        public void Die()
-        {
-            this.goriyaSprite.Erase();
-        }
     }
 }

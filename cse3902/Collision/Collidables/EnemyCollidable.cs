@@ -48,7 +48,7 @@ namespace cse3902.Collision.Collidables
 
             } else if (collidableObject is BlockCollidable)
             {
-                BlockkCollision(collidableObject);
+                BlockCollision(collidableObject);
             }
 
             else
@@ -103,7 +103,7 @@ namespace cse3902.Collision.Collidables
 
         private void SwordCollision(ICollidable collidableObject)
         {
-            if (this.enemy is Dodongo)
+            if (this.enemy is Dodongo || (this.enemy is Goriya && ((Goriya)this.enemy).IsDetectionMode))
             {
                 return;
             }
@@ -125,14 +125,15 @@ namespace cse3902.Collision.Collidables
 
         private void ProjectileCollision(ICollidable collidableObject)
         {
+            if ((this.enemy is Dodongo && !(((ProjectileCollidable)collidableObject).Projectile is BombProjectile)) || (enemy is Goriya && ((Goriya)enemy).IsDetectionMode))
+			{
+				return;
+			}
             if (((ProjectileCollidable)collidableObject).IsEnemy)
             {
                 return;
             }
-            if (this.enemy is Dodongo && !(((ProjectileCollidable)collidableObject).Projectile is BombProjectile))
-            {
-                return;
-            }
+
             if (!(this.enemy is Aquamentus || this.enemy is BoggusBoss || this.enemy is MarioBoss || this.enemy is Dodongo)) {
                 if (((ProjectileCollidable)collidableObject).Projectile is BoomerangProjectile)
                 {
@@ -159,7 +160,7 @@ namespace cse3902.Collision.Collidables
                 return;
             }
 
-            if (!(this.enemy is WallMaster))
+            if (!((this.enemy is WallMaster) || (enemy is Goriya && ((Goriya)enemy).IsDetectionMode)))
             {
                 this.enemy.StopShove();
                 this.enemy.Center = this.enemy.PreviousCenter;
@@ -171,14 +172,14 @@ namespace cse3902.Collision.Collidables
             }
         }
 
-        private void BlockkCollision(ICollidable collidableObject)
+        private void BlockCollision(ICollidable collidableObject)
         {
             if (collisionOccurrences[0])
             {
                 return;
             }
 
-            if (!(this.enemy is Keese || this.enemy is WallMaster))
+            if (!(this.enemy is Keese || this.enemy is WallMaster) || (enemy is Goriya && ((Goriya)enemy).IsDetectionMode))
             {
                 this.enemy.StopShove();
                 this.enemy.Center = this.enemy.PreviousCenter;

@@ -154,7 +154,7 @@ namespace cse3902
             varToListInt.Add(Variable.BoggusDamage, new List<int>() { 1, 2, 4 });
             varToListInt.Add(Variable.MarioHealth, new List<int>() { 5, 8, 12 });
             varToListInt.Add(Variable.MarioDamage, new List<int>() { 2, 4, 6 });
-            varToListInt.Add(Variable.DodongoHealth, new List<int>() { 1, 4, 5 });
+            varToListInt.Add(Variable.DodongoHealth, new List<int>() { 8, 12, 16 });
             varToListInt.Add(Variable.DodongoDamage, new List<int>() { 1, 2, 4 });
             varToListInt.Add(Variable.RopeHealth, new List<int>() { 1, 1, 4 });
             varToListInt.Add(Variable.RopeDamage, new List<int>() { 1, 1, 2 });

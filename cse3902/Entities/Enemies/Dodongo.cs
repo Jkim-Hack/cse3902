@@ -71,35 +71,33 @@ namespace cse3902.Entities.Enemies
 
         public void TakeDamage(int damage)
         {
-            this.dodongoSprite.StartingFrameIndex++;
             if (this.dodongoSprite.StartingFrameIndex == (int)DodongoSprite.FrameIndex.LeftFacing || this.dodongoSprite.StartingFrameIndex == (int)DodongoSprite.FrameIndex.RightFacing)
             {
                 this.dodongoSprite.StartingFrameIndex++;
             }
+            this.dodongoSprite.StartingFrameIndex++;
+
             this.shoveDirection = new Vector2(0, 0);
             this.shoveDistance = MovementConstants.DodongoShoveDistance;
             this.travelDistance = 0;
 
             this.Health -= damage;
-            if (this.Health > 0)
-            {
-                SoundFactory.PlaySound(SoundFactory.Instance.enemyHit);
-            }
+            SoundFactory.PlaySound(SoundFactory.Instance.bossHurt);
+            
 
             this.collidable.DamageDisabled = true;
         }
 
         public void Die()
         {
-            SoundFactory.PlaySound(SoundFactory.Instance.enemyDie);
+            SoundFactory.PlaySound(SoundFactory.Instance.bossDefeat);
             ItemSpriteFactory.Instance.SpawnRandomItem(game.SpriteBatch, center, IEntity.EnemyType.D);
             if (ParticleEngine.Instance.UseParticleEffects) ParticleEngine.Instance.CreateEnemyDeathEffect(center);
         }
 
         public void BeShoved()
         {
-            this.shoveDistance = MovementConstants.DodongoShoveDistance;
-            this.shoveDirection = -this.direction;
+            
         }
 
         public void StopShove()
