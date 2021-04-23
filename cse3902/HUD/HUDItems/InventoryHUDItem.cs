@@ -19,15 +19,9 @@ namespace cse3902.HUD.HUDItems
         private Rectangle box;
         private SpriteBatch spriteBatch;
 
-        private (ItemType, ISprite) currentBItem;
-        private Vector2 BItemOrigin;
-
         private List<(Vector2 pos, ItemType type, InventoryItemSprite sprite)> inventoryItems;
 
-        private Rectangle cursorBox;
-        private ItemType cursorBoxItem;
         private int cursorPos;
-        private int fromRight;
 
         public InventoryHUDItem(Game1 game, Texture2D inventoryTexture, Texture2D cursorTexture, Vector2 origin)
         {
@@ -40,15 +34,7 @@ namespace cse3902.HUD.HUDItems
 
             inventoryItems = new List<(Vector2, ItemType, InventoryItemSprite)>();
             initiateInventoryItems();
-            Vector2 weaponStartOrigin = this.origin + HUDPositionConstants.WeaponStartHUDPosition;
 
-            BItemOrigin = this.origin + HUDPositionConstants.BItemHUDPosition;
-
-            cursorBox = new Rectangle((int)weaponStartOrigin.X - HUDPositionConstants.CursorBoxXOffset, (int)weaponStartOrigin.Y, cursorTexture.Width, cursorTexture.Height);
-            currentBItem.Item1 = ItemType.None;
-	        currentBItem.Item2 = null;
-
-            fromRight = 0;
             cursorPos = 0;
         }
         
