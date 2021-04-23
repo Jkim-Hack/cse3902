@@ -56,6 +56,7 @@ namespace cse3902.SpriteFactory
 
             textures.Add("sword", content.Load<Texture2D>("SwordItems"));
             textures.Add("arrow", content.Load<Texture2D>("arrow"));
+            textures.Add("blueCandle", content.Load<Texture2D>("blueCandle"));
             textures.Add("bluePotion", content.Load<Texture2D>("BluePotion"));
             textures.Add("blueRing", content.Load<Texture2D>("BlueRing"));
             textures.Add("bomb", content.Load<Texture2D>("bomb"));
@@ -90,6 +91,12 @@ namespace cse3902.SpriteFactory
         public IItem CreateSwordItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept, int type)
         {
             IItem add = new SwordItem(this.spriteBatch, textures["sword"], startingPos, kept, resetKept, type);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
+        public ISprite CreateBlueCandleItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
+        {
+            IItem add = new BlueCandleItem(spriteBatch, textures["blueCandle"], startingPos, kept, resetKept);
             RoomItems.Instance.AddItem(add);
             return add;
         }

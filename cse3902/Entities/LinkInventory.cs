@@ -142,6 +142,7 @@ namespace cse3902.Entities
                     linkState.Health = linkState.TotalHealth;
                     break;
                 default:
+                    return false;
                     break;
             }
             return true;

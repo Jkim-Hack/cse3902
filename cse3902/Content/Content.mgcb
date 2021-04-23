@@ -109,6 +109,18 @@
 /processorParam:TextureFormat=Color
 /build:block5.png
 
+#begin blueCandle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:blueCandle.png
+
 #begin BluePotion.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -283,18 +295,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:doors.png
-
-#begin dungeonMask.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:dungeonMask.png
 
 #begin dungeonMask.png
 /importer:TextureImporter
