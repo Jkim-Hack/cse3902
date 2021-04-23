@@ -135,7 +135,7 @@ namespace cse3902.Collision.Collidables
             }
 
             if (!(this.enemy is Aquamentus || this.enemy is BoggusBoss || this.enemy is MarioBoss || this.enemy is Dodongo)) {
-                if (((ProjectileCollidable)collidableObject).Projectile is BoomerangProjectile)
+                if (((ProjectileCollidable)collidableObject).Projectile is BoomerangProjectile && !(((ProjectileCollidable)collidableObject).Projectile is EnemyBoomerangProjectile))
                 {
                     if (this.enemy.Stunned.StunDuration < DamageConstants.BoomerangStunDuration) this.enemy.Stunned = (true, DamageConstants.BoomerangStunDuration);
                 }
