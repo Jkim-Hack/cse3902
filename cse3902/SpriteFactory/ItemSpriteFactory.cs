@@ -165,6 +165,12 @@ namespace cse3902.SpriteFactory
             RoomItems.Instance.AddItem(add);
             return add;
         }
+        public ISprite CreateHeartItem(Vector2 startingPos, bool kept, bool resetKept)
+        {
+            IItem add = new HeartItem(spriteBatch, textures["heart"], startingPos, kept, resetKept);
+            RoomItems.Instance.AddItem(add);
+            return add;
+        }
         public ISprite CreateKeyItem(SpriteBatch spriteBatch, Vector2 startingPos, bool kept, bool resetKept)
         {
             IItem add = new KeyItem(spriteBatch, textures["key"], startingPos, kept, resetKept);

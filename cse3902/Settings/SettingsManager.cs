@@ -68,13 +68,13 @@ namespace cse3902
             switch (mode)
             {
                 case Mode.Easy:
-                    newMode = Mode.Normal;
-                    break;
-                case Mode.Normal:
                     newMode = Mode.Hard;
                     break;
-                case Mode.Hard:
+                case Mode.Normal:
                     newMode = Mode.Easy;
+                    break;
+                case Mode.Hard:
+                    newMode = Mode.Normal;
                     break;
                 default: //this should never happen
                     newMode = Mode.Normal;
