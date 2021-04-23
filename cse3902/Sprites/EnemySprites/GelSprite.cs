@@ -2,6 +2,7 @@
 using cse3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using cse3902.Constants;
 using static cse3902.Interfaces.ISprite;
 
 namespace cse3902.Sprites.EnemySprites
@@ -13,15 +14,11 @@ namespace cse3902.Sprites.EnemySprites
 
         private Vector2 center;
         private int currentFrame;
-        private int totalFrames;
         private Rectangle[] frames;
-        private int frameWidth;
-        private int frameHeight;
+        private Vector2 size;
 
-        private int startingFrameIndex;
-        private int endingFrameIndex;
+        private (int startingFrameIndex, int endingFrameIndex) frameIndex;
 
-        private const float delay = 0.2f;
         private float remainingDelay;
 
         private bool isAttacking;
@@ -34,17 +31,16 @@ namespace cse3902.Sprites.EnemySprites
         {
             this.spriteBatch = spriteBatch;
             spriteTexture = texture;
-            remainingDelay = delay;
+            remainingDelay = MovementConstants.GelDelay;
 
-            totalFrames = rows * columns;
             currentFrame = 0;
 
-            startingFrameIndex = 0;
-            endingFrameIndex = 2;
+            frameIndex.startingFrameIndex = 0;
+            frameIndex.endingFrameIndex = 2;
 
-            frameWidth = spriteTexture.Width / columns;
-            frameHeight = spriteTexture.Height / rows;
-            frames = SpriteUtilities.distributeFrames(columns, rows, frameWidth, frameHeight);
+            size.X = spriteTexture.Width / columns;
+            size.Y = spriteTexture.Height / rows;
+            frames = SpriteUtilities.distributeFrames(columns, rows, (int)size.X, (int)size.Y);
 
             center = startingPosition;
 
@@ -53,8 +49,8 @@ namespace cse3902.Sprites.EnemySprites
 
         public void Draw()
         {
-            Vector2 origin = new Vector2(frameWidth / 2f, frameHeight / 2f);
-            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * frameWidth), (int)(sizeIncrease * frameHeight));
+            Vector2 origin = new Vector2(size.X / 2f, size.Y / 2f);
+            Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, (int)(sizeIncrease * size.X), (int)(sizeIncrease * size.Y));
             spriteBatch.Draw(spriteTexture, Destination, frames[currentFrame], Color.White, 0, origin, SpriteEffects.None, SpriteUtilities.EnemyLayer);
         }
 
@@ -66,11 +62,11 @@ namespace cse3902.Sprites.EnemySprites
             if (remainingDelay <= 0)
             {
                 currentFrame++;
-                if (currentFrame == endingFrameIndex)
+                if (currentFrame == frameIndex.endingFrameIndex)
                 {
-                    currentFrame = startingFrameIndex;
+                    currentFrame = frameIndex.startingFrameIndex;
                 }
-                remainingDelay = delay;
+                remainingDelay = MovementConstants.GelDelay;
             }
             return 0;
         }
@@ -79,8 +75,8 @@ namespace cse3902.Sprites.EnemySprites
         {
             get
             {
-                int width = (int)(sizeIncrease * frameWidth);
-                int height = (int)(sizeIncrease * frameHeight);
+                int width = (int)(sizeIncrease * size.X);
+                int height = (int)(sizeIncrease * size.Y);
                 Rectangle Destination = new Rectangle((int)center.X, (int)center.Y, width, height);
                 Destination.Offset(-Destination.Width / 2, -Destination.Height / 2);
                 this.destination = Destination;
@@ -101,11 +97,11 @@ namespace cse3902.Sprites.EnemySprites
 
         public int StartingFrameIndex
         {
-            get => startingFrameIndex;
+            get => frameIndex.startingFrameIndex;
             set
             {
-                startingFrameIndex = value;
-                endingFrameIndex = value + 2;
+                frameIndex.startingFrameIndex = value;
+                frameIndex.endingFrameIndex = value + 2;
             }
         }
 
