@@ -191,6 +191,11 @@
 				<variables>
 				</variables>
 			</condition>
+			<condition>
+				<id>6</id>
+				<variables>
+				</variables>
+			</condition>
 		</conditions>
 		<sprite>12</sprite>
 		<doors>

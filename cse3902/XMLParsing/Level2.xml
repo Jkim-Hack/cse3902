@@ -448,22 +448,12 @@
 		<enemies>
 			<enemy>
 				<type>Dodongo</type>
-				<xloc>5</xloc>
-				<yloc>3</yloc>
-			</enemy>
-			<enemy>
-				<type>Dodongo</type>
 				<xloc>8</xloc>
 				<yloc>3</yloc>
 			</enemy>
 			<enemy>
 				<type>Dodongo</type>
 				<xloc>4</xloc>
-				<yloc>5</yloc>
-			</enemy>
-			<enemy>
-				<type>Dodongo</type>
-				<xloc>7</xloc>
 				<yloc>5</yloc>
 			</enemy>
 		</enemies>
@@ -754,6 +744,11 @@
 					<variable>0</variable> 
 				</variables>
 			</condition>
+			<condition>
+				<id>6</id>
+				<variables>
+				</variables>
+			</condition>
 		</conditions>
 		<items>
 		</items>
@@ -853,6 +848,11 @@
 		<traps>
 		</traps>
 		<conditions>
+			<condition>
+				<id>6</id>
+				<variables>
+				</variables>
+			</condition>
 		</conditions>
 		<items>
 		</items>
