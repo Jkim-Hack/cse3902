@@ -133,7 +133,7 @@ namespace cse3902.Entities.Enemies
             if (travelDistance <= 0)
             {
                 Random rand = new System.Random();
-                int choice = rand.Next(0, 4);
+                int choice = rand.Next(0, 8);
                 travelDistance = MovementConstants.KeeseMaxTravel;
 
                 SetDirection(choice);
@@ -158,25 +158,16 @@ namespace cse3902.Entities.Enemies
 
         private void SetDirection(int choice)
         {
-            switch (choice)
-            {
-                case 0:
-                    direction.X = 1;
-                    direction.Y = 0;
-                    break;
-                case 1:
-                    direction.X = -1;
-                    direction.Y = 0;
-                    break;
-                case 2:
-                    direction.X = 0;
-                    direction.Y = 1;
-                    break;
-                case 3:
-                    direction.X = 0;
-                    direction.Y = -1;
-                    break;
-            }
+            if (choice == 0) direction = new Vector2(1, 0);
+            else if (choice == 1) direction = new Vector2(-1, 0);
+            else if (choice == 2) direction = new Vector2(0, 1);
+            else if (choice == 3) direction = new Vector2(0, -1);
+            else if (choice == 4) direction = new Vector2(1, 1);
+            else if (choice == 5) direction = new Vector2(1, -1);
+            else if (choice == 6) direction = new Vector2(-1, 1);
+            else if (choice == 7) direction = new Vector2(-1, -1);
+
+            direction.Normalize();
         }
 
         public void Draw()
