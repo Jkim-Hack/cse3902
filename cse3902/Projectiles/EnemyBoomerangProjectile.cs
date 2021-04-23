@@ -1,6 +1,5 @@
 ﻿using cse3902.Interfaces;
 using cse3902.Collision;
-using cse3902.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,9 +9,9 @@ namespace cse3902.Projectiles
     {
         private BoomerangProjectile boomerang;
 
-        public EnemyBoomerangProjectile(SpriteBatch batch, Texture2D texture, ISprite enemy, Vector2 dir, Game1 game)
+        public EnemyBoomerangProjectile(SpriteBatch batch, Texture2D texture, ISprite enemy, Vector2 dir, Game1 game, int travelDistance)
         {
-            boomerang = new BoomerangProjectile(batch, texture, enemy, dir, game);
+            boomerang = new BoomerangProjectile(batch, texture, enemy, dir, game, travelDistance);
         }
 
         public void Draw()

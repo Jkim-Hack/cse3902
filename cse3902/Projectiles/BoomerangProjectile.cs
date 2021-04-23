@@ -29,15 +29,15 @@ namespace cse3902.Projectiles
         private bool collided;
 
         private ICollidable collidable;
-        private ISprite link;
+        private ISprite entity;
 
-        public BoomerangProjectile(SpriteBatch batch, Texture2D texture, ISprite link, Vector2 dir, Game1 game)
+        public BoomerangProjectile(SpriteBatch batch, Texture2D texture, ISprite entity, Vector2 dir, Game1 game, int travelDistance)
         {
             spriteBatch = batch;
             spriteTexture = texture;
 
-            this.link = link;
-            center = link.Center;
+            this.entity = entity;
+            center = entity.Center;
 
             frame.Width = spriteTexture.Width;
             frame.Height = spriteTexture.Height;
@@ -45,7 +45,7 @@ namespace cse3902.Projectiles
             direction.direction = dir;
             direction.alreadyReversed = false;
             angle = 0;
-            travelDistance = ItemConstants.BoomerangTravelDistance;
+            this.travelDistance = travelDistance;
 
             animationComplete = false;
 
@@ -65,8 +65,8 @@ namespace cse3902.Projectiles
             if (animationComplete) return -1;
 
             center += ItemConstants.BoomerangSpeed * direction.direction;
-            if (direction.direction.Y == 0) center.Y = link.Center.Y;
-            else center.X = link.Center.X;
+            if (direction.direction.Y == 0) center.Y = entity.Center.Y;
+            else center.X = entity.Center.X;
 
             travelDistance--;
             if (travelDistance == 0)
@@ -79,8 +79,8 @@ namespace cse3902.Projectiles
             if (angle >= 2 * ItemConstants.Angle180Rad) angle = 0;
             if (Math.Abs(angle - ItemConstants.AnglePiOver8) <= ItemConstants.epsilon) SoundFactory.PlaySound(SoundFactory.Instance.arrowBoomerang);
 
-            /* Animation is done if boomerang is travelling back to Link and collides with him */
-            if (travelDistance < 0 && link.Box.Intersects(this.Box))
+            /* Animation is done if boomerang is travelling back to the throwing entity and collides with it */
+            if (travelDistance < 0 && entity.Box.Intersects(this.Box))
             {
                 return -1;
             }

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using cse3902.Rooms;
+using cse3902.Constants;
 
 namespace cse3902.Projectiles
 {
@@ -98,11 +99,19 @@ namespace cse3902.Projectiles
 
         public IProjectile CreateBoomerangItem(SpriteBatch spriteBatch, LinkSprite linkState, Vector2 dir)
         {
-            IProjectile newProj = new BoomerangProjectile(spriteBatch, boomerang, linkState, dir, game);
+            IProjectile newProj = new BoomerangProjectile(spriteBatch, boomerang, linkState, dir, game, ItemConstants.BoomerangTravelDistance);
             projectiles.Add(newProj);
             RoomProjectiles.Instance.projectiles.Add(newProj);
             return newProj;
         }
+        public IProjectile CreateEnemyBoomerangItem(SpriteBatch spriteBatch, ISprite enemyState, Vector2 dir)
+        {
+            IProjectile newProj = new EnemyBoomerangProjectile(spriteBatch, boomerang, enemyState, dir, game, ItemConstants.EnemyBoomerangTravelDistance);
+            projectiles.Add(newProj);
+            RoomProjectiles.Instance.projectiles.Add(newProj);
+            return newProj;
+        }
+
         public IProjectile CreateFireballObject(SpriteBatch spriteBatch, Vector2 startingPos, Vector2 dir)
         {
             IProjectile newProj = new Fireball(spriteBatch, fireball, startingPos, dir, game);
