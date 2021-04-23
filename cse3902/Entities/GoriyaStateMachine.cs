@@ -39,14 +39,15 @@ namespace cse3902.Entities
                 }
                 else
                 {
-                    if(alternate == 0)
+                    if (alternate == 0)
                     {
                         return ref goriyaSprite.Box;
-                    } else
+                    }
+                    else
                     {
                         return ref DetectionBox;
                     }
-                    
+
                 }
             }
         }

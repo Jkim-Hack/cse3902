@@ -158,6 +158,11 @@ namespace cse3902.Entities.Enemies
 
         private void RegularMovement(GameTime gameTime)
         {
+            if (goriyaStateMachine.Bounds == goriyaSprite.Box)
+            {
+                return;//don't move when detection box is active
+            }
+
             this.Center += direction * MovementConstants.GoriyaSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (travelDistance <= 0)
