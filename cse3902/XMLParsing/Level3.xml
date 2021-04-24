@@ -206,6 +206,11 @@
 		<npcs>
 		</npcs>
 		<items>
+			<item>
+				<type>MagicSword</type>
+				<xloc>5.5</xloc>
+				<yloc>2.5</yloc>
+			</item>
 		</items>
 		<enemies>
 		</enemies>
@@ -1482,6 +1487,11 @@
 		<conditions>
 		</conditions>
 		<items>
+			<item>
+				<type>MagicBook</type>
+				<xloc>11</xloc>
+				<yloc>0</yloc>
+			</item>
 		</items>
 		<enemies>
 			<enemy>

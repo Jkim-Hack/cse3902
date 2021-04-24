@@ -10,7 +10,6 @@ namespace cse3902.Collision.Collidables
     public class TrapCollidable : ICollidable
     {
         private ITrap trap;
-        private Boolean[] collisionOccurrences;
 
         public bool DamageDisabled { get; set; }
 
@@ -58,10 +57,6 @@ namespace cse3902.Collision.Collidables
 
         public void ResetCollisions()
         {
-            for (int i = 0; i < collisionOccurrences.Length; i++)
-            {
-                collisionOccurrences[i] = false;
-            }
         }
     }
 
